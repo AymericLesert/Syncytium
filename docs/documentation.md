@@ -1215,49 +1215,74 @@ paysage pour les planches (§24) — est la dimension de page du
 template ; une édition peut avoir son gabarit (la promotionnelle, la
 réglementaire) ou prendre celui par défaut.
 
-## 13. Le tiny, la maison de la documentation — la méthode *(le rang 0, étape 3 — en proposition)*
+## 13. La méthode — les composants portent la documentation, Syncytium assemble (D1158) *(le rang 0, étape 3 — en proposition)*
 
-Le cas 1 (`examples/01_tiny/`, `usecases/01_tiny.md`) **montre** ce qui
-naît de quelques lignes : la base, l'IHM par défaut (D186), l'API, la
-documentation, les aides (D1026). La méthode du chantier, pratiquée
-depuis le 05/10, en quatre règles :
+**« La documentation est portée dans tous les composants. Chaque type
+de composant définira sa déclinaison dans les différents types de
+document. Syncytium assemblera les éléments pour construire les types
+de document. »** — et, dans la foulée : **« La documentation est donc
+une facette des composants. »** (l'auteur, le 09/10/2026 — D1158). La
+charge de travail est acceptée telle quelle ; en avançant, des règles
+et des implémentations se généraliseront.
 
-1. **La documentation attendue s'écrit à la main avant le moteur.**
-   Pour un exemple, on écrit la documentation que Syncytium devrait
-   générer — chapitre par chapitre, telle qu'elle se lirait —, comme
-   on a écrit les exemples de configuration avant le code (D313–D314).
-   Ce qui résiste à l'écriture est un frottement ; **chaque frottement
-   devient une décision**, et la documentation attendue est reprise à
-   chaque décision qui la touche.
-2. **Le tiny d'abord, puis l'exemple que chaque rang appelle.** Le
-   tiny porte la première déclinaison (`usecases/01_tiny.md`, « La
-   documentation générée » — seize chapitres, neuf frottements) ; les
-   rangs du plan (le contexte, partie 5) désignent ensuite l'exemple
-   qui éprouve chaque documentation : le véhicule pour les états et les
-   enchaînements, la banque pour les langues, la réglementation et les
-   hooks, l'entrepôt pour les personas, les planches, les versions, la
-   reprise, le D.A.T. et l'exploitation.
-3. **La déclinaison vit dans la maison du cas.** Elle s'écrit dans
-   `usecases/<n>_<nom>.md`, en une section « La documentation
-   générée », en Markdown — le rendu qui se lit là, la forme étant au
-   domaine 7 (D1126) ; rien n'entre dans `examples/`, qui ne contient
-   que la configuration (D1082). Les chapitres de l'instance y sont
-   montrés vides, avec leur cadre (D1157).
-4. **La déclinaison précède la section, et la section précède le
-   moteur.** Ce que la déclinaison révèle remonte dans la section de
-   documentation.md qui le porte (le principe) et dans l'artefact de
-   l'élément (entity.md, types.md, hooks.md…) ; la section arbitrée
-   devient la spécification de ce que le moteur générera.
+*Mes conséquences, en quatre règles :*
 
-*À trancher* : les quatre règles ; et, « cette partie s'annonce très
-chargée », **l'allègement proposé de la règle 2** : une seule
-déclinaison complète — le tiny ; les autres exemples ne reçoivent que
-les chapitres que le rang arbitre, sur une entité ou un module ; la
-machine écrit ce qui est mécanique (les tables, les dictionnaires, les
-diagrammes, les gabarits — tirés des fichiers par script), la main ce
-qu'elle seule sait (la formulation, les frottements) ; le cas 5 se
-limite au module `stock` au rang 1, à l'article et à la reprise au
-rang 2 ; une déclinaison sans frottement nouveau s'arrête.
+1. **Chaque composant porte sa documentation.** Le composant est tout
+   élément de configuration — le projet, l'environnement, la version,
+   le module, l'entité, le champ et son type, la surface (la liste, le
+   formulaire, le wizard, le template, le widget, le tableau de bord),
+   l'opération, le groupe, le connecteur, le hook, la source et la
+   règle de reprise — et tout élément du socle (les modules internes,
+   l'assistance, l'écran commun). Il porte ses propriétés
+   documentaires (`title:`, `hint:`, `description:`… — §2 a), ses
+   fichiers complémentaires (§2 b) et ce que les données en disent
+   (§2 c, D1155) : D810 — « description partout » — et D645 —
+   « describe partout » — disaient déjà la chose. **La documentation
+   est une facette du composant**, au même titre que l'affichage, le
+   stockage, l'API ou la validation (D120, D1012) : chaque type de
+   composant la déclare comme il déclare ses autres facettes — une
+   rubrique de sa fiche.
+2. **Chaque type de composant définit sa déclinaison dans chaque type
+   de document.** La matrice **types de composants × neuf
+   documentations** : chaque cellule dit ce que le composant apporte à
+   ce document, à quel niveau de lecture (D1138), pour quels lecteurs
+   (§3), ce qu'il demande au concepteur et ce qu'il tire de
+   l'instance. **La cellule se spécifie dans l'artefact du
+   composant** — une rubrique « La documentation » dans
+   [entity.md](entity.md), [types.md](types.md) (type par type),
+   [composants.md](composants.md) (fiche par fiche), [hooks.md](hooks.md),
+   [connectors.md](connectors.md), [mapping.md](mapping.md),
+   [rights.md](rights.md), [administration.md](administration.md),
+   [migration.md](migration.md) — ; documentation.md garde les principes
+   et la matrice d'ensemble.
+3. **Syncytium assemble.** Chaque type de document a son plan (§4, §6,
+   les pièces §14–§25, les sections à naître) : l'ordre dans lequel les
+   fragments des composants s'assemblent — en suivant la structure de
+   la configuration (le projet, ses environnements, ses versions, leurs
+   modules, leurs entités, leurs champs), les droits du lecteur (§3) et
+   le niveau demandé (D1138) ; les fichiers complémentaires s'insèrent
+   là où la configuration les référence (D1156) ; le gabarit de
+   l'édition habille le tout (D1143).
+4. **Les déclinaisons par l'exemple vérifient.** Le tiny porte la
+   déclinaison complète (`usecases/01_tiny.md`, « La documentation
+   générée ») ; les rangs du plan désignent l'exemple qui éprouve
+   chaque documentation (le véhicule, la banque, l'entrepôt) ; la
+   déclinaison vit dans la maison du cas, en Markdown (D1126), rien
+   dans `examples/` (D1082) ; chaque frottement devient une décision ;
+   la déclinaison est reprise à chaque décision qui la touche.
+
+**La matrice, en esquisse** — les lignes sont les types de composants,
+les colonnes les neuf documentations ; chaque cellule renvoie à la
+rubrique qui la spécifie. Trois lignes, pour la forme :
+
+| Le composant | 1 Fonctionnelle | 2 Information | 3 Développeur | 4 D.A.T. | 5 Réglementation | 6 Promotionnelle | 7 Maintenance | 8 Projet | 9 Exploitation |
+|---|---|---|---|---|---|---|---|---|---|
+| l'entité | son titre, sa description, ses écrans, ses parcours ; la vue du module | sa fiche : l'identité, les champs, les règles, le diagramme, le nombre de lignes (D1155) | ses points d'API | — | ses données marquées `rgpd:`, sa rétention | son titre dans la vue d'ensemble | ses usages, ses anomalies | — | — |
+| le champ | son libellé, son aide ; le masque | son type en clair, ses facettes, ses validations, ce que le stockage en dit (D1155) | son exposition (D20) | — | sa confidentialité, son `rgpd:` | — | sa diversité, ses valeurs inemployées | — | — |
+| le wizard | le scénario, la planche, le parcours guidé | — | — | — | — | un cas d'usage | sa fréquence d'emploi | — | — |
+
+*À trancher* : les quatre règles ; la matrice comme instrument — et sa
+place : ici en esquisse, les cellules dans les artefacts.
 
 ## 14. L'export et l'import *(en proposition)*
 

@@ -654,11 +654,11 @@ déclarée* (ma lecture, §11).
 *(Sept énoncés, à finaliser un à un avant les rôles — « une
 introduction est importante ».)*
 
-1. **Une projection, pas un document.** La documentation est la
-   projection de la configuration pour un lecteur et des droits (D334
-   — le partage sous les règles d'accès ; D44 — « Syncytium se décrit
-   lui-même »). Il n'y a pas une documentation par lecteur : il y a une
-   matière, et autant de vues que de lecteurs.
+1. **Une projection, pas un document** (D1139 — acquis). La
+   documentation est la projection de la configuration pour un lecteur
+   et des droits (D334 — le partage sous les règles d'accès ; D44 —
+   « Syncytium se décrit lui-même »). Il n'y a pas une documentation
+   par lecteur : il y a une matière, et autant de vues que de lecteurs.
 2. **Les lecteurs sont des rôles.** Une personne en tient plusieurs ;
    dans une TPE, le dirigeant est souvent le décideur, le responsable
    de traitement et le prospect de la version suivante. La

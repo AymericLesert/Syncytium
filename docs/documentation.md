@@ -1179,7 +1179,7 @@ description d'API, les exemples en `curl`) relève de l'architecture
 technique (D1025) ; le principe — l'API documentée depuis le modèle,
 version par version — est acquis.
 
-## 11. Les formats et le support *(le rang 0, étape 7 — D1165 acquis en partie ; l'imprimable à trancher)*
+## 11. Les formats et le support *(le rang 0, étape 7 — acquis, D1165–D1166)*
 
 - **Le format dépend de l'architecture technique et des modes de
   rendu** (D1126) : il se fixe au domaine 7. Ce document retient le
@@ -1208,24 +1208,18 @@ version par version — est acquis.
   conversions. **L'édition machine ne passe pas par la facette** : elle
   fournit un YAML ou un JSON à partir des informations internes du
   moteur et des items de configuration.
-- **L'imprimable — deux options, à trancher** (D1165) : *option 1* —
-  le Markdown converti en PDF, avec des marqueurs pour les parties du
-  document (la page de garde, l'en-tête, le pied, les sauts de page) ;
-  *option 2* — un document PDF construit en exploitant les reports, le
-  `template` (D1143 : la page de garde, l'en-tête, le pied et le format
-  décrits avec le langage des rapports ; D562 : le `paragraph` en
-  mustache et markdown ; D483 : le viewer à la volée). *Ma
-  recommandation* : **l'option 2 pour les éditions**, parce que D1143
-  l'a déjà choisie pour le cartouche, parce que le `paragraph` accueille
-  tel quel le fragment Markdown d'un composant, parce que la planche
-  A4 avec ses captures placées (§24) ne tient pas dans un Markdown
-  balisé, et parce que le même template se rend à l'écran (le viewer),
-  en PDF et en mail (D564) — un mécanisme pour les trois ; les
-  marqueurs de l'option 1 deviennent les items du template. **L'option
-  1 au dépôt** (le canal 2), où le Markdown reste le livrable et le PDF
-  une commodité. À ajouter au template le jour venu : la table des
-  matières, les en-têtes courants et la pagination (le contexte, D254),
-  le rendu des diagrammes en image (le domaine 7).
+- **L'imprimable — acquis** (D1165–D1166) : **les éditions se
+  construisent par les reports, le `template`** (l'option 2 — D1143 :
+  la page de garde, l'en-tête, le pied et le format décrits avec le
+  langage des rapports ; D562 : le `paragraph` en mustache et markdown,
+  qui accueille tel quel le fragment Markdown d'un composant ; D483 :
+  le viewer à la volée ; D564 : le même template rendu à l'écran, en
+  PDF, en mail) ; **le template intègre la table des matières, les
+  en-têtes, les pieds de page, la pagination et la couverture ; les
+  diagrammes en image et les copies d'écran s'y ajoutent bien**
+  (D1166). **Au dépôt, le Markdown converti en PDF avec des marqueurs**
+  (l'option 1 — le canal 2), où le Markdown reste le livrable et le PDF
+  une commodité. Le rendu des diagrammes en image attend le domaine 7.
 
 ## 12. `documentation.yml` — la personnalisation (D1090, D1164) *(le rang 0, étape 5 — acquis)*
 

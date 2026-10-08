@@ -334,7 +334,7 @@ de son dernier traitement — jamais la clé de destination. *(D1047–D1050)*
 **Concepteur** — Le consommateur des API, dans une partie tierce
 (D334) : un compte technique (D28), qui lit la documentation du
 développeur aux versions publiées. *(D1148 — le rôle s'appelait
-« technicien » ; celui qui écrit la description est le
+« technicien tiers » ; celui qui écrit la description est le
 concepteur.)*
 
 **Télémétrie** — Tous compteurs, journaux ou rapports visant à assurer la stabilité du projet (fonctionnement, migration, sécurité, ...) et à apporter des conseils sur des optimisations à apporter tant en termes de développement interne qu'en usage pour les applications tierces. *(D38)*

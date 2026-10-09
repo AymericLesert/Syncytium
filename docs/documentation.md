@@ -1408,6 +1408,30 @@ rubrique qui la spécifie. Trois lignes, pour la forme :
 tous les types de composants, dans leurs artefacts ; la matrice
 d'ensemble, ici, en tient le sommaire.
 
+**Une note, à débattre : l'IA pour rédiger la documentation lisible**
+(D1169 — « ajoute la possibilité d'utiliser un moteur d'IA pour générer
+la documentation lisible par un humain depuis les données techniques »).
+La génération mécanique livre des tables, des listes, des diagrammes ;
+un moteur d'IA — le connecteur `llm` de D957 — saurait en tirer de la
+prose : la documentation générale d'un module, le parcours guidé (§19),
+le récit d'un scénario (§22), un premier jet des notes de version
+depuis les écarts (§9), la plaquette, les traductions des textes libres,
+des réponses proposées dans l'assistance (§25). *Mes six garde-fous, en
+proposition* : **jamais en direct** — l'IA rédige une fois, au dépôt,
+et son texte entre dans la configuration comme un fichier
+complémentaire versionné (D1122, D1156), Syncytium restant une
+fonction pure de la configuration (D645) ; **depuis l'édition machine
+seule** (D1165), avec la consigne de ne dire que ce que le modèle dit,
+et **relu par un humain** avant publication — la complétude (§20)
+signale un texte généré non relu ; **rien de confidentiel** — ni les
+secrets (D944), ni les données ni les usages de l'instance (D1155), le
+transfert au registre, un projet `private` n'envoie rien ; **jamais
+indispensable** — la génération sans IA est complète, le connecteur
+peut manquer (D959) ; **pas les items du moteur** (D1160), seulement
+les textes libres, les traductions en brouillons à relire ; **tracé** —
+le texte généré porte le modèle, la date, l'état de relecture ; le
+cartouche d'une édition reste signé d'un humain (D1142).
+
 ## 14. L'export et l'import *(en proposition)*
 
 L'import est un écran du module, réservé au responsable métier ou à
@@ -1800,4 +1824,7 @@ du tiny) ou l'exporte.
     le guide d'exploitation, l'ordre 0–9 sont actés ;
 17. l'assistance (§25) : le nom du module, actif par défaut, une ou
     plusieurs réponses retenues, la question anonyme, la F.A.Q. au
-    dépôt.
+    dépôt ;
+18. l'IA pour rédiger la documentation lisible (§13, D1169) : les six
+    garde-fous, et où elle intervient — à débattre quand le rang 1
+    l'appellera (le parcours guidé, les scénarios).

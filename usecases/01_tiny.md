@@ -275,9 +275,10 @@ proposition)*
    obligatoire ; les suivantes sont acquises — un compteur attribué à
    la validation — et leurs champs ne sont pas obligatoires. Le tiny
    n'en a qu'une.
-2. **L'historique par défaut** : `history:` non déclaré — D168 le dit
-   inactif par défaut ; la documentation écrit « pas d'historique ».
-   Lecture à confirmer.
+2. **L'historique par défaut** — *soldé* (D1173) : `history:` non
+   déclaré = inactif (D168) ; la documentation écrit « pas
+   d'historique » en clair, et la complétude ne le compte pas comme un
+   manque : un défaut du socle est un choix.
 3. **Les droits sans groupe** : ni `groups.yml`, ni authentification —
    le tiny est le mono-poste de D759 : l'utilisateur et le groupe par
    défaut, le degré administrateur. Lecture à confirmer : le tiny = le

@@ -1531,6 +1531,10 @@ champs sans `hint:` ni `description:`, les énumérés sans libellé, les
 opérations et les hooks sans description ni md, les surfaces sans
 `description:` (le masque vide) ; un taux par module et par version ;
 dans la documentation technique, et à l'ingestion comme avertissement.
+**Un défaut du socle n'est pas un manque** (D1173) : `history:` tu, les
+droits tus, un `label:` absent (le nom nu, D124) — la documentation dit
+en clair ce qui s'applique, la complétude ne relève que ce qui devrait
+être écrit et ne l'est pas.
 *À trancher* : un seuil qui refuse la version, ou l'avertissement seul.
 
 ## 21. La diffusion *(le rang 0, étape 6 — en proposition)*

@@ -1816,6 +1816,52 @@ arbitrer point par point)* :
        - ~{documentation/scenarios/commercial/.*\.md}
    ```
 
+   **L'exemple**, sur l'entrepôt (cas 5 — `languages: [fr]`, les textes en
+   texte simple, D1101) ; *les conventions du Markdown sont miennes* :
+   le titre de niveau 1 est le but ; une ligne « Quand » dit la
+   fréquence ; les étapes sont la liste numérotée ; **un lien Markdown
+   dont la cible est une adresse** (D439/D566) relie l'étape à l'écran
+   ou à l'opération — Syncytium y met le lien vers la page et, sur la
+   planche, l'image de l'écran, le composant cité entouré ; une étape
+   sans adresse est hors de l'application ; une citation `> **À ne pas
+   faire**` fait l'encart.
+
+   ```yaml
+   # groups.yml — le persona du groupe (D1200)
+   commercial:
+     label: Commercial
+     description: L'administration des ventes — les clients et les commandes de vente.
+     persona:
+       name: Camille
+       role: Commerciale sédentaire
+       description: Elle répond aux clients sur leurs commandes et sur la disponibilité des articles.
+   ```
+
+   ```markdown
+   <!-- documentation/scenarios/commercial/disponibilite.md -->
+   # Répondre à un client sur la disponibilité d'un article
+
+   Quand : plusieurs fois par jour, au téléphone, le client en ligne.
+
+   1. Ouvrir [les commandes de vente](commande.commande_vente) et filtrer sur le client :
+      ses commandes en cours apparaissent, les lignes en retard en premier.
+   2. Ouvrir la commande concernée et lire [la ligne](commande.ligne_vente) : la quantité
+      commandée, la quantité expédiée, le délai d'expédition.
+   3. Ouvrir [les niveaux de stock](stock.niveau) de l'article : le stock physique par
+      dépôt et par emplacement, les lots et leur péremption.
+   4. Si le stock ne couvre pas la ligne, consulter [le pilotage du stock](stock[pilotage]) :
+      les entrées attendues du mois.
+   5. Donner la réponse au client, et noter l'engagement pris dans l'ERP — l'entrepôt ne
+      s'écrit pas.
+
+   > **À ne pas faire** : promettre une date d'expédition d'après le seul stock physique —
+   > un lot périmé n'est pas livrable, le pilotage le signale.
+   ```
+
+   La planche de ce scénario : le titre, cinq étapes, quatre images
+   d'écran — la liste filtrée, la ligne, les niveaux, le tableau de
+   bord — et l'encart ; sur une page.
+
 4. **Les trois formes d'un scénario** (D1187/D1188) : **lue** — le texte
    du chapitre 4 de §6 ; **vécue** — le wizard, quand il existe ;
    **imprimée** — la planche (§24), une à trois pages, synthétique, un

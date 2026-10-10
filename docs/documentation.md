@@ -1802,29 +1802,38 @@ arbitrer point par point)* :
    jouent.
 
 3. **La part écrite** — **les scénarios métier** du concepteur, en
-   Markdown par langue, versionnés (D1156) : le but, la fréquence, les
-   étapes — chacune citant l'écran ou l'opération par son adresse
-   (D566 : `commande[saisie]`, `commande.valider`) pour que Syncytium y
-   insère l'image de l'écran et le lien —, les étapes hors de
-   l'application, les encarts (« ne pas… ») ; déclarés dans
-   `documentation.yml` de la version, par persona :
+   Markdown, versionnés (D1156), **interprétés par Syncytium** : la
+   fréquence, les étapes — chacune reliée à l'écran ou à l'opération
+   par son adresse (D439/D566) pour que Syncytium y mette le lien et,
+   sur la planche, l'image de l'écran —, les étapes hors de
+   l'application, les encarts (« ne pas… »). **La forme — acquise
+   (D1202)** : dans `documentation.yml` de la version, `scenarios:` par
+   groupe ; **chaque scénario a un nom** (sa clé), **un `title:`** (le
+   but) **et une `description:`** qui référence son Markdown ; **le
+   multilingue porte sur `title:` et `description:`** (par langue,
+   D1101 — un fichier par langue). **Le lien d'une étape peut porter
+   des paramètres** liés au contexte du scénario (D1203) : filtrer une
+   liste, affecter des valeurs sur un écran — la page et la planche
+   montrent l'écran dans cet état (ma forme : `?champ=valeur&…` à la
+   suite de l'adresse).
 
    ```yaml
-   # versions/production/v1.0.0.0/documentation.yml (en proposition)
+   # versions/production/v1.0.0.0/documentation.yml (D1202)
    scenarios:
      commercial:
-       - ~{documentation/scenarios/commercial/.*\.md}
+       telephone:
+         title: Répondre à un client sur la disponibilité d'un article
+         description: ~{documentation/scenarios/commercial/telephone.md}
    ```
 
    **L'exemple**, sur l'entrepôt (cas 5 — `languages: [fr]`, les textes en
-   texte simple, D1101) ; *les conventions du Markdown sont miennes* :
-   le titre de niveau 1 est le but ; une ligne « Quand » dit la
-   fréquence ; les étapes sont la liste numérotée ; **un lien Markdown
-   dont la cible est une adresse** (D439/D566) relie l'étape à l'écran
-   ou à l'opération — Syncytium y met le lien vers la page et, sur la
-   planche, l'image de l'écran, le composant cité entouré ; une étape
+   texte simple, D1101) ; *les conventions du corps Markdown sont
+   miennes, à arbitrer* : une ligne « Quand » dit la fréquence ; les
+   étapes sont la liste numérotée ; **un lien Markdown dont la cible est
+   une adresse**, paramétrée ou non, relie l'étape à l'écran ou à
+   l'opération — le composant cité entouré sur la planche ; une étape
    sans adresse est hors de l'application ; une citation `> **À ne pas
-   faire**` fait l'encart.
+   faire**` fait l'encart ; le titre vient de `title:`, pas du fichier.
 
    ```yaml
    # groups.yml — le persona du groupe (D1200)
@@ -1838,13 +1847,11 @@ arbitrer point par point)* :
    ```
 
    ```markdown
-   <!-- documentation/scenarios/commercial/disponibilite.md -->
-   # Répondre à un client sur la disponibilité d'un article
-
+   <!-- documentation/scenarios/commercial/telephone.md -->
    Quand : plusieurs fois par jour, au téléphone, le client en ligne.
 
-   1. Ouvrir [les commandes de vente](commande.commande_vente) et filtrer sur le client :
-      ses commandes en cours apparaissent, les lignes en retard en premier.
+   1. Ouvrir [les commandes en cours du client](commande.commande_vente?client=DUPONT&statut=en_cours) :
+      les lignes en retard en premier.
    2. Ouvrir la commande concernée et lire [la ligne](commande.ligne_vente) : la quantité
       commandée, la quantité expédiée, le délai d'expédition.
    3. Ouvrir [les niveaux de stock](stock.niveau) de l'article : le stock physique par

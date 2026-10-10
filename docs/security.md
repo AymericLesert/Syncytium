@@ -450,7 +450,10 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   modèle — les champs `rgpd:`, leur confidentialité, leur rétention,
   leurs connecteurs sortants ; une entité sans aucun marquage est
   signalée à la relecture par la complétude de la documentation, jamais
-  qualifiée par le moteur — il compte, il ne devine pas (D1177).
+  qualifiée par le moteur — il compte, il ne devine pas (D1177) ; le
+  marquage se généralise par le type personnalisé qui le porte
+  (`nom: { type: text[..40], rgpd: personal }`, D1178) — le registre se
+  lit alors par type, puis par champ.
 - **Le détail des migrations** (D1065) : les anomalies d'un passage
   portent des valeurs de la source ; leur fichier est supprimé entier
   à l'échéance de sa rétention (le `cleanup.yml` de l'environnement,

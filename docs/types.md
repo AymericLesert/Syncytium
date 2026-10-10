@@ -70,7 +70,11 @@ composants.md.
   une erreur) ; le champ garde le dernier mot (`ARCJCRE: { type:
   date_pmi, mask: "yyyymm" }`) ; un dérivé ne redéfinit jamais un type
   du catalogue (D408) ; l'usage par la forme courte (D356) — `ARCJCRE:
-  date_pmi` ;
+  date_pmi` ; **le dérivé porte aussi les facettes de sens** — `rgpd:`
+  (D1178 : `nom: { type: text[..40], rgpd: personal }`, puis `nom: nom`
+  dans chaque modèle — le champ hérite du marquage, la RGPD se
+  généralise par le type ; de même le profil de confidentialité D885,
+  `hint:` et `description:`) ;
 - **le composant par défaut porte le nom du type** (D458).
 
 ## Les types simples

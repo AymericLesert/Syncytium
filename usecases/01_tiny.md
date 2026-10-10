@@ -293,7 +293,9 @@ proposition)*
    `nom`, `prenom`, `age`, `fonction` sans `rgpd:` — la documentation
    dit « rien à inscrire » ; la complétude signale l'entité sans aucun
    marquage comme un point à relire, sans qualifier ses champs : elle
-   compte, elle ne devine pas.
+   compte, elle ne devine pas. Le marquage se généralise par un type
+   personnalisé qui le porte (`nom: { type: text[..40], rgpd: personal }`,
+   D1178) ; le tiny, minimal, n'en déclare pas.
 6. **La langue de l'édition** — *soldé* (D1144, D1160) : les textes de
    la configuration sont dans leur langue ; les intitulés de la
    documentation sont les textes génériques du moteur, codifiés et

@@ -499,6 +499,9 @@ date_pmi:                            # un dérivé (D359/D992) : la base et ses 
   mask: "yyyymmdd"
 amount:
   currency: EUR                      # la devise par défaut — amount(v) à un argument (D993)
+nom:                                 # un dérivé porteur de sens (D1178) : le champ `nom: nom` hérite du marquage
+  type: text[..40]
+  rgpd: personal
 
 confidentiality:                     # les profils nommés (D885)
   financier:

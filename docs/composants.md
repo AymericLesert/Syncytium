@@ -20,7 +20,11 @@ matérialisation ; l'analogie des web components est consignée (D455).
    est **le défaut** du type (D64/D447) ;
 4. **Contexte consommé** — ce que le composant lit (D455) ;
 5. **Propriétés** — les réglages propres, chacun avec son défaut — le
-   moteur déduit ce qui peut l'être (D443) ;
+   moteur déduit ce qui peut l'être (D443) ; **`description:` est
+   commune à tous** (D1193 — par langue, D1101) : son contenu **entre au
+   masque d'explication** de la surface qui porte le composant (le kpi
+   comme le champ) et nourrit la page de l'écran — la facette
+   documentation du composant (D1158) ;
 6. **Items** — ce que le composant contient ;
 7. **Modes et déclinaisons** — lecture / modification / résumé /
    template (PDF) / Excel — × écran, tablette, smartphone (D250) ;

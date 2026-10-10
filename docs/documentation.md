@@ -1183,7 +1183,9 @@ l'aide courte, au « (?) » du champ, sur les trois écrans (D262).
 - **ce que le masque montre** (D1191) : la description de la surface ;
   pour chaque champ qui en a, **son `hint:` au masque, sa `description:`
   au détail** ; un champ sans l'un ni l'autre **n'y est pas — son nom
-  suffit à lui-même** ; une surface sans description dont aucun champ
+  suffit à lui-même** ; **et la `description:` de tout composant
+  graphique entre au masque** (D1193) — le kpi, le graphique, le
+  widget, la section, le bouton d'une opération, comme le champ ; une surface sans description dont aucun champ
   ne porte d'aide n'a pas de masque (ma conséquence) ; la complétude
   (§20) continue de compter le champ sans aucune aide — à confirmer ;
 - **le « ? » de l'écran** fait trois choses (D1192) : il montre le

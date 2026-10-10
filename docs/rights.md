@@ -72,8 +72,11 @@ allow:
   delete: false
 ```
 
-L'absence = tout permis ; `read` absent = l'état masque. **La
-cascade de l'allow** (D886 — le cas 5) : le bloc libre se déclare
+L'absence = tout permis ; `read` absent = l'état masque. C'est par là
+qu'un enregistrement se fige : la facture validée — son numéro
+attribué par l'opération de validation, une identité acquise (D1171) —
+porte `validee: { allow: [read] }`, l'acte qui promeut passant outre
+(D1172). **La cascade de l'allow** (D886 — le cas 5) : le bloc libre se déclare
 **à quatre étages** — l'application, le module, l'entité, le champ
 — et **le plus proche l'emporte** (l'esprit D359) ; le module dit la
 règle de ses entités (l'entrepôt en lecture seule : `allow: {

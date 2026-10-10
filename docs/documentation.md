@@ -1187,7 +1187,8 @@ l'aide courte, au « (?) » du champ, sur les trois écrans (D262).
   graphique entre au masque** (D1193) — le kpi, le graphique, le
   widget, la section, le bouton d'une opération, comme le champ ; une surface sans description dont aucun champ
   ne porte d'aide n'a pas de masque (ma conséquence) ; la complétude
-  (§20) continue de compter le champ sans aucune aide — à confirmer ;
+  (§20) continue de compter le champ sans aucune aide — « il reste »
+  (D1199) ;
 - **le « ? » de l'écran** fait trois choses (D1192) : il montre le
   masque, il mène à la page de l'écran dans la documentation (D1121),
   il porte l'assistance — les questions répondues de l'écran et « poser
@@ -1679,7 +1680,9 @@ droits tus — la documentation dit en clair ce qui s'applique, la
 complétude ne relève que ce qui devrait être écrit et ne l'est pas —
 **sauf quand le défaut tient lieu d'un texte destiné au lecteur** : le
 `label:` absent est le gabarit `${name}` du socle (D1181), il s'affiche
-tel quel, et la complétude le compte (D1182).
+tel quel, et la complétude le compte (D1182) ; le champ sans `hint:` ni
+`description:` n'est pas au masque — « son nom suffit » (D1191) — mais
+reste dans le rapport (D1199).
 *À trancher* : un seuil qui refuse la version, ou l'avertissement seul.
 
 ## 21. La diffusion *(le rang 0, étape 6 — acquis, D1167–D1168)*
@@ -2031,13 +2034,7 @@ dans celle de l'application (D645 → le chapitre 2 de §6, D1189), les
 modes opératoires comme chapitre (§24 → §22, D1188), le parcours guidé
 comme chapitre (§19 → §22, D1187).*
 
-1. **mes lectures à confirmer — la reprise commence par là** : la forme
-   de l'accès par la clé d'une identité nommée (`factures[numero: v]`,
-   D1171) ; ce qu'est « la page » du survol et la forme du mot cherché
-   (D1184) ; les liens calculés depuis la configuration et l'adresse
-   de la page (D1186) ; la complétude du champ sans `hint:` ni
-   `description:` — comptée ou non, « son nom suffit à lui-même »
-   (D1191) ;
+1. *(clos le 11/10 — D1171, D1184, D1186 confirmés, D1197–D1199)* ;
 2. les personas (§22) : la proposition de l'étape 5 en six points —
    `persona:` sur le groupe, la part générée, la part écrite, les trois
    formes, le plan du chapitre, la déclinaison sur l'entrepôt ;

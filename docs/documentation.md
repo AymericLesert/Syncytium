@@ -1790,7 +1790,8 @@ arbitrer point par point)* :
        description: Elle saisit les commandes de ses clients et suit leurs livraisons.   # surcharge celle du groupe
    ```
 
-2. **La part générée** — pour chaque persona : **le tour de ses écrans**
+2. **La part générée** — *acquis (D1201 — « les actes de base dans le
+   tour »)* : pour chaque persona, **le tour de ses écrans**
    (D1187 — ses modules, ses entrées de menu dans l'ordre, chaque écran
    avec son masque), le squelette ; **un scénario par wizard** qu'il peut
    atteindre (D1130 — le `title:` du wizard est le but, ses steps les

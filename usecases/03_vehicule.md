@@ -392,10 +392,10 @@ R8. **l'image embarquée** — tranché : la photo se désigne **par la
 ## La documentation générée — le chapitre des personas (le rang 1, étape 5 — D1200–D1208)
 
 *(la déclinaison de §22 de documentation.md sur le véhicule, le cas
-choisi par D1207 — en proposition le 11/10/2026 ; ce que la
-configuration ajouterait est écrit ici d'abord et n'entrera dans
-`examples/03_vehicule/` qu'après l'arbitrage ; le prénom, le rôle, les
-scénarios sont miens)*
+choisi par D1207 — écrite le 11/10/2026, **validée par D1209 avec ses
+cinq frottements** ; la configuration entre dans `examples/03_vehicule/`
+avec celle de la banque ; le prénom, le rôle, les scénarios sont miens,
+acquis tels qu'écrits)*
 
 **Ce que la configuration ajoute.** Le mono-poste déclare son groupe
 (D1208) : un `groups.yml` à la version, un seul groupe, `foyer`, qui
@@ -528,7 +528,8 @@ statut à Actif, sur une petite image du champ statut ; en bas, l'encart
 1.0.0.0 beta — **le filigrane « Beta v1.0.0.0 »** (D1145), la version
 du véhicule n'ayant pas encore été promue —, la date de génération.
 
-**Ce que la déclinaison relève** (les frottements, à arbitrer) :
+**Ce que la déclinaison relève** (les frottements — *validés en bloc
+par D1209*) :
 
 1. **Le mono-poste déclare son groupe** (D1208) : `groups.yml` naît
    pour le persona seul ; avec `authentication: none`, l'utilisateur

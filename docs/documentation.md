@@ -1121,12 +1121,11 @@ lecture qu'il sert (D1138) :
 | 1. La présentation | **la générale** — l'entreprise, l'application, le schéma directeur (`pages: presentation`) ; puis les modules et ce que chacun sert (`title:`, `description:`), **la vue d'ensemble du modèle** (§5), le concepteur et le contact (D1153), **les notes de version** en langage d'usager (D1112) et ce qui change (§9) | écrit, puis calculé | l'ensemble |
 | 2. Le socle | ce qui est commun à toute application Syncytium (le point ouvert 11, D645) : l'écran principal, la connexion et le profil, le changement de module, la recherche, les notifications, « mes droits », le cycle de vie d'une donnée (la désactivation D137, la réactivation D903), l'historique quand il est actif, l'export et l'import (§14), les documents produits, l'assistance (§25) — les textes génériques du catalogue (D1160), **bornés à ce que la version emploie** | calculé | l'ensemble |
 | 3. Un chapitre par module | dans l'ordre du menu : le titre, la description, **la vue du module** (§5), les enchaînements du module (§16) ; puis **chaque écran** dans l'ordre du menu : sa description — la matière du masque (§7) —, les champs qu'il montre avec leur libellé et leur aide, les opérations offertes et ce qu'elles font, les états et les passages permis ; à l'instance, les usages et les données vivantes | calculé, vivant | le module, le détail |
-| 4. Les enchaînements entre modules | *(en question)* les parcours qui traversent les modules — une promotion déclenchée par un autre module (D145), un automatisme sur les données d'un autre (D54), un wizard à cheval, une notification (§16) | calculé | l'ensemble |
-| 5. Les scénarios d'utilisation | par persona (§22) : la part générée des wizards, la part écrite | calculé, écrit | le module |
-| 6. Les modes opératoires | les planches (§24) | calculé, écrit | le détail |
-| 7. Le parcours guidé | *(en question — sa différence avec les scénarios)* le tutoriel, module par module (§19) | calculé | le module |
-| 8. La F.A.Q. | les questions répondues de l'assistance (§25) | vivant | le détail |
-| 9. Les annexes | **les glossaires** — les termes du métier, puis les types (D1180, D1183) ; **le dictionnaire des données** par libellés (§15, D1183) ; le gabarit d'import de chaque entité (§14) | écrit, calculé | le détail |
+| 4. Les scénarios d'utilisation | par persona (§22) : la part générée des wizards, la part écrite ; **les actions qui traversent les modules s'y retrouvent**, avec le wizard (D1185) | calculé, écrit | le module |
+| 5. Les modes opératoires | les planches (§24) | calculé, écrit | le détail |
+| 6. Le parcours guidé | *(en question — sa différence avec les scénarios)* le tutoriel, module par module (§19) | calculé | le module |
+| 7. La F.A.Q. | les questions répondues de l'assistance (§25) | vivant | le détail |
+| 8. Les annexes | **les glossaires** — les termes du métier, puis les types (D1180, D1183) ; **le dictionnaire des données** par libellés (§15, D1183) ; le gabarit d'import de chaque entité (§14) | écrit, calculé | le détail |
 
 - **Ce que l'utilisateur ne voit pas** n'y figure pas : la
   confidentialité et les droits filtrent la documentation comme ils
@@ -1144,8 +1143,15 @@ lecture qu'il sert (D1138) :
   édition, celle de l'émetteur — une édition par langue ; un texte
   complémentaire absent dans une langue tombe sur la langue par défaut
   de la version (D1101) et la complétude le signale.
-- **Les trois niveaux** (D1138) : les chapitres 1, 2 et 4 se lisent
-  pour l'ensemble, le 3 pour le module puis l'écran, les annexes pour le
+- **Pas de chapitre des enchaînements entre modules** (D1185) : un lien
+  qui traverse les modules — la promotion déclenchée d'ailleurs (D145),
+  l'automatisme sur les données d'un autre module (D54), la
+  notification — se raconte dans le chapitre du module qui le
+  déclenche, avec un renvoi dans celui qui le reçoit ; les actions
+  transverses vécues se retrouvent dans les scénarios des personas et
+  dans le wizard.
+- **Les trois niveaux** (D1138) : les chapitres 1 et 2 se lisent pour
+  l'ensemble, le 3 pour le module puis l'écran, les annexes pour le
   détail d'un mot.
 
 ## 7. Les masques d'explication (D209)
@@ -1539,7 +1545,11 @@ opérations à `when:` (le cliquet — D354/D428), les opérations
 périodiques et leurs heures (D609/D943), les notifications et leurs
 destinataires (D108), les effets (`notify`, `document`, `set`). Par
 module, un chapitre « les parcours » ; par entité, ses états et ses
-automatismes à côté de ses opérations.
+automatismes à côté de ses opérations. **Jamais un chapitre à part pour
+ce qui traverse les modules** (D1185) : le lien se raconte dans le
+module qui le déclenche, avec un renvoi dans celui qui le reçoit ; ce
+qui se vit de bout en bout est un scénario de persona (§22), appuyé
+sur le wizard.
 
 ## 17. Le guide d'exploitation *(en proposition)*
 

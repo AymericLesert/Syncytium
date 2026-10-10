@@ -504,6 +504,8 @@ confidentiality:                     # les profils nommés (D885)
   financier:
     level: protected
     groups: [achats, direction]
+
+history: true                        # l'historisation par défaut pour toute l'application (D1174)
 ```
 
 - la clé est le nom ; sans `type:`, elle règle les défauts d'un type du
@@ -603,6 +605,7 @@ expressions.
 | `allow:` | l'application → le module → l'entité → le champ | D886 |
 | la confidentialité | le niveau (D25) × les groupes (D26), le profil nommé aux settings, référencé au champ | D885 |
 | `normalize:` | le défaut du type aux settings → le champ | D870/D872, D991 |
+| `history:` | `settings.yml` de la version → le module → l'entité ; l'opt-out par `history: false` ; le défaut du socle = inactif | D168, D1174 |
 | le report des anomalies | l'entité source (ses phases) ou la règle de migration (les siennes) → le défaut de D407 | D929, D1058 |
 
 ## 5. L'ingestion — ce qui est refusé

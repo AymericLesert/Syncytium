@@ -278,7 +278,9 @@ proposition)*
 2. **L'historique par défaut** — *soldé* (D1173) : `history:` non
    déclaré = inactif (D168) ; la documentation écrit « pas
    d'historique » en clair, et la complétude ne le compte pas comme un
-   manque : un défaut du socle est un choix.
+   manque : un défaut du socle est un choix. `history: true` aux
+   settings de la version l'activerait partout (D1174) ; le tiny n'a
+   pas de settings.
 3. **Les droits sans groupe** : ni `groups.yml`, ni authentification —
    le tiny est le mono-poste de D759 : l'utilisateur et le groupe par
    défaut, le degré administrateur. Lecture à confirmer : le tiny = le

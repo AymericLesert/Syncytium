@@ -61,7 +61,7 @@ droits à [rights.md](rights.md).*
 | `operations:` | les opérations — le bloc ou la référence ; le mapping ordonné, l'ordre = les boutons | D432 |
 | `gui:` | la présentation — le bloc ou la référence | D767 |
 | `validation:` | les règles inter-champs — la liste d'expressions booléennes (D90), le `if` suffixé (« `date_operation = owner.ouverture if budget = "OUVERTURE"` ») ; l'évaluation **au scellé** de la transaction | D156, D594, D824 |
-| `history:` | **l'historisation** — inactive par défaut, en cascade du module à l'entité (D168) ; tue, la documentation écrit « pas d'historique » en clair et la complétude ne le compte pas (D1173) | D168, D1173 |
+| `history:` | **l'historisation** — inactive par défaut, en cascade de `settings.yml` de la version (`history: true` rend l'option disponible par défaut, D1174) au module puis à l'entité, le plus proche l'emporte, l'opt-out par `history: false` (D168) ; tue partout, la documentation écrit « pas d'historique » en clair et la complétude ne le compte pas (D1173) | D168, D1173–D1174 |
 
 L'exemple — le véhicule (`examples/03_vehicule/`) :
 

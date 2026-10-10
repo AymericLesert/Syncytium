@@ -1161,7 +1161,7 @@ lecture qu'il sert (D1138) :
   l'ensemble, le 3 pour le module puis l'écran, les annexes pour le
   détail d'un mot.
 
-## 7. Les masques d'explication (D209)
+## 7. Les masques d'explication (D209) *(le rang 1, étape 3 — acquis, D1190–D1192)*
 
 Acquis : à la **première consultation ou sur sollicitation** d'une
 surface — liste, formulaire, widget de résumé, widget de synthèse —, le
@@ -1171,13 +1171,27 @@ sont l'aide en ligne, sans rédaction séparée. La première consultation
 se mémorise au profil (l'interprétation de D209). Le `hint:` (D840) est
 l'aide courte, au « (?) » du champ, sur les trois écrans (D262).
 
-*Mes lectures à confirmer* : le masque est **la documentation
-fonctionnelle de l'écran, servie en place** — même matière, même
-langue, mêmes droits ; une surface sans `description:` a tout de même
-son masque, fait des aides des champs ; un champ sans `description:` y
-paraît par son `hint:`, sinon par son libellé seul. Le même « ? »
-montre les questions répondues de l'écran et permet d'en poser une
-(§25, D1132).
+**Acquis (D1190–D1192)** :
+
+- **le masque est la documentation fonctionnelle de l'écran, servie en
+  place** — même matière que le chapitre 3 de §6, même langue, mêmes
+  droits, rien n'est rédigé deux fois (D1190) ; **un groupement de
+  champs** (la `section`, D489) qui demande une explication la reçoit
+  **dans la description de l'écran**, et l'édition la porte sur le
+  groupement (ma lecture de la forme : une partie titrée du nom de la
+  section s'attache à elle) ;
+- **ce que le masque montre** (D1191) : la description de la surface ;
+  pour chaque champ qui en a, **son `hint:` au masque, sa `description:`
+  au détail** ; un champ sans l'un ni l'autre **n'y est pas — son nom
+  suffit à lui-même** ; une surface sans description dont aucun champ
+  ne porte d'aide n'a pas de masque (ma conséquence) ; la complétude
+  (§20) continue de compter le champ sans aucune aide — à confirmer ;
+- **le « ? » de l'écran** fait trois choses (D1192) : il montre le
+  masque, il mène à la page de l'écran dans la documentation (D1121),
+  il porte l'assistance — les questions répondues de l'écran et « poser
+  une question » (§25, D1132) ;
+- **le glossaire** se lit au survol dans le masque comme dans la page
+  — la première occurrence du terme (D1184).
 
 ## 8. La troisième source — les données (D334) *(en proposition)*
 

@@ -277,9 +277,13 @@ socle `${name}` : la clé de la configuration, que rien ne surcharge
 type. *Ex. : `phones: list of phone`.* Sur un nom d'entité, elle
 devient la composition. *(D166/D362)*
 
-**Masque d'explication** — L'aide en ligne tissée dans l'application,
-nourrie par les `description:` du modèle. À ne pas confondre avec le
-masque de saisie. *(D209)*
+**Masque d'explication** — L'aide en ligne tissée dans l'application :
+la documentation fonctionnelle de l'écran servie en place — la
+description de la surface, puis, pour chaque champ qui en a, son
+`hint:` et, au détail, sa `description:` ; un champ sans l'un ni l'autre
+n'y est pas, son nom suffit. Le « ? » le montre, mène à la page de
+l'écran et porte l'assistance. À ne pas confondre avec le masque de
+saisie. *(D209, D1190–D1192)*
 
 **Masque de saisie** (`mask`) — Le gabarit d'une valeur au clavier :
 `"C-999999"`, `"00 00 00"`, `"0.00 h"`. Il guide la saisie et fixe le

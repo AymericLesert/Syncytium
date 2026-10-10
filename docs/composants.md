@@ -1425,7 +1425,11 @@ gui:
 5. **Propriétés** — **`title:`** — « le nom d'un regroupement est en
    fait un libellé en titre de la section » (D493) : les libellés par
    langue (D465) en position de titre, **facultatif** (« potentiellement
-   nommé ») ; **`width:` / `height:`** — « calibrer la taille » :
+   nommé ») — **la documentation** : un regroupement qui demande une
+   explication la reçoit dans la `description:` de l'écran, l'édition
+   la porte sur le regroupement (D1190 ; ma forme : la partie de la
+   description titrée du nom de la section s'y attache) ;
+   **`width:` / `height:`** — « calibrer la taille » :
    l'uniforme se pose sur l'organisateur, **la taille variable sur la
    section** — le plus proche l'emporte (D501–D502 ; « sans précision,
    l'ensemble de l'espace est pris ») ; **`dropdown:`** — la section

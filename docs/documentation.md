@@ -1062,7 +1062,7 @@ classDiagram
 Le tiny (§13) donne la plus petite vue possible : le paquetage
 `annuaire`, la classe `personne`, quatre attributs, deux `{id}`.
 
-## 6. La documentation fonctionnelle *(en proposition)*
+## 6. La documentation fonctionnelle *(le rang 1, étape 2 — le plan acquis, D1183–D1189)*
 
 Ce que l'application fait, pour celui qui s'en sert — **trois
 matières** (D1121) : **les descriptions** (`title:`, `hint:`,
@@ -1108,7 +1108,7 @@ ce que j'en retiens *(mes lectures)* :
   l'écran — est **écarté** par l'auteur et **remplacé par des scénarios
   d'utilisation de l'application par des personas** (D1127, §22).
 
-**Le plan** *(le rang 1, étape 2 — en proposition)* — sur le plan de
+**Le plan** *(acquis — « la table me convient », D1189)* — sur le plan de
 l'exemple de référence et la déclinaison du tiny, onze chapitres ; pour
 chacun, d'où vient la matière (**écrit** = un texte complémentaire du
 concepteur, D1156 ; **calculé** = la configuration ; **vivant** = les

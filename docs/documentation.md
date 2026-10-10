@@ -1801,7 +1801,7 @@ arbitrer point par point)* :
    des scénarios à part : ils sont dans le tour, à l'écran où ils se
    jouent.
 
-3. **La part écrite** — **les scénarios métier** du concepteur, en
+3. **La part écrite** — *acquis (D1202–D1204)* — **les scénarios métier** du concepteur, en
    Markdown, versionnés (D1156), **interprétés par Syncytium** : la
    fréquence, les étapes — chacune reliée à l'écran ou à l'opération
    par son adresse (D439/D566) pour que Syncytium y mette le lien et,
@@ -1827,8 +1827,8 @@ arbitrer point par point)* :
    ```
 
    **L'exemple**, sur l'entrepôt (cas 5 — `languages: [fr]`, les textes en
-   texte simple, D1101) ; *les conventions du corps Markdown sont
-   miennes, à arbitrer* : une ligne « Quand » dit la fréquence ; les
+   texte simple, D1101) ; **les conventions du corps Markdown —
+   acquises (D1204)** : une ligne « Quand » dit la fréquence ; les
    étapes sont la liste numérotée ; **un lien Markdown dont la cible est
    une adresse**, paramétrée ou non, relie l'étape à l'écran ou à
    l'opération — le composant cité entouré sur la planche ; une étape

@@ -1147,9 +1147,12 @@ lecture qu'il sert (D1138) :
   qui traverse les modules — la promotion déclenchée d'ailleurs (D145),
   l'automatisme sur les données d'un autre module (D54), la
   notification — se raconte dans le chapitre du module qui le
-  déclenche, avec un renvoi dans celui qui le reçoit ; les actions
-  transverses vécues se retrouvent dans les scénarios des personas et
-  dans le wizard.
+  déclenche et dans celui qui le reçoit : **les enchaînements se
+  suivent dans les deux sens, par des annotations et des références**
+  (D1186) — à chaque bout, une ligne générée qui dit l'autre bout et
+  l'adresse de sa page (un lien dedans et en HTML, le numéro de
+  chapitre en édition imprimable) ; les actions transverses vécues se
+  retrouvent dans les scénarios des personas et dans le wizard.
 - **Les trois niveaux** (D1138) : les chapitres 1 et 2 se lisent pour
   l'ensemble, le 3 pour le module puis l'écran, les annexes pour le
   détail d'un mot.
@@ -1547,9 +1550,15 @@ destinataires (D108), les effets (`notify`, `document`, `set`). Par
 module, un chapitre « les parcours » ; par entité, ses états et ses
 automatismes à côté de ses opérations. **Jamais un chapitre à part pour
 ce qui traverse les modules** (D1185) : le lien se raconte dans le
-module qui le déclenche, avec un renvoi dans celui qui le reçoit ; ce
-qui se vit de bout en bout est un scénario de persona (§22), appuyé
-sur le wizard.
+module qui le déclenche et dans celui qui le reçoit — **dans les deux
+sens, par des annotations et des références** (D1186 ; mes lectures :
+les liens calculés depuis la configuration — la référence vers l'entité
+d'un autre module, l'association, la promotion et son déclencheur,
+l'opération à `when:` sur les données d'un autre module, la
+notification, le wizard qui change de module ; l'annotation générée
+aux deux bouts, la référence = l'adresse de la page ; la même règle
+entre les entités et les écrans d'un même module) ; ce qui se vit de
+bout en bout est un scénario de persona (§22), appuyé sur le wizard.
 
 ## 17. Le guide d'exploitation *(en proposition)*
 

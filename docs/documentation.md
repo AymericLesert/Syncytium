@@ -1121,11 +1121,10 @@ lecture qu'il sert (D1138) :
 | 1. La présentation | **la générale** — l'entreprise, l'application, le schéma directeur (`pages: presentation`) ; puis les modules et ce que chacun sert (`title:`, `description:`), **la vue d'ensemble du modèle** (§5), le concepteur et le contact (D1153), **les notes de version** en langage d'usager (D1112) et ce qui change (§9) | écrit, puis calculé | l'ensemble |
 | 2. Le socle | ce qui est commun à toute application Syncytium (le point ouvert 11, D645) : l'écran principal, la connexion et le profil, le changement de module, la recherche, les notifications, « mes droits », le cycle de vie d'une donnée (la désactivation D137, la réactivation D903), l'historique quand il est actif, l'export et l'import (§14), les documents produits, l'assistance (§25) — les textes génériques du catalogue (D1160), **bornés à ce que la version emploie** | calculé | l'ensemble |
 | 3. Un chapitre par module | dans l'ordre du menu : le titre, la description, **la vue du module** (§5), les enchaînements du module (§16) ; puis **chaque écran** dans l'ordre du menu : sa description — la matière du masque (§7) —, les champs qu'il montre avec leur libellé et leur aide, les opérations offertes et ce qu'elles font, les états et les passages permis ; à l'instance, les usages et les données vivantes | calculé, vivant | le module, le détail |
-| 4. Les scénarios d'utilisation | par persona (§22) : la part générée des wizards, la part écrite ; **les actions qui traversent les modules s'y retrouvent**, avec le wizard (D1185) | calculé, écrit | le module |
+| 4. Les scénarios d'utilisation | par persona (§22) : la part générée des wizards, la part écrite ; **les actions qui traversent les modules s'y retrouvent**, avec le wizard (D1185) ; **le parcours guidé y est fondu** — le tour des écrans du persona en est le squelette (D1187) | calculé, écrit | le module |
 | 5. Les modes opératoires | les planches (§24) | calculé, écrit | le détail |
-| 6. Le parcours guidé | *(en question — sa différence avec les scénarios)* le tutoriel, module par module (§19) | calculé | le module |
-| 7. La F.A.Q. | les questions répondues de l'assistance (§25) | vivant | le détail |
-| 8. Les annexes | **les glossaires** — les termes du métier, puis les types (D1180, D1183) ; **le dictionnaire des données** par libellés (§15, D1183) ; le gabarit d'import de chaque entité (§14) | écrit, calculé | le détail |
+| 6. La F.A.Q. | les questions répondues de l'assistance (§25) | vivant | le détail |
+| 7. Les annexes | **les glossaires** — les termes du métier, puis les types (D1180, D1183) ; **le dictionnaire des données** par libellés (§15, D1183) ; le gabarit d'import de chaque entité (§14) | écrit, calculé | le détail |
 
 - **Ce que l'utilisateur ne voit pas** n'y figure pas : la
   confidentialité et les droits filtrent la documentation comme ils
@@ -1153,6 +1152,12 @@ lecture qu'il sert (D1138) :
   l'adresse de sa page (un lien dedans et en HTML, le numéro de
   chapitre en édition imprimable) ; les actions transverses vécues se
   retrouvent dans les scénarios des personas et dans le wizard.
+- **Le parcours guidé, fondu dans les personas, reste disponible à la
+  demande** (D1187) : l'utilisateur qui le souhaite obtient le tour de
+  ses écrans — tous ceux que ses droits lui ouvrent, module par module
+  dans l'ordre du menu, chaque champ avec son aide — qui peut apporter
+  plus d'éléments que le scénario d'un persona ; joué dans
+  l'application (§19), pas un chapitre de l'édition (ma lecture).
 - **Les trois niveaux** (D1138) : les chapitres 1 et 2 se lisent pour
   l'ensemble, le 3 pour le module puis l'écran, les annexes pour le
   détail d'un mot.
@@ -1606,8 +1611,14 @@ documentation **génère un tutoriel**, module par module, écran par
 champs qui comptent (leurs `hint:`), les opérations offertes, l'écran
 suivant. Il se lit à part, dans la documentation fonctionnelle, et
 pourrait **se jouer dans l'application** : la première consultation
-(D209) étendue à un tour guidé, pas à pas. *À trancher* : texte seul, ou
-joué.
+(D209) étendue à un tour guidé, pas à pas. **Tranché (D1187)** : le
+parcours guidé est **fondu dans les scénarios des personas** (§22) — le
+tour des écrans d'un persona est le squelette généré de ses scénarios ;
+il n'est plus un chapitre de la documentation fonctionnelle, mais
+**reste disponible à la demande de l'utilisateur** — le tour de tous
+les écrans que ses droits lui ouvrent, qui peut apporter plus
+d'éléments que le scénario d'un persona ; joué dans l'application (ma
+lecture : le texte seul n'a plus d'objet, le scénario le porte).
 
 ## 20. La complétude de la documentation *(en proposition)*
 
@@ -1661,7 +1672,11 @@ de `output.formats`.
 
 **Le plan de test est écarté** — les tests relèvent du développement
 (D869) — **et remplacé par des scénarios d'utilisation de l'application
-par des personas** (D1127). *Mes propositions* : **un persona par groupe
+par des personas** (D1127). **Le parcours guidé (§19) y est fondu**
+(D1187) : le tour des écrans d'un persona — ses seuls écrans, dans
+l'ordre du menu — est le squelette généré de ses scénarios ; le tour
+complet reste disponible à la demande de l'utilisateur. *Mes
+propositions* : **un persona par groupe
 d'utilisateurs** (D414 — le commercial, le logisticien, le bureau
 d'études, la direction du cas 5) : une personne fictive nommée, son
 rôle, ce qu'elle vient faire ; ses droits sont ceux du groupe, qui

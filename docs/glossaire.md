@@ -329,9 +329,11 @@ lecture, les cinq phases de contrôle, la comparaison, la bascule ; sa
 ligne d'exécution garde l'état, les compteurs et les indicateurs.
 *(D667, D1033, D1054)*
 
-**Parcours guidé** — Le tutoriel généré : module par module, écran par
-écran dans l'ordre du menu, depuis les descriptions et les aides.
-*(documentation.md §19, D258)*
+**Parcours guidé** — Le tour généré des écrans, module par module dans
+l'ordre du menu, depuis les descriptions et les aides ; fondu dans les
+scénarios des personas, dont il est le squelette ; le tour complet reste
+disponible à la demande de l'utilisateur, joué dans l'application.
+*(documentation.md §19/§22, D258, D1187)*
 
 **Persona** — Un lecteur type, un par groupe d'utilisateurs, dont les
 scénarios sont des fonctionnalités de bout en bout, appuyés sur les

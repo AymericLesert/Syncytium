@@ -1869,12 +1869,18 @@ arbitrer point par point)* :
    d'écran — la liste filtrée, la ligne, les niveaux, le tableau de
    bord — et l'encart ; sur une page.
 
-4. **Les trois formes d'un scénario** (D1187/D1188) : **lue** — le texte
-   du chapitre 4 de §6 ; **vécue** — le wizard, quand il existe ;
-   **imprimée** — la planche (§24), une à trois pages, synthétique, un
-   enchaînement d'écrans et d'actions, générée pour tout scénario dont
-   les étapes citent des écrans ; et **le tour complet à la demande**
-   de l'utilisateur.
+4. **Les trois formes d'un scénario** — *acquis (D1205)* : **lue** — le
+   texte du chapitre 4 de §6 ; **vécue** — le wizard, quand le scénario
+   en est un (un scénario écrit n'a pas de forme vécue, sauf à devenir
+   un wizard) ; **imprimée** — la planche (§24), une à trois pages,
+   synthétique, un enchaînement d'écrans et d'actions, générée pour
+   tout scénario dont les étapes citent des écrans ; et **le tour
+   complet à la demande** de l'utilisateur. **La planche se régénère
+   avec la version** — les écrans changent, les images suivent ; un
+   scénario écrit dont une adresse ne résout plus est une erreur
+   d'ingestion (D805). **Un scénario écrit peut citer un wizard** par
+   son adresse (`[@nom]`) : la planche en reprend les étapes à cet
+   endroit, sans que le concepteur les réécrive.
 
 5. **Le plan du chapitre 4** — par persona, dans l'ordre des groupes :
    qui il est (le `persona:`), ce qu'il voit (ses modules, ses entrées

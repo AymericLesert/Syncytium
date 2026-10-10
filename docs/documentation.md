@@ -1898,9 +1898,12 @@ arbitrer point par point)* :
    d'exploitation (§17), la fonctionnelle ne leur donne que ce qu'ils
    font comme utilisateurs.
 
-6. **La déclinaison** : l'entrepôt (cas 5) et ses quatre groupes — le
-   commercial, le logisticien, le bureau d'études, la direction —, une
-   planche ; à écrire après l'arbitrage, dans `usecases/05_entrepot.md`.
+6. **La déclinaison** — *écrite le 11/10 dans
+   [usecases/05_entrepot.md](../usecases/05_entrepot.md), en
+   proposition* : six personas sur les six groupes de l'entrepôt, cinq
+   scénarios écrits, le chapitre 4 tel que produit, la planche 1
+   décrite, quatre frottements relevés ; la configuration n'entre dans
+   `examples/05_entrepot/` qu'après l'arbitrage.
 
 ## 23. La maintenance, les contrôles et la supervision (D1128) *(en proposition)*
 

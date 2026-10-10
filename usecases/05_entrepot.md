@@ -2172,6 +2172,218 @@ mot pour mot :
 > Pour des questions de performance, nous pouvons fournir des
 > informations sur la manière dont la lecture des données d'origine
 > est assurée :
+
+## La documentation générée — le chapitre des personas (le rang 1, étape 5 — D1200–D1206)
+
+*(la déclinaison de §22 de documentation.md sur l'entrepôt — en
+proposition le 11/10/2026 ; ce que la configuration ajouterait est
+écrit ici d'abord, et n'entrera dans `examples/05_entrepot/` qu'après
+l'arbitrage de l'auteur — les prénoms, les rôles, les scénarios sont
+miens)*
+
+**Ce que la configuration ajoute.** Six `persona:` dans `groups.yml`
+(D1200) ; un `documentation.yml` à la version avec cinq scénarios
+écrits (D1202) ; cinq fichiers Markdown sous
+`documentation/scenarios/<groupe>/` (D1204). L'entrepôt n'a aucun
+wizard : la part générée se réduit au tour (D1201). Tous les groupes
+voient les quatre modules — l'affectation des modules est un acte
+d'administration (D341), non la configuration — et les profils de
+confidentialité de `settings.yml` filtrent les champs : `financier`
+(achats, direction), `direction`, `commercial` (commercial,
+direction).
+
+```yaml
+# groups.yml — les personas (en proposition)
+commercial:
+  label: Commercial
+  description: L'administration des ventes — les clients et les commandes de vente.
+  persona:
+    name: Camille
+    role: Commerciale sédentaire
+    description: Elle répond aux clients sur leurs commandes et sur la disponibilité des articles.
+
+achats:
+  label: Achats
+  description: Les acheteurs — les fournisseurs, les commandes d'achat, les prix d'achat.
+  persona:
+    name: Hugo
+    role: Acheteur
+    description: Il prépare les commandes fournisseurs d'après les niveaux de stock et les derniers prix.
+
+bureau_etudes:
+  label: Bureau d'études
+  description: La conception — les articles et les nomenclatures.
+  persona:
+    name: Inès
+    role: Technicienne du bureau d'études
+    description: Elle vérifie les nomenclatures avant un lancement en fabrication.
+
+logistique:
+  label: Logistique
+  description: Les stocks — les dépôts, les emplacements, les mouvements, les niveaux.
+  persona:
+    name: Malik
+    role: Responsable logistique
+    description: Il contrôle les écarts entre les mouvements et les niveaux, et surveille les lots périmés.
+
+direction:
+  label: Direction
+  description: Les dirigeants — tout l'entrepôt, les prix de revient et les marges.
+  groups: [bureau_etudes, logistique, commercial, achats]
+  persona:
+    name: Claire
+    role: Dirigeante
+    description: Elle fait le point mensuel sur la valeur du stock et l'activité.
+
+administration:
+  label: Administration
+  description: Le pilotage de l'entrepôt — les migrations, leurs indicateurs, leurs anomalies.
+  degree: administrator
+  persona:
+    name: Jean
+    role: Administrateur de l'entrepôt
+    description: Il suit les migrations nocturnes et traite leurs anomalies.
+```
+
+```yaml
+# versions/production/v1.0.0.0/documentation.yml — les scénarios écrits (en proposition)
+scenarios:
+  commercial:
+    telephone:
+      title: Répondre à un client sur la disponibilité d'un article
+      description: ~{documentation/scenarios/commercial/telephone.md}
+  achats:
+    reapprovisionnement:
+      title: Préparer une commande fournisseur
+      description: ~{documentation/scenarios/achats/reapprovisionnement.md}
+  bureau_etudes:
+    lancement:
+      title: Vérifier une nomenclature avant un lancement
+      description: ~{documentation/scenarios/bureau_etudes/lancement.md}
+  logistique:
+    ecarts:
+      title: Contrôler les écarts de stock
+      description: ~{documentation/scenarios/logistique/ecarts.md}
+  direction:
+    point_mensuel:
+      title: Faire le point mensuel
+      description: ~{documentation/scenarios/direction/point_mensuel.md}
+```
+
+**Le chapitre 4, tel que Syncytium le produirait** (le plan de D1206) :
+
+> ## 4. Les scénarios d'utilisation
+>
+> ### Camille — Commerciale sédentaire
+>
+> Elle répond aux clients sur leurs commandes et sur la disponibilité
+> des articles.
+>
+> **Ce qu'elle voit.** Les quatre modules : technique (les articles,
+> les produits fabriqués, les semi-finis, les fantômes, les
+> nomenclatures), tiers (les tiers, les clients, les fournisseurs, les
+> adresses, les contacts), commande (les commandes de vente et leurs
+> lignes, les commandes d'achat et leurs lignes), stock (les niveaux,
+> les mouvements, les dépôts, les emplacements ; le pilotage des
+> stocks). En lecture seule. Les conditions commerciales lui sont
+> ouvertes ; les prix d'achat, les prix de revient et les marges ne le
+> sont pas.
+>
+> **Ses scénarios.**
+>
+> **Répondre à un client sur la disponibilité d'un article** — *la
+> planche 1*. Quand : plusieurs fois par jour, au téléphone, le
+> client en ligne.
+>
+> 1. Ouvrir les commandes en cours du client *(→ commande.commande_vente,
+>    filtrée sur le client et le statut)* : les lignes en retard en
+>    premier.
+> 2. Ouvrir la commande concernée et lire la ligne *(→
+>    commande.ligne_vente)* : la quantité commandée, la quantité
+>    expédiée, le délai d'expédition.
+> 3. Ouvrir les niveaux de stock de l'article *(→ stock.niveau)* : le
+>    stock physique par dépôt et par emplacement, les lots et leur
+>    péremption.
+> 4. Si le stock ne couvre pas la ligne, consulter le pilotage du stock
+>    *(→ stock[pilotage])* : les entrées attendues du mois.
+> 5. Donner la réponse au client, et noter l'engagement pris dans l'ERP
+>    — l'entrepôt ne s'écrit pas.
+>
+> > **À ne pas faire** : promettre une date d'expédition d'après le seul
+> > stock physique — un lot périmé n'est pas livrable, le pilotage le
+> > signale.
+>
+> ### Hugo — Acheteur
+>
+> Il prépare les commandes fournisseurs d'après les niveaux de stock et
+> les derniers prix. **Ce qu'il voit** : les quatre modules, en lecture
+> seule ; les prix d'achat et les valeurs de stock lui sont ouverts.
+> **Préparer une commande fournisseur** — *la planche 2* : les niveaux
+> sous le minimum *(→ stock.niveau, filtrée sur sous_minimum)*, l'article
+> et son fournisseur par défaut *(→ technique.article)*, le dernier
+> achat et son prix *(→ commande.ligne_achat)*, puis la commande passée
+> dans l'ERP.
+>
+> ### Inès — Technicienne du bureau d'études
+>
+> **Vérifier une nomenclature avant un lancement** — *la planche 3* :
+> le produit fabriqué *(→ technique.fabrique)*, sa nomenclature et ses
+> composants *(→ technique.nomenclature)*, le stock de chaque composant
+> *(→ stock.niveau)*, la correction faite dans l'ERP si un composant
+> manque à la nomenclature.
+>
+> ### Malik — Responsable logistique
+>
+> **Contrôler les écarts de stock** — *la planche 4* : la matrice de
+> contrôle du pilotage *(→ stock[pilotage])*, les mouvements de
+> l'emplacement en écart *(→ stock.mouvement, filtrée sur l'emplacement
+> et le mois)*, le niveau et son dernier inventaire *(→ stock.niveau)*,
+> l'inventaire décidé dans l'ERP.
+>
+> ### Claire — Dirigeante
+>
+> Elle voit tout ce que voient le bureau d'études, la logistique, le
+> commercial et les achats, et de plus les marges. Ses scénarios sont
+> les leurs — *voir Camille, Hugo, Inès, Malik* — et le sien : **Faire le
+> point mensuel** — *la planche 5* : le pilotage des stocks *(→
+> stock[pilotage])*, la valeur du stock, les entrées et sorties du mois,
+> les lots périmés.
+>
+> ### Jean — Administrateur de l'entrepôt
+>
+> Il suit les migrations nocturnes et traite leurs anomalies. Ce qu'il
+> fait comme administrateur — les migrations, la relecture complète du
+> dimanche, les anomalies — se lit au guide d'exploitation ; comme
+> utilisateur, il voit les quatre modules.
+
+**La planche 1** — « Répondre à un client sur la disponibilité d'un
+article », une page A4 paysage, au gabarit `planche` de la version : le
+titre en tête, « plusieurs fois par jour, au téléphone » dessous ; cinq
+étapes numérotées de gauche à droite ; sous les étapes 1 à 4, l'image
+de l'écran rendue par Syncytium — la liste des commandes de vente
+filtrée sur le client, la ligne de vente, les niveaux de l'article, le
+tableau de bord du stock — le composant cité entouré (le filtre, la
+colonne « expédiée », les colonnes dépôt et emplacement, le graphique
+des entrées) ; l'étape 5 sans image, un pictogramme de téléphone ; en
+bas, l'encart « À ne pas faire » ; le cartouche : l'entrepôt, la
+version 1.0.0.0, la date de génération.
+
+**Ce que la déclinaison relève** (les frottements, à arbitrer) :
+
+1. **L'entrepôt sans wizard** : aucun scénario généré hors le tour ;
+   la part écrite porte tout — c'est le cas d'une application de
+   consultation, et c'est attendu.
+2. **« Ce qu'il voit »** sans affectation de modules déclarée : tous les
+   modules, les champs filtrés par les profils — la documentation le
+   calcule depuis `settings.yml` ; l'affectation faite en base par
+   l'administrateur (D341) ne se lit qu'à l'instance : au dépôt, la
+   documentation dit « tous les modules, sauf restriction faite par
+   l'administrateur ».
+3. **Le groupe contenant** : la direction renvoie aux quatre personas
+   (D1206) ; la planche 5 est la seule qui lui soit propre.
+4. **L'étape finale hors de l'application** revient dans quatre
+   scénarios sur cinq (« dans l'ERP ») — le propre d'un entrepôt ; la
+   planche la montre sans image.
 >
 > - uniquement les enregistrements nouveaux depuis la dernière
 >   lecture ;

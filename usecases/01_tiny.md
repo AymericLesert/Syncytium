@@ -281,10 +281,11 @@ proposition)*
    manque : un défaut du socle est un choix. `history: true` aux
    settings de la version l'activerait partout (D1174) ; le tiny n'a
    pas de settings.
-3. **Les droits sans groupe** : ni `groups.yml`, ni authentification —
-   le tiny est le mono-poste de D759 : l'utilisateur et le groupe par
-   défaut, le degré administrateur. Lecture à confirmer : le tiny = le
-   cas `none`.
+3. **Les droits sans groupe** — *soldé* (D1176) : ni `groups.yml`, ni
+   authentification — le tiny est le mono-poste de D759, le cas `none` :
+   l'utilisateur et le groupe par défaut, le degré administrateur ; la
+   documentation écrit « un seul utilisateur, tous les droits », la
+   complétude ne relève pas ce défaut du socle (D1173).
 4. **Le socle dans la documentation** (le point ouvert 11) : le
    chapitre 2 vient de Syncytium, identique pour toute application ;
    la configuration ne le nourrit pas. À confirmer.

@@ -72,8 +72,9 @@ numero: [numero] }`.* *(D142/D357, D1035/D1039, D1170–D1171)*
 **Complétude (de la documentation)** — Le rapport du concepteur : ce
 qui devrait être écrit et ne l'est pas — les descriptions, les aides,
 les libellés d'énumérés, les masques, l'entité sans aucun `rgpd:`. Un
-défaut du socle n'est pas un manque ; elle compte, elle ne devine pas.
-*(documentation.md §20, D1173/D1177)*
+défaut du socle n'est pas un manque, sauf quand il tient lieu d'un
+texte pour le lecteur (le `label:` absent) ; elle compte, elle ne
+devine pas. *(documentation.md §20, D1173/D1177/D1182)*
 
 **Composant graphique** (`component`) — La représentation graphique d'un champ à l'écran ou sur un document (PDF, Excel, ...) : la jauge d'un pourcentage, le calendrier d'une date, le toggle d'un booléen. *(D64)*
 

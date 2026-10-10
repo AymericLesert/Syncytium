@@ -306,11 +306,15 @@ proposition)*
    d'usager appartient à la facette documentation de chaque type
    (D1158), une rubrique de sa fiche dans types.md, avec ce que le
    stockage en dit (D1155).
-8. **Le nom nu** : sans `label:`, le libellé est le gabarit du socle
-   `${name}`, résolu sur la clé de la configuration (`prenom`, sans
-   accent — D124, D1181) ; le tiny le montre tel quel. *Reste à
-   trancher* : la complétude compte-t-elle le `label:` absent (un
-   texte pour le lecteur manque) ou non (un défaut du socle, D1173) ?
+8. **Le nom nu** — *soldé* (D1181–D1182) : sans `label:`, le libellé
+   est le gabarit du socle `${name}`, résolu sur la clé de la
+   configuration (`prenom`, sans accent — D124) ; le tiny le montre tel
+   quel, sans embellissement, et la complétude compte le `label:`
+   absent : un texte pour le lecteur manque — un défaut du socle n'est
+   pas un manque, sauf quand il tient lieu d'un texte (D1173 précisé).
+
+*Les cinq frottements en attente sont soldés le 10/10/2026
+(D1170–D1182) ; les neuf de la déclinaison le sont tous.*
 9. **Les chapitres de l'instance au dépôt** — *soldé* (D1157) : la
    supervision (chapitre 14), l'assistance (chapitre 16) et la
    troisième source n'existent qu'avec l'instance — la documentation du

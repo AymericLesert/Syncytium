@@ -1570,9 +1570,10 @@ opérations et les hooks sans description ni md, les surfaces sans
 dans la documentation technique, et à l'ingestion comme avertissement.
 **Un défaut du socle n'est pas un manque** (D1173) : `history:` tu, les
 droits tus — la documentation dit en clair ce qui s'applique, la
-complétude ne relève que ce qui devrait être écrit et ne l'est pas. Le
-`label:` absent est le gabarit `${name}` du socle (D1181) ; qu'il compte
-ou non reste à trancher (le frottement 8 du tiny).
+complétude ne relève que ce qui devrait être écrit et ne l'est pas —
+**sauf quand le défaut tient lieu d'un texte destiné au lecteur** : le
+`label:` absent est le gabarit `${name}` du socle (D1181), il s'affiche
+tel quel, et la complétude le compte (D1182).
 *À trancher* : un seuil qui refuse la version, ou l'avertissement seul.
 
 ## 21. La diffusion *(le rang 0, étape 6 — en proposition)*

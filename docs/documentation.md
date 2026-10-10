@@ -1882,12 +1882,21 @@ arbitrer point par point)* :
    son adresse (`[@nom]`) : la planche en reprend les étapes à cet
    endroit, sans que le concepteur les réécrive.
 
-5. **Le plan du chapitre 4** — par persona, dans l'ordre des groupes :
-   qui il est (le `persona:`), ce qu'il voit (ses modules, ses entrées
-   de menu — ses droits en clair, « mes droits » pour lui), ses
-   scénarios — ceux des wizards, puis ceux du concepteur — chacun avec
-   le renvoi à sa planche ; les scénarios qui traversent les modules s'y
-   lisent de bout en bout (D1185).
+5. **Le plan du chapitre 4** — *acquis (D1206)* — par persona, dans
+   l'ordre des groupes de `groups.yml` : **qui il est** (le `persona:`,
+   sa description ou celle du groupe) ; **ce qu'il voit** (ses modules,
+   ses entrées de menu dans l'ordre du menu — ses droits en clair, le
+   « mes droits » servi dedans) ; **ses scénarios** — ceux des wizards
+   qu'il atteint, dans l'ordre du menu, puis ceux du concepteur, dans
+   l'ordre de `scenarios:` — chacun avec le renvoi à sa planche, la
+   planche renvoyant au scénario (D1186) ; les scénarios qui traversent
+   les modules s'y lisent de bout en bout (D1185). **Un groupe
+   contenant** (D1099) a son persona et son tour, renvoie aux scénarios
+   de ses constituants sans les répéter, et ne porte en propre que ses
+   scénarios écrits. **Les groupes au degré `administrator`** ont leur
+   persona ; leurs scénarios d'administration relèvent du guide
+   d'exploitation (§17), la fonctionnelle ne leur donne que ce qu'ils
+   font comme utilisateurs.
 
 6. **La déclinaison** : l'entrepôt (cas 5) et ses quatre groupes — le
    commercial, le logisticien, le bureau d'études, la direction —, une

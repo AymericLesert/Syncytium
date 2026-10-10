@@ -126,7 +126,12 @@ version) ; la voie déclarée demeure le `demote` d'une version.
   acyclique, la multi-appartenance naturelle (D414) ; **un membre du
   groupe contenant voit tout ce que voient les groupes qui le
   composent** (D1099) — la direction au-dessus de ses strates, jamais
-  l'inverse ;
+  l'inverse ; **le groupe porte `description:` et, pour la
+  documentation, `persona:`** (D1200) — le lecteur type du groupe : un
+  prénom fictif, un rôle, une description qui, à défaut, est celle du
+  groupe et, présente, la surcharge (les clés `name:`/`role:` sont
+  miennes) ; ses scénarios sont les fonctionnalités de bout en bout
+  que ses droits permettent (documentation.md §22) ;
 - **les affectations vivent en base** — l'acte d'administration
   (D341), jamais dans le dépôt ;
 - **le groupe `administrator` par défaut** (D712) — fourni par le

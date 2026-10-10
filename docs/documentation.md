@@ -1768,25 +1768,26 @@ parcours guidé (§19) sa forme lue.
 **La proposition de l'étape 5** *(le rang 1 — en proposition, à
 arbitrer point par point)* :
 
-1. **Où se déclare le persona** — **sur le groupe**, dans `groups.yml`
-   : la clé `persona:` (nom mien) porte le prénom fictif, le rôle, ce
-   qu'il vient faire — des textes par langue (D1101) ; le persona est le
-   visage documentaire du groupe, ses droits sont ceux du groupe, rien
-   ne se déclare deux fois ; un groupe sans `persona:` a un persona
-   généré, nommé par le groupe (« un membre de `commercial` ») — la
-   complétude le compte (un texte pour le lecteur manque, D1182).
-   *L'autre voie* : un bloc `personas:` dans `documentation.yml` de la
-   version — écartée en proposition, le persona n'ayant de sens que par
-   son groupe.
+1. **Où se déclare le persona** — *acquis (D1200)* : **sur le groupe**,
+   dans `groups.yml` — la clé `persona:` (nom mien) porte le prénom
+   fictif, le rôle, et ce qu'il vient faire ; **le groupe porte
+   `description:`, le persona l'emploie par défaut et la surcharge par
+   la sienne s'il en a une** ; des textes par langue (D1101) ; le
+   persona est le visage documentaire du groupe, ses droits sont ceux
+   du groupe, rien ne se déclare deux fois ; un groupe sans `persona:`
+   a un persona généré, nommé par le groupe (« un membre de
+   `commercial` ») — la complétude le compte (un texte pour le lecteur
+   manque, D1182). La voie `documentation.yml` est écartée.
 
    ```yaml
-   # groups.yml (en proposition)
+   # groups.yml (D1200 ; les clés name/role sont miennes)
    commercial:
      degree: user
+     description: Les commerciaux — la saisie des commandes et le suivi des livraisons.
      persona:
        name: Camille
        role: Commerciale sédentaire
-       description: Elle saisit les commandes des clients et suit leurs livraisons.
+       description: Elle saisit les commandes de ses clients et suit leurs livraisons.   # surcharge celle du groupe
    ```
 
 2. **La part générée** — pour chaque persona : **le tour de ses écrans**

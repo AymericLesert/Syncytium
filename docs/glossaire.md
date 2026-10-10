@@ -341,9 +341,11 @@ scénarios des personas, dont il est le squelette ; le tour complet reste
 disponible à la demande de l'utilisateur, joué dans l'application.
 *(documentation.md §19/§22, D258, D1187)*
 
-**Persona** — Un lecteur type, un par groupe d'utilisateurs, dont les
-scénarios sont des fonctionnalités de bout en bout, appuyés sur les
-wizards. *(D1127/D1130)*
+**Persona** (`persona:`) — Un lecteur type, un par groupe
+d'utilisateurs, dont les scénarios sont des fonctionnalités de bout en
+bout, appuyés sur les wizards ; déclaré dans le groupe de `groups.yml`
+— un prénom fictif, un rôle, et une description qui, à défaut, est
+celle du groupe. *(D1127/D1130, D1200)*
 
 **Planche** — Le mode opératoire imprimable : une page A4 paysage — le
 titre, les étapes numérotées, une capture par étape, le contrôle

@@ -12,6 +12,12 @@ s'historisent et disparaissent ensemble. *(D101)*
 enregistrement, qui garde son squelette : les liens et l'historique
 tiennent, le contenu s'efface. *(D139)*
 
+**Assistance** (`_assistance`, module interne — en proposition) — La
+F.A.Q. vivante du socle : l'utilisateur pose une question depuis un
+écran, le concepteur ou un responsable métier répond ; la question
+répondue nourrit la F.A.Q. générée, le chat et la complétude.
+*(D1132)*
+
 **Association** (`association with`) — Le lien souple entre
 enregistrements, sans possession : chacun vit sa vie.
 *Ex. : `tags: association with catalog.tag`.* *(D400)*
@@ -23,6 +29,15 @@ ou l'externe (les clients, par un portail). *(D70)*
 où une reprise de données se construit et se contrôle avant d'être
 reportée dans la base de l'application ; elle vit le temps de la
 migration. *(D1044/D1045)*
+
+**Cartouche** — L'en-tête ou le pied obligatoire d'une édition : le
+numéro de version, la date, l'auteur de l'édition. *(D1142)*
+
+**Catalogue (des textes du moteur)** — Les libellés, intitulés et
+gabarits génériques de Syncytium, codifiés et uniques, un catalogue par
+langue portée ; en couches — le moteur, le hook, l'application — le
+plus proche l'emporte ; une langue attendue qui manque est une erreur
+d'ingestion. *(D1160–D1163)*
 
 **Champ** (`field`, le bloc `fields:`) — La plus petite donnée d'une
 entité. Elle se caractérise par : un nom, un type, des propriétés.
@@ -53,6 +68,12 @@ naissance, obligatoire ; les suivantes sont acquises — un numéro
 attribué à la validation — et ne valent qu'une fois complètes.
 *Ex. : `identity: [code]` ; `identities: { mensuelle: [client, mois],
 numero: [numero] }`.* *(D142/D357, D1035/D1039, D1170–D1171)*
+
+**Complétude (de la documentation)** — Le rapport du concepteur : ce
+qui devrait être écrit et ne l'est pas — les descriptions, les aides,
+les libellés d'énumérés, les masques, l'entité sans aucun `rgpd:`. Un
+défaut du socle n'est pas un manque ; elle compte, elle ne devine pas.
+*(documentation.md §20, D1173/D1177)*
 
 **Composant graphique** (`component`) — La représentation graphique d'un champ à l'écran ou sur un document (PDF, Excel, ...) : la jauge d'un pourcentage, le calendrier d'une date, le toggle d'un booléen. *(D64)*
 
@@ -133,6 +154,26 @@ contient : le plus proche l'emporte. *(D348/D360)*
 
 **Exécution à blanc** (Dry-run) — La répétition générale afin de valider la conformité d'une nouvelle version du modèle. Cela ouvre droit à un rapport sur les non-repects ou les impossibilités liés à la migration. Le but est de garantir la stabilité du système et sa continuité de service. *(D120)*
 
+**Dictionnaire des données** — Le chapitre de la documentation qui
+énumère, par langue, chaque entité, chaque champ avec son type en
+clair, chaque valeur, chaque état, chaque opération ; ouvert par les
+deux glossaires. *(documentation.md §15, D1179–D1180)*
+
+**Documentation (la facette)** — Chaque composant porte sa
+documentation, comme il porte son affichage ou son stockage ; chaque
+type de composant la décline dans chacune des neuf documentations ;
+Syncytium assemble. *(D1158–D1159)*
+
+**Édition** — Un extrait figé de la documentation pour qui n'a pas de
+compte, préparé par un `manager` ou un `administrator` dans la limite de
+ses droits, à cartouche, dans la langue et la version de l'émetteur,
+au gabarit des rapports (`template`) ; une beta s'édite sous filigrane.
+*(D1142–D1145, D1166)*
+
+**Édition machine** — Le YAML ou le JSON des informations internes et
+des items de configuration, sans facette, pour l'analyste et
+l'assistant ; le Markdown est le rendu humain. *(D1165)*
+
 **Entité** (`entity`) — Un objet du métier ou une table dans un modèle relationnel : le
 client, la commande, le produit. Chaque entité a ses
 champs, ses règles, sa représentation, ... *(D347)*
@@ -150,6 +191,16 @@ explicite, se cumulent en branches. *(D144–D147, D353–D355, D424)*
 
 **Facette** — Un des modes de représentations d'un type de données : la logique (la valeur
 vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ CSV. *(D119)*
+
+**Filigrane** — La marque de fond de page d'une édition de beta,
+« Beta vx.y.z.w » par défaut, personnalisable ou absente. *(D1145)*
+
+**Glossaire (de l'application)** — Deux glossaires ouvrent le
+dictionnaire des données : **celui des termes**, écrit par le concepteur
+(`glossary:` dans `documentation.yml` du projet ou du module — les
+termes du métier et leur définition) ; **celui des types**, calculé
+depuis les types personnalisés ; tous deux servent le traitement
+sémantique. *(D1179–D1180)*
 
 **Group by** (`group(champ, …)`, `group:`) — Le regroupement d'une
 liste par les valeurs d'un ou plusieurs champs : une cellule par
@@ -214,8 +265,10 @@ l'**usager** (la personne dont les données sont traitées — une
 mode public). *(D1148, D1152)*
 
 **Libellé** (`label`) — Le nom d'une chose dans la langue de
-l'utilisateur. *Ex. : `label: { fr: Client }`.* Le pluriel `labels`
-ne survit qu'au dictionnaire du module (D440). *(D217/D465)*
+l'utilisateur. *Ex. : `label: { fr: Client }`.* Sans lui, le gabarit du
+socle `${name}` : la clé de la configuration, que rien ne surcharge
+(D1181). Le pluriel `labels` ne survit qu'au dictionnaire du module
+(D440). *(D217/D465, D1181)*
 
 **Liste (type)** (`list of`) — Un champ à plusieurs valeurs du même
 type. *Ex. : `phones: list of phone`.* Sur un nom d'entité, elle
@@ -246,6 +299,12 @@ sans arrêter l'application : la base, les écrans et les API suivent.
 (`editable`), lecture seule (`read-only`), écrit une fois pour toutes
 (`write-once`). *(D364)*
 
+**Mode public** (`visibility:`) — La page de présentation de
+l'application, construite par défaut et diffusable sans aucun droit ;
+`visibility: public | private | promotional` au projet — la
+documentation en mode public, rien, ou la page de présentation seule.
+*(D1150–D1151)*
+
 **Application** (`application`) — Une application décrit le cadre d'exécution d'une instance. Elle fournit une solution à une question de gestion et/ou d'organisation d'entreprise (ERP, Gestion de stock, Gestion bancaire, ...).
 
 **Module** (`module`, `module.yml`) — Une part de l'application : ses
@@ -266,6 +325,19 @@ déclencheur possible d'un changement d'état. *(D148)*
 lecture, les cinq phases de contrôle, la comparaison, la bascule ; sa
 ligne d'exécution garde l'état, les compteurs et les indicateurs.
 *(D667, D1033, D1054)*
+
+**Parcours guidé** — Le tutoriel généré : module par module, écran par
+écran dans l'ordre du menu, depuis les descriptions et les aides.
+*(documentation.md §19, D258)*
+
+**Persona** — Un lecteur type, un par groupe d'utilisateurs, dont les
+scénarios sont des fonctionnalités de bout en bout, appuyés sur les
+wizards. *(D1127/D1130)*
+
+**Planche** — Le mode opératoire imprimable : une page A4 paysage par
+procédure — le titre, les étapes numérotées, une capture par étape, le
+contrôle entouré ; la forme imprimée d'un scénario, dessinée step par
+step depuis le wizard. *(D1129)*
 
 **Provenance** — La carte d'identité d'origine d'une donnée reprise :
 de quel système, quand, sous quelle clé. Un fait qui ne bouge plus.
@@ -290,6 +362,12 @@ frappe (`similarity[0.8]`), par plage (`range`) — ou pas du tout
 partagée par plusieurs champs : on y tape une fois, elle cherche
 partout où elle est branchée. *Ex. : `searchable: mutualizable[who]`
 sur le nom et le prénom.* *(D367)*
+
+**Réglage** (`settings.yml`, `settings:`) — Toute valeur ou tout statut
+par défaut de Syncytium se surcharge dans les settings — les types et
+leurs défauts, `normalize:`, `reset:`, les profils, `history:`… — en
+cascade : la version, le module, l'entité, le champ ; le plus proche
+l'emporte. *(D359/D1175)*
 
 **Référence** — Lien vers un
 enregistrement d'une autre entité. Celui qui pointe porte le champ ;
@@ -391,11 +469,12 @@ Le fait de déposer une version, nous considérons que la version est publiée. 
 Dans la configuration, chaque version fera l'objet d'une entrée et cette entrée est un sous-dossier de l'application. Chaque sous-dossier reprend alors tous les éléments nécessaires au bon fonctionnement de l'application.
 *Ex. : `2.1.0.14.yml` → `2.1.0.14/`.* *(D322)*
 
-**Visages de l'entité** (`title`, `image`) — La manière dont un
-enregistrement se présente : son libellé et son image, servis partout —
-de la liste déroulante au widget.
-*Ex. : `title: "{code} — {company_name}"` ; `image: logo`.*
-*(D397/D386/D465)*
+**Visages de l'entité** (`label`, `image`) — La manière dont un
+enregistrement se présente : son visage texte (le gabarit `label:`) et
+son image, servis partout — de la liste déroulante au widget ; `title:`
+est, lui, le nom d'usage de l'entité par langue (D1120).
+*Ex. : `label: "{code} — {company_name}"` ; `image: logo`.*
+*(D397/D386/D465, D803, D1120)*
 
 **Vue dérivée** (`association with … if …`) — Une liste calculée par
 une condition, jamais stockée : on la lit ; pour la changer, on change

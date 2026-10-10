@@ -448,7 +448,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   rétention paramétrable et anonymisation optionnelle (D41).
 - **Le registre des traitements auto-documenté** (D698) : généré du
   modèle — les champs `rgpd:`, leur confidentialité, leur rétention,
-  leurs connecteurs sortants.
+  leurs connecteurs sortants ; une entité sans aucun marquage est
+  signalée à la relecture par la complétude de la documentation, jamais
+  qualifiée par le moteur — il compte, il ne devine pas (D1177).
 - **Le détail des migrations** (D1065) : les anomalies d'un passage
   portent des valeurs de la source ; leur fichier est supprimé entier
   à l'échéance de sa rétention (le `cleanup.yml` de l'environnement,

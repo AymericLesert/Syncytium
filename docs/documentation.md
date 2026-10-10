@@ -1501,7 +1501,10 @@ derniers passages).
 **le registre des traitements** — les entités et les champs marqués
 `rgpd:`, leur finalité (la description), leur confidentialité, leur
 rétention et l'anonymisation à l'échéance (D696/D698), les connecteurs
-sortants qui les emportent (les mails, les webhooks) ; **les droits des
+sortants qui les emportent (les mails, les webhooks) — une entité sans
+aucun champ marqué écrit « rien à inscrire », et la complétude (§20) la
+signale à la relecture sans qualifier ses champs : elle compte, elle ne
+devine pas (D1177) ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche
@@ -1529,7 +1532,8 @@ Le rapport du concepteur, à la façon de la couverture (D861/D1060) :
 **ce qui n'est pas décrit** — les entités sans `description:`, les
 champs sans `hint:` ni `description:`, les énumérés sans libellé, les
 opérations et les hooks sans description ni md, les surfaces sans
-`description:` (le masque vide) ; un taux par module et par version ;
+`description:` (le masque vide), l'entité sans aucun marquage `rgpd:`
+— signalée, jamais qualifiée (D1177) ; un taux par module et par version ;
 dans la documentation technique, et à l'ingestion comme avertissement.
 **Un défaut du socle n'est pas un manque** (D1173) : `history:` tu, les
 droits tus, un `label:` absent (le nom nu, D124) — la documentation dit

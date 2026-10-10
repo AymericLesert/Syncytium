@@ -1246,6 +1246,17 @@ visibility: promotional          # public | private | promotional (D1151)
 home: ~{home.md}                 # la page d'accueil, globale — hors des versions (D1156)
 author: Aymeric Lesert           # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
+glossary:                        # le glossaire des termes du métier (D1180) — la clé est mienne
+  tiers: Toute personne ou société en relation avec l'entreprise — client, fournisseur, prospect.
+```
+
+**Au module** — le quatrième lieu (D1180) : les termes propres au
+module, par la clé `documentation:` de son fichier :
+
+```yaml
+# modules/stock/documentation.yml (en proposition)
+glossary:
+  lot: Une quantité d'un article reçue ou fabriquée en une fois, suivie sous un même numéro.
 ```
 
 **À la version** — ce qui est versionné avec la configuration (D1156) :
@@ -1454,7 +1465,15 @@ D124) ou leurs libellés (lisibles, par langue).
 
 ## 15. Le dictionnaire des données *(en proposition)*
 
-**Le glossaire des types, d'abord** (D1179 — « les types définis dans
+**Deux glossaires ouvrent le dictionnaire** (D1180 — « nous distinguons
+le glossaire des types, et le glossaire des termes ») : **le glossaire
+des termes**, écrit par le concepteur — la liste des termes du métier
+et leur définition, dans `documentation.yml` du projet (pour toute
+l'application) ou du module (pour les siens) : la clé `glossary:` (§12
+— mes lectures : un terme = une clé, sa définition par langue en
+Markdown ; le module ajoute aux termes du projet, le même terme deux
+fois = une surcharge signalée) ; **le glossaire des types**, calculé
+(D1179 — « les types définis dans
 une application [doivent être] disponibles dans un glossaire de la
 documentation. Un glossaire doit faciliter le traitement sémantique du
 document et l'utilisation de vocabulaire lié au métier ») : chaque type

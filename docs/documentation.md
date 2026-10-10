@@ -1722,9 +1722,9 @@ pour chaque groupe, les squelettes des scénarios que ses droits
 permettent — créer, consulter, modifier, supprimer chaque entité
 accessible, déclencher chaque opération, mener chaque cycle d'états ;
 **ce que le concepteur complète** : le nom et le rôle des personas, les
-scénarios métier (les fichiers complémentaires — D1122). *À trancher* :
-où se déclarent les personas — une `description:` du groupe suffit, ou
-un bloc dédié ; la part générée et la part écrite.
+scénarios métier (les fichiers complémentaires — D1122). *Où se
+déclarent les personas, la part générée et la part écrite : la
+proposition de l'étape 5, plus bas.*
 
 **Le persona s'appuie sur les wizards** (D1130 — « ce que nous avons
 déjà décrit dans la constitution des GUI, les wizards »). Le wizard
@@ -1746,6 +1746,73 @@ supprimer, mener un cycle) complètent ceux que les wizards portent ; et
 **la planche d'un wizard** (§24) se dessine step par step. Le wizard est
 ainsi la forme vécue du scénario, la planche sa forme imprimée, le
 parcours guidé (§19) sa forme lue.
+
+**La proposition de l'étape 5** *(le rang 1 — en proposition, à
+arbitrer point par point)* :
+
+1. **Où se déclare le persona** — **sur le groupe**, dans `groups.yml`
+   : la clé `persona:` (nom mien) porte le prénom fictif, le rôle, ce
+   qu'il vient faire — des textes par langue (D1101) ; le persona est le
+   visage documentaire du groupe, ses droits sont ceux du groupe, rien
+   ne se déclare deux fois ; un groupe sans `persona:` a un persona
+   généré, nommé par le groupe (« un membre de `commercial` ») — la
+   complétude le compte (un texte pour le lecteur manque, D1182).
+   *L'autre voie* : un bloc `personas:` dans `documentation.yml` de la
+   version — écartée en proposition, le persona n'ayant de sens que par
+   son groupe.
+
+   ```yaml
+   # groups.yml (en proposition)
+   commercial:
+     degree: user
+     persona:
+       name: Camille
+       role: Commerciale sédentaire
+       description: Elle saisit les commandes des clients et suit leurs livraisons.
+   ```
+
+2. **La part générée** — pour chaque persona : **le tour de ses écrans**
+   (D1187 — ses modules, ses entrées de menu dans l'ordre, chaque écran
+   avec son masque), le squelette ; **un scénario par wizard** qu'il peut
+   atteindre (D1130 — le `title:` du wizard est le but, ses steps les
+   étapes, ses opérations les actes, chaque step avec l'image de son
+   écran) ; les actes de base que ses droits permettent — créer,
+   consulter, modifier, supprimer, mener un cycle d'états — ne font pas
+   des scénarios à part : ils sont dans le tour, à l'écran où ils se
+   jouent.
+
+3. **La part écrite** — **les scénarios métier** du concepteur, en
+   Markdown par langue, versionnés (D1156) : le but, la fréquence, les
+   étapes — chacune citant l'écran ou l'opération par son adresse
+   (D566 : `commande[saisie]`, `commande.valider`) pour que Syncytium y
+   insère l'image de l'écran et le lien —, les étapes hors de
+   l'application, les encarts (« ne pas… ») ; déclarés dans
+   `documentation.yml` de la version, par persona :
+
+   ```yaml
+   # versions/production/v1.0.0.0/documentation.yml (en proposition)
+   scenarios:
+     commercial:
+       - ~{documentation/scenarios/commercial/.*\.md}
+   ```
+
+4. **Les trois formes d'un scénario** (D1187/D1188) : **lue** — le texte
+   du chapitre 4 de §6 ; **vécue** — le wizard, quand il existe ;
+   **imprimée** — la planche (§24), une à trois pages, synthétique, un
+   enchaînement d'écrans et d'actions, générée pour tout scénario dont
+   les étapes citent des écrans ; et **le tour complet à la demande**
+   de l'utilisateur.
+
+5. **Le plan du chapitre 4** — par persona, dans l'ordre des groupes :
+   qui il est (le `persona:`), ce qu'il voit (ses modules, ses entrées
+   de menu — ses droits en clair, « mes droits » pour lui), ses
+   scénarios — ceux des wizards, puis ceux du concepteur — chacun avec
+   le renvoi à sa planche ; les scénarios qui traversent les modules s'y
+   lisent de bout en bout (D1185).
+
+6. **La déclinaison** : l'entrepôt (cas 5) et ses quatre groupes — le
+   commercial, le logisticien, le bureau d'études, la direction —, une
+   planche ; à écrire après l'arbitrage, dans `usecases/05_entrepot.md`.
 
 ## 23. La maintenance, les contrôles et la supervision (D1128) *(en proposition)*
 

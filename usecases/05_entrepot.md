@@ -2172,6 +2172,146 @@ mot pour mot :
 > Pour des questions de performance, nous pouvons fournir des
 > informations sur la manière dont la lecture des données d'origine
 > est assurée :
+>
+> - uniquement les enregistrements nouveaux depuis la dernière
+>   lecture ;
+> - relecture des enregistrements selon une plage de dates (en
+>   général) ou de valeurs (cas de numéros de facture, …) ;
+> - relecture de la totalité des enregistrements.
+>
+> append_only est trop restrictif. Syncytium procède à la relecture
+> de la totalité. Le paramètre "Coverage" précise :
+>
+> - la clé de la partition (peut être différente de identity) :
+>   - selon la clé de la partition, Syncytium va garder une
+>     empreinte par clé — cette empreinte peut être utilisée pour
+>     identifier une différence ;
+>   - Syncytium va conserver la dernière valeur parcourue pour être
+>     en mesure de reprendre depuis la dernière lecture ;
+> - une plage de valeurs de clé :
+>   - par exemple, si une date décrit la couverture, une période
+>     pourra être indiquée (les 3 derniers mois, la dernière année
+>     ou la dernière semaine) ;
+>   - par exemple, si un numéro de documents, de factures ou de
+>     commande sont précisés, une plage de valeur pourra être
+>     indiquée (reprendre les 15 dernières valeurs, les 10.000
+>     derniers enregistrements, …).
+>
+> Cette comparaison est faite par partition et décompose l'analyse
+> en blocs :
+>
+> - un bloc d'anomalies — identification des lignes d'origine
+>   n'ayant pas pu être converties ;
+> - un bloc de création — identification des clés nouvelles ;
+> - un bloc de modification — identification des clés existantes
+>   avec le contenu d'un des champs différent ;
+> - un bloc de données inchangées — rien à faire ;
+> - un bloc de suppression — identification des clés existantes
+>   dans la destination et n'existant pas dans l'origine.
+>
+> Pour chaque bloc et pour chaque clé, le nombre d'enregistrements
+> par entité en synthèse apporte une visibilité sur l'avancement de
+> la migration.
+>
+> Le traitement de cette comparaison va dépendre de la
+> configuration des entités de destination :
+>
+> - la présence d'un historique indique que les écarts de valeurs
+>   viennent compléter les valeurs existantes et sont stockés dans
+>   l'historique ;
+> - l'absence d'un historique indique que les écarts de valeurs
+>   viennent remplacer les valeurs existantes.
+
+**La lecture — ce que D878 fait aux quatre pièces et au mot :**
+
+- **la comparaison se fait sur le converti** (D672 tient : la clé
+  fonctionnelle, l'enregistrement reconstruit contre la cible),
+  **par partition et en cinq blocs** — anomalies, création,
+  modification, inchangé, suppression ; le bloc de suppression est
+  mon « disparu », le bloc d'anomalies rejoint les rejets (D177) ;
+- **`append_only` est écarté** — trop restrictif — et avec lui
+  toute qualification de l'entité source (la pièce 3 et le mot) :
+  **le traitement des écarts se lit sur la destination** —
+  `history:` présent, les écarts complètent (l'historique les
+  garde, D168–D174) ; absent, ils remplacent ; **l'analyse des
+  écarts = l'historique de l'entité cible + la synthèse des blocs**
+  — la pièce 4 prend cette forme : les décomptes par bloc, par
+  clé de partition, par entité, en données du module `migration`
+  (D666/D668) ;
+- **`coverage:` sur l'entité source remplace la pièce 1 et la
+  pièce 2** : la clé de partition (distincte de l'`identity:`
+  possible) porte **une empreinte par valeur de clé** — le condensé
+  agrégé de la partition qui signale une différence — et **la
+  dernière valeur parcourue** — la reprise depuis la dernière
+  lecture, le mode « nouveaux seulement » ; **la plage** dit ce qui
+  se relit systématiquement — une période sur une date, un nombre
+  de valeurs ou d'enregistrements sur un numéro ; **le défaut, sans
+  `coverage:` : la relecture de la totalité** ; l'empreinte par
+  ligne dans la provenance (D178) n'est plus nécessaire ;
+- **les mots voisins** : `filter:` (D663) = le périmètre déclaré,
+  jamais lu ; `coverage:` = la stratégie de lecture dans le
+  périmètre ; et le `coverage:` de la lecture n'est pas le taux de
+  couverture de D862 (la même famille, deux objets — noté) ;
+- **la forme, arrêtée par l'auteur (D879)** : « pour coverage, ne
+  pas oublier que key peut faire référence à plusieurs champs. Et,
+  range se reporte sur chaque champ » — **`coverage:` est une carte
+  des champs de partition**, chaque champ avec **`value:`** (la
+  nature de la partition — `month`, les natures du crochet de
+  D382 ; absente, la valeur brute) et **`range:`** (la plage relue —
+  une durée de D476 sur une date, un nombre sur un numéro) ; la
+  clé de partition composée = plusieurs champs, chacun sa plage :
+
+```yaml
+# source/MVTSTO.yml — la lecture par partition : le mois du mouvement
+coverage:
+  MVCJMVT:
+    value: month              # la partition au mois
+    range: 3m                 # les trois derniers mois relus
+
+# source/ECOMCLI.yml — la lecture par plage de numéros
+coverage:
+  ECKTNUMERO:
+    range: 10000              # les dix mille derniers
+```
+
+  *la nuance de D878 sur un numéro — les dernières valeurs de la
+  clé ou les derniers enregistrements — à préciser sur la table
+  (une commande, une valeur ; ses lignes, plusieurs
+  enregistrements).*
+
+- **la forme courte, au crochet** (D880 — « je propose une forme
+  simplifiée, peut-être plus lisible ») : **`coverage:
+  MVCJMVT[month - 3]`**, **`coverage: ECKTNUMERO[10000]`** — le
+  crochet est le paramètre en ligne (D372/D381 : `text[3..10]`,
+  `date[yyyy-mm]`) : la nature puis la plage en retrait (`month -
+  3` = les trois derniers mois, `week - 1` = la dernière semaine),
+  ou la plage seule sur un numéro (`[10000]` = les dix mille
+  derniers) ; plusieurs champs = la liste (`coverage: [MVITSOC,
+  MVCJMVT[month - 3]]`) ; la carte de D879 (`value:`/`range:`)
+  demeure la forme riche, équivalente — le patron courte/riche du
+  registre (D356/D441).
+
+- **`reset_coverage`, l'opération qui force la relecture** (D881) :
+  « je propose de définir une opération
+  `reset_coverage(nom du module, nom de l'entité)` qui peut être
+  exécutée régulièrement. En réinitialisant le coverage, cela
+  forcera Syncytium à tout relire. Par exemple, nous pouvons du
+  lundi au vendredi faire un delta, et le dimanche une relecture
+  complète en planifiant un reset_coverage dans la nuit de samedi à
+  dimanche » — l'opération du socle efface l'état de couverture
+  d'une entité (la dernière valeur parcourue, les empreintes par
+  partition) : le `migrate` suivant relit la totalité (le défaut de
+  D878) ; planifiable par `every:` (D434 — `weekly[saturday at
+  23:00]`), déclenchable comme toute opération (D428/D667) ; **le
+  rythme du cas** : le delta du lundi au vendredi, la relecture
+  complète le dimanche — c'est elle qui rattrape les retouches
+  anciennes des outils maison (D864) hors de la plage ; la
+  vingtième opération du socle (après `migrate` D667 et
+  `anonymize` D697), au degré `administrator` (D701 — en
+  proposition).
+
+Les quatre pièces et le mot sont soldés ; M1 et M2 sont clos par
+D878, la forme par D879–D880, le rythme par D881.
 
 ## La documentation générée — les personas : pas ici (D1207)
 

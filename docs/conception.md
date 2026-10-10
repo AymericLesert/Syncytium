@@ -24087,7 +24087,11 @@ avant la synthèse Q16).
   et §9 aux libellés, les compléments (« mes droits », les
   notifications, les documents produits, la recherche), la colonne 1 de
   la matrice dans les artefacts, les déclinaisons restantes du rang 1 ;
-  puis l'inventaire des défauts du socle (D1175).
+  puis l'inventaire des défauts du socle (D1175). Après la pause : « As-tu
+  mis à jour le glossaire ? » — en partie (D1197, D1200) ; les entrées
+  « Scénario d'utilisation » et « Gabarit d'import » ajoutées. **À la
+  reprise, l'auteur demande les quatre lectures de §15 décrites plus
+  précisément, avec des exemples.**
 - **2026-10-09 — REPRISE : LA MÉTHODE (D1158, 1158 décisions).** « Nous
   n'allons pas l'alléger… La documentation est portée dans tous les
   composants. Chaque type de composant définira sa déclinaison dans les

@@ -196,6 +196,14 @@ vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ 
 **Filigrane** — La marque de fond de page d'une édition de beta,
 « Beta vx.y.z.w » par défaut, personnalisable ou absente. *(D1145)*
 
+**Gabarit d'import** — Le fichier CSV attendu par l'écran d'import,
+généré par la documentation pour chaque entité importable, par langue :
+les en-têtes en libellés, pour chaque colonne le type en clair, le
+masque, l'obligation, les valeurs permises, la valeur par défaut, la
+clé de rapprochement ; une ligne d'exemple faite des `placeholder:` ou
+des valeurs par défaut ; l'export miroir en est la mise en page.
+*(D234–D237, D1211)*
+
 **Glossaire (de l'application)** — Deux glossaires ouvrent le
 dictionnaire des données : **celui des termes**, écrit par le concepteur
 (`glossary:` dans `documentation.yml` du projet ou du module — les
@@ -356,6 +364,17 @@ d'actions, dessinées step par step depuis le wizard. *(D1129, D1188)*
 **Provenance** — La carte d'identité d'origine d'une donnée reprise :
 de quel système, quand, sous quelle clé. Un fait qui ne bouge plus.
 *(D178)*
+
+**Scénario d'utilisation** (`scenarios:`) — Une fonctionnalité de bout
+en bout vécue par un persona : un but, une fréquence, des étapes,
+chacune reliée à un écran ou à une opération par un lien vers son
+adresse, paramétrée au besoin (filtrer une liste, affecter des valeurs)
+; généré depuis un wizard, ou écrit par le concepteur dans
+`documentation.yml` de la version — un nom, un `title:` et une
+`description:` qui référence son Markdown, par langue. Trois formes :
+lue (le chapitre), vécue (le wizard), imprimée (la planche).
+*Ex. : `scenarios: { foyer: { virement: { title: Faire un virement,
+description: ~{…/virement.md} } } }`.* *(D1127/D1130, D1201–D1205)*
 
 **Rétention des fichiers** (`cleanup.yml`) — Les règles qui
 suppriment, dans un dossier, les fichiers d'un pattern au-delà d'une

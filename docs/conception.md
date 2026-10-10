@@ -24015,7 +24015,15 @@ avant la synthèse Q16).
   hors menu non décrite dans la fonctionnelle, les permis à l'entité ou
   au champ (D1195) ; les opérations — les transformations et les
   conditions de déclenchement (D1196) — **§16 acquis, l'étape 4 close** ;
-  l'étape 5, §22 les personas, s'ouvre.
+  l'étape 5, §22 les personas, s'ouvre : ma proposition en six points
+  écrite (d754231), présentée. L'état d'avancement donné à l'auteur ;
+  §26 rafraîchi, les en-têtes de §19, §21, §24 alignés. **PAUSE — 1196
+  décisions, tout committé et poussé, aucune PR ouverte.** La reprise :
+  **clore d'abord les sujets non confirmés** (l'accès par la clé nommée
+  D1171, « la page » du survol D1184, les liens calculés D1186, la
+  complétude du champ sans aide D1191), puis §22 point par point, puis
+  §14, §15, §5/§9, les compléments, la colonne 1 de la matrice, les
+  déclinaisons.
 - **2026-10-09 — REPRISE : LA MÉTHODE (D1158, 1158 décisions).** « Nous
   n'allons pas l'alléger… La documentation est portée dans tous les
   composants. Chaque type de composant définira sa déclinaison dans les

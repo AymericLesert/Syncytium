@@ -1633,7 +1633,7 @@ navigateur (D918), le chiffrement des secrets (D902/D944). Pour
 l'administrateur, le DPO et l'usager — ce dernier sous l'angle de ses
 seules données.
 
-## 19. Le parcours guidé *(en proposition)*
+## 19. Le parcours guidé *(fondu dans §22 — D1187)*
 
 D258 fait de la `description:` « la matière du tutoriel » : la
 documentation **génère un tutoriel**, module par module, écran par
@@ -1667,7 +1667,7 @@ complétude ne relève que ce qui devrait être écrit et ne l'est pas —
 tel quel, et la complétude le compte (D1182).
 *À trancher* : un seuil qui refuse la version, ou l'avertissement seul.
 
-## 21. La diffusion *(le rang 0, étape 6 — en proposition)*
+## 21. La diffusion *(le rang 0, étape 6 — acquis, D1167–D1168)*
 
 Comment la documentation parvient à ses lecteurs — **sept canaux**,
 chacun déclaré ou implicite, mis en regard des lecteurs de §3 :
@@ -1698,7 +1698,7 @@ par sa clé anglaise (D335) : `functional`, `information`, `developer`,
 celle du poste (D1114) ; le résultat dans `output.directory`, au format
 de `output.formats`.
 
-## 22. Les scénarios d'utilisation par des personas (D1127) *(en proposition)*
+## 22. Les scénarios d'utilisation par des personas (D1127) *(le rang 1, étape 5 — en proposition, en cours)*
 
 **Le plan de test est écarté** — les tests relèvent du développement
 (D869) — **et remplacé par des scénarios d'utilisation de l'application
@@ -1864,7 +1864,7 @@ qu'avec l'instance — au dépôt, elle se montre vide, avec son cadre.
 périodicité de la synthèse ; les seuils (la calibration de
 telemetry.md).
 
-## 24. Les modes opératoires imprimables (D1129) *(en proposition)*
+## 24. Les modes opératoires imprimables (D1129) *(fondus dans §22 — D1188 ; la planche elle-même, en proposition)*
 
 **« Des planches imprimables en A4, sur une page, affichables sur un
 bureau, dans un classeur… tous mes utilisateurs n'exploitent pas
@@ -2006,45 +2006,49 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Les points ouverts
+## 26. Les points ouverts *(rafraîchis à la pause du 10/10/2026)*
 
-1. les lecteurs (§3) et la part de chacun ;
-2. le plan de la documentation technique (§4) et de la fonctionnelle
-   (§6) ;
-3. la représentation graphique (§5) : les trois niveaux, la
-   correspondance, la forme (Mermaid, PlantUML) ; le `title:` au
-   singulier ;
-4. les lectures du masque d'explication (§7) ;
-5. les indicateurs de la troisième source et leur partage (§8) ;
-6. la forme des écarts calculés (§9) ;
-7. la documentation de l'API — le principe ici, la forme au domaine 7
+*Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
+plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
+les formats et la commande (§11, D1165–D1168), `documentation.yml`
+(§12, D1164), la méthode (§13, D1158–D1159), la documentation du socle
+dans celle de l'application (D645 → le chapitre 2 de §6, D1189), les
+modes opératoires comme chapitre (§24 → §22, D1188), le parcours guidé
+comme chapitre (§19 → §22, D1187).*
+
+1. **mes lectures à confirmer — la reprise commence par là** : la forme
+   de l'accès par la clé d'une identité nommée (`factures[numero: v]`,
+   D1171) ; ce qu'est « la page » du survol et la forme du mot cherché
+   (D1184) ; les liens calculés depuis la configuration et l'adresse
+   de la page (D1186) ; la complétude du champ sans `hint:` ni
+   `description:` — comptée ou non, « son nom suffit à lui-même »
+   (D1191) ;
+2. les personas (§22) : la proposition de l'étape 5 en six points —
+   `persona:` sur le groupe, la part générée, la part écrite, les trois
+   formes, le plan du chapitre, la déclinaison sur l'entrepôt ;
+3. le reste du rang 1 : le gabarit d'import (§14) ; le dictionnaire en
+   annexe (§15 — par version ou par module) ; §5 et §9 aux libellés ;
+   les compléments (« mes droits », les notifications, les documents
+   produits, la recherche) ; la colonne 1 de la matrice dans les
+   artefacts ; les déclinaisons sur le véhicule, la banque, l'entrepôt ;
+4. l'inventaire des défauts du socle (D1175) à écrire dans
+   configuration.md ;
+5. le plan de la documentation technique (§4) — le rang 2 ;
+6. la représentation graphique (§5) : la forme (Mermaid, PlantUML) au
+   domaine 7 ; le `title:` au singulier ;
+7. les indicateurs de la troisième source et leur partage (§8) ;
+8. la forme des écarts calculés (§9) ;
+9. la documentation de l'API — le principe ici, la forme au domaine 7
    (§10) ;
-8. les deux moments et le nom de la commande (§11) ;
-9. les propriétés de `documentation.yml` (§12) ;
-10. la méthode : la documentation attendue du tiny, écrite à la main
-    (§13) ;
-11. la documentation de référence de Syncytium dans celle de
-    l'application (D645) — ma lecture après l'exemple de référence :
-    **la documentation du socle**, ce qui est commun à toutes les
-    applications (l'écran, l'import, le cycle de vie d'une donnée),
-    en tête des fonctionnalités (§6) ;
-12. les douze pièces (§14–§25) : chacune en proposition, à arbitrer
-    comme les sections §1–§13 ;
-13. les personas (§22) : où ils se déclarent, la part générée et la
-    part écrite ; les wizards comme scénarios déjà écrits (D1130 — mes
-    lectures à confirmer) ;
-14. la maintenance, les contrôles et la supervision (§23) : la part
-    de chaque lecteur, la périodicité, les seuils ; les chapitres de
-    l'instance montrés vides au dépôt (le tiny, frottement 9) ;
-15. les modes opératoires (§24) : le gabarit, la planche dans
-    l'application, sa régénération à la version ;
-16. le contexte (D1131, D1133–D1135) : la formation comme usage ; la
+10. les pièces encore en proposition, à arbitrer à leur rang : le
+    guide d'exploitation (§17), la conformité (§18), la complétude et
+    son seuil (§20), la maintenance (§23 — la part de chaque lecteur,
+    la périodicité, les seuils), l'assistance (§25 — le nom du module,
+    actif par défaut, les réponses retenues, la question anonyme, la
+    F.A.Q. au dépôt) ;
+11. le contexte (D1131, D1133–D1135) : la formation comme usage ; la
     réglementation élargie à la sécurité ; les compléments par
-    documentation — la huitième (le projet et le support), le D.A.T. et
-    le guide d'exploitation, l'ordre 0–9 sont actés ;
-17. l'assistance (§25) : le nom du module, actif par défaut, une ou
-    plusieurs réponses retenues, la question anonyme, la F.A.Q. au
-    dépôt ;
-18. l'IA pour rédiger la documentation lisible (§13, D1169) : les six
+    documentation ;
+12. l'IA pour rédiger la documentation lisible (§13, D1169) : les six
     garde-fous, et où elle intervient — à débattre quand le rang 1
-    l'appellera (le parcours guidé, les scénarios).
+    l'appellera (les scénarios).

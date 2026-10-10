@@ -123,8 +123,8 @@ frottement de l'écriture est relevé à la fin.)*
 >
 > | Champ | Libellé | Type | Obligatoire | Aide |
 > |---|---|---|---|---|
-> | `nom` | nom | un texte de 40 caractères au plus | identité | — |
-> | `prenom` | prenom | un texte de 40 caractères au plus | identité | — |
+> | `nom` | nom | un texte de 40 caractères au plus | oui (identité) | — |
+> | `prenom` | prenom | un texte de 40 caractères au plus | oui (identité) | — |
 > | `age` | age | un entier | non | — |
 > | `fonction` | fonction | un texte de 60 caractères au plus | non | — |
 >
@@ -169,8 +169,8 @@ frottement de l'écriture est relevé à la fin.)*
 >
 > | Colonne | Type | Clé | Obligatoire |
 > |---|---|---|---|
-> | `nom` | texte (40) | oui | identité |
-> | `prenom` | texte (40) | oui | identité |
+> | `nom` | texte (40) | oui | oui (identité) |
+> | `prenom` | texte (40) | oui | oui (identité) |
 > | `age` | entier | | non |
 > | `fonction` | texte (60) | | non |
 >
@@ -268,10 +268,13 @@ frottement de l'écriture est relevé à la fin.)*
 *(chaque frottement = une décision à prendre ; mes lectures en
 proposition)*
 
-1. **L'identité rend-elle les champs obligatoires ?** `identity: [nom,
-   prenom]` sans `required:` — ma lecture : oui, implicitement (une
-   identité ne peut être nulle, D1035) ; la table dit « identité »
-   plutôt que « obligatoire ». À trancher.
+1. **L'identité rend-elle les champs obligatoires ?** — *soldé*
+   (D1170–D1171) : oui, « cela découle de la définition » ; la table dit
+   « oui (identité) ». Une entité peut porter plusieurs identités,
+   nommées (`identities:`) : la première est l'identité de naissance,
+   obligatoire ; les suivantes sont acquises — un compteur attribué à
+   la validation — et leurs champs ne sont pas obligatoires. Le tiny
+   n'en a qu'une.
 2. **L'historique par défaut** : `history:` non déclaré — D168 le dit
    inactif par défaut ; la documentation écrit « pas d'historique ».
    Lecture à confirmer.

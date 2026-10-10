@@ -289,10 +289,11 @@ reprise écrite de bout en bout.**
 ## La documentation générée — le chapitre des personas (le rang 1, étape 5 — D1200–D1209)
 
 *(la déclinaison de §22 de documentation.md sur la banque, le second
-cas choisi par D1207 — en proposition le 11/10/2026, sur le patron du
-véhicule (D1209) ; ce que la banque montre en plus : **les trois
-langues** sur `title:` et `description:` (D1202) et **les opérations à
-formulaire d'appel** ; le prénom, les rôles, les scénarios sont miens)*
+cas choisi par D1207 — écrite le 11/10/2026 sur le patron du véhicule
+(D1209), **validée par D1210** ; ce que la banque montre en plus : **les
+trois langues** sur `title:` et `description:` (D1202) et **les
+opérations à formulaire d'appel** ; le prénom, les rôles, les scénarios
+sont miens, acquis tels qu'écrits)*
 
 **Ce que la configuration ajoute.** Le mono-poste déclare son groupe
 (D1208) : un `groups.yml` à la version, le groupe `foyer`, son persona
@@ -454,18 +455,20 @@ avant le scellé, la liste du compte d'arrivée avec l'entrée et le solde
 entourés ; l'encart ; le cartouche et le filigrane « Beta v1.0.0.0 »
 (D1145).
 
-**Ce que la déclinaison relève** (les frottements, à arbitrer) :
+**Ce que la déclinaison relève** (les frottements — *arbitrés par
+D1210*) :
 
 1. **Le persona par langue** : `name:` est invariant — un prénom ne se
    traduit pas —, `role:` et `description:` sont par langue (D1101) ;
    un rôle qui manque dans une langue tombe sur la langue par défaut et
-   la complétude le signale.
+   la complétude le signale — « ok ».
 2. **Le scénario par langue** : `title:` par langue, `description:` un
-   fichier par langue, nommés `<scénario>.<langue>.md` — la forme du nom
-   est mienne ; un fichier qui manque dans une langue tombe sur celui
-   de la langue par défaut (D1101), la complétude le signale (§20) ;
-   l'édition anglaise d'un scénario non traduit se lit donc en
-   français, marquée.
+   fichier par langue, nommés ici `<scénario>.<langue>.md` — « le
+   nommage me convient (uniquement pour le cas d'usage) » : ailleurs, un
+   sous-dossier par langue ou le nommage du concepteur ; **un fichier
+   qui manque dans une langue est une erreur d'ingestion, pas de
+   bascule sur la langue par défaut** (D1210 — ma lecture de la bascule
+   écartée).
 3. **L'opération à formulaire d'appel** (D775) : son adresse
    (`banque.ecriture.virer`) rend, sur la planche, le formulaire
    d'appel comme un écran — le bouton d'abord, le formulaire ensuite,

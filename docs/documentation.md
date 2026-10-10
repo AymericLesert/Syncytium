@@ -1718,7 +1718,7 @@ par sa clé anglaise (D335) : `functional`, `information`, `developer`,
 celle du poste (D1114) ; le résultat dans `output.directory`, au format
 de `output.formats`.
 
-## 22. Les scénarios d'utilisation par des personas (D1127) *(le rang 1, étape 5 — en proposition, en cours)*
+## 22. Les scénarios d'utilisation par des personas (D1127) *(le rang 1, étape 5 — acquis, D1200–D1210)*
 
 **Le plan de test est écarté** — les tests relèvent du développement
 (D869) — **et remplacé par des scénarios d'utilisation de l'application
@@ -1813,7 +1813,11 @@ arbitrer point par point)* :
    groupe ; **chaque scénario a un nom** (sa clé), **un `title:`** (le
    but) **et une `description:`** qui référence son Markdown ; **le
    multilingue porte sur `title:` et `description:`** (par langue,
-   D1101 — un fichier par langue). **Le lien d'une étape peut porter
+   D1101 — un fichier par langue ; **un fichier qui manque dans une
+   langue de la version est une erreur d'ingestion, sans bascule sur
+   la langue par défaut** ; le nom des fichiers est libre — un
+   sous-dossier par langue, ou `<scénario>.<langue>.md` comme dans les
+   cas d'usage, D1210). **Le lien d'une étape peut porter
    des paramètres** liés au contexte du scénario (D1203) : filtrer une
    liste, affecter des valeurs sur un écran — la page et la planche
    montrent l'écran dans cet état (ma forme : `?champ=valeur&…` à la
@@ -1900,12 +1904,16 @@ arbitrer point par point)* :
    d'exploitation (§17), la fonctionnelle ne leur donne que ce qu'ils
    font comme utilisateurs.
 
-6. **La déclinaison** — **sur le véhicule (cas 3) et la banque (cas 4)**
-   (D1207 — « l'entrepôt n'est pas le plus adapté pour démontrer
-   l'intérêt de la documentation sur les scenarii » ; la déclinaison
-   écrite sur l'entrepôt le 11/10 est écartée) : le véhicule pour les
-   états, les opérations et les wizards ; la banque pour les trois
-   langues et les opérations ; une planche. Les deux cas sont des
+6. **La déclinaison** — *acquise (D1209–D1210)* — **sur le véhicule
+   (cas 3) et la banque (cas 4)** (D1207 — « l'entrepôt n'est pas le
+   plus adapté pour démontrer l'intérêt de la documentation sur les
+   scenarii » ; la déclinaison écrite sur l'entrepôt le 11/10 est
+   écartée) : le véhicule — le groupe `foyer`, Paul, quatre scénarios,
+   la planche de l'achat à crédit sous filigrane beta
+   ([usecases/03_vehicule.md](../usecases/03_vehicule.md)) ; la banque —
+   Léa par langue, quatre scénarios en trois langues, la planche du
+   virement ([usecases/04_banque.md](../usecases/04_banque.md)) ; dix
+   frottements arbitrés. Les deux cas sont des
    mono-postes (`authentication: none`, D759) : **ils déclarent leur
    groupe dans un `groups.yml` minimal pour y porter le persona** —
    « en utilisant un group, nous rentrons dans le standard » (D1208 ;

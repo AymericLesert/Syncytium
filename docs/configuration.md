@@ -517,7 +517,18 @@ history: true                        # l'historisation par défaut pour toute l'
   (l'instance), `settings:` du module, `settings:` de l'entité — **le
   plus proche l'emporte** ; le champ garde le dernier mot ;
 - les réglages dynamiques portent une valeur par défaut surchargeable
-  par l'administration (D588 — `{ mode: dynamic | static, value: … }`).
+  par l'administration (D588 — `{ mode: dynamic | static, value: … }`) ;
+- **la règle (D1175) : toute valeur ou tout statut par défaut de
+  Syncytium se surcharge dans les settings** — les types (D359), `reset:`
+  du compteur (D409), `normalize:` (D870), les profils (D885), les
+  réglages dynamiques (D588), `history:` (D1174) sont les cas déjà
+  traités d'un seul principe ; la clé porte le nom de la propriété
+  réglée, sous le nom du type quand c'est une propriété de type ;
+  statique dès que le défaut engage le stockage ou la structure,
+  dynamique sinon ; une clé qui ne nomme aucun défaut connu = une
+  erreur d'ingestion (D311). **L'inventaire des défauts du socle** — la
+  propriété, sa valeur, son étage, statique ou dynamique — est à tenir
+  ici *(à écrire : le relevé des défauts épars dans les artefacts)*.
 
 ### 3.6 `groups.yml` — les groupes (D414)
 
@@ -606,6 +617,7 @@ expressions.
 | la confidentialité | le niveau (D25) × les groupes (D26), le profil nommé aux settings, référencé au champ | D885 |
 | `normalize:` | le défaut du type aux settings → le champ | D870/D872, D991 |
 | `history:` | `settings.yml` de la version → le module → l'entité ; l'opt-out par `history: false` ; le défaut du socle = inactif | D168, D1174 |
+| tout défaut du socle | la règle : la valeur de Syncytium → `settings.yml` de la version → le module → l'entité → le champ | D1175 |
 | le report des anomalies | l'entité source (ses phases) ou la règle de migration (les siennes) → le défaut de D407 | D929, D1058 |
 
 ## 5. L'ingestion — ce qui est refusé

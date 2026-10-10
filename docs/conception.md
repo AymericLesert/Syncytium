@@ -24079,7 +24079,15 @@ avant la synthèse Q16).
   personas entre dans `examples/03_vehicule/` et `examples/04_banque/`
   (2bcc1da — 0 orphelin, le traceur réécrit). §14, le gabarit d'import :
   la valeur par défaut dans les colonnes, le placeholder pour l'exemple
-  et la valeur par défaut en son absence (D1211) — **§14 acquis**.
+  et la valeur par défaut en son absence (D1211) — **§14 acquis**. §15,
+  le dictionnaire, présenté en quatre lectures (un dictionnaire par
+  version, ses entrées, deux entrées pour le même dictionnaire, les
+  renvois) — en attente. **PAUSE — 1211 décisions, tout committé et
+  poussé, aucune PR ouverte.** La reprise : l'arbitrage de §15, puis §5
+  et §9 aux libellés, les compléments (« mes droits », les
+  notifications, les documents produits, la recherche), la colonne 1 de
+  la matrice dans les artefacts, les déclinaisons restantes du rang 1 ;
+  puis l'inventaire des défauts du socle (D1175).
 - **2026-10-09 — REPRISE : LA MÉTHODE (D1158, 1158 décisions).** « Nous
   n'allons pas l'alléger… La documentation est portée dans tous les
   composants. Chaque type de composant définira sa déclinaison dans les

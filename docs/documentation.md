@@ -2136,11 +2136,12 @@ modes opératoires comme chapitre (§24 → §22, D1188), le parcours guidé
 comme chapitre (§19 → §22, D1187).*
 
 1. *(clos le 11/10 — D1171, D1184, D1186 confirmés, D1197–D1199)* ;
-2. les personas (§22) : la proposition de l'étape 5 en six points —
-   `persona:` sur le groupe, la part générée, la part écrite, les trois
-   formes, le plan du chapitre, la déclinaison sur l'entrepôt ;
-3. le reste du rang 1 : le gabarit d'import (§14) ; le dictionnaire en
-   annexe (§15 — par version ou par module) ; §5 et §9 aux libellés ;
+2. *(clos le 11/10 — les personas, §22 acquis en six points,
+   D1200–D1210, déclinés sur le véhicule et la banque ; le gabarit
+   d'import, §14 acquis, D1211)* ;
+3. le reste du rang 1 : le dictionnaire en annexe (§15 — mes quatre
+   lectures présentées : un dictionnaire par version, ses entrées, deux
+   entrées pour le même, les renvois — en attente) ; §5 et §9 aux libellés ;
    les compléments (« mes droits », les notifications, les documents
    produits, la recherche) ; la colonne 1 de la matrice dans les
    artefacts ; les déclinaisons sur le véhicule, la banque, l'entrepôt ;

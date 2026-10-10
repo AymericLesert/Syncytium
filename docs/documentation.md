@@ -1905,9 +1905,12 @@ arbitrer point par point)* :
    l'intérêt de la documentation sur les scenarii » ; la déclinaison
    écrite sur l'entrepôt le 11/10 est écartée) : le véhicule pour les
    états, les opérations et les wizards ; la banque pour les trois
-   langues et les opérations ; une planche. *À arbitrer d'abord* : les
-   deux cas sont des mono-postes (`authentication: none`, D759) — sans
-   `groups.yml`, où le persona se déclare-t-il ?
+   langues et les opérations ; une planche. Les deux cas sont des
+   mono-postes (`authentication: none`, D759) : **ils déclarent leur
+   groupe dans un `groups.yml` minimal pour y porter le persona** —
+   « en utilisant un group, nous rentrons dans le standard » (D1208 ;
+   mes lectures : le groupe `foyer`, l'utilisateur par défaut y
+   appartient, le degré `administrator`).
 
 ## 23. La maintenance, les contrôles et la supervision (D1128) *(en proposition)*
 

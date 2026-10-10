@@ -201,7 +201,10 @@ clé d'unicité (D82). **Les quatre volets à porter** :
 défaut au degré `administrator` — les invariants D699/D712
 pré-remplis, jamais contournés. La documentation le dit en clair — « un
 seul utilisateur, tous les droits » — et la complétude ne relève pas ce
-défaut du socle : le tiny en est la déclinaison, D1176/D1173.)*
+défaut du socle : le tiny en est la déclinaison, D1176/D1173. Pour
+porter un persona, le mono-poste déclare son groupe dans un
+`groups.yml` minimal — « en utilisant un group, nous rentrons dans le
+standard », D1208 ; l'utilisateur par défaut y appartient.)*
 
 La passerelle (D418) a son visage ; le multi-connecteurs sert
 l'étanchéité par canal (D77). Voir le contrat détaillé dans

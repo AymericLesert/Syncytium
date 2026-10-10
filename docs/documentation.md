@@ -1119,30 +1119,33 @@ lecture qu'il sert (D1138) :
 |---|---|---|---|
 | 0. La couverture | en édition seulement : la page de garde, le cartouche, le filigrane d'une beta (D1142–D1145) ; dedans, la page d'accueil (`home:`, D1156) | calculé, écrit | — |
 | 1. La présentation | **la générale** — l'entreprise, l'application, le schéma directeur (`pages: presentation`) ; puis les modules et ce que chacun sert (`title:`, `description:`), **la vue d'ensemble du modèle** (§5), le concepteur et le contact (D1153), **les notes de version** en langage d'usager (D1112) et ce qui change (§9) | écrit, puis calculé | l'ensemble |
-| 2. Les glossaires | les termes du métier, puis les types (D1180) — le vocabulaire avant tout le reste | écrit, calculé | l'ensemble |
-| 3. Le socle | ce qui est commun à toute application Syncytium (le point ouvert 11, D645) : l'écran principal, la connexion et le profil, le changement de module, la recherche, les notifications, « mes droits », le cycle de vie d'une donnée (la désactivation D137, la réactivation D903), l'historique quand il est actif, l'export et l'import (§14), les documents produits, l'assistance (§25) — les textes génériques du catalogue (D1160), **bornés à ce que la version emploie** | calculé | l'ensemble |
-| 4. Un chapitre par module | dans l'ordre du menu : le titre, la description, **la vue du module** (§5), les enchaînements du module (§16) ; puis **chaque écran** dans l'ordre du menu : sa description — la matière du masque (§7) —, les champs qu'il montre avec leur libellé et leur aide, les opérations offertes et ce qu'elles font, les états et les passages permis ; à l'instance, les usages et les données vivantes | calculé, vivant | le module, le détail |
-| 5. Les enchaînements transverses | les parcours qui traversent les modules, les automatismes, les notifications (§16) | calculé | l'ensemble |
-| 6. Les scénarios d'utilisation | par persona (§22) : la part générée des wizards, la part écrite | calculé, écrit | le module |
-| 7. Les modes opératoires | les planches (§24) | calculé, écrit | le détail |
-| 8. Le parcours guidé | le tutoriel, module par module (§19) | calculé | le module |
-| 9. Le dictionnaire des données | par libellés (§15) | calculé | le détail |
-| 10. La F.A.Q. | les questions répondues de l'assistance (§25) | vivant | le détail |
-| 11. Les annexes | le gabarit d'import de chaque entité (§14) | calculé | le détail |
+| 2. Le socle | ce qui est commun à toute application Syncytium (le point ouvert 11, D645) : l'écran principal, la connexion et le profil, le changement de module, la recherche, les notifications, « mes droits », le cycle de vie d'une donnée (la désactivation D137, la réactivation D903), l'historique quand il est actif, l'export et l'import (§14), les documents produits, l'assistance (§25) — les textes génériques du catalogue (D1160), **bornés à ce que la version emploie** | calculé | l'ensemble |
+| 3. Un chapitre par module | dans l'ordre du menu : le titre, la description, **la vue du module** (§5), les enchaînements du module (§16) ; puis **chaque écran** dans l'ordre du menu : sa description — la matière du masque (§7) —, les champs qu'il montre avec leur libellé et leur aide, les opérations offertes et ce qu'elles font, les états et les passages permis ; à l'instance, les usages et les données vivantes | calculé, vivant | le module, le détail |
+| 4. Les enchaînements entre modules | *(en question)* les parcours qui traversent les modules — une promotion déclenchée par un autre module (D145), un automatisme sur les données d'un autre (D54), un wizard à cheval, une notification (§16) | calculé | l'ensemble |
+| 5. Les scénarios d'utilisation | par persona (§22) : la part générée des wizards, la part écrite | calculé, écrit | le module |
+| 6. Les modes opératoires | les planches (§24) | calculé, écrit | le détail |
+| 7. Le parcours guidé | *(en question — sa différence avec les scénarios)* le tutoriel, module par module (§19) | calculé | le module |
+| 8. La F.A.Q. | les questions répondues de l'assistance (§25) | vivant | le détail |
+| 9. Les annexes | **les glossaires** — les termes du métier, puis les types (D1180, D1183) ; **le dictionnaire des données** par libellés (§15, D1183) ; le gabarit d'import de chaque entité (§14) | écrit, calculé | le détail |
 
 - **Ce que l'utilisateur ne voit pas** n'y figure pas : la
   confidentialité et les droits filtrent la documentation comme ils
   filtrent l'écran (D334) ; le chapitre 3 ne décrit que ce que la
   version active (pas d'import documenté si rien ne s'importe).
 - **La part intégrée** (D1121) : chaque module et chaque écran du
-  chapitre 4 a son adresse ; le « ? » de l'écran y mène, le masque (§7)
+  chapitre 3 a son adresse ; le « ? » de l'écran y mène, le masque (§7)
   en est le résumé en place.
+- **Le glossaire au survol** (D1184) : dans le rendu pour les
+  utilisateurs, le survol d'un terme du glossaire affiche sa définition
+  — l'usage dynamique ; **le survol n'est proposé que sur la première
+  occurrence du mot trouvée dans la page** ; en édition, le glossaire
+  reste une annexe.
 - **L'édition par langue** : dedans, la langue du profil (D1144) ; en
   édition, celle de l'émetteur — une édition par langue ; un texte
   complémentaire absent dans une langue tombe sur la langue par défaut
   de la version (D1101) et la complétude le signale.
-- **Les trois niveaux** (D1138) : les chapitres 1 à 3 et 5 se lisent
-  pour l'ensemble, le 4 pour le module puis l'écran, le 9 pour le
+- **Les trois niveaux** (D1138) : les chapitres 1, 2 et 4 se lisent
+  pour l'ensemble, le 3 pour le module puis l'écran, les annexes pour le
   détail d'un mot.
 
 ## 7. Les masques d'explication (D209)
@@ -1491,7 +1494,10 @@ D124) ou leurs libellés (lisibles, par langue).
 ## 15. Le dictionnaire des données *(en proposition)*
 
 **Deux glossaires ouvrent le dictionnaire** (D1180 — « nous distinguons
-le glossaire des types, et le glossaire des termes ») : **le glossaire
+le glossaire des types, et le glossaire des termes » ; **le glossaire
+comme le dictionnaire sont des annexes** de la documentation
+fonctionnelle, D1183 ; dans l'application, le terme se lit au survol de
+sa première occurrence dans la page, D1184) : **le glossaire
 des termes**, écrit par le concepteur — la liste des termes du métier
 et leur définition, dans `documentation.yml` du projet (pour toute
 l'application) ou du module (pour les siens) : la clé `glossary:` (§12

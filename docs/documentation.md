@@ -347,10 +347,12 @@ documentations** (§13, D1159), dans les artefacts des composants.
       pour l'usager ;
   11. les compléments : « mes droits », les notifications, les
       documents produits, la recherche.
-- **Déclinaison** : le tiny (à amender) ; **le véhicule** (cas 3) pour
-  les états et les enchaînements ; **la banque** (cas 4) pour les trois
-  langues et les opérations ; **l'entrepôt** (cas 5) pour les personas
-  — ses quatre groupes — et une planche.
+- **Déclinaison** : le tiny (amendé — les frottements soldés,
+  D1170–D1182) ; **le véhicule** (cas 3) pour les états, les
+  enchaînements, **les personas et une planche** ; **la banque** (cas 4)
+  pour les trois langues, les opérations **et les personas** ;
+  l'entrepôt n'est pas le lieu des personas (D1207 — il décrit une
+  migration et l'alimentation d'un entrepôt).
 - **Livrables** : §6, §7, §14–§16, §19, §22, §24 validés ;
   [entity.md](entity.md), [composants.md](composants.md) (le wizard
   comme scénario), [rights.md](rights.md) (les personas et les
@@ -1898,12 +1900,14 @@ arbitrer point par point)* :
    d'exploitation (§17), la fonctionnelle ne leur donne que ce qu'ils
    font comme utilisateurs.
 
-6. **La déclinaison** — *écrite le 11/10 dans
-   [usecases/05_entrepot.md](../usecases/05_entrepot.md), en
-   proposition* : six personas sur les six groupes de l'entrepôt, cinq
-   scénarios écrits, le chapitre 4 tel que produit, la planche 1
-   décrite, quatre frottements relevés ; la configuration n'entre dans
-   `examples/05_entrepot/` qu'après l'arbitrage.
+6. **La déclinaison** — **sur le véhicule (cas 3) et la banque (cas 4)**
+   (D1207 — « l'entrepôt n'est pas le plus adapté pour démontrer
+   l'intérêt de la documentation sur les scenarii » ; la déclinaison
+   écrite sur l'entrepôt le 11/10 est écartée) : le véhicule pour les
+   états, les opérations et les wizards ; la banque pour les trois
+   langues et les opérations ; une planche. *À arbitrer d'abord* : les
+   deux cas sont des mono-postes (`authentication: none`, D759) — sans
+   `groups.yml`, où le persona se déclare-t-il ?
 
 ## 23. La maintenance, les contrôles et la supervision (D1128) *(en proposition)*
 

@@ -1305,6 +1305,9 @@ author: Aymeric Lesert           # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
 glossary:                        # le glossaire des termes du métier (D1180) — la clé est mienne
   tiers: Toute personne ou société en relation avec l'entreprise — client, fournisseur, prospect.
+  article:                       # un terme = une liste de mots, singulier et pluriel (D1197) — `words:` est mien
+    words: [article, articles]
+    description: Ce que l'entreprise achète, fabrique ou vend — une référence, pas une pièce.
 ```
 
 **Au module** — le quatrième lieu (D1180) : les termes propres au
@@ -1469,7 +1472,7 @@ rubrique qui la spécifie. Trois lignes, pour la forme :
 | Le composant | 1 Fonctionnelle | 2 Information | 3 Développeur | 4 D.A.T. | 5 Réglementation | 6 Promotionnelle | 7 Maintenance | 8 Projet | 9 Exploitation |
 |---|---|---|---|---|---|---|---|---|---|
 | l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa fiche : l'identité, les champs, les règles, le diagramme, le nombre de lignes (D1155) | ses points d'API | — | ses données marquées `rgpd:`, sa rétention | son titre dans la vue d'ensemble | ses usages, ses anomalies | — | — |
-| le champ | son libellé, son aide ; le masque | son type en clair, ses facettes, ses validations, ce que le stockage en dit (D1155) | son exposition (D20) | — | sa confidentialité, son `rgpd:` | — | sa diversité, ses valeurs inemployées | — | — |
+| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | son type en clair, ses facettes, ses validations, ce que le stockage en dit (D1155) ; **ses emplois et l'impact d'une modification** — le graphe des liens que l'ingestion garantit (D1198) | son exposition (D20) | — | sa confidentialité, son `rgpd:` | — | sa diversité, ses valeurs inemployées | — | — |
 | le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa définition : la base, les facettes, les champs qui l'emploient | — | — | le marquage qu'il porte (D1178) | — | — | — | — |
 | le wizard | le scénario, la planche, le parcours guidé | — | — | — | — | un cas d'usage | sa fréquence d'emploi | — | — |
 
@@ -1532,7 +1535,10 @@ et leur définition, dans `documentation.yml` du projet (pour toute
 l'application) ou du module (pour les siens) : la clé `glossary:` (§12
 — mes lectures : un terme = une clé, sa définition par langue en
 Markdown ; le module ajoute aux termes du projet, le même terme deux
-fois = une surcharge signalée) ; **le glossaire des types**, calculé
+fois = une surcharge signalée) ; **un terme est une liste de mots, le
+singulier et le pluriel** (D1197 — `words:` en proposition :
+`lot: { words: [lot, lots], description: … }`), et le survol reconnaît
+chacune de ses formes ; **le glossaire des types**, calculé
 (D1179 — « les types définis dans
 une application [doivent être] disponibles dans un glossaire de la
 documentation. Un glossaire doit faciliter le traitement sémantique du
@@ -1594,6 +1600,15 @@ notification, le wizard qui change de module ; l'annotation générée
 aux deux bouts, la référence = l'adresse de la page ; la même règle
 entre les entités et les écrans d'un même module) ; ce qui se vit de
 bout en bout est un scénario de persona (§22), appuyé sur le wizard.
+**Les liens sont ceux que l'ingestion garantit** (D1198) : les
+références et les associations entre entités et champs, dans les
+traitements et les opérations ; la documentation les reprend pour
+montrer les relations, **dire à quoi sert un champ** — propriété ou
+calculé : les formules qui le lisent, les validations, les opérations
+et leurs effets, les règles de reprise, les rapports, les écrans — et
+**mesurer l'impact d'une modification du modèle** (le graphe complet
+et l'analyse d'impact à la documentation de l'information, le rang 2 —
+ma lecture).
 
 ## 17. Le guide d'exploitation *(en proposition)*
 

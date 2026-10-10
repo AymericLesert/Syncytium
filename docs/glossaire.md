@@ -339,10 +339,11 @@ disponible à la demande de l'utilisateur, joué dans l'application.
 scénarios sont des fonctionnalités de bout en bout, appuyés sur les
 wizards. *(D1127/D1130)*
 
-**Planche** — Le mode opératoire imprimable : une page A4 paysage par
-procédure — le titre, les étapes numérotées, une capture par étape, le
-contrôle entouré ; la forme imprimée d'un scénario, dessinée step par
-step depuis le wizard. *(D1129)*
+**Planche** — Le mode opératoire imprimable : une page A4 paysage — le
+titre, les étapes numérotées, une capture par étape, le contrôle
+entouré ; la forme condensée d'un scénario de persona, une à trois
+planches synthétiques qui montrent un enchaînement d'écrans et
+d'actions, dessinées step par step depuis le wizard. *(D1129, D1188)*
 
 **Provenance** — La carte d'identité d'origine d'une donnée reprise :
 de quel système, quand, sous quelle clé. Un fait qui ne bouge plus.

@@ -1121,10 +1121,9 @@ lecture qu'il sert (D1138) :
 | 1. La présentation | **la générale** — l'entreprise, l'application, le schéma directeur (`pages: presentation`) ; puis les modules et ce que chacun sert (`title:`, `description:`), **la vue d'ensemble du modèle** (§5), le concepteur et le contact (D1153), **les notes de version** en langage d'usager (D1112) et ce qui change (§9) | écrit, puis calculé | l'ensemble |
 | 2. Le socle | ce qui est commun à toute application Syncytium (le point ouvert 11, D645) : l'écran principal, la connexion et le profil, le changement de module, la recherche, les notifications, « mes droits », le cycle de vie d'une donnée (la désactivation D137, la réactivation D903), l'historique quand il est actif, l'export et l'import (§14), les documents produits, l'assistance (§25) — les textes génériques du catalogue (D1160), **bornés à ce que la version emploie** | calculé | l'ensemble |
 | 3. Un chapitre par module | dans l'ordre du menu : le titre, la description, **la vue du module** (§5), les enchaînements du module (§16) ; puis **chaque écran** dans l'ordre du menu : sa description — la matière du masque (§7) —, les champs qu'il montre avec leur libellé et leur aide, les opérations offertes et ce qu'elles font, les états et les passages permis ; à l'instance, les usages et les données vivantes | calculé, vivant | le module, le détail |
-| 4. Les scénarios d'utilisation | par persona (§22) : la part générée des wizards, la part écrite ; **les actions qui traversent les modules s'y retrouvent**, avec le wizard (D1185) ; **le parcours guidé y est fondu** — le tour des écrans du persona en est le squelette (D1187) | calculé, écrit | le module |
-| 5. Les modes opératoires | les planches (§24) | calculé, écrit | le détail |
-| 6. La F.A.Q. | les questions répondues de l'assistance (§25) | vivant | le détail |
-| 7. Les annexes | **les glossaires** — les termes du métier, puis les types (D1180, D1183) ; **le dictionnaire des données** par libellés (§15, D1183) ; le gabarit d'import de chaque entité (§14) | écrit, calculé | le détail |
+| 4. Les scénarios d'utilisation | par persona (§22) : la part générée des wizards, la part écrite ; **les actions qui traversent les modules s'y retrouvent**, avec le wizard (D1185) ; **le parcours guidé y est fondu** — le tour des écrans du persona en est le squelette (D1187) ; **les modes opératoires aussi** — la planche est la forme condensée d'un scénario, une à trois planches synthétiques qui montrent un enchaînement d'écrans et d'actions (§24, D1188) | calculé, écrit | le module |
+| 5. La F.A.Q. | les questions répondues de l'assistance (§25) | vivant | le détail |
+| 6. Les annexes | **les glossaires** — les termes du métier, puis les types (D1180, D1183) ; **le dictionnaire des données** par libellés (§15, D1183) ; le gabarit d'import de chaque entité (§14) | écrit, calculé | le détail |
 
 - **Ce que l'utilisateur ne voit pas** n'y figure pas : la
   confidentialité et les droits filtrent la documentation comme ils
@@ -1675,7 +1674,10 @@ de `output.formats`.
 par des personas** (D1127). **Le parcours guidé (§19) y est fondu**
 (D1187) : le tour des écrans d'un persona — ses seuls écrans, dans
 l'ordre du menu — est le squelette généré de ses scénarios ; le tour
-complet reste disponible à la demande de l'utilisateur. *Mes
+complet reste disponible à la demande de l'utilisateur. **Les modes
+opératoires (§24) y sont fondus aussi** (D1188) : la planche est la
+forme condensée d'un scénario — une à trois planches, synthétiques, un
+enchaînement d'écrans et d'actions. *Mes
 propositions* : **un persona par groupe
 d'utilisateurs** (D414 — le commercial, le logisticien, le bureau
 d'études, la direction du cas 5) : une personne fictive nommée, son
@@ -1772,6 +1774,16 @@ toujours l'aspect digital et le papier est une source de formation et
 un support pédagogique riche en explication. »** (l'auteur, le
 05/10/2026 — l'exemple : ses planches pour DSP Gestion, « la création
 d'un client », « la mise à jour des tournées ».)
+
+**Fondus dans les scénarios des personas** (D1188 — « les modes
+opératoires peuvent être fusionnés avec les personas. La particularité
+est de condenser les propos dans des documents d'une planche (1, 2 ou 3
+planches si ce besoin). Elles doivent rester synthétiques et montrer un
+enchaînement d'écrans et d'actions. ») : la planche n'est plus un
+chapitre de la documentation fonctionnelle mais **la forme condensée
+d'un scénario** (§22) — une à trois planches, synthétiques, un
+enchaînement d'écrans et d'actions ; ce qui suit décrit la planche
+elle-même.
 
 **Ce qu'est une planche**, d'après l'exemple : une page, en paysage ;
 **un titre** rouge — le but, et quand on le fait (« une fois par jour en

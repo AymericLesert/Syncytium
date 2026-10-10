@@ -1508,7 +1508,7 @@ les textes libres, les traductions en brouillons à relire ; **tracé** —
 le texte généré porte le modèle, la date, l'état de relecture ; le
 cartouche d'une édition reste signé d'un humain (D1142).
 
-## 14. L'export et l'import *(en proposition)*
+## 14. L'export et l'import *(le rang 1 — acquis, D1211)*
 
 L'import est un écran du module, réservé au responsable métier ou à
 l'administrateur (D211) ; il ne prend que des fichiers CSV, un par
@@ -1516,15 +1516,28 @@ entité, en tout-ou-rien après un dry-run, avec un rapport cellule par
 cellule (D234, D120) ; l'export est une fonction de la liste, CSV ou
 Excel, dans la facette d'affichage (D187/D120). La documentation
 **génère, pour chaque entité importable, le gabarit du fichier
-attendu** : les colonnes (les champs saisissables), le type lisible et
-le masque de chacune, l'obligation, les valeurs permises des énumérés,
-la clé de rapprochement (l'identité — D1035 ; avec `identities:`, toutes
-citées, la première complète rapproche — D1171) ; une ligne d'exemple
-faite des `placeholder:` ; et la procédure — l'écran, le dry-run, le
-rapport, la correction à la source. Le gabarit se lit dans la
-documentation fonctionnelle et se télécharge depuis l'écran d'import.
-*À trancher* : les en-têtes du gabarit — les noms des champs (stables,
-D124) ou leurs libellés (lisibles, par langue).
+attendu** (D1211) :
+
+- **un gabarit par entité et par langue** — les en-têtes sont les
+  libellés des champs dans la langue de l'opérateur (D236) ; il se lit
+  dans les annexes de la fonctionnelle (le chapitre 7, D1183) et se
+  télécharge depuis l'écran d'import ;
+- **ses colonnes** — les champs saisissables seuls (ni calculés, ni
+  fichiers, ni communications — D236) ; pour chacune : le type en
+  clair, le masque, l'obligation, les valeurs permises d'un énuméré par
+  leur libellé, **la valeur par défaut**, et la clé de rapprochement —
+  les champs de l'identité (D1035 ; avec `identities:`, toutes citées,
+  la première complète rapproche — D1171) ;
+- **la ligne d'exemple** — les `placeholder:` des champs, **et la valeur
+  par défaut du champ quand le placeholder manque** ; sans l'un ni
+  l'autre, la cellule reste vide, la complétude ne le compte pas ;
+- **la procédure**, calculée — l'écran du module, les deux modes (D235
+  : le remplacement, avec le classement créé / modifié / inchangé /
+  supprimé et la confirmation ; le complément), le dry-run, le rapport
+  cellule par cellule, le tout-ou-rien, la correction à la source ;
+- **l'export miroir** (D237) — le fichier ré-importable ; le gabarit est
+  sa mise en page : « exporter, corriger au tableur, réimporter en
+  remplacement ».
 
 ## 15. Le dictionnaire des données *(en proposition)*
 

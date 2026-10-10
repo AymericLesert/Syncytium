@@ -1402,6 +1402,7 @@ rubrique qui la spécifie. Trois lignes, pour la forme :
 |---|---|---|---|---|---|---|---|---|---|
 | l'entité | son titre, sa description, ses écrans, ses parcours ; la vue du module | sa fiche : l'identité, les champs, les règles, le diagramme, le nombre de lignes (D1155) | ses points d'API | — | ses données marquées `rgpd:`, sa rétention | son titre dans la vue d'ensemble | ses usages, ses anomalies | — | — |
 | le champ | son libellé, son aide ; le masque | son type en clair, ses facettes, ses validations, ce que le stockage en dit (D1155) | son exposition (D20) | — | sa confidentialité, son `rgpd:` | — | sa diversité, ses valeurs inemployées | — | — |
+| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa définition : la base, les facettes, les champs qui l'emploient | — | — | le marquage qu'il porte (D1178) | — | — | — | — |
 | le wizard | le scénario, la planche, le parcours guidé | — | — | — | — | un cas d'usage | sa fréquence d'emploi | — | — |
 
 **La matrice se remplit rang par rang** (D1159) : chaque rang du plan
@@ -1453,7 +1454,20 @@ D124) ou leurs libellés (lisibles, par langue).
 
 ## 15. Le dictionnaire des données *(en proposition)*
 
-Le glossaire de l'application, **alphabétique et par langue** : chaque
+**Le glossaire des types, d'abord** (D1179 — « les types définis dans
+une application [doivent être] disponibles dans un glossaire de la
+documentation. Un glossaire doit faciliter le traitement sémantique du
+document et l'utilisation de vocabulaire lié au métier ») : chaque type
+personnalisé (les dérivés des settings, D359/D991, à tous les étages de
+la cascade) par son `title:` et sa `description:` par langue, sa base,
+ses facettes de sens (`rgpd:` D1178, la confidentialité), ses
+contraintes en clair, et les champs qui l'emploient — les termes du
+métier avant leurs emplois ; la complétude (§20) compte le type sans
+description ; l'édition machine (D1165) et la documentation de
+l'information l'exportent en premier, pour les traitements sémantiques
+(le chat D957, l'assistant lecteur D1147). *Mes lectures.*
+
+Puis le dictionnaire proprement dit, **alphabétique et par langue** : chaque
 entité par son `title:` et sa `description:` ; chaque champ par son
 libellé, son `hint:`, sa `description:`, son type dit en clair (« un
 texte de 40 caractères au plus », « un montant en euros ») ; chaque

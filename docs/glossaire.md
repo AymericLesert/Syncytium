@@ -363,8 +363,13 @@ catalogue (simple, référence ou composé - hook inclus) ou un type personnalis
 *(D408)*
 
 **Type personnalisé** — Description commune d'un type et de ses propriétés tel qu'il puisse être réutilisable sur plusieurs champs de l'application.
+Il porte aussi les facettes de sens — `rgpd:`, la confidentialité — dont
+ses champs héritent (D1178), et chaque type de l'application a son entrée
+au glossaire de la documentation générée : le vocabulaire du métier
+(D1179).
 *Ex. : `progression` = `integer[0..100]` + la jauge « fuel » →
-`avancement: progression`.* *(D359)*
+`avancement: progression` ; `nom: { type: text[..40], rgpd: personal }` →
+`nom: nom`.* *(D359, D1178–D1179)*
 
 **Type court** — L'écriture minimale d'un champ : le type seul, tout au défaut.
 *Ex. : `notes: text` ; `customer: customer`.* *(D356)*

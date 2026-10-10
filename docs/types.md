@@ -74,7 +74,11 @@ composants.md.
   (D1178 : `nom: { type: text[..40], rgpd: personal }`, puis `nom: nom`
   dans chaque modèle — le champ hérite du marquage, la RGPD se
   généralise par le type ; de même le profil de confidentialité D885,
-  `hint:` et `description:`) ;
+  `hint:` et `description:`) ; **et son entrée au glossaire de la
+  documentation** (D1179 — le vocabulaire du métier : `title:` et
+  `description:` par langue, la base, les facettes, les champs qui
+  l'emploient ; la complétude compte le type sans description — mes
+  lectures) ;
 - **le composant par défaut porte le nom du type** (D458).
 
 ## Les types simples

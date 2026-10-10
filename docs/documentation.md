@@ -926,7 +926,8 @@ la classe, le parent abstrait en italique (D1035) ; `inheritance:` →
 la généralisation ; le champ → l'attribut `nom : type` ; la
 confidentialité → **la visibilité UML** (`+` public, `#` protected, `-`
 private — D358) ; `formula:` → **l'attribut dérivé** `/nom` ;
-`identity:` → les attributs marqués `{id}` ; `type: <entité>` →
+`identity:` → les attributs marqués `{id}`, `{id <nom>}` avec
+`identities:` (D1171) ; `type: <entité>` →
 l'association dirigée, `1` ou `0..1` selon `required:` ; `type: list of
 <entité>` → **la composition** `0..*` ; `type: association with …` →
 l'association dérivée, en pointillé, `/nom` — aux vues du module et
@@ -1442,7 +1443,8 @@ Excel, dans la facette d'affichage (D187/D120). La documentation
 **génère, pour chaque entité importable, le gabarit du fichier
 attendu** : les colonnes (les champs saisissables), le type lisible et
 le masque de chacune, l'obligation, les valeurs permises des énumérés,
-la clé de rapprochement (l'identité — D1035) ; une ligne d'exemple
+la clé de rapprochement (l'identité — D1035 ; avec `identities:`, toutes
+citées, la première complète rapproche — D1171) ; une ligne d'exemple
 faite des `placeholder:` ; et la procédure — l'écran, le dry-run, le
 rapport, la correction à la source. Le gabarit se lit dans la
 documentation fonctionnelle et se télécharge depuis l'écran d'import.

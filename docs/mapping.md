@@ -703,8 +703,12 @@ customers:
   est tenue par la migration (D666/D668) ;
 
 - **l'identité partout** (D1035 — amende D825/D930) : toute entité
-  porte une identité, la sienne ou celle qu'elle hérite de sa racine
-  (D1039) ; son absence est une anomalie de description du modèle —
+  porte au moins une identité, la sienne ou celle qu'elle hérite de sa
+  racine (D1039) ; avec `identities:` (D1171), la règle est rapprochable
+  si elle détermine au moins l'une d'elles, la carte `{ champ:
+  expression }` choisit l'identité par ses champs, et deux identités qui
+  désignent deux enregistrements font une anomalie dans la base miroir
+  (en proposition) ; son absence est une anomalie de description du modèle —
   la règle « création seule » disparaît : l'enregistrement construit
   se retrouve dans la cible par son identité, deux enregistrements de
   même clé sont le même enregistrement (D1046) ; la règle de

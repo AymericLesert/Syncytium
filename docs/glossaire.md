@@ -46,8 +46,13 @@ utilisateur. *(D957–D959)*
 **Clé fonctionnelle** (`identity`) — Identifie un enregistrement
 aux yeux du métier de façon unique : un code client, un numéro de facture. Elle peut
 changer un jour ; l'identité technique, elle, jamais. Toute entité
-en porte une, la sienne ou celle qu'elle hérite de sa racine.
-*Ex. : `identity: [code]`.* *(D142/D357, D1035/D1039)*
+en porte au moins une, la sienne ou celle qu'elle hérite de sa racine ;
+ses champs sont obligatoires par définition. Une entité peut en porter
+plusieurs, nommées (`identities:`) : la première est l'identité de
+naissance, obligatoire ; les suivantes sont acquises — un numéro
+attribué à la validation — et ne valent qu'une fois complètes.
+*Ex. : `identity: [code]` ; `identities: { mensuelle: [client, mois],
+numero: [numero] }`.* *(D142/D357, D1035/D1039, D1170–D1171)*
 
 **Composant graphique** (`component`) — La représentation graphique d'un champ à l'écran ou sur un document (PDF, Excel, ...) : la jauge d'un pourcentage, le calendrier d'une date, le toggle d'un booléen. *(D64)*
 

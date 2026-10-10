@@ -27,6 +27,14 @@ release-notes: |
   # La reprise
   - Les dix classeurs 1992-2026 — huit sources, dix phases, la jointure par la plaque.
 
+# Les groupes d'utilisateurs
+# Le seul groupe du mono-poste, le foyer, et son persona.
+groups: ~{groups.yml}
+
+# La documentation de la version
+# Les scénarios d'utilisation du foyer.
+documentation: ~{documentation.yml}
+
 # Les hooks
 # Les opérations du projet, par famille.
 hooks: ~{hooks/hooks.yml}

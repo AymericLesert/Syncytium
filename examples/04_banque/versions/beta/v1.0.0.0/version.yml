@@ -26,6 +26,14 @@ release-notes: |
   - L'historique 1992-2026, environ 23 400 écritures — trois phases : les comptes aux marqueurs, les écritures, le
     rapprochement des virements par le cache.
 
+# Les groupes d'utilisateurs
+# Le seul groupe du mono-poste, le foyer, et son persona.
+groups: ~{groups.yml}
+
+# La documentation de la version
+# Les scénarios d'utilisation du foyer, en trois langues.
+documentation: ~{documentation.yml}
+
 # Les ressources
 # Les icônes du projet, en complément de celles de Syncytium.
 resources: ~{resources/resources.yml}

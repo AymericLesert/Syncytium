@@ -1,0 +1,32 @@
+# La documentation de la version : ce que le concepteur ajoute à la documentation générée — ici, les scénarios
+# d'utilisation du foyer. Chaque scénario porte son nom, son titre (le but) et sa description, le fichier Markdown de
+# ses étapes ; une étape relie son écran ou son opération par un lien vers une adresse.
+
+# Les scénarios d'utilisation
+# Par groupe ; l'ordre est celui du chapitre.
+scenarios:
+  foyer:
+
+    # L'achat d'un véhicule à crédit
+    # Le financement saisi, l'échéancier créé de lui-même, puis ajusté au bouton.
+    achat_credit:
+      title: Acheter un véhicule à crédit
+      description: ~{documentation/scenarios/foyer/achat_credit.md}
+
+    # La vente d'un véhicule
+    # La date de vente posée, le statut clôturé de lui-même, l'échéancier purgé.
+    vente:
+      title: Vendre un véhicule
+      description: ~{documentation/scenarios/foyer/vente.md}
+
+    # Le plein ou la charge
+    # La saisie en ligne dans la liste de la consommation.
+    plein:
+      title: Enregistrer un plein ou une charge
+      description: ~{documentation/scenarios/foyer/plein.md}
+
+    # Le suivi des révisions
+    # Les échues annoncées à l'accueil, les règles éditables en ligne.
+    revisions:
+      title: Suivre les révisions
+      description: ~{documentation/scenarios/foyer/revisions.md}

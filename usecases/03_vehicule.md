@@ -388,3 +388,164 @@ R8. **l'image embarquée** — tranché : la photo se désigne **par la
     couvre `list[<entité>.<nom>]`, la liberté compositionnelle
     (D455 — « qui utilise les listes ») ; rien de neuf en
     grammaire.
+
+## La documentation générée — le chapitre des personas (le rang 1, étape 5 — D1200–D1208)
+
+*(la déclinaison de §22 de documentation.md sur le véhicule, le cas
+choisi par D1207 — en proposition le 11/10/2026 ; ce que la
+configuration ajouterait est écrit ici d'abord et n'entrera dans
+`examples/03_vehicule/` qu'après l'arbitrage ; le prénom, le rôle, les
+scénarios sont miens)*
+
+**Ce que la configuration ajoute.** Le mono-poste déclare son groupe
+(D1208) : un `groups.yml` à la version, un seul groupe, `foyer`, qui
+porte le persona (D1200) ; un `documentation.yml` à la version avec
+quatre scénarios écrits (D1202) ; quatre fichiers Markdown sous
+`documentation/scenarios/foyer/` (D1204). Le véhicule n'a aucun wizard
+: la part générée est le tour (D1201) ; les quatre opérations — deux
+automatismes, un bouton, l'après-reprise — se lisent dans les
+scénarios écrits.
+
+```yaml
+# groups.yml — le groupe du foyer (D1208 : le mono-poste déclare son groupe pour porter son persona)
+foyer:
+  label: Le foyer
+  description: Les membres du foyer — tous les droits sur les véhicules.
+  persona:
+    name: Paul
+    role: Membre du foyer
+    description: Il tient le garage du foyer — les véhicules, leurs pleins, leur entretien, leur financement.
+```
+
+```yaml
+# versions/beta/v1.0.0.0/documentation.yml — les scénarios écrits (D1202)
+scenarios:
+  foyer:
+    achat_credit:
+      title: Acheter un véhicule à crédit
+      description: ~{documentation/scenarios/foyer/achat_credit.md}
+    vente:
+      title: Vendre un véhicule
+      description: ~{documentation/scenarios/foyer/vente.md}
+    plein:
+      title: Enregistrer un plein ou une charge
+      description: ~{documentation/scenarios/foyer/plein.md}
+    revisions:
+      title: Suivre les révisions
+      description: ~{documentation/scenarios/foyer/revisions.md}
+```
+
+```markdown
+<!-- documentation/scenarios/foyer/achat_credit.md (D1204) -->
+Quand : à chaque nouveau véhicule financé par un crédit ou une LOA.
+
+1. Depuis [le garage du foyer](transport[accueil]), créer [un véhicule](transport.vehicule[+record]) :
+   le nom, la plaque, la photo, le type, la devise ; le statut naît en Création.
+2. Dans l'onglet Financement, [choisir Crédit](transport.vehicule[+record]?financement=credit) :
+   le capital, le taux annuel, l'assurance mensuelle, la durée, le premier mois et le jour
+   d'échéance apparaissent.
+3. Valider : [l'échéancier se crée de lui-même](transport.vehicule.creer_echeancier) — l'opération
+   se déclenche à la validation du financement, sans relecture.
+4. Relire l'échéancier dans l'onglet Financement ; si le paramétrage change plus tard,
+   [Ajuster l'échéancier](transport.vehicule.ajuster_echeancier) le reprend et dit ce qu'il
+   conserve, supprime et recrée.
+5. Passer le statut à Actif : le journal de vie s'ouvre.
+
+> **À ne pas faire** : saisir les échéances à la main — l'échéancier se calcule, un ajustement les
+> reprendrait.
+```
+
+**Le chapitre 4, tel que Syncytium le produirait** (le plan de D1206) :
+
+> ## 4. Les scénarios d'utilisation
+>
+> ### Paul — Membre du foyer
+>
+> Il tient le garage du foyer — les véhicules, leurs pleins, leur
+> entretien, leur financement.
+>
+> **Ce qu'il voit.** Le module transport : le garage du foyer (les
+> révisions échues, puis les véhicules en cartes), les véhicules, les
+> consommations, les entretiens, les révisions, les échéances. Tous
+> les droits ; un véhicule clôturé ne se modifie plus.
+>
+> **Ses scénarios.**
+>
+> **Acheter un véhicule à crédit** — *la planche 1*. Quand : à chaque
+> nouveau véhicule financé par un crédit ou une LOA.
+>
+> 1. Depuis le garage du foyer *(→ transport[accueil])*, créer un
+>    véhicule *(→ le formulaire de création)* : le nom, la plaque, la
+>    photo, le type, la devise ; le statut naît en Création.
+> 2. Dans l'onglet Financement, choisir Crédit *(→ le formulaire,
+>    financement = Crédit)* : le capital, le taux annuel, l'assurance
+>    mensuelle, la durée, le premier mois et le jour d'échéance
+>    apparaissent.
+> 3. Valider : l'échéancier se crée de lui-même *(→ l'opération
+>    creer_echeancier)* — l'opération se déclenche à la validation du
+>    financement, sans relecture.
+> 4. Relire l'échéancier dans l'onglet Financement ; si le paramétrage
+>    change plus tard, Ajuster l'échéancier *(→ l'opération)* le
+>    reprend et dit ce qu'il conserve, supprime et recrée.
+> 5. Passer le statut à Actif : le journal de vie s'ouvre.
+>
+> > **À ne pas faire** : saisir les échéances à la main — l'échéancier
+> > se calcule, un ajustement les reprendrait.
+>
+> **Vendre un véhicule** — *la planche 2*. Quand : à la vente. Poser la
+> date et le lieu de vente *(→ le formulaire, onglet Véhicule)* ;
+> inscrire la vente au journal de vie en recette négative *(→
+> l'onglet Entretien)* ; le statut passe en Clôture de lui-même dès
+> que la vente est posée, et l'échéancier purge ses échéances non
+> payées *(→ l'opération clore_echeancier)* ; le bilan se fige — le
+> prix de revient au kilomètre.
+>
+> **Enregistrer un plein ou une charge** — *la planche 3*. Quand : à
+> chaque passage à la pompe ou à la borne. Ouvrir le véhicule, l'onglet
+> Consommation *(→ la liste consommations, éditable en ligne)* ; saisir
+> la date, le kilométrage total, la quantité, le prix unitaire ; les
+> jours, les kilomètres parcourus, le prix total et la consommation
+> aux 100 km se calculent ; la courbe du bilan se met à jour.
+>
+> **Suivre les révisions** — *la planche 4*. Quand : à l'ouverture de
+> l'application. Le garage du foyer annonce les révisions échues *(→
+> la liste revision.echues)* ; ouvrir le véhicule, l'onglet Révision
+> *(→ la liste revisions)* : les règles, éditables en ligne — le pas en
+> kilomètres ou en durée — et les prochaines échéances déduites ; après
+> la révision, l'inscrire au journal de vie *(→ l'onglet Entretien)* :
+> la règle se recale.
+
+**La planche 1** — « Acheter un véhicule à crédit », une page A4
+paysage au gabarit `planche` de la version : le titre en tête, « à
+chaque nouveau véhicule financé » dessous ; cinq étapes de gauche à
+droite ; sous les étapes 1 à 4, l'image de l'écran rendue par
+Syncytium — le garage du foyer avec le bouton de création entouré, le
+formulaire à l'onglet Véhicule, l'onglet Financement avec le choix
+Crédit entouré et les champs du crédit apparus, le même onglet avec
+l'échéancier déployé et le bouton Ajuster entouré ; l'étape 5, le
+statut à Actif, sur une petite image du champ statut ; en bas, l'encart
+« À ne pas faire » ; le cartouche : le garage du foyer, la version
+1.0.0.0 beta — **le filigrane « Beta v1.0.0.0 »** (D1145), la version
+du véhicule n'ayant pas encore été promue —, la date de génération.
+
+**Ce que la déclinaison relève** (les frottements, à arbitrer) :
+
+1. **Le mono-poste déclare son groupe** (D1208) : `groups.yml` naît
+   pour le persona seul ; avec `authentication: none`, l'utilisateur
+   par défaut y appartient et le degré est `administrator`, écrit ou
+   non — ma lecture.
+2. **L'adresse d'un état du formulaire** : « dans l'onglet
+   Financement, choisir Crédit » s'écrit par un paramètre sur le
+   formulaire de création (`?financement=credit`, D1203) — la planche
+   rend l'écran dans cet état ; l'onglet n'a pas d'adresse propre, la
+   planche montre celui où vit le champ cité.
+3. **L'automatisme sans libellé** : `creer_echeancier` et
+   `clore_echeancier` n'ont pas de `label:` — la documentation les
+   nomme par leur nom (D1181), la complétude le compte (D1182) ; le
+   scénario les désigne par leur effet (« l'échéancier se crée de
+   lui-même »).
+4. **Le passage d'état libre** (Création → Actif sans `when:`, D427) se
+   fait par la liste navigatrice du statut (D500) : le scénario dit
+   « passer le statut à Actif », l'image montre le champ.
+5. **La beta** : la version du véhicule vit en `beta/` — la planche
+   porte le filigrane (D1145) tant qu'elle n'est pas promue.

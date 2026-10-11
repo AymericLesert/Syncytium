@@ -485,14 +485,14 @@ D1210*) :
    désigne par son effet (« les écritures imprimées reçoivent leur date
    d'impression »), comme ceux du véhicule (D1209).
 
-## La documentation générée — le chapitre du module (le rang 1 — D1194–D1196, D1218, D1227–D1232)
+## La documentation générée — le chapitre du module (le rang 1 — D1194–D1196, D1218, D1227–D1233)
 
 *(la déclinaison du chapitre 3 de §6 de documentation.md sur le
 module `banque` — écrite le 11/10/2026, réécrite le même jour sur
-D1229–D1232 : le menu déclaré, le graphique sur l'accueil, le mode
+D1229–D1233 : le menu déclaré, le graphique sur l'accueil, le mode
 d'usage des composants, les messages par des exemples, **la
-description de l'entité et de ses champs avant l'écran** ; l'édition
-française ; en proposition)*
+description de l'entité et de ses champs avant l'écran, le type dans
+la table** ; l'édition française ; en proposition)*
 
 **Ce qui structure le chapitre.** Le menu, déclaré (`banque/menu.yml`,
 D1230) : l'accueil, les comptes, les écritures en sous-menu avec une
@@ -525,14 +525,14 @@ d'une autre renvoie à ses champs.
 > et de clôture, ses écritures.** Un compte se présente par son libellé
 > ; son identité est son numéro.
 >
-> | Champ | Obligatoire | Aide | Description |
-> |---|---|---|---|
-> | Numéro | oui (identité) | — | — |
-> | Libellé | non | — | — |
-> | Ouverture | oui | — | — |
-> | Clôture | non | Vide tant que le compte est ouvert. | — |
-> | *Ouvert* | calculé | — | — |
-> | Écritures | — | — | les écritures de 3.2 |
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | Numéro | un texte de 23 caractères au plus | oui (identité) | — | — |
+> | Libellé | un texte de 40 caractères au plus | non | — | — |
+> | Ouverture | une date | oui | — | — |
+> | Clôture | une date | non | Vide tant que le compte est ouvert. | — |
+> | *Ouvert* | oui / non, calculé | — | — | — |
+> | Écritures | les écritures de 3.2 | — | — | — |
 >
 > **L'écran.** La liste et le formulaire par défaut ; les écritures en
 > onglet.
@@ -548,24 +548,24 @@ d'une autre renvoie à ses champs.
 > **Une écriture bancaire — la date, le libellé, le budget, le montant,
 > le mode, le lieu.**
 >
-> | Champ | Obligatoire | Aide | Description |
-> |---|---|---|---|
-> | Numéro | — | — | Le compteur automatique, masqué aux surfaces. |
-> | Date d'opération | oui | — | — |
-> | Date comptable | non | Renseignée au pointage. | — |
-> | Libellé | non | — | — |
-> | Budget | non | — | Le référentiel dynamique — la création directe au picker. *Mode d'usage* : tapez un libellé absent pour le créer. |
-> | Montant | oui | Signé — négatif pour une dépense. | La devise vit dans la valeur ; le franc porte l'historique antérieur au passage à l'euro. |
-> | Mode | non | — | *Valeurs* : CB, Prélèvement, Virement, Autre. |
-> | N° de chèque | non | Pour le mode autre. | — |
-> | Écriture liée | — | — | L'écriture miroir du virement, sur l'autre compte. |
-> | Lieu | non | — | La ville — le référentiel dynamique, la création directe au picker. *Mode d'usage* : tapez un libellé absent pour le créer. |
-> | Imprimée le | — | — | Le marqueur du relevé, posé par la génération du PDF. |
-> | *Montant en euros* | calculé | — | Un montant à devise unique. |
-> | *Montant en francs* | calculé | — | — |
-> | *Solde* | calculé | — | Le solde continu — la somme des écritures du compte jusqu'à cette date. |
-> | *Débit* | calculé | — | Un calculé d'affichage — le montant signé en deux colonnes, avec le crédit. |
-> | *Crédit* | calculé | — | — |
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | Numéro | un compteur, attribué à la validation | — | — | Le compteur automatique, masqué aux surfaces. |
+> | Date d'opération | une date | oui | — | — |
+> | Date comptable | une date | non | Renseignée au pointage. | — |
+> | Libellé | un texte de 100 caractères au plus | non | — | — |
+> | Budget | un budget (3.5) | non | — | Le référentiel dynamique — la création directe au picker. *Mode d'usage* : tapez un libellé absent pour le créer. |
+> | Montant | un montant, en euros ou en francs | oui | Signé — négatif pour une dépense. | La devise vit dans la valeur ; le franc porte l'historique antérieur au passage à l'euro. |
+> | Mode | l'un de : CB, Prélèvement, Virement, Autre | non | — | — |
+> | N° de chèque | un texte de 10 caractères au plus | non | Pour le mode autre. | — |
+> | Écriture liée | une écriture (3.2) | — | — | L'écriture miroir du virement, sur l'autre compte. |
+> | Lieu | un lieu (3.6) | non | — | La ville — le référentiel dynamique, la création directe au picker. *Mode d'usage* : tapez un libellé absent pour le créer. |
+> | Imprimée le | une date | — | — | Le marqueur du relevé, posé par la génération du PDF. |
+> | *Montant en euros* | un montant en euros, calculé | — | — | Un montant à devise unique. |
+> | *Montant en francs* | un montant en francs, calculé | — | — | — |
+> | *Solde* | un montant en euros, calculé | — | — | Le solde continu — la somme des écritures du compte jusqu'à cette date. |
+> | *Débit* | un montant, calculé | — | — | Un calculé d'affichage — le montant signé en deux colonnes, avec le crédit. |
+> | *Crédit* | un montant, calculé | — | — | — |
 >
 > **L'écran.** La liste par date d'opération, tous comptes confondus :
 > Date d'opération, Date comptable, Libellé, Budget, Débit, Crédit,
@@ -580,9 +580,9 @@ d'une autre renvoie à ses champs.
 >
 > | L'opération | Ce qu'elle fait | Ce qui la déclenche |
 > |---|---|---|
-> | **Dupliquer** | Duplique l'écriture courante entre deux dates, au pas choisi — jour, semaine, mois ou trimestre ; les copies naissent dans la transaction, sans date comptable. | un bouton sur une écriture ; le formulaire « Dupliquer l'écriture "…" » — le pas, du, au, obligatoires ; la relecture affiche le nombre de créations |
-> | **Propager** | Modifie le libellé et le montant de toutes les écritures similaires — le même libellé et le même montant qu'avant la modification, à une date d'opération postérieure ou égale : la liste des similaires, la sélection, la modification en masse. | un bouton sur une écriture ; le formulaire « Propager depuis "…" » — le nouveau libellé, le nouveau montant, obligatoires ; validée avant le scellé |
-> | **Virer** | Crée les deux écritures d'un virement entre comptes — la sortie sur le compte courant, l'entrée sur le compte cible —, liées des deux côtés, dans la même transaction. | un bouton sur une écriture ; le formulaire « Virement » — le compte cible, le montant, obligatoires ; avec relecture |
+> | **Dupliquer** | Duplique l'écriture courante entre deux dates, au pas choisi — jour, semaine, mois ou trimestre ; les copies naissent dans la transaction, sans date comptable. | un bouton sur une écriture ; le formulaire « Dupliquer l'écriture "…" » — le pas (l'un de : Jour, Semaine, Mois, Trimestre), du (une date), au (une date), obligatoires ; la relecture affiche le nombre de créations |
+> | **Propager** | Modifie le libellé et le montant de toutes les écritures similaires — le même libellé et le même montant qu'avant la modification, à une date d'opération postérieure ou égale : la liste des similaires, la sélection, la modification en masse. | un bouton sur une écriture ; le formulaire « Propager depuis "…" » — le nouveau libellé (un texte de 60 caractères au plus), le nouveau montant (un montant en euros), obligatoires ; validée avant le scellé |
+> | **Virer** | Crée les deux écritures d'un virement entre comptes — la sortie sur le compte courant, l'entrée sur le compte cible —, liées des deux côtés, dans la même transaction. | un bouton sur une écriture ; le formulaire « Virement » — le compte cible (un compte), le montant (un montant en euros), obligatoires ; avec relecture |
 > | creer_releve | À toute génération d'un relevé, pose la date d'impression sur chaque écriture générée — le relevé devient un acte tracé, pas un simple export. | automatique, à l'export PDF du relevé (3.3) ; sans relecture |
 >
 > ### 3.3 Les écritures — par date comptable
@@ -607,9 +607,9 @@ d'une autre renvoie à ses champs.
 > **Un budget — le poste de dépense ou de ressource d'une écriture.**
 > Son identité est son libellé.
 >
-> | Champ | Obligatoire | Aide | Description |
-> |---|---|---|---|
-> | Libellé | oui (identité) | — | — |
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | Libellé | un texte de 30 caractères au plus | oui (identité) | — | — |
 >
 > **L'écran** : la liste et le formulaire par défaut.
 >
@@ -617,20 +617,25 @@ d'une autre renvoie à ses champs.
 >
 > **Un lieu — la ville d'une écriture.** Son identité est son libellé.
 >
-> | Champ | Obligatoire | Aide | Description |
-> |---|---|---|---|
-> | Libellé | oui (identité) | — | — |
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | Libellé | un texte de 30 caractères au plus | oui (identité) | — | — |
 >
 > **L'écran** : la liste et le formulaire par défaut.
 
 **Ce que la déclinaison relève** — les six frottements du 11/10 sont
-soldés (D1229–D1230) ; la réécriture en ajoute un :
+soldés (D1229–D1230) ; la réécriture en ajoute deux :
 
 7. **La description de l'entité et de ses champs avant l'écran**
    (D1232) : la section décrit l'entité, puis chaque champ — le
-   libellé, l'obligation, l'aide, la description, les valeurs, le mode
-   d'usage du composant qui le rend (D1229) —, puis l'écran ; une liste
-   qui partage l'entité d'une autre (3.3, 3.4) renvoie à ses champs ;
-   les champs que les surfaces ne montrent pas (le numéro, l'écriture
-   liée, la date d'impression) y figurent avec leur description, sans
-   obligation — à confirmer.
+   libellé, le type, l'obligation, l'aide, la description, les valeurs,
+   le mode d'usage du composant qui le rend (D1229) —, puis l'écran ;
+   une liste qui partage l'entité d'une autre (3.3, 3.4) renvoie à ses
+   champs ; les champs que les surfaces ne montrent pas (le numéro,
+   l'écriture liée, la date d'impression) y figurent avec leur
+   description, sans obligation — à confirmer.
+8. **Le type dans la table** (D1233) : « un montant, en euros ou en
+   francs », « un budget (3.5) » — la référence se dit par l'entité
+   cible et renvoie à sa section ; les formes en clair sont miennes, à
+   fixer au rang 2 (D1160) ; les champs libres d'un formulaire d'appel
+   disent aussi leur type, dans la colonne du déclenchement.

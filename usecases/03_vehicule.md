@@ -551,13 +551,14 @@ par D1209*) :
 5. **La beta** : la version du véhicule vit en `beta/` — la planche
    porte le filigrane (D1145) tant qu'elle n'est pas promue.
 
-## La documentation générée — le chapitre du module (le rang 1 — D1194–D1196, D1218, D1227–D1232)
+## La documentation générée — le chapitre du module (le rang 1 — D1194–D1196, D1218, D1227–D1233)
 
 *(la déclinaison du chapitre 3 de §6 de documentation.md sur le
 module `transport` — écrite le 11/10/2026, réécrite le même jour sur
-D1227–D1232 : les sections des entrées de sous-menu, les messages par
+D1227–D1233 : les sections des entrées de sous-menu, les messages par
 des exemples, **la description de l'entité et de ses champs avant
-l'écran** ; rien de nouveau dans la configuration ; en proposition)*
+l'écran, le type dans la table** ; rien de nouveau dans la
+configuration ; en proposition)*
 
 **Ce qui structure le chapitre.** La documentation suit le menu
 (D1194). Le menu du module n'est pas déclaré : le défaut de D193 le
@@ -595,48 +596,48 @@ liste de l'enfant, tous véhicules confondus (D1227).
 >
 > **Les champs.**
 >
-> | Champ | Obligatoire | Aide | Description |
-> |---|---|---|---|
-> | Nom | non | La marque et le modèle — un classeur, un véhicule, un nom. | Le réel ne sépare pas la marque du modèle ; le nom les porte ensemble. |
-> | Immatriculation | oui (identité) | La plaque du véhicule, au format du moment. | L'identité du véhicule ; les formats anciens interdisent un masque unique. |
-> | Photo | non | Le visage du véhicule — la vignette des listes et de la carte. | Le visage porté par l'image ; la vignette est automatique. |
-> | Type de véhicule | oui | Il porte l'unité de la consommation — les litres du thermique, les kWh de l'électrique. | L'unité vit dans le type, pas dans la valeur. *Valeurs* : Thermique, Électrique. |
-> | Devise | oui | Visuelle seulement — elle habille l'affichage des montants, la valeur reste nue. | *Valeurs* : € ; F — les classeurs antérieurs au passage à l'euro. |
-> | Statut | oui | La vie du véhicule — Création, Actif, Clôture ; la vente clôt sans retour. | La naissance à la valeur par défaut, l'activation libre, la clôture au cliquet dès que la vente est posée ; l'archive ne se réécrit pas. *Valeurs* : Création ; Actif — le journal s'écrit ; Clôture — l'archive, la vie ne se réécrit pas. |
-> | Mode d'achat | non | — | — |
-> | Lieu d'achat | non | — | — |
-> | Date d'achat | oui | — | — |
-> | Date de vente | non | La vente ou la restitution — elle bascule le statut en Clôture et fige le véhicule. | Après la clôture, elle ne se modifie plus : l'état ne porte que la lecture, sans retour, et aucune opération n'y touche. |
-> | Lieu de vente | non | Nul tant que le véhicule vit — le site de vente, la reprise du concessionnaire… | — |
-> | Kilométrage initial | oui | Le compteur au retrait du véhicule — la première ligne de consommation en part. | — |
-> | Financement | non | — | *Valeurs* : Comptant, Crédit, LOA. |
-> | Capital emprunté | non | Le crédit seulement — 24 500. | — |
-> | Taux annuel | non | Le taux nominal du crédit — 6,187. | — |
-> | Assurance mensuelle | non | Le crédit seulement — 34,40 par mois, en sus de la mensualité. | — |
-> | Mensualité | non | La mensualité de la LOA — celle du crédit se calcule à l'échéancier. | — |
-> | Durée du contrat | non | Le nombre d'échéances du contrat — 60 mensualités, 36 loyers. | L'intention contractuelle, que le générateur engendre ; le nombre d'échéances dit le réel compté. |
-> | Premier mois | non | Le premier mois du financement — 2016-02, 2023-10. | — |
-> | Jour d'échéance | non | Le jour du mois du prélèvement — le 10, le 5. | La coche Payé des échéances s'en déduit. |
-> | Kilométrage annuel | non | Le forfait de la LOA — 23 000 km/an, il nourrit le « km prévu ». | — |
-> | Consommations | — | — | les lignes de 3.2.1 |
-> | Entretiens | — | — | les lignes de 3.2.2 |
-> | Révisions | — | L'échéancier des règles. | les règles de 3.2.3 |
-> | Échéances | — | — | Engendrées à la validation du financement par creer_echeancier ; closes à la vente par clore_echeancier, qui supprime les non payées. Les lignes de 3.2.4. |
-> | *Nombre d'échéances* | calculé | 60 mensualités du crédit, 34 loyers de la LOA — le compte des échéances. | — |
-> | *Unité* | calculé | L'unité de la quantité — litres ou kWh, dérivée du type de véhicule. | — |
-> | *Kilométrage courant* | calculé | Le plus grand compteur vu — consommations et entretiens confondus. | — |
-> | *Nombre de jours* | calculé | La durée de vie suivie — la somme des intervalles entre ravitaillements. | — |
-> | *Kilomètres parcourus* | calculé | — | — |
-> | *Quantité totale* | calculé | Les litres ou kWh consommés sur la vie du véhicule. | — |
-> | *Consommation moyenne* | calculé | Aux 100 km — litres ou kWh selon le type. | — |
-> | *Durée moyenne d'un plein* | calculé | En jours — l'intervalle moyen entre deux ravitaillements. | — |
-> | *Total achat et entretien* | calculé | L'achat et la vente sont des lignes du journal. | — |
-> | *Total énergie* | calculé | — | — |
-> | *Coût du financement* | calculé | Les intérêts payés du crédit, ou les loyers payés de la LOA. | — |
-> | *Coût total* | calculé | — | — |
-> | *Prix de l'énergie au km* | calculé | — | — |
-> | *Prix de revient au km* | calculé | — | — |
-> | *Prix de revient journalier* | calculé | — | — |
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | Nom | un texte de 40 caractères au plus | non | La marque et le modèle — un classeur, un véhicule, un nom. | Le réel ne sépare pas la marque du modèle ; le nom les porte ensemble. *Exemple* : Partner Outdoor. |
+> | Immatriculation | un texte de 12 caractères au plus | oui (identité) | La plaque du véhicule, au format du moment. | L'identité du véhicule ; les formats anciens interdisent un masque unique. *Exemple* : AA-999-AA. |
+> | Photo | une image, 512 × 512 | non | Le visage du véhicule — la vignette des listes et de la carte. | Le visage porté par l'image ; la vignette est automatique. |
+> | Type de véhicule | l'un de : Thermique, Électrique | oui | Il porte l'unité de la consommation — les litres du thermique, les kWh de l'électrique. | L'unité vit dans le type, pas dans la valeur. |
+> | Devise | l'un de : €, F | oui | Visuelle seulement — elle habille l'affichage des montants, la valeur reste nue. | F — les classeurs antérieurs au passage à l'euro. |
+> | Statut | l'un de : Création, Actif, Clôture | oui (défaut : Création) | La vie du véhicule — Création, Actif, Clôture ; la vente clôt sans retour. | La naissance à la valeur par défaut, l'activation libre, la clôture au cliquet dès que la vente est posée ; l'archive ne se réécrit pas. Actif — le journal s'écrit ; Clôture — l'archive, la vie ne se réécrit pas. |
+> | Mode d'achat | un texte de 40 caractères au plus | non | — | *Exemple* : Acheté concessionnaire. |
+> | Lieu d'achat | un texte de 60 caractères au plus | non | — | *Exemple* : Garage Peugeot à Dôle. |
+> | Date d'achat | une date | oui | — | — |
+> | Date de vente | une date | non | La vente ou la restitution — elle bascule le statut en Clôture et fige le véhicule. | Après la clôture, elle ne se modifie plus : l'état ne porte que la lecture, sans retour, et aucune opération n'y touche. |
+> | Lieu de vente | un texte de 60 caractères au plus | non | Nul tant que le véhicule vit — le site de vente, la reprise du concessionnaire… | — |
+> | Kilométrage initial | un entier positif ou nul | oui | Le compteur au retrait du véhicule — la première ligne de consommation en part. | — |
+> | Financement | l'un de : Comptant, Crédit, LOA | non | — | — |
+> | Capital emprunté | un nombre décimal | non | Le crédit seulement — 24 500. | — |
+> | Taux annuel | un pourcentage | non | Le taux nominal du crédit — 6,187. | — |
+> | Assurance mensuelle | un nombre décimal | non | Le crédit seulement — 34,40 par mois, en sus de la mensualité. | — |
+> | Mensualité | un nombre décimal | non | La mensualité de la LOA — celle du crédit se calcule à l'échéancier. | — |
+> | Durée du contrat | un entier positif ou nul | non | Le nombre d'échéances du contrat — 60 mensualités, 36 loyers. | L'intention contractuelle, que le générateur engendre ; le nombre d'échéances dit le réel compté. |
+> | Premier mois | un mois (aaaa-mm) | non | Le premier mois du financement — 2016-02, 2023-10. | — |
+> | Jour d'échéance | un entier de 1 à 31 | non | Le jour du mois du prélèvement — le 10, le 5. | La coche Payé des échéances s'en déduit. |
+> | Kilométrage annuel | un entier positif ou nul | non | Le forfait de la LOA — 23 000 km/an, il nourrit le « km prévu ». | — |
+> | Consommations | les lignes de 3.2.1 | — | — | — |
+> | Entretiens | les lignes de 3.2.2 | — | — | — |
+> | Révisions | les règles de 3.2.3 | — | L'échéancier des règles. | — |
+> | Échéances | les lignes de 3.2.4 | — | — | Engendrées à la validation du financement par creer_echeancier ; closes à la vente par clore_echeancier, qui supprime les non payées. |
+> | *Nombre d'échéances* | un entier, calculé | — | 60 mensualités du crédit, 34 loyers de la LOA — le compte des échéances. | — |
+> | *Unité* | un texte, calculé | — | L'unité de la quantité — litres ou kWh, dérivée du type de véhicule. | — |
+> | *Kilométrage courant* | un entier, calculé | — | Le plus grand compteur vu — consommations et entretiens confondus. | — |
+> | *Nombre de jours* | une durée, calculée | — | La durée de vie suivie — la somme des intervalles entre ravitaillements. | — |
+> | *Kilomètres parcourus* | un entier, calculé | — | — | — |
+> | *Quantité totale* | un nombre décimal, calculé | — | Les litres ou kWh consommés sur la vie du véhicule. | — |
+> | *Consommation moyenne* | un nombre décimal, calculé | — | Aux 100 km — litres ou kWh selon le type. | — |
+> | *Durée moyenne d'un plein* | un nombre décimal, calculé | — | En jours — l'intervalle moyen entre deux ravitaillements. | — |
+> | *Total achat et entretien* | un nombre décimal, calculé | — | L'achat et la vente sont des lignes du journal. | — |
+> | *Total énergie* | un nombre décimal, calculé | — | — | — |
+> | *Coût du financement* | un nombre décimal, calculé | — | Les intérêts payés du crédit, ou les loyers payés de la LOA. | — |
+> | *Coût total* | un nombre décimal, calculé | — | — | — |
+> | *Prix de l'énergie au km* | un nombre décimal, calculé | — | — | — |
+> | *Prix de revient au km* | un nombre décimal, calculé | — | — | — |
+> | *Prix de revient journalier* | un nombre décimal, calculé | — | — | — |
 >
 > **L'écran.** La liste en cartes (3.1) : la photo, le nom,
 > l'immatriculation, le type, le statut, le kilométrage courant, le prix
@@ -680,18 +681,18 @@ liste de l'enfant, tous véhicules confondus (D1227).
 > **Une ligne du suivi de consommation — le plein ou la charge.** Une
 > ligne par ravitaillement, numérotée au sein du véhicule.
 >
-> | Champ | Obligatoire | Aide | Description |
-> |---|---|---|---|
-> | N° | oui (identité) | Le rang dans la vie du véhicule — la première ligne part du kilométrage initial. | — |
-> | Date | oui | — | — |
-> | Kilométrage compteur | oui | Le compteur du tableau de bord au moment du ravitaillement. | — |
-> | Quantité | oui | Les litres ou les kWh du ravitaillement, selon le véhicule. | La valeur seule ; l'unité est au type du véhicule. |
-> | Prix unitaire | non | Le prix du litre ou du kWh. | La devise est visuelle, celle du véhicule. |
-> | *Prix total* | calculé | — | — |
-> | *Nb de jours* | calculé | Depuis le ravitaillement précédent. | La première ligne reste nulle, comme au classeur. |
-> | *Km parcourus* | calculé | Depuis le ravitaillement précédent. | La première ligne part du compteur au retrait. |
-> | *Aux 100 km* | calculé | La consommation de l'intervalle — litres ou kWh aux 100 km. | — |
-> | *Km prévu* | calculé | Le prorata du forfait annuel de la LOA depuis l'achat. | Les mois écoulés depuis l'achat, bornés à la vente, fois le douzième du forfait. Sans forfait, la colonne reste nulle. |
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | N° | un entier à partir de 1 | oui (identité) | Le rang dans la vie du véhicule — la première ligne part du kilométrage initial. | — |
+> | Date | une date | oui | — | — |
+> | Kilométrage compteur | un entier positif ou nul | oui | Le compteur du tableau de bord au moment du ravitaillement. | — |
+> | Quantité | un nombre décimal | oui | Les litres ou les kWh du ravitaillement, selon le véhicule. | La valeur seule ; l'unité est au type du véhicule. |
+> | Prix unitaire | un nombre décimal | non | Le prix du litre ou du kWh. | La devise est visuelle, celle du véhicule. |
+> | *Prix total* | un nombre décimal, calculé | — | — | — |
+> | *Nb de jours* | une durée, calculée | — | Depuis le ravitaillement précédent. | La première ligne reste nulle, comme au classeur. |
+> | *Km parcourus* | un entier, calculé | — | Depuis le ravitaillement précédent. | La première ligne part du compteur au retrait. |
+> | *Aux 100 km* | un nombre décimal, calculé | — | La consommation de l'intervalle — litres ou kWh aux 100 km. | — |
+> | *Km prévu* | un nombre décimal, calculé | — | Le prorata du forfait annuel de la LOA depuis l'achat. | Les mois écoulés depuis l'achat, bornés à la vente, fois le douzième du forfait. Sans forfait, la colonne reste nulle. |
 >
 > **L'écran.** La liste, dans l'onglet Consommation du véhicule,
 > éditable en ligne — les cinq saisies se corrigent dans la ligne, les
@@ -709,13 +710,13 @@ liste de l'enfant, tous véhicules confondus (D1227).
 > **Une ligne du journal de vie — un frais, un événement, l'achat, la
 > vente.**
 >
-> | Champ | Obligatoire | Aide | Description |
-> |---|---|---|---|
-> | Date | oui | — | — |
-> | Désignation | oui | Le fait marquant — un frais, un événement, l'achat, la vente. | Le multi-ligne se déduit de la taille. *Exemple* : Changement du pneu avant droit. |
-> | Montant | non | Optionnel — l'événement sans montant est licite, la vente en recette négative. | La devise est visuelle, celle du véhicule. |
-> | Kilométrage | non | — | — |
-> | Révision ? | non | La ligne est une révision — sinon, une intervention hors révision. | Les révisions faites restent des lignes du journal. |
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | Date | une date | oui | — | — |
+> | Désignation | un texte de 200 caractères au plus | oui | Le fait marquant — un frais, un événement, l'achat, la vente. | Le multi-ligne se déduit de la taille. *Exemple* : Changement du pneu avant droit. |
+> | Montant | un nombre décimal | non | Optionnel — l'événement sans montant est licite, la vente en recette négative. | La devise est visuelle, celle du véhicule. |
+> | Kilométrage | un entier positif ou nul | non | — | — |
+> | Révision ? | oui / non | non | La ligne est une révision — sinon, une intervention hors révision. | Les révisions faites restent des lignes du journal. |
 >
 > **L'écran.** La liste, dans l'onglet Entretien, éditable en ligne.
 > **La règle.** L'entretien ne précède pas l'achat — « L'entretien du
@@ -727,16 +728,16 @@ liste de l'enfant, tous véhicules confondus (D1227).
 > notification à l'échéance.** Une règle se présente par sa
 > désignation.
 >
-> | Champ | Obligatoire | Aide | Description |
-> |---|---|---|---|
-> | Désignation | oui | — | *Exemple* : Révision constructeur. |
-> | Tous les (km) | non | Le pas en kilomètres — « Révisions tous les 25 000 km ». | — |
-> | Tous les (délai) | non | Le pas en délai — l'autre voie de l'échéancier ; 1y, 6m. | — |
-> | *Dernière (km)* | calculé | — | Les révisions faites sont les lignes du journal marquées révision. |
-> | *Dernière (date)* | calculé | — | — |
-> | *Prochaine (km)* | calculé | — | Depuis la dernière révision faite, sinon depuis l'origine du véhicule. |
-> | *Prochaine (date)* | calculé | — | — |
-> | *Échue ?* | calculé | La règle est à échéance — la notification part, la surface met en avant. | Sur le kilométrage ou sur le délai, tant que le véhicule est actif. |
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | Désignation | un texte de 60 caractères au plus | oui | — | *Exemple* : Révision constructeur. |
+> | Tous les (km) | un entier positif ou nul | non | Le pas en kilomètres — « Révisions tous les 25 000 km ». | — |
+> | Tous les (délai) | une durée | non | Le pas en délai — l'autre voie de l'échéancier ; 1y, 6m. | — |
+> | *Dernière (km)* | un entier, calculé | — | — | Les révisions faites sont les lignes du journal marquées révision. |
+> | *Dernière (date)* | une date, calculée | — | — | — |
+> | *Prochaine (km)* | un entier, calculé | — | — | Depuis la dernière révision faite, sinon depuis l'origine du véhicule. |
+> | *Prochaine (date)* | une date, calculée | — | — | — |
+> | *Échue ?* | oui / non, calculé | — | La règle est à échéance — la notification part, la surface met en avant. | Sur le kilométrage ou sur le délai, tant que le véhicule est actif. |
 >
 > **L'écran.** La liste, dans l'onglet Révision, éditable en ligne sur
 > les trois saisies. **L'opération** : notifier — automatique, dès que
@@ -750,16 +751,16 @@ liste de l'enfant, tous véhicules confondus (D1227).
 > **Une échéance du financement — la ligne du tableau de crédit ou de
 > LOA.**
 >
-> | Champ | Obligatoire | Aide | Description |
-> |---|---|---|---|
-> | N° | oui | Le rang de l'échéance — de 1 à la durée du financement. | — |
-> | Date | oui | Au jour d'échéance du mois, depuis le premier mois du financement. | — |
-> | Intérêt | non | Le crédit seulement. | — |
-> | Amortissement | non | Le crédit seulement. | — |
-> | Assurance | non | Le crédit seulement — 34,40. | — |
-> | Mensualité | oui | 473,86 pour le crédit, 434,48 pour la LOA. | — |
-> | *Payé* | calculé | Payée dès que la date du jour dépasse l'échéance. | La coche automatique. |
-> | *Reste dû* | calculé | En début de période — le capital moins l'amorti (crédit), les loyers restants (LOA). | — |
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | N° | un entier à partir de 1 | oui | Le rang de l'échéance — de 1 à la durée du financement. | — |
+> | Date | une date | oui | Au jour d'échéance du mois, depuis le premier mois du financement. | — |
+> | Intérêt | un nombre décimal | non | Le crédit seulement. | — |
+> | Amortissement | un nombre décimal | non | Le crédit seulement. | — |
+> | Assurance | un nombre décimal | non | Le crédit seulement — 34,40. | — |
+> | Mensualité | un nombre décimal | oui | 473,86 pour le crédit, 434,48 pour la LOA. | — |
+> | *Payé* | oui / non, calculé | — | Payée dès que la date du jour dépasse l'échéance. | La coche automatique. |
+> | *Reste dû* | un nombre décimal, calculé | — | En début de période — le capital moins l'amorti (crédit), les loyers restants (LOA). | — |
 >
 > **L'écran.** La liste, dans l'onglet Financement, éditable en ligne
 > sur les six données ; les lignes naissent de la création de
@@ -787,12 +788,13 @@ liste de l'enfant, tous véhicules confondus (D1227).
 > colonne — les champs de 3.2.4.
 
 **Ce que la déclinaison relève** — les six frottements du 11/10 sont
-soldés (D1227–D1228) ; la réécriture en ajoute un :
+soldés (D1227–D1228) ; la réécriture en ajoute deux :
 
 7. **La description de l'entité et de ses champs avant l'écran**
-   (D1232) : la première version décrivait les champs par l'écran, ses
-   onglets et ses aides — sans les descriptions ; la section décrit
-   maintenant l'entité, puis chaque champ (le libellé, l'obligation,
-   l'aide, la description, les valeurs, l'exemple du placeholder), puis
-   l'écran qui les dispose ; la table des champs est la même que celle
-   du dictionnaire, les colonnes techniques en moins (D1215).
+   (D1232) : la section décrit l'entité, puis chaque champ, puis
+   l'écran qui les dispose.
+8. **Le type dans la table** (D1233) : la colonne « Type » dit le type
+   en clair — « un texte de 40 caractères au plus », « l'un de :
+   Thermique, Électrique », « une date, calculée » — ; la forme en
+   clair de chaque type est sa facette documentation, à fixer au rang 2
+   (D1160) : celles d'ici sont miennes.

@@ -1509,15 +1509,23 @@ d'ensemble, ici, en tient le sommaire.
   **instable** ; **Syncytium la génère de façon prévisible —
   déterministe —, par une génération structurée, à la demande** : pas
   besoin de la générer à l'ingestion ; et **l'IA pour ce qu'elle sait
-  bien faire, la rédaction** — *ma lecture* : les textes libres (la
-  générale, le récit d'un scénario, les notes de version, les
-  traductions), gardés pour rester déterministes — au dépôt en fichier
-  complémentaire versionné, ou en cache de la version ; les garde-fous
-  2 à 6 ci-dessous restent à confirmer.
+  bien faire, la rédaction** — **par la partie 1** (D1226 — « en
+  s'appuyant sur la partie 1, nous pouvons compléter les éléments de la
+  documentation dans la configuration pour générer la documentation.
+  Par conséquent, la partie 2 reste déterministe et générée par le
+  moteur de Syncytium sans IA ») : l'IA, armée de la skill, écrit et
+  complète la configuration — les descriptions, les aides, les titres,
+  les textes complémentaires, les scénarios — que le concepteur relit
+  et commet ; **le moteur génère sans IA** ; le connecteur `llm` (D957)
+  garde le chat. **La note D1169 est close** ; les six garde-fous
+  ci-dessous, écrits pour une IA dans le moteur, sont sans objet — ce
+  que l'IA écrit passe par le dépôt et la relecture du concepteur, et
+  la complétude (§20) reste la mesure.
 
 **La note d'origine, pour mémoire : l'IA pour rédiger la documentation lisible**
 (D1169 — « ajoute la possibilité d'utiliser un moteur d'IA pour générer
-la documentation lisible par un humain depuis les données techniques »).
+la documentation lisible par un humain depuis les données techniques »
+— close par D1226).
 La génération mécanique livre des tables, des listes, des diagrammes ;
 un moteur d'IA — le connecteur `llm` de D957 — saurait en tirer de la
 prose : la documentation générale d'un module, le parcours guidé (§19),
@@ -2264,6 +2272,6 @@ comme chapitre (§19 → §22, D1187).*
 11. le contexte (D1131, D1133–D1135) : la formation comme usage ; la
     réglementation élargie à la sécurité ; les compléments par
     documentation ;
-12. l'IA pour rédiger la documentation lisible (§13, D1169) : les six
-    garde-fous, et où elle intervient — à débattre quand le rang 1
-    l'appellera (les scénarios).
+12. *(clos le 11/10 — l'IA, D1222–D1226 : elle assiste le concepteur par
+    une skill de la documentation du développeur, le moteur génère sans
+    elle ; la skill s'écrit au rang 5.)*

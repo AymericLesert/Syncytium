@@ -1493,7 +1493,25 @@ rubrique qui la spécifie. Trois lignes, pour la forme :
 tous les types de composants, dans leurs artefacts ; la matrice
 d'ensemble, ici, en tient le sommaire.
 
-**Une note, à débattre : l'IA pour rédiger la documentation lisible**
+**L'IA — deux parties** (D1169, ouverte par D1222–D1223) :
+
+- **construire ou améliorer une application** (D1222 — « en utilisant
+  les consignes que le moteur Syncytium met à disposition - syntaxe de
+  la configuration, consignes, règles, recommandations ») : Syncytium
+  publie ce qu'une IA doit savoir pour écrire une configuration — *mes
+  lectures* : la grammaire des clés, les règles d'ingestion, les
+  recommandations d'écriture, les exemples, en forme lisible par la
+  machine, livrés avec le moteur ; la maison — la documentation du
+  développeur (la 3e) ou une pièce propre — à arbitrer ; le cas 7
+  (D1023) en sera l'épreuve ;
+- **générer la documentation** (D1223) : « la documentation générée à
+  chaque sollicitation avec un minimum de consigne » est **instable** ;
+  **Syncytium la génère de façon prévisible, par une génération
+  structurée**, la même à chaque sollicitation, **qui peut se faire à
+  l'ingestion** et être servie telle quelle ; si l'IA rédige, c'est une
+  fois — au dépôt ou à l'ingestion —, jamais à la consultation.
+
+**La note d'origine, pour mémoire : l'IA pour rédiger la documentation lisible**
 (D1169 — « ajoute la possibilité d'utiliser un moteur d'IA pour générer
 la documentation lisible par un humain depuis les données techniques »).
 La génération mécanique livre des tables, des listes, des diagrammes ;

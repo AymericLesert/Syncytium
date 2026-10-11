@@ -65,7 +65,7 @@ unit_price:
 **Les écarts sont documentés par Syncytium (D1112).** La description
 d'un champ dit ce qu'il est, jamais ce qui a changé : la documentation
 de la version présente les écarts calculés — les champs ajoutés,
-renommés, retypés, supprimés — sans que le technicien les décrive ;
+renommés, retypés, supprimés — sans que le concepteur les décrive ;
 les notes de version, elles, portent l'évolution fonctionnelle.
 
 ### La migration du schéma (D673–D674)
@@ -146,7 +146,7 @@ un fichier par règle de migration ; l'organisation des dossiers est
 libre, la déclaration fait foi. **Les patterns sont des regex**
 (D806 — « plus de personnalisation et de contrôle ») ; le pattern
 est une déclaration : le standard d'organisation et de nommage que
-le technicien se fixe — partout où une liste de fichiers se déclare,
+le concepteur se fixe — partout où une liste de fichiers se déclare,
 il peut remplacer l'énumération. **La référence de fichier est
 explicite** (D956) : `~{<fichier ou pattern>}` — la valeur nue est
 un littéral, jamais un fichier ; en collection de flux (`[ … ]`)
@@ -178,7 +178,7 @@ décrite par le méta-modèle également. » À la racine de la version :
   table et colonne par colonne, dans la grammaire de description** ;
   **Syncytium s'assure de la complétude du modèle** : la description
   confrontée au schéma réel (`read_instance` — D629/D680), l'écart
-  signalé ; `read_instance` peut engendrer l'ossature, le technicien
+  signalé ; `read_instance` peut engendrer l'ossature, le concepteur
   la raffine ;
 - **`mapping/`** — les règles de conversion, **table par table, aux
   origines multiples possibles**.
@@ -396,6 +396,16 @@ accolades, un nom, un chemin ou une expression du langage unique ;
 une valeur nulle s'écrit vide ; à la source et à l'entité, les mêmes
 accolades citent la colonne lue ou le champ.
 
+**Les deux formes de la validation, le message construit** (D1116–D1117).
+La forme courte `- expression` et la forme longue `rule:` / `description:` /
+`message:` se mêlent dans une même liste, au champ (D364), à l'entité (D404) et
+à la règle. Sans `message:`, l'échec produit un message construit qui cite la
+règle, les valeurs des champs qu'elle cite et les valeurs de la clé de
+l'enregistrement ; la `description:` n'y entre pas, un `message:` explicite
+l'emporte. **Avec plusieurs langues** (D1101), le `message:` est exigé, par
+langue, sur chaque validation : sinon une erreur d'ingestion, et la forme
+courte est refusée.
+
 ```yaml
 # reprise/mapping/4_commande/04_lignes_achats.yml — la description, les formes longues (D1105/D1106)
 LCOMFOU:
@@ -470,7 +480,7 @@ celle du modèle (les non-conformes des références, D395). **Les
 anomalies du modèle** — la colonne non décrite, le type non
 convertible, la colonne décrite disparue, l'identité non respectée
 (D1042/D1053) — ne sont pas des rejets de règle : elles vont au
-technicien par le module `_migration` ; **celles des données de la
+concepteur par le module `_migration` ; **celles des données de la
 source** — ses phases de contrôle, le type, l'identité, l'orphelin —
 vont au `report:` de l'entité source (D1058, ci-dessous).
 
@@ -618,7 +628,7 @@ la ligne (mien).
 **Le texte trop long (D581).** Un `text[30]` de la source vers un
 `text[..20]` de la cible est une conversion avec perte : le typage
 statique la refuse à l'ingestion — ni troncature silencieuse, ni rejet
-à l'exécution ; le technicien l'écrit s'il la veut, `left(ARCTLIB01,
+à l'exécution ; le concepteur l'écrit s'il la veut, `left(ARCTLIB01,
 20)` (les fonctions du texte, D934).
 
 **L'enrichissement — le champ possédé par la cible (D941).** Le
@@ -693,8 +703,12 @@ customers:
   est tenue par la migration (D666/D668) ;
 
 - **l'identité partout** (D1035 — amende D825/D930) : toute entité
-  porte une identité, la sienne ou celle qu'elle hérite de sa racine
-  (D1039) ; son absence est une anomalie de description du modèle —
+  porte au moins une identité, la sienne ou celle qu'elle hérite de sa
+  racine (D1039) ; avec `identities:` (D1171), la règle est rapprochable
+  si elle détermine au moins l'une d'elles, la carte `{ champ:
+  expression }` choisit l'identité par ses champs, et deux identités qui
+  désignent deux enregistrements font une anomalie dans la base miroir
+  (en proposition) ; son absence est une anomalie de description du modèle —
   la règle « création seule » disparaît : l'enregistrement construit
   se retrouve dans la cible par son identité, deux enregistrements de
   même clé sont le même enregistrement (D1046) ; la règle de
@@ -763,7 +777,7 @@ postures de D180 incarnées.
   décrites dans la configuration — les décrites encore présentes dans
   le modèle lu, au type compatible, rapportées aux décrites ; la
   colonne que la configuration ne cite pas n'y entre pas, elle reste
-  une anomalie de complétude, au technicien (D1053) ; **la couverture
+  une anomalie de complétude, au concepteur (D1053) ; **la couverture
   des données**, sur les compteurs de l'origine — les lignes lues sans
   erreur rapportées aux lignes lues ; le `filter:` (D663) hors taux ;
 - **la comparaison par blocs et `coverage:`** (D878 — le cas 5) :
@@ -883,3 +897,27 @@ coverage:
 
 Aucun — le chantier du mapping et la jonction versions↔storage sont
 soldés (D646–D676).
+
+## La documentation — la facette de la reprise (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**La reprise, dans la fonctionnelle** : rien en chapitre — le module
+`_migration` est au socle, sous le menu d'administration (D711), et ses
+scénarios relèvent du guide d'exploitation (D1206). Ce qui passe tout
+de même : **« à quoi sert un champ »** cite les règles de reprise qui
+l'alimentent (D1198 — « repris de l'ERP ») ; **les opérations
+déclenchées par la reprise** (`when: migrated`) figurent dans la table
+des opérations de l'entité parce qu'elles transforment ce que
+l'utilisateur voit (D1209, D1227) ; les champs `unchanged:` se disent
+« saisis ici, jamais repris » (D941).
+
+**Les autres colonnes** — à leur rang : l'information (le rang 2 — les
+sources décrites, les règles, les trois taux D862, le graphe source →
+cible et l'impact d'une évolution de la source, D1198) ; le guide
+d'exploitation (le rang 7 — `migrate`, `reset_coverage`, le rythme, les
+rapports de rejets D929, les anomalies D1032) ; la réglementation (la
+provenance D178, les données personnelles reprises) ; la maintenance
+(la couverture et les compteurs, [migration.md](migration.md)).

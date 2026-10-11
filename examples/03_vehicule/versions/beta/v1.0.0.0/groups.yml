@@ -1,0 +1,15 @@
+# Les groupes d'utilisateurs : le mono-poste n'en a qu'un, le foyer, déclaré pour porter son persona — le lecteur type
+# de la documentation. Sans authentification, l'utilisateur par défaut appartient aux groupes déclarés, au degré
+# administrator.
+
+# Le groupe du foyer
+foyer:
+  label: Le foyer
+  description: Les membres du foyer — tous les droits sur les véhicules.
+
+  # Le persona
+  # Le lecteur type du groupe : un prénom, un rôle, ce qu'il vient faire ; sa description surcharge celle du groupe.
+  persona:
+    name: Paul
+    role: Membre du foyer
+    description: Il tient le garage du foyer — les véhicules, leurs pleins, leur entretien, leur financement.

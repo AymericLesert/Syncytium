@@ -285,3 +285,357 @@ reprise écrite de bout en bout.**
   formulaire est l'opération** — la symétrie avec le confirm
   (D600) ;
 - *(chaque frottement suivant = une décision consignée)*
+
+## La documentation générée — le chapitre des personas (le rang 1, étape 5 — D1200–D1209)
+
+*(la déclinaison de §22 de documentation.md sur la banque, le second
+cas choisi par D1207 — écrite le 11/10/2026 sur le patron du véhicule
+(D1209), **validée par D1210** ; ce que la banque montre en plus : **les
+trois langues** sur `title:` et `description:` (D1202) et **les
+opérations à formulaire d'appel** ; le prénom, les rôles, les scénarios
+sont miens, acquis tels qu'écrits)*
+
+**Ce que la configuration ajoute.** Le mono-poste déclare son groupe
+(D1208) : un `groups.yml` à la version, le groupe `foyer`, son persona
+(D1200) — le prénom invariant, le rôle et la description par langue
+(D1101) ; un `documentation.yml` avec quatre scénarios écrits, chacun
+son `title:` par langue et sa `description:` par langue — un fichier
+Markdown par langue (D1202) ; douze fichiers sous
+`documentation/scenarios/foyer/`. La banque n'a aucun wizard : la part
+générée est le tour (D1201) ; les trois opérations à bouton —
+dupliquer, propager, virer — et l'automatisme du relevé se lisent dans
+les scénarios écrits.
+
+```yaml
+# groups.yml — le groupe du foyer (D1208), le persona par langue
+foyer:
+  label: { fr: Le foyer, en: The household, es: El hogar }
+  description:
+    fr: Les membres du foyer — tous les droits sur les comptes.
+    en: The household members — full rights on the accounts.
+    es: Los miembros del hogar — todos los derechos sobre las cuentas.
+  persona:
+    name: Léa
+    role: { fr: Gestionnaire des comptes du foyer, en: Household accounts manager, es: Gestora de las cuentas del hogar }
+    description:
+      fr: Elle tient les comptes du foyer — la saisie des écritures, le pointage du relevé, les virements, les budgets.
+      en: She keeps the household accounts — entering transactions, reconciling the statement, transfers, budgets.
+      es: Lleva las cuentas del hogar — el registro de apuntes, el punteo del extracto, las transferencias, los presupuestos.
+```
+
+```yaml
+# versions/beta/v1.0.0.0/documentation.yml — les scénarios écrits, par langue (D1202)
+scenarios:
+  foyer:
+    pointage:
+      title: { fr: Pointer le relevé bancaire, en: Reconcile the bank statement, es: Puntear el extracto bancario }
+      description:
+        fr: ~{documentation/scenarios/foyer/pointage.fr.md}
+        en: ~{documentation/scenarios/foyer/pointage.en.md}
+        es: ~{documentation/scenarios/foyer/pointage.es.md}
+    recurrente:
+      title: { fr: Dupliquer une écriture récurrente, en: Duplicate a recurring entry, es: Duplicar un apunte recurrente }
+      description:
+        fr: ~{documentation/scenarios/foyer/recurrente.fr.md}
+        en: ~{documentation/scenarios/foyer/recurrente.en.md}
+        es: ~{documentation/scenarios/foyer/recurrente.es.md}
+    virement:
+      title: { fr: Faire un virement entre deux comptes, en: Transfer between two accounts, es: Transferir entre dos cuentas }
+      description:
+        fr: ~{documentation/scenarios/foyer/virement.fr.md}
+        en: ~{documentation/scenarios/foyer/virement.en.md}
+        es: ~{documentation/scenarios/foyer/virement.es.md}
+    budget:
+      title: { fr: Suivre un budget, en: Track a budget, es: Seguir un presupuesto }
+      description:
+        fr: ~{documentation/scenarios/foyer/budget.fr.md}
+        en: ~{documentation/scenarios/foyer/budget.en.md}
+        es: ~{documentation/scenarios/foyer/budget.es.md}
+```
+
+```markdown
+<!-- documentation/scenarios/foyer/virement.fr.md (D1204) -->
+Quand : à chaque mouvement d'argent d'un compte du foyer vers un autre.
+
+1. Ouvrir [les écritures du compte de départ](banque.ecriture[par_operation]) et sélectionner
+   une écriture — le virement part de la ligne où il se place.
+2. Appuyer sur [Virer](banque.ecriture.virer) : le formulaire demande le compte d'arrivée et le
+   montant.
+3. Relire, puis valider : deux écritures naissent, liées l'une à l'autre — la sortie sur le compte
+   de départ, l'entrée sur le compte d'arrivée, chacune avec son écriture liée.
+4. Vérifier [le compte d'arrivée](banque.ecriture[par_operation]) : l'entrée y figure, le solde a
+   suivi.
+
+> **À ne pas faire** : saisir le virement en deux écritures à la main — elles ne seraient pas liées,
+> et la suppression de l'une ne supprimerait pas l'autre.
+```
+
+```markdown
+<!-- documentation/scenarios/foyer/virement.en.md -->
+When: whenever money moves from one household account to another.
+
+1. Open [the entries of the source account](banque.ecriture[par_operation]) and select an entry —
+   the transfer starts from the line where it belongs.
+2. Press [Transfer](banque.ecriture.virer): the form asks for the target account and the amount.
+3. Review, then confirm: two entries are created, linked to each other — the debit on the source
+   account, the credit on the target account, each one carrying its linked entry.
+4. Check [the target account](banque.ecriture[par_operation]): the credit is there, the balance
+   has followed.
+
+> **Do not**: enter the transfer as two manual entries — they would not be linked, and deleting one
+> would not delete the other.
+```
+
+**Le chapitre 4, tel que Syncytium le produirait** — l'édition en
+français ; l'anglaise et l'espagnole se construisent de même, chacune
+depuis ses propres textes (D1144) :
+
+> ## 4. Les scénarios d'utilisation
+>
+> ### Léa — Gestionnaire des comptes du foyer
+>
+> Elle tient les comptes du foyer — la saisie des écritures, le
+> pointage du relevé, les virements, les budgets.
+>
+> **Ce qu'elle voit.** Le module banque : les comptes, les écritures
+> (par date d'opération, par date comptable, sans date comptable),
+> les budgets, les lieux ; le graphique de l'évolution des dépenses par
+> budget. Tous les droits.
+>
+> **Ses scénarios.**
+>
+> **Pointer le relevé bancaire** — *la planche 1*. Quand : à l'arrivée
+> du relevé. Ouvrir les écritures sans date comptable *(→ la liste
+> pointage, le compte demandé)* ; pour chaque ligne du relevé, poser la
+> date comptable en ligne *(→ la colonne date comptable, éditable)* —
+> la ligne quitte la liste ; une écriture du relevé absente de la liste
+> se saisit *(→ le formulaire de création)* ; à la fin, imprimer le
+> relevé *(→ la liste par date comptable, l'export PDF)* : les
+> écritures imprimées reçoivent leur date d'impression *(→ l'opération
+> creer_releve, déclenchée par la génération)*.
+>
+> **Dupliquer une écriture récurrente** — *la planche 2*. Quand : à la
+> mise en place d'un abonnement, d'un loyer. Sélectionner l'écriture
+> modèle *(→ la liste par date d'opération)* ; Dupliquer *(→
+> l'opération, son formulaire : le pas — jour, semaine, mois,
+> trimestre — et les deux dates)* ; relire le nombre de créations, puis
+> valider.
+>
+> **Faire un virement entre deux comptes** — *la planche 3*. Quand : à
+> chaque mouvement d'argent d'un compte du foyer vers un autre.
+>
+> 1. Ouvrir les écritures du compte de départ *(→ la liste par date
+>    d'opération)* et sélectionner une écriture — le virement part de la
+>    ligne où il se place.
+> 2. Appuyer sur Virer *(→ l'opération, son formulaire)* : le compte
+>    d'arrivée et le montant.
+> 3. Relire, puis valider : deux écritures naissent, liées l'une à
+>    l'autre — la sortie sur le compte de départ, l'entrée sur le compte
+>    d'arrivée, chacune avec son écriture liée.
+> 4. Vérifier le compte d'arrivée *(→ la liste par date d'opération)* :
+>    l'entrée y figure, le solde a suivi.
+>
+> > **À ne pas faire** : saisir le virement en deux écritures à la main
+> > — elles ne seraient pas liées, et la suppression de l'une ne
+> > supprimerait pas l'autre.
+>
+> **Suivre un budget** — *la planche 4*. Quand : chaque mois. Ouvrir
+> l'évolution des dépenses par budget *(→ le graphique
+> evolution_budget, le budget et la période en filtres)* ; lire le
+> cumul du mois ; remonter aux écritures du budget *(→ la liste par
+> date d'opération, filtrée sur le budget)*.
+
+**La planche 3** — « Faire un virement entre deux comptes », une page
+A4 paysage, dans la langue de l'émetteur (D1144) — en français ici :
+le titre, « à chaque mouvement d'argent » dessous ; quatre étapes ;
+sous chacune, l'image rendue par Syncytium — la liste par date
+d'opération avec la ligne sélectionnée et le bouton Virer entourés,
+le formulaire d'appel du virement avec ses deux champs, la relecture
+avant le scellé, la liste du compte d'arrivée avec l'entrée et le solde
+entourés ; l'encart ; le cartouche et le filigrane « Beta v1.0.0.0 »
+(D1145).
+
+**Ce que la déclinaison relève** (les frottements — *arbitrés par
+D1210*) :
+
+1. **Le persona par langue** : `name:` est invariant — un prénom ne se
+   traduit pas —, `role:` et `description:` sont par langue (D1101) ;
+   un rôle qui manque dans une langue tombe sur la langue par défaut et
+   la complétude le signale — « ok ».
+2. **Le scénario par langue** : `title:` par langue, `description:` un
+   fichier par langue, nommés ici `<scénario>.<langue>.md` — « le
+   nommage me convient (uniquement pour le cas d'usage) » : ailleurs, un
+   sous-dossier par langue ou le nommage du concepteur ; **un fichier
+   qui manque dans une langue est une erreur d'ingestion, pas de
+   bascule sur la langue par défaut** (D1210 — ma lecture de la bascule
+   écartée).
+3. **L'opération à formulaire d'appel** (D775) : son adresse
+   (`banque.ecriture.virer`) rend, sur la planche, le formulaire
+   d'appel comme un écran — le bouton d'abord, le formulaire ensuite,
+   deux images pour une étape ; **ses champs libres** (`pas`, `du`, `au`
+   — sans `hint:` ni `description:`) **comptent dans la complétude**
+   (D1230 — « oui, cela fait partie de la complétude »).
+4. **La liste à recherche obligatoire** (`compte: { select: mono,
+   required: true }`) : le lien sans paramètre ouvre la liste qui
+   demande le compte ; le scénario peut le fixer (`?compte=…`, D1203)
+   quand le contexte le connaît — ici il ne le connaît pas, la planche
+   montre la liste avec le compte en attente.
+5. **L'automatisme déclenché par une génération** (`creer_releve`,
+   `when: generated`) : il n'a ni bouton ni `label:` — le scénario le
+   désigne par son effet (« les écritures imprimées reçoivent leur date
+   d'impression »), comme ceux du véhicule (D1209).
+
+## La documentation générée — le chapitre du module (le rang 1 — D1194–D1196, D1218, D1227–D1233)
+
+*(la déclinaison du chapitre 3 de §6 de documentation.md sur le
+module `banque` — écrite le 11/10/2026, réécrite le même jour sur
+D1229–D1233 : le menu déclaré, le graphique sur l'accueil, le mode
+d'usage des composants, les messages par des exemples, **la
+description de l'entité et de ses champs avant l'écran, le type dans
+la table** ; l'édition française ; en proposition)*
+
+**Ce qui structure le chapitre.** Le menu, déclaré (`banque/menu.yml`,
+D1230) : l'accueil, les comptes, les écritures en sous-menu avec une
+entrée par liste, les budgets, les lieux. Une section par entrée
+(D1194, D1229) ; chaque section décrit l'entité, ses champs, l'écran
+(D1232), les opérations, les règles ; une liste qui partage l'entité
+d'une autre renvoie à ses champs.
+
+**Le chapitre, tel que Syncytium le produirait** :
+
+> ## 3. Le module banque
+>
+> La gestion des comptes bancaires du foyer.
+>
+> *(la vue du module — le diagramme : `compte` et sa composition
+> `ecriture` ; `ecriture` vers `budget`, `lieu`, et vers elle-même par
+> `liee` ; `numero` souligné chez le compte, `libelle` chez les deux
+> référentiels, en gras car référencés ; les calculés en italique —
+> D1213)*
+>
+> ### 3.0 Le foyer et ses comptes
+>
+> L'écran d'accueil du module : **l'évolution des dépenses par budget**
+> — le mois en abscisse, le montant du mois en ordonnée ; le budget et
+> la période se choisissent en filtres.
+>
+> ### 3.1 Les comptes
+>
+> **Un compte bancaire — son numéro, son libellé, ses dates d'ouverture
+> et de clôture, ses écritures.** Un compte se présente par son libellé
+> ; son identité est son numéro.
+>
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | Numéro | un texte de 23 caractères au plus | oui (identité) | — | — |
+> | Libellé | un texte de 40 caractères au plus | non | — | — |
+> | Ouverture | une date | oui | — | — |
+> | Clôture | une date | non | Vide tant que le compte est ouvert. | — |
+> | *Ouvert* | oui / non, calculé | — | — | — |
+> | Écritures | les écritures de 3.2 | — | — | — |
+>
+> **L'écran.** La liste et le formulaire par défaut ; les écritures en
+> onglet.
+>
+> **Les règles.** L'écriture d'ouverture est datée du jour de
+> l'ouverture — « L'écriture d'ouverture est datée du *[Date
+> d'opération]* ; le compte ouvre le *[Ouverture]*. » ; de même pour la
+> clôture — « L'écriture de clôture est datée du *[Date d'opération]* ;
+> le compte ferme le *[Clôture]*. »
+>
+> ### 3.2 Les écritures — par date d'opération
+>
+> **Une écriture bancaire — la date, le libellé, le budget, le montant,
+> le mode, le lieu.**
+>
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | Numéro | un compteur, attribué à la validation | — | — | Le compteur automatique, masqué aux surfaces. |
+> | Date d'opération | une date | oui | — | — |
+> | Date comptable | une date | non | Renseignée au pointage. | — |
+> | Libellé | un texte de 100 caractères au plus | non | — | — |
+> | Budget | un budget (3.5) | non | — | Le référentiel dynamique — la création directe au picker. *Mode d'usage* : tapez un libellé absent pour le créer. |
+> | Montant | un montant, en euros ou en francs | oui | Signé — négatif pour une dépense. | La devise vit dans la valeur ; le franc porte l'historique antérieur au passage à l'euro. |
+> | Mode | l'un de : CB, Prélèvement, Virement, Autre | non | — | — |
+> | N° de chèque | un texte de 10 caractères au plus | non | Pour le mode autre. | — |
+> | Écriture liée | une écriture (3.2) | — | — | L'écriture miroir du virement, sur l'autre compte. |
+> | Lieu | un lieu (3.6) | non | — | La ville — le référentiel dynamique, la création directe au picker. *Mode d'usage* : tapez un libellé absent pour le créer. |
+> | Imprimée le | une date | — | — | Le marqueur du relevé, posé par la génération du PDF. |
+> | *Montant en euros* | un montant en euros, calculé | — | — | Un montant à devise unique. |
+> | *Montant en francs* | un montant en francs, calculé | — | — | — |
+> | *Solde* | un montant en euros, calculé | — | — | Le solde continu — la somme des écritures du compte jusqu'à cette date. |
+> | *Débit* | un montant, calculé | — | — | Un calculé d'affichage — le montant signé en deux colonnes, avec le crédit. |
+> | *Crédit* | un montant, calculé | — | — | — |
+>
+> **L'écran.** La liste par date d'opération, tous comptes confondus :
+> Date d'opération, Date comptable, Libellé, Budget, Débit, Crédit,
+> Solde ; en zone de recherche, le compte — à choisir, obligatoirement
+> —, la plage de dates d'opération, la recherche ; la sélection
+> multiple ; la copie d'une écriture. Le formulaire — Création d'une
+> écriture, Écriture « … » du …, Modification, Suppression — : les
+> champs saisissables dans l'ordre de la table, le N° de chèque visible
+> pour le mode Autre.
+>
+> **Les opérations.**
+>
+> | L'opération | Ce qu'elle fait | Ce qui la déclenche |
+> |---|---|---|
+> | **Dupliquer** | Duplique l'écriture courante entre deux dates, au pas choisi — jour, semaine, mois ou trimestre ; les copies naissent dans la transaction, sans date comptable. | un bouton sur une écriture ; le formulaire « Dupliquer l'écriture "…" » — le pas (l'un de : Jour, Semaine, Mois, Trimestre), du (une date), au (une date), obligatoires ; la relecture affiche le nombre de créations |
+> | **Propager** | Modifie le libellé et le montant de toutes les écritures similaires — le même libellé et le même montant qu'avant la modification, à une date d'opération postérieure ou égale : la liste des similaires, la sélection, la modification en masse. | un bouton sur une écriture ; le formulaire « Propager depuis "…" » — le nouveau libellé (un texte de 60 caractères au plus), le nouveau montant (un montant en euros), obligatoires ; validée avant le scellé |
+> | **Virer** | Crée les deux écritures d'un virement entre comptes — la sortie sur le compte courant, l'entrée sur le compte cible —, liées des deux côtés, dans la même transaction. | un bouton sur une écriture ; le formulaire « Virement » — le compte cible (un compte), le montant (un montant en euros), obligatoires ; avec relecture |
+> | creer_releve | À toute génération d'un relevé, pose la date d'impression sur chaque écriture générée — le relevé devient un acte tracé, pas un simple export. | automatique, à l'export PDF du relevé (3.3) ; sans relecture |
+>
+> ### 3.3 Les écritures — par date comptable
+>
+> Les écritures pointées seules, par date comptable puis par montant,
+> de la dépense à la ressource — les champs de 3.2. **L'écran** : les
+> mêmes colonnes ; le compte, la plage de dates comptables et la
+> recherche ; la sélection multiple ; la copie ; **l'export du relevé
+> en PDF**, qui déclenche creer_releve.
+>
+> ### 3.4 Les écritures — sans date comptable
+>
+> Le pointage : les écritures sans date comptable, par date
+> d'opération — les champs de 3.2. **L'écran** : Date d'opération, Date
+> comptable, Libellé et Budget **éditables en ligne** *(mode d'usage :
+> la cellule se modifie dans la liste, sans ouvrir le formulaire)*,
+> puis Débit, Crédit, Solde ; le compte et la recherche ; la sélection
+> multiple. Poser la date comptable fait quitter la liste à l'écriture.
+>
+> ### 3.5 Les budgets
+>
+> **Un budget — le poste de dépense ou de ressource d'une écriture.**
+> Son identité est son libellé.
+>
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | Libellé | un texte de 30 caractères au plus | oui (identité) | — | — |
+>
+> **L'écran** : la liste et le formulaire par défaut.
+>
+> ### 3.6 Les lieux
+>
+> **Un lieu — la ville d'une écriture.** Son identité est son libellé.
+>
+> | Champ | Type | Obligatoire | Aide | Description |
+> |---|---|---|---|---|
+> | Libellé | un texte de 30 caractères au plus | oui (identité) | — | — |
+>
+> **L'écran** : la liste et le formulaire par défaut.
+
+**Ce que la déclinaison relève** — les six frottements du 11/10 sont
+soldés (D1229–D1230) ; la réécriture en ajoute deux :
+
+7. **La description de l'entité et de ses champs avant l'écran**
+   (D1232) : la section décrit l'entité, puis chaque champ — le
+   libellé, le type, l'obligation, l'aide, la description, les valeurs,
+   le mode d'usage du composant qui le rend (D1229) —, puis l'écran ;
+   une liste qui partage l'entité d'une autre (3.3, 3.4) renvoie à ses
+   champs ; les champs que les surfaces ne montrent pas (le numéro,
+   l'écriture liée, la date d'impression) y figurent avec leur
+   description, sans obligation — à confirmer.
+8. **Le type dans la table** (D1233) : « un montant, en euros ou en
+   francs », « un budget (3.5) » — la référence se dit par l'entité
+   cible et renvoie à sa section ; les formes en clair sont miennes, à
+   fixer au rang 2 (D1160) ; les champs libres d'un formulaire d'appel
+   disent aussi leur type, dans la colonne du déclenchement.

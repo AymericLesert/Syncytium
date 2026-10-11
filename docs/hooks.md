@@ -11,7 +11,7 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
 
 - **Un seul mécanisme, dedans comme dehors** (D52) : les hooks, les
   connecteurs et les composants relèvent d'un mécanisme uniforme —
-  ce que Syncytium embarque et ce que le technicien ajoute passent
+  ce que Syncytium embarque et ce que le concepteur ajoute passent
   par la même porte ;
 - **« Tous les types proposés sont finalement des hooks qui
   appartiennent à Syncytium »** (D408) — **le catalogue = les hooks
@@ -79,7 +79,13 @@ properties: { }                      # les propriétés du hook
 référence par `description:`, D809) décrivant son fonctionnement —
 la brique humaine de la documentation auto-générée (D645). Un
 dossier par hook ou tout dans un même fichier : l'éclatement est
-libre (D767/D807/D809).
+libre (D767/D807/D809). **La documentation fonctionnelle reprend ce md
+comme la description de l'opération** — « ce qu'elle fait », dans la
+section de l'entité (D1196/D1227) ; une opération qui en enchaîne
+plusieurs se décrit par la liste de ses étapes, chacune avec sa
+description (D1227). Le md est une configuration : il ne cite ni
+décision ni histoire du cas (D1085) — les md des hooks du véhicule et
+de la banque sont à nettoyer sur ce point.
 
 ## Les familles
 
@@ -283,7 +289,13 @@ sont **des références aux hooks** (`notify` → notify, `document` →
 generate, `set` → update, `function` → une fonction) ; « ne se
 construit pas dans la configuration » signifie *pas de code* —
 l'orchestration de références est déclarative, et la séquence
-s'exécute **dans la même transaction tenue ouverte** (D594).
+s'exécute **dans la même transaction tenue ouverte** (D594). **Le
+`notify` sans destinataire remonte à tout le monde, dans la zone des
+notifications de l'application ; le relais par mail est le choix de
+chacun, dans son profil** (D1228 — ma lecture : « tout le monde » =
+ceux qui voient l'entité, D334). **La documentation** d'une opération
+composée est la liste de ses étapes, chacune avec la description de
+son hook (D1227).
 
 **L'exemple** — le fil `sales.order` :
 
@@ -470,7 +482,7 @@ l'utilisateur le choisit à son profil, les droits s'y appliquent
 0. **Le hook d'interface, seul code tiers au navigateur** (D918 —
    D66/§8.2) : il ne reçoit jamais `private`, il relève de l'UX et
    jamais de la sécurité (le serveur arbitre), il est **sous la
-   responsabilité du technicien** et **listé par la documentation
+   responsabilité du concepteur** et **listé par la documentation
    générée** (`describe`, D645) pour que l'administrateur sache quel
    code tourne chez ses utilisateurs ; la page n'autorise que les
    scripts qu'elle connaît.
@@ -493,3 +505,42 @@ l'utilisateur le choisit à son profil, les droits s'y appliquent
    (celle de Syncytium + les hooks ajoutés automatiquement) se
    construit **dynamiquement, version par version** : la version
    documentée est exactement la version servie.
+
+## La documentation — la facette du hook (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**Le hook d'opération, dans la fonctionnelle** : son md (`description:
+~{documentation.md}`, D778/D809) **est la description de l'opération**
+— « ce qu'elle fait » dans la table des opérations de la section de
+l'entité (D1196, D1227) ; une opération qui en enchaîne plusieurs se
+décrit par la liste de ses étapes, chacune avec sa description
+(D1227) ; « ce qui la déclenche » vient de la déclaration — le bouton,
+le `when:`, la période (D428/D609), le formulaire d'appel et ses champs
+(D775) ; les opérations que l'utilisateur ne déclenche pas
+(`migrated`, `generated`) figurent parce qu'elles transforment ce
+qu'il voit (D1209) ; sans `label:`, le nom (D1181). Le md est une
+configuration : ni décision ni histoire du cas (D1085, D1228).
+
+**L'effet `notify`** sans destinataire remonte à tout le monde dans la
+zone des notifications de l'application ; le relais par mail est le
+choix du profil (D1228) — la section le dit ainsi.
+
+**Le hook de type** livre la facette documentation du type — le type en
+clair, ses contraintes, son exemple, dans chaque langue du moteur
+(D1162) — pour le dictionnaire (D1215 : « les hooks de type devront
+être adaptés ») ; le contrat s'écrit au rang 2.
+
+**Les langues** : chaque hook porte ses textes dans les langues
+attendues (D1162–D1163) ; un hook ajouté à Syncytium pour Syncytium les
+porte toutes ; un hook du concepteur, celles de sa version ; une langue
+manquante est une erreur d'ingestion.
+
+**Les autres colonnes** — à leur rang : le développeur (le contrat du
+hook, ses propriétés — `degree`, `execution`, `deterministic`,
+`connectors` —, le `describe` D645 ; **la skill** des consignes du
+moteur pour l'IA, D1224) ; le D.A.T. (le hook d'interface, le seul
+code tiers au navigateur, D918) ; la maintenance (la fréquence
+d'emploi de chaque opération, D1168).

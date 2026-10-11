@@ -13,15 +13,16 @@ chaque élément vit dans son artefact** — [entity.md](entity.md),
 [hooks.md](hooks.md), [connectors.md](connectors.md),
 [mapping.md](mapping.md), [rights.md](rights.md),
 [administration.md](administration.md), [security.md](security.md),
-[migration.md](migration.md). Les
-décisions citées renvoyent à la [conception](conception.md).
+[migration.md](migration.md),
+[documentation.md](documentation.md). Les
+décisions citées renvoient à la [conception](conception.md).
 
 ## 1. La nature — YAML, de petits fichiers, une seule grammaire
 
 - **YAML, sans format personnalisé** (D320) : la description emprunte
   la syntaxe YAML et s'en tient à elle ; **le fichier est une
   enveloppe** (D327) — lu, converti en logique interne, puis inerte :
-  le moteur ne réécrit jamais un fichier du technicien (D331/D332),
+  le moteur ne réécrit jamais un fichier du concepteur (D331/D332),
   les commentaires restent, le dépôt se diffe.
 - **De petits fichiers plutôt qu'un seul** (D323) : la description se
   décompose en fichiers et en dossiers, **une valeur peut être le
@@ -120,7 +121,7 @@ entities:
 
 Partout où une liste de fichiers se déclare, **un pattern regex peut
 remplacer l'énumération** — c'est une déclaration : le standard
-d'organisation et de nommage que le technicien se fixe.
+d'organisation et de nommage que le concepteur se fixe.
 
 ```yaml
 versions:
@@ -242,6 +243,68 @@ fields:
   date_creation: date_pmi            # un type dérivé (D992), la forme courte
 ```
 
+### 2.9 Les deux formes d'une collection — la liste et la substitution (D1113)
+
+Les collections **`versions`, `modules` et `entities`** s'écrivent de **deux
+manières équivalentes** ; le modèle décrit est le même.
+
+1. **La liste de valeurs** — le niveau est nommé (`versions:`, `modules:`,
+   `entities:`) et chaque élément porte son identifiant dans une propriété :
+   **`version:`** pour une version, **`name:`** pour un module ou une entité.
+   C'est la forme du cas 2 et des autres exemples ; elle reste vraie.
+2. **La substitution** — le niveau disparaît et **l'identifiant devient la
+   clé**, à la place de la propriété : `1.0.0.0:` remplace `- version: 1.0.0.0`,
+   `annuaire:` ou `personne:` remplace `- name: …`. C'est la forme du tiny
+   hello world (cas 1), une simplification d'écriture.
+
+```yaml
+# la liste de valeurs
+versions:
+  - version: 1.0.0.0
+    modules:
+      - name: annuaire
+        entities:
+          - name: personne
+            fields:
+              nom: text[..40]
+```
+
+```yaml
+# la substitution — le même modèle, sous un statut
+1.0.0.0:
+  annuaire:
+    personne:
+      fields:
+        nom: text[..40]
+```
+
+Les deux formes se valent à l'ingestion : un fichier se lit, se compare et se
+documente de la même façon quelle que soit l'écriture.
+
+**Dans la substitution, le niveau n'est plus nommé : le moteur le déduit de la
+position** — sous un statut, les clés sont des versions ; sous une version, des
+modules ; sous un module, des entités. **Au même niveau, les clés réservées
+(les propriétés du niveau : `environment`, `release-notes`, `description`,
+`title`, `languages`…) sont celles du moteur, toutes les autres sont des identifiants** ;
+un identifiant qui reprend une clé réservée de son niveau est refusé à
+l'ingestion.
+
+### 2.10 Les défauts du poste (D1114)
+
+Ce qu'un projet n'écrit pas, le système le porte. Un projet minimal — le tiny
+hello world (cas 1) — ne déclare que son modèle et un environnement :
+
+- **La journalisation** — sans `logging:`, les traces vont sur **la sortie
+  standard, en mode `verbose`**.
+- **Le nettoyage** — sans `cleanup:`, rien : la sortie standard ne laisse aucun
+  fichier à nettoyer.
+- **La langue** — sans `languages:`, **la langue est la localisation définie sur
+  le poste** ; les textes s'écrivent alors en texte simple (D1101).
+- **Le connecteur** — sans bloc `connectors:`, `storage: sqlite` désigne un
+  connecteur implicite dont le nom, la famille et la classe sont `sqlite`
+  (D1093 : le type ne s'écrit pas quand le nom est la famille).
+- **La première clé** — `from: Syncytium-1.0` reste écrite (D1083).
+
 ## 3. L'arbre
 
 La chaîne des déclarations, du sommet à la feuille — **rien ne se
@@ -284,9 +347,17 @@ versions/
 from: Syncytium-1.0                  # le format, la première clé (D1083)
 name: entrepot
 description: L'entrepôt de données de l'entreprise — …
+visibility: promotional              # public | private | promotional — ce qui se lit sans aucun droit (D1151, en proposition)
 environments: ~{environments/environments.yml}
 versions: ~{versions/versions.yml}
 ```
+
+**`visibility:` — ce qui se lit sans aucun droit** (D1151) : `private`
+— rien ; `promotional` — la page de présentation, construite par
+défaut et mise à disposition (D1150) ; `public` — la documentation en
+mode public, sans donnée ni rien de confidentiel. *Mes lectures* : la
+clé au projet, le défaut `promotional`, la place dans `syncytium.yml` —
+à confirmer avec la promotionnelle (documentation.md, le rang 9).
 
 **`from:` — l'origine, partout** (D1086) : un seul sens pour trois
 places — **le projet** (`syncytium.yml`) : le modèle Syncytium dont la
@@ -347,7 +418,8 @@ connectors: ~{connectors.yml}
   documentation est portée par Syncytium, par défaut, sans configuration
   (D333) ; le fichier ne vient que pour la personnaliser, et porte alors
   ses propriétés ; la clé `documentation:` de l'environnement le
-  référence ; aucun exemple n'en a l'usage ;
+  référence ; aucun exemple n'en a l'usage ; ses propriétés sont
+  proposées dans [documentation.md](documentation.md) §12 (D1118) ;
 - **`settings.yml`** de l'environnement, facultatif (D1095) — les
   réglages techniques qui varient d'un environnement à l'autre et valent
   pour toutes ses versions (D342) ; ce qui est partagé passe par les
@@ -357,7 +429,7 @@ connectors: ~{connectors.yml}
 ### 3.3 `versions/` — le contenu versionné, le cycle de vie en dossiers
 
 **Le statut d'une version est son emplacement** (D338/D340) ; **seuls
-les statuts utilisés se déclarent dans `versions.yml`** (D804) : quatre
+les statuts utilisés se déclarent dans `versions.yml`** (D804) — aucun n'est obligatoire : `production` peut se déclarer sans `beta` (D1115) : quatre
 dossiers — `beta/`, `production/`, `deprecated/`, `forbidden/` — et
 `sandbox/` (D907) ; **déposer dans un dossier = publier pour cet
 environnement** ; les transitions sont des gestes de fichier,
@@ -416,19 +488,31 @@ la banque (le cas 4) parlera le français, l'anglais et l'espagnol.
 
 ### 3.5 `settings.yml` — la maison des types et des réglages (D359/D360, D991–D993)
 
-**Les paramètres par défaut d'un type se déclarent sous le nom du type
-; un type dérivé se déclare de la même façon, avec `type:` sa base** :
+**La structure des settings** (D1239 — amende la forme à plat de
+D991/D1174) : **le type de composant, puis le composant, puis la
+propriété** — `field: { text: { default: "Me" }, integer: { default:
+-10 } }`, `entity: { history: true }`. Les paramètres par défaut d'un
+type se déclarent sous `field:` et le nom du type ; un type dérivé s'y
+déclare de la même façon, avec `type:` sa base (les dérivés sous
+`field:` avec les types du catalogue — confirmé, D1239) :
 
 ```yaml
-text:                                # un type du catalogue : ses défauts
-  normalize: trim(me)                # la normalisation à la frontière (D870/D872)
-date_pmi:                            # un dérivé (D359/D992) : la base et ses défauts
-  type: date
-  mask: "yyyymmdd"
-amount:
-  currency: EUR                      # la devise par défaut — amount(v) à un argument (D993)
+field:                               # le type de composant
+  text:                              # le composant : un type du catalogue, ses défauts
+    normalize: trim(me)              # la normalisation à la frontière (D870/D872)
+  date_pmi:                          # un dérivé (D359/D992) : la base et ses défauts
+    type: date
+    mask: "yyyymmdd"
+  amount:
+    currency: EUR                    # la devise par défaut — amount(v) à un argument (D993)
+  nom:                               # un dérivé porteur de sens (D1178) : le champ `nom: nom` hérite du marquage
+    type: text[..40]
+    rgpd: personal
 
-confidentiality:                     # les profils nommés (D885)
+entity:
+  history: true                      # l'historisation par défaut pour toute l'application (D1174)
+
+confidentiality:                     # les profils nommés (D885) — des déclarations, non des défauts : à la racine (D1239)
   financier:
     level: protected
     groups: [achats, direction]
@@ -443,7 +527,111 @@ confidentiality:                     # les profils nommés (D885)
   (l'instance), `settings:` du module, `settings:` de l'entité — **le
   plus proche l'emporte** ; le champ garde le dernier mot ;
 - les réglages dynamiques portent une valeur par défaut surchargeable
-  par l'administration (D588 — `{ mode: dynamic | static, value: … }`).
+  par l'administration (D588 — `{ mode: dynamic | static, value: … }`) ;
+- **la règle (D1175) : toute valeur ou tout statut par défaut de
+  Syncytium se surcharge dans les settings** — les types (D359), `reset:`
+  du compteur (D409), `normalize:` (D870), les profils (D885), les
+  réglages dynamiques (D588), `history:` (D1174) sont les cas déjà
+  traités d'un seul principe ; la clé porte le nom de la propriété
+  réglée, sous le nom du type quand c'est une propriété de type ;
+  statique dès que le défaut engage le stockage ou la structure,
+  dynamique sinon ; une clé qui ne nomme aucun défaut connu = une
+  erreur d'ingestion (D311). **L'inventaire des défauts du socle** — la
+  propriété, sa valeur, son étage, statique ou dynamique — se tient
+  ici, dans la table qui suit.
+
+**L'inventaire des défauts du socle** (D1175 — le premier relevé, le
+11/10/2026 ; *à compléter à chaque défaut nouveau*). **Sa structure est
+celle des settings** (D1239 — « la propriété doit être dans un bloc
+représentant le composant, qui lui-même doit être dans un bloc
+représentant le type de composant ») : **le type de composant → le
+composant → la propriété**. L'inventaire s'écrit donc comme un
+`settings.yml` qui redirait les défauts du socle ; une valeur
+*dynamique* (D588) se surcharge aussi par l'administration à chaud, les
+autres sont statiques — elles engagent le stockage ou la structure et
+se changent par une version :
+
+```yaml
+# L'inventaire des défauts du socle, dans la forme des settings (D1239) — les valeurs sont celles du socle
+
+# Le projet
+project:
+  visibility: promotional          # la page de présentation seule (D1151)
+
+# La version
+version:
+  languages: [<la langue du poste>]  # la première = la langue par défaut (D1101, D1114)
+
+# Le module
+module:
+  title: "${name}"                 # le nom d'usage = le nom (D1120)
+  history: false                   # l'historisation, en cascade vers l'entité (D168, D1174)
+  menu: <le défaut>                # les entités agrégats, les enfants en sous-menu (D193, D351)
+
+# L'entité
+entity:
+  title: "${name}"                 # (D1120)
+  label: "${name}"                 # le visage texte (D1181)
+  history: false                   # (D168)
+  allow: <tout permis>             # absent = tout permis, en cascade jusqu'au champ (D422, D886)
+
+# Le champ — les propriétés communes directement sous field: (D1239), puis par type
+field:
+  required: false                  # implicite sur l'identité (D373, D1170)
+  mode: editable                   # (D364)
+  label: "${name}"                 # (D1181)
+  confidentiality: public          # (D25)
+  default: <nul>                   # (D941)
+  unchanged: false                 # (D941)
+  text:
+    normalize: <aucune>            # (D870, D991)
+  counter:
+    reset: never                   # (D409–D410)
+  amount:
+    currency: <la devise dans la valeur>   # (D993)
+
+# L'opération
+operation:
+  commit: confirm                  # la relecture avant le scellé (D596)
+  cooldown: 1min                   # dynamique — operation.cooldown (D904)
+  retention: 90d                   # dynamique — operation.retention (D906)
+  notify:
+    to: <tout le monde>            # dans la zone des notifications de l'application (D1228)
+
+# Le groupe
+group:
+  degree: user                     # (D699, D900)
+  persona: <généré>                # nommé par le groupe (D1200)
+
+# Les surfaces et les composants graphiques
+surface:
+  default: <la première déclarée>  # sans déclaration, le défaut du socle (D186, D438)
+wizard:
+  breadcrumb: top                  # (D549)
+component:
+  size: <tout l'espace>            # (D533, D549)
+
+# L'environnement
+environment:
+  storage: sqlite                  # implicite au mono-poste (D1114)
+  documentation:
+    output: <sur demande>          # le dépôt, l'édition, l'impression sur demande (D1167)
+    notify: <à la promotion>       # la notification à la promotion d'une version (D1167)
+    publish: <selon visibility>    # (D1167)
+
+# L'application — les réglages dynamiques
+application:
+  sandbox:
+    retention: 7d                  # dynamique (D912)
+  logging:
+    throttle: 1min                 # dynamique (D926)
+```
+
+*Hors de l'inventaire* : le seuil de complétude n'a pas de défaut, le
+moteur mesure et ne refuse pas (D1221) ; le statut `production` seul
+accepté (D1115) est une règle, non un défaut ; les profils de
+confidentialité (D885) sont des déclarations nommées, non des défauts
+— ils restent à la racine des settings (ma lecture).
 
 ### 3.6 `groups.yml` — les groupes (D414)
 
@@ -465,7 +653,8 @@ personnes vivent en base (D27/D341). Le détail dans
 ### 3.7 Le module — `<module>.yml` (D765, D416)
 
 ```yaml
-name: technique
+name: technique                      # l'invariant, quelle que soit la langue (D1120)
+title: Technique                     # le nom d'usage, par langue (D1120) — sans lui, le name
 description: Les données techniques — …
 allow:                               # la cascade de l'allow (D886) — ici, l'entrepôt en lecture seule
   create: false
@@ -530,6 +719,8 @@ expressions.
 | `allow:` | l'application → le module → l'entité → le champ | D886 |
 | la confidentialité | le niveau (D25) × les groupes (D26), le profil nommé aux settings, référencé au champ | D885 |
 | `normalize:` | le défaut du type aux settings → le champ | D870/D872, D991 |
+| `history:` | `settings.yml` de la version → le module → l'entité ; l'opt-out par `history: false` ; le défaut du socle = inactif | D168, D1174 |
+| tout défaut du socle | la règle : la valeur de Syncytium → `settings.yml` de la version → le module → l'entité → le champ ; dans les settings, le type de composant → le composant → la propriété | D1175, D1239 |
 | le report des anomalies | l'entité source (ses phases) ou la règle de migration (les siennes) → le défaut de D407 | D929, D1058 |
 
 ## 5. L'ingestion — ce qui est refusé
@@ -562,8 +753,18 @@ avec sa cause ; le retry passe par l'incrément du build (D323).
 
 ## 6. Les points ouverts
 
-- les propriétés de `documentation.yml` — la génération de la
-  documentation fera l'objet d'un chapitre après les choix techniques et
-  avant la génération du code (D1090) ;
-- `menu.yml` — décidé (D351, D439), sans exemple encore au dépôt ; le
-  bloc `dashboards:` a le sien au cas 5 (`stock[pilotage]`).
+- les propriétés de `documentation.yml` — le chantier de la génération
+  de la documentation est ouvert, avant l'architecture technique
+  (D1118) : [documentation.md](documentation.md) §12 ;
+- `menu.yml` — décidé (D351, D439) ; **le premier exemple au dépôt :
+  `banque/menu.yml` du cas 4** (D1230 — l'accueil, les comptes, les
+  écritures en sous-menu avec une entrée par liste, les référentiels) ;
+  **la forme, retouchée par l'auteur (D1237 — amende D439 « pures
+  adresses » et D1236)** : une carte d'entrées nommées — chaque entrée
+  porte `label:` par langue et `link:`, l'adresse ; un sous-menu porte
+  `items:`, la carte de ses entrées ; l'ordre est celui de la carte ;
+  *mes lectures* : sans `label:`, le titre de la surface liée ; le
+  dictionnaire `label:` du module (D440/D1236) ne sert plus au menu ;
+  le bloc
+  `dashboards:` a le sien au cas 5 (`stock[pilotage]`) et au cas 4
+  (`banque[accueil]`).

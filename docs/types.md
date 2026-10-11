@@ -70,7 +70,20 @@ composants.md.
   une erreur) ; le champ garde le dernier mot (`ARCJCRE: { type:
   date_pmi, mask: "yyyymm" }`) ; un dérivé ne redéfinit jamais un type
   du catalogue (D408) ; l'usage par la forme courte (D356) — `ARCJCRE:
-  date_pmi` ;
+  date_pmi` ; **le dérivé porte aussi les facettes de sens** — `rgpd:`
+  (D1178 : `nom: { type: text[..40], rgpd: personal }`, puis `nom: nom`
+  dans chaque modèle — le champ hérite du marquage, la RGPD se
+  généralise par le type ; de même le profil de confidentialité D885,
+  `hint:` et `description:`) ; **et son entrée au glossaire de la
+  documentation** (D1179 — le vocabulaire du métier : `title:` et
+  `description:` par langue, la base, les facettes, les champs qui
+  l'emploient ; la complétude compte le type sans description — mes
+  lectures) ; **chaque type livre au dictionnaire des données sa ligne
+  — le type en clair, ses contraintes, son exemple** (D1215 : « le
+  dictionnaire de données est construit par Syncytium à partir
+  d'informations qui sont fournies par chaque item… les hooks de type
+  devront être adaptés pour que cela s'intègre parfaitement ») — la
+  facette documentation du type et du hook de type, au rang 2 ;
 - **le composant par défaut porte le nom du type** (D458).
 
 ## Les types simples
@@ -159,7 +172,7 @@ compose avec le constructeur (D659) :
 
 | le type | la nature | D |
 |---|---|---|
-| `counter` | le compteur — attaché au champ ou **mutualisé** (`counter[mon_compteur]`) ; la réinitialisation sur la déclaration (`reset: never` défaut) ; lecture seule partout, « *(attribué à la validation)* » en création ; **surchargé par la migration** (D883) : la valeur reprise entre telle quelle, **la méthode `update(valeur)` du type** (D999 — « plus parlante ») dans les `operations:` de la règle positionne le compteur courant sur la plus grande valeur : `commande_vente.numero.update(numero)`, le champ adressé par le point (D363) ; *le compteur mutualisé par son nom au crochet : `counter[mon_compteur].update(valeur)` — en proposition* ; **l'identification des trous est le contrôle porté par la propriété du compteur** (la continuité, D154), pas une règle de la migration ; le rejeu par l'identité (D930), jamais une nouvelle allocation | D154–D155, D297, D409–D410, D883, D998 |
+| `counter` | le compteur — attaché au champ ou **mutualisé** (`counter[mon_compteur]`) ; la réinitialisation sur la déclaration (`reset: never` défaut) ; lecture seule partout, « *(attribué à la validation)* » en création ; **surchargé par la migration** (D883) : la valeur reprise entre telle quelle, **la méthode `update(valeur)` du type** (D999 — « plus parlante ») dans les `operations:` de la règle positionne le compteur courant sur la plus grande valeur : `commande_vente.numero.update(numero)`, le champ adressé par le point (D363) ; *le compteur mutualisé par son nom au crochet : `counter[mon_compteur].update(valeur)` — en proposition* ; **l'identification des trous est le contrôle porté par la propriété du compteur** (la continuité, D154), pas une règle de la migration ; le rejeu par l'identité (D930), jamais une nouvelle allocation ; **sa place dans une identité est une identité acquise** (`identities:`, D1171) — le champ n'est pas obligatoire, l'identité ne vaut qu'une fois le compteur attribué | D154–D155, D297, D409–D410, D883, D998, D1171 |
 | le champ calculé | `formula:` — l'expression D90 ; lecture seule, **recalculé dès qu'une dépendance change** ; son composant = celui de son type de résultat ; les valeurs nommées d'une fonction se lient au point (D593) | D255, D298 |
 | le statut — `states:` | désigne le porteur (la hiérarchie D353 ou le champ énuméré) ; le graphe promote/demote ; un seul statut par entité | D421–D427 |
 | l'entité `context` | le moteur, lecture seule — `user` (traversable), `location`, `now`, `instance`/`application`/`module`, `entity`/`field`, `file`/`page`/`pages` (au document), `settings.<nom>` (les paramètres statiques/dynamiques en cascade) ; l'entité homonyme prend le pas (le warning à l'ingestion) | D254, D588–D591 |
@@ -172,3 +185,38 @@ opérateurs, les comparateurs, les fonctions dédiées, le tri) et **la
 représentation obligatoire** — « aucun type sans visage » (D459).
 L'exemple fondateur : le type `progression` (`integer[0..100]` +
 `component: fuel`), le champ `avancement: progression`.
+
+## La documentation — la facette du type (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**Le type, dans la fonctionnelle.** Il ne s'y nomme jamais : il se dit
+**en clair**, dans la langue du lecteur — « un texte de 40 caractères
+au plus », « un entier », « une date », « un montant en euros », « l'un
+de : Thermique, Électrique » — dans la table du dictionnaire (D1215) et
+dans la section de l'écran. **La forme en clair de chaque type est sa
+facette documentation**, à écrire type par type au rang 2 (le
+frottement 7 du tiny, D1160) : un item du catalogue du moteur par
+langue (D1160–D1162), que le type livre avec ses bornes et son masque.
+Le `counter` se dit « attribué à la validation » (D409) ; le calculé se
+dit par son libellé et son aide, jamais par sa formule (D1121).
+
+**Le type personnalisé** (D359/D991) — son entrée au glossaire des types
+(D1179, l'annexe) : `title:` et `description:` par langue, sa base, ses
+facettes de sens — `rgpd:` (D1178), la confidentialité —, ses
+contraintes en clair, les champs qui l'emploient ; la complétude compte
+le type sans description.
+
+**Le type, dans le dictionnaire** (D1215) : la colonne « Type » de la
+table d'une entité, et les marques — italique pour le calculé, « * »
+pour `rgpd:` (D1213). **Le hook de type** livre la même facette — le
+type en clair, ses contraintes, son exemple, dans chaque langue du
+moteur (D1162) — : « les hooks de type devront être adaptés pour que
+cela s'intègre parfaitement » (D1215) ; le contrat au rang 2, dans
+[hooks.md](hooks.md).
+
+**Les autres colonnes** — à leur rang : l'information (la facette
+stockage et les conversions, D119/D982), le développeur (la forme à
+l'API, D20), la réglementation (le marquage porté par le type, D1178).

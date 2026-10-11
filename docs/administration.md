@@ -109,7 +109,7 @@ indisponible, la perte du réseau…).
 
 ```yaml
 # l'entité système user — définie, construite et maintenue par
-# Syncytium, jamais déclarée par le technicien
+# Syncytium, jamais déclarée par le concepteur
 user:
   label: "{first_name} {last_name}"
   fields:
@@ -221,7 +221,7 @@ settings:
   (D341/D414–D416) — en base, par l'administrateur ; le groupe porte
   le degré (D699), **l'appartenance à un groupe est obligatoire** ;
 - **le provisionnement** : les utilisateurs associés par le
-  technicien ou par la passerelle d'authentification (D418/D692 —
+  concepteur ou par la passerelle d'authentification (D418/D692 —
   la famille `authentication`, la synchronisation par le
   `directory` D633) ;
 - **les jetons des comptes techniques** (D692) : créés et révoqués
@@ -309,7 +309,7 @@ l'initialisation, **la duplication** de l'origine
 (`duplicate_instance` D680 — la base, les fichiers, la
 configuration) puis **la migration** jusqu'à la version de la
 sandbox ; **les connecteurs de son environnement** (D911 — à la main
-du technicien, le mock comme pour beta), l'origine jamais touchée ;
+du concepteur, le mock comme pour beta), l'origine jamais touchée ;
 **la promotion vers `beta` ou `production` par un geste de fichier**
 (D910) — **`from:` retiré à la promotion** (sinon une erreur avant
 l'ingestion), **l'origine promue casse le lien** des sandboxes qui
@@ -490,7 +490,7 @@ journaux en anglais (D217–D225). **Le journal est le sixième canal
 de la télémétrie** (D737) : les six niveaux
 (`verbose`/`debug`/`info`/`warning`/`error`/`exception`) dans la
 configuration en dur (**`logging.yml`** — le nom harmonisé D750, renommé D830), la
-consultation par **le technicien seul**, en cas de besoin — hors
+consultation par **le concepteur seul**, en cas de besoin — hors
 IHM. **Le journal d'accès reste au proxy** (D925) ; le journal du
 moteur porte **les événements de sécurité** à leur niveau — `info`
 (l'authentification, la rotation, l'ingestion, la recharge),
@@ -556,3 +556,38 @@ et les six raccords vivent dans **[telemetry.md](telemetry.md)**
 **Le sujet 3 est soldé** (D743) — et avec lui la passe de complétude
 entière (D603–D743) : les domaines 5 et 6 s'ouvrent (les cas d'usage
 Q59, la documentation Q58).
+
+## La documentation — la facette de l'administration (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**L'administration, dans la fonctionnelle** : le chapitre du socle (§6,
+chapitre 2 — ce qui est commun à toute application, borné à ce que la
+version emploie) décrit ce que l'utilisateur en touche — le profil (la
+langue, la réception des notifications par mail, D1228), le cycle de
+vie d'une donnée (la suppression marque sans effacer, D137 ; la
+réactivation est l'acte d'un administrateur, D903), les notes de
+version. **Les scénarios d'administration** — les migrations, la
+sandbox, la rotation des clés, les sauvegardes — relèvent du guide
+d'exploitation, non de la fonctionnelle (D1206).
+
+**La documentation est servie et produite par le socle** : dedans, à
+ses niveaux (D1138), dans la langue du profil et à la version servie
+(D1144) ; la version la plus élevée des actives par défaut (D1123),
+les dépréciées renvoyées à leurs notes (D1124) ; l'édition préparée
+par un `manager` ou un `administrator` (D1142) ; **la commande**
+`syncytium document <environnement> <documentation> [--version]
+[--language]` — les neuf par leur clé anglaise (D1167) —, et
+`--check`, qui mesure la complétude sans produire (D1221, en
+proposition) ; **`notify:`** (D1167 — `release` → les notes et ce qui
+change, `beta` → la complétude) ; `visibility:` au projet (D1151).
+Le seuil de complétude est à la discrétion du concepteur : le moteur
+mesure, ne refuse pas (D1221).
+
+**Les autres colonnes** — à leur rang : le guide d'exploitation (le
+rang 7 — l'installation, la configuration, la supervision, les
+opérations de maintenance, D1134) ; la maintenance (le rang 8 — les
+usages, les contrôles, les optimisations, D1128) ; le D.A.T. (le rang
+6) ; le projet et le support (le rang 4, D1133).

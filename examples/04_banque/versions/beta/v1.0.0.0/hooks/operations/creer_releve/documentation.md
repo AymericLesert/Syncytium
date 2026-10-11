@@ -1,7 +1,6 @@
-# creer_releve — la tache d'impression (D794)
+# creer_releve — la tâche d'impression
 
-Déclenchée par l'événement `generated` (D796 — émis à toute
-génération, l'issue de generate D791) : le contexte porte la liste
-des écritures générées ; le hook pose la
-date d'impression (`imprimee`) sur chacune — le releve devient un
-acte trace, pas un simple export.
+Déclenchée par l'événement `generated` — émis à toute génération,
+l'issue de `generate` : le contexte porte la liste des écritures
+générées ; le hook pose la date d'impression (`imprimee`) sur
+chacune — le relevé devient un acte tracé, pas un simple export.

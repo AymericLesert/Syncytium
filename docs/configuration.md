@@ -530,8 +530,51 @@ history: true                        # l'historisation par défaut pour toute l'
   statique dès que le défaut engage le stockage ou la structure,
   dynamique sinon ; une clé qui ne nomme aucun défaut connu = une
   erreur d'ingestion (D311). **L'inventaire des défauts du socle** — la
-  propriété, sa valeur, son étage, statique ou dynamique — est à tenir
-  ici *(à écrire : le relevé des défauts épars dans les artefacts)*.
+  propriété, sa valeur, son étage, statique ou dynamique — se tient
+  ici, dans la table qui suit.
+
+**L'inventaire des défauts du socle** (D1175 — le premier relevé, le
+11/10/2026, depuis les artefacts et le registre ; *à compléter à
+chaque défaut nouveau* ; l'étage = là où la propriété se déclare, la
+surcharge aux settings vaut à tout étage de la cascade) :
+
+| La propriété | Le défaut du socle | L'étage | Statique / dynamique | D |
+|---|---|---|---|---|
+| `history:` | inactive | le module, l'entité | statique | D168, D1174 |
+| `confidentiality:` | `public` | le champ | statique | D25 |
+| `allow:` | absent = tout permis | l'application, le module, l'entité, le champ, l'état | statique | D422, D886 |
+| `required:` | `false` ; implicite sur l'identité | le champ | statique | D373, D1170 |
+| `label:` | le gabarit `${name}` | l'entité, le champ, le menu | statique | D1181 |
+| `title:` | le `name:` | le module, l'entité | statique | D1120 |
+| `default:` | aucun — le nul | le champ | statique | D941 |
+| `unchanged:` | `false` | le champ | statique | D941 |
+| `normalize:` | aucune | le type (`text:`), le champ | statique | D870, D991 |
+| `reset:` du `counter` | `never` | le type, le champ | statique | D409–D410 |
+| `currency:` d'`amount` | aucune — la devise dans la valeur | le type | statique | D993 |
+| `mode:` du champ | `editable` | le champ | statique | D364 |
+| `degree:` du groupe | `user` | le groupe | statique | D699, D900 |
+| `persona:` | généré, nommé par le groupe | le groupe | statique | D1200 |
+| `commit:` d'une opération | `confirm` — la relecture | l'opération | statique | D596 |
+| `cooldown:` d'une opération | `1min` (`operation.cooldown`) | l'application | dynamique | D904 |
+| `retention:` d'un résultat | `90d` (`operation.retention`) | l'application | dynamique | D906 |
+| `notify` sans destinataire | tout le monde, dans l'application | l'opération | statique | D1228 |
+| `breadcrumb:` du wizard | `top` | le wizard | statique | D549 |
+| `size:` d'un composant | tout l'espace disponible | le nœud | statique | D533, D549 |
+| la surface par défaut | la première déclarée ; sans déclaration, le défaut du socle | l'entité | statique | D186, D438 |
+| le menu | le défaut de D193 : les entités agrégats, les enfants en sous-menu | le module | statique | D193, D351 |
+| `languages:` | la langue du poste ; la première = la langue par défaut | la version | statique | D1101, D1114 |
+| `visibility:` | `promotional` | le projet | statique | D1151 |
+| `sandbox.retention` | `7d` | l'application | dynamique | D912 |
+| `logging.throttle` | `1min` | l'application | dynamique | D926 |
+| les canaux de la documentation | le dépôt, l'édition et l'impression sur demande ; la notification à la promotion ; la publication selon `visibility:` | l'environnement | statique | D1167 |
+| le seuil de complétude | aucun — le moteur mesure, ne refuse pas | — | — | D1221 |
+| le statut d'une version | `production` seul accepté | `versions/` | statique | D1115 |
+| le connecteur de stockage | `sqlite` implicite au mono-poste | l'environnement | statique | D1114 |
+
+*(Statique : le défaut engage le stockage ou la structure, il se change
+par une version. Dynamique : surchargeable par l'administration à
+chaud, D588. Les valeurs dynamiques portent le nom de leur réglage
+entre parenthèses.)*
 
 ### 3.6 `groups.yml` — les groupes (D414)
 

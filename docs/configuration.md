@@ -493,8 +493,8 @@ D991/D1174) : **le type de composant, puis le composant, puis la
 propriété** — `field: { text: { default: "Me" }, integer: { default:
 -10 } }`, `entity: { history: true }`. Les paramètres par défaut d'un
 type se déclarent sous `field:` et le nom du type ; un type dérivé s'y
-déclare de la même façon, avec `type:` sa base (*ma lecture, à
-confirmer* : les dérivés sous `field:` avec les types du catalogue) :
+déclare de la même façon, avec `type:` sa base (les dérivés sous
+`field:` avec les types du catalogue — confirmé, D1239) :
 
 ```yaml
 field:                               # le type de composant
@@ -512,7 +512,7 @@ field:                               # le type de composant
 entity:
   history: true                      # l'historisation par défaut pour toute l'application (D1174)
 
-confidentiality:                     # les profils nommés (D885) — des déclarations, non des défauts : à la racine (ma lecture)
+confidentiality:                     # les profils nommés (D885) — des déclarations, non des défauts : à la racine (D1239)
   financier:
     level: protected
     groups: [achats, direction]
@@ -575,7 +575,7 @@ entity:
   history: false                   # (D168)
   allow: <tout permis>             # absent = tout permis, en cascade jusqu'au champ (D422, D886)
 
-# Le champ — les propriétés communes (ma lecture : directement sous field:), puis par type
+# Le champ — les propriétés communes directement sous field: (D1239), puis par type
 field:
   required: false                  # implicite sur l'identité (D373, D1170)
   mode: editable                   # (D364)

@@ -2296,9 +2296,9 @@ comme chapitre (§19 → §22, D1187).*
    D1218 ; les compléments absorbés, D1220 ; les déclinaisons écrites —
    le tiny réaligné, le véhicule et la banque avec leur section de
    module, D1227–D1230 ; la rubrique « La documentation » dans les neuf
-   artefacts le 11/10 ; le tiny validé, D1231) : *à relire par l'auteur*
-   — les sections de module du véhicule et de la banque, les neuf
-   rubriques ; la forme du sous-menu de `menu.yml` (D1230) ;
+   artefacts le 11/10 ; le tiny validé, D1231 ; les sections de module
+   validées, D1234) : *à relire par l'auteur* — les neuf rubriques ; la
+   forme du sous-menu de `menu.yml` (D1230) ;
    les compléments (« mes droits », les notifications, les documents
    produits, la recherche) ; la colonne 1 de la matrice dans les
    artefacts ; les déclinaisons sur le véhicule, la banque, l'entrepôt ;

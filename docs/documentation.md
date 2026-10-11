@@ -1814,7 +1814,8 @@ Le rapport du concepteur, à la façon de la couverture (D861/D1060) :
 champs sans `hint:` ni `description:`, les énumérés sans libellé, les
 opérations et les hooks sans description ni md, les surfaces sans
 `description:` (le masque vide), l'entité sans aucun marquage `rgpd:`
-— signalée, jamais qualifiée (D1177) ; un taux par module et par version ;
+— signalée, jamais qualifiée (D1177), **les champs libres d'un
+formulaire d'appel** sans `hint:` ni `description:` (D1230) ; un taux par module et par version ;
 dans la documentation technique, et à l'ingestion comme avertissement.
 **Un défaut du socle n'est pas un manque** (D1173) : `history:` tu, les
 droits tus — la documentation dit en clair ce qui s'applique, la

@@ -472,7 +472,9 @@ D1210*) :
 3. **L'opération à formulaire d'appel** (D775) : son adresse
    (`banque.ecriture.virer`) rend, sur la planche, le formulaire
    d'appel comme un écran — le bouton d'abord, le formulaire ensuite,
-   deux images pour une étape.
+   deux images pour une étape ; **ses champs libres** (`pas`, `du`, `au`
+   — sans `hint:` ni `description:`) **comptent dans la complétude**
+   (D1230 — « oui, cela fait partie de la complétude »).
 4. **La liste à recherche obligatoire** (`compte: { select: mono,
    required: true }`) : le lien sans paramètre ouvre la liste qui
    demande le compte ; le scénario peut le fixer (`?compte=…`, D1203)
@@ -492,16 +494,14 @@ même depuis leurs propres textes ; ce que la banque montre en plus :
 les listes nommées, les opérations à formulaire d'appel, un référentiel
 à création directe ; les frottements en fin de section)*
 
-**Ce qui structure le chapitre.** Le menu n'est pas déclaré : le défaut
-de D193 le donne — le compte, l'entité agrégat, puis en sous-menu ses
-écritures (D1227 : la liste de l'enfant, tous comptes confondus), les
-budgets et les lieux, deux référentiels à part entière ; aucun tableau
-de bord. L'écriture déclare trois listes : la première, par date
-d'opération, est celle du sous-menu ; les deux autres font chacune leur
-entrée (D189 : « une entité peut y avoir plusieurs entrées » — ma
-lecture, à confirmer). Les opérations à formulaire d'appel se lisent
-dans la section de l'écriture ; leur description vient du md de leur
-hook (D1227).
+**Ce qui structure le chapitre.** Le menu, **déclaré depuis D1230**
+(`banque/menu.yml`, le premier du dépôt) : l'accueil du module
+(`banque[accueil]`, le graphique), les comptes, les écritures en
+sous-menu avec une entrée par liste — par date d'opération, par date
+comptable, sans date comptable —, les budgets, les lieux. Une section
+par entrée (D1194, D1229) ; les opérations à formulaire d'appel se
+lisent dans la section de l'écriture, leur description vient du md de
+leur hook (D1227).
 
 **Le chapitre, tel que Syncytium le produirait** :
 
@@ -516,6 +516,12 @@ hook (D1227).
 > `ouvert`, `montant_euro`, `montant_franc`, `solde`, `debit`,
 > `credit` ; `libelle` en gras chez `budget` et `lieu`, référencés par
 > l'écriture — D1213)*
+>
+> ### 3.0 Le foyer et ses comptes
+>
+> L'écran d'accueil du module : **l'évolution des dépenses par budget**
+> — le mois en abscisse, le montant du mois en ordonnée ; le budget et
+> la période se choisissent en filtres.
 >
 > ### 3.1 Les comptes
 >
@@ -580,10 +586,6 @@ hook (D1227).
 > compte et la recherche ; la sélection multiple. Poser la date
 > comptable fait quitter la liste à l'écriture.
 >
-> *(le graphique de l'écriture — l'évolution des dépenses par budget :
-> le mois en abscisse, le montant du mois en ordonnée ; le budget et
-> la période en filtres — rattaché à 3.2, ma lecture)*
->
 > ### 3.5 Les budgets
 >
 > Un budget — le poste de dépense ou de ressource d'une écriture ; son
@@ -604,15 +606,17 @@ par D1229, deux à réexpliquer*) :
    par une entrée du menu a son entrée. Les autres sont présentes dans
    des écrans et la documentation de ces listes apparaît là où elles
    s'affichent » : les sections 3.3 et 3.4 ne tiennent que si le menu
-   de la banque déclare ces deux listes ; **le menu n'est pas déclaré**
-   (`menu:`, D351/D439 — aucun exemple au dépôt) et aucun écran ne les
-   embarque : **la banque doit déclarer son menu**, sans quoi la
-   documentation ne décrit ni la liste par date comptable, ni le
-   pointage — conséquence à écrire dans l'exemple.
+   de la banque déclare ces deux listes ; le menu n'était pas déclaré
+   et aucun écran ne les embarquait — **« oui pour le menu » (D1230)** :
+   `banque/menu.yml` écrit, le premier du dépôt — l'accueil, les
+   comptes, les écritures en sous-menu avec une entrée par liste, les
+   budgets, les lieux ; la forme du sous-menu (`<nom>: { title:, items:
+   }`) est mienne, à confirmer.
 2. **Le graphique d'une entité** — « est sur un écran. L'explication
-   est attachée à l'écran » : `evolution_budget` n'est placé sur aucun
-   écran ; il rejoint le même constat — un tableau de bord ou un
-   formulaire à déclarer pour le porter, et sa documentation avec.
+   est attachée à l'écran » : `evolution_budget` n'était placé sur
+   aucun écran — **« oui pour le graphique dans un écran » (D1230)** :
+   le tableau de bord `accueil` du module le porte, la section 3.0 le
+   décrit.
 3. **L'opération à formulaire d'appel** : la colonne « ce qui la
    déclenche » porte le bouton, le titre du formulaire, ses champs et
    leur obligation — les champs libres du formulaire (D775) n'ont ni

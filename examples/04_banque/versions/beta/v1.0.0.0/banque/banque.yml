@@ -15,3 +15,18 @@ entities:
   - ~{ecriture/ecriture.yml}
   - ~{referentiel/budget.yml}
   - ~{referentiel/lieu.yml}
+
+# Le menu du module
+# Déclaré pour donner une entrée à chacune des trois listes de l'écriture ; sans lui, le défaut n'en montre qu'une.
+menu: ~{menu.yml}
+
+# L'interface du module
+# L'accueil : le graphique de l'évolution des dépenses par budget ; le menu l'adresse banque[accueil].
+gui:
+  dashboards:
+
+    # L'accueil
+    accueil:
+      title: { fr: Le foyer et ses comptes, en: The household and its accounts, es: El hogar y sus cuentas }
+      items:
+        - chart[ecriture.evolution_budget]

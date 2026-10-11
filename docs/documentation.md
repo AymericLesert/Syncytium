@@ -348,10 +348,12 @@ documentations** (§13, D1159), dans les artefacts des composants.
   11. *(tombée, D1220 — les compléments sont absorbés par le plan de
       §6 : « mes droits » au chapitre 4, les notifications au chapitre
       3, les documents produits et la recherche au chapitre 2.)*
-- **Déclinaison** : le tiny (amendé — les frottements soldés,
-  D1170–D1182) ; **le véhicule** (cas 3) pour les états, les
-  enchaînements, **les personas et une planche** ; **la banque** (cas 4)
-  pour les trois langues, les opérations **et les personas** ;
+- **Déclinaison** : le tiny (les frottements soldés, D1170–D1182 ; la
+  déclinaison réécrite sur le plan à sept chapitres le 11/10) ; **le
+  véhicule** (cas 3) — les états, les enchaînements, la section du
+  module (D1227–D1228), **les personas et une planche** (D1209) ; **la
+  banque** (cas 4) — les trois langues, les opérations, la section du
+  module (D1229–D1230), **les personas** (D1210) ;
   l'entrepôt n'est pas le lieu des personas (D1207 — il décrit une
   migration et l'alimentation d'un entrepôt).
 - **Livrables** : §6, §7, §14–§16, §19, §22, §24 validés ;

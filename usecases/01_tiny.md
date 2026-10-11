@@ -46,222 +46,156 @@ champs en forme courte. Ni journal, ni nettoyage, ni langues, ni
 groupes, ni `title:` : les défauts du poste portent le reste (D1114,
 D1120).
 
-## La documentation générée — la première déclinaison
+## La documentation générée — la déclinaison sur le plan acquis
 
-*(Écrite à la main le 05/10/2026, telle que Syncytium devrait la
-produire depuis ces lignes — la méthode de documentation.md §13 ; le
-rendu est en Markdown parce qu'il se lit ici, la forme relève du
-domaine 7 (D1126). Le plan suit l'exemple de référence (§6) : la
-présentation, le socle, le module ; puis les pièces (§14–§25). Chaque
-frottement de l'écriture est relevé à la fin.)*
+*(La première déclinaison, écrite à la main le 05/10/2026 en seize
+chapitres sur le plan de l'exemple de référence, précédait tout le
+rang 1 ; elle est réécrite le 11/10/2026 sur le plan acquis de
+documentation.md §6 — sept chapitres, D1189 — et sur les règles du
+rang 1 : les masques (D1190–D1193), les enchaînements (D1194–D1196,
+D1227–D1229), les personas (D1200–D1210), le gabarit d'import (D1211),
+le dictionnaire (D1212–D1217), la complétude (D1173–D1182, D1199,
+D1221). Le tiny reste la configuration minimale : rien n'y est ajouté
+pour la documentation, et c'est le propos — tout ce qui suit naît des
+vingt-six lignes de `syncytium.yml`. Les frottements relevés le 05/10
+sont tous soldés (la section suivante).)*
 
 ---
 
 > # tiny — Une entité, quatre champs et une application complète avec API et documentation
 >
-> *La documentation de la version 1.0.0.0 — production, la seule
-> version active, servie par défaut.*
+> *La documentation fonctionnelle de la version 1.0.0.0 — production,
+> la seule version active, servie par défaut ; la langue du poste.*
+>
+> *(0. La couverture n'existe qu'en édition : la page de garde, le
+> cartouche — tiny, 1.0.0.0, la date, l'auteur de l'édition — ; pas de
+> filigrane, la version est en production.)*
 >
 > ## 1. Présentation
 >
-> **L'application.** `tiny` — « Une entité, quatre champs et une
-> application complète avec API et documentation ». Un module :
-> `annuaire`. Une version en service : 1.0.0.0, en production, sur
-> l'environnement `home`.
+> *Aucun texte de présentation.* Une entité, quatre champs et une
+> application complète avec API et documentation.
 >
-> **Les environnements.**
+> **Les modules.** `annuaire` — *aucune description* ; une entité,
+> `personne`.
 >
-> | Environnement | Nature | Stockage |
-> |---|---|---|
-> | `home` | Exécution en mode local | `sqlite` |
+> **Le modèle de données — la vue des modules.** Un module, sans lien.
 >
-> **La version 1.0.0.0.** Statut : production. Notes de version :
-> « Version 1 de l'annuaire ». Langue : celle du poste. Ce qui change :
-> première version, aucune version antérieure.
+> **La version 1.0.0.0.** Statut : production, sur l'environnement
+> `home` (Exécution en mode local). Notes de version : « Version 1 de
+> l'annuaire ». Ce qui change : première version, aucune version
+> antérieure.
 >
-> **Les modules.**
+> **Le concepteur.** *Non nommé ; aucun contact déclaré.*
 >
-> | Module | Description | Entités |
-> |---|---|---|
-> | `annuaire` | — | `personne` |
+> ## 2. Le socle
 >
-> **Le modèle de données.** Une entité, un module : la vue d'ensemble
-> et la vue de l'entité se confondent.
+> *(Ce chapitre vient de Syncytium — les textes génériques du catalogue
+> —, borné à ce que la version emploie.)* L'écran principal et son
+> menu — un module, une entité. Pour chaque entité : la liste, le
+> formulaire, le widget de résumé. Le « ? » de chaque écran : le masque
+> d'explication, la page de l'écran dans cette documentation, les
+> questions et réponses. Le cycle de vie d'une donnée : la suppression
+> marque sans effacer. L'import, un écran du module, par fichier CSV —
+> le gabarit en annexe ; l'export depuis la liste, CSV ou Excel. Le
+> profil : la langue, les notifications par mail. La recherche. *(Ni
+> historique, ni groupes, ni authentification : un seul utilisateur,
+> tous les droits.)*
 >
-> ```mermaid
-> classDiagram
->   namespace annuaire {
->     class personne {
->       nom : text[..40] «id»
->       prenom : text[..40] «id»
->       age : integer
->       fonction : text[..60]
->     }
->   }
-> ```
+> ## 3. Le module annuaire
 >
-> ## 2. Le socle — ce qui est commun à toute application Syncytium
+> *Aucune description.*
 >
-> *(Ce chapitre vient de Syncytium, non de la configuration — le point
-> ouvert 11 de documentation.md.)* L'écran et son menu — un module,
-> ses entités ; la liste, le formulaire et le widget de résumé ; les
-> masques d'explication ; l'import, un écran du module, par fichier CSV
-> ; l'export depuis la liste ; le profil et la langue ; les notes de
-> version.
+> *(la vue du module — le diagramme : `personne` seule ; `nom` et
+> `prenom` soulignés)*
 >
-> ## 3. Le module `annuaire`
+> ### 3.1 Les personnes
 >
-> *Aucune description.* Une entrée de menu : `annuaire` → `personne`.
->
-> ### `personne` — Les membres de l'entreprise
->
-> Une personne se présente par **son prénom et son nom** (`"{prenom}
-> {nom}"`). **Son identité est son nom et son prénom** : deux personnes
+> Les membres de l'entreprise. Une personne se présente par son prénom
+> et son nom ; son identité est son nom et son prénom — deux personnes
 > ne partagent pas le même nom et le même prénom.
 >
-> **Les champs.**
+> **L'écran.** La liste par défaut : les quatre colonnes, le tri, le
+> filtre, les actions. Le formulaire par défaut, les quatre champs
+> empilés : nom, obligatoire (l'identité) ; prenom, obligatoire
+> (l'identité) ; age ; fonction. *(Les libellés sont les noms nus —
+> aucun `label:`.)* Le widget de résumé : le prénom et le nom. **Le
+> masque** : « Les membres de l'entreprise » ; aucun champ n'a d'aide,
+> aucun n'y figure.
 >
-> | Champ | Libellé | Type | Obligatoire | Aide |
-> |---|---|---|---|---|
-> | `nom` | nom | un texte de 40 caractères au plus | oui (identité) | — |
-> | `prenom` | prenom | un texte de 40 caractères au plus | oui (identité) | — |
-> | `age` | age | un entier | non | — |
-> | `fonction` | fonction | un texte de 60 caractères au plus | non | — |
+> **Le cycle de vie.** Aucun état.
 >
-> **Les règles.** Aucune validation. Aucun état. Aucune opération
-> propre ; les actes du socle — créer, consulter, modifier, supprimer
-> — sont ouverts. Pas d'historique.
+> **Les opérations.** Aucune opération propre ; les actes du socle —
+> créer, consulter, modifier, supprimer — sont ouverts.
 >
-> **Les écrans** (les défauts). La liste `personne` : les quatre
-> colonnes, le tri, le filtre, les actions. Le formulaire : les quatre
-> champs, empilés. Le widget de résumé : le prénom et le nom. Le masque
-> d'explication de la liste : « Les membres de l'entreprise » — aucune
-> aide sur les champs.
+> **Les règles.** Aucune.
 >
-> **Les droits.** Aucun groupe déclaré, aucune authentification :
-> l'utilisateur par défaut, au degré administrateur ; tout lui est
-> ouvert.
+> ## 4. Les scénarios d'utilisation
 >
-> ## 4. Le dictionnaire des données
+> ### Un membre du groupe par défaut
 >
-> - **age** — un entier ; un champ de `personne`.
-> - **fonction** — un texte de 60 caractères au plus ; un champ de
->   `personne`.
-> - **nom** — un texte de 40 caractères au plus ; l'identité de
->   `personne`, avec `prenom`.
-> - **personne** — « Les membres de l'entreprise » ; l'entité du module
->   `annuaire`.
-> - **prenom** — un texte de 40 caractères au plus ; l'identité de
->   `personne`, avec `nom`.
+> *(Aucun groupe déclaré : le persona est généré, nommé par le groupe
+> par défaut du socle.)*
 >
-> ## 5. L'API
+> **Ce qu'il voit.** Le module annuaire, les personnes. Tous les
+> droits.
 >
-> Pour `personne`, à la version 1.0.0.0 du contrat : **lire** — une
-> personne par son identité (nom, prénom), une liste, l'intégralité par
-> pages ; **créer**, **modifier**, **supprimer** — à l'unité ou par
-> lot ; **rechercher**. Les quatre champs sont exposés. Le compte
-> technique épingle la version. *(La forme des appels : le domaine 7.)*
+> **Ses scénarios.** Aucun wizard, aucun scénario écrit : le tour de ses
+> écrans — la liste des personnes, le formulaire d'une personne, les
+> actes du socle à l'écran où ils se jouent.
 >
-> ## 6. L'export et l'import
+> ## 5. La F.A.Q.
 >
-> **Le gabarit d'import de `personne`** — un fichier CSV, une ligne par
-> personne :
+> *(Vide au dépôt : les questions et les réponses naissent avec
+> l'instance.)*
 >
-> | Colonne | Type | Clé | Obligatoire |
+> ## 6. Les annexes
+>
+> **Le glossaire des termes.** *Aucun terme déclaré.*
+>
+> **Le glossaire des types.** *Aucun type personnalisé.*
+>
+> **Le dictionnaire des données.**
+>
+> *(la vue de l'ensemble des entités : `personne` — nom souligné,
+> prenom souligné, age, fonction)*
+>
+> personne — Les membres de l'entreprise ; module annuaire.
+>
+> | Champ | Type | Obligatoire | Défaut | Valeurs | Aide | Exemple |
+> |---|---|---|---|---|---|---|
+> | <u>nom</u> | un texte de 40 caractères au plus | oui (identité) | — | — | — | — |
+> | <u>prenom</u> | un texte de 40 caractères au plus | oui (identité) | — | — | — | — |
+> | age | un entier | non | — | — | — | — |
+> | fonction | un texte de 60 caractères au plus | non | — | — | — | — |
+>
+> *(À l'instance, sur demande, la zone d'analyse de chaque champ : les
+> valeurs, les statistiques d'utilisation, la volumétrie.)*
+>
+> **Le gabarit d'import de personne** — un fichier CSV, une ligne par
+> personne ; les en-têtes sont les libellés, ici les noms :
+>
+> | nom | prenom | age | fonction |
 > |---|---|---|---|
-> | `nom` | texte (40) | oui | oui (identité) |
-> | `prenom` | texte (40) | oui | oui (identité) |
-> | `age` | entier | | non |
-> | `fonction` | texte (60) | | non |
+> | texte (40) — clé | texte (40) — clé | entier | texte (60) |
 >
-> Ligne d'exemple : aucune (pas de valeur de démonstration). La clé de
-> rapprochement : le nom et le prénom. La procédure : l'écran d'import
-> du module `annuaire`, l'essai à blanc, le rapport cellule par
-> cellule, puis l'import — tout ou rien. **L'export** : les colonnes
-> visibles de la liste, en CSV ou en Excel.
->
-> ## 7. Les enchaînements
->
-> Un parcours : le menu `annuaire` → la liste `personne` → le formulaire
-> (créer, consulter, modifier, supprimer). Aucun état, aucune
-> opération, aucun automatisme.
->
-> ## 8. Le guide d'exploitation
->
-> `home` : une exécution locale ; le stockage `sqlite` ; le journal sur
-> la sortie standard, en `verbose` ; aucun nettoyage ; aucune opération
-> périodique ; aucune reprise ; un seul compte, l'utilisateur par
-> défaut ; les dépendances du moteur : *(fournies par le moteur)*.
->
-> ## 9. La conformité
->
-> **Le registre des traitements** : aucun champ marqué `rgpd:` — rien à
-> inscrire. **Les droits** : un utilisateur, administrateur. **La
-> sécurité** : aucun secret, aucun connecteur sortant, aucun code tiers
-> au navigateur.
->
-> ## 10. Le parcours guidé
->
-> **Annuaire.** La liste des membres de l'entreprise. Ajouter une
-> personne : son nom, son prénom, son âge, sa fonction. La retrouver par
-> son nom. La modifier. La supprimer.
->
-> ## 11. La complétude de la documentation
->
-> | Élément | Ce qui manque |
-> |---|---|
-> | le module `annuaire` | `title:`, `description:` |
-> | l'entité `personne` | `hint:` |
-> | `nom`, `prenom`, `age`, `fonction` | `label:`, `hint:`, `description:`, `placeholder:` |
-> | la liste par défaut | `description:` — le masque se réduit à celle de l'entité |
-> | `rgpd:` | aucun champ marqué |
->
-> Un texte écrit sur dix-neuf attendus.
->
-> ## 12. Les scénarios d'utilisation
->
-> Un persona : **l'utilisateur** (le groupe par défaut, administrateur).
-> Ses scénarios : consulter l'annuaire ; ajouter une personne ; modifier
-> une personne ; supprimer une personne ; importer l'annuaire depuis un
-> fichier CSV ; exporter l'annuaire.
->
-> ## 13. La diffusion
->
-> Dans l'application : le « ? » du module et de la liste, le masque. En
-> fichiers : la commande au dépôt. Une édition, dans la langue du poste.
->
-> ## 14. La maintenance, les contrôles et la supervision
->
-> *(À l'instance seulement — au dépôt, ce chapitre reste vide.)* **Les
-> usages** de `personne` : les lectures et les écritures, les personnes
-> ajoutées par mois ; les champs jamais renseignés ; l'écran jamais
-> ouvert ; les imports réalisés. **Les contrôles** : la complétude de
-> la documentation (chapitre 11) ; aucune reprise, aucune version
-> dépréciée, aucun refus de droit. **Les optimisations** : rien à
-> proposer tant que l'annuaire n'a pas vécu. **La maintenance** :
-> aucune opération déclarée — le journal sur la sortie standard, pas
-> de nettoyage.
->
-> ## 15. Les modes opératoires
->
-> Une planche par scénario, une page A4 en paysage. **« Ajouter une
-> personne »** — *l'utilisateur ; à chaque arrivée dans l'entreprise* :
-> **1.** Ouvrir l'annuaire — l'écran de la liste `personne`, l'entrée
-> de menu entourée. **2.** Créer — le formulaire et ses quatre champs,
-> le bouton de création entouré ; le nom et le prénom sont l'identité :
-> deux personnes ne partagent pas les deux. **3.** Enregistrer — le
-> bouton entouré ; la personne paraît dans la liste. Les images sont
-> les écrans par défaut, rendus par Syncytium. Deux autres planches :
-> « Modifier une personne », « Importer l'annuaire depuis un fichier
-> CSV » (le gabarit du chapitre 6).
->
-> ## 16. L'assistance
->
-> *(À l'instance seulement.)* Aucune question posée. Depuis la liste
-> ou le formulaire `personne`, le « ? » permet d'en poser une ;
-> l'utilisateur par défaut, administrateur, y répond lui-même.
+> Ligne d'exemple : vide — ni placeholder, ni valeur par défaut. La
+> clé de rapprochement : le nom et le prénom. La procédure : l'écran
+> d'import du module, le remplacement ou le complément, l'essai à
+> blanc, le rapport cellule par cellule, puis l'import — tout ou rien ;
+> l'export miroir pour corriger au tableur.
 
 ---
+
+**Ce que la complétude relève** (le rapport, `syncytium document home
+functional --check` — D1221) : le module sans description ; les quatre
+champs sans `label:` (le nom nu, D1182), sans `hint:` ni `description:`
+(D1199) ; le concepteur non nommé ; aucun persona déclaré (D1200) ;
+l'entité sans aucun marquage `rgpd:`, signalée sans être qualifiée
+(D1177). Ce qui ne compte pas : l'historique, les groupes,
+l'authentification, les placeholders — des défauts du socle (D1173).
+Un texte sur dix-neuf, comme le 05/10 — le tiny dit ce qu'une
+configuration minimale donne, et ce qu'elle laisse à écrire.
 
 ## Les frottements relevés
 

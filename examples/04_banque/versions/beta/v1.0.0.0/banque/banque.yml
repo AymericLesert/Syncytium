@@ -16,11 +16,6 @@ entities:
   - ~{referentiel/budget.yml}
   - ~{referentiel/lieu.yml}
 
-# Le dictionnaire de libellés du module
-# Les libellés que le menu et les champs référencent par leur clé ; ici, le nom du sous-menu des écritures.
-label:
-  ecritures: { fr: Les écritures, en: Entries, es: Apuntes }
-
 # Le menu du module
 # Déclaré pour donner une entrée à chacune des trois listes de l'écriture ; sans lui, le défaut n'en montre qu'une.
 menu: ~{menu.yml}

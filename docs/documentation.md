@@ -1501,15 +1501,19 @@ d'ensemble, ici, en tient le sommaire.
   publie ce qu'une IA doit savoir pour écrire une configuration — *mes
   lectures* : la grammaire des clés, les règles d'ingestion, les
   recommandations d'écriture, les exemples, en forme lisible par la
-  machine, livrés avec le moteur ; la maison — la documentation du
-  développeur (la 3e) ou une pièce propre — à arbitrer ; le cas 7
-  (D1023) en sera l'épreuve ;
-- **générer la documentation** (D1223) : « la documentation générée à
-  chaque sollicitation avec un minimum de consigne » est **instable** ;
-  **Syncytium la génère de façon prévisible, par une génération
-  structurée**, la même à chaque sollicitation, **qui peut se faire à
-  l'ingestion** et être servie telle quelle ; si l'IA rédige, c'est une
-  fois — au dépôt ou à l'ingestion —, jamais à la consultation.
+  machine, livrés avec le moteur ; **la maison : la documentation du
+  développeur, sous la forme d'une skill** (D1224) — le paquet de
+  consignes qu'une IA charge ; le cas 7 (D1023) en sera l'épreuve ;
+- **générer la documentation** (D1223, D1225) : « la documentation
+  générée à chaque sollicitation avec un minimum de consigne » est
+  **instable** ; **Syncytium la génère de façon prévisible —
+  déterministe —, par une génération structurée, à la demande** : pas
+  besoin de la générer à l'ingestion ; et **l'IA pour ce qu'elle sait
+  bien faire, la rédaction** — *ma lecture* : les textes libres (la
+  générale, le récit d'un scénario, les notes de version, les
+  traductions), gardés pour rester déterministes — au dépôt en fichier
+  complémentaire versionné, ou en cache de la version ; les garde-fous
+  2 à 6 ci-dessous restent à confirmer.
 
 **La note d'origine, pour mémoire : l'IA pour rédiger la documentation lisible**
 (D1169 — « ajoute la possibilité d'utiliser un moteur d'IA pour générer

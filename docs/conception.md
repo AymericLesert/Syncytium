@@ -24212,6 +24212,23 @@ avant la synthèse Q16).
   `develop`, 144 commits, D1113–D1240,
   https://github.com/AymericLesert/Syncytium/pull/44) — par l'API
   GitHub, gh absent du poste ; le travail continue sur la branche.
+- **2026-10-11 (suite 2) — LA PAUSE : LA PR #44 FUSIONNÉE, LA 5e
+  PUBLICATION OUVERTE, LA BRANCHE NEUVE (1240 décisions).** La PR #44
+  fusionnée par l'auteur sur `develop` (le squash 2c4ff1a, 19h45) ; la
+  branche `feature/meta-schema` supprimée sur GitHub par la fusion.
+  « crée la PR sur main aussi » — la branche n'existant plus, la PR #45
+  ouverte de `develop` vers `main` : la cinquième publication, les PR
+  #42, #43 et #44 réunies, D857–D1240
+  (https://github.com/AymericLesert/Syncytium/pull/45). « Repars de
+  develop avec une branche neuve, je marque une pause » — la branche
+  `feature/documentation` créée depuis `develop` (l'arbre identique à
+  l'ancienne branche, vérifié par diff), le CLAUDE.md la nomme. À la
+  reprise : le rang 2 du plan (partie 5 de documentation.md),
+  l'information pour la BI et l'IA — §4, §8, §9, §10, le dictionnaire
+  complet par les noms, la forme en clair des types, le contrat du hook
+  de type, la skill de l'IA (D1226) ; les lectures non confirmées
+  restent D1227/D1237 (l'entrée de menu sans libellé prend le titre de
+  la surface) et la forme `--check` (D1221).
 - **2026-10-09 — REPRISE : LA MÉTHODE (D1158, 1158 décisions).** « Nous
   n'allons pas l'alléger… La documentation est portée dans tous les
   composants. Chaque type de composant définira sa déclinaison dans les

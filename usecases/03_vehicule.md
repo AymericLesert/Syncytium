@@ -550,3 +550,181 @@ par D1209*) :
    « passer le statut à Actif », l'image montre le champ.
 5. **La beta** : la version du véhicule vit en `beta/` — la planche
    porte le filigrane (D1145) tant qu'elle n'est pas promue.
+
+## La documentation générée — le chapitre du module (le rang 1 — D1194–D1196, D1218)
+
+*(la déclinaison du chapitre 3 de §6 de documentation.md sur le
+module `transport` — écrite le 11/10/2026, en proposition ; rien de
+nouveau dans la configuration : tout vient de ce que les fichiers
+portent déjà ; les frottements relevés en fin de section)*
+
+**Ce qui structure le chapitre.** La documentation suit le menu
+(D1194). Le menu du module n'est pas déclaré : le défaut de D193 le
+donne — l'accueil du module (`transport[accueil]`, le premier tableau de
+bord déclaré), puis l'entité agrégat `vehicule` (sa liste par défaut,
+`vehicules`), avec en sous-menu ses quatre compositions — la
+consommation, l'entretien, la révision, l'échéance —, chacune par sa
+liste par défaut. Une section par entrée (D1194) ; les compositions en
+sous-sections de leur possesseur (D1195) ; les opérations dans la
+section de l'entité (D1196) ; les noms du modèle restent invariants,
+les libellés les complètent (D1218).
+
+**Le chapitre, tel que Syncytium le produirait** :
+
+> ## 3. Le module transport
+>
+> Suivi et maintenance des moyens de locomotion du foyer.
+>
+> *(la vue du module — le diagramme : `vehicule` et ses quatre
+> compositions `consommation`, `entretien`, `revision`, `echeance`, en
+> liens ; `immatriculation` souligné ; les calculés en italique —
+> `unite`, `km_courant`, `nb_jours`… ; aucun champ sécurisé, aucune
+> référence vers un autre module — D1213)*
+>
+> ### 3.1 Le garage du foyer
+>
+> L'écran d'accueil du module. En tête, **les révisions échues** de
+> tous les véhicules, une annonce par règle à échéance : « Révision
+> "Vidange" du véhicule Partner — prévue le 12/11/2026 », ou « prévue à
+> 275 000 km ». Dessous, **les véhicules du foyer** en cartes, du plus
+> ancien au plus récent : la photo, le nom, l'immatriculation, le type,
+> le statut, le kilométrage courant, le prix de revient au kilomètre.
+> La carte ouvre le véhicule.
+>
+> ### 3.2 Les véhicules
+>
+> Un véhicule du foyer — l'identification, le financement, la vie et
+> le bilan. Un véhicule se présente par son nom (« Partner Outdoor »)
+> ; son identité est son immatriculation.
+>
+> **L'écran.** La liste en cartes (3.1). Le formulaire, à six onglets :
+>
+> - **Véhicule** — Nom *(la marque et le modèle — un classeur, un
+>   véhicule, un nom)* ; Immatriculation, obligatoire *(la plaque du
+>   véhicule, au format du moment)* ; Photo *(le visage du véhicule — la
+>   vignette des listes et de la carte)* ; Type de véhicule,
+>   obligatoire, Thermique ou Électrique *(il porte l'unité de la
+>   consommation — les litres du thermique, les kWh de l'électrique)* ;
+>   Devise, obligatoire, € ou F *(visuelle seulement)* ; Statut ; Mode
+>   d'achat ; Lieu d'achat ; Date d'achat, obligatoire ; Date de vente
+>   *(la vente ou la restitution — elle bascule le statut en Clôture et
+>   fige le véhicule)* ; Lieu de vente *(nul tant que le véhicule vit)* ;
+>   Kilométrage initial, obligatoire *(le compteur au retrait du
+>   véhicule)*.
+> - **Financement** — Financement : Comptant, Crédit ou LOA ; selon le
+>   choix : Capital emprunté, Taux annuel, Assurance mensuelle (le
+>   crédit), Mensualité, Kilométrage annuel (la LOA), Durée du contrat,
+>   Premier mois, Jour d'échéance (les deux) ; le bouton **Ajuster
+>   l'échéancier** ; l'échéancier (3.2.4).
+> - **Consommation** (3.2.1), **Entretien** (3.2.2), **Révision**
+>   (3.2.3) — les listes embarquées.
+> - **Bilan** — tout calculé : les compteurs (Nombre de jours,
+>   Kilométrage courant, Kilomètres parcourus, Quantité totale, Durée
+>   moyenne d'un plein), les totaux (Total achat et entretien, Total
+>   énergie, Coût du financement, Coût total), les prix de revient
+>   (Consommation moyenne, Prix de l'énergie au km, Prix de revient au
+>   km, Prix de revient journalier) ; la courbe de l'évolution de la
+>   consommation.
+>
+> **Le cycle de vie.** Le statut porte la vie du véhicule — Création,
+> Actif, Clôture ; la vente clôt sans retour.
+>
+> | L'état | Ce qui est permis | Le passage suivant |
+> |---|---|---|
+> | **Création** | créer, consulter, modifier, supprimer | → Actif, librement |
+> | **Actif** | créer (les lignes du journal), consulter, modifier | → Clôture, dès que la date de vente est posée |
+> | **Clôture** | consulter | — l'archive, la vie ne se réécrit pas |
+>
+> Les consommations, les entretiens, les révisions et les échéances
+> suivent le véhicule : en Clôture, rien ne se modifie plus. La date de
+> vente, une fois la clôture faite, ne se modifie plus.
+>
+> *(le diagramme d'états — D422)*
+>
+> **Les opérations.**
+>
+> | L'opération | Ce qu'elle fait | Ce qui la déclenche |
+> |---|---|---|
+> | creer_echeancier | engendre les échéances du financement — la mensualité constante, l'intérêt sur le reste dû, l'amortissement par différence | automatique, à la validation d'un financement à crédit ou en LOA ; sans relecture |
+> | **Ajuster l'échéancier** | reprend l'échéancier sur le paramétrage modifié ; la relecture dit les échéances conservées, supprimées, recréées | un bouton, dans l'onglet Financement ; grisé hors crédit ou LOA, et après la clôture ; avec relecture |
+> | clore_echeancier | supprime les échéances non payées | automatique, à la clôture ; une fois |
+> | finaliser_vehicule | complète le véhicule repris des classeurs | automatique, à l'issue de la reprise |
+>
+> **Les règles.** La vente ne précède pas l'achat : « La vente du
+> {date_vente} précède l'achat du {date_achat}. »
+>
+> #### 3.2.1 La consommation
+>
+> Une ligne du suivi de consommation — le plein ou la charge ; une ligne
+> par ravitaillement, numérotée de 1 à n au sein du véhicule.
+>
+> **L'écran.** La liste, dans l'onglet Consommation, éditable en ligne —
+> Nb jours, Date, Km prévu, Total km, Km, Quantité, Prix unitaire, Prix
+> total, Conso aux 100 ; se saisissent le numéro, la date, le
+> kilométrage total, la quantité et le prix unitaire ; le reste se
+> calcule. Au Bilan, la courbe de l'évolution de la consommation — la
+> moyenne du mois.
+>
+> **Les règles.** Le ravitaillement ne précède pas l'achat ; le
+> compteur n'est pas sous le kilométrage initial.
+>
+> #### 3.2.2 Entretiens et interventions
+>
+> Une ligne du journal de vie — un frais, un événement, l'achat, la
+> vente. **L'écran** : la liste, dans l'onglet Entretien, éditable en
+> ligne — Date, Désignation, Montant, Km, Révision. **La règle** :
+> l'entretien ne précède pas l'achat.
+>
+> #### 3.2.3 Les révisions
+>
+> Une règle de révision — le pas en kilomètres ou en délai, la
+> notification à l'échéance. **L'écran** : la liste, dans l'onglet
+> Révision, éditable en ligne — Désignation, Tous les (km), Tous les
+> (délai), puis, calculés, Dernière (km), Dernière (date), Prochaine
+> (km), Prochaine (date), Échue ? *(la règle est à échéance — la
+> notification part, la surface met en avant)*. **L'opération** :
+> notifier — automatique, dès que la règle est échue ; une notification
+> dans l'application. **La règle** : une règle sans pas ne dit rien —
+> « La règle "{designation}" n'a ni pas en kilomètres ni pas en délai. »
+>
+> #### 3.2.4 L'échéancier
+>
+> Une échéance du financement — la ligne du tableau de crédit ou de
+> LOA. **L'écran** : la liste, dans l'onglet Financement, éditable en
+> ligne — N°, Date, Reste dû, Intérêt, Amortissement, Assurance,
+> Mensualité, Payé ; le reste dû et la coche Payé se calculent — payée
+> dès que la date du jour dépasse la sienne. Les lignes naissent de la
+> création de l'échéancier et se remettent au paramétrage par
+> l'ajustement (3.2).
+
+**Ce que la déclinaison relève** (les frottements, à arbitrer) :
+
+1. **Le sous-menu d'une composition** (D193 : « sous-menus = entités
+   enfants ») : son entrée ouvre la liste par défaut de l'enfant — tous
+   les véhicules confondus, ou bornée au véhicule ouvert ? La
+   déclinaison a choisi la sous-section du possesseur (D1195) et décrit
+   la liste embarquée dans l'onglet ; l'entrée de sous-menu n'y ajoute
+   rien. À confirmer.
+2. **L'accueil du module** est une section comme une autre — un écran
+   (D1194), le premier du chapitre ; il décrit les listes qu'il
+   assemble par un renvoi (3.1 → les révisions échues de 3.2.3, les
+   véhicules de 3.2).
+3. **Les permis sans groupe** : la table du cycle de vie dit les verbes
+   par état ; la colonne « qui » n'a pas lieu d'être au mono-poste —
+   elle apparaît dès qu'un `allow:` cite des groupes (D886).
+4. **Les opérations que l'utilisateur ne déclenche pas** —
+   `finaliser_vehicule` (`when: migrated`), `creer_echeancier`,
+   `clore_echeancier` — figurent dans la table parce qu'elles
+   transforment ce qu'il voit ; sans `label:`, elles s'écrivent par
+   leur nom (D1181/D1209) ; **« ce qu'elle fait » ne peut venir que
+   d'une `description:` de l'opération** — et aucune des quatre n'en
+   porte : la déclinaison l'a tirée des commentaires des fichiers, ce
+   que D1100 interdit à la documentation ; le véhicule devrait porter
+   une `description:` par opération, la complétude compte leur
+   absence.
+5. **Les messages des règles** s'écrivent avec leurs gabarits
+   (`{date_vente}`, D1106) : la documentation les montre tels quels,
+   ou résolus sur un exemple ? Tels quels ici.
+6. **La notification** de la révision n'a pas de destinataire déclaré
+   (D108) : la section dit « dans l'application » d'après le défaut —
+   à vérifier au rang de l'exploitation.

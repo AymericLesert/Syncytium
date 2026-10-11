@@ -78,7 +78,12 @@ composants.md.
   documentation** (D1179 — le vocabulaire du métier : `title:` et
   `description:` par langue, la base, les facettes, les champs qui
   l'emploient ; la complétude compte le type sans description — mes
-  lectures) ;
+  lectures) ; **chaque type livre au dictionnaire des données sa ligne
+  — le type en clair, ses contraintes, son exemple** (D1215 : « le
+  dictionnaire de données est construit par Syncytium à partir
+  d'informations qui sont fournies par chaque item… les hooks de type
+  devront être adaptés pour que cela s'intègre parfaitement ») — la
+  facette documentation du type et du hook de type, au rang 2 ;
 - **le composant par défaut porte le nom du type** (D458).
 
 ## Les types simples

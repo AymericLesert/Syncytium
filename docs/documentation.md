@@ -912,30 +912,33 @@ aussi à ceux qui ne liront jamais la table.
 déjà là (le patron des écarts, D1112) ; pour le concepteur,
 l'opérateur et le décideur.
 
-*En proposition :*
+**Les trois vues — amendées par D1213–D1214** (l'auteur : « on pose
+une vue générale par module, une vue générale de l'ensemble des
+entités de l'application, puis pour chaque module, une vue sélective
+inspirée du global mais limitée aux items du module et à ses
+interactions ») :
 
-**Le diagramme de classes, en trois niveaux de lecture.**
-
-| Le niveau | Ce qu'il montre | Pour qui | Où |
+| La vue | Ce qu'elle montre | Pour qui | Où |
 |---|---|---|---|
-| **la vue d'ensemble** de la version | une boîte par entité, groupée par module (le paquetage) ; les liens — l'héritage, la composition, la référence ; **ni champ, ni nom de lien** ; **un seul trait entre deux entités**, quel que soit le nombre de champs qui les relient | le décideur ; l'opérateur qui découvre | en tête de la documentation fonctionnelle et de la technique (§4, chapitre 3) |
-| **la vue du module** | ses entités avec leurs champs ; les entités des autres modules qu'il référence, en boîtes vides marquées de leur module | l'opérateur du module ; le concepteur | le chapitre du module |
-| **la vue de l'entité** | l'entité et son voisinage immédiat : son parent et ses dérivés, ses compositions, ce qu'elle référence, ce qui la référence, ses associations dérivées, les noms des liens | le concepteur ; l'opérateur, pour une entité | le chapitre de l'entité |
+| **les modules et leurs liens** | une boîte par module ; un lien par référence ou association entre deux modules *(ma lecture)* | le décideur ; l'opérateur qui découvre | en tête de la fonctionnelle (§6, chapitre 1) et du dictionnaire (§15) |
+| **l'ensemble des entités** | toutes les entités de la version, par module, en diagramme de classes — **le nom du module, de l'entité et du champ seulement**, aux styles ci-dessous ; les listes en liens | le décideur ; le concepteur | le dictionnaire (§15), la documentation de l'information |
+| **le module, en vue sélective** | ses entités, et celles des autres modules qu'il référence ou qui le référencent, marquées de leur module *(ma lecture)* | l'opérateur du module ; le concepteur | le chapitre du module (§6, chapitre 3) |
 
-**La correspondance** (la table détaillée, propriété par propriété,
-dans [entity.md](entity.md)) : le module → le paquetage ; l'entité →
-la classe, le parent abstrait en italique (D1035) ; `inheritance:` →
-la généralisation ; le champ → l'attribut `nom : type` ; la
-confidentialité → **la visibilité UML** (`+` public, `#` protected, `-`
-private — D358) ; `formula:` → **l'attribut dérivé** `/nom` ;
-`identity:` → les attributs marqués `{id}`, `{id <nom>}` avec
-`identities:` (D1171) ; `type: <entité>` →
-l'association dirigée, `1` ou `0..1` selon `required:` ; `type: list of
-<entité>` → **la composition** `0..*` ; `type: association with …` →
-l'association dérivée, en pointillé, `/nom` — aux vues du module et
-de l'entité seulement ; les opérations → le compartiment des
-opérations ; `states:` → **un diagramme d'états** à part, les valeurs
-du statut et les passages permis (D422) — le véhicule (cas 3) en a un.
+*(Ma « vue de l'entité » de D1119 tombe : la table du dictionnaire la
+remplace.)*
+
+**Les styles du diagramme** (D1213 — remplacent ma correspondance UML
+de D1119 : la visibilité `+#-`, le `/nom`, le `{id}` tombent) :
+**souligné** pour les identifiants ; *italique* pour les champs
+calculés ; « * » pour les champs sécurisés (une confidentialité
+au-dessus de `public`, D25) ou `rgpd:` (D695) ; **gras** pour les champs
+servant de référence dans d'autres entités ; les listes — les
+associations, les compositions — **en liens** ; **aucun type au
+diagramme**, la table le dit. Ce qui demeure de D1119 : le module → le
+paquetage ; `inheritance:` → la généralisation ; `states:` → **un
+diagramme d'états** à part, les valeurs du statut et les passages
+permis (D422) — le véhicule (cas 3) en a un. La table détaillée dans
+[entity.md](entity.md).
 
 **L'édition fonctionnelle** (§6) montre les mêmes diagrammes avec les
 libellés des champs à la place des noms, sans les types ni les
@@ -1568,15 +1571,60 @@ description ; l'édition machine (D1165) et la documentation de
 l'information l'exportent en premier, pour les traitements sémantiques
 (le chat D957, l'assistant lecteur D1147). *Mes lectures.*
 
-Puis le dictionnaire proprement dit, **alphabétique et par langue** : chaque
-entité par son `title:` et sa `description:` ; chaque champ par son
-libellé, son `hint:`, sa `description:`, son type dit en clair (« un
-texte de 40 caractères au plus », « un montant en euros ») ; chaque
-valeur d'énuméré par son libellé ; chaque état et chaque opération. Il
-renvoie aux chapitres de l'entité (§4) et des écrans (§6). L'édition
-technique le dresse par les noms, la fonctionnelle par les libellés —
-le même dictionnaire, deux entrées. *À trancher* : un dictionnaire par
-version, ou un par module.
+**Le dictionnaire des données — la définition** (D1212–D1215, les
+mots de l'auteur) : **« un inventaire exhaustif »** des données,
+**lisible, « sous forme de tableau »**, qui **« nécessite peu de
+traduction »** ; il **inclut une représentation graphique** « pour
+embrasser l'ensemble de l'application » ; il **« vient après en
+exploitant la structure et les propriétés d'explication (placeholder,
+hint, description, title, ...) »** ; il est **« construit par Syncytium
+à partir d'informations qui sont fournies par chaque item »**, et
+« les hooks de type devront être adaptés pour que cela s'intègre
+parfaitement dans ce schéma ». Ni les entités, ni les états, ni les
+opérations comme entrées d'un lexique : les données. *(Mon lexique
+alphabétique du 05/10 est écarté.)*
+
+**1. La représentation graphique, en trois vues** (D1213–D1214) :
+
+| La vue | Ce qu'elle montre |
+|---|---|
+| **les modules et leurs liens** | une boîte par module ; un lien par référence ou association entre deux modules *(ma lecture)* |
+| **l'ensemble des entités de l'application** | toutes les entités de la version, par module, en diagramme de classes : **le nom du module, de l'entité et du champ seulement** ; les effets de style — **souligné** pour les identifiants, *italique* pour les champs calculés, « * » pour les champs sécurisés ou `rgpd:`, **gras** pour les champs servant de référence dans d'autres entités ; les listes — les associations, les compositions — **en liens** |
+| **chaque module, en vue sélective** | « inspirée du global mais limitée aux items du module et à ses interactions » : ses entités, et celles des autres modules qu'il référence ou qui le référencent, marquées de leur module *(ma lecture)* |
+
+Aucun type au diagramme : la table le dit. *(Mes lectures : « sécurisé »
+= une confidentialité au-dessus de `public` (D25) ou un `rgpd:` (D695) ;
+« référencé » = la cible d'une référence (D396) ou d'une association
+(D405) ; le trait d'une composition plein, celui d'une association
+pointillé — la convention de rendu au domaine 7, D1126.)*
+
+**2. Le dictionnaire, en tableaux** (D1215 — *ma forme, en
+proposition*) : **une table par entité**, dans l'ordre des modules et
+des entités de la configuration ; une ligne par champ :
+
+| Champ | Type | Obligatoire | Défaut | Valeurs | Aide | Exemple |
+|---|---|---|---|---|---|---|
+| le libellé, avec les marques du diagramme — <u>souligné</u>, *italique*, \*, **gras** | le type en clair (« une date », « un texte de 40 caractères au plus » — la forme au rang 2, D1160) | oui / non (l'identité implique oui, D1170) | la valeur par défaut | les valeurs permises d'un énuméré, par leur libellé | le `hint:` ; la `description:` au détail | le `placeholder:` |
+
+— **« peu de traduction »** : les libellés, les aides et les valeurs
+viennent de la configuration par langue (D1101), le reste de la table
+est le même dans toutes les langues ; les intitulés de colonnes sont
+des items du catalogue du moteur (D1160).
+
+**3. Qui le construit.** Syncytium, depuis **les informations que
+fournit chaque item** : l'entité, le champ, le type, le hook livrent
+leur ligne et leur figure par leur facette documentation (D1158) ;
+**le contrat du hook de type gagne cette facette** — le type en clair,
+ses contraintes, son exemple, dans chaque langue du moteur (D1162) —
+à écrire au rang 2 dans [hooks.md](hooks.md) et [types.md](types.md).
+
+**Où il se lit** *(ma lecture)* : l'annexe de la fonctionnelle (D1183)
+en porte la version lisible, dans la langue du lecteur, bornée à ce
+qu'il voit (D334) ; la documentation de l'information (le rang 2) la
+version complète, par les noms, avec les formules et les emplois
+(D1198). Chaque table renvoie à la section de son entité et la section
+y renvoie (D1186) ; les termes du glossaire s'y lisent au survol
+(D1184).
 
 ## 16. Les enchaînements *(le rang 1, étape 4 — acquis, D1185–D1186, D1194–D1196)*
 

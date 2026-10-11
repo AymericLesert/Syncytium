@@ -155,10 +155,16 @@ contient : le plus proche l'emporte. *(D348/D360)*
 
 **Exécution à blanc** (Dry-run) — La répétition générale afin de valider la conformité d'une nouvelle version du modèle. Cela ouvre droit à un rapport sur les non-repects ou les impossibilités liés à la migration. Le but est de garantir la stabilité du système et sa continuité de service. *(D120)*
 
-**Dictionnaire des données** — Le chapitre de la documentation qui
-énumère, par langue, chaque entité, chaque champ avec son type en
-clair, chaque valeur, chaque état, chaque opération ; ouvert par les
-deux glossaires. *(documentation.md §15, D1179–D1180)*
+**Dictionnaire des données** — L'inventaire exhaustif des données de
+l'application, lisible, en tableaux — une table par entité, une ligne
+par champ : le libellé, le type en clair, l'obligation, le défaut, les
+valeurs, l'aide, l'exemple — précédé de sa représentation graphique :
+les modules et leurs liens, l'ensemble des entités en diagramme de
+classes aux noms seuls (souligné = identifiant, italique = calculé,
+« * » = sécurisé ou rgpd, gras = référencé), chaque module en vue
+sélective ; construit par Syncytium depuis les propriétés d'explication
+de chaque item ; ouvert par les deux glossaires ; une annexe de la
+fonctionnelle. *(documentation.md §15, D1179–D1180, D1212–D1215)*
 
 **Documentation (la facette)** — Chaque composant porte sa
 documentation, comme il porte son affichage ou son stockage ; chaque

@@ -184,23 +184,32 @@ un décideur » ; les niveaux de lecture, la forme et les lecteurs dans
 [documentation.md](documentation.md) §5). Ce que chaque propriété de
 l'entité y devient *(en proposition)* :
 
-| la configuration | le diagramme |
+*(Amendé par D1213 : « uniquement le nom du module, de l'entité et du
+champ », des effets de style, les listes en liens — ma correspondance
+UML stricte est retirée.)*
+
+| la configuration | le diagramme (D1213) |
 |---|---|
-| le module | le paquetage |
-| l'entité (`name:`) | la classe ; le parent abstrait (D1035 — `tiers`) en italique |
+| le module | le paquetage ; dans la vue des modules (D1214), une boîte par module, un lien par référence ou association entre deux modules |
+| l'entité (`name:`) | la classe, par son nom ; le parent abstrait (D1035 — `tiers`) en italique |
 | `inheritance:` | la généralisation — le triangle vers le parent (D143–D145) |
-| `identity:` | les attributs marqués `{id}` ; avec `identities:`, `{id <nom>}` — le nom de l'identité (D1171) |
-| le champ `nom: type` | l'attribut `nom : type` — le type du catalogue avec ses bornes (`text[..40]`, `integer[1..]`) |
-| `confidentiality:` | la visibilité : `+` public, `#` protected, `-` private (D358) |
-| `formula:` | l'attribut dérivé `/nom` |
-| `required:` | sur une référence, la multiplicité à l'autre bout — `1` ou `0..1` ; sur un attribut, rien au diagramme : la table le dit |
-| `type: <entité>` — la référence (D396) | l'association dirigée vers la cible, nommée du champ |
-| `type: list of <entité>` — la composition (D115) | la composition — le losange plein côté possesseur, `0..*`, nommée du champ |
-| `type: association with <entité> if …` — l'association dérivée (D405) | l'association dérivée, en pointillé, `/nom` — jamais à la vue d'ensemble |
-| `type: list of [ … ]` — la liste de valeurs composées | un attribut, le type en ligne ; pas une classe |
+| le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit |
+| `identity:` / `identities:` | **souligné** |
+| `formula:` | *italique* |
+| `confidentiality:` au-dessus de `public` (D25), ou `rgpd:` (D695) | **« * »** — le champ sécurisé |
+| le champ cible d'une référence (D396) ou d'une association (D405) dans une autre entité | **gras** |
+| `type: <entité>` — la référence | un lien vers la cible (le champ en gras chez la cible) |
+| `type: list of <entité>` — la composition (D115) | un lien — « les listes apparaissent comme des liens » ; trait plein (ma convention, l'outil au domaine 7) |
+| `type: association with <entité> if …` — l'association dérivée (D405) | un lien en pointillé (ma convention) — à la vue sélective du module et à la vue d'ensemble des entités |
+| `type: list of [ … ]` — la liste de valeurs composées | le nom du champ ; pas une classe |
 | `states:` | un diagramme d'états à part : les valeurs du champ-statut, les passages permis (D422) |
-| `operations:` | le compartiment des opérations : `verbe()` |
-| `history:`, `rgpd:`, `hint:`, `description:` | rien au diagramme — la table des champs et le registre (D698) |
+| `operations:`, `required:`, `history:`, `hint:`, `description:`, `placeholder:` | rien au diagramme — la table du dictionnaire (D1215) et le registre (D698) |
+
+**La table du dictionnaire** (D1215, ma forme) : une table par entité,
+une ligne par champ — le libellé avec les marques du diagramme, le type
+en clair, l'obligation, la valeur par défaut, les valeurs permises, le
+`hint:` et la `description:`, le `placeholder:` en exemple ; chaque
+item livre sa ligne par sa facette documentation (D1158).
 
 ## L'exemple fil rouge
 

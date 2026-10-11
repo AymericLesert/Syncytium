@@ -24208,7 +24208,10 @@ avant la synthèse Q16).
   settings à trois niveaux, D991 et D1174 amendés) ; les quatre
   lectures confirmées, les `settings.yml` de l'entrepôt restructurés
   sous `field:` ; le traceur au dépôt sous `tools/orphans.py` (D1240) — les deux dettes
-  hors rang soldées.
+  hors rang soldées. **La PR #44 ouverte** (`feature/meta-schema` →
+  `develop`, 144 commits, D1113–D1240,
+  https://github.com/AymericLesert/Syncytium/pull/44) — par l'API
+  GitHub, gh absent du poste ; le travail continue sur la branche.
 - **2026-10-09 — REPRISE : LA MÉTHODE (D1158, 1158 décisions).** « Nous
   n'allons pas l'alléger… La documentation est portée dans tous les
   composants. Chaque type de composant définira sa déclinaison dans les

@@ -1,0 +1,38 @@
+# La révision
+# La règle de l'échéancier des révisions, au pas en kilomètres ou en délai — « tous les 25 000 km » pour le thermique,
+# « tous les 20 000 km » pour l'électrique. Les révisions faites restent des lignes du journal de vie, marquées ; la
+# règle en déduit la prochaine échéance — le réel n'a qu'une règle par véhicule. La notification est une opération
+# automatique : l'échéance se recalcule d'elle-même, l'opération se déclenche à la première vraie et porte
+# l'information aux utilisateurs, dans l'application ; le relais par mail est un réglage, sans valeur par défaut.
+name: revision
+
+# La description de l'entité
+description: Une règle de révision — le pas en kilomètres ou en délai, la notification à l'échéance
+
+# Le visage texte
+label: "{designation}"
+
+# Les champs
+# Rangés par groupe.
+fields: ~{fields.yml}
+
+# Les opérations
+operations:
+
+  # La notification à l'échéance
+  # L'automatisme : l'effet est le hook notify du socle.
+  notifier:
+    when: echue
+    commit: auto
+    effects:
+      - notify
+
+# La cohérence des données
+validation:
+  - rule: pas_km != null or pas_duree != null
+    description: Une règle sans pas ne dit rien.
+    message: La règle « {designation} » n'a ni pas en kilomètres ni pas en délai.
+
+# L'interface
+# Le widget de l'alerte et les deux listes.
+gui: ~{gui.yml}

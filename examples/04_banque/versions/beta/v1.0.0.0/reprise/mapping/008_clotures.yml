@@ -1,0 +1,11 @@
+# Les clôtures
+budget:
+  description: >-
+    La phase 3, le dernier geste : les lignes au marqueur FERMETURE clôturent les comptes, après l'écriture du solde —
+    la clôture ferme un compte déjà soldé. La mise à jour par l'identité : la règle retrouve le compte créé en phase 1
+    et pose la clôture ; le libellé du marqueur n'est pas utile ici.
+  to: banque.compte
+  filter: Budget = "FERMETURE"
+  fields:
+    numero:  Numero_Compte
+    cloture: Date_Operation

@@ -1,0 +1,5 @@
+# Une table écartée
+# Analysée et écartée volontairement : elle compte dans la complétude du schéma, pas dans la couverture des données.
+LIBEL40:
+  type: ignored
+  description: Les commentaires des lignes de commande, 8 colonnes — non repris dans l'exemple.

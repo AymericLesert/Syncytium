@@ -1,0 +1,30 @@
+# La consommation
+# Le suivi de la consommation du véhicule, une ligne par plein ou par charge : les calculés reportent les formules du
+# classeur, colonne par colonne. Chaque ligne porte son numéro de 1 à n ; la première part du kilométrage initial du
+# véhicule, et la précédente s'atteint au rang numero - 1.
+name: consommation
+
+# La description de l'entité
+description: Une ligne du suivi de consommation — le plein ou la charge
+
+# Le visage texte
+label: "${name}"
+
+# L'identité
+# Le rang au sein du véhicule ; il ouvre l'accès par la clé : owner.consommations[me.numero - 1].
+identity: [numero]
+
+# Les champs
+# Rangés par groupe.
+fields: ~{fields.yml}
+
+# La cohérence des données
+validation:
+  - rule: date >= owner.date_achat
+    message: Le ravitaillement du {date} précède l'achat du {owner.date_achat}.
+  - rule: total_km >= owner.km_initial
+    message: Le compteur {total_km} est sous le kilométrage initial {owner.km_initial}.
+
+# L'interface
+# La liste éditable et la courbe.
+gui: ~{gui.yml}

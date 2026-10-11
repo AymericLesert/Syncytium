@@ -47,7 +47,9 @@ construit et maintenu dans Syncytium** :
 - **la télémétrie** — le dashboard « telemetry » (D736) : les
   usages, la collecte par champ à la demande (voir
   [telemetry.md](telemetry.md)) ;
-- **la santé** (D731/D751) — le dashboard temps réel ;
+- **la santé** (D731/D751) — le dashboard temps réel, **les
+  connecteurs appelés en clair (`unencrypted:`) en évidence**
+  (D901) ;
 - **le backup** (D727/D751) — les archives, le déclenchement ; **la
   restauration n'est pas un écran** : une commande interne de
   Syncytium (D751 — l'application restaurée est peut-être morte, le
@@ -107,7 +109,7 @@ indisponible, la perte du réseau…).
 
 ```yaml
 # l'entité système user — définie, construite et maintenue par
-# Syncytium, jamais déclarée par le technicien
+# Syncytium, jamais déclarée par le concepteur
 user:
   label: "{first_name} {last_name}"
   fields:
@@ -188,6 +190,14 @@ settings:
   passe : le lien de réinitialisation, jamais la valeur ;
 - **`ban`** — le bannissement **sans suppression** (masquer, jamais
   détruire) ; la liste des opérations reste ouverte ;
+- **la réactivation d'un enregistrement désactivé** (D903) — « une
+  opération exceptionnelle… l'action d'un administrateur… pas une
+  fonction exploitable par la configuration (pas de hook) » : **ni
+  une opération du socle, ni un hook** — une fonctionnalité des
+  écrans d'administration, au degré `administrator` ; la garde de
+  l'unicité sur les actifs (D141 — refus si un enregistrement actif
+  porte la même clé fonctionnelle), l'identité conservée (D142),
+  l'acte tracé par l'historisation (D429) ;
 - **la délégation** (D715/D749) : agir **à la place** d'un
   utilisateur — les droits joués sont ceux de l'emprunté, **chaque
   trace porte les deux comptes**. Les règles (D749) : **le même
@@ -211,7 +221,7 @@ settings:
   (D341/D414–D416) — en base, par l'administrateur ; le groupe porte
   le degré (D699), **l'appartenance à un groupe est obligatoire** ;
 - **le provisionnement** : les utilisateurs associés par le
-  technicien ou par la passerelle d'authentification (D418/D692 —
+  concepteur ou par la passerelle d'authentification (D418/D692 —
   la famille `authentication`, la synchronisation par le
   `directory` D633) ;
 - **les jetons des comptes techniques** (D692) : créés et révoqués
@@ -236,6 +246,17 @@ settings dynamiques, ajustables sans republier.
 **surchargée via le module d'administration** ; la cascade
 application → module → entité.
 
+**Le cooldown des opérations** (D58/D904) en fait partie —
+`operation.cooldown` (défaut `1min`), l'API seule : « le cooldown
+est un paramètre d'administration et il peut être configurable » ;
+la surcharge `cooldown:` à la déclaration de l'opération ; **la
+rétention du résultat** de même (D55/D906 — `operation.retention`,
+défaut `90d`, la surcharge `retention:`, le résultat échu purgé).
+**Le déterminisme, lui, n'est pas un paramètre** : il vit au contrat du
+hook avec `execution: once` et la fenêtre (D904–D905) ;
+l'administration en porte seulement **l'invalidation
+du cache** (D60 — l'opération + ses paramètres, l'opération, tout).
+
 ### L'audit (D702–D704)
 
 L'entité d'audit **vit au module d'administration** : le grain à
@@ -246,11 +267,19 @@ rétention déclarée (D411).
 
 ### Le suivi des migrations (D666–D668, D711)
 
-**L'entrée « migrations » du module d'administration** (D711 —
-conditionnelle : `migrations:` défini) : les entités du suivi — la
-couverture par migration/entité/règle, les rejets et leurs causes —
-**historisées** (l'évolution de la qualité dans le temps) ; la vue
-par les surfaces standard.
+**L'entrée « migrations » du module d'administration** (`_administration`
+— le préfixe des modules internes, D1029 ; D711 —
+conditionnelle : `migrations:` défini) : le module `_migration` — les
+passages et leur ligne d'exécution (l'état, les horodatages,
+l'instantané, les trois jeux de compteurs, les deux indicateurs), la
+table des clés d'origine, les versions du modèle lu, les anomalies —
+**l'évolution de la qualité dans le temps** : la ligne d'exécution
+reste sans délai, le détail des anomalies vit dans un fichier SQLite
+par passage, retenu par le `cleanup.yml` de l'environnement ; la vue
+par les surfaces standard ; l'administrateur y lance, interrompt et
+relance les passages (D1077). Le module — le déroulé d'un passage,
+ce qu'il garde, son modèle, ses rapports, ses surfaces — est décrit
+dans [migration.md](migration.md) (D1028, D1030–D1080).
 
 ### Les opérations d'administration du socle (D701)
 
@@ -268,6 +297,49 @@ active, passive) : `environment.yml` + les connecteurs (D617) + les
 journaux + les settings + la documentation, **spécifiques à
 chacun** ; l'actif/passif du PCA-PRA (D112–D114) — la réplication
 différentielle (le mode `relative` de la migration, D649/D671).
+
+**La sandbox** (D907–D908) : « tester et évaluer la description en
+cours dans un environnement fermé et sécurisé (tant sur la base de
+données que sur les hooks en cours) » — **un statut de `versions/`**
+(`sandbox/sandbox.yml`, déclaré à l'usage D804, lié à son
+environnement par `environment:` D805) ; **`from: <statut>/<version>`
+dans chaque `version.yml`** (D909) nomme l'origine (`beta/v1.0.0.0`,
+ou une autre sandbox — les migrations par transitivité) ; à
+l'initialisation, **la duplication** de l'origine
+(`duplicate_instance` D680 — la base, les fichiers, la
+configuration) puis **la migration** jusqu'à la version de la
+sandbox ; **les connecteurs de son environnement** (D911 — à la main
+du concepteur, le mock comme pour beta), l'origine jamais touchée ;
+**la promotion vers `beta` ou `production` par un geste de fichier**
+(D910) — **`from:` retiré à la promotion** (sinon une erreur avant
+l'ingestion), **l'origine promue casse le lien** des sandboxes qui
+la citaient (une erreur — D928) — le staging de D112 qui trouve sa
+déclaration. **L'éphémérité
+(D912 — « le fonctionnement de docker », la seconde option validée)** :
+**l'instance survit à l'arrêt** (relancer ne redéclenche ni
+duplication ni migration), **la suppression est un geste** — la
+commande de l'administrateur ou **la rétention d'inactivité**
+(`sandbox.retention`, `7d` en setting dynamique, l'instance dormante
+supprimée d'office, annoncée la veille aux faits marquants D733) ;
+**le registre des instances** (l'origine, la taille, le dernier
+usage) à la vue de santé (D731). **L'ingestion d'une sandbox est un
+acte d'administration** (D921) : le dossier de la version posé ne
+fait rien de lui-même — la duplication, la migration et la rotation
+des clés (D915) se déclenchent par l'administrateur, au module ou
+par la commande, tracées ; quatre gestes en commande :
+
+```bash
+syncytium sandbox list                 # les instances — l'origine, la taille, le dernier usage
+syncytium sandbox remove v1.0.0.2      # la suppression explicite
+syncytium sandbox prune                # les inactives au-delà de sandbox.retention
+syncytium sandbox reload v1.0.0.2      # la recharge (D922) — l'ingestion rejouée depuis from:, la déclaration intacte
+```
+
+**La recharge** (D922) — « une ingestion limitée à l'usage de la
+sandbox » : la duplication, la migration et la rotation (D915)
+rejouées, la déclaration intacte ; un acte d'administration (D921),
+**réservé au statut `sandbox`** — `beta` et `production` ne se
+rechargent pas.
 
 ### Le lien actif/passif (D724)
 
@@ -342,18 +414,49 @@ backup:
   storage sqlite natif** épargne toute question : l'application
   démarre seule.
 
+### Les secrets au démarrage (D902)
+
+**Le wizard d'initialisation** (D729) demande les secrets et **les
+chiffre lui-même** — l'automatisation que D707 flaguait ; et **au
+démarrage, une valeur en clair dans le `.env`** pour une variable
+référencée par une clé marquée `*` (D944 — l'ex-liste `secrets:` de
+D603) **vaut refus de démarrer** : la raison
+est donnée avec la commande à exécuter (`syncytium encrypt` — le
+patron du diagnostic D745). Le fail-closed jusqu'au fichier de
+secrets. **Et le transit** (D919) : au démarrage, Syncytium vérifie
+qu'il est servi en HTTPS — le certificat déclaré à l'environnement
+(fourni par l'infrastructure, ou le proxy qui termine), **à défaut
+l'auto-signé engendré par le wizard** et rangé avec les secrets ;
+aucune exemption, la boucle locale comprise ; en clair, le refus de
+démarrer expliqué.
+
 ### La rotation des clés (D730)
 
-Deux déclencheurs : **chaque restauration** (l'image nouvelle, la
+Trois déclencheurs : **chaque restauration** (l'image nouvelle, la
 machine peut-être autre — la clé environnement + machine D603 impose
-la naturalisation) et **la commande** :
+la naturalisation), **la duplication d'une sandbox** (D915 — « sandbox
+est un environnement » : la copie de l'origine est re-chiffrée sous
+la clé de la sandbox, la recharge D922 le rejoue) et **la commande** :
 
 ```bash
 syncytium rotate    # re-chiffre le .env et les champs des types chiffrants
 ```
 
+**La copie d'un environnement** (D1078–D1080) : la base de l'environnement
+source vers celui de la cible — les données et le module `_migration` avec
+elles ; l'option `--with-storage` emporte aussi les fichiers de détail des
+migrations (D1066), re-chiffrés sous les clés de la cible :
+
+```bash
+syncytium copy production staging                  # les données et _migration
+syncytium copy production staging --with-storage   # + les fichiers de détail, re-chiffrés
+```
+
 — le re-chiffrement en masse au patron de `migrate` (la transaction,
-la progression suivie), l'acte tracé.
+la progression suivie), l'acte tracé. **Et le seul geste qui rehache**
+(D916) : toute empreinte porte l'identifiant de son algorithme, le
+passage à l'algorithme courant ne se fait que par `rotate` — jamais
+en silence à la vérification d'un mot de passe.
 
 ### La santé (D731)
 
@@ -387,8 +490,16 @@ journaux en anglais (D217–D225). **Le journal est le sixième canal
 de la télémétrie** (D737) : les six niveaux
 (`verbose`/`debug`/`info`/`warning`/`error`/`exception`) dans la
 configuration en dur (**`logging.yml`** — le nom harmonisé D750, renommé D830), la
-consultation par **le technicien seul**, en cas de besoin — hors
-IHM.
+consultation par **le concepteur seul**, en cas de besoin — hors
+IHM. **Le journal d'accès reste au proxy** (D925) ; le journal du
+moteur porte **les événements de sécurité** à leur niveau — `info`
+(l'authentification, la rotation, l'ingestion, la recharge),
+`warning` (les échecs, les refus, le secours, le mode safe, le
+passe-droit, la délégation), `error` (les connecteurs) — jamais un
+secret ; **le throttling des traces** (D926) : la première
+occurrence tracée, les suivantes agrégées dans la fenêtre
+(`logging.throttle`, `1min` en proposition) — l'événement, le début,
+la fin, le nombre.
 
 ### La supervision (D621, D625–D627)
 
@@ -445,3 +556,38 @@ et les six raccords vivent dans **[telemetry.md](telemetry.md)**
 **Le sujet 3 est soldé** (D743) — et avec lui la passe de complétude
 entière (D603–D743) : les domaines 5 et 6 s'ouvrent (les cas d'usage
 Q59, la documentation Q58).
+
+## La documentation — la facette de l'administration (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**L'administration, dans la fonctionnelle** : le chapitre du socle (§6,
+chapitre 2 — ce qui est commun à toute application, borné à ce que la
+version emploie) décrit ce que l'utilisateur en touche — le profil (la
+langue, la réception des notifications par mail, D1228), le cycle de
+vie d'une donnée (la suppression marque sans effacer, D137 ; la
+réactivation est l'acte d'un administrateur, D903), les notes de
+version. **Les scénarios d'administration** — les migrations, la
+sandbox, la rotation des clés, les sauvegardes — relèvent du guide
+d'exploitation, non de la fonctionnelle (D1206).
+
+**La documentation est servie et produite par le socle** : dedans, à
+ses niveaux (D1138), dans la langue du profil et à la version servie
+(D1144) ; la version la plus élevée des actives par défaut (D1123),
+les dépréciées renvoyées à leurs notes (D1124) ; l'édition préparée
+par un `manager` ou un `administrator` (D1142) ; **la commande**
+`syncytium document <environnement> <documentation> [--version]
+[--language]` — les neuf par leur clé anglaise (D1167) —, et
+`--check`, qui mesure la complétude sans produire (D1221, en
+proposition) ; **`notify:`** (D1167 — `release` → les notes et ce qui
+change, `beta` → la complétude) ; `visibility:` au projet (D1151).
+Le seuil de complétude est à la discrétion du concepteur : le moteur
+mesure, ne refuse pas (D1221).
+
+**Les autres colonnes** — à leur rang : le guide d'exploitation (le
+rang 7 — l'installation, la configuration, la supervision, les
+opérations de maintenance, D1134) ; la maintenance (le rang 8 — les
+usages, les contrôles, les optimisations, D1128) ; le D.A.T. (le rang
+6) ; le projet et le support (le rang 4, D1133).

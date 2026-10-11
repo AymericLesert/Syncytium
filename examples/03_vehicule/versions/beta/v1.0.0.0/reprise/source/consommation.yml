@@ -1,0 +1,54 @@
+# Le nom de l'entité source
+# La feuille CONSOMMATION, lue à la carte : connector.line est le rang de la ligne dans la plage, la ligne vivante. Les
+# entêtes diffèrent entre le thermique et l'électrique : chaque colonne porte son entête (label), et les colonnes
+# absentes d'un classeur restent nulles ; les colonnes calculées du classeur — les kilomètres, la consommation, le prix
+# total — ne sont pas lues, le modèle les recalcule.
+name: consommation
+
+# La description de l'entité source
+description: Les lignes de ravitaillement — le plein du thermique, la charge de l'électrique
+
+# Les colonnes
+# La plaque vient d'une cellule d'un autre onglet, répétée sur chaque ligne : la jointure des règles au véhicule. Les
+# calculés de normalisation, en fin de liste, réunissent les colonnes du thermique et de l'électrique.
+fields:
+
+  immatriculation:
+    type: text[..12]
+    reference: IDENTIFICATION!E1
+    description: La plaque du classeur.
+
+  date:
+    type: date
+    label: Date
+
+  total_km:
+    type: integer
+    label: Total Km
+    description: Le compteur au ravitaillement.
+
+  nb_litres:
+    type: decimal
+    label: Nb Litres
+    description: Le thermique.
+
+  charge:
+    type: decimal
+    label: Charge électrique
+    description: L'électrique.
+
+  prix_litre:
+    type: decimal
+    label: Prix au Litre
+
+  prix_kwh:
+    type: decimal
+    label: Prix au KwH
+
+  quantite_n:
+    formula: nb_litres if nb_litres != null else charge
+    description: La quantité, litres ou kWh — les deux colonnes en une.
+
+  prix_unitaire_n:
+    formula: prix_litre if prix_litre != null else prix_kwh
+    description: Le prix unitaire, du litre ou du kWh — les deux colonnes en une.

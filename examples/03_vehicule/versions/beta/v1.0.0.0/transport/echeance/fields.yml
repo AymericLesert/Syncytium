@@ -1,0 +1,51 @@
+# Les données — reportées par le générateur
+
+numero:
+  type: integer[1..]
+  required: true
+  label: N°
+  hint: Le rang de l'échéance — de 1 à la durée du financement.
+
+date:
+  type: date
+  required: true
+  label: Date
+  hint: Au jour d'échéance du mois, depuis le premier mois du financement.
+
+interet:
+  type: decimal
+  label: Intérêt
+  hint: Le crédit seulement.
+
+amortissement:
+  type: decimal
+  label: Amortissement
+  hint: Le crédit seulement.
+
+assurance:
+  type: decimal
+  label: Assurance
+  hint: Le crédit seulement — 34,40.
+
+mensualite:
+  type: decimal
+  required: true
+  label: Mensualité
+  hint: 473,86 pour le crédit, 434,48 pour la LOA.
+
+# Les champs calculés
+
+paye:
+  formula: context.now >= date
+  label: Payé
+  hint: Payée dès que la date du jour dépasse l'échéance.
+  description: La coche automatique.
+
+reste_du:
+  type: decimal
+  formula: >-
+    owner.financement.select(credit: owner.capital - owner.echeances.sum(amortissement if numero < me.numero),
+    loa: owner.echeances.sum(mensualite if numero >= me.numero), comptant: 0)
+  label: Reste dû
+  hint: En début de période — le capital moins l'amorti (crédit), les loyers restants (LOA).
+  description: La formule du classeur — le reste précédent moins l'amortissement précédent.

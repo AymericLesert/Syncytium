@@ -1,0 +1,15 @@
+# Les dépôts des paramètres de PMI
+PARAM_EMPLACEMENTS:
+  description: >-
+    La première origine des dépôts : les paramètres des emplacements actifs, dont le dépôt est la partie gauche du
+    couple dépôt.emplacement ; une valeur distincte, un dépôt. Un dépôt des paramètres est actif ; son libellé n'y
+    figure pas.
+  to: stock.depot
+  distinct: [depot]
+  fields:
+    code: depot
+    actif: true
+  report:
+    when: [migration]
+    to: [logistique]
+    by: [notification, mail]

@@ -1,0 +1,73 @@
+# La migration cegid
+# La reprise des données de Cegid PMI dans l'entrepôt ; l'ordre des migrations déclarées est leur ordre d'exécution.
+cegid:
+
+  # La base d'origine
+  # Le storage de PMI, lu en lecture seule.
+  from: cegid
+
+  # La base miroir
+  # La reprise s'y construit et s'y contrôle avant d'en reporter les différences dans l'entrepôt ; elle est supprimée à
+  # la fin de la migration.
+  buffer: temporaire
+
+  # Le stockage du détail
+  # Le fichier SQLite de chaque passage, qui garde ses anomalies pour les rapports et leur consultation ; sa rétention
+  # est une règle du nettoyage de l'environnement.
+  storage:
+
+    # Le dossier des fichiers
+    directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
+
+    # Le nom du fichier
+    # Daté du jour de l'exécution.
+    filename: ${now:yyyy-mm-dd}-cegid.syncytium
+
+  # Le mode
+  # relative : les enregistrements conformes entrent, les autres vont au rapport ; l'entrepôt se met à jour sans être
+  # vidé.
+  mode: relative
+
+  # La remise à zéro
+  # Jamais : les tables de l'entrepôt ne sont pas vidées avant l'import ; l'historique et les champs propres à
+  # l'entrepôt tiennent.
+  reset: false
+
+  # Les tables sources
+  # Vingt-trois tables décrites, une par fichier au nom de la table, rangées par module : quatorze lues, neuf écartées.
+  source:
+    - ~{source/.*/.*\.yml}
+
+  # Les règles
+  # Trente-trois règles en cinq dossiers numérotés — les lieux, les tiers, la technique, les commandes, le stock : le
+  # numéro du dossier, puis celui du fichier, font l'ordre des étapes. Une règle porte le nom de sa table source : sa
+  # description, sa cible (to), son filtre (filter), ses valeurs distinctes (distinct), son possesseur (parent), ses
+  # affectations (fields — la formule, ou en forme longue formula, description et message), ses contrôles
+  # (validation — rule, description et message), ses opérations de fin (operations) et son rapport (report). Le
+  # message est un gabarit : {…} y cite une colonne de la source ou un champ de l'enregistrement construit (me).
+  mapping:
+    - ~{mapping/[0-9]+_.*/[0-9]+_.*\.yml}
+
+  # Les opérations périodiques
+  # Le rythme de la migration. Chaque opération porte son calendrier (every), ce qu'elle lance (operations) et, au
+  # besoin, sa conduite quand un passage tourne déjà (on_running — cancel par défaut : elle est annulée).
+  operations:
+
+    # Le delta de la nuit
+    # Chaque nuit, la migration relit les plages récentes des tables partitionnées et les autres tables en entier.
+    delta_nocturne:
+      every: daily[02:00]
+      operations: [ migrate ]
+
+    # La relecture complète
+    # La nuit de samedi, la couverture des tables partitionnées revient au départ : la migration du dimanche relit
+    # tout ; si le delta tourne encore, la relecture attend sa fin.
+    relecture_complete:
+      every: weekly[saturday at 23:00]
+      on_running: wait
+      operations:
+        - reset_coverage(MVTSTO)
+        - reset_coverage(ECOMCLI)
+        - reset_coverage(LCOMCLI)
+        - reset_coverage(ECOMFOU)
+        - reset_coverage(LCOMFOU)

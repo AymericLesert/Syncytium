@@ -1,0 +1,29 @@
+# Les opérations de l'écriture. Chacune porte son libellé (label), le formulaire d'appel qui recueille ses paramètres
+# (form) et son mode de validation (commit — confirm pour la relecture avant le scellé, auto sans relecture).
+
+# La duplication entre deux dates
+# Le pas et les deux dates ; la relecture affiche le nombre de créations.
+dupliquer:
+  label: { fr: Dupliquer, en: Duplicate, es: Duplicar }
+  form: duplication
+  commit: confirm
+
+# La propagation aux similaires
+# Le nouveau libellé et le nouveau montant, puis la liste, la sélection, la masse.
+propager:
+  label: { fr: Propager, en: Propagate, es: Propagar }
+  form: propagation
+  commit: confirm
+
+# Le virement
+# Le compte cible et le montant : les deux écritures liées.
+virer:
+  label: { fr: Virer, en: Transfer, es: Transferir }
+  form: virement
+  commit: confirm
+
+# La tâche du relevé
+# Déclenchée par toute génération ; elle pose la date d'impression sur les écritures générées, sans relecture.
+creer_releve:
+  when: generated
+  commit: auto

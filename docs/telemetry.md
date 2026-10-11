@@ -61,28 +61,41 @@ La forme suit la finalité ; les canaux sont complémentaires :
 | **la synthèse périodique** | *push*, basse fréquence — le patron du mail des faits marquants (D733/D738) | les usages proactifs — les candidats au retrait, **le volet conseil** (D45) ; les destinataires au degré `administrator` |
 | **l'alerte de dépréciation** | *push*, événementiel, **rare** — le même patron (D738) | **l'appel persistant d'une version dépréciée** (D742 — l'état, jamais une date : le déploiement déclenche la dépréciation ou son intention) ; jamais d'alerte sur le non-usage ; le degré `administrator` |
 | **l'analyse de sécurité** (D43) | *push* + analyse | l'usage anormal — les refus journalisés, les pics |
-| **le journal** (D737) | le substrat — la consultation par le technicien seul, en cas de besoin | tout — les six niveaux `verbose`/`debug`/`info`/`warning`/`error`/`exception`, la configuration en dur (`logging.yml` par environnement — D342/D343/D830), hors IHM — **la maîtrise du niveau, des dimensions (taille/rotation — D800) et de la rétention** |
+| **le journal** (D737) | le substrat — la consultation par le concepteur seul, en cas de besoin | tout — les six niveaux `verbose`/`debug`/`info`/`warning`/`error`/`exception`, la configuration en dur (`logging.yml` par environnement — D342/D343/D830), hors IHM — **la maîtrise du niveau, des dimensions (taille/rotation — D800) et de la rétention** |
 
 L'exemple du journal (les écritures validées — D743) :
 
 ```yaml
-# environments/production/logging.yml — la configuration en dur (D737)
-log:
-  level: info            # verbose | debug | info | warning | error | exception
-  output: file:/var/log/syncytium   # ou le puits de logs (D343)
-  retention: 90d         # la rétention des traces (D41b)
-  anonymize: true        # l'option d'anonymisation (D41b)
+# environments/production/logging.yml — la configuration en dur (D737), sans niveau log: (D1092)
+level: info            # verbose | debug | info | warning | error | exception
+output: file:/var/log/syncytium/${...name}-${now:yyyy-mm-dd}.log   # ou le puits de logs (D343)
+max_size: 128MB        # les dimensions (D800/D1091) : la taille d'un fichier…
+backups: 10            # … et le nombre de fichiers tournés ; la rétention au cleanup.yml (D1073)
+anonymize: true        # l'option d'anonymisation (D41b)
 
 # environments/staging/logging.yml — le staging bavard (D343)
-log:
-  level: debug
+level: debug
 ```
 
 *(La maîtrise du journal (D800) : le niveau, **les dimensions** — la
 taille et la rotation des fichiers, la syntaxe à écrire quand le
 domaine s'ouvrira — et la rétention. Les clés hors grammaire sont
-ignorées : renommer un bloc — le suffixe `-disable` du cas 1 — le
+ignorées : renommer un bloc — le suffixe `-disable` du cas 4 — le
 met en sommeil.)*
+
+*(**La rétention des fichiers est un mécanisme générique** (D1070) : dans
+un dossier, les fichiers qui répondent à un pattern — gardés par nombre
+(les n derniers) ou par durée, la date lue dans le nom du fichier par
+le pattern ; **elle vit dans `cleanup.yml`, à l'environnement** (D1073) :
+des règles nommées, la clé est le nom (D1074) — le journal (sorti de `logging.yml`), les
+watchers, les fichiers de détail des migrations (D1066). Les propriétés
+sont normalisées (D1071) : `interval:` (le délai entre deux
+nettoyages), `directory:`, `pattern:` (la date par le groupe nommé
+`(?<date>…)`), `retention:` (une durée — `30d` ; `nbdays:` retiré ;
+sans unité, un nombre de fichiers — `10` garde les dix derniers, triés
+par leur dernière date de création, D1076) ; `interval:` en durée
+(`1d`, `1min` — `m` est le mois, D476) ;
+le nom daté s'écrit `${now:yyyy-mm-dd}`.)*
 
 L'exemple des push (les écritures validées — D743) :
 
@@ -104,19 +117,19 @@ la coercition :
 
 - **au consommateur** : le cache des requêtes déterministes (le
   moteur fournit `ETag`/`304`), la lecture par lot contre le N+1 ;
-- **au technicien** : faire émerger un besoin — l'endpoint
+- **au concepteur** : faire émerger un besoin — l'endpoint
   composite, l'agrégat, le champ calculé ;
 - **la détection : SEQUITUR** (D315–D316) — la grammaire
   hiérarchique des séquences répétées sur les appels normalisés
   (l'endpoint + les propriétés, les valeurs ignorées — D318) ; les
   seuils : la récurrence sur plage temporelle et le rapport de
   longueurs (D319, le calibrage sur données réelles en Q59) ; **le
-  moteur propose avec la fréquence et le gain, le technicien
+  moteur propose avec la fréquence et le gain, le concepteur
   décide** (D317).
 
 **Où paraissent les propositions** (D739) : dans la synthèse
 périodique (D738) et dans le dashboard « telemetry » (D736) — la
-décision du technicien reste **un geste hors application** : la
+décision du concepteur reste **un geste hors application** : la
 description se change au dépôt, jamais depuis l'écran.
 
 ## Les seuils et la calibration (D47–D51, D97, D740)

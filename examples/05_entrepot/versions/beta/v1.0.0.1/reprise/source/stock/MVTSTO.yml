@@ -1,0 +1,134 @@
+# Le nom de la table
+# La table MVTSTO de PMI, 34 colonnes et des millions de lignes : les mouvements de stock.
+name: MVTSTO
+
+# La description de la table
+description: Les mouvements de stock de PMI — la source de stock.mouvement
+
+# Le périmètre lu
+# La seule société 100.
+filter: MVITSOC = "100"
+
+# L'identité d'une ligne
+# Le document, la ligne, l'indice et le composant, complétés de l'article et de l'horodatage de saisie : la table n'a
+# pas de clé déclarée, le contrôle de l'identité la vérifie sur les données.
+identity: [MVITNUMERO, MVITLIGNE, MVITINDLIG, MVITCOMPOS, MVCTCODART, MVCTCOMART, MVCJSAI, MVCTSAI]
+
+# Le rapport des anomalies de la table
+# La logistique corrige les mouvements à l'origine.
+report:
+  when: [migration]
+  to: [logistique]
+  by: [notification, mail]
+
+# La lecture par partition
+# Le mois du mouvement : chaque nuit, les trois derniers mois sont relus ; la relecture complète du dimanche relit tout.
+coverage: MVCJMVT[month - 3]
+
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
+fields:
+
+  MVITSOC:
+    type: text[3]
+    description: La société ; seule la société 100 est lue.
+
+  MVITNUMERO:
+    type: text[6]
+    description: Le numéro du document.
+
+  MVITLIGNE:
+    type: text[3]
+    description: La ligne du document.
+
+  MVITINDLIG:
+    type: text[3]
+    description: L'indice de la ligne.
+
+  MVITCOMPOS:
+    type: text[5]
+    description: Le composant de la ligne.
+
+  MVCTCODART:
+    type: ARTICLE.ARKTCODART
+    description: Le code de l'article mouvementé.
+
+  MVCTCOMART:
+    type: ARTICLE.ARKTCOMART
+    description: Le complément du code de l'article.
+
+  MVCTDEPOT:
+    type: text[6]
+    description: Le dépôt.
+
+  MVCTCODMPL:
+    type: text[10]
+    description: L'emplacement.
+
+  MVCTNUMLOT:
+    type: text[18]
+    description: Le numéro de lot.
+
+  MVCJMVT:
+    type: date_pmi
+    description: La date du mouvement, la clé de la partition.
+
+  MVCSMVT:
+    type: ignored
+    description: La semaine du mouvement, qui se déduit de sa date.
+
+  MVCJSAI:
+    type: date_pmi
+    description: Le jour de la saisie ; un mouvement peut être saisi après coup.
+
+  MVCTSAI:
+    type: time_pmi
+    description: L'heure de la saisie, à la seconde.
+
+  MVCNQTE:
+    type: decimal
+    description: La quantité, dans l'unité de stock de l'article ; une valeur négative est une correction.
+
+  MVCNPUNIT:
+    type: decimal
+    description: Le prix unitaire, qui varie dans le temps.
+
+  MVCNPDSUNI:
+    type: ignored
+    description: Le poids unitaire, un doublon de celui de l'article.
+
+  MVCNVAL:
+    type: ignored
+    description: "La valeur du mouvement, recalculée : le prix par la quantité."
+
+  MVCTTYPE:
+    type: enum { E, S }
+    description: "Le sens : E l'entrée, S la sortie."
+
+  MVCTGENRE:
+    type: enum { C, D, E, F, I, R }
+    description: |
+      Le genre du mouvement.
+
+      | Code | Libellé      |
+      |------|--------------|
+      | C    | Consommation |
+      | D    | Déplacement  |
+      | E    | Expédition   |
+      | F    | Fabrication  |
+      | I    | Inventaire   |
+      | R    | Réception    |
+
+  MVCTNOMUTI:
+    type: text[35]
+    description: L'utilisateur qui a saisi le mouvement.
+
+  MVCNAVQTST:
+    type: decimal
+    description: La quantité en stock avant le mouvement.
+
+  # Les colonnes calculées
+  unite_stock:
+    description: L'unité de stock de l'article, lue dans la table ARTICLE ; la quantité se construit dans cette unité.
+    formula: ARTICLE.first(ARCTUNISTO if ARKTCODART = MVCTCODART and ARKTCOMART = MVCTCOMART)

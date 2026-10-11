@@ -1,0 +1,21 @@
+# L'échéance
+# La ligne du tableau de crédit ou de LOA. Son cycle de vie tient en deux hooks : creer_echeancier engendre les lignes
+# à la validation du financement — les formules du classeur, la mensualité constante, l'intérêt sur le reste dû,
+# l'amortissement par différence, vivent dans le générateur, pas dans la grammaire — ; clore_echeancier, à la vente,
+# supprime les échéances non payées. La coche Payé du classeur devient un calculé : l'échéance est payée dès que la
+# date du jour dépasse la sienne.
+name: echeance
+
+# La description de l'entité
+description: Une échéance du financement — la ligne du tableau de crédit ou de LOA
+
+# Le visage texte
+label: "${name}"
+
+# Les champs
+# Rangés par groupe.
+fields: ~{fields.yml}
+
+# L'interface
+# La liste éditable.
+gui: ~{gui.yml}

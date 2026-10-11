@@ -26,7 +26,7 @@ Le nom encode l'architecture : une membrane unique, plusieurs noyaux autonomes.
 1. **Syncytium — le framework.** Le moteur générique open source : le *tissu*.
    C'est ce dépôt.
 2. **La solution.** Une application métier décrite *sur* le framework ; le
-   technicien travaille à ce niveau, en écrivant la description.
+   concepteur travaille à ce niveau, en écrivant la description.
 3. **L'instance.** La solution déployée chez une TPE, avec ses données, ses
    comptes et sa propre vie.
 
@@ -60,7 +60,12 @@ débat d'architecture, mené point par point et consigné dans le document de
 conception.
 
 📄 **[Document de conception](docs/conception.md)** — vision, décisions actées
-(numérotées Dxx), questions ouvertes (Qxx) et journal des échanges.
+(numérotées Dxx), questions ouvertes (Qxx) et journal des échanges ; les
+artefacts préparatoires de la documentation vivent à côté, dans `docs/`
+(le glossaire, l'entité, les types, les composants, les hooks, les
+connecteurs, le mapping, les droits, l'administration, la télémétrie, la
+sécurité, la configuration, le module de migration, la documentation
+générée).
 
 ## Licence
 

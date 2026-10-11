@@ -1,0 +1,12 @@
+# La réponse
+# Un répondant, une note, un mot. Le formulaire et la liste par défaut suffisent : aucune interface déclarée.
+name: reponse
+
+# La description de l'entité
+description: Une réponse à l'enquête — le répondant, la note, le commentaire
+
+# Le visage texte
+label: "${name}"
+
+# Les champs
+fields: ~{fields.yml}

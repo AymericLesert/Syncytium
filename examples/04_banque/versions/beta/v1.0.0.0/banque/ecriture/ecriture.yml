@@ -1,0 +1,40 @@
+# L'écriture
+# Une écriture bancaire, la composition du compte : la date, le libellé, le budget, le montant signé à sa devise, le
+# mode, le lieu ; les montants convertis, le solde continu et les colonnes débit et crédit se calculent.
+name: ecriture
+
+# La description de l'entité
+description:
+  fr: Une écriture bancaire — la date, le libellé, le budget, le montant, le mode, le lieu
+  en: A bank entry — the date, the description, the budget, the amount, the method, the place
+  es: Un apunte bancario — la fecha, el concepto, el presupuesto, el importe, el modo, el lugar
+
+# Le visage texte
+label: "${name}"
+
+# Les champs
+# Rangés par groupe.
+fields: ~{fields.yml}
+
+# Les opérations de l'entité
+# Dupliquer, propager, virer, et la tâche qui pose la date d'impression du relevé.
+operations: ~{operations.yml}
+
+# L'interface
+# Le formulaire de l'écriture, les formulaires d'appel des opérations, les trois listes et le graphique.
+gui: ~{gui.yml}
+
+# La cohérence des données
+# Les budgets marqueurs sont réservés à la création et à la fermeture du compte ; l'évaluation se fait au scellé de la
+# transaction.
+validation:
+  - rule: date_operation = owner.ouverture if budget = "OUVERTURE"
+    message:
+      fr: L'écriture d'ouverture est datée du {date_operation} ; le compte ouvre le {owner.ouverture}.
+      en: The opening entry is dated {date_operation}; the account opens on {owner.ouverture}.
+      es: El apunte de apertura lleva fecha {date_operation}; la cuenta abre el {owner.ouverture}.
+  - rule: date_operation = owner.cloture if budget = "FERMETURE"
+    message:
+      fr: L'écriture de clôture est datée du {date_operation} ; le compte ferme le {owner.cloture}.
+      en: The closing entry is dated {date_operation}; the account closes on {owner.cloture}.
+      es: El apunte de cierre lleva fecha {date_operation}; la cuenta cierra el {owner.cloture}.

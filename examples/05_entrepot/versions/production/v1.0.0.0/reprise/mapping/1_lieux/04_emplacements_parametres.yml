@@ -1,0 +1,16 @@
+# Les emplacements des paramètres de PMI
+PARAM_EMPLACEMENTS:
+  description: >-
+    La première origine des emplacements : les paramètres des emplacements actifs, un par ligne — le couple
+    dépôt.emplacement et son libellé, le seul que PMI connaisse. Le dépôt, créé plus tôt, se retrouve par son code ; un
+    emplacement des paramètres est actif.
+  to: stock.emplacement
+  fields:
+    depot:   depot
+    code:    emplacement
+    libelle: PACTEXT140
+    actif:   true
+  report:
+    when: [migration]
+    to: [logistique]
+    by: [notification, mail]

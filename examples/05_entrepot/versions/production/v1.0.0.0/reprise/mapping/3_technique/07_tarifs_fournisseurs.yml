@@ -1,0 +1,22 @@
+# Les tarifs des fournisseurs
+TARIF:
+  description: >-
+    La grille tarifaire de l'article, en hypercube tiers × tranche × date : une cellule par ligne de tarif des
+    fournisseurs, au genre 2. Les trois dimensions font l'identité de la cellule ; le seuil et le prix la remplissent.
+  to: technique.article.tarifs
+  filter: TAKTGENRE = "2"
+  parent:
+    article: { code: TAKTCODART, complement: TAKTCOMART }
+  fields:
+    tiers:            fournisseur
+    tranche:          TAKTTARIF
+    date_application: TAKJAPLI
+    seuil:            TACNTRANCH
+    prix:             amount(TACNPU, TACTDEVISE)
+    forfait:          amount(TACNFORFAI, TACTDEVISE)
+    valide:           TACTVALID = "O"
+    commentaire:      TACTCOMMEN
+  report:
+    when: [migration]
+    to: [achats]
+    by: [notification, mail]

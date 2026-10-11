@@ -1,0 +1,18 @@
+# Les véhicules
+identification:
+  description: >-
+    La phase 1 : un classeur, un véhicule. Chaque source porte la plaque, lue sur la feuille d'identification et répétée
+    sur chaque ligne ; l'identité et les possesseurs joignent par elle, comme à la banque. Les véhicules repris vivent —
+    actifs ; une restitution déjà datée clôt d'entrée.
+  to: transport.vehicule
+  fields:
+    nom:             nom
+    immatriculation: immatriculation
+    photo:           photo
+    mode_achat:      mode_achat
+    lieu_achat:      lieu_achat
+    date_achat:
+      formula: date_debut
+      description: Le classeur récent seul la porte ; les autres la prendront à l'origine, la première consommation.
+    date_vente:      date_fin
+    statut:          '"cloture" if date_fin != null else "actif"'

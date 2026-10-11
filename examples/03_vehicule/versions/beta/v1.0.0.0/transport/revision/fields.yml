@@ -1,0 +1,49 @@
+# La règle
+
+designation:
+  type: text[..60]
+  required: true
+  label: Désignation
+  placeholder: Révision constructeur
+
+pas_km:
+  type: integer[0..]
+  label: Tous les (km)
+  hint: Le pas en kilomètres — « Révisions tous les 25 000 km ».
+
+pas_duree:
+  type: duration
+  label: Tous les (délai)
+  hint: Le pas en délai — l'autre voie de l'échéancier ; 1y, 6m.
+
+# Les champs calculés
+
+derniere_km:
+  type: integer
+  formula: owner.entretiens.max(km if revision)
+  label: Dernière (km)
+  description: Les révisions faites sont les lignes du journal marquées révision.
+
+derniere_date:
+  type: date
+  formula: owner.entretiens.max(date if revision)
+  label: Dernière (date)
+
+prochaine_km:
+  type: integer
+  formula: (derniere_km if derniere_km != null else owner.km_initial) + pas_km if pas_km != null
+  label: Prochaine (km)
+  description: Depuis la dernière révision faite, sinon depuis l'origine du véhicule.
+
+prochaine_date:
+  type: date
+  formula: (derniere_date if derniere_date != null else owner.date_achat) + pas_duree if pas_duree != null
+  label: Prochaine (date)
+
+echue:
+  formula: >-
+    owner.statut = actif and ((prochaine_km != null and owner.km_courant >= prochaine_km)
+    or (prochaine_date != null and context.now >= prochaine_date))
+  label: Échue ?
+  hint: La règle est à échéance — la notification part, la surface met en avant.
+  description: Sur le kilométrage ou sur le délai, tant que le véhicule est actif.

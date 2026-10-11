@@ -1,0 +1,107 @@
+# L'identité
+
+article:
+  type: technique.article
+  required: true
+  label: Article
+
+lot:
+  type: text[..18]
+  required: true
+  label: Lot
+  description: >-
+    Une part de la clé, un texte sans concept pour le cas ; le concept, s'il venait, séparerait la définition de
+    l'article de l'article physique — le lot, la péremption, le packaging —, une évolution possible du modèle.
+
+emplacement:
+  type: stock.emplacement
+  required: true
+  label: Emplacement
+
+depot:
+  type: stock.depot
+  required: true
+  label: Dépôt
+
+enregistrement:
+  type: text[1]
+  required: true
+  label: Code d'enregistrement
+  hint: Le code d'enregistrement de l'ERP, part de la clé.
+
+# Les quantités — dans l'unité de stock de l'article
+
+quantite:
+  type: decimal
+  required: true
+  label: Quantité physique
+  hint: Le stock physique.
+
+quantite_reservee:
+  type: decimal
+  required: true
+  default: 0
+  label: Réservée
+  hint: Réservée ferme.
+
+quantite_en_cours:
+  type: decimal
+  label: En cours
+  hint: En cours d'entrée.
+
+stock_minimum:
+  type: decimal
+  label: Stock minimum
+  hint: Le minimum du niveau ; celui de l'article vaut par défaut.
+
+# La valeur
+
+prix_unitaire:
+  type: amount
+  confidentiality: ${settings.confidentiality.financier}
+  label: Prix unitaire du lot
+  description: À la devise de l'entreprise ; réservé aux achats et à la direction.
+
+# Les dates
+
+dernier_mouvement:
+  type: date
+  label: Dernier mouvement
+
+peremption:
+  type: date
+  label: Péremption
+
+inventaire:
+  type: date
+  label: Dernier inventaire
+  hint: La date du dernier inventaire ; la semaine se déduit du jour.
+
+quantite_inventaire:
+  type: decimal
+  label: Quantité inventoriée
+
+# Les champs calculés
+
+disponible:
+  type: decimal
+  formula: quantite - quantite_reservee
+  label: Disponible
+
+valeur:
+  type: amount
+  formula: prix_unitaire * quantite if prix_unitaire != null
+  confidentiality: ${settings.confidentiality.financier}
+  label: Valeur
+  description: Restreinte comme le prix.
+
+sous_minimum:
+  type: boolean
+  formula: quantite < stock_minimum if stock_minimum != null
+  label: Sous le minimum
+  hint: Un indicateur du tableau de bord.
+
+perime:
+  type: boolean
+  formula: peremption < context.today if peremption != null
+  label: Périmé

@@ -1,0 +1,94 @@
+# Le nom de la table
+# La table STDEPLOT de PMI, 36 colonnes : le niveau de stock d'un article, dans un lot, à un emplacement d'un dépôt.
+name: STDEPLOT
+
+# La description de la table
+description: Les niveaux de stock de PMI — la source de stock.niveau, et des référentiels depot et emplacement
+
+# Le périmètre lu
+# La seule société 100.
+filter: DPKTSOC = "100"
+
+# L'identité d'une ligne
+# L'article, le lot, le code d'enregistrement, l'emplacement et le dépôt.
+identity: [DPKTCODART, DPKTCOMART, DPKTNUMLOT, DPKTCODENR, DPKTCODMPL, DPKTDEPOT]
+
+# Le rapport des anomalies de la table
+# La logistique corrige les niveaux à l'origine.
+report:
+  when: [migration]
+  to: [logistique]
+  by: [notification, mail]
+
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
+fields:
+
+  DPKTSOC:
+    type: text[3]
+    description: La société ; seule la société 100 est lue.
+
+  DPKTCODART:
+    type: ARTICLE.ARKTCODART
+    description: Le code de l'article en stock.
+
+  DPKTCOMART:
+    type: ARTICLE.ARKTCOMART
+    description: Le complément du code de l'article.
+
+  DPKTNUMLOT:
+    type: text[18]
+    description: Le numéro de lot, une part de la clé.
+
+  DPKTCODENR:
+    type: text[1]
+    description: Le code d'enregistrement de PMI, une part de la clé.
+
+  DPKTCODMPL:
+    type: text[10]
+    description: L'emplacement.
+
+  DPKTDEPOT:
+    type: text[6]
+    description: Le dépôt.
+
+  DPCNSTOPHY:
+    type: decimal
+    description: La quantité en stock physique.
+
+  DPCNRESFER:
+    type: decimal
+    description: La quantité réservée ferme.
+
+  DPCNENCOUR:
+    type: decimal
+    description: La quantité en cours.
+
+  DPCJMOU:
+    type: date_pmi
+    description: La date du dernier mouvement.
+
+  DPCJPEREMP:
+    type: date_pmi
+    description: La date de péremption du lot.
+
+  DPCNPULOT:
+    type: decimal
+    description: Le prix unitaire du lot.
+
+  DPCNQTINV:
+    type: decimal
+    description: La quantité du dernier inventaire.
+
+  DPCJJINV:
+    type: date_pmi
+    description: La date du dernier inventaire.
+
+  DPCSSINV:
+    type: ignored
+    description: La semaine du dernier inventaire, qui se déduit de sa date.
+
+  DPCNSTOMIN:
+    type: decimal
+    description: Le stock minimum.

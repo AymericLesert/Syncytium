@@ -1,0 +1,14 @@
+# Les dépôts de l'expédition, trouvés dans les fiches articles
+ARTICLE:
+  description: >-
+    La deuxième origine des dépôts : le dépôt de l'expédition de chaque fiche article, une valeur distincte par dépôt ;
+    une fiche sans dépôt n'en fait pas. Un dépôt né ici est inactif et sans libellé ; déjà connu, il n'est pas touché.
+  to: stock.depot
+  distinct: [ARCTCODEP]
+  filter: ARCTCODEP != null
+  fields:
+    code: ARCTCODEP
+  report:
+    when: [migration]
+    to: [logistique]
+    by: [notification, mail]

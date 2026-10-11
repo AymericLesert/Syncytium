@@ -1,0 +1,16 @@
+# Les consommations
+consommation:
+  description: >-
+    La phase 4 : les ravitaillements, toutes les lignes sauf l'origine, devenue le kilométrage initial. Le numéro est le
+    rang moins l'origine — la clé au sein du véhicule ; les colonnes calculées du classeur ne s'importent pas, le modèle
+    les refait.
+  to: transport.consommation
+  filter: connector.line > 1
+  parent:
+    vehicule: immatriculation
+  fields:
+    numero:        connector.line - 1
+    date:          date
+    total_km:      total_km
+    quantite:      quantite_n
+    prix_unitaire: prix_unitaire_n

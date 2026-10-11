@@ -1,0 +1,15 @@
+# Les emplacements trouvés dans les niveaux de stock
+STDEPLOT:
+  description: >-
+    La quatrième origine des emplacements : les couples dépôt + emplacement des niveaux non nuls, pour que tout stock
+    trouve son emplacement. Un emplacement né ici est inactif et sans libellé ; déjà connu, il n'est pas touché.
+  to: stock.emplacement
+  distinct: [DPKTDEPOT, DPKTCODMPL]
+  filter: DPCNSTOPHY != 0
+  fields:
+    depot: DPKTDEPOT
+    code:  DPKTCODMPL
+  report:
+    when: [migration]
+    to: [logistique]
+    by: [notification, mail]

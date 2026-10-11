@@ -1,0 +1,23 @@
+# Les adresses complémentaires des clients
+ADRESSE:
+  description: >-
+    Les adresses complémentaires des clients : la table porte les deux sortes de tiers, une règle par sorte, filtrée sur
+    le type de compte ; le client se retrouve par son code.
+  to: tiers.adresse
+  filter: ADKTTYPCPT = "C"
+  parent: { client: ADKTCOMPTE }
+  fields:
+    numero: ADKNNUMERO
+    usage:  'ADCTTYPE.select(LIVRAISON: "livraison", FACTURATION: "facturation", "...": "autre")'
+    nom:    ADCTNOM
+    adresse:
+      formula: >-
+        geolocation(ADCNGPSY, ADCNGPSX,
+          ADCTRUE1 + " " + ADCTRUE2 + " " + ADCTRUE3 + ", " + ADCTCP + " " + ADCTVILLE + ", " + ADCTPAYS)
+      description: >-
+        L'adresse : ses coordonnées et l'adresse brute, assemblée de ses lignes.
+    date_creation: ADCJCREA
+  report:
+    when: [migration]
+    to: [commercial]
+    by: [notification, mail]

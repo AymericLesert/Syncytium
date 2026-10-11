@@ -11,7 +11,7 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
 
 - **Un seul mécanisme, dedans comme dehors** (D52) : les hooks, les
   connecteurs et les composants relèvent d'un mécanisme uniforme —
-  ce que Syncytium embarque et ce que le technicien ajoute passent
+  ce que Syncytium embarque et ce que le concepteur ajoute passent
   par la même porte ;
 - **« Tous les types proposés sont finalement des hooks qui
   appartiennent à Syncytium »** (D408) — **le catalogue = les hooks
@@ -58,15 +58,15 @@ versions/<statut>/<version>/
 ```
 
 *(Le nommage et l'organisation restent libres — D807 : l'arbre
-ci-dessus est la convention du cas 1.)*
+ci-dessus est la convention du cas 4.)*
 
 ```yaml
 # hooks/hooks.yml — l'étage des familles (D777)
-operations: operations/operations.yml
+operations: ~{operations/operations.yml}   # la référence explicite (D956)
 
 # hooks/operations/operations.yml — la liste des fiches (le pattern D806)
 operations:
-  - .*/.*\.yml
+  - ~{.*/.*\.yml}
 
 # hooks/operations/dupliquer/dupliquer.yml — la fiche du hook (D809)
 name: dupliquer
@@ -79,7 +79,13 @@ properties: { }                      # les propriétés du hook
 référence par `description:`, D809) décrivant son fonctionnement —
 la brique humaine de la documentation auto-générée (D645). Un
 dossier par hook ou tout dans un même fichier : l'éclatement est
-libre (D767/D807/D809).
+libre (D767/D807/D809). **La documentation fonctionnelle reprend ce md
+comme la description de l'opération** — « ce qu'elle fait », dans la
+section de l'entité (D1196/D1227) ; une opération qui en enchaîne
+plusieurs se décrit par la liste de ses étapes, chacune avec sa
+description (D1227). Le md est une configuration : il ne cite ni
+décision ni histoire du cas (D1085) — les md des hooks du véhicule et
+de la banque sont à nettoyer sur ce point.
 
 ## Les familles
 
@@ -131,8 +137,18 @@ fonctions de la collection (`list of`, `association with`) sont ses
 méthodes — `commandes.sum(montant if etat = "facturée")` (l'élément
 en contexte implicite dans la parenthèse), `count()`, `avg`,
 `min`/`max` (universels — tous les types sont triables, D575),
-`first`, `last`, `any`, `exists` ; la forme contextuelle sans préfixe
-quand la collection est le contexte (l'assise d'un chart — D517).
+`first`, `last`, `any`, `exists` ; **`group(champ, …)`** — le « group
+by » d'une liste (D1015) : une cellule par combinaison de valeurs des
+champs nommés, l'agrégat qui suit s'évalue par cellule, le résultat est
+un hypercube (D897) aux dimensions des champs —
+`mouvements.group(emplacement, article).sum(…)` ; **`sort(champ, …)`** — le
+tri d'une liste en ligne (D1017), les clés dans l'ordre, `first()`/`last()`
+sans argument rendent l'élément en tête ou en queue
+(`commandes_vente.sort(owner.date).last().client`) ; « les méthodes group
+et sort sont à ajouter », leurs propriétés déclaratives `group:` et
+`sort:` sur l'association (D1016/D1017) ; la forme contextuelle
+sans préfixe quand la collection est le contexte (l'assise d'un chart —
+D517).
 
 **Le type `label`** (D585–D586) — le type-hook du socle qui montre la
 voie : l'accès au catalogue des labels (D440), les gabarits nommés
@@ -189,11 +205,14 @@ fields:
 
 Ajoute **une opération** — « une opération ne se construit pas dans
 la configuration : elle se construit toujours à l'aide d'un hook de
-code » (D570). Les 19 opérations de socle (D574, `migrate` D667,
-`anonymize` D697) sont les hooks embarqués : `create`, `read`,
-`update`, `delete`, `duplicate`, `promote`, `demote`, `generate`,
-`download`, `print`, `send`, `export`, `import`, `report`,
-`restore`, `notify`, `refresh`, `migrate`, `anonymize`. **Chaque
+code » (D570). Les 20 opérations de socle (D574, `migrate` D667,
+`anonymize` D697, `reset_coverage` D881) sont les hooks embarqués :
+`create`, `read`, `update`, `delete`, `duplicate`, `promote`,
+`demote`, `generate`, `download`, `print`, `send`, `export`,
+`import`, `report`, `restore`, `notify`, `refresh`, `migrate`,
+`anonymize`, `reset_coverage` (la dernière valeur parcourue d'une
+entité remise au départ — le `migrate` suivant relit la totalité,
+rien du module n'est effacé, D1030). **Chaque
 opération porte un degré intrinsèque d'autorisation, déclaré à son
 contrat** (D697/D699 — `user` | `manager` | `administrator`, le
 plancher que la déclaration ne peut abaisser ; le groupe
@@ -209,6 +228,41 @@ exigeant l'emporte).
 | `confirm` | la relecture — le message-label (D597) aux valeurs nommées (`nb_creations`, `nb_updates`, `nb_deletes`… — D598), ou un formulaire nourri par la transaction (D600–D601) |
 | `commit` | scelle — et **retourne l'issue** (l'écran, le téléchargement, l'impression, le message, rien — D570/D597) : le moteur lit et déclenche |
 | `rollback` | défait proprement |
+
+**Les propriétés intrinsèques du contrat** — « une opération
+s'exécute et elle possède aussi des propriétés » : ce qui tient au
+code, « pas exposable dans la configuration mais dans le contrat du
+hook » (D699, D904–D905) ; la liste reste ouverte :
+
+| la propriété | le sens |
+|---|---|
+| `degree: user \| manager \| administrator` | le plancher d'autorisation (D697/D699) |
+| `execution: once` | **l'exécution unique** (D57) — pas de rollback des effets, pas de rejeu automatique ; la relance est manuelle, depuis la supervision |
+| `deterministic: true \| false` | **l'opération est déterministe ou pas — « elle ne peut pas changer sans faire changer son code »** (D59/D904) : l'assertion du code — un doublon (même opération, mêmes paramètres) dans la fenêtre reçoit **le résultat mémorisé**, sans ré-exécution ni effet répété |
+| `deterministic_duration: <durée>` | **la fenêtre de mémoïsation** (D59) — « cela dépendra éventuellement de la façon dont elle sera implémentée » : le hook la porte, la configuration ne la surcharge jamais |
+| `connectors: { <nom>: <famille> }` | **les connecteurs attendus pour l'exécution** (D913) — « le hook décrit les types de connecteurs utilisés (comme des paramètres d'exécution) » : nommés et typés par leur famille (`documents: file`, `mailer: smtp`) ; **la déclaration les lie par `uses:`** au connecteur de l'environnement (D617) ; l'ingestion vérifie la liaison, la famille (D613) et la complétude par environnement ; tout connecteur non attendu est hors de portée (D599) ; **aucune liaison implicite** (D914 — `uses:` s'écrit toujours, D805 ; l'erreur d'ingestion nomme le candidat unique) |
+
+Toutes paraissent au `describe` (D645) ; les noms de juin
+(`deterministe`, `determinisme_duree`) prennent la graphie anglaise
+du catalogue, la sémantique intacte (D905). **Le hook déclare, le
+moteur exploite** (D905) : « ces paramètres doivent être exploités
+par Syncytium pour mieux gérer le déterminisme avec un cache ou
+pas » — Syncytium lit le contrat et en tire sa conduite : le cache
+de mémoïsation tenu pour l'opération déterministe et vidé à
+l'échéance de la fenêtre, aucun cache pour la non-déterministe,
+l'exécution unique sans rejeu. L'invalidation du cache
+est l'acte de l'administrateur (D60 — trois grains : l'opération +
+ses paramètres, l'opération, tout). **Le cooldown, lui, est un
+paramètre d'administration** (D58/D904) : le défaut en setting
+dynamique de l'application (`operation.cooldown`, `1min` — D588),
+la surcharge `cooldown:` à la déclaration ; **l'API seule** — une
+exécution par période, mesurée de la fin de l'exécution au début de
+l'appel suivant, le rappel refusé et journalisé (D43). **La
+rétention du résultat** de même (D55/D906 — « un paramètre
+d'administration, je valide ») : `operation.retention` en setting
+dynamique (`90d`), la surcharge `retention:` à la déclaration, le
+résultat échu purgé. Le partage de juin est complet : quatre
+propriétés au contrat, deux paramètres à l'administration.
 
 Les cinq portées (D570) : l'enregistrement, la liste, la sélection,
 le module, l'application. `commit: auto | confirm` à la déclaration
@@ -235,7 +289,13 @@ sont **des références aux hooks** (`notify` → notify, `document` →
 generate, `set` → update, `function` → une fonction) ; « ne se
 construit pas dans la configuration » signifie *pas de code* —
 l'orchestration de références est déclarative, et la séquence
-s'exécute **dans la même transaction tenue ouverte** (D594).
+s'exécute **dans la même transaction tenue ouverte** (D594). **Le
+`notify` sans destinataire remonte à tout le monde, dans la zone des
+notifications de l'application ; le relais par mail est le choix de
+chacun, dans son profil** (D1228 — ma lecture : « tout le monde » =
+ceux qui voient l'entité, D334). **La documentation** d'une opération
+composée est la liste de ses étapes, chacune avec la description de
+son hook (D1227).
 
 **L'exemple** — le fil `sales.order` :
 
@@ -244,14 +304,20 @@ s'exécute **dans la même transaction tenue ouverte** (D594).
 operations:
   invoice:
     scope: selection               # les cinq portées (D570)
+    cooldown: 10s                  # l'API seule — fin → début (D58/D904) ; défaut : le setting
+    retention: 30d                 # le résultat consultable (D55/D906) ; défaut : le setting
+    uses:                          # le lien attendu → déclaré (D913)
+      documents: archive           #   le connecteur `archive` de l'environnement (D617)
+      mailer: company_smtp
     commit:
       mode: confirm                # auto | confirm (D596)
       form: default                # la relecture au formulaire (D600)
       message: { fr: "{nb_creations} factures créées" }   # les valeurs nommées (D598)
 ```
 
-Le hook `invoice` (le code) : `execute` crée les factures **dans la
-transaction tenue ouverte** ; `confirm` laisse le moteur présenter le
+Le hook `invoice` (le code) déclare à son contrat `connectors: {
+documents: file, mailer: smtp }` (D913) ; `execute` crée les factures
+**dans la transaction tenue ouverte** ; `confirm` laisse le moteur présenter le
 formulaire et le message ; `commit` scelle et retourne l'issue
 (`download` du PDF, par exemple) ; `rollback` défait si l'utilisateur
 annule.
@@ -288,7 +354,8 @@ une erreur d'ingestion), au paramètre modifié.
 
 **Les fonctions libres** (D583/D587) complètent le monde des
 fonctions : les variadiques scalaires (`min`, `max`, `sum`, `avg` —
-`max(0, stock.sum(quantity))`) et `iif(condition, alors, sinon)` —
+`max(0, stock.sum(quantity))`) — `iif` est retiré au profit du
+conditionnel natif `valeur if condition else autre` (D1110) —
 « le catalogue s'enrichira, si besoin » : la porte des hooks de
 fonction libre.
 
@@ -327,7 +394,8 @@ ultérieure du moteur).
 propres méthodes et fonctions » — la famille contraint le contrat, la
 conformité de la classe se vérifie au chargement. **Et le socle
 commun d'abord** (D621–D630) : toute classe reçoit **sa déclaration
-entière à l'initialisation** — les `parameters:`, les `secrets:` et,
+entière à l'initialisation** — les `parameters:` (les secrets y sont
+les paramètres marqués `*`, D944) et,
 pour les storages sources, **la carte `entities:`** (D828/D829 — le
 mapping entités ↔ fichiers, les options de lecture D845–D848 ;
 optionnelle, les familles sans fichiers l'ignorent) ; **le
@@ -349,7 +417,8 @@ migration à chaud orchestrée par le moteur), smtp (`send`), file
 location (`geocode`/`reverse`), webhook (les entrées, l'abonnement,
 l'authentification obligatoire), siren (`verify`) — sont dans
 [connectors.md](connectors.md). Les propriétés paramètrent (pas de contexte — le démarrage du projet),
-**les secrets par variable d'environnement chiffrable** (D603), les
+**les secrets par paramètre marqué `*` et variable d'environnement
+chiffrée** (D603/D944), les
 deux sens décrits (D606) — et **le stockage des entités est lui-même
 un connecteur** (D606) : les bases du catalogue portent l'instance,
 pas seulement l'échange. **La migration inter-connecteurs** (D606) :
@@ -366,9 +435,10 @@ réplication passive du PCA-PRA (D112–D114).
 connectors:
   location:                        # le nom = le type (D612–D613)
     class: ban            # l'implémentation compatible (D294/D604/D613)
-    parameters: { url: https://api-adresse.data.gouv.fr }
-    secrets: [api_key]             # la référence — la valeur en variable
-                                   # d'environnement, chiffrable (D603)
+    parameters:
+      url: https://api-adresse.data.gouv.fr
+      api_key*: ${BAN_API_KEY}     # la marque * (D944) — la référence seule,
+                                   # la variable chiffrée (D603/D902)
   incoming_orders:
     type: file                     # le type — le contrat de famille (D605/D613)
     class: file_std
@@ -409,6 +479,13 @@ l'utilisateur le choisit à son profil, les droits s'y appliquent
 
 ## Les règles transversales
 
+0. **Le hook d'interface, seul code tiers au navigateur** (D918 —
+   D66/§8.2) : il ne reçoit jamais `private`, il relève de l'UX et
+   jamais de la sécurité (le serveur arbitre), il est **sous la
+   responsabilité du concepteur** et **listé par la documentation
+   générée** (`describe`, D645) pour que l'administrateur sache quel
+   code tourne chez ses utilisateurs ; la page n'autorise que les
+   scripts qu'elle connaît.
 1. **La librairie d'exploration** (D572/D599) : le hook lit le modèle
    « de façon transparente » (les noms logiques, jamais le stockage)
    et écrit dans la transaction — **« la librairie mise en place
@@ -428,3 +505,42 @@ l'utilisateur le choisit à son profil, les droits s'y appliquent
    (celle de Syncytium + les hooks ajoutés automatiquement) se
    construit **dynamiquement, version par version** : la version
    documentée est exactement la version servie.
+
+## La documentation — la facette du hook (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**Le hook d'opération, dans la fonctionnelle** : son md (`description:
+~{documentation.md}`, D778/D809) **est la description de l'opération**
+— « ce qu'elle fait » dans la table des opérations de la section de
+l'entité (D1196, D1227) ; une opération qui en enchaîne plusieurs se
+décrit par la liste de ses étapes, chacune avec sa description
+(D1227) ; « ce qui la déclenche » vient de la déclaration — le bouton,
+le `when:`, la période (D428/D609), le formulaire d'appel et ses champs
+(D775) ; les opérations que l'utilisateur ne déclenche pas
+(`migrated`, `generated`) figurent parce qu'elles transforment ce
+qu'il voit (D1209) ; sans `label:`, le nom (D1181). Le md est une
+configuration : ni décision ni histoire du cas (D1085, D1228).
+
+**L'effet `notify`** sans destinataire remonte à tout le monde dans la
+zone des notifications de l'application ; le relais par mail est le
+choix du profil (D1228) — la section le dit ainsi.
+
+**Le hook de type** livre la facette documentation du type — le type en
+clair, ses contraintes, son exemple, dans chaque langue du moteur
+(D1162) — pour le dictionnaire (D1215 : « les hooks de type devront
+être adaptés ») ; le contrat s'écrit au rang 2.
+
+**Les langues** : chaque hook porte ses textes dans les langues
+attendues (D1162–D1163) ; un hook ajouté à Syncytium pour Syncytium les
+porte toutes ; un hook du concepteur, celles de sa version ; une langue
+manquante est une erreur d'ingestion.
+
+**Les autres colonnes** — à leur rang : le développeur (le contrat du
+hook, ses propriétés — `degree`, `execution`, `deterministic`,
+`connectors` —, le `describe` D645 ; **la skill** des consignes du
+moteur pour l'IA, D1224) ; le D.A.T. (le hook d'interface, le seul
+code tiers au navigateur, D918) ; la maintenance (la fréquence
+d'emploi de chaque opération, D1168).

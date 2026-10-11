@@ -1,0 +1,148 @@
+# Les formulaires
+# Le formulaire du véhicule, à onglets : chaque composante dans le sien, le bilan en sections et le graphique.
+forms:
+
+  # Le formulaire du véhicule
+  # Les titres suivent le mode d'ouverture.
+  record:
+    title:
+      create: Création d'un véhicule
+      read: "{nom}"
+      update: Modification de {nom}
+      delete: Suppression de {nom}
+    items:
+      - tabs:
+          items:
+
+            # L'identification
+            # Le visage, le type, la devise visuelle, le statut qui navigue dans le cycle de vie, l'achat et la vente.
+            - tab:
+                title: Véhicule
+                items:
+                  - field[nom]
+                  - field[immatriculation]
+                  - field[photo]
+                  - field[type]
+                  - field[devise]
+                  - field[statut]
+                  - field[mode_achat]
+                  - field[lieu_achat]
+                  - field[date_achat]
+                  - field[date_vente]
+                  - field[lieu_vente]
+                  - field[km_initial]
+
+            # Le financement
+            # Le paramétrage, visible selon le régime ; le bouton d'ajustement, grisé par sa garde ; l'échéancier
+            # déployé.
+            - tab:
+                title: Financement
+                items:
+                  - field[financement]
+                  - field[capital]:
+                      visible: financement = credit
+                  - field[taux_annuel]:
+                      visible: financement = credit
+                  - field[assurance_mensuelle]:
+                      visible: financement = credit
+                  - field[mensualite]:
+                      visible: financement = loa
+                  - field[duree_contrat]:
+                      visible: financement = credit or financement = loa
+                  - field[duree_echeances]:
+                      visible: financement = credit or financement = loa
+                  - field[premier_mois]:
+                      visible: financement = credit or financement = loa
+                  - field[jour_echeance]:
+                      visible: financement = credit or financement = loa
+                  - field[km_annuel]:
+                      visible: financement = loa
+                  - operation[ajuster_echeancier]
+                  - field[echeances]
+
+            # La consommation
+            # La liste embarquée, éditable en ligne.
+            - tab:
+                title: Consommation
+                items:
+                  - field[consommations]
+
+            # L'entretien
+            # Le journal de vie embarqué.
+            - tab:
+                title: Entretien
+                items:
+                  - field[entretiens]
+
+            # Les révisions
+            # Les règles, éditables en ligne.
+            - tab:
+                title: Révision
+                items:
+                  - field[revisions]
+
+            # Le bilan
+            # Les informations clés en trois sections côte à côte, puis la courbe de la consommation.
+            - tab:
+                title: Bilan
+                items:
+                  - sections:
+                      layout: row
+                      items:
+                        - section:
+                            title: Les compteurs
+                            items:
+                              - field[nb_jours]
+                              - field[km_courant]
+                              - field[km_total]
+                              - field[quantite_totale]
+                              - field[duree_moyenne]
+                        - section:
+                            title: Les totaux
+                            items:
+                              - field[total_entretien]
+                              - field[total_energie]
+                              - field[cout_financement]
+                              - field[cout_total]
+                        - section:
+                            title: Les prix de revient
+                            items:
+                              - field[conso_moyenne]
+                              - field[prix_energie_km]
+                              - field[prix_km]
+                              - field[prix_jour]
+                  - chart[consommation.evolution_consommation]
+
+# Les widgets
+widgets:
+
+  # La carte du véhicule
+  # Le widget de la liste : la photo, l'identité, les deux chiffres clés.
+  voiture:
+    items:
+      - sections:
+          layout: row
+          items:
+            - section:
+                items:
+                  - field[photo]
+            - section:
+                items:
+                  - field[nom]
+                  - field[immatriculation]
+                  - field[type]
+                  - field[statut]
+            - section:
+                items:
+                  - field[km_courant]
+                  - field[prix_km]
+
+# Les listes
+lists:
+
+  # Les véhicules du foyer
+  # L'entrée principale, la première déclarée : la liste en cartes, du plus ancien au plus récent.
+  vehicules:
+    title: Les véhicules du foyer
+    widget: voiture
+    sort: [date_achat]

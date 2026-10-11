@@ -1,0 +1,50 @@
+# Le mouvement de stock
+# Des millions de lignes. Sans clé propre chez l'ERP : l'identité est l'origine du mouvement — le document, la ligne,
+# l'indice, le composant —, complétée de l'article et de l'horodatage de saisie ; le contrôle de l'identité avant la
+# migration tranchera sur le réel. Sans historique : les retouches des outils maison remplacent la valeur ; la lecture
+# par partition s'écrit à la source.
+name: mouvement
+
+# La description de l'entité
+description: Un mouvement de stock — l'entrée ou la sortie d'un article, à une date, sur un dépôt
+
+# Le visage texte
+label: "{horodatage} — {article} {quantite}"
+
+# L'identité
+identity: [document, ligne, indice, composant, article, horodatage]
+
+# L'historique
+# Aucun : le mouvement ne s'historise pas.
+history: false
+
+# Les champs
+# Rangés par groupe. Aucune validation sur la quantité : la ligne est valide si la quantité n'est pas nulle — le
+# calculé valide, pas un rejet.
+fields: ~{fields.yml}
+
+# L'interface
+# Les graphiques du mouvement pour le tableau de bord du module : les entrées et les sorties par mois, la matrice de
+# contrôle en croisé.
+gui:
+  charts:
+
+    # Les entrées et les sorties par mois
+    # Deux séries sur la temporalité du mois, les douze derniers mois.
+    par_mois:
+      component: chart.bars
+      x: date[month]
+      y: [ sum(quantite if sens = "entree"), sum(quantite if sens = "sortie") ]
+      filter: date >= context.today - 12m
+      title: Entrées et sorties par mois
+
+    # Le contrôle des stocks par les mouvements
+    # Le pivot : la hiérarchie pliable dépôt puis emplacement en lignes, les articles en colonnes ; la règle de
+    # contrôle à la cellule, sur le dernier mois.
+    controle:
+      component: pivot
+      rows: [depot, emplacement]
+      columns: [article]
+      value: 'sum(sens.select(entree: quantite, sortie: -quantite))'
+      filter: date >= context.today - 1m
+      title: Contrôle des stocks par les mouvements (le mois)

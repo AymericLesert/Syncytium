@@ -1,0 +1,10 @@
+# Les lieux
+budget:
+  description: >-
+    La phase 2, le préalable : le référentiel des lieux, une valeur distincte par lieu — la valeur devient l'identité ;
+    la valeur vide ne fait pas un lieu.
+  to: banque.lieu
+  distinct: [Lieu]
+  filter: Lieu != null
+  fields:
+    libelle: Lieu

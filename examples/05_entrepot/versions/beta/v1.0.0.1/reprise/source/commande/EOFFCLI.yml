@@ -1,0 +1,6 @@
+# Une table écartée
+# Analysée et écartée volontairement : elle compte dans la complétude du schéma, pas dans la couverture des données.
+EOFFCLI:
+  type: ignored
+  description: >-
+    Les entêtes d'offres de PMI, 91 colonnes — hors du périmètre : l'entrepôt reprend les commandes, pas les offres.

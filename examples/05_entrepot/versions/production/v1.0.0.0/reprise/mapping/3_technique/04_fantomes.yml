@@ -1,0 +1,11 @@
+# Les articles fantômes
+ARTICLE:
+  description: >-
+    Les articles fantômes, au code de gestion 12, qui portent une nomenclature : le bloc commun.
+  to: technique.fantome
+  filter: ARCTFATN = "12"
+  fields: ~{articles/fields.yml}
+  report:
+    when: [migration]
+    to: [bureau_etudes]
+    by: [notification, mail]

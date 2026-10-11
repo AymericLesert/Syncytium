@@ -1,0 +1,95 @@
+# L'identité et la nature
+
+numero:
+  type: integer[1..]
+  required: true
+  label: Ligne
+  hint: Le rang de la ligne.
+
+nature:
+  type: enum
+  formula: 'composant.type.select(main_oeuvre: "operation", sous_traitance: "operation", "...": "composant")'
+  label: Nature
+  hint: Un composant consommé, ou une opération de la gamme — déduit du type de l'article référencé.
+  values:
+    composant: { label: Composant }
+    operation: { label: Opération }
+
+designation:
+  type: text[..40]
+  label: Désignation
+  hint: Le libellé du composant sur la ligne.
+
+# Le composant
+
+composant:
+  type: technique.article
+  required: true
+  label: Composant
+  hint: L'article consommé — un article de l'entrepôt.
+  description: La composition se référence elle-même ; le type du composant est celui de l'article référencé.
+
+quantite:
+  type: decimal
+  label: Quantité
+  hint: La quantité consommée pour une unité du produit fini.
+
+unite:
+  type: text[..2]
+  label: Unité
+
+rendement:
+  type: percentage
+  label: Rendement
+  hint: La part utile — les rebuts se déduisent.
+
+# L'opération
+
+operation:
+  type: text[..6]
+  label: Opération
+  placeholder: TOUR01
+  hint: Le code de l'opération — le poste.
+
+jalon:
+  type: integer[0..]
+  label: Jalon
+  hint: Le jalon de l'opération dans la gamme.
+
+temps_preparation:
+  type: duration
+  mask: "0.00 h"
+  label: Temps de préparation
+  hint: Le réglage avant la série.
+  description: Les temps sont en notation décimale industrielle ; l'unité réelle est à confirmer à l'analyse.
+
+temps_ouverture:
+  type: duration
+  mask: "0.00 h"
+  label: Temps d'ouverture
+  hint: Le temps machine pour une unité.
+
+temps_attente:
+  type: duration
+  mask: "0.00 h"
+  label: Temps d'attente
+
+nombre_ouvriers:
+  type: decimal
+  label: Ouvriers
+  hint: Le nombre d'opérateurs sur l'opération.
+
+# La validité de la ligne
+
+validite:
+  type: period
+  label: Validité
+  hint: La période pendant laquelle la ligne s'applique — vide, elle vaut toujours.
+
+# Les champs calculés
+
+quantite_nette:
+  type: decimal
+  formula: quantite / (rendement / 100) if rendement != null and rendement > 0
+  label: Quantité nette
+  hint: La quantité à engager, rendement compris.

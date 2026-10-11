@@ -1,0 +1,47 @@
+# Le module stock
+# Les stocks et leurs mouvements, le quatrième module de l'entrepôt. Le niveau de stock — un article, un lot, un
+# emplacement d'un dépôt — se nomme niveau ; le niveau et le mouvement sont les deux entités du cas sans historique :
+# les mouvements portent l'histoire.
+name: stock
+
+# La description du module
+description: Les stocks — les niveaux par dépôt, emplacement et lot, et les mouvements
+
+# Les droits
+# L'entrepôt est en lecture seule pour ses usagers : le module ferme la création, la modification et la suppression ;
+# la reprise écrit par son privilège. Le droit le plus proche l'emporte — l'application, le module, l'entité, le champ.
+allow:
+  create: false
+  update: false
+  delete: false
+
+# Les entités du module
+# Les chemins sont relatifs à ce fichier.
+entities:
+  - ~{niveau/niveau.yml}
+  - ~{mouvement/mouvement.yml}
+  - ~{depot/depot.yml}
+  - ~{emplacement/emplacement.yml}
+
+# L'interface du module
+# Le seul tableau de bord du cas : la preuve que l'entrepôt sert une fois rempli — les indicateurs du stock et la
+# matrice de contrôle. Le menu l'adresse stock[pilotage] ; le premier tableau de bord déclaré est celui par défaut.
+gui:
+  dashboards:
+
+    # Le pilotage des stocks
+    # Rafraîchi toutes les heures : les données changent la nuit, après la migration, l'heure rassure. Les graphiques
+    # sont adressés chart[<entité>.<nom>], en flux entre guillemets ; l'emplacement libre `_` est le pool de l'usager.
+    pilotage:
+      title: Le pilotage des stocks
+      refresh: every[1h]
+      page:
+        - sections:
+            layout: row
+            items:
+              - section: { items: [ 'chart[niveau.valeur_stock]' ] }
+              - section: { items: [ 'chart[niveau.sous_minimum]' ] }
+              - section: { items: [ 'chart[niveau.perimes]' ] }
+        - chart[mouvement.par_mois]
+        - chart[mouvement.controle]
+        - _

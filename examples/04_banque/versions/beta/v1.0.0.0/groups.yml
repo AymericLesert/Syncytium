@@ -1,0 +1,26 @@
+# Les groupes d'utilisateurs : le mono-poste n'en a qu'un, le foyer, déclaré pour porter son persona — le lecteur type
+# de la documentation. Sans authentification, l'utilisateur par défaut appartient aux groupes déclarés, au degré
+# administrator. Les textes sont par langue ; le prénom ne se traduit pas.
+
+# Le groupe du foyer
+foyer:
+  label: { fr: Le foyer, en: The household, es: El hogar }
+  description:
+    fr: Les membres du foyer — tous les droits sur les comptes.
+    en: The household members — full rights on the accounts.
+    es: Los miembros del hogar — todos los derechos sobre las cuentas.
+
+  # Le persona
+  # Le lecteur type du groupe : un prénom, un rôle, ce qu'elle vient faire ; sa description surcharge celle du groupe.
+  persona:
+    name: Léa
+    role:
+      fr: Gestionnaire des comptes du foyer
+      en: Household accounts manager
+      es: Gestora de las cuentas del hogar
+    description:
+      fr: Elle tient les comptes du foyer — la saisie des écritures, le pointage du relevé, les virements, les budgets.
+      en: She keeps the household accounts — entering transactions, reconciling the statement, transfers, budgets.
+      es: >-
+        Lleva las cuentas del hogar — el registro de apuntes, el punteo del extracto, las transferencias, los
+        presupuestos.

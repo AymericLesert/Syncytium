@@ -1,0 +1,51 @@
+# La documentation de la version : ce que le concepteur ajoute à la documentation générée — ici, les scénarios
+# d'utilisation du foyer. Chaque scénario porte son nom, son titre (le but) et sa description, le fichier Markdown de
+# ses étapes ; avec trois langues, le titre et la description s'écrivent par langue — un fichier par langue, chacun
+# obligatoire. Une étape relie son écran ou son opération par un lien vers une adresse.
+
+# Les scénarios d'utilisation
+# Par groupe ; l'ordre est celui du chapitre.
+scenarios:
+  foyer:
+
+    # Le pointage du relevé
+    # Les écritures sans date comptable, la date posée en ligne, le relevé imprimé.
+    pointage:
+      title: { fr: Pointer le relevé bancaire, en: Reconcile the bank statement, es: Puntear el extracto bancario }
+      description:
+        fr: ~{documentation/scenarios/foyer/pointage.fr.md}
+        en: ~{documentation/scenarios/foyer/pointage.en.md}
+        es: ~{documentation/scenarios/foyer/pointage.es.md}
+
+    # L'écriture récurrente
+    # La duplication d'une écriture modèle entre deux dates.
+    recurrente:
+      title:
+        fr: Dupliquer une écriture récurrente
+        en: Duplicate a recurring entry
+        es: Duplicar un apunte recurrente
+      description:
+        fr: ~{documentation/scenarios/foyer/recurrente.fr.md}
+        en: ~{documentation/scenarios/foyer/recurrente.en.md}
+        es: ~{documentation/scenarios/foyer/recurrente.es.md}
+
+    # Le virement
+    # Les deux écritures liées, sur les deux comptes.
+    virement:
+      title:
+        fr: Faire un virement entre deux comptes
+        en: Transfer between two accounts
+        es: Transferir entre dos cuentas
+      description:
+        fr: ~{documentation/scenarios/foyer/virement.fr.md}
+        en: ~{documentation/scenarios/foyer/virement.en.md}
+        es: ~{documentation/scenarios/foyer/virement.es.md}
+
+    # Le suivi d'un budget
+    # Le graphique des dépenses par budget, puis les écritures.
+    budget:
+      title: { fr: Suivre un budget, en: Track a budget, es: Seguir un presupuesto }
+      description:
+        fr: ~{documentation/scenarios/foyer/budget.fr.md}
+        en: ~{documentation/scenarios/foyer/budget.en.md}
+        es: ~{documentation/scenarios/foyer/budget.es.md}

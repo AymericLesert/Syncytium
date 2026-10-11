@@ -1,0 +1,112 @@
+# L'identité
+
+numero:
+  type: integer[1..]
+  required: true
+  label: Ligne
+
+# L'article
+
+article:
+  type: technique.article
+  required: true
+  label: Article
+  description: >-
+    La référence, résolue par sa clé à la reprise. La désignation de la ligne n'est pas reprise : elle vit dans une
+    table de libellés, hors de l'exemple.
+
+# Les quantités
+
+quantite:
+  type: decimal
+  required: true
+  label: Quantité commandée
+
+unite:
+  type: text[..2]
+  label: Unité
+  description: >-
+    Un texte ; la reprise contrôle que l'unité est l'une de celles de l'article, pour que la quantité emprunte sa
+    matrice de conversion.
+
+quantite_recue:
+  type: decimal
+  required: true
+  default: 0
+  label: Quantité reçue
+  description: Chez le fournisseur, l'expédié de l'ERP est le reçu.
+
+# Les prix — à la devise de la ligne, réservés aux achats et à la direction
+
+prix_brut:
+  type: amount
+  confidentiality: ${settings.confidentiality.financier}
+  label: Prix unitaire brut
+
+prix_net:
+  type: amount
+  required: true
+  confidentiality: ${settings.confidentiality.financier}
+  label: Prix unitaire net
+  hint: Le prix après remises.
+
+# Les délais — des jours, la semaine se déduit du jour
+
+delai_demande:
+  type: date
+  label: Délai demandé
+
+delai_accuse:
+  type: date
+  label: Délai accusé
+
+delai_reception:
+  type: date
+  label: Réception prévue
+
+# L'état
+
+statut:
+  type: enum
+  required: true
+  label: Statut
+  description: >-
+    La liste close de l'ERP en énuméré, ses codes traduits par la reprise ; le vide de l'ERP est non traitée. L'autre
+    état de la ligne, aux valeurs inconnues, n'est pas repris.
+  values:
+    non_traite: { label: Non traitée }
+    en_cours:   { label: En cours }
+    partielle:  { label: Partiellement reçue }
+    soldee:     { label: Soldée }
+    terminee:   { label: Terminée }
+
+# Les champs calculés
+
+devise:
+  type: text[3]
+  formula: owner.devise
+  label: Devise
+  description: La devise de la commande, par le possesseur.
+
+fournisseur:
+  type: tiers.fournisseur
+  formula: owner.fournisseur
+  label: Fournisseur
+  description: Le fournisseur de la commande, par le possesseur ; la ligne le porte pour les listes de l'article.
+
+montant:
+  type: amount
+  formula: prix_net * quantite
+  confidentiality: ${settings.confidentiality.financier}
+  label: Montant
+
+reste_a_recevoir:
+  type: decimal
+  formula: quantite - quantite_recue
+  label: Reste à recevoir
+
+en_retard:
+  type: boolean
+  formula: delai_reception < context.today and statut not in ["soldee", "terminee"]
+  label: En retard
+  hint: La réception prévue est dépassée et la ligne n'est pas soldée.

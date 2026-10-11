@@ -1,0 +1,14 @@
+# L'opération creer_releve
+# La tâche de génération du relevé : le PDF pose la date d'impression sur les écritures générées.
+name: creer_releve
+
+# La description
+# La documentation de l'opération, en Markdown.
+description: ~{documentation.md}
+
+# Le code
+code: ~{source.txt}
+
+# Les propriétés
+# Aucune.
+properties: { }

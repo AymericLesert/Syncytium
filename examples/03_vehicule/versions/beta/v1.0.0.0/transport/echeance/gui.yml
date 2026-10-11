@@ -1,0 +1,12 @@
+# Les listes
+# Pas de formulaire déclaré : celui du socle suffit ; l'échéance se reprend dans la liste, en ligne. Les lignes
+# naissent de creer_echeancier et se remettent au paramétrage par ajuster_echeancier ; la coche Payé est calculée.
+lists:
+
+  # L'échéancier
+  # Le tableau du classeur ; les données sont éditables, le reste dû et la coche se calculent.
+  echeancier:
+    title: L'échéancier
+    columns: [numero, date, reste_du, interet, amortissement, assurance, mensualite, paye]
+    editable: [numero, date, interet, amortissement, assurance, mensualite]
+    sort: [numero]

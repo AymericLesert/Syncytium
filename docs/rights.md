@@ -72,7 +72,24 @@ allow:
   delete: false
 ```
 
-L'absence = tout permis ; `read` absent = l'état masque. **Les
+L'absence = tout permis ; `read` absent = l'état masque. C'est par là
+qu'un enregistrement se fige : la facture validée — son numéro
+attribué par l'opération de validation, une identité acquise (D1171) —
+porte `validee: { allow: [read] }`, l'acte qui promeut passant outre
+(D1172). **La cascade de l'allow** (D886 — le cas 5) : le bloc libre se déclare
+**à quatre étages** — l'application, le module, l'entité, le champ
+— et **le plus proche l'emporte** (l'esprit D359) ; le module dit la
+règle de ses entités (l'entrepôt en lecture seule : `allow: {
+create: false, update: false, delete: false }` sur chaque module),
+l'entité la précise si elle diffère, le champ porte ses propres
+droits d'action (`update: false` = le champ en lecture seule ;
+`update: [commercial, achats]` = le champ ouvert à ces groupes quand
+le module est en lecture seule — D941/D942). **`allow:` s'applique à
+tous les canaux (D942)** : l'IHM et l'API passent par un compte,
+utilisateur ou administrateur, et **le degré `administrator` passe
+outre les `allow`** — la migration, opération de ce degré (D701),
+écrit dans un module en lecture seule sans que les `allow` l'arrêtent,
+non parce qu'elle y échappe mais parce que son degré les passe. **Les
 droits d'action couvrent les opérations du socle et les opérations
 déclarées** (D691) : le droit d'exécuter se déclare et se contrôle
 comme les autres droits d'action. La réconciliation avec le
@@ -106,7 +123,15 @@ version) ; la voie déclarée demeure le `demote` d'une version.
 
 - **`groups.yml`** à la racine de la version — la hiérarchie sans
   lien parent (« un groupe est constitué d'autres groupes »),
-  acyclique, la multi-appartenance naturelle (D414) ;
+  acyclique, la multi-appartenance naturelle (D414) ; **un membre du
+  groupe contenant voit tout ce que voient les groupes qui le
+  composent** (D1099) — la direction au-dessus de ses strates, jamais
+  l'inverse ; **le groupe porte `description:` et, pour la
+  documentation, `persona:`** (D1200) — le lecteur type du groupe : un
+  prénom fictif, un rôle, une description qui, à défaut, est celle du
+  groupe et, présente, la surcharge (les clés `name:`/`role:` sont
+  miennes) ; ses scénarios sont les fonctionnalités de bout en bout
+  que ses droits permettent (documentation.md §22) ;
 - **les affectations vivent en base** — l'acte d'administration
   (D341), jamais dans le dépôt ;
 - **le groupe `administrator` par défaut** (D712) — fourni par le
@@ -129,9 +154,10 @@ version) ; la voie déclarée demeure le `demote` d'une version.
 
 ## Les connecteurs et la sécurité (D603, D626, D633, D642)
 
-- **les secrets** : la référence à une variable d'environnement,
-  chiffrable par une clé environnement+machine (D603) — le dépôt ne
-  porte jamais une valeur en clair ;
+- **les secrets** : le paramètre marqué `*` (D944 — `password*:
+  ${VAR}`), la référence à une variable d'environnement chiffrable
+  par une clé environnement+machine (D603) — le dépôt ne porte jamais
+  une valeur en clair, le journal non plus ;
 - **la condition indispensable** (D626) : l'application ne démarre
   que si le mail à l'administrateur est possible — le canal d'alerte
   avant tout ;
@@ -173,7 +199,12 @@ clé d'unicité (D82). **Les quatre volets à porter** :
 *(Le cinquième volet, né du cas d'usage domestique — **`none`**
 (D759) : aucun défi, aucun secret ; l'utilisateur et le groupe par
 défaut au degré `administrator` — les invariants D699/D712
-pré-remplis, jamais contournés.)*
+pré-remplis, jamais contournés. La documentation le dit en clair — « un
+seul utilisateur, tous les droits » — et la complétude ne relève pas ce
+défaut du socle : le tiny en est la déclinaison, D1176/D1173. Pour
+porter un persona, le mono-poste déclare son groupe dans un
+`groups.yml` minimal — « en utilisant un group, nous rentrons dans le
+standard », D1208 ; l'utilisateur par défaut y appartient.)*
 
 La passerelle (D418) a son visage ; le multi-connecteurs sert
 l'étanchéité par canal (D77). Voir le contrat détaillé dans
@@ -243,21 +274,37 @@ fields:
 ## Le degré intrinsèque d'autorisation (D697, D699–D700)
 
 **Le contrat de chaque opération déclare son degré** — le plancher
-que la déclaration ne peut abaisser. **Les trois valeurs** : `user`
-· `manager` · `administrator`. **Le groupe d'utilisateurs porte le
-degré** (`degree:` dans groups.yml — en proposition, défaut
+que la déclaration ne peut abaisser. **Les quatre valeurs** : `reader`
+· `user` · `manager` · `administrator`. **Le degré `reader`** (D1140) :
+« les documentations mises à disposition sans possibilité d'accéder au
+détail » — le lecteur lit la documentation que la confidentialité de
+son groupe ouvre, il ne manipule aucune donnée ; aucune opération ne
+l'a pour plancher (*ma lecture* : le décideur, le DPO, l'auditeur,
+l'hébergeur ; le détail = les données). **Le groupe d'utilisateurs
+porte le degré** (`degree:` dans groups.yml — validé D900, défaut
 `user`) ; l'utilisateur atteint le degré de son meilleur groupe
 (D414) ; **l'appartenance à un groupe est obligatoire** — le compte
 sans groupe n'entre pas (le fail-closed jusqu'à la porte). Et
 **`allow:` complète en précisant les groupes autorisés** (D700) :
 
-**L'inventaire des dix-neuf planchers** (D701 — validé) :
+**L'inventaire des vingt planchers** (D701 — validé ; la vingtième,
+`reset_coverage` D881, au plancher `administrator` par D900) :
 
 | le degré | les opérations |
 |---|---|
 | `user` | `create` · `read` · `update` · `delete` · `duplicate` · `promote` · `demote` · `generate` · `download` · `print` · `send` · `export` · `notify` · `refresh` |
 | `manager` | `import` · `report` |
-| `administrator` | `restore` · `migrate` · `anonymize` |
+| `administrator` | `restore` · `migrate` · `anonymize` · `reset_coverage` |
+
+**Hors catalogue — la réactivation d'un enregistrement désactivé**
+(D903) : « une opération exceptionnelle… l'action d'un
+administrateur… pas une fonction exploitable par la configuration
+(pas de hook) » — ni une opération du socle, ni déclarable : **une
+fonctionnalité des écrans d'administration** (le module D710, le
+degré `administrator`), sous la garde de l'unicité sur les actifs
+(D141 — refus si un enregistrement actif porte la même clé
+fonctionnelle), l'identité conservée (D142), tracée par
+l'historisation (D429).
 
 **L'exemple détaillé** — les degrés, les deux formes d'`allow` et la
 composition :
@@ -337,8 +384,10 @@ fields:
 - **en transit** (D705) : ce que Syncytium **sert** (l'IHM, les API,
   les routes webhook) est **HTTPS sans dérogation** ; ce qu'il
   **appelle** (les huit familles) est chiffré **par défaut** —
-  l'exception déclarée au connecteur (`unencrypted:` en
-  proposition), signalée par l'ingestion, visible au `describe()` ;
+  l'exception déclarée au connecteur (`unencrypted:` — validé
+  D901), signalée par l'ingestion, visible au `describe()`, **et
+  rappelée chaque jour** : le dashboard de santé (D731) et le mail
+  des faits marquants (D733) portent la dérogation ;
 - **au repos** (D706) : le chiffrement du storage (TDE, disque)
   **n'est pas de la responsabilité de Syncytium** — l'infrastructure
   et la classe ; et le chiffrement d'une valeur est **un pouvoir de
@@ -383,3 +432,41 @@ n'est utile qu'à qui a déjà la machine.
 Aucun point consigné — la clôture du sujet 2 attend la relecture de
 l'auteur (le flag mineur : l'automatisation de la commande de
 chiffrement, D707).
+
+## La documentation — la facette des droits (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**Le principe** : on ne lit que ce qu'on voit (D1141, D334) — la
+confidentialité et les droits filtrent la documentation comme ils
+filtrent l'écran ; une entité invisible n'a ni section ni ligne ; un
+champ invisible n'est pas au dictionnaire du lecteur.
+
+**Le groupe, dans la fonctionnelle** — **son persona** (D1200, D1208 :
+le mono-poste déclare son groupe pour le porter) ouvre le chapitre des
+scénarios : qui il est (le prénom, le rôle, sa description ou celle du
+groupe), **ce qu'il voit** — ses modules et ses entrées de menu, ses
+droits en clair, le « mes droits » servi dedans (D1206, D1220) —, ses
+scénarios ; le groupe contenant (D1099) renvoie à ses constituants ; le
+groupe au degré `administrator` a son persona, ses scénarios
+d'administration vont au guide d'exploitation (D1206). Un groupe sans
+`persona:` a un persona généré, nommé par le groupe, que la complétude
+compte.
+
+**Les permis** — par état, les verbes et **le libellé des groupes que
+l'`allow` cite** (D1227), dans la table du cycle de vie de l'entité ;
+l'`allow` d'un champ (D886) se lit au champ.
+
+**Les degrés** : le `reader` lit la documentation sans le détail
+(D1140) ; `manager` et `administrator` préparent une édition et
+décident de la diffuser (D1142). **Les lecteurs** de chaque
+documentation : la table de [documentation.md](documentation.md) §3
+(D1154).
+
+**Les autres colonnes** — à leur rang : la réglementation (le rang 3 —
+la matrice des droits, l'extraction demandée par l'usager D1149, le
+registre) ; le guide d'exploitation (les groupes et leur gestion, les
+affectations D341) ; la promotionnelle (le mode public, `visibility:`
+D1151).

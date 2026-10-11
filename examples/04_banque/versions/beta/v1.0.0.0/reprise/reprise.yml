@@ -1,0 +1,30 @@
+# La migration legacy
+# La reprise des données historiques du foyer, trente-quatre ans d'écritures ; l'ordre des migrations déclarées est
+# leur ordre d'exécution.
+legacy:
+
+  # La base d'origine
+  # Le storage csv de l'environnement : les fichiers du dossier du legacy.
+  from: legacy
+
+  # Le mode
+  # absolute : le tout ou rien — un passage en erreur n'écrit rien.
+  mode: absolute
+
+  # La remise à zéro
+  # Chaque passage repart de zéro.
+  reset: true
+
+  # Les entités sources
+  # Une seule : les écritures, sur deux fichiers du même format.
+  source:
+    - ~{source/budget.yml}
+
+  # Les règles
+  # Huit règles en trois phases — les comptes et leurs dépôts, les référentiels et les écritures, les soldes et les
+  # clôtures : le numéro du fichier fait l'ordre des étapes. Une règle porte le nom de son entité source : sa
+  # description, sa cible (to), son filtre (filter), ses valeurs distinctes (distinct), son possesseur (parent), ses
+  # affectations (fields — la formule, ou en forme longue formula, description et message) et ses opérations de fin
+  # (operations).
+  mapping:
+    - ~{mapping/[0-9]+_.*\.yml}

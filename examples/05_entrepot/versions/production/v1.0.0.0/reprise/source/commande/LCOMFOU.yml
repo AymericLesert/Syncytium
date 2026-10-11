@@ -1,0 +1,137 @@
+# Le nom de la table
+# La table LCOMFOU de PMI, 124 colonnes : les lignes d'une commande d'achat.
+name: LCOMFOU
+
+# La description de la table
+description: Les lignes de commandes d'achat de PMI — la source de commande.ligne_achat
+
+# Le périmètre lu
+# La seule société 100.
+filter: LCKTSOC = "100"
+
+# L'identité d'une ligne
+# Le numéro et l'indice de la commande, le numéro de la ligne.
+identity: [LCKTNUMERO, LCKTPSF, LCKTLIGNE]
+
+# Le rapport des anomalies de la table
+# Les achats corrigent les commandes d'achat à l'origine.
+report:
+  when: [migration]
+  to: [achats]
+  by: [notification, mail]
+
+# La lecture par partition
+# Les dix mille derniers numéros de commande sont relus ; la relecture complète du dimanche relit tout.
+coverage: LCKTNUMERO[10000]
+
+# Le possesseur d'une ligne
+# La révision de la commande : son numéro et son indice.
+parent:
+  ECOMFOU: { ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF }
+
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
+fields:
+
+  LCKTSOC:
+    type: text[3]
+    description: La société ; seule la société 100 est lue.
+
+  LCKTNUMERO:
+    type: text[6]
+    description: Le numéro de la commande.
+
+  LCKTLIGNE:
+    type: text[3]
+    description: Le numéro de la ligne.
+
+  LCKTPSF:
+    type: text[3]
+    description: L'indice de révision de la commande.
+
+  LCCTCODART:
+    type: ARTICLE.ARKTCODART
+    description: Le code de l'article commandé.
+
+  LCCTCOMART:
+    type: ARTICLE.ARKTCOMART
+    description: Le complément du code de l'article.
+
+  LCCNQTECDE:
+    type: decimal
+    description: La quantité commandée.
+
+  LCCTUNICDE:
+    type: text[2]
+    description: L'unité de la quantité.
+
+  LCCNPUBRUT:
+    type: decimal
+    description: Le prix unitaire brut.
+
+  LCCNPUNET:
+    type: decimal
+    description: Le prix unitaire net.
+
+  LCCNQTEEXP:
+    type: decimal
+    description: La quantité reçue.
+
+  LCCSDELEXP:
+    type: ignored
+    description: La semaine du délai, qui se déduit de sa date.
+
+  LCCJDELEXP:
+    type: date_pmi
+    description: Le délai de réception.
+
+  LCCSDELFAB:
+    type: ignored
+    description: La semaine de fin de fabrication, qui se déduit de sa date.
+
+  LCCNPUREVI:
+    type: ignored
+    description: Le prix de revient, que PMI calcule et stocke ; il se déduit.
+
+  LCCTETACDE:
+    type: ignored
+    description: Un état de la ligne dont les valeurs restent à connaître.
+
+  LCCTDEVISE:
+    type: text[3]
+    description: La devise des prix de la ligne.
+
+  LCCJDELDDE:
+    type: date_pmi
+    description: Le délai demandé.
+
+  LCCJDELARR:
+    type: date_pmi
+    description: Le délai accusé.
+
+  LCCSDELARR:
+    type: ignored
+    description: La semaine du délai accusé, qui se déduit de sa date.
+
+  LCCTSTATUT:
+    type: text[2]
+    description: |
+      Le statut de la ligne.
+
+      | Code | Libellé     |
+      |------|-------------|
+      | vide | Non traitée |
+      | A    | En cours    |
+      | P    | Partielle   |
+      | S    | Soldée      |
+      | T    | Terminée    |
+
+  # Les colonnes calculées
+  numero:
+    description: Le numéro de la commande en nombre.
+    formula: integer(LCKTNUMERO)
+
+  ligne:
+    description: Le numéro de la ligne en nombre.
+    formula: integer(LCKTLIGNE)

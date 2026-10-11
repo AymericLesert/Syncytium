@@ -1,0 +1,14 @@
+# L'opération ajuster_echeancier
+# Le bouton du financement : le paramétrage modifié se reprend — les échéances conservées, supprimées, recréées.
+name: ajuster_echeancier
+
+# La description
+# La documentation de l'opération, en Markdown.
+description: ~{documentation.md}
+
+# Le code
+code: ~{source.txt}
+
+# Les propriétés
+# Aucune.
+properties: { }

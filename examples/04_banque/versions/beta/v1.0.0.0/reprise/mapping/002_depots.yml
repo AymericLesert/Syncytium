@@ -1,0 +1,16 @@
+# Les dépôts initiaux
+budget:
+  description: >-
+    La phase 1, suite : le montant du marqueur d'ouverture est la première écriture du compte — douze marqueurs à
+    montant réel dans le legacy, les soldes en dépendent. L'écriture garde le budget du marqueur, dont l'usage est tenu
+    par la validation de l'entité ; le libellé est conventionnel, le mode autre.
+  to: banque.ecriture
+  filter: Budget = "OUVERTURE" and montant_signe != 0
+  parent: { compte: Numero_Compte }
+  fields:
+    date_operation: Date_Operation
+    date_comptable: Date_Comptable
+    libelle:  "Dépôt initial"
+    budget:   Budget
+    montant:  amount(montant_signe, devise_iso)
+    mode:     "autre"

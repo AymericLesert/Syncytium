@@ -1,0 +1,11 @@
+# Les listes
+# Pas de formulaire déclaré : celui du socle suffit ; la saisie vit dans la liste, en ligne.
+lists:
+
+  # Les entretiens et les interventions
+  # La feuille du classeur, le journal de vie.
+  entretiens:
+    title: Entretiens et interventions
+    columns: [date, designation, montant, km, revision]
+    editable: [date, designation, montant, km, revision]
+    sort: [date, numero]

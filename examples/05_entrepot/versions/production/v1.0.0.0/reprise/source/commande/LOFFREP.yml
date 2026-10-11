@@ -1,0 +1,6 @@
+# Une table écartée
+# Analysée et écartée volontairement : elle compte dans la complétude du schéma, pas dans la couverture des données.
+LOFFREP:
+  type: ignored
+  description: >-
+    Les lignes d'offres de PMI, 124 colonnes — hors du périmètre : l'entrepôt reprend les commandes, pas les offres.

@@ -1,0 +1,143 @@
+# Le nom de la table
+# La table ECOMFOU de PMI, 91 colonnes : l'entête d'une commande d'achat, une ligne par révision.
+name: ECOMFOU
+
+# La description de la table
+description: Les entêtes de commandes d'achat de PMI — la source de commande.commande_achat
+
+# Le périmètre lu
+# La seule société 100.
+filter: ECKTSOC = "100"
+
+# L'identité d'une ligne
+# Le numéro et l'indice de révision de la commande.
+identity: [ECKTNUMERO, ECKTINDICE]
+
+# Le rapport des anomalies de la table
+# Les achats corrigent les commandes d'achat à l'origine.
+report:
+  when: [migration]
+  to: [achats]
+  by: [notification, mail]
+
+# La lecture par partition
+# Les dix mille derniers numéros de commande sont relus ; la relecture complète du dimanche relit tout.
+coverage: ECKTNUMERO[10000]
+
+# Les colonnes
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# colonnes que la table ne cite pas ne sont pas lues.
+fields:
+
+  ECKTSOC:
+    type: text[3]
+    description: La société ; seule la société 100 est lue.
+
+  ECKTNUMERO:
+    type: text[6]
+    description: Le numéro de la commande.
+
+  ECKTINDICE:
+    type: text[3]
+    description: L'indice de révision de la commande.
+
+  ECCJCRE:
+    type: date_pmi
+    description: La date de la commande.
+
+  ECCTCODE:
+    type: FOURNIS.CLKTCODE
+    description: Le code du fournisseur.
+
+  ECCTRUE1:
+    type: ignored
+    description: "Une ligne de l'adresse du tiers, redite sur la commande : le code du tiers suffit."
+
+  ECCTRUE2:
+    type: ignored
+    description: "Une ligne de l'adresse du tiers, redite sur la commande : le code du tiers suffit."
+
+  ECCTCP:
+    type: ignored
+    description: "Le code postal du tiers, redit sur la commande : le code du tiers suffit."
+
+  ECCTVILLE:
+    type: ignored
+    description: "La ville du tiers, redite sur la commande : le code du tiers suffit."
+
+  ECCTPAYS:
+    type: ignored
+    description: "Le pays du tiers, redit sur la commande : le code du tiers suffit."
+
+  ECCTCPAYS:
+    type: ignored
+    description: "Le code du pays du tiers, redit sur la commande : le code du tiers suffit."
+
+  ECCTNOMLIV:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTRUE1LI:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTRUE2LI:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTCPLIV:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTVILLIV:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTPAYSLI:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTCPAYLI:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  ECCTREFCDE:
+    type: text[20]
+    description: La référence de la commande chez le fournisseur.
+
+  ECCJECHFOR:
+    type: date_pmi
+    description: La date d'échéance.
+
+  ECCJDERBL:
+    type: date_pmi
+    description: La date de la dernière réception.
+
+  ECCJDERFA:
+    type: date_pmi
+    description: La date de la dernière facture.
+
+  ECCTDEVISE:
+    type: text[3]
+    description: La devise des montants de la commande.
+
+  ECCNTXDEVI:
+    type: decimal
+    description: Le taux de change de la devise.
+
+  ECCTSTATUT:
+    type: ignored
+    description: L'état de la commande, qui se déduit de l'état de ses lignes.
+
+  ECCTRUE3:
+    type: ignored
+    description: "Une ligne de l'adresse du tiers, redite sur la commande : le code du tiers suffit."
+
+  ECCTRUE3LI:
+    type: ignored
+    description: L'adresse de livraison, sans usage sur une commande d'achat.
+
+  # Les colonnes calculées
+  numero:
+    description: Le numéro de la commande en nombre.
+    formula: integer(ECKTNUMERO)

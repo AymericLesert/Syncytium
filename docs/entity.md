@@ -20,7 +20,20 @@ droits à [rights.md](rights.md).*
   `gui.yml` (la présentation), et `operations.yml` quand les
   opérations le méritent ;
 - **le nommage est libre** (D807) — l'éponymie (le fichier au nom de
-  l'entité) est une convention, pas une règle ;
+  l'entité) est une convention, pas une règle ; **le mot juste
+  prime l'éponymie** (D884 — `tiers/tiers/tiers.yml` assumé quand
+  le mot est le bon) ;
+- **l'écriture face à YAML** (D892 — le fichier est du YAML sans
+  format personnalisé, D320) : en contexte bloc, une valeur par
+  ligne, la grammaire s'écrit nue (`libelle: text[..30]`, `- field[nb_jours]`) ;
+  **les guillemets ne s'imposent que dans trois situations** — un
+  crochet de la grammaire à l'intérieur d'une accolade ou d'un
+  crochet YAML, un `: ` à l'intérieur d'une expression (le
+  `.select`, la cellule du n-aire), une regex, aux guillemets
+  simples ; **la forme bloc est préférée** quand la forme en flux
+  imposerait les guillemets (`fields:` en bloc, `items:` à tirets,
+  la longue formule en scalaire `>-`) ; chaque exemple passe un
+  analyseur YAML avant validation ;
 - **l'entité se documente elle-même** — un des piliers : `name`,
   `description`, les `label:` par langue, les `hint:` (la
   description courte — la précision au « (?) » du champ, D840) et
@@ -35,19 +48,22 @@ droits à [rights.md](rights.md).*
 
 | la propriété | la nature | D |
 |---|---|---|
-| `name:` | le nom de l'entité — la référence `<module>.<entité>` en découle | D394, D765 |
+| `name:` | le nom de l'entité — **l'invariant, quelle que soit la langue** ; la référence `<module>.<entité>` en découle | D124, D394, D765, D1120 |
+| `title:` | **le nom d'usage** — le texte montré : l'entrée de menu par défaut, la vue d'ensemble du modèle, les titres de la documentation ; par langue (texte simple à une langue — D1101) ; sans lui, le `name:` ; au singulier (ma lecture) | D1120 |
 | `hint:` | **la description courte** — la précision d'un mot (l'alignement D258, le nom D840) | D124, D258, D840 |
 | `description:` | **la description longue** — l'aide détaillée : le masque d'explication de la surface (D209), la matière du tutoriel | D209, D258 |
 | `label:` | **le visage texte** — un gabarit `{champ}` (« `{nom}` », « `{libelle}` ») ; le champ `image` de l'entité est le visage image (D386) | D397, D803 |
-| `identity:` | **la clé fonctionnelle** — la liste des champs (`[nom]`, `[numero]`) ; l'identité interne reste l'UUID (D142), hors déclaration ; pour une composition, la clé vaut au sein du possesseur — elle ouvre l'accès `collection[<clé>]` (D841) ; **la clé composée s'énumère** (`[v1, v2]` — une valeur par identifiant), **l'étendue globale passe par l'entité** (`transport.consommation[…]` — la clé du/des parents en tête, D842) | D141–D142, D357, D841–D842 |
+| `identity:` | **la clé fonctionnelle** — la liste des champs (`[nom]`, `[numero]`) ; **toute entité en porte une**, la sienne ou celle de sa racine, que les dérivés conservent (D1035/D1039) ; l'identité interne reste l'UUID (D142), hors déclaration ; pour une composition, la clé vaut au sein du possesseur — elle ouvre l'accès `collection[<clé>]` (D841) ; **la clé composée s'énumère** (`[v1, v2]` — une valeur par identifiant), **l'étendue globale passe par l'entité** (`transport.consommation[…]` — la clé du/des parents en tête, D842) ; **ses champs sont obligatoires sans `required:`** — cela découle de la définition (D1170) | D141–D142, D357, D841–D842, D1170 |
+| `identities:` | **plusieurs identités, nommées** — une carte ordonnée, un nom par identité et la liste de ses champs (`identities: { mensuelle: [client, mois], numero: [numero] }`, en bloc) ; exclusive de `identity:` (les deux = une erreur d'ingestion) ; **la première déclarée est l'identité de naissance** : ses champs obligatoires (D1170) ; **les suivantes sont acquises** : leurs champs non obligatoires, le `counter` attribué à la validation y a sa place ; une identité dont un champ est nul ne vaut pas pour l'enregistrement, chacune est une clé parmi les actifs (D141) ; l'accès par la clé vise la première, une autre se nomme — `factures[numero: v]` *(ma forme)* ; la racine porte les identités, les dérivés les conservent (D1039) ; la documentation les nomme | D1170–D1171 |
 | `states:` | **le porteur du cycle de vie** — le champ énuméré désigné (`states: statut`) ; l'entité à hiérarchie a son statut dans ses positions (D353), jamais les deux | D424 |
 | `inheritance:` | l'enfant référence son parent — la hiérarchie se lit chez le parent (le bloc `states:` D353) | D353 |
 | `fields:` | les champs — le bloc ou la référence (`fields: fields.yml`) | D767 |
 | `operations:` | les opérations — le bloc ou la référence ; le mapping ordonné, l'ordre = les boutons | D432 |
 | `gui:` | la présentation — le bloc ou la référence | D767 |
 | `validation:` | les règles inter-champs — la liste d'expressions booléennes (D90), le `if` suffixé (« `date_operation = owner.ouverture if budget = "OUVERTURE"` ») ; l'évaluation **au scellé** de la transaction | D156, D594, D824 |
+| `history:` | **l'historisation** — inactive par défaut, en cascade de `settings.yml` de la version (`history: true` rend l'option disponible par défaut, D1174) au module puis à l'entité, le plus proche l'emporte, l'opt-out par `history: false` (D168) ; tue partout, la documentation écrit « pas d'historique » en clair et la complétude ne le compte pas (D1173) | D168, D1173–D1174 |
 
-L'exemple — le véhicule (`examples/01_vehicule/`) :
+L'exemple — le véhicule (`examples/03_vehicule/`) :
 
 ```yaml
 name: vehicule
@@ -56,13 +72,29 @@ label: "{nom}"
 identity: [nom]
 states: statut
 
-fields: fields.yml
-operations: operations.yml
-gui: gui.yml
+fields: ~{fields.yml}             # la référence de fichier explicite (D956)
+operations: ~{operations.yml}
+gui: ~{gui.yml}
 
 validation:
   - date_vente >= date_achat if date_vente != null
 ```
+
+**Les deux formes d'une validation** (D1116–D1117). La forme courte
+`- expression` ; la forme longue `rule:`, `description:`, `message:`, mêlables
+dans une même liste — au champ (D364), à l'entité (D404), à la règle de
+reprise (D1105). Le `message:` est un gabarit (D1106). Sans lui, à l'échec, le
+message est construit : la règle, les valeurs des champs qu'elle cite et les
+valeurs de la clé de l'enregistrement (la `description:` n'y entre pas). Avec
+plusieurs langues, `message:` est exigé, par langue : sinon une erreur
+d'ingestion, et la forme courte est refusée.
+
+**Le cumul de fichiers** (D968) : une propriété à carte peut porter
+une liste de références en bloc — `fields:` suivi de `- ~{commun.yml}`,
+`- ~{propre.yml}`, ou d'une carte en ligne — fusionnées dans l'ordre ;
+la même clé deux fois est une surcharge, le dernier l'emporte, une
+alerte levée à l'ingestion ; le pattern y vaut (D806). Jamais en flux
+(D956).
 
 ## Les champs — `fields.yml`
 
@@ -85,11 +117,15 @@ km_initial:
 | la propriété | la nature | D |
 |---|---|---|
 | `type:` | le type du catalogue ([types.md](types.md)) — les bornes au nom (`text[..40]`, `integer[0..]`, `date[yyyy-mm]`) ; **la référence** = le nom d'une entité (`transport.revision`) ; **la composition** = `list of <entité>` (le parent déclare, l'enfant ne déclare rien — l'accès montant `owner`) ; **l'association** = `association with <entité>[.<champ>]` | D362, D366, D394–D402, D760–D762 |
-| `required:` | le champ obligatoire — le nul retiré | D373 |
+| `sort:` | **le tri d'une liste calculée** — sur une association dérivée (D405), les clés de tri dans l'ordre (`sort: [owner.date, owner.numero]`) ; « le tri est porté par la liste calculée » : `first()`/`last()` sans argument rendent l'élément en tête ou en queue (`commandes_vente.last().client`) ; nommée `order:` par D997, renommée `sort:` par D1017 pour porter le mot de la méthode `sort(…)` | D997, D1017 |
+| `group:` | **le « group by » d'une liste calculée** — sur une association dérivée (D405), les champs de groupement (`group: [emplacement]`) : « le group by devient une propriété de l'association au même titre que le sort by » ; l'association livre une cellule par combinaison, un agrégat dessus s'évalue par cellule et rend l'hypercube aux dimensions du group (`stock_par_emplacement: mouvements_par_emplacement.sum(…)`) ; les méthodes `group(champ, …)` et `sort(champ, …)` sont les formes en ligne (D1015/D1017) | D1016, D1017 |
+| `required:` | le champ obligatoire — le nul retiré ; implicite sur les champs de l'identité (de la première, avec `identities:` — D1170) | D373, D1170 |
+| *(la documentation du champ)* | **à quoi il sert** — ses emplois, calculés depuis les liens que l'ingestion garantit (D1198) : les formules qui le lisent, les validations, les opérations et leurs effets, les règles de reprise, les rapports, les écrans ; en langage d'usager dans la fonctionnelle, en graphe d'impact dans la documentation de l'information ; aux deux bouts (D1186) | D1186, D1198 |
 | `default:` | la valeur de naissance (le statut naît à son `default:` — D424) | D424 |
-| `formula:` | **le champ calculé** — l'expression (D90), lecture seule, recalculé dès qu'une dépendance change ; les agrégats des collections (`sum`, `max`, `count`… — l'élément en contexte implicite, le `if` conditionnel), les fonctions de type au point (`montant.currency.select(…)`, `nb_jours.days`), **l'accès par la clé** (`owner.consommations[me.numero - 1].date` — l'`identity:` requise, D841), `owner`, `me`, `context` | D255, D298, D580, D588–D593, D772–D773, D841 |
+| `unchanged:` | `true` : le champ possédé par la cible — la migration ne l'écrit pas, il naît à son `default:` et garde sa valeur, l'écran de saisie reste libre ; une règle de migration qui l'alimente = une erreur d'ingestion ; `false` par défaut | D941 |
+| `formula:` | **le champ calculé** — l'expression (D90), lecture seule, recalculé dès qu'une dépendance change ; les agrégats des collections (`sum`, `max`, `count`… — l'élément en contexte implicite, le `if` conditionnel), les fonctions de type au point (`montant.currency.select(…)`, `nb_jours.days`), **l'accès par la clé** (`owner.consommations[me.numero - 1].date` — l'`identity:` requise, D841 ; avec `identities:`, la première identité, ou une autre par son nom : `factures[numero: v]` — D1171, ma forme), `owner`, `me`, `context` | D255, D298, D580, D588–D593, D772–D773, D841, D1171 |
 | `values:` | les valeurs d'un `enum` — chacune porte son `label:` par langue ; sur le champ-statut : les `allow` par état (le CRUD — D422) et le graphe `promote:`/`demote:` (`to:`/`when:` — libre, l'acte, l'automatisme D426–D427) | D422–D427 |
-| `label:` | le libellé par langue (`fr:`) — les colonnes, les formulaires, les exports ; sans lui, le nom nu | D124, D127, D465 |
+| `label:` | le libellé par langue (`fr:`) — les colonnes, les formulaires, les exports ; sans lui, **le gabarit du socle `${name}`** — la clé de la configuration, l'invariant que rien ne surcharge (D1181) ; le gabarit par défaut, lui, est un défaut du socle au sens de D1175 (ma lecture) | D124, D127, D465, D1181 |
 | `hint:` | **la description courte** — la précision au « (?) » du champ : l'infobulle (la tablette la replie en petit logo près du libellé, le smartphone l'omet — D262) ; par langue ; le nom `hint` (D840 — la réserve Android au glossaire) | D124, D258, D262, D840 |
 | `description:` | **la description longue** — l'aide détaillée : le masque d'explication (D209 — la première consultation ou la sollicitation), **la matière du tutoriel** ; par langue | D209, D258 |
 | `placeholder:` | la valeur de démonstration dans la zone vide (`AA-999-AA`) — par langue (D128/D258) ; l'image a le sien (l'icône de fond — D390) | D128, D258, D390 |
@@ -98,7 +134,7 @@ km_initial:
 | `filter:` / `check:` | sur une référence — le filtre des candidats (l'origine par `me.`), le contrôle `selection` (défaut) \| `immutable` | D394–D396 |
 | `currencies:`, `units:`, `decimals:`… | les facettes propres à chaque type — la fiche du type fait foi ([types.md](types.md)) | D391 |
 
-**L'ordre du fichier — la convention de lisibilité** (le cas 1) :
+**L'ordre du fichier — la convention de lisibilité** (le cas 4) :
 
 - les fichiers **aérés** — les accolades `{ }` dépliées en bloc, une
   ligne vide entre deux champs ;
@@ -139,14 +175,113 @@ l'entité courante** (`chart[consommation.evolution_consommation]`,
 ses `dashboards:` (la vue d'ensemble — D554/D555), le menu adresse
 le tout (D439). Les fiches : [composants.md](composants.md).
 
+## La représentation graphique — l'entité dans le diagramme (D1119)
+
+La documentation générée porte **un volet « modèle de données » en
+diagrammes de classes UML, calculés depuis la configuration** (D1119 —
+« pour que le modèle soit facilement perceptible par un opérateur ou
+un décideur » ; les niveaux de lecture, la forme et les lecteurs dans
+[documentation.md](documentation.md) §5). Ce que chaque propriété de
+l'entité y devient *(en proposition)* :
+
+*(Amendé par D1213 : « uniquement le nom du module, de l'entité et du
+champ », des effets de style, les listes en liens — ma correspondance
+UML stricte est retirée.)*
+
+| la configuration | le diagramme (D1213) |
+|---|---|
+| le module | le paquetage ; dans la vue des modules (D1214), une boîte par module, un lien par référence ou association entre deux modules |
+| l'entité (`name:`) | la classe, par son nom ; le parent abstrait (D1035 — `tiers`) en italique |
+| `inheritance:` | la généralisation — le triangle vers le parent (D143–D145) |
+| le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit |
+| `identity:` / `identities:` | **souligné** |
+| `formula:` | *italique* |
+| `confidentiality:` au-dessus de `public` (D25), ou `rgpd:` (D695) | **« * »** — le champ sécurisé |
+| le champ cible d'une référence (D396) ou d'une association (D405) dans une autre entité | **gras** |
+| `type: <entité>` — la référence | un lien vers la cible (le champ en gras chez la cible) |
+| `type: list of <entité>` — la composition (D115) | un lien — « les listes apparaissent comme des liens » ; trait plein (ma convention, l'outil au domaine 7) |
+| `type: association with <entité> if …` — l'association dérivée (D405) | un lien en pointillé (ma convention) — à la vue sélective du module et à la vue d'ensemble des entités |
+| `type: list of [ … ]` — la liste de valeurs composées | le nom du champ ; pas une classe |
+| `states:` | un diagramme d'états à part : les valeurs du champ-statut, les passages permis (D422) |
+| `operations:`, `required:`, `history:`, `hint:`, `description:`, `placeholder:` | rien au diagramme — la table du dictionnaire (D1215) et le registre (D698) |
+
+**La table du dictionnaire** (D1215, ma forme) : une table par entité,
+une ligne par champ — le libellé avec les marques du diagramme, le type
+en clair, l'obligation, la valeur par défaut, les valeurs permises, le
+`hint:` et la `description:`, le `placeholder:` en exemple ; chaque
+item livre sa ligne par sa facette documentation (D1158).
+
 ## L'exemple fil rouge
 
-Le cas 1 (`examples/01_vehicule/`) déroule l'entité entière :
+Le cas 3 (`examples/03_vehicule/`) déroule l'entité entière :
 `vehicule` (l'identité, le statut Création → Actif → Clôture, le
 financement à plat, le bilan calculé, le formulaire à six onglets,
 la liste en widgets), ses quatre compositions (`consommation`,
 `entretien`, `revision`, `echeance` — l'édition en ligne, les
 formulaires par défaut), le dashboard d'accueil du module. La banque
-(`examples/02_banque/`) montre la recherche déclarée (`searchable:`),
+(`examples/04_banque/`) montre la recherche déclarée (`searchable:`),
 les opérations à formulaire d'appel et les montants à devise portée
 (`amount` — quand la devise a un sens métier, D771).
+
+## La documentation — la facette de l'entité et du champ (D1158–D1159)
+
+*(La rubrique que chaque artefact de composant porte depuis le rang 1 :
+ce que le composant livre à chaque documentation ; la colonne 1 — la
+fonctionnelle — remplie, les autres à leur rang. La matrice entière
+dans [documentation.md](documentation.md) §13.)*
+
+**L'entité, dans la fonctionnelle** — une section par entrée de menu
+qui l'atteint (D1194), dans cet ordre (D1232) : **l'entité** — son
+`title:`, sa `description:`, son visage, son identité ; **ses champs**,
+en table — le libellé, **le type en clair** (D1233), l'obligation,
+l'aide, la description, les valeurs d'un énuméré, l'exemple du
+placeholder, le mode d'usage du composant (D1229) ; les calculés en
+italique ; **l'écran** — la liste et le formulaire, qui disposent ces
+champs (au masque, le `hint:` et la `description:` — D1191 ; un champ
+sans l'un ni l'autre n'y est pas) ; **le cycle de vie** en table — par état, les
+verbes permis et le libellé des groupes que l'`allow` cite (D1195,
+D1227), le diagramme d'états (D422) ; **les opérations** en table — ce
+qu'elle fait (la description de son hook, D1227 ; une opération
+composée par la liste de ses étapes) et ce qui la déclenche (le
+bouton, le `when:`, la période — D1196 ; une notification sans
+destinataire remonte à tout le monde, D1228) ; **les règles** — le
+`message:` montré par un exemple, le gabarit résolu sur les
+`placeholder:` (D1229). Les compositions en sous-sections de leur
+possesseur ; l'entrée de sous-menu d'une composition ouvre la liste de
+l'enfant, tous possesseurs confondus (D1227). **Une entité que le menu
+n'atteint pas n'est pas décrite dans la fonctionnelle** — elle reste au
+dictionnaire (D1195). Une liste ou un graphique n'ont de section que
+par leur entrée de menu ; placés dans un écran, ils se documentent là
+(D1229). Les liens entre modules s'écrivent aux deux bouts (D1185–
+D1186). À l'instance : le nombre de lignes (D1155), les usages (D1168).
+
+**Le champ, dans la fonctionnelle** — son libellé (`label:` par langue ;
+à défaut le gabarit du socle `${name}`, D1181, que la complétude
+compte, D1182) ; son aide (`hint:`) et sa description ; l'obligation
+(l'identité l'implique, D1170) ; les valeurs d'un énuméré par leur
+libellé ; **à quoi il sert** — ses emplois en langage d'usager, depuis
+les liens que l'ingestion garantit (D1198) ; le mode d'usage du
+composant qui le rend (D1229) ; à l'instance, ses données vivantes
+(D1155) et, sur demande, sa zone d'analyse (D1216).
+
+**L'entité et le champ, dans le dictionnaire des données** (l'annexe
+de la fonctionnelle, la version complète à l'information — D1212–
+D1217) : la vue des modules, la vue de l'ensemble des entités, la vue
+sélective du module — le nom du module, de l'entité et du champ seuls
+(D1218), souligné pour l'identité, italique pour le calculé, « * » pour
+le sécurisé ou `rgpd:`, gras pour le référencé, les listes en liens
+(D1213–D1214) ; **une table par entité, une ligne par champ** — le
+libellé marqué, le type en clair, l'obligation, le défaut, les valeurs,
+l'aide, l'exemple (D1215).
+
+**Ce que la complétude compte** (§20) : l'entité sans `description:`,
+le champ sans `label:` (D1182), sans `hint:` ni `description:` (D1199),
+l'énuméré sans libellé, l'entité sans aucun marquage `rgpd:` (D1177 —
+signalée, jamais qualifiée) ; ni `history:` tu, ni les droits tus (D1173).
+
+**Les autres colonnes** — à leur rang : l'information (le rang 2 — la
+fiche complète, les formules, le graphe des emplois et l'impact d'une
+modification, D1198) ; le développeur (ses points d'API) ; la
+réglementation (ses données `rgpd:`, sa rétention) ; la promotionnelle
+(son titre dans la vue d'ensemble) ; la maintenance (ses usages, ses
+anomalies).

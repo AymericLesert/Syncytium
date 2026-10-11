@@ -1,0 +1,311 @@
+# Le nom de la table
+# La table ARTICLE de PMI, 181 colonnes ; la description cite les colonnes qu'elle lit et celles qu'elle écarte, les
+# autres ne sont pas lues et le rapport de migration les relève.
+name: ARTICLE
+
+# La description de la table
+description: Les articles de PMI — la source de technique.article, fabrique, semi_fini et fantome
+
+# Le périmètre lu
+# La seule société 100.
+filter: ARKTSOC = "100"
+
+# L'identité d'un article
+# Le code et le complément, vérifiés comme une clé sur les données filtrées avant la lecture.
+identity: [ARKTCODART, ARKTCOMART]
+
+# Le rapport des anomalies de la table
+# Le bureau d'études corrige les fiches articles à l'origine.
+report:
+  when: [migration]
+  to: [bureau_etudes]
+  by: [notification, mail]
+
+# Les colonnes
+# Chaque colonne lue porte son type et, au besoin, sa description ; une colonne écartée porte le type ignored et son
+# motif ; les colonnes que la table ne cite pas ne sont pas lues.
+fields:
+
+  ARKTSOC:
+    type: text[3]
+    description: La société ; seule la société 100 est lue.
+
+  ARKTCODART:
+    type: text[18]
+    description: Le code de l'article, première partie de son identité.
+
+  ARKTCOMART:
+    type: text[6]
+    description: Le complément du code, seconde partie de son identité.
+
+  ARCTTYPART:
+    type: enum { AC, CO, LI, MI, MO, OU, PF, PL, SF, ST }
+    description: |
+      Le type d'article ; un code hors de cette liste, PR compris, met la ligne en erreur.
+
+      | Code | Libellé                                                             |
+      |------|---------------------------------------------------------------------|
+      | AC   | Accessoire                                                          |
+      | CO   | Consommable                                                         |
+      | LI   | Libellé : une ligne de texte, sans existence en stock               |
+      | MI   | Libellé : une ligne de texte, sans existence en stock (second code) |
+      | MO   | Main d'œuvre                                                        |
+      | OU   | Outillage                                                           |
+      | PF   | Produit fini                                                        |
+      | PL   | Plaque                                                              |
+      | SF   | Produit semi-fini                                                   |
+      | ST   | Sous-traitance                                                      |
+
+  ARITNATURE:
+    type: ignored
+    description: Un index de PMI, pas une clé.
+
+  ARITCONART:
+    type: ignored
+    description: Un index de PMI, pas une clé.
+
+  ARCTLIB01:
+    type: text[30]
+    description: Le libellé.
+
+  ARCTLIB02:
+    type: text[30]
+    description: Le libellé secondaire.
+
+  ARCTUNICDE:
+    type: enum { PL, U }
+    description: L'unité de commande, PL la plaque ou U l'unité ; elle peut être vide.
+
+  ARCTUNISTO:
+    type: enum { PL, U }
+    description: L'unité de stock, PL la plaque ou U l'unité ; c'est aussi l'unité de mesure de l'article.
+
+  ARCTUNIFAC:
+    type: ignored
+    description: L'unité de facturation, hors du périmètre.
+
+  ARCTUNICON:
+    type: ignored
+    description: L'unité de conditionnement, hors du périmètre.
+
+  ARCTCONV1A:
+    type: text[2]
+    description: Le premier couple de conversion d'unités — l'unité source.
+
+  ARCTCONV1B:
+    type: text[2]
+    description: Le premier couple de conversion d'unités — l'unité cible.
+
+  ARCNCONC01:
+    type: decimal
+    description: >-
+      Le premier couple de conversion d'unités — le coefficient : une unité source vaut ce nombre d'unités cible.
+
+  ARCTCONV2A:
+    type: text[2]
+    description: Le second couple de conversion d'unités — l'unité source.
+
+  ARCTCONV2B:
+    type: text[2]
+    description: Le second couple de conversion d'unités — l'unité cible.
+
+  ARCNCONC02:
+    type: decimal
+    description: Le second couple de conversion d'unités — le coefficient.
+
+  ARCNPDSUNI:
+    type: decimal
+    description: Le poids unitaire.
+
+  ARCNQTECO:
+    type: decimal
+    description: La quantité économique.
+
+  ARCNPUACH1:
+    type: decimal
+    description: Le prix d'achat.
+
+  ARCTNOFOU1:
+    type: FOURNIS.CLKTCODE or CLIENT.CLKTCODE
+    description: >-
+      Le compte 1 : le fournisseur par défaut de l'article acheté, ou son client de référence ; le premier des deux qui
+      correspond fait le lien.
+
+  ARCTNOFOU2:
+    type: ignored
+    description: "Le compte 2, le dernier achat ou la dernière vente : il se calcule, il ne se reprend pas."
+
+  ARCTFATN:
+    type: enum { 01, 02, 03, 07, 09, 12, 14, 17, 32, 33 }
+    description: |
+      Le code de gestion, qui décide du dérivé de l'article : fabriqué, semi-fini ou fantôme.
+
+      | Code | Libellé             |
+      |------|---------------------|
+      | 01   | Fabriqué            |
+      | 02   | Acheté              |
+      | 03   | Sans libellé connu  |
+      | 07   | Libellé             |
+      | 09   | Semi-fini           |
+      | 12   | Fantôme             |
+      | 14   | Quantité supérieure |
+      | 17   | Inactif             |
+      | 32   | Résultant           |
+      | 33   | Procédure           |
+
+  ARCNPMP:
+    type: decimal
+    description: Le prix moyen pondéré.
+
+  ARCNPRS:
+    type: decimal
+    description: Le prix de revient.
+
+  ARCTGDEPOT:
+    type: enum { O, N }
+    description: "O : l'article est géré en stock."
+
+  ARCJCRE:
+    type: date_pmi
+    description: La date de création.
+
+  ARCJMOD:
+    type: date_pmi
+    description: La date de modification.
+
+  ARCTCODFAM:
+    type: text[4]
+    description: |
+      Le code de famille, de deux à quatre caractères ; un 4e caractère à 1 marque l'article périssable.
+
+      | Code | Libellé      |
+      |------|--------------|
+      | MAT  | Matière      |
+      | COM  | Composant    |
+      | PRF  | Produit fini |
+      | CON  | Consommable  |
+
+  ARCTCOSFAM:
+    type: text[4]
+    description: |
+      Le code de sous-famille ; un autre code se lit comme « autre ».
+
+      | Code | Libellé   |
+      |------|-----------|
+      | ACI  | Acier     |
+      | ALU  | Aluminium |
+      | PLA  | Plastique |
+      | VIS  | Visserie  |
+
+  ARCTCODMPL:
+    type: text[10]
+    description: L'emplacement d'expédition.
+
+  ARCTCODEP:
+    type: text[6]
+    description: Le dépôt d'expédition.
+
+  ARCNSTOMAX:
+    type: decimal
+    description: Le stock maximum.
+
+  ARCNSTOMIN:
+    type: decimal
+    description: Le stock minimum.
+
+  ARCTCODMA1:
+    type: text[3]
+    description: La matière 1 de l'article.
+
+  ARCTCODMA2:
+    type: text[3]
+    description: La matière 2 de l'article.
+
+  ARCTCODMA3:
+    type: text[3]
+    description: La matière 3 de l'article.
+
+  ARCTCODMA4:
+    type: text[3]
+    description: La matière 4 de l'article.
+
+  ARCTCODMA5:
+    type: text[3]
+    description: La matière 5 de l'article.
+
+  ARCTCODMA6:
+    type: text[3]
+    description: La matière 6 de l'article.
+
+  ARCTCODMA7:
+    type: text[3]
+    description: La matière 7 de l'article.
+
+  ARCTCODMA8:
+    type: text[3]
+    description: La matière 8 de l'article.
+
+  ARCTCODMA9:
+    type: text[3]
+    description: La matière 9 de l'article.
+
+  ARCNLONGUE:
+    type: decimal
+    description: La longueur.
+
+  ARCNLARGEU:
+    type: decimal
+    description: La largeur.
+
+  ARCNEPAISS:
+    type: decimal
+    description: L'épaisseur.
+
+  ARCNVOLUNI:
+    type: decimal
+    description: Le volume unitaire.
+
+  ARCTEAN13:
+    type: text[20]
+    description: Le code EAN 13 ; seuls ses 13 premiers caractères sont repris.
+
+  ARCTGSAV:
+    type: ignored
+    description: "N sur toutes les lignes : la colonne ne porte aucune information."
+
+  ARCTFICPLA:
+    type: text[250]
+    description: Le nom du fichier du plan, lu dans le dossier des plans.
+
+  ARCTCODEPR:
+    type: text[6]
+    description: Le dépôt de réception.
+
+  ARCTCOEMPR:
+    type: text[10]
+    description: L'emplacement de réception.
+
+  ARCTCODEPF:
+    type: text[6]
+    description: Le dépôt de fabrication.
+
+  ARCTCOEMPF:
+    type: text[10]
+    description: L'emplacement de fabrication.
+
+  ARCTCODEPC:
+    type: text[6]
+    description: Le dépôt de consommation.
+
+  ARCTCOEMPC:
+    type: text[10]
+    description: L'emplacement de consommation.
+
+  ARCTBLOCAG:
+    type: text[20]
+    description: Le blocage de l'article ; vide, l'article est actif.
+
+  # Les colonnes calculées
+  famille_code:
+    description: Le code de famille sans son drapeau de périssable.
+    formula: left(ARCTCODFAM, 3)

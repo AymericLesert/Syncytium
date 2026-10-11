@@ -1,0 +1,39 @@
+# Le module transport
+# Les moyens de locomotion du foyer : le véhicule, ses consommations, son journal de vie, ses règles de révision, son
+# échéancier. Le nom du module est libre : transport évite l'éponymie vehicule/vehicule/vehicule.yml et donne des
+# références lisibles, transport.revision.
+name: transport
+
+# La description du module
+description: Suivi et maintenance des moyens de locomotion du foyer
+
+# Les entités du module
+# Les chemins sont relatifs à ce fichier ; le véhicule précède ses compositions.
+entities:
+  - ~{vehicule/vehicule.yml}
+  - ~{consommation/consommation.yml}
+  - ~{entretien/entretien.yml}
+  - ~{revision/revision.yml}
+  - ~{echeance/echeance.yml}
+
+# L'interface du module
+# L'écran principal : l'accueil du module actif, que le menu adresse transport[accueil] ; le premier tableau de bord
+# déclaré est celui par défaut.
+gui:
+  dashboards:
+
+    # L'accueil
+    # Les sections l'une au-dessus de l'autre, la disposition par défaut : l'écho des révisions échues d'abord, puis
+    # l'entrée principale, la liste des véhicules en cartes. L'adresse <type>[<nom>] couvre les listes comme les
+    # graphiques ; les surfaces s'emboîtent librement.
+    accueil:
+      title: Le garage du foyer
+      items:
+        - sections:
+            items:
+              - section:
+                  items:
+                    - list[revision.echues]
+              - section:
+                  items:
+                    - list[vehicule.vehicules]

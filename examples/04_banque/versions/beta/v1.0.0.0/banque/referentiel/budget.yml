@@ -1,0 +1,22 @@
+# Le budget
+# Le référentiel des budgets : la création directe au picker de l'écriture.
+name: budget
+
+# La description de l'entité
+description:
+  fr: Un budget — le poste de dépense ou de ressource d'une écriture
+  en: A budget — the spending or income category of an entry
+  es: Un presupuesto — la partida de gasto o de ingreso de un apunte
+
+# Le visage texte
+label: "{libelle}"
+
+# L'identité
+identity: [libelle]
+
+# Les champs
+fields:
+
+  libelle:
+    type: text[..30]
+    label: { fr: Libellé, en: Name, es: Nombre }

@@ -1,0 +1,48 @@
+# Le fantôme
+# L'article dont le code de gestion est fantome — l'hypothèse de l'exemple, à vérifier : un dérivé de l'article. Le
+# parent décrit le commun ; l'enfant ne porte que ce qui lui est propre — la nomenclature et la gamme, déclarées sur
+# chacun des trois dérivés qui en ont besoin.
+name: fantome
+
+# La description de l'entité
+description: Un fantôme — un niveau de nomenclature sans existence en stock, avec sa nomenclature
+
+# Le visage texte
+label: "{code} — {libelle}"
+
+# Le parent
+inheritance: article
+
+# L'historique
+history: true
+
+# Les champs propres au fantôme
+fields:
+
+  nomenclature:
+    type: list of nomenclature
+    label: Nomenclature et gamme
+    description: >-
+      La composition : la nomenclature et la gamme réunies, comme chez l'ERP ; le composant est un article, de tout
+      type — la composition se référence elle-même.
+
+  # Les champs calculés
+
+  nombre_composants:
+    type: integer
+    formula: nomenclature.count(nature = "composant")
+    label: Composants
+    hint: Le nombre de composants de la nomenclature.
+
+  nombre_operations:
+    type: integer
+    formula: nomenclature.count(nature = "operation")
+    label: Opérations
+    hint: Le nombre d'opérations de la gamme.
+
+  temps_gamme:
+    type: duration
+    formula: nomenclature.sum(temps_ouverture if nature = "operation")
+    label: Temps de gamme
+    hint: Le temps total des opérations de la gamme.
+    description: La somme des temps d'ouverture des opérations, une durée.

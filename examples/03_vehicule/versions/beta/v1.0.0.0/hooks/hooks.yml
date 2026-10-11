@@ -1,0 +1,3 @@
+# Les familles de hooks
+# Une famille par fichier ; le projet n'a que des opérations.
+operations: ~{operations/operations.yml}

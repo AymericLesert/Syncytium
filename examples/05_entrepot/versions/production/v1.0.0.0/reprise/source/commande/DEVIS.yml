@@ -1,0 +1,5 @@
+# Une table écartée
+# Analysée et écartée volontairement : elle compte dans la complétude du schéma, pas dans la couverture des données.
+DEVIS:
+  type: ignored
+  description: Les devis de PMI, 28 colonnes — hors du périmètre de l'entrepôt.

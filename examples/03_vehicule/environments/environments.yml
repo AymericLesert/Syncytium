@@ -1,0 +1,3 @@
+# L'environnement du foyer
+# Le seul environnement : le poste du foyer, le patron du domestique.
+home: ~{home/home.yml}

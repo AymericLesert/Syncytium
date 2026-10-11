@@ -1,0 +1,42 @@
+# Le menu du module : une carte d'entrées nommées, dans l'ordre d'affichage. Chaque entrée porte son libellé par langue
+# et son lien, l'adresse ; un sous-menu porte ses entrées. Sans libellé, l'entrée prend le titre de la surface liée.
+# Sans menu déclaré, le défaut ne connaît qu'une liste par entité ; les trois listes de l'écriture ont ici chacune leur
+# entrée, en sous-menu. Une liste absente du menu et d'un écran n'est documentée nulle part.
+
+# L'accueil du module
+accueil:
+  label:
+    fr: Tableau de bord
+    en: Dashboard
+    es: Panel de control
+  link: banque[accueil]
+
+# Les comptes
+comptes:
+  label:
+    fr: Comptes bancaires
+    en: Accounts
+    es: Cuentas bancarias
+  link: banque.compte
+
+# Les écritures, en sous-menu — une entrée par liste
+ecritures:
+  label:
+    fr: Écritures
+    en: Entries
+    es: Apuntes
+  items:
+    operations:
+      link: banque.ecriture[par_operation]
+    comptable:
+      link: banque.ecriture[par_comptable]
+    rapprochement:
+      link: banque.ecriture[pointage]
+
+# Les référentiels
+referential:
+  items:
+    budgets:
+      link: banque.budget
+    lieux:
+      link: banque.lieu

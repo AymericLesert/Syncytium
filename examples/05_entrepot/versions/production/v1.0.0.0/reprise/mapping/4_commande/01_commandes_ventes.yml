@@ -1,0 +1,35 @@
+# Les commandes de vente
+ECOMCLI:
+  description: >-
+    Les entêtes des commandes de vente, sans héritage avec les achats ; les clients et les articles précèdent.
+    L'identité : le numéro et l'indice de révision, une ligne d'entête par révision ; le compteur des commandes se
+    repositionne sur la plus grande valeur reprise. Le client se retrouve par son code. Le statut de l'entête n'est pas
+    repris : les lignes portent le leur. L'adresse de livraison est reprise en détail et se géolocalise dans
+    l'entrepôt ; l'adresse de la commande n'est pas lue, le code du client suffit.
+  to: commande.commande_vente
+  fields:
+    numero:
+      formula: numero
+      description: Le numéro calculé à la source ; la reprise surcharge la valeur du compteur.
+    indice:             ECKTINDICE
+    client:             ECCTCODE
+    reference_client:   ECCTREFCDE
+    date:               ECCJCRE
+    date_echeance:      ECCJECHFOR
+    derniere_livraison: ECCJDERBL
+    derniere_facture:   ECCJDERFA
+    devise:             ECCTDEVISE
+    taux_change:        ECCNTXDEVI
+    livraison_nom:         ECCTNOMLIV
+    livraison_rue1:        ECCTRUE1LI
+    livraison_rue2:        ECCTRUE2LI
+    livraison_rue3:        ECCTRUE3LI
+    livraison_code_postal: ECCTCPLIV
+    livraison_ville:       ECCTVILLIV
+    livraison_pays:        ECCTPAYSLI
+  operations:
+    commande_vente.numero.update(numero)
+  report:
+    when: [migration]
+    to: [commercial]
+    by: [notification, mail]

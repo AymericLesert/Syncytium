@@ -1,0 +1,26 @@
+from: Syncytium-1.0
+name: tiny
+description: Une entité, quatre champs et une application complète avec API et documentation
+
+environments:
+  home:
+    description: Exécution en mode local
+    storage: sqlite
+
+versions:
+  production:
+    environment: home
+    
+    1.0.0.0:
+      release-notes: Version 1 de l'annuaire
+
+      annuaire:
+        personne:
+          description: Les membres de l'entreprise
+          label: "{prenom} {nom}"
+          identity: [nom, prenom]
+          fields:
+            nom: text[..40]
+            prenom: text[..40]
+            age: integer
+            fonction: text[..60]

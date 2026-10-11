@@ -1713,7 +1713,11 @@ qui mène à quoi**.
   est une section, la première ; la table du cycle de vie porte, par
   état, les verbes permis et **le libellé des groupes que l'`allow`
   cite** ; les messages des règles se montrent **par leurs gabarits**
-  (`{date_vente}`, D1106).
+  (`{date_vente}`, D1106) ; **une notification sans destinataire
+  remonte à tout le monde, dans la zone des notifications de
+  l'application**, et par mail à qui le veut, par la configuration de
+  son profil (D1228) — la section le dit ainsi, le socle (§6, chapitre
+  2) décrit le réglage du profil.
 
 **Jamais un chapitre à part pour
 ce qui traverse les modules** (D1185) : le lien se raconte dans le

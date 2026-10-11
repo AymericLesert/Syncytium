@@ -683,8 +683,9 @@ les libellés les complètent (D1218).
 > (délai), puis, calculés, Dernière (km), Dernière (date), Prochaine
 > (km), Prochaine (date), Échue ? *(la règle est à échéance — la
 > notification part, la surface met en avant)*. **L'opération** :
-> notifier — automatique, dès que la règle est échue ; une notification
-> dans l'application. **La règle** : une règle sans pas ne dit rien —
+> notifier — automatique, dès que la règle est échue ; notifie tout le
+> monde dans la zone des notifications de l'application, et par mail
+> ceux dont le profil le demande. **La règle** : une règle sans pas ne dit rien —
 > « La règle "{designation}" n'a ni pas en kilomètres ni pas en délai. »
 >
 > #### 3.2.4 L'échéancier
@@ -729,6 +730,14 @@ par D1227, le sixième en attente*) :
 5. **Les messages des règles** — « bien montrés par leurs gabarits »
    (`{date_vente}`, D1106).
 6. **La notification** de la révision (l'opération `notifier`, l'effet
-   `notify`) ne déclare pas à qui elle s'adresse : la section dit « une
-   notification dans l'application » d'après le défaut de D108 — *à
-   réexpliquer à l'auteur*.
+   `notify`) ne déclare pas à qui elle s'adresse — « si aucun
+   destinataire, la notification remonte à tout le monde dans la zone
+   des notifications de l'application ; les notifications remontent
+   par mail à qui le veut en passant par la configuration de son
+   profil » (D1228) : la section 3.2.3 dit « notifie tout le monde dans
+   l'application », et le socle (chapitre 2) décrit le réglage du
+   profil pour le mail.
+
+*Les six frottements sont soldés (D1227–D1228) ; les `documentation.md`
+des hooks du véhicule et de la banque ont été nettoyés de leurs
+références de décisions (D1085).*

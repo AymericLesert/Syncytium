@@ -54,7 +54,9 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
 - Toute référence de fichier s'écrit `~{…}` (D956) ; un fichier qu'aucune
   clé ne cite est un orphelin.
 - Vérifier chaque réécriture par comparaison YAML (contenu inchangé) et par
-  le traceur d'orphelins.
+  le traceur d'orphelins : `python tools/orphans.py examples/<cas>` (D1240 —
+  il suit les `~{…}`, vérifie le YAML et les 120 caractères, liste les
+  orphelins).
 
 ## La manière
 

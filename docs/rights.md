@@ -432,3 +432,41 @@ n'est utile qu'à qui a déjà la machine.
 Aucun point consigné — la clôture du sujet 2 attend la relecture de
 l'auteur (le flag mineur : l'automatisation de la commande de
 chiffrement, D707).
+
+## La documentation — la facette des droits (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**Le principe** : on ne lit que ce qu'on voit (D1141, D334) — la
+confidentialité et les droits filtrent la documentation comme ils
+filtrent l'écran ; une entité invisible n'a ni section ni ligne ; un
+champ invisible n'est pas au dictionnaire du lecteur.
+
+**Le groupe, dans la fonctionnelle** — **son persona** (D1200, D1208 :
+le mono-poste déclare son groupe pour le porter) ouvre le chapitre des
+scénarios : qui il est (le prénom, le rôle, sa description ou celle du
+groupe), **ce qu'il voit** — ses modules et ses entrées de menu, ses
+droits en clair, le « mes droits » servi dedans (D1206, D1220) —, ses
+scénarios ; le groupe contenant (D1099) renvoie à ses constituants ; le
+groupe au degré `administrator` a son persona, ses scénarios
+d'administration vont au guide d'exploitation (D1206). Un groupe sans
+`persona:` a un persona généré, nommé par le groupe, que la complétude
+compte.
+
+**Les permis** — par état, les verbes et **le libellé des groupes que
+l'`allow` cite** (D1227), dans la table du cycle de vie de l'entité ;
+l'`allow` d'un champ (D886) se lit au champ.
+
+**Les degrés** : le `reader` lit la documentation sans le détail
+(D1140) ; `manager` et `administrator` préparent une édition et
+décident de la diffuser (D1142). **Les lecteurs** de chaque
+documentation : la table de [documentation.md](documentation.md) §3
+(D1154).
+
+**Les autres colonnes** — à leur rang : la réglementation (le rang 3 —
+la matrice des droits, l'extraction demandée par l'usager D1149, le
+registre) ; le guide d'exploitation (les groupes et leur gestion, les
+affectations D341) ; la promotionnelle (le mode public, `visibility:`
+D1151).

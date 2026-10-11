@@ -556,3 +556,38 @@ et les six raccords vivent dans **[telemetry.md](telemetry.md)**
 **Le sujet 3 est soldé** (D743) — et avec lui la passe de complétude
 entière (D603–D743) : les domaines 5 et 6 s'ouvrent (les cas d'usage
 Q59, la documentation Q58).
+
+## La documentation — la facette de l'administration (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**L'administration, dans la fonctionnelle** : le chapitre du socle (§6,
+chapitre 2 — ce qui est commun à toute application, borné à ce que la
+version emploie) décrit ce que l'utilisateur en touche — le profil (la
+langue, la réception des notifications par mail, D1228), le cycle de
+vie d'une donnée (la suppression marque sans effacer, D137 ; la
+réactivation est l'acte d'un administrateur, D903), les notes de
+version. **Les scénarios d'administration** — les migrations, la
+sandbox, la rotation des clés, les sauvegardes — relèvent du guide
+d'exploitation, non de la fonctionnelle (D1206).
+
+**La documentation est servie et produite par le socle** : dedans, à
+ses niveaux (D1138), dans la langue du profil et à la version servie
+(D1144) ; la version la plus élevée des actives par défaut (D1123),
+les dépréciées renvoyées à leurs notes (D1124) ; l'édition préparée
+par un `manager` ou un `administrator` (D1142) ; **la commande**
+`syncytium document <environnement> <documentation> [--version]
+[--language]` — les neuf par leur clé anglaise (D1167) —, et
+`--check`, qui mesure la complétude sans produire (D1221, en
+proposition) ; **`notify:`** (D1167 — `release` → les notes et ce qui
+change, `beta` → la complétude) ; `visibility:` au projet (D1151).
+Le seuil de complétude est à la discrétion du concepteur : le moteur
+mesure, ne refuse pas (D1221).
+
+**Les autres colonnes** — à leur rang : le guide d'exploitation (le
+rang 7 — l'installation, la configuration, la supervision, les
+opérations de maintenance, D1134) ; la maintenance (le rang 8 — les
+usages, les contrôles, les optimisations, D1128) ; le D.A.T. (le rang
+6) ; le projet et le support (le rang 4, D1133).

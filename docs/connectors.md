@@ -524,3 +524,25 @@ order_lines:
 - **l'authentification** (la passerelle D418, la garde du webhook
   D642) — au chantier sécurité ;
 
+
+## La documentation — la facette du connecteur (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**Le connecteur, dans la fonctionnelle** : presque rien — il appartient
+à l'environnement, non à ce que l'utilisateur fait. Ce qui passe tout
+de même : **l'authentification** `none` fait écrire « un seul
+utilisateur, tous les droits » (D1176) ; **le mail** (`smtp`) conditionne
+la phrase du socle sur les notifications par mail (D1228) — un `smtp`
+en `none` la retire ; **le `llm`** sert le chat, pas la documentation
+(D1226). Les connecteurs sortants qui emportent des données personnelles
+se nomment à la conformité (§18), non à la fonctionnelle.
+
+**Les autres colonnes** — à leur rang : le D.A.T. (le rang 6 — les
+connexions de l'application à son environnement, le schéma calculé
+des connecteurs, D1131) ; le guide d'exploitation (le rang 7 — le
+paramétrage, les secrets `*` D944, `unencrypted:` D901, le mock D627) ;
+la réglementation (les sortants et ce qu'ils emportent, D698) ;
+l'information (le storage et sa facette, D683).

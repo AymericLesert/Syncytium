@@ -897,3 +897,27 @@ coverage:
 
 Aucun — le chantier du mapping et la jonction versions↔storage sont
 soldés (D646–D676).
+
+## La documentation — la facette de la reprise (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**La reprise, dans la fonctionnelle** : rien en chapitre — le module
+`_migration` est au socle, sous le menu d'administration (D711), et ses
+scénarios relèvent du guide d'exploitation (D1206). Ce qui passe tout
+de même : **« à quoi sert un champ »** cite les règles de reprise qui
+l'alimentent (D1198 — « repris de l'ERP ») ; **les opérations
+déclenchées par la reprise** (`when: migrated`) figurent dans la table
+des opérations de l'entité parce qu'elles transforment ce que
+l'utilisateur voit (D1209, D1227) ; les champs `unchanged:` se disent
+« saisis ici, jamais repris » (D941).
+
+**Les autres colonnes** — à leur rang : l'information (le rang 2 — les
+sources décrites, les règles, les trois taux D862, le graphe source →
+cible et l'impact d'une évolution de la source, D1198) ; le guide
+d'exploitation (le rang 7 — `migrate`, `reset_coverage`, le rythme, les
+rapports de rejets D929, les anomalies D1032) ; la réglementation (la
+provenance D178, les données personnelles reprises) ; la maintenance
+(la couverture et les compteurs, [migration.md](migration.md)).

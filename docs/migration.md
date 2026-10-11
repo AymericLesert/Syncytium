@@ -599,3 +599,25 @@ opérations périodiques donnent à voir dans `_migration`.
   fichier entier avant chaque lecture ;
 - **la forme exacte des rapports envoyés** — le `template` du catalogue
   (D559–D564), avec l'architecture.
+
+## La documentation — la facette du module `_migration` (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**Le module `_migration`, dans la fonctionnelle** : rien — un module
+interne du socle (D1029), sous le menu d'administration (D711), que les
+applications n'exposent pas (D1028) ; ses surfaces et ses scénarios
+relèvent du guide d'exploitation (D1206). Son effet sur la fonctionnelle
+passe par les entités de l'application : les champs « repris de
+l'ERP » (D1198), les opérations à `when: migrated` (D1227), les
+anomalies dans la zone d'analyse d'un champ (D1216).
+
+**Les autres colonnes** — à leur rang : le guide d'exploitation (le
+rang 7 — les passages, les trois taux D862, les rejets et leurs
+rapports D929, `migrate` et `reset_coverage`, le rythme) ; l'information
+(le rang 2 — la table des clés d'origine D1047, la base miroir D1044,
+le graphe source → cible) ; la maintenance (le rang 8 — la couverture
+et les compteurs) ; la réglementation (les données personnelles reprises
+et leur provenance D178).

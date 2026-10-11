@@ -222,3 +222,62 @@ formulaires par défaut), le dashboard d'accueil du module. La banque
 (`examples/04_banque/`) montre la recherche déclarée (`searchable:`),
 les opérations à formulaire d'appel et les montants à devise portée
 (`amount` — quand la devise a un sens métier, D771).
+
+## La documentation — la facette de l'entité et du champ (D1158–D1159)
+
+*(La rubrique que chaque artefact de composant porte depuis le rang 1 :
+ce que le composant livre à chaque documentation ; la colonne 1 — la
+fonctionnelle — remplie, les autres à leur rang. La matrice entière
+dans [documentation.md](documentation.md) §13.)*
+
+**L'entité, dans la fonctionnelle** — une section par entrée de menu
+qui l'atteint (D1194) : son `title:` et sa `description:` ; **l'écran**
+— la liste et le formulaire, leurs champs par libellé et aide (D1191 :
+le `hint:` au masque, la `description:` au détail ; un champ sans l'un
+ni l'autre n'y est pas) ; **le cycle de vie** en table — par état, les
+verbes permis et le libellé des groupes que l'`allow` cite (D1195,
+D1227), le diagramme d'états (D422) ; **les opérations** en table — ce
+qu'elle fait (la description de son hook, D1227 ; une opération
+composée par la liste de ses étapes) et ce qui la déclenche (le
+bouton, le `when:`, la période — D1196 ; une notification sans
+destinataire remonte à tout le monde, D1228) ; **les règles** — le
+`message:` montré par un exemple, le gabarit résolu sur les
+`placeholder:` (D1229). Les compositions en sous-sections de leur
+possesseur ; l'entrée de sous-menu d'une composition ouvre la liste de
+l'enfant, tous possesseurs confondus (D1227). **Une entité que le menu
+n'atteint pas n'est pas décrite dans la fonctionnelle** — elle reste au
+dictionnaire (D1195). Une liste ou un graphique n'ont de section que
+par leur entrée de menu ; placés dans un écran, ils se documentent là
+(D1229). Les liens entre modules s'écrivent aux deux bouts (D1185–
+D1186). À l'instance : le nombre de lignes (D1155), les usages (D1168).
+
+**Le champ, dans la fonctionnelle** — son libellé (`label:` par langue ;
+à défaut le gabarit du socle `${name}`, D1181, que la complétude
+compte, D1182) ; son aide (`hint:`) et sa description ; l'obligation
+(l'identité l'implique, D1170) ; les valeurs d'un énuméré par leur
+libellé ; **à quoi il sert** — ses emplois en langage d'usager, depuis
+les liens que l'ingestion garantit (D1198) ; le mode d'usage du
+composant qui le rend (D1229) ; à l'instance, ses données vivantes
+(D1155) et, sur demande, sa zone d'analyse (D1216).
+
+**L'entité et le champ, dans le dictionnaire des données** (l'annexe
+de la fonctionnelle, la version complète à l'information — D1212–
+D1217) : la vue des modules, la vue de l'ensemble des entités, la vue
+sélective du module — le nom du module, de l'entité et du champ seuls
+(D1218), souligné pour l'identité, italique pour le calculé, « * » pour
+le sécurisé ou `rgpd:`, gras pour le référencé, les listes en liens
+(D1213–D1214) ; **une table par entité, une ligne par champ** — le
+libellé marqué, le type en clair, l'obligation, le défaut, les valeurs,
+l'aide, l'exemple (D1215).
+
+**Ce que la complétude compte** (§20) : l'entité sans `description:`,
+le champ sans `label:` (D1182), sans `hint:` ni `description:` (D1199),
+l'énuméré sans libellé, l'entité sans aucun marquage `rgpd:` (D1177 —
+signalée, jamais qualifiée) ; ni `history:` tu, ni les droits tus (D1173).
+
+**Les autres colonnes** — à leur rang : l'information (le rang 2 — la
+fiche complète, les formules, le graphe des emplois et l'impact d'une
+modification, D1198) ; le développeur (ses points d'API) ; la
+réglementation (ses données `rgpd:`, sa rétention) ; la promotionnelle
+(son titre dans la vue d'ensemble) ; la maintenance (ses usages, ses
+anomalies).

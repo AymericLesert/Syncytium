@@ -2963,3 +2963,52 @@ assistant:
     model: …
     api_key*: ${LLM_API_KEY}       # la marque * — le secret chiffré (D944/D902)
 ```
+
+## La documentation — la facette des composants graphiques et des surfaces (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 1 — la fonctionnelle — remplie, les autres à leur
+rang.)*
+
+**Tout composant graphique** porte `description:` par langue, qui
+**entre au masque d'explication** de la surface qui le porte — le kpi
+comme le champ (D1193) —, et **un mode d'usage**, le texte générique du
+catalogue du moteur qui dit comment on s'en sert — le picker à création
+directe, l'édition en ligne, le toggle —, que la documentation de
+l'écran intègre à côté de la description du champ rendu (D1229).
+
+**Les surfaces, dans la fonctionnelle** (D1194–D1196, D1227, D1229) :
+
+- **la liste** — une section si une entrée de menu l'atteint (la
+  première déclarée l'est par défaut, D438 ; les autres par le menu
+  déclaré, D351/D439) ; placée dans un écran, elle se documente là ;
+  la section dit ses colonnes par libellé, ses zones de recherche, ses
+  actions, l'édition en ligne ;
+- **le formulaire** — ses champs par libellé et aide, ses onglets et
+  ses groupements (la `section` : l'explication d'un groupement vit
+  dans la `description:` de l'écran et l'édition la porte sur le
+  groupement, D1190) ; le formulaire d'appel d'une opération (D775)
+  rend, sur la planche, le bouton puis le formulaire (D1210) ; **ses
+  champs libres comptent dans la complétude** (D1230) ;
+- **le widget** de résumé et de liste — ce qu'il montre ;
+- **le tableau de bord** — une section, s'il est au menu (D1227 :
+  l'accueil du module) ; il décrit par renvoi ce qu'il assemble ;
+- **le graphique** — documenté sur l'écran qui le porte (D1229) : ce
+  qu'il mesure, ses axes, ses filtres ;
+- **le wizard** — un scénario du persona qui l'atteint (D1130, D1201) :
+  son `title:` est le but, ses steps les étapes, ses opérations les
+  actes, chaque step avec l'image de son écran ; **sa planche** se
+  dessine step par step (D1188, D1205) ; un scénario écrit peut le citer
+  par `[@nom]` ;
+- **le template** — le gabarit des éditions et des planches (D1143,
+  D1166) : la couverture, le cartouche (D1142), le filigrane d'une beta
+  (D1145), la dimension de page.
+
+**Le masque d'explication** (§7 — D1190–D1193) : la description de la
+surface, puis, pour chaque composant qui en a, sa description ; le
+« ? » le montre, mène à la page de l'écran et porte l'assistance
+(D1192) ; le glossaire s'y lit au survol (D1184).
+
+**Les autres colonnes** — à leur rang : la maintenance (la fréquence
+d'emploi de chaque écran, D1168), le développeur (le hook d'interface
+listé, D918).

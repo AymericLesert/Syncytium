@@ -2280,7 +2280,13 @@ comme chapitre (§19 → §22, D1187).*
 2. *(clos le 11/10 — les personas, §22 acquis en six points,
    D1200–D1210, déclinés sur le véhicule et la banque ; le gabarit
    d'import, §14 acquis, D1211)* ;
-3. le reste du rang 1 (§15 acquis, D1212–D1217) : §5 et §9 aux libellés ;
+3. le reste du rang 1 (§15 acquis, D1212–D1217 ; §5 et §9 réglés par
+   D1218 ; les compléments absorbés, D1220 ; les déclinaisons écrites —
+   le tiny réaligné, le véhicule et la banque avec leur section de
+   module, D1227–D1230 ; la rubrique « La documentation » dans les neuf
+   artefacts le 11/10) : *à relire par l'auteur* — les sections de
+   module, le tiny, les neuf rubriques ; la forme du sous-menu de
+   `menu.yml` (D1230) ;
    les compléments (« mes droits », les notifications, les documents
    produits, la recherche) ; la colonne 1 de la matrice dans les
    artefacts ; les déclinaisons sur le véhicule, la banque, l'entrepôt ;

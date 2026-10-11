@@ -658,7 +658,9 @@ avec sa cause ; le retry passe par l'incrément du build (D323).
   (D1118) : [documentation.md](documentation.md) §12 ;
 - `menu.yml` — décidé (D351, D439) ; **le premier exemple au dépôt :
   `banque/menu.yml` du cas 4** (D1230 — l'accueil, les comptes, les
-  écritures en sous-menu avec une entrée par liste, les référentiels ;
-  la forme du sous-menu `<nom>: { title:, items: }` est en proposition)
-  ; le bloc `dashboards:` a le sien au cas 5 (`stock[pilotage]`) et au
-  cas 4 (`banque[accueil]`).
+  écritures en sous-menu avec une entrée par liste, les référentiels) ;
+  **le sous-menu** : `- <nom>:` et sa liste d'adresses, son libellé au
+  dictionnaire de libellés du module — le bloc **`label:`** de
+  module.yml (D1236 ; D440 le nommait `labels:`) ; le bloc
+  `dashboards:` a le sien au cas 5 (`stock[pilotage]`) et au cas 4
+  (`banque[accueil]`).

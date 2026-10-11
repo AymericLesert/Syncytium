@@ -1,6 +1,6 @@
 # Le menu du module : des adresses, dans l'ordre d'affichage. Sans menu déclaré, le défaut ne connaît qu'une liste par
 # entité ; les trois listes de l'écriture ont ici chacune leur entrée, en sous-menu. Une liste absente du menu et
-# d'un écran n'est documentée nulle part.
+# d'un écran n'est documentée nulle part. Le nom d'un sous-menu est une clé du dictionnaire de libellés du module.
 
 # L'accueil du module
 - banque[accueil]
@@ -10,11 +10,9 @@
 
 # Les écritures, en sous-menu — une entrée par liste
 - ecritures:
-    title: { fr: Les écritures, en: Entries, es: Apuntes }
-    items:
-      - banque.ecriture[par_operation]
-      - banque.ecriture[par_comptable]
-      - banque.ecriture[pointage]
+    - banque.ecriture[par_operation]
+    - banque.ecriture[par_comptable]
+    - banque.ecriture[pointage]
 
 # Les référentiels
 - banque.budget

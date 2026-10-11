@@ -2298,8 +2298,8 @@ comme chapitre (§19 → §22, D1187).*
    module, D1227–D1230 ; la rubrique « La documentation » dans les neuf
    artefacts le 11/10 ; le tiny validé, D1231 ; les sections de module
    validées, D1234 ; les neuf rubriques validées, D1235 — la colonne 1
-   de la matrice acquise) : la forme du sous-menu de `menu.yml`
-   (D1230), en arbitrage ;
+   de la matrice acquise ; la forme du sous-menu tranchée, D1236 —
+   le libellé au dictionnaire `label:` du module) : *rien en attente* ;
    les compléments (« mes droits », les notifications, les documents
    produits, la recherche) ; la colonne 1 de la matrice dans les
    artefacts ; les déclinaisons sur le véhicule, la banque, l'entrepôt ;

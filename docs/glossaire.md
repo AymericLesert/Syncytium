@@ -291,8 +291,10 @@ mode public). *(D1148, D1152)*
 **Libellé** (`label`) — Le nom d'une chose dans la langue de
 l'utilisateur. *Ex. : `label: { fr: Client }`.* Sans lui, le gabarit du
 socle `${name}` : la clé de la configuration, que rien ne surcharge
-(D1181). Le pluriel `labels` ne survit qu'au dictionnaire du module
-(D440). *(D217/D465, D1181)*
+(D1181). Le même mot nomme le dictionnaire de libellés du module —
+`label:` dans module.yml — que le menu (le nom d'un sous-menu) et les
+champs référencent par leur clé (D440, D1236). *(D217/D465, D1181,
+D1236)*
 
 **Liste (type)** (`list of`) — Un champ à plusieurs valeurs du même
 type. *Ex. : `phones: list of phone`.* Sur un nom d'entité, elle

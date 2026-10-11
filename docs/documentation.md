@@ -1712,12 +1712,24 @@ qui mène à quoi**.
   dans l'onglet reste à la section du possesseur ; l'accueil du module
   est une section, la première ; la table du cycle de vie porte, par
   état, les verbes permis et **le libellé des groupes que l'`allow`
-  cite** ; les messages des règles se montrent **par leurs gabarits**
-  (`{date_vente}`, D1106) ; **une notification sans destinataire
+  cite** ; les messages des règles se montrent **par des exemples — les
+  gabarits résolus sur les `placeholder:` des champs** (D1229, qui
+  amende D1227 : « La vente du 15/03/2026 précède l'achat du
+  12/06/2015 ») ; **une notification sans destinataire
   remonte à tout le monde, dans la zone des notifications de
   l'application**, et par mail à qui le veut, par la configuration de
   son profil (D1228) — la section le dit ainsi, le socle (§6, chapitre
   2) décrit le réglage du profil.
+- **Les précisions de la banque** (D1229) : **une liste n'a de section
+  que par son entrée de menu** ; une liste ou un graphique placés dans
+  un écran se documentent dans la section de cet écran ; **chaque
+  composant graphique porte un mode d'usage** — un texte générique du
+  catalogue du moteur (D1160, ma lecture) — que la documentation de
+  l'écran intègre à côté de la description du champ qu'il rend (le
+  picker à création directe : « tapez un libellé absent pour le
+  créer ») ; une liste ou un graphique qu'aucune entrée de menu ni
+  aucun écran n'atteint n'est documenté nulle part — le concepteur
+  déclare le menu (`menu:` du module, D351/D439).
 
 **Jamais un chapitre à part pour
 ce qui traverse les modules** (D1185) : le lien se raconte dans le

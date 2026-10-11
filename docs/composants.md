@@ -24,7 +24,13 @@ matérialisation ; l'analogie des web components est consignée (D455).
    commune à tous** (D1193 — par langue, D1101) : son contenu **entre au
    masque d'explication** de la surface qui porte le composant (le kpi
    comme le champ) et nourrit la page de l'écran — la facette
-   documentation du composant (D1158) ;
+   documentation du composant (D1158) ; **et chaque composant porte un
+   mode d'usage** (D1229 — « un composant graphique doit avoir un mode
+   d'usage intégrable dans la documentation de l'écran ») : le texte
+   générique qui dit comment on s'en sert — le picker à création
+   directe, l'édition en ligne, le toggle —, un item du catalogue du
+   moteur par composant (D1160, ma lecture), repris par la
+   documentation de l'écran à côté de la description du champ ;
 6. **Items** — ce que le composant contient ;
 7. **Modes et déclinaisons** — lecture / modification / résumé /
    template (PDF) / Excel — × écran, tablette, smartphone (D250) ;

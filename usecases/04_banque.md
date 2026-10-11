@@ -597,31 +597,40 @@ hook (D1227).
 > **L'écran** : la liste et le formulaire par défaut — Libellé. Se crée
 > aussi directement depuis le champ Lieu d'une écriture.
 
-**Ce que la déclinaison relève** (les frottements, à arbitrer) :
+**Ce que la déclinaison relève** (les frottements — *quatre arbitrés
+par D1229, deux à réexpliquer*) :
 
-1. **Une entité à plusieurs listes déclarées** : la première liste est
-   celle du menu par défaut (D438) ; les deux autres ont-elles chacune
-   leur entrée de menu par défaut — et donc leur section (3.3, 3.4) —,
-   ou n'apparaissent-elles qu'à l'écran de l'écriture, en onglets ? La
-   déclinaison a fait une section par liste ; D189 le permet, le
-   défaut ne le dit pas.
-2. **Le graphique d'une entité** (`charts:` dans le gui de l'écriture)
-   n'a pas d'entrée de menu : où se décrit-il ? Rattaché à la section de
-   l'entité (3.2), en fin — ma lecture.
+1. **Une entité à plusieurs listes déclarées** — « une liste décrite
+   par une entrée du menu a son entrée. Les autres sont présentes dans
+   des écrans et la documentation de ces listes apparaît là où elles
+   s'affichent » : les sections 3.3 et 3.4 ne tiennent que si le menu
+   de la banque déclare ces deux listes ; **le menu n'est pas déclaré**
+   (`menu:`, D351/D439 — aucun exemple au dépôt) et aucun écran ne les
+   embarque : **la banque doit déclarer son menu**, sans quoi la
+   documentation ne décrit ni la liste par date comptable, ni le
+   pointage — conséquence à écrire dans l'exemple.
+2. **Le graphique d'une entité** — « est sur un écran. L'explication
+   est attachée à l'écran » : `evolution_budget` n'est placé sur aucun
+   écran ; il rejoint le même constat — un tableau de bord ou un
+   formulaire à déclarer pour le porter, et sa documentation avec.
 3. **L'opération à formulaire d'appel** : la colonne « ce qui la
    déclenche » porte le bouton, le titre du formulaire, ses champs et
    leur obligation — les champs libres du formulaire (D775) n'ont ni
    `hint:` ni `description:` ici ; la complétude les compte-t-elle
    comme des champs ?
-4. **Le référentiel à création directe** (`budget`, `lieu`) : la
-   section du référentiel dit « se crée aussi depuis le champ » — la
-   création directe est une propriété du champ qui le référence (le
-   picker), relevée depuis la description du champ ; le socle (le
-   chapitre 2) décrit le geste une fois.
-5. **Les gabarits des messages** avec `owner.` (`{owner.ouverture}`) se
-   montrent tels quels (D1227) — lisibles pour le concepteur, moins
-   pour l'usager ; la fonctionnelle pourrait résoudre `owner.` par le
-   libellé de l'entité (« l'ouverture du compte ») — ma proposition.
+4. **Le référentiel à création directe** (`budget`, `lieu`) — « les
+   composants graphiques disposent aussi de leur documentation et de
+   leur intégration dans les écrans… un composant graphique doit avoir
+   un mode d'usage intégrable dans la documentation de l'écran » : le
+   picker à création directe porte son mode d'usage (« tapez un libellé
+   absent pour le créer »), repris dans la section de l'écriture à côté
+   de la description du champ Budget ; la section du référentiel n'a
+   plus à le dire.
+5. **Les gabarits des messages** — « montrés via des exemples
+   (utilisation du placeholder) » : « L'écriture d'ouverture est datée
+   du 01/09/2015 ; le compte ouvre le 01/09/2015 » — les placeholders
+   des champs, ceux du possesseur pour `owner.` ; sans placeholder, la
+   valeur par défaut (D1211), sinon le libellé du champ — ma lecture.
 6. **Le compte obligatoire en tête de liste** (`select: mono, required:
    true`) : la section le dit en une phrase (« le compte se choisit en
    tête, obligatoirement ») — la forme en clair d'une facette de

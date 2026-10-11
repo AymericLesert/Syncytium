@@ -79,7 +79,13 @@ properties: { }                      # les propriétés du hook
 référence par `description:`, D809) décrivant son fonctionnement —
 la brique humaine de la documentation auto-générée (D645). Un
 dossier par hook ou tout dans un même fichier : l'éclatement est
-libre (D767/D807/D809).
+libre (D767/D807/D809). **La documentation fonctionnelle reprend ce md
+comme la description de l'opération** — « ce qu'elle fait », dans la
+section de l'entité (D1196/D1227) ; une opération qui en enchaîne
+plusieurs se décrit par la liste de ses étapes, chacune avec sa
+description (D1227). Le md est une configuration : il ne cite ni
+décision ni histoire du cas (D1085) — les md des hooks du véhicule et
+de la banque sont à nettoyer sur ce point.
 
 ## Les familles
 

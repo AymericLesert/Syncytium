@@ -345,8 +345,9 @@ documentations** (§13, D1159), dans les artefacts des composants.
   9. §15 — le dictionnaire par libellés : par version ou par module ;
   10. §5 et §9 — la vue d'ensemble aux libellés, les notes de version
       pour l'usager ;
-  11. les compléments : « mes droits », les notifications, les
-      documents produits, la recherche.
+  11. *(tombée, D1220 — les compléments sont absorbés par le plan de
+      §6 : « mes droits » au chapitre 4, les notifications au chapitre
+      3, les documents produits et la recherche au chapitre 2.)*
 - **Déclinaison** : le tiny (amendé — les frottements soldés,
   D1170–D1182) ; **le véhicule** (cas 3) pour les états, les
   enchaînements, **les personas et une planche** ; **la banque** (cas 4)

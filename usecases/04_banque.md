@@ -485,23 +485,21 @@ D1210*) :
    désigne par son effet (« les écritures imprimées reçoivent leur date
    d'impression »), comme ceux du véhicule (D1209).
 
-## La documentation générée — le chapitre du module (le rang 1 — D1194–D1196, D1218, D1227–D1228)
+## La documentation générée — le chapitre du module (le rang 1 — D1194–D1196, D1218, D1227–D1232)
 
 *(la déclinaison du chapitre 3 de §6 de documentation.md sur le
-module `banque`, après celle du véhicule — écrite le 11/10/2026, en
-proposition ; l'édition française, les deux autres se construisent de
-même depuis leurs propres textes ; ce que la banque montre en plus :
-les listes nommées, les opérations à formulaire d'appel, un référentiel
-à création directe ; les frottements en fin de section)*
+module `banque` — écrite le 11/10/2026, réécrite le même jour sur
+D1229–D1232 : le menu déclaré, le graphique sur l'accueil, le mode
+d'usage des composants, les messages par des exemples, **la
+description de l'entité et de ses champs avant l'écran** ; l'édition
+française ; en proposition)*
 
-**Ce qui structure le chapitre.** Le menu, **déclaré depuis D1230**
-(`banque/menu.yml`, le premier du dépôt) : l'accueil du module
-(`banque[accueil]`, le graphique), les comptes, les écritures en
-sous-menu avec une entrée par liste — par date d'opération, par date
-comptable, sans date comptable —, les budgets, les lieux. Une section
-par entrée (D1194, D1229) ; les opérations à formulaire d'appel se
-lisent dans la section de l'écriture, leur description vient du md de
-leur hook (D1227).
+**Ce qui structure le chapitre.** Le menu, déclaré (`banque/menu.yml`,
+D1230) : l'accueil, les comptes, les écritures en sous-menu avec une
+entrée par liste, les budgets, les lieux. Une section par entrée
+(D1194, D1229) ; chaque section décrit l'entité, ses champs, l'écran
+(D1232), les opérations, les règles ; une liste qui partage l'entité
+d'une autre renvoie à ses champs.
 
 **Le chapitre, tel que Syncytium le produirait** :
 
@@ -510,12 +508,10 @@ leur hook (D1227).
 > La gestion des comptes bancaires du foyer.
 >
 > *(la vue du module — le diagramme : `compte` et sa composition
-> `ecriture` en lien ; `ecriture` vers `budget`, `lieu` et vers
-> elle-même par `liee` ; `numero` et `libelle` soulignés chez les
-> référentiels, `numero` chez le compte ; les calculés en italique —
-> `ouvert`, `montant_euro`, `montant_franc`, `solde`, `debit`,
-> `credit` ; `libelle` en gras chez `budget` et `lieu`, référencés par
-> l'écriture — D1213)*
+> `ecriture` ; `ecriture` vers `budget`, `lieu`, et vers elle-même par
+> `liee` ; `numero` souligné chez le compte, `libelle` chez les deux
+> référentiels, en gras car référencés ; les calculés en italique —
+> D1213)*
 >
 > ### 3.0 Le foyer et ses comptes
 >
@@ -525,117 +521,116 @@ leur hook (D1227).
 >
 > ### 3.1 Les comptes
 >
-> Un compte bancaire — son numéro, son libellé, ses dates d'ouverture
-> et de clôture, ses écritures. Un compte se présente par son libellé.
+> **Un compte bancaire — son numéro, son libellé, ses dates d'ouverture
+> et de clôture, ses écritures.** Un compte se présente par son libellé
+> ; son identité est son numéro.
 >
-> **L'écran.** La liste par défaut des comptes ; le formulaire par
-> défaut — Numéro ; Libellé ; Ouverture, obligatoire ; Clôture *(vide
-> tant que le compte est ouvert)* ; Ouvert, calculé ; Écritures, en
+> | Champ | Obligatoire | Aide | Description |
+> |---|---|---|---|
+> | Numéro | oui (identité) | — | — |
+> | Libellé | non | — | — |
+> | Ouverture | oui | — | — |
+> | Clôture | non | Vide tant que le compte est ouvert. | — |
+> | *Ouvert* | calculé | — | — |
+> | Écritures | — | — | les écritures de 3.2 |
+>
+> **L'écran.** La liste et le formulaire par défaut ; les écritures en
 > onglet.
 >
-> **Les règles.** L'écriture d'ouverture d'un compte est datée du jour
-> de l'ouverture : « L'écriture d'ouverture est datée du
-> {date_operation} ; le compte ouvre le {owner.ouverture}. » De même
-> pour la clôture : « L'écriture de clôture est datée du
-> {date_operation} ; le compte ferme le {owner.cloture}. »
+> **Les règles.** L'écriture d'ouverture est datée du jour de
+> l'ouverture — « L'écriture d'ouverture est datée du *[Date
+> d'opération]* ; le compte ouvre le *[Ouverture]*. » ; de même pour la
+> clôture — « L'écriture de clôture est datée du *[Date d'opération]* ;
+> le compte ferme le *[Clôture]*. »
 >
 > ### 3.2 Les écritures — par date d'opération
 >
-> Une écriture bancaire — la date, le libellé, le budget, le montant,
-> le mode, le lieu. Tous comptes confondus ; le compte se choisit en
-> tête, obligatoirement.
+> **Une écriture bancaire — la date, le libellé, le budget, le montant,
+> le mode, le lieu.**
 >
-> **L'écran.** La liste : Date d'opération, Date comptable, Libellé,
-> Budget, Débit, Crédit, Solde ; le compte, la plage de dates
-> d'opération et la recherche en zone de recherche ; la sélection
+> | Champ | Obligatoire | Aide | Description |
+> |---|---|---|---|
+> | Numéro | — | — | Le compteur automatique, masqué aux surfaces. |
+> | Date d'opération | oui | — | — |
+> | Date comptable | non | Renseignée au pointage. | — |
+> | Libellé | non | — | — |
+> | Budget | non | — | Le référentiel dynamique — la création directe au picker. *Mode d'usage* : tapez un libellé absent pour le créer. |
+> | Montant | oui | Signé — négatif pour une dépense. | La devise vit dans la valeur ; le franc porte l'historique antérieur au passage à l'euro. |
+> | Mode | non | — | *Valeurs* : CB, Prélèvement, Virement, Autre. |
+> | N° de chèque | non | Pour le mode autre. | — |
+> | Écriture liée | — | — | L'écriture miroir du virement, sur l'autre compte. |
+> | Lieu | non | — | La ville — le référentiel dynamique, la création directe au picker. *Mode d'usage* : tapez un libellé absent pour le créer. |
+> | Imprimée le | — | — | Le marqueur du relevé, posé par la génération du PDF. |
+> | *Montant en euros* | calculé | — | Un montant à devise unique. |
+> | *Montant en francs* | calculé | — | — |
+> | *Solde* | calculé | — | Le solde continu — la somme des écritures du compte jusqu'à cette date. |
+> | *Débit* | calculé | — | Un calculé d'affichage — le montant signé en deux colonnes, avec le crédit. |
+> | *Crédit* | calculé | — | — |
+>
+> **L'écran.** La liste par date d'opération, tous comptes confondus :
+> Date d'opération, Date comptable, Libellé, Budget, Débit, Crédit,
+> Solde ; en zone de recherche, le compte — à choisir, obligatoirement
+> —, la plage de dates d'opération, la recherche ; la sélection
 > multiple ; la copie d'une écriture. Le formulaire — Création d'une
-> écriture, Écriture « … » du …, Modification, Suppression : Date
-> d'opération, obligatoire ; Date comptable *(renseignée au
-> pointage)* ; Libellé ; Budget *(le référentiel — un budget absent se
-> crée depuis le champ)* ; Montant, obligatoire *(signé — négatif pour
-> une dépense)* ; Mode : CB, Prélèvement, Virement, Autre ; N° de
-> chèque *(pour le mode autre)*, visible pour le mode Autre ; Lieu *(la
-> ville — un lieu absent se crée depuis le champ)*. Ne se saisissent
-> pas : Numéro, Écriture liée *(l'écriture miroir du virement, sur
-> l'autre compte)*, Imprimée le *(le marqueur du relevé)*, Montant en
-> euros, Montant en francs, Solde *(le solde continu — la somme des
-> écritures du compte jusqu'à cette date)*, Débit, Crédit.
+> écriture, Écriture « … » du …, Modification, Suppression — : les
+> champs saisissables dans l'ordre de la table, le N° de chèque visible
+> pour le mode Autre.
 >
 > **Les opérations.**
 >
 > | L'opération | Ce qu'elle fait | Ce qui la déclenche |
 > |---|---|---|
-> | **Dupliquer** | duplique l'écriture courante entre deux dates, au pas choisi — jour, semaine, mois ou trimestre ; les copies naissent sans date comptable | un bouton sur une écriture ; le formulaire « Dupliquer l'écriture "…" » : le pas, du, au, obligatoires ; la relecture dit le nombre de créations |
-> | **Propager** | modifie le libellé et le montant de toutes les écritures similaires — le même libellé et le même montant, à une date d'opération postérieure ou égale | un bouton sur une écriture ; le formulaire « Propager depuis "…" » : le nouveau libellé, le nouveau montant, obligatoires ; la liste des similaires, la sélection, la modification en masse validée avant le scellé |
-> | **Virer** | crée les deux écritures d'un virement entre comptes — la sortie sur le compte courant, l'entrée sur le compte cible, liées l'une à l'autre | un bouton sur une écriture ; le formulaire « Virement » : le compte cible, le montant, obligatoires ; avec relecture |
-> | creer_releve | pose la date d'impression sur chaque écriture du relevé généré — le relevé devient un acte tracé | automatique, à toute génération d'un relevé (l'export PDF de 3.3) ; sans relecture |
+> | **Dupliquer** | Duplique l'écriture courante entre deux dates, au pas choisi — jour, semaine, mois ou trimestre ; les copies naissent dans la transaction, sans date comptable. | un bouton sur une écriture ; le formulaire « Dupliquer l'écriture "…" » — le pas, du, au, obligatoires ; la relecture affiche le nombre de créations |
+> | **Propager** | Modifie le libellé et le montant de toutes les écritures similaires — le même libellé et le même montant qu'avant la modification, à une date d'opération postérieure ou égale : la liste des similaires, la sélection, la modification en masse. | un bouton sur une écriture ; le formulaire « Propager depuis "…" » — le nouveau libellé, le nouveau montant, obligatoires ; validée avant le scellé |
+> | **Virer** | Crée les deux écritures d'un virement entre comptes — la sortie sur le compte courant, l'entrée sur le compte cible —, liées des deux côtés, dans la même transaction. | un bouton sur une écriture ; le formulaire « Virement » — le compte cible, le montant, obligatoires ; avec relecture |
+> | creer_releve | À toute génération d'un relevé, pose la date d'impression sur chaque écriture générée — le relevé devient un acte tracé, pas un simple export. | automatique, à l'export PDF du relevé (3.3) ; sans relecture |
 >
 > ### 3.3 Les écritures — par date comptable
 >
 > Les écritures pointées seules, par date comptable puis par montant,
-> de la dépense à la ressource. **L'écran** : les mêmes colonnes ; le
-> compte, la plage de dates comptables et la recherche ; la sélection
-> multiple ; la copie ; **l'export du relevé en PDF**, qui déclenche
-> creer_releve (3.2).
+> de la dépense à la ressource — les champs de 3.2. **L'écran** : les
+> mêmes colonnes ; le compte, la plage de dates comptables et la
+> recherche ; la sélection multiple ; la copie ; **l'export du relevé
+> en PDF**, qui déclenche creer_releve.
 >
 > ### 3.4 Les écritures — sans date comptable
 >
 > Le pointage : les écritures sans date comptable, par date
-> d'opération. **L'écran** : Date d'opération, Date comptable, Libellé
-> et Budget **éditables en ligne**, puis Débit, Crédit, Solde ; le
-> compte et la recherche ; la sélection multiple. Poser la date
-> comptable fait quitter la liste à l'écriture.
+> d'opération — les champs de 3.2. **L'écran** : Date d'opération, Date
+> comptable, Libellé et Budget **éditables en ligne** *(mode d'usage :
+> la cellule se modifie dans la liste, sans ouvrir le formulaire)*,
+> puis Débit, Crédit, Solde ; le compte et la recherche ; la sélection
+> multiple. Poser la date comptable fait quitter la liste à l'écriture.
 >
 > ### 3.5 Les budgets
 >
-> Un budget — le poste de dépense ou de ressource d'une écriture ; son
-> identité est son libellé. **L'écran** : la liste et le formulaire par
-> défaut — Libellé. Se crée aussi directement depuis le champ Budget
-> d'une écriture.
+> **Un budget — le poste de dépense ou de ressource d'une écriture.**
+> Son identité est son libellé.
+>
+> | Champ | Obligatoire | Aide | Description |
+> |---|---|---|---|
+> | Libellé | oui (identité) | — | — |
+>
+> **L'écran** : la liste et le formulaire par défaut.
 >
 > ### 3.6 Les lieux
 >
-> Un lieu — la ville d'une écriture ; son identité est son libellé.
-> **L'écran** : la liste et le formulaire par défaut — Libellé. Se crée
-> aussi directement depuis le champ Lieu d'une écriture.
+> **Un lieu — la ville d'une écriture.** Son identité est son libellé.
+>
+> | Champ | Obligatoire | Aide | Description |
+> |---|---|---|---|
+> | Libellé | oui (identité) | — | — |
+>
+> **L'écran** : la liste et le formulaire par défaut.
 
-**Ce que la déclinaison relève** (les frottements — *quatre arbitrés
-par D1229, deux à réexpliquer*) :
+**Ce que la déclinaison relève** — les six frottements du 11/10 sont
+soldés (D1229–D1230) ; la réécriture en ajoute un :
 
-1. **Une entité à plusieurs listes déclarées** — « une liste décrite
-   par une entrée du menu a son entrée. Les autres sont présentes dans
-   des écrans et la documentation de ces listes apparaît là où elles
-   s'affichent » : les sections 3.3 et 3.4 ne tiennent que si le menu
-   de la banque déclare ces deux listes ; le menu n'était pas déclaré
-   et aucun écran ne les embarquait — **« oui pour le menu » (D1230)** :
-   `banque/menu.yml` écrit, le premier du dépôt — l'accueil, les
-   comptes, les écritures en sous-menu avec une entrée par liste, les
-   budgets, les lieux ; la forme du sous-menu (`<nom>: { title:, items:
-   }`) est mienne, à confirmer.
-2. **Le graphique d'une entité** — « est sur un écran. L'explication
-   est attachée à l'écran » : `evolution_budget` n'était placé sur
-   aucun écran — **« oui pour le graphique dans un écran » (D1230)** :
-   le tableau de bord `accueil` du module le porte, la section 3.0 le
-   décrit.
-3. **L'opération à formulaire d'appel** : la colonne « ce qui la
-   déclenche » porte le bouton, le titre du formulaire, ses champs et
-   leur obligation — les champs libres du formulaire (D775) n'ont ni
-   `hint:` ni `description:` ici ; la complétude les compte-t-elle
-   comme des champs ?
-4. **Le référentiel à création directe** (`budget`, `lieu`) — « les
-   composants graphiques disposent aussi de leur documentation et de
-   leur intégration dans les écrans… un composant graphique doit avoir
-   un mode d'usage intégrable dans la documentation de l'écran » : le
-   picker à création directe porte son mode d'usage (« tapez un libellé
-   absent pour le créer »), repris dans la section de l'écriture à côté
-   de la description du champ Budget ; la section du référentiel n'a
-   plus à le dire.
-5. **Les gabarits des messages** — « montrés via des exemples
-   (utilisation du placeholder) » : « L'écriture d'ouverture est datée
-   du 01/09/2015 ; le compte ouvre le 01/09/2015 » — les placeholders
-   des champs, ceux du possesseur pour `owner.` ; sans placeholder, la
-   valeur par défaut (D1211), sinon le libellé du champ — ma lecture.
-6. **Le compte obligatoire en tête de liste** (`select: mono, required:
-   true`) : la section le dit en une phrase (« le compte se choisit en
-   tête, obligatoirement ») — la forme en clair d'une facette de
-   recherche appartient au rang 2.
+7. **La description de l'entité et de ses champs avant l'écran**
+   (D1232) : la section décrit l'entité, puis chaque champ — le
+   libellé, l'obligation, l'aide, la description, les valeurs, le mode
+   d'usage du composant qui le rend (D1229) —, puis l'écran ; une liste
+   qui partage l'entité d'une autre (3.3, 3.4) renvoie à ses champs ;
+   les champs que les surfaces ne montrent pas (le numéro, l'écriture
+   liée, la date d'impression) y figurent avec leur description, sans
+   obligation — à confirmer.

@@ -551,23 +551,23 @@ par D1209*) :
 5. **La beta** : la version du véhicule vit en `beta/` — la planche
    porte le filigrane (D1145) tant qu'elle n'est pas promue.
 
-## La documentation générée — le chapitre du module (le rang 1 — D1194–D1196, D1218)
+## La documentation générée — le chapitre du module (le rang 1 — D1194–D1196, D1218, D1227–D1232)
 
 *(la déclinaison du chapitre 3 de §6 de documentation.md sur le
-module `transport` — écrite le 11/10/2026, en proposition ; rien de
-nouveau dans la configuration : tout vient de ce que les fichiers
-portent déjà ; les frottements relevés en fin de section)*
+module `transport` — écrite le 11/10/2026, réécrite le même jour sur
+D1227–D1232 : les sections des entrées de sous-menu, les messages par
+des exemples, **la description de l'entité et de ses champs avant
+l'écran** ; rien de nouveau dans la configuration ; en proposition)*
 
 **Ce qui structure le chapitre.** La documentation suit le menu
 (D1194). Le menu du module n'est pas déclaré : le défaut de D193 le
-donne — l'accueil du module (`transport[accueil]`, le premier tableau de
-bord déclaré), puis l'entité agrégat `vehicule` (sa liste par défaut,
-`vehicules`), avec en sous-menu ses quatre compositions — la
-consommation, l'entretien, la révision, l'échéance —, chacune par sa
-liste par défaut. Une section par entrée (D1194) ; les compositions en
-sous-sections de leur possesseur (D1195) ; les opérations dans la
-section de l'entité (D1196) ; les noms du modèle restent invariants,
-les libellés les complètent (D1218).
+donne — l'accueil (`transport[accueil]`), l'entité agrégat `vehicule`
+par sa liste `vehicules`, puis en sous-menu ses quatre compositions par
+leur liste par défaut. Une section par entrée (D1194) ; chaque section
+décrit **l'entité, puis ses champs, puis l'écran** (D1232), le cycle de
+vie, les opérations, les règles ; les compositions en sous-sections de
+leur possesseur (D1195), et leur entrée de sous-menu en section — la
+liste de l'enfant, tous véhicules confondus (D1227).
 
 **Le chapitre, tel que Syncytium le produirait** :
 
@@ -578,56 +578,78 @@ les libellés les complètent (D1218).
 > *(la vue du module — le diagramme : `vehicule` et ses quatre
 > compositions `consommation`, `entretien`, `revision`, `echeance`, en
 > liens ; `immatriculation` souligné ; les calculés en italique —
-> `unite`, `km_courant`, `nb_jours`… ; aucun champ sécurisé, aucune
-> référence vers un autre module — D1213)*
+> D1213)*
 >
 > ### 3.1 Le garage du foyer
 >
 > L'écran d'accueil du module. En tête, **les révisions échues** de
-> tous les véhicules, une annonce par règle à échéance : « Révision
-> "Vidange" du véhicule Partner — prévue le 12/11/2026 », ou « prévue à
-> 275 000 km ». Dessous, **les véhicules du foyer** en cartes, du plus
-> ancien au plus récent : la photo, le nom, l'immatriculation, le type,
-> le statut, le kilométrage courant, le prix de revient au kilomètre.
-> La carte ouvre le véhicule.
+> tous les véhicules, une annonce par règle à échéance (3.5). Dessous,
+> **les véhicules du foyer** en cartes (3.2). La carte ouvre le
+> véhicule.
 >
 > ### 3.2 Les véhicules
 >
-> Un véhicule du foyer — l'identification, le financement, la vie et
-> le bilan. Un véhicule se présente par son nom (« Partner Outdoor »)
-> ; son identité est son immatriculation.
+> **Un véhicule du foyer — l'identification, le financement, la vie et
+> le bilan.** Un véhicule se présente par son nom ; son identité est
+> son immatriculation.
 >
-> **L'écran.** La liste en cartes (3.1). Le formulaire, à six onglets :
+> **Les champs.**
 >
-> - **Véhicule** — Nom *(la marque et le modèle — un classeur, un
->   véhicule, un nom)* ; Immatriculation, obligatoire *(la plaque du
->   véhicule, au format du moment)* ; Photo *(le visage du véhicule — la
->   vignette des listes et de la carte)* ; Type de véhicule,
->   obligatoire, Thermique ou Électrique *(il porte l'unité de la
->   consommation — les litres du thermique, les kWh de l'électrique)* ;
->   Devise, obligatoire, € ou F *(visuelle seulement)* ; Statut ; Mode
->   d'achat ; Lieu d'achat ; Date d'achat, obligatoire ; Date de vente
->   *(la vente ou la restitution — elle bascule le statut en Clôture et
->   fige le véhicule)* ; Lieu de vente *(nul tant que le véhicule vit)* ;
->   Kilométrage initial, obligatoire *(le compteur au retrait du
->   véhicule)*.
-> - **Financement** — Financement : Comptant, Crédit ou LOA ; selon le
->   choix : Capital emprunté, Taux annuel, Assurance mensuelle (le
->   crédit), Mensualité, Kilométrage annuel (la LOA), Durée du contrat,
->   Premier mois, Jour d'échéance (les deux) ; le bouton **Ajuster
->   l'échéancier** ; l'échéancier (3.2.4).
-> - **Consommation** (3.2.1), **Entretien** (3.2.2), **Révision**
->   (3.2.3) — les listes embarquées.
-> - **Bilan** — tout calculé : les compteurs (Nombre de jours,
->   Kilométrage courant, Kilomètres parcourus, Quantité totale, Durée
->   moyenne d'un plein), les totaux (Total achat et entretien, Total
->   énergie, Coût du financement, Coût total), les prix de revient
->   (Consommation moyenne, Prix de l'énergie au km, Prix de revient au
->   km, Prix de revient journalier) ; la courbe de l'évolution de la
->   consommation.
+> | Champ | Obligatoire | Aide | Description |
+> |---|---|---|---|
+> | Nom | non | La marque et le modèle — un classeur, un véhicule, un nom. | Le réel ne sépare pas la marque du modèle ; le nom les porte ensemble. |
+> | Immatriculation | oui (identité) | La plaque du véhicule, au format du moment. | L'identité du véhicule ; les formats anciens interdisent un masque unique. |
+> | Photo | non | Le visage du véhicule — la vignette des listes et de la carte. | Le visage porté par l'image ; la vignette est automatique. |
+> | Type de véhicule | oui | Il porte l'unité de la consommation — les litres du thermique, les kWh de l'électrique. | L'unité vit dans le type, pas dans la valeur. *Valeurs* : Thermique, Électrique. |
+> | Devise | oui | Visuelle seulement — elle habille l'affichage des montants, la valeur reste nue. | *Valeurs* : € ; F — les classeurs antérieurs au passage à l'euro. |
+> | Statut | oui | La vie du véhicule — Création, Actif, Clôture ; la vente clôt sans retour. | La naissance à la valeur par défaut, l'activation libre, la clôture au cliquet dès que la vente est posée ; l'archive ne se réécrit pas. *Valeurs* : Création ; Actif — le journal s'écrit ; Clôture — l'archive, la vie ne se réécrit pas. |
+> | Mode d'achat | non | — | — |
+> | Lieu d'achat | non | — | — |
+> | Date d'achat | oui | — | — |
+> | Date de vente | non | La vente ou la restitution — elle bascule le statut en Clôture et fige le véhicule. | Après la clôture, elle ne se modifie plus : l'état ne porte que la lecture, sans retour, et aucune opération n'y touche. |
+> | Lieu de vente | non | Nul tant que le véhicule vit — le site de vente, la reprise du concessionnaire… | — |
+> | Kilométrage initial | oui | Le compteur au retrait du véhicule — la première ligne de consommation en part. | — |
+> | Financement | non | — | *Valeurs* : Comptant, Crédit, LOA. |
+> | Capital emprunté | non | Le crédit seulement — 24 500. | — |
+> | Taux annuel | non | Le taux nominal du crédit — 6,187. | — |
+> | Assurance mensuelle | non | Le crédit seulement — 34,40 par mois, en sus de la mensualité. | — |
+> | Mensualité | non | La mensualité de la LOA — celle du crédit se calcule à l'échéancier. | — |
+> | Durée du contrat | non | Le nombre d'échéances du contrat — 60 mensualités, 36 loyers. | L'intention contractuelle, que le générateur engendre ; le nombre d'échéances dit le réel compté. |
+> | Premier mois | non | Le premier mois du financement — 2016-02, 2023-10. | — |
+> | Jour d'échéance | non | Le jour du mois du prélèvement — le 10, le 5. | La coche Payé des échéances s'en déduit. |
+> | Kilométrage annuel | non | Le forfait de la LOA — 23 000 km/an, il nourrit le « km prévu ». | — |
+> | Consommations | — | — | les lignes de 3.2.1 |
+> | Entretiens | — | — | les lignes de 3.2.2 |
+> | Révisions | — | L'échéancier des règles. | les règles de 3.2.3 |
+> | Échéances | — | — | Engendrées à la validation du financement par creer_echeancier ; closes à la vente par clore_echeancier, qui supprime les non payées. Les lignes de 3.2.4. |
+> | *Nombre d'échéances* | calculé | 60 mensualités du crédit, 34 loyers de la LOA — le compte des échéances. | — |
+> | *Unité* | calculé | L'unité de la quantité — litres ou kWh, dérivée du type de véhicule. | — |
+> | *Kilométrage courant* | calculé | Le plus grand compteur vu — consommations et entretiens confondus. | — |
+> | *Nombre de jours* | calculé | La durée de vie suivie — la somme des intervalles entre ravitaillements. | — |
+> | *Kilomètres parcourus* | calculé | — | — |
+> | *Quantité totale* | calculé | Les litres ou kWh consommés sur la vie du véhicule. | — |
+> | *Consommation moyenne* | calculé | Aux 100 km — litres ou kWh selon le type. | — |
+> | *Durée moyenne d'un plein* | calculé | En jours — l'intervalle moyen entre deux ravitaillements. | — |
+> | *Total achat et entretien* | calculé | L'achat et la vente sont des lignes du journal. | — |
+> | *Total énergie* | calculé | — | — |
+> | *Coût du financement* | calculé | Les intérêts payés du crédit, ou les loyers payés de la LOA. | — |
+> | *Coût total* | calculé | — | — |
+> | *Prix de l'énergie au km* | calculé | — | — |
+> | *Prix de revient au km* | calculé | — | — |
+> | *Prix de revient journalier* | calculé | — | — |
 >
-> **Le cycle de vie.** Le statut porte la vie du véhicule — Création,
-> Actif, Clôture ; la vente clôt sans retour.
+> **L'écran.** La liste en cartes (3.1) : la photo, le nom,
+> l'immatriculation, le type, le statut, le kilométrage courant, le prix
+> de revient au kilomètre. Le formulaire, à six onglets — **Véhicule**
+> (de Nom à Kilométrage initial), **Financement** (de Financement à
+> Kilométrage annuel, chaque champ visible selon le mode choisi ; le
+> bouton Ajuster l'échéancier ; l'échéancier déployé, 3.2.4),
+> **Consommation** (3.2.1), **Entretien** (3.2.2), **Révision**
+> (3.2.3), **Bilan** (les compteurs, les totaux, les prix de revient ;
+> la courbe de l'évolution de la consommation). Le statut se change
+> par sa liste, qui ne propose que les états atteignables.
+>
+> **Le cycle de vie.**
 >
 > | L'état | Ce qui est permis | Le passage suivant |
 > |---|---|---|
@@ -636,8 +658,7 @@ les libellés les complètent (D1218).
 > | **Clôture** | consulter | — l'archive, la vie ne se réécrit pas |
 >
 > Les consommations, les entretiens, les révisions et les échéances
-> suivent le véhicule : en Clôture, rien ne se modifie plus. La date de
-> vente, une fois la clôture faite, ne se modifie plus.
+> suivent le véhicule : en Clôture, rien ne se modifie plus.
 >
 > *(le diagramme d'états — D422)*
 >
@@ -645,99 +666,133 @@ les libellés les complètent (D1218).
 >
 > | L'opération | Ce qu'elle fait | Ce qui la déclenche |
 > |---|---|---|
-> | creer_echeancier | engendre les échéances du financement — la mensualité constante, l'intérêt sur le reste dû, l'amortissement par différence | automatique, à la validation d'un financement à crédit ou en LOA ; sans relecture |
-> | **Ajuster l'échéancier** | reprend l'échéancier sur le paramétrage modifié ; la relecture dit les échéances conservées, supprimées, recréées | un bouton, dans l'onglet Financement ; grisé hors crédit ou LOA, et après la clôture ; avec relecture |
-> | clore_echeancier | supprime les échéances non payées | automatique, à la clôture ; une fois |
-> | finaliser_vehicule | complète le véhicule repris des classeurs | automatique, à l'issue de la reprise |
+> | creer_echeancier | À la validation d'un véhicule financé (crédit ou LOA), engendre les échéances du contrat, de 1 à la durée du contrat : la date au jour d'échéance de chaque mois depuis le premier mois, la mensualité — celle déclarée pour la LOA, l'annuité constante du crédit —, et pour le crédit l'intérêt, l'amortissement et l'assurance ligne à ligne. Engendre l'échéancier une fois. | automatique, à la validation d'un financement à crédit ou en LOA ; sans relecture |
+> | **Ajuster l'échéancier** | Après une modification du financement — le taux renégocié, la durée allongée, la mensualité revue —, recalcule l'échéancier depuis le paramétrage à plat : les échéances non payées sont remplacées, les payées restent. La relecture donne le bilan : conservées, supprimées, recréées. | un bouton, dans l'onglet Financement ; grisé hors crédit ou LOA, et après la clôture ; avec relecture |
+> | clore_echeancier | À la vente du véhicule, supprime toutes les échéances non payées — la coche Payé étant calculée, la purge évite qu'un véhicule vendu voie ses échéances futures se « payer » seules. | automatique, à la clôture ; une fois |
+> | finaliser_vehicule | À l'issue de la migration, complète ce que la reprise ne porte pas : la durée du contrat, gagnée du compte des échéances importées. Idempotent : ne complète que l'absent. | automatique, à l'issue de la reprise |
 >
-> **Les règles.** La vente ne précède pas l'achat : « La vente du
-> {date_vente} précède l'achat du {date_achat}. »
+> **Les règles.** La vente ne précède pas l'achat — « La vente du
+> *[Date de vente]* précède l'achat du *[Date d'achat]*. » *(l'exemple
+> résolu par les libellés, faute de placeholder ou de défaut — D1229)*
 >
 > #### 3.2.1 La consommation
 >
-> Une ligne du suivi de consommation — le plein ou la charge ; une ligne
-> par ravitaillement, numérotée de 1 à n au sein du véhicule.
+> **Une ligne du suivi de consommation — le plein ou la charge.** Une
+> ligne par ravitaillement, numérotée au sein du véhicule.
 >
-> **L'écran.** La liste, dans l'onglet Consommation, éditable en ligne —
-> Nb jours, Date, Km prévu, Total km, Km, Quantité, Prix unitaire, Prix
-> total, Conso aux 100 ; se saisissent le numéro, la date, le
-> kilométrage total, la quantité et le prix unitaire ; le reste se
-> calcule. Au Bilan, la courbe de l'évolution de la consommation — la
-> moyenne du mois.
+> | Champ | Obligatoire | Aide | Description |
+> |---|---|---|---|
+> | N° | oui (identité) | Le rang dans la vie du véhicule — la première ligne part du kilométrage initial. | — |
+> | Date | oui | — | — |
+> | Kilométrage compteur | oui | Le compteur du tableau de bord au moment du ravitaillement. | — |
+> | Quantité | oui | Les litres ou les kWh du ravitaillement, selon le véhicule. | La valeur seule ; l'unité est au type du véhicule. |
+> | Prix unitaire | non | Le prix du litre ou du kWh. | La devise est visuelle, celle du véhicule. |
+> | *Prix total* | calculé | — | — |
+> | *Nb de jours* | calculé | Depuis le ravitaillement précédent. | La première ligne reste nulle, comme au classeur. |
+> | *Km parcourus* | calculé | Depuis le ravitaillement précédent. | La première ligne part du compteur au retrait. |
+> | *Aux 100 km* | calculé | La consommation de l'intervalle — litres ou kWh aux 100 km. | — |
+> | *Km prévu* | calculé | Le prorata du forfait annuel de la LOA depuis l'achat. | Les mois écoulés depuis l'achat, bornés à la vente, fois le douzième du forfait. Sans forfait, la colonne reste nulle. |
 >
-> **Les règles.** Le ravitaillement ne précède pas l'achat ; le
-> compteur n'est pas sous le kilométrage initial.
+> **L'écran.** La liste, dans l'onglet Consommation du véhicule,
+> éditable en ligne — les cinq saisies se corrigent dans la ligne, les
+> calculés se refont. Au Bilan, la courbe de l'évolution de la
+> consommation — la moyenne du mois.
+>
+> **Les règles.** Le ravitaillement ne précède pas l'achat — « Le
+> ravitaillement du *[Date]* précède l'achat du *[Date d'achat]*. » ; le
+> compteur n'est pas sous le kilométrage initial — « Le compteur
+> *[Kilométrage compteur]* est sous le kilométrage initial
+> *[Kilométrage initial]*. »
 >
 > #### 3.2.2 Entretiens et interventions
 >
-> Une ligne du journal de vie — un frais, un événement, l'achat, la
-> vente. **L'écran** : la liste, dans l'onglet Entretien, éditable en
-> ligne — Date, Désignation, Montant, Km, Révision. **La règle** :
-> l'entretien ne précède pas l'achat.
+> **Une ligne du journal de vie — un frais, un événement, l'achat, la
+> vente.**
+>
+> | Champ | Obligatoire | Aide | Description |
+> |---|---|---|---|
+> | Date | oui | — | — |
+> | Désignation | oui | Le fait marquant — un frais, un événement, l'achat, la vente. | Le multi-ligne se déduit de la taille. *Exemple* : Changement du pneu avant droit. |
+> | Montant | non | Optionnel — l'événement sans montant est licite, la vente en recette négative. | La devise est visuelle, celle du véhicule. |
+> | Kilométrage | non | — | — |
+> | Révision ? | non | La ligne est une révision — sinon, une intervention hors révision. | Les révisions faites restent des lignes du journal. |
+>
+> **L'écran.** La liste, dans l'onglet Entretien, éditable en ligne.
+> **La règle.** L'entretien ne précède pas l'achat — « L'entretien du
+> *[Date]* précède l'achat du *[Date d'achat]*. »
 >
 > #### 3.2.3 Les révisions
 >
-> Une règle de révision — le pas en kilomètres ou en délai, la
-> notification à l'échéance. **L'écran** : la liste, dans l'onglet
-> Révision, éditable en ligne — Désignation, Tous les (km), Tous les
-> (délai), puis, calculés, Dernière (km), Dernière (date), Prochaine
-> (km), Prochaine (date), Échue ? *(la règle est à échéance — la
-> notification part, la surface met en avant)*. **L'opération** :
-> notifier — automatique, dès que la règle est échue ; notifie tout le
-> monde dans la zone des notifications de l'application, et par mail
-> ceux dont le profil le demande. **La règle** : une règle sans pas ne dit rien —
-> « La règle "{designation}" n'a ni pas en kilomètres ni pas en délai. »
+> **Une règle de révision — le pas en kilomètres ou en délai, la
+> notification à l'échéance.** Une règle se présente par sa
+> désignation.
+>
+> | Champ | Obligatoire | Aide | Description |
+> |---|---|---|---|
+> | Désignation | oui | — | *Exemple* : Révision constructeur. |
+> | Tous les (km) | non | Le pas en kilomètres — « Révisions tous les 25 000 km ». | — |
+> | Tous les (délai) | non | Le pas en délai — l'autre voie de l'échéancier ; 1y, 6m. | — |
+> | *Dernière (km)* | calculé | — | Les révisions faites sont les lignes du journal marquées révision. |
+> | *Dernière (date)* | calculé | — | — |
+> | *Prochaine (km)* | calculé | — | Depuis la dernière révision faite, sinon depuis l'origine du véhicule. |
+> | *Prochaine (date)* | calculé | — | — |
+> | *Échue ?* | calculé | La règle est à échéance — la notification part, la surface met en avant. | Sur le kilométrage ou sur le délai, tant que le véhicule est actif. |
+>
+> **L'écran.** La liste, dans l'onglet Révision, éditable en ligne sur
+> les trois saisies. **L'opération** : notifier — automatique, dès que
+> la règle est échue ; notifie tout le monde dans la zone des
+> notifications de l'application, et par mail ceux dont le profil le
+> demande. **La règle.** Une règle sans pas ne dit rien — « La règle
+> "*[Désignation]*" n'a ni pas en kilomètres ni pas en délai. »
 >
 > #### 3.2.4 L'échéancier
 >
-> Une échéance du financement — la ligne du tableau de crédit ou de
-> LOA. **L'écran** : la liste, dans l'onglet Financement, éditable en
-> ligne — N°, Date, Reste dû, Intérêt, Amortissement, Assurance,
-> Mensualité, Payé ; le reste dû et la coche Payé se calculent — payée
-> dès que la date du jour dépasse la sienne. Les lignes naissent de la
-> création de l'échéancier et se remettent au paramétrage par
-> l'ajustement (3.2).
+> **Une échéance du financement — la ligne du tableau de crédit ou de
+> LOA.**
+>
+> | Champ | Obligatoire | Aide | Description |
+> |---|---|---|---|
+> | N° | oui | Le rang de l'échéance — de 1 à la durée du financement. | — |
+> | Date | oui | Au jour d'échéance du mois, depuis le premier mois du financement. | — |
+> | Intérêt | non | Le crédit seulement. | — |
+> | Amortissement | non | Le crédit seulement. | — |
+> | Assurance | non | Le crédit seulement — 34,40. | — |
+> | Mensualité | oui | 473,86 pour le crédit, 434,48 pour la LOA. | — |
+> | *Payé* | calculé | Payée dès que la date du jour dépasse l'échéance. | La coche automatique. |
+> | *Reste dû* | calculé | En début de période — le capital moins l'amorti (crédit), les loyers restants (LOA). | — |
+>
+> **L'écran.** La liste, dans l'onglet Financement, éditable en ligne
+> sur les six données ; les lignes naissent de la création de
+> l'échéancier et se remettent au paramétrage par l'ajustement (3.2).
+>
+> ### 3.3 Les consommations
+>
+> L'entrée de sous-menu : la liste de toutes les consommations, tous
+> véhicules confondus, le véhicule en colonne — les champs de 3.2.1.
+>
+> ### 3.4 Les entretiens
+>
+> Tous les entretiens et interventions, tous véhicules confondus, le
+> véhicule en colonne — les champs de 3.2.2.
+>
+> ### 3.5 Les révisions
+>
+> Toutes les règles de révision, tous véhicules confondus, le véhicule
+> en colonne — les champs de 3.2.3 ; la liste des révisions échues est
+> celle de l'accueil (3.1).
+>
+> ### 3.6 Les échéances
+>
+> Toutes les échéances, tous véhicules confondus, le véhicule en
+> colonne — les champs de 3.2.4.
 
-**Ce que la déclinaison relève** (les frottements — *cinq arbitrés
-par D1227, le sixième en attente*) :
+**Ce que la déclinaison relève** — les six frottements du 11/10 sont
+soldés (D1227–D1228) ; la réécriture en ajoute un :
 
-1. **Le sous-menu d'une composition** (D193 : « sous-menus = entités
-   enfants ») — « la liste de l'enfant tous véhicules confondus » : son
-   entrée fait une section (D1194) qui décrit la liste par défaut de
-   l'enfant, tous possesseurs confondus, le véhicule en colonne — 3.3
-   Les consommations, 3.4 Les entretiens, 3.5 Les révisions, 3.6 Les
-   échéances, à ajouter au chapitre ci-dessus ; la liste embarquée dans
-   l'onglet reste décrite dans la section du véhicule (3.2.1–3.2.4).
-2. **L'accueil du module** est une section comme une autre — « oui » :
-   un écran (D1194), le premier du chapitre, qui décrit par renvoi ce
-   qu'il assemble.
-3. **Les permis** — « les permis apparaissent avec le libellé du groupe
-   "allow" » : la table du cycle de vie porte, par état, les verbes
-   permis et le libellé des groupes que l'`allow` cite (D886) ; au
-   mono-poste, aucun groupe cité, la colonne reste vide.
-4. **Les opérations** — « pour le véhicule, les opérations ont bien
-   des descriptions » : oui, **au hook** — chaque opération du
-   véhicule a son dossier `hooks/operations/<nom>/`, dont le fichier
-   porte `description: ~{documentation.md}` (D645/D1122) ; **ma lecture
-   « aucune description » était fausse**, la fonctionnelle reprend la
-   documentation du hook ; **une opération qui en enchaîne plusieurs se
-   décrit par la liste de ses étapes, chacune avec sa description** ;
-   les opérations que l'utilisateur ne déclenche pas figurent dans la
-   table parce qu'elles transforment ce qu'il voit, nommées par leur
-   nom sans `label:` (D1181/D1209). *Relevé en passant* : ces
-   `documentation.md` citent des décisions (D831, D353…), ce que D1085
-   interdit à une configuration — à nettoyer.
-5. **Les messages des règles** — « bien montrés par leurs gabarits »
-   (`{date_vente}`, D1106).
-6. **La notification** de la révision (l'opération `notifier`, l'effet
-   `notify`) ne déclare pas à qui elle s'adresse — « si aucun
-   destinataire, la notification remonte à tout le monde dans la zone
-   des notifications de l'application ; les notifications remontent
-   par mail à qui le veut en passant par la configuration de son
-   profil » (D1228) : la section 3.2.3 dit « notifie tout le monde dans
-   l'application », et le socle (chapitre 2) décrit le réglage du
-   profil pour le mail.
-
-*Les six frottements sont soldés (D1227–D1228) ; les `documentation.md`
-des hooks du véhicule et de la banque ont été nettoyés de leurs
-références de décisions (D1085).*
+7. **La description de l'entité et de ses champs avant l'écran**
+   (D1232) : la première version décrivait les champs par l'écran, ses
+   onglets et ses aides — sans les descriptions ; la section décrit
+   maintenant l'entité, puis chaque champ (le libellé, l'obligation,
+   l'aide, la description, les valeurs, l'exemple du placeholder), puis
+   l'écran qui les dispose ; la table des champs est la même que celle
+   du dictionnaire, les colonnes techniques en moins (D1215).

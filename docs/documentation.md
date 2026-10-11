@@ -1132,7 +1132,7 @@ lecture qu'il sert (D1138) :
 | 0. La couverture | en édition seulement : la page de garde, le cartouche, le filigrane d'une beta (D1142–D1145) ; dedans, la page d'accueil (`home:`, D1156) | calculé, écrit | — |
 | 1. La présentation | **la générale** — l'entreprise, l'application, le schéma directeur (`pages: presentation`) ; puis les modules et ce que chacun sert (`title:`, `description:`), **la vue d'ensemble du modèle** (§5), le concepteur et le contact (D1153), **les notes de version** en langage d'usager (D1112) et ce qui change (§9) | écrit, puis calculé | l'ensemble |
 | 2. Le socle | ce qui est commun à toute application Syncytium (le point ouvert 11, D645) : l'écran principal, la connexion et le profil, le changement de module, la recherche, les notifications, « mes droits », le cycle de vie d'une donnée (la désactivation D137, la réactivation D903), l'historique quand il est actif, l'export et l'import (§14), les documents produits, l'assistance (§25) — les textes génériques du catalogue (D1160), **bornés à ce que la version emploie** | calculé | l'ensemble |
-| 3. Un chapitre par module | dans l'ordre du menu : le titre, la description, **la vue du module** (§5) ; puis **une section par entrée de menu — un écran, un rapport ou une action** (D1194), dans l'ordre du menu : sa description — la matière du masque (§7) —, les champs qu'il montre avec leur libellé et leur aide, le cycle de vie de l'entité et de ses enfants avec les permis (D1195), les opérations — leurs transformations et leurs déclencheurs (D1196) ; l'entité hors du menu n'y est pas ; à l'instance, les usages et les données vivantes | calculé, vivant | le module, le détail |
+| 3. Un chapitre par module | dans l'ordre du menu : le titre, la description, **la vue du module** (§5) ; puis **une section par entrée de menu — un écran, un rapport ou une action** (D1194), dans l'ordre du menu : **l'entité et sa description, la table de ses champs** — libellé, obligation, aide, description, valeurs (D1232) —, **l'écran** qui les dispose — la matière du masque (§7) —, le cycle de vie de l'entité et de ses enfants avec les permis (D1195), les opérations — leurs transformations et leurs déclencheurs (D1196) —, les règles par des exemples (D1229) ; l'entité hors du menu n'y est pas ; à l'instance, les usages et les données vivantes | calculé, vivant | le module, le détail |
 | 4. Les scénarios d'utilisation | par persona (§22) : la part générée des wizards, la part écrite ; **les actions qui traversent les modules s'y retrouvent**, avec le wizard (D1185) ; **le parcours guidé y est fondu** — le tour des écrans du persona en est le squelette (D1187) ; **les modes opératoires aussi** — la planche est la forme condensée d'un scénario, une à trois planches synthétiques qui montrent un enchaînement d'écrans et d'actions (§24, D1188) | calculé, écrit | le module |
 | 5. La F.A.Q. | les questions répondues de l'assistance (§25) | vivant | le détail |
 | 6. Les annexes | **les glossaires** — les termes du métier, puis les types (D1180, D1183) ; **le dictionnaire des données** par libellés (§15, D1183) ; le gabarit d'import de chaque entité (§14) | écrit, calculé | le détail |
@@ -1722,6 +1722,16 @@ qui mène à quoi**.
   l'application**, et par mail à qui le veut, par la configuration de
   son profil (D1228) — la section le dit ainsi, le socle (§6, chapitre
   2) décrit le réglage du profil.
+- **L'ordre d'une section** (D1232 — « je ne vois pas la description
+  des entités et de ses champs ») : **l'entité** — sa description, son
+  visage, son identité ; **ses champs** — une table : le libellé,
+  l'obligation, l'aide, la description, les valeurs d'un énuméré,
+  l'exemple du placeholder, le mode d'usage du composant (D1229) ; les
+  calculés en italique ; **l'écran** — la liste, le formulaire et ses
+  onglets, qui disposent ces champs ; puis le cycle de vie, les
+  opérations, les règles ; une liste qui partage l'entité d'une autre
+  renvoie à ses champs ; la table est celle du dictionnaire (D1215)
+  sans ses colonnes techniques (ma lecture).
 - **Les précisions de la banque** (D1229) : **une liste n'a de section
   que par son entrée de menu** ; une liste ou un graphique placés dans
   un écran se documentent dans la section de cet écran ; **chaque

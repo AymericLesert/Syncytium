@@ -1611,6 +1611,21 @@ viennent de la configuration par langue (D1101), le reste de la table
 est le même dans toutes les langues ; les intitulés de colonnes sont
 des items du catalogue du moteur (D1160).
 
+**La zone d'analyse d'un champ, sur demande** (D1216 — « le
+dictionnaire de données est une entrée vers une analyse claire de
+l'information ») : sur la ligne d'un champ, une zone se déplie et
+montre **les différentes valeurs possibles, les statistiques
+d'utilisation, la volumétrie** — pour le décideur ou le contrôleur de
+gestion, « savoir si une valeur a un sens ou est utilisée sans avoir
+besoin de se connecter au modèle de données » ; pour le concepteur,
+« les items utilisés ou pas », « les impacts d'une évolution ». *Mes
+lectures* : à l'instance seulement (D1157 — vide au dépôt), dans la
+limite de ce que le lecteur voit (D1155/D334) ; les valeurs distinctes
+et leur compte, le taux de renseignement, les plages occupées (§8), le
+nombre de lignes, les usages (D1168), les emplois et l'impact (D1198) ;
+une édition peut l'inclure sur demande de l'émetteur, en instantané
+daté ; les mesures viennent de la télémétrie et du stockage (D38).
+
 **3. Qui le construit.** Syncytium, depuis **les informations que
 fournit chaque item** : l'entité, le champ, le type, le hook livrent
 leur ligne et leur figure par leur facette documentation (D1158) ;

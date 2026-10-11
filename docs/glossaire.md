@@ -163,8 +163,11 @@ les modules et leurs liens, l'ensemble des entités en diagramme de
 classes aux noms seuls (souligné = identifiant, italique = calculé,
 « * » = sécurisé ou rgpd, gras = référencé), chaque module en vue
 sélective ; construit par Syncytium depuis les propriétés d'explication
-de chaque item ; ouvert par les deux glossaires ; une annexe de la
-fonctionnelle. *(documentation.md §15, D1179–D1180, D1212–D1215)*
+de chaque item ; sur demande, une zone par champ montre les valeurs
+possibles, les statistiques d'utilisation et la volumétrie — l'entrée
+vers une analyse claire de l'information ; ouvert par les deux
+glossaires ; une annexe de la fonctionnelle. *(documentation.md §15,
+D1179–D1180, D1212–D1216)*
 
 **Documentation (la facette)** — Chaque composant porte sa
 documentation, comme il porte son affichage ou son stockage ; chaque

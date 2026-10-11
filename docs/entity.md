@@ -231,10 +231,14 @@ fonctionnelle — remplie, les autres à leur rang. La matrice entière
 dans [documentation.md](documentation.md) §13.)*
 
 **L'entité, dans la fonctionnelle** — une section par entrée de menu
-qui l'atteint (D1194) : son `title:` et sa `description:` ; **l'écran**
-— la liste et le formulaire, leurs champs par libellé et aide (D1191 :
-le `hint:` au masque, la `description:` au détail ; un champ sans l'un
-ni l'autre n'y est pas) ; **le cycle de vie** en table — par état, les
+qui l'atteint (D1194), dans cet ordre (D1232) : **l'entité** — son
+`title:`, sa `description:`, son visage, son identité ; **ses champs**,
+en table — le libellé, **le type en clair** (D1233), l'obligation,
+l'aide, la description, les valeurs d'un énuméré, l'exemple du
+placeholder, le mode d'usage du composant (D1229) ; les calculés en
+italique ; **l'écran** — la liste et le formulaire, qui disposent ces
+champs (au masque, le `hint:` et la `description:` — D1191 ; un champ
+sans l'un ni l'autre n'y est pas) ; **le cycle de vie** en table — par état, les
 verbes permis et le libellé des groupes que l'`allow` cite (D1195,
 D1227), le diagramme d'états (D422) ; **les opérations** en table — ce
 qu'elle fait (la description de son hook, D1227 ; une opération

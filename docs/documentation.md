@@ -314,7 +314,14 @@ documentations** (§13, D1159), dans les artefacts des composants.
   [types.md](types.md) (la forme en clair de chaque type).
 - **Dépendances** : aucune, sauf §11.
 
-#### Rang 1 — la fonctionnelle (documentation 1)
+#### Rang 1 — la fonctionnelle (documentation 1) — *clos le 11/10/2026, D1238*
+
+*(Les sept sections acquises — §6 D1189, §7 D1192, §14 D1211, §15
+D1217, §16 D1196, §20 D1221, §22 D1210 — ; §19 et §24 fondus dans §22
+(D1187–D1188) ; §5 et §9 réglés par D1218 ; les compléments absorbés
+(D1220) ; les déclinaisons validées (D1231, D1234) ; les neuf rubriques
+des artefacts validées (D1235) ; le menu déclaré (D1237). Soixante-neuf
+décisions, D1170–D1238.)*
 
 - **Périmètre** : la générale (l'entreprise, l'application, les
   modules, le schéma directeur), par module et par écran (les
@@ -356,7 +363,14 @@ documentations** (§13, D1159), dans les artefacts des composants.
   module (D1229–D1230), **les personas** (D1210) ;
   l'entrepôt n'est pas le lieu des personas (D1207 — il décrit une
   migration et l'alimentation d'un entrepôt).
-- **Livrables** : §6, §7, §14–§16, §19, §22, §24 validés ;
+- **Livrables — faits** : §6, §7, §14, §15, §16, §20, §22 acquis
+  (§19 et §24 dedans) ; la rubrique « La documentation » dans les neuf
+  artefacts (D1235) ; `usecases/01_tiny.md` réécrit sur le plan (D1231)
+  ; `usecases/03_vehicule.md` et `usecases/04_banque.md` — les personas
+  et la section du module (D1209–D1210, D1234) ; la configuration des
+  personas, le premier `menu.yml` et le tableau de bord de la banque
+  dans `examples/` (2bcc1da, D1230, D1237). *(Le plan d'origine disait
+  :)* §6, §7, §14–§16, §19, §22, §24 validés ;
   [entity.md](entity.md), [composants.md](composants.md) (le wizard
   comme scénario), [rights.md](rights.md) (les personas et les
   groupes) ; `usecases/01_tiny.md` amendé ; une déclinaison dans
@@ -2289,17 +2303,9 @@ modes opératoires comme chapitre (§24 → §22, D1188), le parcours guidé
 comme chapitre (§19 → §22, D1187).*
 
 1. *(clos le 11/10 — D1171, D1184, D1186 confirmés, D1197–D1199)* ;
-2. *(clos le 11/10 — les personas, §22 acquis en six points,
-   D1200–D1210, déclinés sur le véhicule et la banque ; le gabarit
-   d'import, §14 acquis, D1211)* ;
-3. le reste du rang 1 (§15 acquis, D1212–D1217 ; §5 et §9 réglés par
-   D1218 ; les compléments absorbés, D1220 ; les déclinaisons écrites —
-   le tiny réaligné, le véhicule et la banque avec leur section de
-   module, D1227–D1230 ; la rubrique « La documentation » dans les neuf
-   artefacts le 11/10 ; le tiny validé, D1231 ; les sections de module
-   validées, D1234 ; les neuf rubriques validées, D1235 — la colonne 1
-   de la matrice acquise ; la forme du sous-menu tranchée, D1236 —
-   le libellé au dictionnaire `label:` du module) : *rien en attente* ;
+2. *(clos le 11/10 — le rang 1 entier, D1238 : les sept sections, les
+   déclinaisons, les neuf rubriques, le menu)* ;
+3. *(clos le 11/10 — avec le rang 1, D1238)* ;
    les compléments (« mes droits », les notifications, les documents
    produits, la recherche) ; la colonne 1 de la matrice dans les
    artefacts ; les déclinaisons sur le véhicule, la banque, l'entrepôt ;

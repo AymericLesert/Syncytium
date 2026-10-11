@@ -1702,7 +1702,18 @@ qui mène à quoi**.
   `document`, la promotion) et **ses conditions de déclenchement** — le
   bouton, le `when:` de l'automatisme (le cliquet — D354/D428), la
   période et son heure (D609/D943), les notifications et leurs
-  destinataires (D108).
+  destinataires (D108) ; **ce qu'elle fait vient de la description de
+  son hook** (`description: ~{documentation.md}`, D645/D1122) ; **une
+  opération qui en enchaîne plusieurs se décrit par la liste de ses
+  étapes, chacune avec sa description** (D1227).
+- **Les précisions du véhicule** (D1227) : l'entrée de sous-menu d'une
+  composition (D193) fait sa section — la liste de l'enfant, tous
+  possesseurs confondus, le possesseur en colonne ; la liste embarquée
+  dans l'onglet reste à la section du possesseur ; l'accueil du module
+  est une section, la première ; la table du cycle de vie porte, par
+  état, les verbes permis et **le libellé des groupes que l'`allow`
+  cite** ; les messages des règles se montrent **par leurs gabarits**
+  (`{date_vente}`, D1106).
 
 **Jamais un chapitre à part pour
 ce qui traverse les modules** (D1185) : le lien se raconte dans le

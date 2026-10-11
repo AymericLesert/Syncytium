@@ -697,34 +697,38 @@ les libellés les complètent (D1218).
 > création de l'échéancier et se remettent au paramétrage par
 > l'ajustement (3.2).
 
-**Ce que la déclinaison relève** (les frottements, à arbitrer) :
+**Ce que la déclinaison relève** (les frottements — *cinq arbitrés
+par D1227, le sixième en attente*) :
 
 1. **Le sous-menu d'une composition** (D193 : « sous-menus = entités
-   enfants ») : son entrée ouvre la liste par défaut de l'enfant — tous
-   les véhicules confondus, ou bornée au véhicule ouvert ? La
-   déclinaison a choisi la sous-section du possesseur (D1195) et décrit
-   la liste embarquée dans l'onglet ; l'entrée de sous-menu n'y ajoute
-   rien. À confirmer.
-2. **L'accueil du module** est une section comme une autre — un écran
-   (D1194), le premier du chapitre ; il décrit les listes qu'il
-   assemble par un renvoi (3.1 → les révisions échues de 3.2.3, les
-   véhicules de 3.2).
-3. **Les permis sans groupe** : la table du cycle de vie dit les verbes
-   par état ; la colonne « qui » n'a pas lieu d'être au mono-poste —
-   elle apparaît dès qu'un `allow:` cite des groupes (D886).
-4. **Les opérations que l'utilisateur ne déclenche pas** —
-   `finaliser_vehicule` (`when: migrated`), `creer_echeancier`,
-   `clore_echeancier` — figurent dans la table parce qu'elles
-   transforment ce qu'il voit ; sans `label:`, elles s'écrivent par
-   leur nom (D1181/D1209) ; **« ce qu'elle fait » ne peut venir que
-   d'une `description:` de l'opération** — et aucune des quatre n'en
-   porte : la déclinaison l'a tirée des commentaires des fichiers, ce
-   que D1100 interdit à la documentation ; le véhicule devrait porter
-   une `description:` par opération, la complétude compte leur
-   absence.
-5. **Les messages des règles** s'écrivent avec leurs gabarits
-   (`{date_vente}`, D1106) : la documentation les montre tels quels,
-   ou résolus sur un exemple ? Tels quels ici.
-6. **La notification** de la révision n'a pas de destinataire déclaré
-   (D108) : la section dit « dans l'application » d'après le défaut —
-   à vérifier au rang de l'exploitation.
+   enfants ») — « la liste de l'enfant tous véhicules confondus » : son
+   entrée fait une section (D1194) qui décrit la liste par défaut de
+   l'enfant, tous possesseurs confondus, le véhicule en colonne — 3.3
+   Les consommations, 3.4 Les entretiens, 3.5 Les révisions, 3.6 Les
+   échéances, à ajouter au chapitre ci-dessus ; la liste embarquée dans
+   l'onglet reste décrite dans la section du véhicule (3.2.1–3.2.4).
+2. **L'accueil du module** est une section comme une autre — « oui » :
+   un écran (D1194), le premier du chapitre, qui décrit par renvoi ce
+   qu'il assemble.
+3. **Les permis** — « les permis apparaissent avec le libellé du groupe
+   "allow" » : la table du cycle de vie porte, par état, les verbes
+   permis et le libellé des groupes que l'`allow` cite (D886) ; au
+   mono-poste, aucun groupe cité, la colonne reste vide.
+4. **Les opérations** — « pour le véhicule, les opérations ont bien
+   des descriptions » : oui, **au hook** — chaque opération du
+   véhicule a son dossier `hooks/operations/<nom>/`, dont le fichier
+   porte `description: ~{documentation.md}` (D645/D1122) ; **ma lecture
+   « aucune description » était fausse**, la fonctionnelle reprend la
+   documentation du hook ; **une opération qui en enchaîne plusieurs se
+   décrit par la liste de ses étapes, chacune avec sa description** ;
+   les opérations que l'utilisateur ne déclenche pas figurent dans la
+   table parce qu'elles transforment ce qu'il voit, nommées par leur
+   nom sans `label:` (D1181/D1209). *Relevé en passant* : ces
+   `documentation.md` citent des décisions (D831, D353…), ce que D1085
+   interdit à une configuration — à nettoyer.
+5. **Les messages des règles** — « bien montrés par leurs gabarits »
+   (`{date_vente}`, D1106).
+6. **La notification** de la révision (l'opération `notifier`, l'effet
+   `notify`) ne déclare pas à qui elle s'adresse : la section dit « une
+   notification dans l'application » d'après le défaut de D108 — *à
+   réexpliquer à l'auteur*.

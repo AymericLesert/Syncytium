@@ -1542,7 +1542,7 @@ attendu** (D1211) :
   sa mise en page : « exporter, corriger au tableur, réimporter en
   remplacement ».
 
-## 15. Le dictionnaire des données *(en proposition)*
+## 15. Le dictionnaire des données *(le rang 1 — acquis, D1212–D1217)*
 
 **Deux glossaires ouvrent le dictionnaire** (D1180 — « nous distinguons
 le glossaire des types, et le glossaire des termes » ; **le glossaire
@@ -2202,9 +2202,7 @@ comme chapitre (§19 → §22, D1187).*
 2. *(clos le 11/10 — les personas, §22 acquis en six points,
    D1200–D1210, déclinés sur le véhicule et la banque ; le gabarit
    d'import, §14 acquis, D1211)* ;
-3. le reste du rang 1 : le dictionnaire en annexe (§15 — mes quatre
-   lectures présentées : un dictionnaire par version, ses entrées, deux
-   entrées pour le même, les renvois — en attente) ; §5 et §9 aux libellés ;
+3. le reste du rang 1 (§15 acquis, D1212–D1217) : §5 et §9 aux libellés ;
    les compléments (« mes droits », les notifications, les documents
    produits, la recherche) ; la colonne 1 de la matrice dans les
    artefacts ; les déclinaisons sur le véhicule, la banque, l'entrepôt ;

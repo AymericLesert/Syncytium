@@ -482,3 +482,147 @@ D1210*) :
    `when: generated`) : il n'a ni bouton ni `label:` — le scénario le
    désigne par son effet (« les écritures imprimées reçoivent leur date
    d'impression »), comme ceux du véhicule (D1209).
+
+## La documentation générée — le chapitre du module (le rang 1 — D1194–D1196, D1218, D1227–D1228)
+
+*(la déclinaison du chapitre 3 de §6 de documentation.md sur le
+module `banque`, après celle du véhicule — écrite le 11/10/2026, en
+proposition ; l'édition française, les deux autres se construisent de
+même depuis leurs propres textes ; ce que la banque montre en plus :
+les listes nommées, les opérations à formulaire d'appel, un référentiel
+à création directe ; les frottements en fin de section)*
+
+**Ce qui structure le chapitre.** Le menu n'est pas déclaré : le défaut
+de D193 le donne — le compte, l'entité agrégat, puis en sous-menu ses
+écritures (D1227 : la liste de l'enfant, tous comptes confondus), les
+budgets et les lieux, deux référentiels à part entière ; aucun tableau
+de bord. L'écriture déclare trois listes : la première, par date
+d'opération, est celle du sous-menu ; les deux autres font chacune leur
+entrée (D189 : « une entité peut y avoir plusieurs entrées » — ma
+lecture, à confirmer). Les opérations à formulaire d'appel se lisent
+dans la section de l'écriture ; leur description vient du md de leur
+hook (D1227).
+
+**Le chapitre, tel que Syncytium le produirait** :
+
+> ## 3. Le module banque
+>
+> La gestion des comptes bancaires du foyer.
+>
+> *(la vue du module — le diagramme : `compte` et sa composition
+> `ecriture` en lien ; `ecriture` vers `budget`, `lieu` et vers
+> elle-même par `liee` ; `numero` et `libelle` soulignés chez les
+> référentiels, `numero` chez le compte ; les calculés en italique —
+> `ouvert`, `montant_euro`, `montant_franc`, `solde`, `debit`,
+> `credit` ; `libelle` en gras chez `budget` et `lieu`, référencés par
+> l'écriture — D1213)*
+>
+> ### 3.1 Les comptes
+>
+> Un compte bancaire — son numéro, son libellé, ses dates d'ouverture
+> et de clôture, ses écritures. Un compte se présente par son libellé.
+>
+> **L'écran.** La liste par défaut des comptes ; le formulaire par
+> défaut — Numéro ; Libellé ; Ouverture, obligatoire ; Clôture *(vide
+> tant que le compte est ouvert)* ; Ouvert, calculé ; Écritures, en
+> onglet.
+>
+> **Les règles.** L'écriture d'ouverture d'un compte est datée du jour
+> de l'ouverture : « L'écriture d'ouverture est datée du
+> {date_operation} ; le compte ouvre le {owner.ouverture}. » De même
+> pour la clôture : « L'écriture de clôture est datée du
+> {date_operation} ; le compte ferme le {owner.cloture}. »
+>
+> ### 3.2 Les écritures — par date d'opération
+>
+> Une écriture bancaire — la date, le libellé, le budget, le montant,
+> le mode, le lieu. Tous comptes confondus ; le compte se choisit en
+> tête, obligatoirement.
+>
+> **L'écran.** La liste : Date d'opération, Date comptable, Libellé,
+> Budget, Débit, Crédit, Solde ; le compte, la plage de dates
+> d'opération et la recherche en zone de recherche ; la sélection
+> multiple ; la copie d'une écriture. Le formulaire — Création d'une
+> écriture, Écriture « … » du …, Modification, Suppression : Date
+> d'opération, obligatoire ; Date comptable *(renseignée au
+> pointage)* ; Libellé ; Budget *(le référentiel — un budget absent se
+> crée depuis le champ)* ; Montant, obligatoire *(signé — négatif pour
+> une dépense)* ; Mode : CB, Prélèvement, Virement, Autre ; N° de
+> chèque *(pour le mode autre)*, visible pour le mode Autre ; Lieu *(la
+> ville — un lieu absent se crée depuis le champ)*. Ne se saisissent
+> pas : Numéro, Écriture liée *(l'écriture miroir du virement, sur
+> l'autre compte)*, Imprimée le *(le marqueur du relevé)*, Montant en
+> euros, Montant en francs, Solde *(le solde continu — la somme des
+> écritures du compte jusqu'à cette date)*, Débit, Crédit.
+>
+> **Les opérations.**
+>
+> | L'opération | Ce qu'elle fait | Ce qui la déclenche |
+> |---|---|---|
+> | **Dupliquer** | duplique l'écriture courante entre deux dates, au pas choisi — jour, semaine, mois ou trimestre ; les copies naissent sans date comptable | un bouton sur une écriture ; le formulaire « Dupliquer l'écriture "…" » : le pas, du, au, obligatoires ; la relecture dit le nombre de créations |
+> | **Propager** | modifie le libellé et le montant de toutes les écritures similaires — le même libellé et le même montant, à une date d'opération postérieure ou égale | un bouton sur une écriture ; le formulaire « Propager depuis "…" » : le nouveau libellé, le nouveau montant, obligatoires ; la liste des similaires, la sélection, la modification en masse validée avant le scellé |
+> | **Virer** | crée les deux écritures d'un virement entre comptes — la sortie sur le compte courant, l'entrée sur le compte cible, liées l'une à l'autre | un bouton sur une écriture ; le formulaire « Virement » : le compte cible, le montant, obligatoires ; avec relecture |
+> | creer_releve | pose la date d'impression sur chaque écriture du relevé généré — le relevé devient un acte tracé | automatique, à toute génération d'un relevé (l'export PDF de 3.3) ; sans relecture |
+>
+> ### 3.3 Les écritures — par date comptable
+>
+> Les écritures pointées seules, par date comptable puis par montant,
+> de la dépense à la ressource. **L'écran** : les mêmes colonnes ; le
+> compte, la plage de dates comptables et la recherche ; la sélection
+> multiple ; la copie ; **l'export du relevé en PDF**, qui déclenche
+> creer_releve (3.2).
+>
+> ### 3.4 Les écritures — sans date comptable
+>
+> Le pointage : les écritures sans date comptable, par date
+> d'opération. **L'écran** : Date d'opération, Date comptable, Libellé
+> et Budget **éditables en ligne**, puis Débit, Crédit, Solde ; le
+> compte et la recherche ; la sélection multiple. Poser la date
+> comptable fait quitter la liste à l'écriture.
+>
+> *(le graphique de l'écriture — l'évolution des dépenses par budget :
+> le mois en abscisse, le montant du mois en ordonnée ; le budget et
+> la période en filtres — rattaché à 3.2, ma lecture)*
+>
+> ### 3.5 Les budgets
+>
+> Un budget — le poste de dépense ou de ressource d'une écriture ; son
+> identité est son libellé. **L'écran** : la liste et le formulaire par
+> défaut — Libellé. Se crée aussi directement depuis le champ Budget
+> d'une écriture.
+>
+> ### 3.6 Les lieux
+>
+> Un lieu — la ville d'une écriture ; son identité est son libellé.
+> **L'écran** : la liste et le formulaire par défaut — Libellé. Se crée
+> aussi directement depuis le champ Lieu d'une écriture.
+
+**Ce que la déclinaison relève** (les frottements, à arbitrer) :
+
+1. **Une entité à plusieurs listes déclarées** : la première liste est
+   celle du menu par défaut (D438) ; les deux autres ont-elles chacune
+   leur entrée de menu par défaut — et donc leur section (3.3, 3.4) —,
+   ou n'apparaissent-elles qu'à l'écran de l'écriture, en onglets ? La
+   déclinaison a fait une section par liste ; D189 le permet, le
+   défaut ne le dit pas.
+2. **Le graphique d'une entité** (`charts:` dans le gui de l'écriture)
+   n'a pas d'entrée de menu : où se décrit-il ? Rattaché à la section de
+   l'entité (3.2), en fin — ma lecture.
+3. **L'opération à formulaire d'appel** : la colonne « ce qui la
+   déclenche » porte le bouton, le titre du formulaire, ses champs et
+   leur obligation — les champs libres du formulaire (D775) n'ont ni
+   `hint:` ni `description:` ici ; la complétude les compte-t-elle
+   comme des champs ?
+4. **Le référentiel à création directe** (`budget`, `lieu`) : la
+   section du référentiel dit « se crée aussi depuis le champ » — la
+   création directe est une propriété du champ qui le référence (le
+   picker), relevée depuis la description du champ ; le socle (le
+   chapitre 2) décrit le geste une fois.
+5. **Les gabarits des messages** avec `owner.` (`{owner.ouverture}`) se
+   montrent tels quels (D1227) — lisibles pour le concepteur, moins
+   pour l'usager ; la fonctionnelle pourrait résoudre `owner.` par le
+   libellé de l'entité (« l'ouverture du compte ») — ma proposition.
+6. **Le compte obligatoire en tête de liste** (`select: mono, required:
+   true`) : la section le dit en une phrase (« le compte se choisit en
+   tête, obligatoirement ») — la forme en clair d'une facette de
+   recherche appartient au rang 2.

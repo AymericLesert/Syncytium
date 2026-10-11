@@ -3,17 +3,39 @@
 # d'un écran n'est documentée nulle part. Le nom d'un sous-menu est une clé du dictionnaire de libellés du module.
 
 # L'accueil du module
-- banque[accueil]
+accueil:
+  label:
+    fr: Tableau de bord
+    en: Dashboard
+    es: 
+  link: banque[accueil]
 
 # Les comptes
-- banque.compte
+comptes:
+  label:
+    fr: Comptes bancaires
+    en: Accounts
+    es: Apuntas
+  link: banque.compte
 
 # Les écritures, en sous-menu — une entrée par liste
-- ecritures:
-    - banque.ecriture[par_operation]
-    - banque.ecriture[par_comptable]
-    - banque.ecriture[pointage]
+ecritures:
+  label:
+    fr: Comptes bancaires
+    en: Accounts
+    es: Apuntas
+  items:
+    operations:
+      link: banque.ecriture[par_operation]
+    comptable:
+      link: banque.ecriture[par_comptable]
+    rapprochement:
+      link: banque.ecriture[pointage]
 
 # Les référentiels
-- banque.budget
-- banque.lieu
+referential:
+  items:
+    bugdets:
+      link: banque.budget
+    lieux:
+      link: banque.lieu

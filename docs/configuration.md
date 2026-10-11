@@ -659,8 +659,12 @@ avec sa cause ; le retry passe par l'incrément du build (D323).
 - `menu.yml` — décidé (D351, D439) ; **le premier exemple au dépôt :
   `banque/menu.yml` du cas 4** (D1230 — l'accueil, les comptes, les
   écritures en sous-menu avec une entrée par liste, les référentiels) ;
-  **le sous-menu** : `- <nom>:` et sa liste d'adresses, son libellé au
-  dictionnaire de libellés du module — le bloc **`label:`** de
-  module.yml (D1236 ; D440 le nommait `labels:`) ; le bloc
+  **la forme, retouchée par l'auteur (D1237 — amende D439 « pures
+  adresses » et D1236)** : une carte d'entrées nommées — chaque entrée
+  porte `label:` par langue et `link:`, l'adresse ; un sous-menu porte
+  `items:`, la carte de ses entrées ; l'ordre est celui de la carte ;
+  *mes lectures* : sans `label:`, le titre de la surface liée ; le
+  dictionnaire `label:` du module (D440/D1236) ne sert plus au menu ;
+  le bloc
   `dashboards:` a le sien au cas 5 (`stock[pilotage]`) et au cas 4
   (`banque[accueil]`).

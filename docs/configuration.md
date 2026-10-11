@@ -488,27 +488,34 @@ la banque (le cas 4) parlera le français, l'anglais et l'espagnol.
 
 ### 3.5 `settings.yml` — la maison des types et des réglages (D359/D360, D991–D993)
 
-**Les paramètres par défaut d'un type se déclarent sous le nom du type
-; un type dérivé se déclare de la même façon, avec `type:` sa base** :
+**La structure des settings** (D1239 — amende la forme à plat de
+D991/D1174) : **le type de composant, puis le composant, puis la
+propriété** — `field: { text: { default: "Me" }, integer: { default:
+-10 } }`, `entity: { history: true }`. Les paramètres par défaut d'un
+type se déclarent sous `field:` et le nom du type ; un type dérivé s'y
+déclare de la même façon, avec `type:` sa base (*ma lecture, à
+confirmer* : les dérivés sous `field:` avec les types du catalogue) :
 
 ```yaml
-text:                                # un type du catalogue : ses défauts
-  normalize: trim(me)                # la normalisation à la frontière (D870/D872)
-date_pmi:                            # un dérivé (D359/D992) : la base et ses défauts
-  type: date
-  mask: "yyyymmdd"
-amount:
-  currency: EUR                      # la devise par défaut — amount(v) à un argument (D993)
-nom:                                 # un dérivé porteur de sens (D1178) : le champ `nom: nom` hérite du marquage
-  type: text[..40]
-  rgpd: personal
+field:                               # le type de composant
+  text:                              # le composant : un type du catalogue, ses défauts
+    normalize: trim(me)              # la normalisation à la frontière (D870/D872)
+  date_pmi:                          # un dérivé (D359/D992) : la base et ses défauts
+    type: date
+    mask: "yyyymmdd"
+  amount:
+    currency: EUR                    # la devise par défaut — amount(v) à un argument (D993)
+  nom:                               # un dérivé porteur de sens (D1178) : le champ `nom: nom` hérite du marquage
+    type: text[..40]
+    rgpd: personal
 
-confidentiality:                     # les profils nommés (D885)
+entity:
+  history: true                      # l'historisation par défaut pour toute l'application (D1174)
+
+confidentiality:                     # les profils nommés (D885) — des déclarations, non des défauts : à la racine (ma lecture)
   financier:
     level: protected
     groups: [achats, direction]
-
-history: true                        # l'historisation par défaut pour toute l'application (D1174)
 ```
 
 - la clé est le nom ; sans `type:`, elle règle les défauts d'un type du
@@ -534,47 +541,97 @@ history: true                        # l'historisation par défaut pour toute l'
   ici, dans la table qui suit.
 
 **L'inventaire des défauts du socle** (D1175 — le premier relevé, le
-11/10/2026, depuis les artefacts et le registre ; *à compléter à
-chaque défaut nouveau* ; l'étage = là où la propriété se déclare, la
-surcharge aux settings vaut à tout étage de la cascade) :
+11/10/2026 ; *à compléter à chaque défaut nouveau*). **Sa structure est
+celle des settings** (D1239 — « la propriété doit être dans un bloc
+représentant le composant, qui lui-même doit être dans un bloc
+représentant le type de composant ») : **le type de composant → le
+composant → la propriété**. L'inventaire s'écrit donc comme un
+`settings.yml` qui redirait les défauts du socle ; une valeur
+*dynamique* (D588) se surcharge aussi par l'administration à chaud, les
+autres sont statiques — elles engagent le stockage ou la structure et
+se changent par une version :
 
-| La propriété | Le défaut du socle | L'étage | Statique / dynamique | D |
-|---|---|---|---|---|
-| `history:` | inactive | le module, l'entité | statique | D168, D1174 |
-| `confidentiality:` | `public` | le champ | statique | D25 |
-| `allow:` | absent = tout permis | l'application, le module, l'entité, le champ, l'état | statique | D422, D886 |
-| `required:` | `false` ; implicite sur l'identité | le champ | statique | D373, D1170 |
-| `label:` | le gabarit `${name}` | l'entité, le champ, le menu | statique | D1181 |
-| `title:` | le `name:` | le module, l'entité | statique | D1120 |
-| `default:` | aucun — le nul | le champ | statique | D941 |
-| `unchanged:` | `false` | le champ | statique | D941 |
-| `normalize:` | aucune | le type (`text:`), le champ | statique | D870, D991 |
-| `reset:` du `counter` | `never` | le type, le champ | statique | D409–D410 |
-| `currency:` d'`amount` | aucune — la devise dans la valeur | le type | statique | D993 |
-| `mode:` du champ | `editable` | le champ | statique | D364 |
-| `degree:` du groupe | `user` | le groupe | statique | D699, D900 |
-| `persona:` | généré, nommé par le groupe | le groupe | statique | D1200 |
-| `commit:` d'une opération | `confirm` — la relecture | l'opération | statique | D596 |
-| `cooldown:` d'une opération | `1min` (`operation.cooldown`) | l'application | dynamique | D904 |
-| `retention:` d'un résultat | `90d` (`operation.retention`) | l'application | dynamique | D906 |
-| `notify` sans destinataire | tout le monde, dans l'application | l'opération | statique | D1228 |
-| `breadcrumb:` du wizard | `top` | le wizard | statique | D549 |
-| `size:` d'un composant | tout l'espace disponible | le nœud | statique | D533, D549 |
-| la surface par défaut | la première déclarée ; sans déclaration, le défaut du socle | l'entité | statique | D186, D438 |
-| le menu | le défaut de D193 : les entités agrégats, les enfants en sous-menu | le module | statique | D193, D351 |
-| `languages:` | la langue du poste ; la première = la langue par défaut | la version | statique | D1101, D1114 |
-| `visibility:` | `promotional` | le projet | statique | D1151 |
-| `sandbox.retention` | `7d` | l'application | dynamique | D912 |
-| `logging.throttle` | `1min` | l'application | dynamique | D926 |
-| les canaux de la documentation | le dépôt, l'édition et l'impression sur demande ; la notification à la promotion ; la publication selon `visibility:` | l'environnement | statique | D1167 |
-| le seuil de complétude | aucun — le moteur mesure, ne refuse pas | — | — | D1221 |
-| le statut d'une version | `production` seul accepté | `versions/` | statique | D1115 |
-| le connecteur de stockage | `sqlite` implicite au mono-poste | l'environnement | statique | D1114 |
+```yaml
+# L'inventaire des défauts du socle, dans la forme des settings (D1239) — les valeurs sont celles du socle
 
-*(Statique : le défaut engage le stockage ou la structure, il se change
-par une version. Dynamique : surchargeable par l'administration à
-chaud, D588. Les valeurs dynamiques portent le nom de leur réglage
-entre parenthèses.)*
+# Le projet
+project:
+  visibility: promotional          # la page de présentation seule (D1151)
+
+# La version
+version:
+  languages: [<la langue du poste>]  # la première = la langue par défaut (D1101, D1114)
+
+# Le module
+module:
+  title: "${name}"                 # le nom d'usage = le nom (D1120)
+  history: false                   # l'historisation, en cascade vers l'entité (D168, D1174)
+  menu: <le défaut>                # les entités agrégats, les enfants en sous-menu (D193, D351)
+
+# L'entité
+entity:
+  title: "${name}"                 # (D1120)
+  label: "${name}"                 # le visage texte (D1181)
+  history: false                   # (D168)
+  allow: <tout permis>             # absent = tout permis, en cascade jusqu'au champ (D422, D886)
+
+# Le champ — les propriétés communes (ma lecture : directement sous field:), puis par type
+field:
+  required: false                  # implicite sur l'identité (D373, D1170)
+  mode: editable                   # (D364)
+  label: "${name}"                 # (D1181)
+  confidentiality: public          # (D25)
+  default: <nul>                   # (D941)
+  unchanged: false                 # (D941)
+  text:
+    normalize: <aucune>            # (D870, D991)
+  counter:
+    reset: never                   # (D409–D410)
+  amount:
+    currency: <la devise dans la valeur>   # (D993)
+
+# L'opération
+operation:
+  commit: confirm                  # la relecture avant le scellé (D596)
+  cooldown: 1min                   # dynamique — operation.cooldown (D904)
+  retention: 90d                   # dynamique — operation.retention (D906)
+  notify:
+    to: <tout le monde>            # dans la zone des notifications de l'application (D1228)
+
+# Le groupe
+group:
+  degree: user                     # (D699, D900)
+  persona: <généré>                # nommé par le groupe (D1200)
+
+# Les surfaces et les composants graphiques
+surface:
+  default: <la première déclarée>  # sans déclaration, le défaut du socle (D186, D438)
+wizard:
+  breadcrumb: top                  # (D549)
+component:
+  size: <tout l'espace>            # (D533, D549)
+
+# L'environnement
+environment:
+  storage: sqlite                  # implicite au mono-poste (D1114)
+  documentation:
+    output: <sur demande>          # le dépôt, l'édition, l'impression sur demande (D1167)
+    notify: <à la promotion>       # la notification à la promotion d'une version (D1167)
+    publish: <selon visibility>    # (D1167)
+
+# L'application — les réglages dynamiques
+application:
+  sandbox:
+    retention: 7d                  # dynamique (D912)
+  logging:
+    throttle: 1min                 # dynamique (D926)
+```
+
+*Hors de l'inventaire* : le seuil de complétude n'a pas de défaut, le
+moteur mesure et ne refuse pas (D1221) ; le statut `production` seul
+accepté (D1115) est une règle, non un défaut ; les profils de
+confidentialité (D885) sont des déclarations nommées, non des défauts
+— ils restent à la racine des settings (ma lecture).
 
 ### 3.6 `groups.yml` — les groupes (D414)
 
@@ -663,7 +720,7 @@ expressions.
 | la confidentialité | le niveau (D25) × les groupes (D26), le profil nommé aux settings, référencé au champ | D885 |
 | `normalize:` | le défaut du type aux settings → le champ | D870/D872, D991 |
 | `history:` | `settings.yml` de la version → le module → l'entité ; l'opt-out par `history: false` ; le défaut du socle = inactif | D168, D1174 |
-| tout défaut du socle | la règle : la valeur de Syncytium → `settings.yml` de la version → le module → l'entité → le champ | D1175 |
+| tout défaut du socle | la règle : la valeur de Syncytium → `settings.yml` de la version → le module → l'entité → le champ ; dans les settings, le type de composant → le composant → la propriété | D1175, D1239 |
 | le report des anomalies | l'entité source (ses phases) ou la règle de migration (les siennes) → le défaut de D407 | D929, D1058 |
 
 ## 5. L'ingestion — ce qui est refusé

@@ -940,9 +940,13 @@ diagramme d'états** à part, les valeurs du statut et les passages
 permis (D422) — le véhicule (cas 3) en a un. La table détaillée dans
 [entity.md](entity.md).
 
-**L'édition fonctionnelle** (§6) montre les mêmes diagrammes avec les
-libellés des champs à la place des noms, sans les types ni les
-visibilités ; **l'édition technique** (§4) les montre tels quels.
+**Les diagrammes s'appuient sur les noms, invariants** (D1218) — un
+seul jeu de diagrammes, quelle que soit la langue et quelle que soit la
+documentation ; **les libellés décrivent** le module, l'entité ou le
+champ et « viennent apporter un complément dans la langue du lecteur »
+— dans la table du dictionnaire et dans les sections, jamais à la place
+du nom sur le diagramme. *(Ma lecture « l'édition fonctionnelle montre
+les diagrammes avec les libellés » est écartée.)*
 
 **La forme dépend de l'architecture technique et des modes de rendu**
 (D1126) : ce document dit ce que le diagramme montre, pas comment il
@@ -1309,9 +1313,9 @@ visibility: promotional          # public | private | promotional (D1151)
 home: ~{home.md}                 # la page d'accueil, globale — hors des versions (D1156)
 author: Aymeric Lesert           # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
-glossary:                        # le glossaire des termes du métier (D1180) — la clé est mienne
+glossary:                        # le glossaire des termes du métier (D1180 ; la clé validée, D1219)
   tiers: Toute personne ou société en relation avec l'entreprise — client, fournisseur, prospect.
-  article:                       # un terme = une liste de mots, singulier et pluriel (D1197) — `words:` est mien
+  article:                       # un terme = une liste de mots, singulier et pluriel (D1197 ; `words:` validé, D1219)
     words: [article, articles]
     description: Ce que l'entreprise achète, fabrique ou vend — une référence, pas une pièce.
 ```
@@ -1326,8 +1330,9 @@ glossary:
 ```
 
 **À la version** — ce qui est versionné avec la configuration (D1156) :
-les gabarits des éditions, les pages ajoutées ; une clé
-`documentation:` de `version.yml` référence le fichier :
+les gabarits des éditions, les pages ajoutées, les scénarios (D1202) ;
+**la clé `documentation:` de `version.yml` référence le fichier**
+(acquise, D1219 — le véhicule et la banque l'emploient) :
 
 ```yaml
 # versions/production/v1.0.0.0/documentation.yml (en proposition)
@@ -1847,8 +1852,9 @@ parcours guidé (§19) sa forme lue.
 arbitrer point par point)* :
 
 1. **Où se déclare le persona** — *acquis (D1200)* : **sur le groupe**,
-   dans `groups.yml` — la clé `persona:` (nom mien) porte le prénom
-   fictif, le rôle, et ce qu'il vient faire ; **le groupe porte
+   dans `groups.yml` — la clé `persona:` porte le prénom fictif
+   (`name:`), le rôle (`role:`) et ce qu'il vient faire (`description:`)
+   — les clés validées, D1219 ; **le groupe porte
    `description:`, le persona l'emploie par défaut et la surcharge par
    la sienne s'il en a une** ; des textes par langue (D1101) ; le
    persona est le visage documentaire du groupe, ses droits sont ceux

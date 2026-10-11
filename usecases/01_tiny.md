@@ -58,7 +58,8 @@ le dictionnaire (D1212–D1217), la complétude (D1173–D1182, D1199,
 D1221). Le tiny reste la configuration minimale : rien n'y est ajouté
 pour la documentation, et c'est le propos — tout ce qui suit naît des
 vingt-six lignes de `syncytium.yml`. Les frottements relevés le 05/10
-sont tous soldés (la section suivante).)*
+sont tous soldés (la section suivante). **Validée par l'auteur le
+11/10/2026 — D1231.**)*
 
 ---
 

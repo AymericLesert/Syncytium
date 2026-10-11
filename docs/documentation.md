@@ -1750,7 +1750,7 @@ les écrans que ses droits lui ouvrent, qui peut apporter plus
 d'éléments que le scénario d'un persona ; joué dans l'application (ma
 lecture : le texte seul n'a plus d'objet, le scénario le porte).
 
-## 20. La complétude de la documentation *(en proposition)*
+## 20. La complétude de la documentation *(le rang 1 — acquis, D1173/D1177/D1182/D1199/D1221)*
 
 Le rapport du concepteur, à la façon de la couverture (D861/D1060) :
 **ce qui n'est pas décrit** — les entités sans `description:`, les
@@ -1767,7 +1767,17 @@ complétude ne relève que ce qui devrait être écrit et ne l'est pas —
 tel quel, et la complétude le compte (D1182) ; le champ sans `hint:` ni
 `description:` n'est pas au masque — « son nom suffit » (D1191) — mais
 reste dans le rapport (D1199).
-*À trancher* : un seuil qui refuse la version, ou l'avertissement seul.
+**Le seuil** (D1221) : **une ligne de commande mesure la complétude,
+avec le même moteur que celle qui génère la documentation** ; **le
+seuil est à la discrétion du concepteur** — « s'il souhaite diffuser
+une version sans documentation, c'est son choix » ; Syncytium mesure et
+rapporte, jamais ne refuse. *Ma forme* : `syncytium document
+<environnement> <documentation> --check [--version] [--language]` — le
+même verbe et les mêmes options que la génération (§21), `--check`
+mesure sans produire : le taux par module et par version, la liste de
+ce qui manque, un code de retour qui porte le taux pour le script d'un
+concepteur qui voudrait son propre seuil ; le rapport de `notify:`
+(D1167) est ce même résultat.
 
 ## 21. La diffusion *(le rang 0, étape 6 — acquis, D1167–D1168)*
 
@@ -1798,7 +1808,8 @@ par sa clé anglaise (D335) : `functional`, `information`, `developer`,
 `maintenance`, `project`, `operations` (le guide d'exploitation) — ou
 `all` ; sans version, la plus élevée des actives (D1123) ; sans langue,
 celle du poste (D1114) ; le résultat dans `output.directory`, au format
-de `output.formats`.
+de `output.formats` ; **`--check` mesure la complétude sans produire**
+(D1221 — le même moteur ; ma forme).
 
 ## 22. Les scénarios d'utilisation par des personas (D1127) *(le rang 1, étape 5 — acquis, D1200–D1210)*
 

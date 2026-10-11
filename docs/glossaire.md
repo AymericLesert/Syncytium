@@ -74,7 +74,10 @@ qui devrait être écrit et ne l'est pas — les descriptions, les aides,
 les libellés d'énumérés, les masques, l'entité sans aucun `rgpd:`. Un
 défaut du socle n'est pas un manque, sauf quand il tient lieu d'un
 texte pour le lecteur (le `label:` absent) ; elle compte, elle ne
-devine pas. *(documentation.md §20, D1173/D1177/D1182)*
+devine pas ; une ligne de commande la mesure avec le moteur de la
+génération, le seuil reste à la discrétion du concepteur — Syncytium ne
+refuse jamais une version. *(documentation.md §20, D1173/D1177/D1182,
+D1221)*
 
 **Composant graphique** (`component`) — La représentation graphique d'un champ à l'écran ou sur un document (PDF, Excel, ...) : la jauge d'un pourcentage, le calendrier d'une date, le toggle d'un booléen. *(D64)*
 

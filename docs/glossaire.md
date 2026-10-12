@@ -413,14 +413,6 @@ lue (le chapitre), vécue (le wizard), imprimée (la planche).
 *Ex. : `scenarios: { foyer: { virement: { title: Faire un virement,
 description: ~{…/virement.md} } } }`.* *(D1127/D1130, D1201–D1205)*
 
-**Reprise des données** — Le chargement, dans Syncytium, des données
-d'un système précédent : les sources lues ou ignorées, leurs colonnes,
-les règles et leurs destinataires, le refusé non enregistré, la table
-des associations ; décrite dans `reprise.yml`, portée par le module
-interne `_migration` — d'où la proximité avec **migration**. Le
-chapitre 4 du dictionnaire de la donnée en porte le nom.
-*(D1030–D1080, D1259)*
-
 **Rétention des fichiers** (`cleanup.yml`) — Les règles qui
 suppriment, dans un dossier, les fichiers d'un pattern au-delà d'une
 durée ou d'un nombre : le journal, les watchers, le détail des
@@ -466,6 +458,14 @@ apportées par une version, porté par `version.yml`. L'historique
 complet s'assemble par concaténation des release-notes des versions
 antérieures jusqu'à la courante — pas de fichier unique à maintenir.
 *(D808)*
+
+**Reprise des données** — Le chargement, dans Syncytium, des données
+d'un système précédent : les sources lues ou ignorées, leurs colonnes,
+les règles et leurs destinataires, le refusé non enregistré, la table
+des associations ; décrite dans `reprise.yml`, portée par le module
+interne `_migration` — d'où la proximité avec **migration**. Le
+chapitre 4 du dictionnaire de la donnée en porte le nom.
+*(D1030–D1080, D1259)*
 
 **Ressources** (`resources/`) — Le dossier des images de la
 description : logos, icônes, fonds. Une ressource peut être également un fichier binaire, word, excel, ... En fait, cela représente tout fichier complémentaire utile au bon fonctionnement du projet (Ex : cas de fichiers modèles pour PDF, Word, Excel, ...).

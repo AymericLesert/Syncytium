@@ -945,10 +945,10 @@ l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
 |---|---|---|---|
 | — | **0. La couverture** | le cartouche, le filigrane Beta (D1142, D1145) | commun |
 | **I. La structure** *(acquise, D1251–D1255)* | **1. La version** | le projet (le nom, la description, la version du format), le numéro, le statut (D338/D340), les langues — ni les environnements ni les storages, qui sont au guide d'exploitation (D1251) | `syncytium.yml`, `version.yml` |
-| | **2. Le modèle** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; puis une section par module, une sous-section par entité : la description, les identités nommées (D1170–D1171), le visage (`label:`), l'historisation, le `rgpd:` ; **la table des champs** — le nom, le type en clair et ses facettes *tel qu'appliqué*, les réglages fondus (D1253), le libellé en complément dans la langue du document, l'aide, l'obligation, le défaut, le niveau de confidentialité (D1247), les droits d'écriture ; puis **les règles de l'entité** (D1254) — les validations (la règle, sa description, son message en gabarit), les calculés et leurs formules, les états avec leur graphe et leurs transitions, les automatismes ; toutes les entités, tous les champs (D1246–D1247) | calculé, les entités, la facette des types |
+| | **2. Le modèle** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; puis une section par module, une sous-section par entité : la description, les identités nommées (D1170–D1171), le visage (`label:`), l'historisation, le `rgpd:` ; **la table des champs** — le nom, le type en clair et ses facettes *tel qu'appliqué*, les réglages fondus (D1253), le libellé en complément dans la langue du document, l'aide, l'obligation, le défaut, le niveau de confidentialité (D1247), les droits d'écriture ; puis **les règles de l'entité** (D1254) — les validations (la règle, sa description, son message en gabarit), les calculés et leurs formules, les états avec leur graphe et leurs transitions, les automatismes ; **les évolutions de l'entité et de chaque champ** (D1257) — ajouté, renommé (`from:`), retypé, déprécié avec son remplacement, supprimé, avec la version et son statut : beta, ce qui va arriver ; la dernière production, la version courante ; les productions antérieures, le passé ; deprecated, l'historique dépassé ; l'historisation dit comment lire les instantanés (*ma lecture*) ; toutes les entités, tous les champs (D1246–D1247) | calculé, les entités, la facette des types |
 | | **3. Le stockage** | le modèle physique : les tables et les colonnes, la correspondance du nom logique au stockage (D630, D1255) ; *ma lecture* : par famille de storage présente dans la configuration, sans nommer les environnements ; servi par une instance, celui de son storage | les connecteurs |
-| **II. Les évolutions** | **4. Les écarts** | ce qui change depuis la version précédente, calculé (§9) ; les notes de version | calculé |
-| | **5. L'historique** | comment lire les instantanés (D168–D173) | commun |
+| **II. Les évolutions** *(fondue dans la structure — D1257 ; mes lectures, à confirmer)* | *(4. Les écarts)* | les variations par version se lisent à l'entité et au champ (chapitre 2) ; §9 reste la forme du calcul ; les notes de version au chapitre 1 | calculé |
+| | *(5. L'historique)* | les instantanés (D168–D173) se lisent à l'historisation de l'entité (chapitre 2) | commun |
 | **III. L'origine** | **6. La migration des données** | « il faut ajouter un chapitre pour la migration des données » (D1256) — *ma lecture* : la reprise — les sources lues et ignorées, leurs colonnes décrites, les règles et leurs destinataires ([migration.md](migration.md)) ; la place, à confirmer | la reprise |
 | | **7. Les imports** | les gabarits d'import (§14, D1211) : ce qui entre par fichier | calculé |
 | | **8. Les opérations** | ce qui crée ou modifie une donnée : les opérations et leur contrat, leurs effets ; les valeurs par défaut | les entités |
@@ -1288,7 +1288,7 @@ contrôles, les optimisations ; **et la documentation de chaque entité
 et de chaque champ**, enrichie à la consultation de ce que le stockage
 en dit (D1155, §2).
 
-## 9. Les écarts entre versions (D1112) *(la forme, en proposition)*
+## 9. Les écarts entre versions (D1112) *(la forme, en proposition ; rendus à l'entité et au champ dans le dictionnaire de la donnée — D1257)*
 
 **Syncytium calcule les écarts et les présente ; le concepteur ne les
 décrit pas** — la description d'un champ dit ce qu'il est, jamais ce

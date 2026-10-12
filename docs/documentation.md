@@ -906,6 +906,18 @@ complémentaires inclus, les défauts du socle écrits (D1239), les textes
 du catalogue dans les langues de la version ; filtrée par les droits du
 lecteur (D958).
 
+**L'exhaustivité** (D1246) : **« La documentation fonctionnelle décrit
+ce qui est accessible à un utilisateur. Le dictionnaire de données
+décrit l'exhaustivité de la donnée. Le dictionnaire de données comble
+les informations manquantes de la documentation fonctionnelle. »** La
+fonctionnelle est un extrait du dictionnaire : ce qui a une entrée de
+menu, un écran, un libellé (D1195) ; le dictionnaire dit tout le reste —
+les entités sans entrée, les internes, les champs que les écrans ne
+montrent pas, les formules, les messages, les droits — aux droits du
+lecteur. *Ma lecture, en proposition* : le dictionnaire marque ce que la
+fonctionnelle ne montre pas, pour que le décideur sache ce qui vit hors
+de l'écran.
+
 **Le plan, en proposition** — sur les quatre axes de D1243, la forme
 de la fonctionnelle (D1189) et ce que le rang 1 a fixé ; les chapitres
 de l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
@@ -1103,9 +1115,11 @@ classDiagram
 Le tiny (§13) donne la plus petite vue possible : le paquetage
 `annuaire`, la classe `personne`, quatre attributs, deux `{id}`.
 
-## 6. La documentation fonctionnelle *(le rang 1, étape 2 — le plan acquis, D1183–D1189)*
+## 6. La documentation fonctionnelle *(le rang 1, étape 2 — le plan acquis, D1183–D1189 ; un extrait du dictionnaire de la donnée, D1246)*
 
-Ce que l'application fait, pour celui qui s'en sert — **trois
+Ce que l'application fait, pour celui qui s'en sert — **« ce qui est
+accessible à un utilisateur »** (D1246 : le dictionnaire de la donnée,
+§4, dit l'exhaustivité et comble ce qu'elle ne dit pas) — **trois
 matières** (D1121) : **les descriptions** (`title:`, `hint:`,
 `description:` — ce qu'est chaque chose), **les enchaînements** (le
 menu et ses parcours — D189/D193, les états et leurs passages — D422,

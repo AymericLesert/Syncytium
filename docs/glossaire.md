@@ -161,7 +161,9 @@ contient : le plus proche l'emporte. *(D348/D360)*
 **Dictionnaire de la donnée** — Le titre de la documentation de
 l'information : la donnée du projet par sa structure, ses évolutions,
 son origine et son usage ; le dictionnaire des données en est le cœur,
-la configuration dépliée son annexe. *(D1243–D1245)*
+la configuration dépliée son annexe. Il décrit l'exhaustivité de la
+donnée là où la fonctionnelle décrit ce qui est accessible à un
+utilisateur : la fonctionnelle en est un extrait. *(D1243–D1246)*
 
 **Dictionnaire des données** — L'inventaire exhaustif des données de
 l'application, lisible, en tableaux — une table par entité, une ligne

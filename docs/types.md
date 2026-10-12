@@ -215,7 +215,12 @@ pour `rgpd:` (D1213). **Le hook de type** livre la même facette — le
 type en clair, ses contraintes, son exemple, dans chaque langue du
 moteur (D1162) — : « les hooks de type devront être adaptés pour que
 cela s'intègre parfaitement » (D1215) ; le contrat au rang 2, dans
-[hooks.md](hooks.md).
+[hooks.md](hooks.md). **Dans le dictionnaire de la donnée, le type en
+clair est le type tel qu'appliqué** (D1253) : « les settings deviennent
+invisibles car intégrés au type » — la facette résout les trois niveaux
+de réglages (D1239) avant de livrer sa forme (« une date, écrite
+AAAAMMJJ » — sans dire d'où vient le masque) ; il n'y a pas de chapitre
+des types ni des réglages, le type vit dans la table des champs.
 
 **Les autres colonnes** — à leur rang : l'information (la facette
 stockage et les conversions, D119/D982), le développeur (la forme à

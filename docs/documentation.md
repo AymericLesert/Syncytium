@@ -129,7 +129,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 |---|---|---|
 | **1. Fonctionnelle** — d'abord | l'utilisateur, le décideur | §6 la fonctionnelle (D1121 — les descriptions, les enchaînements, les opérations) ; §7 les masques ; §16 les enchaînements ; §19 le parcours guidé ; §22 les scénarios par personas ; §24 les modes opératoires ; §25 l'assistance — les questions et les réponses ; §14 l'export et l'import (le gabarit, la procédure) ; §15 le dictionnaire (par libellés) ; §5 la vue d'ensemble du modèle ; §9 les notes de version |
 | **2. Technique — l'information (BI, IA)** | le concepteur, l'assistant IA, le décideur | §4 l'information — la donnée et la configuration du projet (D1241) ; §5 le modèle de données ; §15 le dictionnaire (par noms) ; §8 les données ; §9 les écarts calculés ; §2 le carburant ; la reprise ([migration.md](migration.md)) ; le chat (D957) |
-| **3. Développeur** | le technicien, le concepteur de l'application | §10 l'API ; §4 chapitres 7–9 — les types personnalisés, les connecteurs, les hooks ; §14 les formats d'échange |
+| **3. Développeur** | le technicien, le concepteur de l'application | §10 l'API (le chapitre 12 du premier §4, D1242) ; les hooks — comment en écrire un ; §14 les formats d'échange |
 | **4. Le D.A.T. — l'architecture technique** : les inter-connexions et le paramétrage externe indispensable (D1134) | l'administrateur, le concepteur | §4 chapitre 1 — les environnements et les connecteurs ; §4 chapitre 11 — les dépendances ; les secrets et les variables (D944/D321) |
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
@@ -888,36 +888,31 @@ décrit la donnée ou la configuration de la version, sinon il appartient
 l'architecture). Les noms sont ceux de la configuration (la langue du
 modèle — D335), les types ceux du catalogue.
 
-1. **Le projet** — le nom, la description, la version du format, les
-   environnements et ce que chacun câble (le storage, les
-   connecteurs — sans leurs secrets, D944).
-2. **La version** — le numéro, le statut (son dossier — D338/D340),
-   les langues, les notes de version, **les écarts avec la version
-   précédente, calculés** (§9).
-3. **Le modèle de données** — la vue d'ensemble en diagramme (§5) :
-   les entités, groupées par module, et leurs liens.
-4. **Les modules** — pour chacun, sa vue du module (§5), ses entités,
-   son menu, ses tableaux de bord.
-5. **Les entités** — pour chacune : la description, l'identité, le
-   visage (`label:`), **sa vue de l'entité** (§5), les états et leur
-   graphe, l'historisation, le `rgpd:` ; **la table des champs** (le
-   nom, le type et ses facettes, le libellé, l'aide, l'obligation, le
-   défaut, la confidentialité, les droits d'écriture) ; les champs
-   calculés et leur formule ; les validations (la règle, sa
-   description, son message) ; les opérations et leur contrat ; les
-   surfaces déclarées.
-6. **Les groupes et les droits** — la composition (D1099), le degré
-   (D699), la matrice entités × groupes × actions.
-7. **Les types personnalisés** (`settings.yml`) et les réglages.
-8. **Les connecteurs** — chacun par son `describe()`.
-9. **Les hooks** — chacun par son `describe()` et son md ; les hooks
-   d'interface signalés (D918).
-10. **La reprise** — les sources lues et ignorées, leurs colonnes
-    décrites, les règles et leurs destinataires (migration.md).
-11. **L'exploitation** — le journal, le nettoyage, les opérations
-    périodiques, les dépendances du moteur (D924), le registre des
-    traitements (D698).
-12. **L'API** — le contrat de la version pour le technicien (§10).
+**Le plan, en proposition** — recalé sur la forme de la fonctionnelle
+(D1189) et sur ce que le rang 1 a fixé ; les chapitres de l'exploitation
+et de l'API, présents dans le premier plan, ont rejoint le guide
+d'exploitation (§17) et la documentation du développeur (§10) — D1242.
+
+| Chapitre | Contenu | Source |
+|---|---|---|
+| **0. La couverture** | le cartouche, le filigrane Beta (D1142, D1145) | commun |
+| **1. La version** | le projet (le nom, la description, la version du format), le numéro, le statut (son dossier — D338/D340), les langues, les environnements et ce que chacun câble — le storage, les connecteurs — sans leurs secrets (D944), les notes de version, **les écarts avec la version précédente, calculés** (§9) | `version.yml`, les environnements |
+| **2. Le modèle de données** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; **le dictionnaire des données en corps de chapitre**, non en annexe (§15, D1212–D1216) — *à trancher* | calculé |
+| **3. Un chapitre par module** | pour chaque entité : la description, les identités nommées (D1170–D1171), le visage (`label:`), les états et leur graphe, l'historisation, le `rgpd:` ; **la table des champs** — le nom, le type en clair et ses facettes (D1160), le libellé en complément, l'aide, l'obligation, le défaut, la confidentialité, les droits d'écriture ; les champs calculés et leur formule ; les validations (la règle, sa description, son message) ; les opérations et leur contrat ; les surfaces déclarées | les entités, les md des hooks |
+| **4. Les règles en un lieu** | la vue transversale : toutes les validations, tous les calculés, tous les automatismes de la version — pour l'impact (D1198) et pour l'IA | calculé |
+| **5. Les groupes et les droits** | la composition (D1099), le degré (D699), la matrice entités × groupes × actions, les droits conditionnels par champ (D1172) | `groups.yml` |
+| **6. Les types et les réglages** | les types personnalisés, les réglages à trois niveaux tels qu'appliqués (D1239), l'inventaire des défauts du socle (D1175) | `settings.yml` |
+| **7. Le modèle physique** | les connecteurs par leur `describe()`, la correspondance du nom logique au stockage (D630) | les connecteurs |
+| **8. L'historique** | comment lire les instantanés (D168–D173) | commun |
+| **9. Les données** | §8 : les volumes, la diversité, les usages — à l'instance seulement | l'instance |
+| **10. La reprise** | les sources lues et ignorées, leurs colonnes décrites, les règles et leurs destinataires ([migration.md](migration.md)) | la reprise |
+| **11. Les annexes** | l'édition machine (JSON ou YAML, filtrée par les droits — D958), le glossaire des types | calculé |
+
+*Ouvert* : les hooks — le premier plan leur donnait un chapitre (leur
+`describe()` et leur md, les hooks d'interface signalés — D918) ; ce
+plan répartit ce qu'ils déclarent là où la version les emploie (les
+opérations au chapitre 3, les connecteurs au 7, les types au 6) et
+laisse au développeur comment en écrire un.
 
 ## 5. Le modèle de données — la représentation graphique (D1119)
 
@@ -1785,7 +1780,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(en proposition)*
+## 17. Le guide d'exploitation *(en proposition ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -1796,8 +1791,8 @@ environnements et leur nature (production, staging, passif — D339), le
 storage et les connecteurs de chacun, par leur `describe()` et leurs
 paramètres **sans les valeurs confidentielles** (D944) ; le journal, ses
 niveaux, sa rotation ; les règles de nettoyage (D1073) ; les opérations
-périodiques et leur calendrier ; la reprise, ses passages et ses
-rapports (migration.md) ; les comptes, les groupes et les affectations ;
+périodiques et leur calendrier ; le registre des traitements (D698) ;
+la reprise, ses passages et ses rapports (migration.md) ; les comptes, les groupes et les affectations ;
 les commandes du moteur (`syncytium copy …`, `encrypt`, `rotate` —
 D1080) ; les dépendances (D924). *À trancher* : ce qui vient de la
 configuration seule et ce qui demande l'instance (les états, les

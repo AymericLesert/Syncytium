@@ -879,7 +879,7 @@ autres sans y figurer en diagramme : la réglementation lit le registre
 entité par entité, le développeur le contrat d'API entité par entité ;
 le D.A.T. montre les connexions, pas le modèle.
 
-## 4. Le dictionnaire de la donnée — la documentation de l'information (D1241, D1243) *(le rang 2, étape 1 — le périmètre, le titre et les quatre parties acquis, D1241–D1250 ; la partie I acquise, D1251–D1255 ; les parties II à IV en cours)*
+## 4. Le dictionnaire de la donnée — la documentation de l'information (D1241, D1243) *(le rang 2, étape 1 — le périmètre, le titre et les parties acquis, D1241–D1250, D1258 ; la partie I acquise, D1251–D1258 ; les parties II et III en cours)*
 
 **« Cette documentation est centrée sur la donnée et la configuration du
 projet. »** (D1241) — ce que l'application sait, à une version donnée,
@@ -936,27 +936,26 @@ lecteur. *Ma lecture, en proposition* : le dictionnaire marque ce que la
 fonctionnelle ne montre pas, pour que le décideur sache ce qui vit hors
 de l'écran.
 
-**Le plan** — les quatre parties sur les quatre axes de D1243, acquises
-(D1250) ; les chapitres de chacune, en proposition, s'arbitrent un par
-un ; la forme est celle de la fonctionnelle (D1189) ; les chapitres de
+**Le plan** — trois parties (D1258) : la structure avec ses évolutions,
+l'origine, l'usage ; les quatre axes de D1243 sont les quatre lectures
+de chaque élément (les évolutions à l'entité et au champ — D1257) ; les
+chapitres de chaque partie s'arbitrent un par un ; la forme est celle de la fonctionnelle (D1189) ; les chapitres de
 l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
 
 | Partie | Chapitre | Contenu | Source |
 |---|---|---|---|
 | — | **0. La couverture** | le cartouche, le filigrane Beta (D1142, D1145) | commun |
-| **I. La structure** *(acquise, D1251–D1255)* | **1. La version** | le projet (le nom, la description, la version du format), le numéro, le statut (D338/D340), les langues — ni les environnements ni les storages, qui sont au guide d'exploitation (D1251) | `syncytium.yml`, `version.yml` |
-| | **2. Le modèle** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; puis une section par module, une sous-section par entité : la description, les identités nommées (D1170–D1171), le visage (`label:`), l'historisation, le `rgpd:` ; **la table des champs** — le nom, le type en clair et ses facettes *tel qu'appliqué*, les réglages fondus (D1253), le libellé en complément dans la langue du document, l'aide, l'obligation, le défaut, le niveau de confidentialité (D1247), les droits d'écriture ; puis **les règles de l'entité** (D1254) — les validations (la règle, sa description, son message en gabarit), les calculés et leurs formules, les états avec leur graphe et leurs transitions, les automatismes ; **les évolutions de l'entité et de chaque champ** (D1257) — ajouté, renommé (`from:`), retypé, déprécié avec son remplacement, supprimé, avec la version et son statut : beta, ce qui va arriver ; la dernière production, la version courante ; les productions antérieures, le passé ; deprecated, l'historique dépassé ; l'historisation dit comment lire les instantanés (*ma lecture*) ; toutes les entités, tous les champs (D1246–D1247) | calculé, les entités, la facette des types |
-| | **3. Le stockage** | le modèle physique : les tables et les colonnes, la correspondance du nom logique au stockage (D630, D1255) ; *ma lecture* : par famille de storage présente dans la configuration, sans nommer les environnements ; servi par une instance, celui de son storage | les connecteurs |
-| **II. Les évolutions** *(fondue dans la structure — D1257 ; mes lectures, à confirmer)* | *(4. Les écarts)* | les variations par version se lisent à l'entité et au champ (chapitre 2) ; §9 reste la forme du calcul ; les notes de version au chapitre 1 | calculé |
-| | *(5. L'historique)* | les instantanés (D168–D173) se lisent à l'historisation de l'entité (chapitre 2) | commun |
-| **III. L'origine** | **6. La migration des données** | « il faut ajouter un chapitre pour la migration des données » (D1256) — *ma lecture* : la reprise — les sources lues et ignorées, leurs colonnes décrites, les règles et leurs destinataires ([migration.md](migration.md)) ; la place, à confirmer | la reprise |
-| | **7. Les imports** | les gabarits d'import (§14, D1211) : ce qui entre par fichier | calculé |
-| | **8. Les opérations** | ce qui crée ou modifie une donnée : les opérations et leur contrat, leurs effets ; les valeurs par défaut | les entités |
-| **IV. L'usage** | **9. Où sert chaque champ** | le graphe de D1198 : les formules, les validations, les opérations, les rapports, les écrans qui lisent un champ ; qui référence une entité — la vue transversale des règles, par le graphe (D1254) | calculé |
-| | **10. Les droits** | la composition des groupes (D1099), le degré (D699), la matrice entités × groupes × actions, les droits conditionnels par champ (D1172) | `groups.yml` |
-| | **11. Les données** | §8 : les volumes, la diversité, les usages réels — à l'instance seulement, sur les données que le lecteur a le droit de consulter (D1248–D1249) | l'instance |
+| **I. La structure, avec ses évolutions** *(acquise, D1251–D1258)* | **1. La version** | le projet (le nom, la description, la version du format), le numéro, le statut (D338/D340), les langues, les notes de version — ni les environnements ni les storages, qui sont au guide d'exploitation (D1251) | `syncytium.yml`, `version.yml` |
+| | **2. Le modèle** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; puis une section par module, une sous-section par entité : la description, les identités nommées (D1170–D1171), le visage (`label:`), l'historisation — et comment lire les instantanés (D168–D173) —, le `rgpd:` ; **la table des champs** — le nom, le type en clair et ses facettes *tel qu'appliqué*, les réglages fondus (D1253), le libellé en complément dans la langue du document, l'aide, l'obligation, le défaut, le niveau de confidentialité (D1247), les droits d'écriture ; **les règles de l'entité** (D1254) — les validations (la règle, sa description, son message en gabarit), les calculés et leurs formules, les états avec leur graphe et leurs transitions, les automatismes ; **les évolutions de l'entité et de chaque champ** (D1257–D1258) — ajouté, renommé (`from:`), retypé, déprécié avec son remplacement, supprimé, avec la version et son statut : beta, ce qui va arriver ; la dernière production, la version courante ; les productions antérieures, le passé ; deprecated, l'historique dépassé ; §9 donne la forme du calcul ; toutes les entités, tous les champs (D1246–D1247) | calculé, les entités, la facette des types |
+| | **3. Le stockage** | le modèle physique : les tables et les colonnes, la correspondance du nom logique au stockage (D630, D1255) ; *ma lecture, à confirmer* : par famille de storage présente dans la configuration, sans nommer les environnements ; servi par une instance, celui de son storage | les connecteurs |
+| **II. L'origine** *(en proposition)* | **4. La migration des données** | « il faut ajouter un chapitre pour la migration des données » (D1256) — *ma lecture* : la reprise — les sources lues et ignorées, leurs colonnes décrites, les règles et leurs destinataires ([migration.md](migration.md)) ; la place et le nom, à confirmer | la reprise |
+| | **5. Les imports** | les gabarits d'import (§14, D1211) : ce qui entre par fichier | calculé |
+| | **6. Les opérations** | ce qui crée ou modifie une donnée : les opérations et leur contrat, leurs effets ; les valeurs par défaut | les entités |
+| **III. L'usage** *(en proposition)* | **7. Où sert chaque champ** | le graphe de D1198 : les formules, les validations, les opérations, les rapports, les écrans qui lisent un champ ; qui référence une entité — la vue transversale des règles, par le graphe (D1254) | calculé |
+| | **8. Les droits** | la composition des groupes (D1099), le degré (D699), la matrice entités × groupes × actions, les droits conditionnels par champ (D1172) | `groups.yml` |
+| | **9. Les données** | §8 : les volumes, la diversité, les usages réels — à l'instance seulement, sur les données que le lecteur a le droit de consulter (D1248–D1249) | l'instance |
 | **Annexes** | **A. La configuration dépliée** | entière, les clés `*` retirées (D1247), le niveau de confidentialité affiché ; lisible dans le document, JSON ou YAML pour la machine et l'IA (D1245) ; l'arbre des réglages y reste lisible (D1253) | calculé |
-| | **B. Le glossaire des types** | les types du catalogue et les types personnalisés, en clair (D1180) | calculé |
+| | **B. Le glossaire des types** | les types du catalogue et les types personnalisés, en clair (D1180) — *à confirmer* après D1253 | calculé |
 
 ## 5. Le modèle de données — la représentation graphique (D1119)
 

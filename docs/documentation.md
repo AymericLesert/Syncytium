@@ -128,8 +128,8 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | La documentation | Pour qui (§3) | Ce que ce document en dit déjà |
 |---|---|---|
 | **1. Fonctionnelle** — d'abord | l'utilisateur, le décideur | §6 la fonctionnelle (D1121 — les descriptions, les enchaînements, les opérations) ; §7 les masques ; §16 les enchaînements ; §19 le parcours guidé ; §22 les scénarios par personas ; §24 les modes opératoires ; §25 l'assistance — les questions et les réponses ; §14 l'export et l'import (le gabarit, la procédure) ; §15 le dictionnaire (par libellés) ; §5 la vue d'ensemble du modèle ; §9 les notes de version |
-| **2. Technique — l'information (BI, IA)** | le concepteur, l'assistant IA, le décideur | §4 l'information — la donnée et la configuration du projet (D1241) ; §5 le modèle de données ; §15 le dictionnaire (par noms) ; §8 les données ; §9 les écarts calculés ; §2 le carburant ; la reprise ([migration.md](migration.md)) ; le chat (D957) |
-| **3. Développeur** | le technicien, le concepteur de l'application | §10 l'API (le chapitre 12 du premier §4, D1242) ; les hooks — comment en écrire un ; §14 les formats d'échange |
+| **2. Technique — l'information (BI, IA)** | le concepteur, l'assistant IA, le décideur | §4 « Le dictionnaire de la donnée » — la donnée et la configuration du projet (D1241, D1243) ; §5 le modèle de données ; §15 le dictionnaire (par noms) ; §8 les données ; §9 les écarts calculés ; §2 le carburant ; la reprise ([migration.md](migration.md)) ; le chat (D957) |
+| **3. Développeur** | le technicien, le concepteur de l'application | §10 l'API (le chapitre 12 du premier §4, D1242) ; les hooks — l'inventaire et comment en écrire un (D1244) ; §14 les formats d'échange |
 | **4. Le D.A.T. — l'architecture technique** : les inter-connexions et le paramétrage externe indispensable (D1134) | l'administrateur, le concepteur | §4 chapitre 1 — les environnements et les connecteurs ; §4 chapitre 11 — les dépendances ; les secrets et les variables (D944/D321) |
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
@@ -385,8 +385,8 @@ décisions, D1170–D1238.)*
   physique, l'historique, la reprise.
 - **Sections** : §4, §5, §8, §9, §15, §2.
 - **Étapes** :
-  1. §4 — le plan de l'information : le périmètre (D1241–D1242,
-     acquis), les chapitres (en cours) ;
+  1. §4 — le plan du dictionnaire de la donnée : le périmètre et le
+     titre (D1241–D1245, acquis), les chapitres (en cours) ;
   2. §5 — le modèle de données : les trois niveaux, la correspondance
      (entity.md), le diagramme d'états, le rendu vérifié ;
   3. §9 — les écarts : ce qui compte comme écart, la liste et les
@@ -878,7 +878,7 @@ autres sans y figurer en diagramme : la réglementation lit le registre
 entité par entité, le développeur le contrat d'API entité par entité ;
 le D.A.T. montre les connexions, pas le modèle.
 
-## 4. La documentation de l'information — la donnée et la configuration du projet (D1241) *(le rang 2, étape 1 — le périmètre acquis ; le plan en proposition)*
+## 4. Le dictionnaire de la donnée — la documentation de l'information (D1241, D1243) *(le rang 2, étape 1 — le périmètre et le titre acquis ; le plan en proposition)*
 
 **« Cette documentation est centrée sur la donnée et la configuration du
 projet. »** (D1241) — ce que l'application sait, à une version donnée,
@@ -888,31 +888,46 @@ décrit la donnée ou la configuration de la version, sinon il appartient
 l'architecture). Les noms sont ceux de la configuration (la langue du
 modèle — D335), les types ceux du catalogue.
 
-**Le plan, en proposition** — recalé sur la forme de la fonctionnelle
-(D1189) et sur ce que le rang 1 a fixé ; les chapitres de l'exploitation
-et de l'API, présents dans le premier plan, ont rejoint le guide
-d'exploitation (§17) et la documentation du développeur (§10) — D1242.
+**Le titre et les quatre axes** (D1243) : **« Ce document s'intitulera
+"Le dictionnaire de la donnée" : sa structure, ses évolutions, son
+origine et son usage. »** Le dictionnaire des données de §15 n'est plus
+une annexe : il est le document entier. **Les hooks n'y apparaissent
+pas comme notion** (D1244) : « Les hooks s'intégreront au document sans
+que la notion de hook apparaisse » — le lecteur voit une opération, un
+type, un stockage ; la facette (D1158) livre la description, l'assembleur
+ne dit pas d'où elle vient ; l'inventaire des hooks et comment en écrire
+un vont à la documentation du développeur. **La configuration entière
+et dépliée en annexe** (D1245) : « La configuration dans son intégralité
+et dépliée (à l'exception des clés confidentielles) sera portée en
+annexe de ce document. La configuration en json ou yaml sera
+exploitable pour l'IA. » — l'édition machine de §11, un seul objet, deux
+rendus ; *mes lectures* : dépliée = les `~{…}` résolus, les fichiers
+complémentaires inclus, les défauts du socle écrits (D1239), les textes
+du catalogue dans les langues de la version ; filtrée par les droits du
+lecteur (D958).
 
-| Chapitre | Contenu | Source |
-|---|---|---|
-| **0. La couverture** | le cartouche, le filigrane Beta (D1142, D1145) | commun |
-| **1. La version** | le projet (le nom, la description, la version du format), le numéro, le statut (son dossier — D338/D340), les langues, les environnements et ce que chacun câble — le storage, les connecteurs — sans leurs secrets (D944), les notes de version, **les écarts avec la version précédente, calculés** (§9) | `version.yml`, les environnements |
-| **2. Le modèle de données** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; **le dictionnaire des données en corps de chapitre**, non en annexe (§15, D1212–D1216) — *à trancher* | calculé |
-| **3. Un chapitre par module** | pour chaque entité : la description, les identités nommées (D1170–D1171), le visage (`label:`), les états et leur graphe, l'historisation, le `rgpd:` ; **la table des champs** — le nom, le type en clair et ses facettes (D1160), le libellé en complément, l'aide, l'obligation, le défaut, la confidentialité, les droits d'écriture ; les champs calculés et leur formule ; les validations (la règle, sa description, son message) ; les opérations et leur contrat ; les surfaces déclarées | les entités, les md des hooks |
-| **4. Les règles en un lieu** | la vue transversale : toutes les validations, tous les calculés, tous les automatismes de la version — pour l'impact (D1198) et pour l'IA | calculé |
-| **5. Les groupes et les droits** | la composition (D1099), le degré (D699), la matrice entités × groupes × actions, les droits conditionnels par champ (D1172) | `groups.yml` |
-| **6. Les types et les réglages** | les types personnalisés, les réglages à trois niveaux tels qu'appliqués (D1239), l'inventaire des défauts du socle (D1175) | `settings.yml` |
-| **7. Le modèle physique** | les connecteurs par leur `describe()`, la correspondance du nom logique au stockage (D630) | les connecteurs |
-| **8. L'historique** | comment lire les instantanés (D168–D173) | commun |
-| **9. Les données** | §8 : les volumes, la diversité, les usages — à l'instance seulement | l'instance |
-| **10. La reprise** | les sources lues et ignorées, leurs colonnes décrites, les règles et leurs destinataires ([migration.md](migration.md)) | la reprise |
-| **11. Les annexes** | l'édition machine (JSON ou YAML, filtrée par les droits — D958), le glossaire des types | calculé |
+**Le plan, en proposition** — sur les quatre axes de D1243, la forme
+de la fonctionnelle (D1189) et ce que le rang 1 a fixé ; les chapitres
+de l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
 
-*Ouvert* : les hooks — le premier plan leur donnait un chapitre (leur
-`describe()` et leur md, les hooks d'interface signalés — D918) ; ce
-plan répartit ce qu'ils déclarent là où la version les emploie (les
-opérations au chapitre 3, les connecteurs au 7, les types au 6) et
-laisse au développeur comment en écrire un.
+| Partie | Chapitre | Contenu | Source |
+|---|---|---|---|
+| — | **0. La couverture** | le cartouche, le filigrane Beta (D1142, D1145) | commun |
+| **I. La structure** | **1. La version** | le projet (le nom, la description, la version du format), le numéro, le statut (D338/D340), les langues, les environnements et ce que chacun câble — le storage, les connecteurs — sans leurs secrets (D944) | `version.yml`, les environnements |
+| | **2. Le modèle** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; puis, module par module, l'inventaire de §15 : pour chaque entité la description, les identités nommées (D1170–D1171), le visage (`label:`), les états et leur graphe, l'historisation, le `rgpd:` ; **la table des champs** — le nom, le type en clair et ses facettes (D1160), le libellé en complément, l'aide, l'obligation, le défaut, la confidentialité, les droits d'écriture | calculé, les entités |
+| | **3. Les types et les réglages** | les types personnalisés, les réglages à trois niveaux tels qu'appliqués (D1239), l'inventaire des défauts du socle (D1175) | `settings.yml` |
+| | **4. Les règles** | en un lieu : toutes les validations (la règle, sa description, son message), tous les calculés et leurs formules, les états et leurs transitions | calculé |
+| | **5. Le stockage** | le modèle physique : les tables et les colonnes de chaque storage, la correspondance du nom logique au stockage (D630) | les connecteurs |
+| **II. Les évolutions** | **6. Les écarts** | ce qui change depuis la version précédente, calculé (§9) ; les notes de version | calculé |
+| | **7. L'historique** | comment lire les instantanés (D168–D173) | commun |
+| **III. L'origine** | **8. La reprise** | les sources lues et ignorées, leurs colonnes décrites, les règles et leurs destinataires ([migration.md](migration.md)) | la reprise |
+| | **9. Les imports** | les gabarits d'import (§14, D1211) : ce qui entre par fichier | calculé |
+| | **10. Les opérations** | ce qui crée ou modifie une donnée : les opérations et leur contrat, leurs effets ; les valeurs par défaut | les entités |
+| **IV. L'usage** | **11. Où sert chaque champ** | le graphe de D1198 : les formules, les validations, les opérations, les rapports, les écrans qui lisent un champ ; qui référence une entité | calculé |
+| | **12. Les droits** | la composition des groupes (D1099), le degré (D699), la matrice entités × groupes × actions, les droits conditionnels par champ (D1172) | `groups.yml` |
+| | **13. Les données** | §8 : les volumes, la diversité, les usages réels — à l'instance seulement | l'instance |
+| **Annexes** | **A. La configuration dépliée** | entière, sans les clés confidentielles, filtrée par les droits du lecteur ; lisible dans le document, JSON ou YAML pour la machine et l'IA (D1245) | calculé |
+| | **B. Le glossaire des types** | les types du catalogue et les types personnalisés, en clair (D1180) | calculé |
 
 ## 5. Le modèle de données — la représentation graphique (D1119)
 
@@ -1297,7 +1312,8 @@ version par version — est acquis.
   humain** (D1165) ; les formats des interlocuteurs en sont des
   conversions. **L'édition machine ne passe pas par la facette** : elle
   fournit un YAML ou un JSON à partir des informations internes du
-  moteur et des items de configuration.
+  moteur et des items de configuration — **l'annexe A du dictionnaire
+  de la donnée, la configuration dépliée** (D1245, §4).
 - **L'imprimable — acquis** (D1165–D1166) : **les éditions se
   construisent par les reports, le `template`** (l'option 2 — D1143 :
   la page de garde, l'en-tête, le pied et le format décrits avec le
@@ -1594,7 +1610,7 @@ attendu** (D1211) :
   sa mise en page : « exporter, corriger au tableur, réimporter en
   remplacement ».
 
-## 15. Le dictionnaire des données *(le rang 1 — acquis, D1212–D1217)*
+## 15. Le dictionnaire des données *(le rang 1 — acquis, D1212–D1217 ; au rang 2, il est le document entier de l'information — « Le dictionnaire de la donnée », D1243, §4)*
 
 **Deux glossaires ouvrent le dictionnaire** (D1180 — « nous distinguons
 le glossaire des types, et le glossaire des termes » ; **le glossaire
@@ -2311,8 +2327,8 @@ comme chapitre (§19 → §22, D1187).*
    artefacts ; les déclinaisons sur le véhicule, la banque, l'entrepôt ;
 4. l'inventaire des défauts du socle (D1175) à écrire dans
    configuration.md ;
-5. le plan de la documentation de l'information (§4) — le rang 2, en
-   cours (le périmètre D1241–D1242) ;
+5. le plan du dictionnaire de la donnée (§4) — le rang 2, en cours (le
+   périmètre et le titre D1241–D1245) ;
 6. la représentation graphique (§5) : la forme (Mermaid, PlantUML) au
    domaine 7 ; le `title:` au singulier ;
 7. les indicateurs de la troisième source et leur partage (§8) ;

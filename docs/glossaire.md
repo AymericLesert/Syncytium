@@ -158,6 +158,11 @@ contient : le plus proche l'emporte. *(D348/D360)*
 
 **Exécution à blanc** (Dry-run) — La répétition générale afin de valider la conformité d'une nouvelle version du modèle. Cela ouvre droit à un rapport sur les non-repects ou les impossibilités liés à la migration. Le but est de garantir la stabilité du système et sa continuité de service. *(D120)*
 
+**Dictionnaire de la donnée** — Le titre de la documentation de
+l'information : la donnée du projet par sa structure, ses évolutions,
+son origine et son usage ; le dictionnaire des données en est le cœur,
+la configuration dépliée son annexe. *(D1243–D1245)*
+
 **Dictionnaire des données** — L'inventaire exhaustif des données de
 l'application, lisible, en tableaux — une table par entité, une ligne
 par champ : le libellé, le type en clair, l'obligation, le défaut, les
@@ -181,8 +186,9 @@ Syncytium assemble. *(D1158–D1159)*
 la BI, l'IA et le décideur : centrée sur la donnée et la configuration
 du projet — ce que l'application sait à une version donnée (le modèle,
 les règles, les droits, les réglages, le stockage, les données de
-l'instance) et ce que le concepteur a écrit pour le dire. Son plan est
-le §4 de documentation.md. *(D1131, D1241)*
+l'instance) et ce que le concepteur a écrit pour le dire. Elle
+s'intitule « Le dictionnaire de la donnée » ; son plan est le §4 de
+documentation.md. *(D1131, D1241, D1243)*
 
 **Édition** — Un extrait figé de la documentation pour qui n'a pas de
 compte, préparé par un `manager` ou un `administrator` dans la limite de
@@ -192,7 +198,9 @@ au gabarit des rapports (`template`) ; une beta s'édite sous filigrane.
 
 **Édition machine** — Le YAML ou le JSON des informations internes et
 des items de configuration, sans facette, pour l'analyste et
-l'assistant ; le Markdown est le rendu humain. *(D1165)*
+l'assistant ; le Markdown est le rendu humain. *(D1165)* Depuis D1245, l'annexe du
+dictionnaire de la donnée : la configuration entière et dépliée, sans
+les clés confidentielles.
 
 **Entité** (`entity`) — Un objet du métier ou une table dans un modèle relationnel : le
 client, la commande, le produit. Chaque entité a ses

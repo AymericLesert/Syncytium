@@ -24304,6 +24304,18 @@ avant la synthèse Q16).
   sélective de `technique`, le diagramme d'états du véhicule) ; deux
   contraintes Mermaid notées pour le domaine 7 (le préfixe des
   paquetages, les styles de D1213 non rendus dans les membres).
+- **2026-10-13 — LA PAUSE : L'ÉTAPE 1 DU RANG 2 CLOSE, L'ÉTAPE 2
+  OUVERTE (1265 décisions).** L'état d'avancement donné sur sa demande ;
+  « Je marque la pause après ». Le plan du dictionnaire de la donnée
+  entier (D1241–D1265) ; le rendu de §5 vérifié. À la reprise : les
+  cinq lectures de l'étape 2 (la vue des modules, la vue sélective, le
+  diagramme d'états, le `title:` au singulier, la table d'entity.md) ;
+  puis §9 (ce qui compte comme écart, la forme à l'élément), §8 (les
+  indicateurs par type), le `describe()` du storage (connectors.md),
+  le contrat du hook de type (hooks.md, types.md), ce que migration.md
+  verse au chapitre 4.1, la déclinaison (le tiny, l'entrepôt), la
+  lisibilité de l'index 5.1 (D1263), la colonne 2 de la matrice dans
+  les artefacts.
 - **2026-10-09 — REPRISE : LA MÉTHODE (D1158, 1158 décisions).** « Nous
   n'allons pas l'alléger… La documentation est portée dans tous les
   composants. Chaque type de composant définira sa déclinaison dans les

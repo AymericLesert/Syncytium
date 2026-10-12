@@ -392,16 +392,23 @@ décisions, D1170–D1238.)*
      la correspondance (entity.md), le diagramme d'états, **le rendu
      vérifié le 13/10/2026** (deux contraintes Mermaid relevées) ; les
      lectures restantes à confirmer ;
-  3. §9 — les écarts : ce qui compte comme écart, la liste et les
-     annotations (D1123) ;
-  4. l'édition lisible par la machine : le méta-schéma et ses
-     descriptions exportés, filtrés par les droits du lecteur (D958) ;
-  5. §8 — les données : les indicateurs par type, leur partage ;
-  6. le modèle physique et la correspondance logique ↔ stockage (le
-     `describe()` du storage) ;
-  7. les règles en un lieu, l'historique, les volumes ;
-  8. la reprise dans la documentation : ce que
-     [migration.md](migration.md) y verse.
+  3. §9 — les écarts : ce qui compte comme écart ; la forme à
+     l'élément, à l'entité et au champ (D1257) ;
+  4. l'édition lisible par la machine : **acquis** — l'annexe A, la
+     configuration dépliée, entière, les clés `*` retirées (D1245,
+     D1247, D1250) ;
+  5. §8 — les données : les indicateurs par type (le chapitre 5.3,
+     D1265 — la place est acquise, la liste reste) ;
+  6. le modèle physique : la partie 3 acquise (D1260) ; le contenu du
+     `describe()` du storage dans [connectors.md](connectors.md) ;
+  7. les règles, l'historique, les volumes : **placés** (D1254, D1257,
+     D1265) — le contenu avec les étapes 3 et 5 ;
+  8. la reprise des données : le chapitre 4.1 acquis (D1262) ; ce que
+     [migration.md](migration.md) y verse ;
+  9. le contrat du hook de type — le type en clair tel qu'appliqué
+     (D1253), dans [hooks.md](hooks.md) et [types.md](types.md) ;
+  10. la lisibilité de l'index 5.1 (D1263) — à la déclinaison ;
+  11. la colonne 2 de la matrice (§13) dans les artefacts.
 - **Déclinaison** : le tiny ; **l'entrepôt** (la hiérarchie de
   l'article, la reprise, les deux versions).
 - **Livrables** : §4, §5, §8, §9 validés ; [entity.md](entity.md) (la
@@ -2410,7 +2417,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Les points ouverts *(rafraîchis à la pause du 10/10/2026)*
+## 26. Les points ouverts *(rafraîchis à la pause du 13/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -2427,14 +2434,20 @@ comme chapitre (§19 → §22, D1187).*
    les compléments (« mes droits », les notifications, les documents
    produits, la recherche) ; la colonne 1 de la matrice dans les
    artefacts ; les déclinaisons sur le véhicule, la banque, l'entrepôt ;
-4. l'inventaire des défauts du socle (D1175) à écrire dans
-   configuration.md ;
+4. *(clos le 11/10 — l'inventaire des défauts du socle écrit dans
+   configuration.md, à trois niveaux, D1239)* ;
 5. *(clos le 13/10 — le plan du dictionnaire de la donnée, §4,
    D1241–D1265)* ;
-6. la représentation graphique (§5) : la forme (Mermaid, PlantUML) au
-   domaine 7 ; le `title:` au singulier ;
-7. les indicateurs de la troisième source et leur partage (§8) ;
-8. la forme des écarts calculés (§9) ;
+6. la représentation graphique (§5) : le rendu vérifié le 13/10 ; la
+   forme au domaine 7 (deux contraintes Mermaid notées : le préfixe
+   des paquetages, les styles de D1213 non rendus) ; cinq lectures à
+   confirmer à la reprise (la vue des modules, la vue sélective, le
+   diagramme d'états, le `title:` au singulier, la table d'entity.md) ;
+7. les indicateurs de la troisième source (§8) — leur place est
+   acquise (le chapitre 5.3, aux droits du lecteur, D1249/D1265), la
+   liste par type reste ;
+8. les écarts calculés (§9) : ce qui compte comme écart ; la forme à
+   l'entité et au champ (D1257) ;
 9. la documentation de l'API — le principe ici, la forme au domaine 7
    (§10) ;
 10. les pièces encore en proposition, à arbitrer à leur rang : le

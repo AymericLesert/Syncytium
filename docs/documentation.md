@@ -385,9 +385,9 @@ décisions, D1170–D1238.)*
   physique, l'historique, la reprise.
 - **Sections** : §4, §5, §8, §9, §15, §2.
 - **Étapes** :
-  1. §4 — le plan du dictionnaire de la donnée : le périmètre, le
-     titre et les quatre parties (D1241–D1250, acquis), les chapitres
-     partie par partie (en cours) ;
+  1. §4 — le plan du dictionnaire de la donnée : **acquis le 13/10/2026
+     (D1241–D1265)** — le périmètre, le titre, cinq parties dans
+     l'ordre de l'auteur, les annexes ;
   2. §5 — le modèle de données : les trois niveaux, la correspondance
      (entity.md), le diagramme d'états, le rendu vérifié ;
   3. §9 — les écarts : ce qui compte comme écart, la liste et les
@@ -879,7 +879,7 @@ autres sans y figurer en diagramme : la réglementation lit le registre
 entité par entité, le développeur le contrat d'API entité par entité ;
 le D.A.T. montre les connexions, pas le modèle.
 
-## 4. Le dictionnaire de la donnée — la documentation de l'information (D1241, D1243) *(le rang 2, étape 1 — le périmètre, le titre et l'ordre acquis, D1241–D1261 ; les parties 1 à 4 et les annexes acquises ; la partie 5 en cours)*
+## 4. Le dictionnaire de la donnée — la documentation de l'information (D1241, D1243) *(le rang 2, étape 1 — acquis, D1241–D1265 : le périmètre, le titre, l'ordre, les cinq parties et les annexes)*
 
 **« Cette documentation est centrée sur la donnée et la configuration du
 projet. »** (D1241) — ce que l'application sait, à une version donnée,
@@ -936,11 +936,11 @@ lecteur. *Ma lecture, en proposition* : le dictionnaire marque ce que la
 fonctionnelle ne montre pas, pour que le décideur sache ce qui vit hors
 de l'écran.
 
-**Le plan** — cinq parties dans l'ordre de l'auteur (D1261) : la
-couverture, la structure avec ses évolutions, le stockage, l'origine,
-l'usage, puis les annexes ; les quatre axes de D1243 sont les quatre
-lectures de chaque élément (les évolutions à l'entité et au champ —
-D1257) ; les chapitres de chaque partie s'arbitrent un par un ; la forme est celle de la fonctionnelle (D1189) ; les chapitres de
+**Le plan — acquis** (D1241–D1265) : cinq parties dans l'ordre de
+l'auteur (D1261) — la couverture, la structure avec ses évolutions, le
+stockage, l'origine, l'usage — puis les annexes ; les quatre axes de
+D1243 sont les quatre lectures de chaque élément (les évolutions à
+l'entité et au champ — D1257) ; la forme est celle de la fonctionnelle (D1189) ; les chapitres de
 l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
 
 | Partie | Chapitre | Contenu | Source |
@@ -952,9 +952,9 @@ l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
 | **4. L'origine** *(acquise, D1262)* | **4.1 Reprise des données** | le nom de la configuration (D1256, D1259) : les sources lues et ignorées, leurs colonnes décrites, les règles et leurs destinataires, la table des associations ([migration.md](migration.md)) ; au dépôt depuis la configuration de la reprise, à l'instance avec ce que les passages ont fait, le refusé non enregistré compris | la reprise |
 | | **4.2 Les imports** | ce qui entre par fichier : pour chaque entité importable, le gabarit de §14 (D1211) par les noms — les colonnes, la clé de rapprochement ; le fichier se télécharge depuis l'écran d'import | calculé |
 | | **4.3 Les opérations** | ce qui crée ou modifie une donnée hors saisie : les opérations par entité cible, leur contrat (ce qu'elles lisent, ce qu'elles écrivent), leurs effets, les valeurs par défaut posées à la création ; chaque champ écrit par une opération le dit dans sa ligne de la partie 2 | les entités, les md des opérations |
-| **5. L'usage** *(en proposition)* | **5.1 Où sert chaque champ** | le graphe de D1198 : les formules, les validations, les opérations, les rapports, les écrans qui lisent un champ ; qui référence une entité — la vue transversale des règles, par le graphe (D1254) | calculé |
-| | **5.2 Les droits** | la composition des groupes (D1099), le degré (D699), la matrice entités × groupes × actions, les droits conditionnels par champ (D1172) | `groups.yml` |
-| | **5.3 Les données** | §8 : les volumes, la diversité, les usages réels — à l'instance seulement, sur les données que le lecteur a le droit de consulter (D1248–D1249) | l'instance |
+| **5. L'usage** *(acquise, D1263–D1265)* | **5.1 Où sert chaque champ** | l'index par entité et par champ, sur le graphe de D1198 : les formules, les validations, les opérations, les règles de reprise, les rapports, les écrans qui lisent un champ ; qui référence une entité ; l'analyse d'impact ; la vue transversale des règles, par le graphe (D1254). **Sa lisibilité est le point à travailler** (D1263 : « l'organisation, la synthèse et sa pertinence vont jouer sur son intérêt ») — *ma proposition, à la déclinaison* : une synthèse par entité en tête, le détail par champ replié (la zone de D1216 dans la documentation servie, une table par entité dans l'édition, les usages triviaux omis), la pertinence par le poids de l'usage | calculé |
+| | **5.2 Les droits** | **la matrice des droits** (D1264 : « la visibilité est simple et rapide ») — les entités en lignes, les groupes en colonnes, les quatre actes et les opérations permises dans la case, la condition d'état quand il y en a une (D1172) ; la composition des groupes (D1099), le degré (D699) ; les profils de confidentialité lus comme « qui voit » chaque niveau | `groups.yml`, `settings.yml` |
+| | **5.3 Les données** | **une façon d'exploiter la télémétrie de Syncytium** (D1265) — §8 : les volumes par entité, la synthèse ; le détail par champ dans la zone sur demande (D1216) ; à l'instance seulement, sur les données que le lecteur a le droit de consulter (D1248–D1249) ; la liste des indicateurs par type, à l'étape 5 du rang 2 | l'instance, la télémétrie |
 | **Annexes** *(acquises, D1261)* | **A. La configuration dépliée** | entière, les clés `*` retirées (D1247), le niveau de confidentialité affiché ; lisible dans le document, JSON ou YAML pour la machine et l'IA (D1245) ; l'arbre des réglages y reste lisible (D1253) | calculé |
 | | **B. Le glossaire des types** | les types du catalogue et les types personnalisés, en clair (D1180) | calculé |
 
@@ -2361,8 +2361,8 @@ comme chapitre (§19 → §22, D1187).*
    artefacts ; les déclinaisons sur le véhicule, la banque, l'entrepôt ;
 4. l'inventaire des défauts du socle (D1175) à écrire dans
    configuration.md ;
-5. le plan du dictionnaire de la donnée (§4) — le rang 2, en cours (le
-   périmètre et le titre D1241–D1245) ;
+5. *(clos le 13/10 — le plan du dictionnaire de la donnée, §4,
+   D1241–D1265)* ;
 6. la représentation graphique (§5) : la forme (Mermaid, PlantUML) au
    domaine 7 ; le `title:` au singulier ;
 7. les indicateurs de la troisième source et leur partage (§8) ;

@@ -211,3 +211,25 @@ raccords validés :
 **La télémétrie est soldée** (D743) — le seul reste : le calibrage
 des seuils SEQUITUR sur données réelles, aux cas d'usage (Q59, comme
 prévu par D319).
+
+## La documentation — la facette de la télémétrie (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne de l'information remplie au rang 2, les autres à leur
+rang.)*
+
+**La télémétrie, dans le dictionnaire de la donnée** (D1265 — « Cette
+partie est une façon d'exploiter la télémétrie de Syncytium ») : le
+chapitre 5.3, les données — les volumes par entité, la synthèse, le
+détail par champ dans la zone sur demande (D1216) ; à l'instance
+seulement, sur les données que le lecteur a le droit de consulter
+(D1248–D1249). *Ma lecture* : **un septième canal de restitution** à
+côté des six — *pull*, par la documentation, l'usage réel champ par
+champ. La liste des indicateurs par type (la collecte D38–D41, D46,
+D48) se fixe à l'étape 5 du rang 2, §8.
+
+**Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
+télémétrie n'est pas ce que l'utilisateur fait) ; la maintenance et la
+supervision (§23 — le tableau de bord, la synthèse périodique, les
+alertes) ; le guide d'exploitation (le journal, ses niveaux, sa
+rétention).

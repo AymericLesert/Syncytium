@@ -388,8 +388,10 @@ décisions, D1170–D1238.)*
   1. §4 — le plan du dictionnaire de la donnée : **acquis le 13/10/2026
      (D1241–D1265)** — le périmètre, le titre, cinq parties dans
      l'ordre de l'auteur, les annexes ;
-  2. §5 — le modèle de données : les trois niveaux, la correspondance
-     (entity.md), le diagramme d'états, le rendu vérifié ;
+  2. §5 — le modèle de données : les trois vues (acquises D1213–D1214),
+     la correspondance (entity.md), le diagramme d'états, **le rendu
+     vérifié le 13/10/2026** (deux contraintes Mermaid relevées) ; les
+     lectures restantes à confirmer ;
   3. §9 — les écarts : ce qui compte comme écart, la liste et les
      annotations (D1123) ;
   4. l'édition lisible par la machine : le méta-schéma et ses
@@ -1012,9 +1014,22 @@ les diagrammes avec les libellés » est écartée.)*
 **La forme dépend de l'architecture technique et des modes de rendu**
 (D1126) : ce document dit ce que le diagramme montre, pas comment il
 se dessine. Les exemples ci-dessous sont écrits en Mermaid
-(`classDiagram`) parce qu'un texte de diagramme se lit dans le dépôt et
-se rend sur GitHub ; l'outil — Mermaid, PlantUML, un SVG calculé —
-se choisit au domaine 7.
+(`classDiagram`, `flowchart`, `stateDiagram-v2`) parce qu'un texte de
+diagramme se lit dans le dépôt et se rend sur GitHub ; l'outil —
+Mermaid, PlantUML, un SVG calculé — se choisit au domaine 7.
+
+**Le rendu vérifié** (le 13/10/2026, Mermaid 10.9.1, dans un navigateur —
+l'étape 2 du rang 2) : les quatre exemples ci-dessous se rendent. Deux
+contraintes de Mermaid, à retenir pour le domaine 7 : **un `namespace`
+ne peut pas porter le nom d'une classe** (« Setting tiers as parent of
+tiers would create a cycle » — le module `tiers` et l'entité `tiers` du
+cas 5) : le rendu préfixe le paquetage (`module_tiers`) ou choisit un
+outil qui l'accepte ; **les styles de D1213 — souligné, italique, gras,
+« * » — ne se rendent pas dans les membres d'une classe Mermaid**, qui
+n'accepte ni balise ni creole (le texte s'affiche tel quel) : PlantUML
+(le creole `__nom__`, `//nom//`, `**nom**` dans les membres) ou un SVG
+calculé les portent ; les exemples Mermaid écrivent donc les noms sans
+leurs marques.
 
 **Le nom d'usage — `title:` (D1120).** `name:` est l'invariant du
 module et de l'entité, quelle que soit la langue (D124/D335) ; `label:`
@@ -1027,36 +1042,53 @@ langue, par langue à plusieurs (D1101) ; sans lui, le `name:`. *Mes
 lectures* : au singulier, le pluriel n'est pas une propriété ; le même
 `title:` que celui des surfaces.
 
-**La vue d'ensemble du cas 5**, telle que Syncytium la calculerait —
-dix-huit entités, quatre paquetages, un trait par couple ; les
-associations dérivées (`commandes_vente`, `mouvements`…) n'y figurent
-pas. *(Écrit en Mermaid, non rendu : la syntaxe se valide au premier
-rendu.)*
+**La vue des modules et de leurs liens du cas 5** (D1214, la première
+vue) — une boîte par module, un trait par sens de référence ou
+d'association entre deux modules :
+
+```mermaid
+flowchart LR
+  technique[technique]
+  tiers[tiers]
+  commande[commande]
+  stock[stock]
+  technique --> tiers
+  technique --> stock
+  commande --> technique
+  commande --> tiers
+  stock --> technique
+```
+
+**La vue de l'ensemble des entités du cas 5** (la deuxième vue), telle
+que Syncytium la calculerait — dix-huit entités, quatre paquetages, un
+trait par couple ; les associations dérivées (`commandes_vente`,
+`mouvements`…) n'y figurent pas ; les paquetages préfixés `module_`
+(la contrainte Mermaid ci-dessus). *(Rendu vérifié.)*
 
 ```mermaid
 classDiagram
   direction LR
-  namespace technique {
+  namespace module_technique {
     class article
     class fabrique
     class semi_fini
     class fantome
     class nomenclature
   }
-  namespace tiers {
+  namespace module_tiers {
     class tiers
     class client
     class fournisseur
     class adresse
     class contact
   }
-  namespace commande {
+  namespace module_commande {
     class commande_vente
     class ligne_vente
     class commande_achat
     class ligne_achat
   }
-  namespace stock {
+  namespace module_stock {
     class depot
     class emplacement
     class niveau
@@ -1092,41 +1124,77 @@ classDiagram
   mouvement --> "0..1" emplacement
 ```
 
-**La vue de l'entité `nomenclature`** (le cas 5) — ses quinze champs,
-l'identité, les deux calculés, ses trois possesseurs, l'article qu'elle
-référence. *(UML écrit `{id}` ; Mermaid n'accepte pas l'accolade dans
-une classe, l'exemple écrit `«id»`.)*
+**La vue sélective du module `technique` du cas 5** (la troisième vue —
+D1214 : « inspirée du global mais limitée aux items du module et à ses
+interactions ») : les entités du module avec leurs champs, les entités
+des autres modules qu'il référence sans leurs champs, marquées de leur
+paquetage ; les champs sont réduits ici à ceux qui portent une marque
+ou un lien (l'identité `code`, `complement` ; la référence `composant` ;
+les calculés `nature`, `quantite_nette`), la vue réelle les montre tous.
+*(Rendu vérifié ; les marques de D1213 absentes — Mermaid ne les porte
+pas.)*
 
 ```mermaid
 classDiagram
   direction LR
-  class nomenclature {
-    +numero : integer[1..] «id»
-    +/nature : enum
-    +designation : text[..40]
-    +quantite : decimal
-    +unite : text[..2]
-    +rendement : percentage
-    +operation : text[..6]
-    +jalon : integer[0..]
-    +temps_preparation : duration
-    +temps_ouverture : duration
-    +temps_attente : duration
-    +nombre_ouvriers : decimal
-    +validite : period
-    +/quantite_nette : decimal
+  namespace module_technique {
+    class article {
+      code
+      complement
+      designation
+      fournisseur_defaut
+      depot_expedition
+    }
+    class fabrique {
+      client
+    }
+    class semi_fini
+    class fantome
+    class nomenclature {
+      numero
+      nature
+      designation
+      composant
+      quantite
+      quantite_nette
+    }
   }
-  class article
-  class fabrique
-  class semi_fini
-  class fantome
+  namespace module_tiers {
+    class fournisseur
+    class client
+  }
+  namespace module_stock {
+    class depot
+    class emplacement
+  }
   article <|-- fabrique
   article <|-- semi_fini
   article <|-- fantome
-  fabrique *-- "0..*" nomenclature : nomenclature
-  semi_fini *-- "0..*" nomenclature : nomenclature
-  fantome *-- "0..*" nomenclature : nomenclature
+  fabrique *-- "0..*" nomenclature
+  semi_fini *-- "0..*" nomenclature
+  fantome *-- "0..*" nomenclature
   nomenclature --> "1" article : composant
+  article --> "0..1" fournisseur
+  article --> "0..1" depot
+  article --> "0..1" emplacement
+  fabrique --> "0..1" client
+```
+
+**Le diagramme d'états du véhicule** (le cas 3 — `states: statut`,
+D422 : les valeurs du champ-statut, les passages permis, les droits de
+chaque état) : la naissance à la valeur par défaut, l'activation libre,
+la clôture au cliquet dès que la vente est posée. *(Rendu vérifié.)*
+
+```mermaid
+stateDiagram-v2
+  direction LR
+  [*] --> creation : naissance
+  creation --> actif : activer
+  actif --> cloture : clore, quand date_vente != null
+  cloture --> [*]
+  note right of creation : create, read, update, delete
+  note right of actif : create, read, update
+  note right of cloture : read
 ```
 
 Le tiny (§13) donne la plus petite vue possible : le paquetage

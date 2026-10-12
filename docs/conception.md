@@ -24296,6 +24296,14 @@ avant la synthèse Q16).
   la partie 5, l'usage, acquise (D1263–D1265 — l'index et sa
   lisibilité, la matrice des droits, la télémétrie exploitée) ; **le
   plan de §4 entier, l'étape 1 du rang 2 close**.
+  L'étape 2 ouverte : **le rendu de §5 vérifié** dans le navigateur
+  (Mermaid 10.9.1) — la vue d'ensemble du cas 5 ne se rendait pas (un
+  `namespace` ne peut pas porter le nom d'une classe : `tiers`), la vue
+  de l'entité `nomenclature` était obsolète depuis D1213 ; les quatre
+  exemples réécrits et rendus (les modules, l'ensemble, la vue
+  sélective de `technique`, le diagramme d'états du véhicule) ; deux
+  contraintes Mermaid notées pour le domaine 7 (le préfixe des
+  paquetages, les styles de D1213 non rendus dans les membres).
 - **2026-10-09 — REPRISE : LA MÉTHODE (D1158, 1158 décisions).** « Nous
   n'allons pas l'alléger… La documentation est portée dans tous les
   composants. Chaque type de composant définira sa déclinaison dans les

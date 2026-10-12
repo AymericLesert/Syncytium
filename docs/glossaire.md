@@ -177,6 +177,13 @@ documentation, comme il porte son affichage ou son stockage ; chaque
 type de composant la décline dans chacune des neuf documentations ;
 Syncytium assemble. *(D1158–D1159)*
 
+**Documentation de l'information** — La deuxième documentation, pour
+la BI, l'IA et le décideur : centrée sur la donnée et la configuration
+du projet — ce que l'application sait à une version donnée (le modèle,
+les règles, les droits, les réglages, le stockage, les données de
+l'instance) et ce que le concepteur a écrit pour le dire. Son plan est
+le §4 de documentation.md. *(D1131, D1241)*
+
 **Édition** — Un extrait figé de la documentation pour qui n'a pas de
 compte, préparé par un `manager` ou un `administrator` dans la limite de
 ses droits, à cartouche, dans la langue et la version de l'émetteur,

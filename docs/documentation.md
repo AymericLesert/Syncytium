@@ -128,7 +128,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | La documentation | Pour qui (§3) | Ce que ce document en dit déjà |
 |---|---|---|
 | **1. Fonctionnelle** — d'abord | l'utilisateur, le décideur | §6 la fonctionnelle (D1121 — les descriptions, les enchaînements, les opérations) ; §7 les masques ; §16 les enchaînements ; §19 le parcours guidé ; §22 les scénarios par personas ; §24 les modes opératoires ; §25 l'assistance — les questions et les réponses ; §14 l'export et l'import (le gabarit, la procédure) ; §15 le dictionnaire (par libellés) ; §5 la vue d'ensemble du modèle ; §9 les notes de version |
-| **2. Technique — l'information (BI, IA)** | le concepteur, l'assistant IA, le décideur | §4 la technique (le modèle, les règles) ; §5 le modèle de données ; §15 le dictionnaire (par noms) ; §8 les données ; §9 les écarts calculés ; §2 le carburant ; la reprise ([migration.md](migration.md)) ; le chat (D957) |
+| **2. Technique — l'information (BI, IA)** | le concepteur, l'assistant IA, le décideur | §4 l'information — la donnée et la configuration du projet (D1241) ; §5 le modèle de données ; §15 le dictionnaire (par noms) ; §8 les données ; §9 les écarts calculés ; §2 le carburant ; la reprise ([migration.md](migration.md)) ; le chat (D957) |
 | **3. Développeur** | le technicien, le concepteur de l'application | §10 l'API ; §4 chapitres 7–9 — les types personnalisés, les connecteurs, les hooks ; §14 les formats d'échange |
 | **4. Le D.A.T. — l'architecture technique** : les inter-connexions et le paramétrage externe indispensable (D1134) | l'administrateur, le concepteur | §4 chapitre 1 — les environnements et les connecteurs ; §4 chapitre 11 — les dépendances ; les secrets et les variables (D944/D321) |
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
@@ -385,7 +385,8 @@ décisions, D1170–D1238.)*
   physique, l'historique, la reprise.
 - **Sections** : §4, §5, §8, §9, §15, §2.
 - **Étapes** :
-  1. §4 — le plan de la technique (douze chapitres) ;
+  1. §4 — le plan de l'information : le périmètre (D1241–D1242,
+     acquis), les chapitres (en cours) ;
   2. §5 — le modèle de données : les trois niveaux, la correspondance
      (entity.md), le diagramme d'états, le rendu vérifié ;
   3. §9 — les écarts : ce qui compte comme écart, la liste et les
@@ -877,11 +878,15 @@ autres sans y figurer en diagramme : la réglementation lit le registre
 entité par entité, le développeur le contrat d'API entité par entité ;
 le D.A.T. montre les connexions, pas le modèle.
 
-## 4. La documentation technique *(le plan, en proposition)*
+## 4. La documentation de l'information — la donnée et la configuration du projet (D1241) *(le rang 2, étape 1 — le périmètre acquis ; le plan en proposition)*
 
-Ce que l'application est, à une version donnée. Les noms sont ceux de
-la configuration (la langue du modèle — D335), les types ceux du
-catalogue.
+**« Cette documentation est centrée sur la donnée et la configuration du
+projet. »** (D1241) — ce que l'application sait, à une version donnée,
+et ce que le concepteur a écrit pour le dire ; un chapitre y entre s'il
+décrit la donnée ou la configuration de la version, sinon il appartient
+à une autre documentation (le développeur, l'exploitation,
+l'architecture). Les noms sont ceux de la configuration (la langue du
+modèle — D335), les types ceux du catalogue.
 
 1. **Le projet** — le nom, la description, la version du format, les
    environnements et ce que chacun câble (le storage, les
@@ -2311,7 +2316,8 @@ comme chapitre (§19 → §22, D1187).*
    artefacts ; les déclinaisons sur le véhicule, la banque, l'entrepôt ;
 4. l'inventaire des défauts du socle (D1175) à écrire dans
    configuration.md ;
-5. le plan de la documentation technique (§4) — le rang 2 ;
+5. le plan de la documentation de l'information (§4) — le rang 2, en
+   cours (le périmètre D1241–D1242) ;
 6. la représentation graphique (§5) : la forme (Mermaid, PlantUML) au
    domaine 7 ; le `title:` au singulier ;
 7. les indicateurs de la troisième source et leur partage (§8) ;

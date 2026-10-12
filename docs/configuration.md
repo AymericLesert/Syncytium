@@ -200,6 +200,11 @@ parameters:
 
 C'est la seule forme du secret : il n'existe pas de liste `secrets:`.
 
+**Dans la documentation** (D1247) : la clé `*` est la seule chose
+que le dictionnaire de la donnée et sa configuration dépliée en annexe
+ne montrent pas ; tout le reste y est, avec son niveau de
+confidentialité.
+
 ### 2.6 L'adressage logique — le point (D363)
 
 `<module>.<entité>.<champ>` — **le point, jamais la barre oblique** :

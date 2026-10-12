@@ -903,8 +903,21 @@ annexe de ce document. La configuration en json ou yaml sera
 exploitable pour l'IA. » — l'édition machine de §11, un seul objet, deux
 rendus ; *mes lectures* : dépliée = les `~{…}` résolus, les fichiers
 complémentaires inclus, les défauts du socle écrits (D1239), les textes
-du catalogue dans les langues de la version ; filtrée par les droits du
-lecteur (D958).
+du catalogue dans les langues de la version.
+
+**L'intégralité et la confidentialité** (D1247) : **« Le dictionnaire de
+données décrit l'intégralité des données et affiche le niveau de
+confidentialité de l'information. Seules les clés confidentielles
+(marquées par "*") n'apparaissent pas dans la documentation. »** Le
+dictionnaire n'est pas filtré par les droits de son lecteur : tout champ
+y est, avec son niveau (`confidentiality:`) ; ce qui disparaît, ce sont
+les valeurs des clés `*` de la configuration — les secrets des
+environnements (D944). L'annexe A suit la même règle. **Le chapitre des
+données** (D1248) : **« les informations extraites sont celles de la
+visibilité de la documentation »** — *ma lecture* : la `visibility:` du
+projet (D1151) gouverne ce chapitre — `public` ou `promotional`, aucune
+donnée de l'instance ; `private`, les indicateurs, des agrégats jamais
+nominatifs.
 
 **L'exhaustivité** (D1246) : **« La documentation fonctionnelle décrit
 ce qui est accessible à un utilisateur. Le dictionnaire de données
@@ -926,7 +939,7 @@ de l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
 |---|---|---|---|
 | — | **0. La couverture** | le cartouche, le filigrane Beta (D1142, D1145) | commun |
 | **I. La structure** | **1. La version** | le projet (le nom, la description, la version du format), le numéro, le statut (D338/D340), les langues, les environnements et ce que chacun câble — le storage, les connecteurs — sans leurs secrets (D944) | `version.yml`, les environnements |
-| | **2. Le modèle** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; puis, module par module, l'inventaire de §15 : pour chaque entité la description, les identités nommées (D1170–D1171), le visage (`label:`), les états et leur graphe, l'historisation, le `rgpd:` ; **la table des champs** — le nom, le type en clair et ses facettes (D1160), le libellé en complément, l'aide, l'obligation, le défaut, la confidentialité, les droits d'écriture | calculé, les entités |
+| | **2. Le modèle** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; puis, module par module, l'inventaire de §15 : pour chaque entité la description, les identités nommées (D1170–D1171), le visage (`label:`), les états et leur graphe, l'historisation, le `rgpd:` ; **la table des champs** — le nom, le type en clair et ses facettes (D1160), le libellé en complément, l'aide, l'obligation, le défaut, **le niveau de confidentialité** (D1247), les droits d'écriture ; toutes les entités, tous les champs (D1246–D1247) | calculé, les entités |
 | | **3. Les types et les réglages** | les types personnalisés, les réglages à trois niveaux tels qu'appliqués (D1239), l'inventaire des défauts du socle (D1175) | `settings.yml` |
 | | **4. Les règles** | en un lieu : toutes les validations (la règle, sa description, son message), tous les calculés et leurs formules, les états et leurs transitions | calculé |
 | | **5. Le stockage** | le modèle physique : les tables et les colonnes de chaque storage, la correspondance du nom logique au stockage (D630) | les connecteurs |
@@ -937,8 +950,8 @@ de l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
 | | **10. Les opérations** | ce qui crée ou modifie une donnée : les opérations et leur contrat, leurs effets ; les valeurs par défaut | les entités |
 | **IV. L'usage** | **11. Où sert chaque champ** | le graphe de D1198 : les formules, les validations, les opérations, les rapports, les écrans qui lisent un champ ; qui référence une entité | calculé |
 | | **12. Les droits** | la composition des groupes (D1099), le degré (D699), la matrice entités × groupes × actions, les droits conditionnels par champ (D1172) | `groups.yml` |
-| | **13. Les données** | §8 : les volumes, la diversité, les usages réels — à l'instance seulement | l'instance |
-| **Annexes** | **A. La configuration dépliée** | entière, sans les clés confidentielles, filtrée par les droits du lecteur ; lisible dans le document, JSON ou YAML pour la machine et l'IA (D1245) | calculé |
+| | **13. Les données** | §8 : les volumes, la diversité, les usages réels — à l'instance seulement, selon la visibilité de la documentation (D1248) | l'instance |
+| **Annexes** | **A. La configuration dépliée** | entière, les clés `*` retirées (D1247), le niveau de confidentialité affiché ; lisible dans le document, JSON ou YAML pour la machine et l'IA (D1245) | calculé |
 | | **B. Le glossaire des types** | les types du catalogue et les types personnalisés, en clair (D1180) | calculé |
 
 ## 5. Le modèle de données — la représentation graphique (D1119)
@@ -1260,7 +1273,10 @@ occupées d'un numérique ou d'une date, la diversité représentative
 (D46 — un champ constant, candidat au retrait) et scalaire (D48 — un
 domaine surdimensionné, à resserrer). Elle ne vit qu'**avec
 l'instance** : une documentation générée au dépôt, sans base, n'a pas
-cette section ; la documentation servie par l'application l'a. *À
+cette section ; la documentation servie par l'application l'a. **Ce
+qu'elle extrait suit la visibilité de la documentation** (D1248 —
+`visibility:`, D1151 ; *ma lecture* : rien en `public` ou
+`promotional`, les indicateurs en `private`, des agrégats). *À
 trancher* : sur quels types et quels indicateurs (la liste des canaux
 de telemetry.md), et si cette part reste au concepteur ou se partage.
 Cette source nourrit la pièce §23 — la supervision des usages, les

@@ -913,11 +913,14 @@ dictionnaire n'est pas filtré par les droits de son lecteur : tout champ
 y est, avec son niveau (`confidentiality:`) ; ce qui disparaît, ce sont
 les valeurs des clés `*` de la configuration — les secrets des
 environnements (D944). L'annexe A suit la même règle. **Le chapitre des
-données** (D1248) : **« les informations extraites sont celles de la
-visibilité de la documentation »** — *ma lecture* : la `visibility:` du
-projet (D1151) gouverne ce chapitre — `public` ou `promotional`, aucune
-donnée de l'instance ; `private`, les indicateurs, des agrégats jamais
-nominatifs.
+données** (D1248–D1249) : « les informations extraites sont celles de
+la visibilité de la documentation », **« à interpréter par "les données
+stockées dans la base de données couverte par le meta-modèle sont
+celles que l'utilisateur a le droit de consulter" »**. Deux régimes
+dans le même document : le modèle, intégral pour tous (D1247) ; les
+données de l'instance, aux droits du lecteur — un champ qu'il ne peut
+lire reste décrit, ses volumes, sa diversité, ses valeurs ne lui sont
+pas servis.
 
 **L'exhaustivité** (D1246) : **« La documentation fonctionnelle décrit
 ce qui est accessible à un utilisateur. Le dictionnaire de données
@@ -950,7 +953,7 @@ de l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
 | | **10. Les opérations** | ce qui crée ou modifie une donnée : les opérations et leur contrat, leurs effets ; les valeurs par défaut | les entités |
 | **IV. L'usage** | **11. Où sert chaque champ** | le graphe de D1198 : les formules, les validations, les opérations, les rapports, les écrans qui lisent un champ ; qui référence une entité | calculé |
 | | **12. Les droits** | la composition des groupes (D1099), le degré (D699), la matrice entités × groupes × actions, les droits conditionnels par champ (D1172) | `groups.yml` |
-| | **13. Les données** | §8 : les volumes, la diversité, les usages réels — à l'instance seulement, selon la visibilité de la documentation (D1248) | l'instance |
+| | **13. Les données** | §8 : les volumes, la diversité, les usages réels — à l'instance seulement, sur les données que le lecteur a le droit de consulter (D1248–D1249) | l'instance |
 | **Annexes** | **A. La configuration dépliée** | entière, les clés `*` retirées (D1247), le niveau de confidentialité affiché ; lisible dans le document, JSON ou YAML pour la machine et l'IA (D1245) | calculé |
 | | **B. Le glossaire des types** | les types du catalogue et les types personnalisés, en clair (D1180) | calculé |
 
@@ -1274,9 +1277,9 @@ occupées d'un numérique ou d'une date, la diversité représentative
 domaine surdimensionné, à resserrer). Elle ne vit qu'**avec
 l'instance** : une documentation générée au dépôt, sans base, n'a pas
 cette section ; la documentation servie par l'application l'a. **Ce
-qu'elle extrait suit la visibilité de la documentation** (D1248 —
-`visibility:`, D1151 ; *ma lecture* : rien en `public` ou
-`promotional`, les indicateurs en `private`, des agrégats). *À
+qu'elle extrait, ce sont les données que le lecteur a le droit de
+consulter** (D1248–D1249) : le modèle est intégral, les données suivent
+les droits. *À
 trancher* : sur quels types et quels indicateurs (la liste des canaux
 de telemetry.md), et si cette part reste au concepteur ou se partage.
 Cette source nourrit la pièce §23 — la supervision des usages, les

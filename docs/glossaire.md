@@ -341,9 +341,13 @@ par des données : la règle de contrôle du stock, emplacement × article
 modules, entités, champs — **et la grammaire utilisée** pour les
 écrire. Chaque version porte un méta-schéma. *(D322)*
 
-**Migration** — Le passage d'une version de configuration à la suivante,
-sans arrêter l'application : la base, les écrans et les API suivent.
-*(D3)*
+**Migration** — Deux sens voisins. Le passage d'une version de
+configuration à la suivante, sans arrêter l'application : la base, les
+écrans et les API suivent *(D3)*. Et le nom du module interne
+`_migration` et de l'artefact migration.md, qui portent la **reprise
+des données** : la configuration dit « reprise » pour le geste, le
+module s'appelle « migration » parce qu'il vaut pour toute migration
+d'un système à Syncytium *(D1031, D1259)*.
 
 **Mode d'un champ** (`mode`) — Son mode d'écriture : modifiable
 (`editable`), lecture seule (`read-only`), écrit une fois pour toutes
@@ -408,6 +412,14 @@ adresse, paramétrée au besoin (filtrer une liste, affecter des valeurs)
 lue (le chapitre), vécue (le wizard), imprimée (la planche).
 *Ex. : `scenarios: { foyer: { virement: { title: Faire un virement,
 description: ~{…/virement.md} } } }`.* *(D1127/D1130, D1201–D1205)*
+
+**Reprise des données** — Le chargement, dans Syncytium, des données
+d'un système précédent : les sources lues ou ignorées, leurs colonnes,
+les règles et leurs destinataires, le refusé non enregistré, la table
+des associations ; décrite dans `reprise.yml`, portée par le module
+interne `_migration` — d'où la proximité avec **migration**. Le
+chapitre 4 du dictionnaire de la donnée en porte le nom.
+*(D1030–D1080, D1259)*
 
 **Rétention des fichiers** (`cleanup.yml`) — Les règles qui
 suppriment, dans un dossier, les fichiers d'un pattern au-delà d'une

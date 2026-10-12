@@ -545,4 +545,10 @@ connexions de l'application à son environnement, le schéma calculé
 des connecteurs, D1131) ; le guide d'exploitation (le rang 7 — le
 paramétrage, les secrets `*` D944, `unencrypted:` D901, le mock D627) ;
 la réglementation (les sortants et ce qu'ils emportent, D698) ;
-l'information (le storage et sa facette, D683).
+l'information — **le chapitre du stockage du dictionnaire de la donnée**
+(D1260) : « le connecteur storage matérialise le stockage des types dans
+la base de données » ; le chapitre représente les données telles
+qu'elles sont stockées, pour tout outil de BI qui se connecte à la base
+sans passer par Syncytium — la facette stockage de chaque type (D683),
+assemblée par le storage ; le contenu du `describe()`, à l'étape 6 du
+rang 2.

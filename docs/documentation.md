@@ -385,8 +385,9 @@ décisions, D1170–D1238.)*
   physique, l'historique, la reprise.
 - **Sections** : §4, §5, §8, §9, §15, §2.
 - **Étapes** :
-  1. §4 — le plan du dictionnaire de la donnée : le périmètre et le
-     titre (D1241–D1245, acquis), les chapitres (en cours) ;
+  1. §4 — le plan du dictionnaire de la donnée : le périmètre, le
+     titre et les quatre parties (D1241–D1250, acquis), les chapitres
+     partie par partie (en cours) ;
   2. §5 — le modèle de données : les trois niveaux, la correspondance
      (entity.md), le diagramme d'états, le rendu vérifié ;
   3. §9 — les écarts : ce qui compte comme écart, la liste et les
@@ -878,7 +879,7 @@ autres sans y figurer en diagramme : la réglementation lit le registre
 entité par entité, le développeur le contrat d'API entité par entité ;
 le D.A.T. montre les connexions, pas le modèle.
 
-## 4. Le dictionnaire de la donnée — la documentation de l'information (D1241, D1243) *(le rang 2, étape 1 — le périmètre et le titre acquis ; le plan en proposition)*
+## 4. Le dictionnaire de la donnée — la documentation de l'information (D1241, D1243) *(le rang 2, étape 1 — le périmètre, le titre et les quatre parties acquis, D1241–D1250 ; les chapitres en cours)*
 
 **« Cette documentation est centrée sur la donnée et la configuration du
 projet. »** (D1241) — ce que l'application sait, à une version donnée,
@@ -901,9 +902,10 @@ et dépliée en annexe** (D1245) : « La configuration dans son intégralité
 et dépliée (à l'exception des clés confidentielles) sera portée en
 annexe de ce document. La configuration en json ou yaml sera
 exploitable pour l'IA. » — l'édition machine de §11, un seul objet, deux
-rendus ; *mes lectures* : dépliée = les `~{…}` résolus, les fichiers
-complémentaires inclus, les défauts du socle écrits (D1239), les textes
-du catalogue dans les langues de la version.
+rendus ; **dépliée** (D1250) = un seul arbre : les `~{…}` résolus, les
+fichiers complémentaires inclus, les défauts du socle écrits aux trois
+niveaux comme si le concepteur les avait posés (D1239), les textes du
+catalogue dans les langues de la version.
 
 **L'intégralité et la confidentialité** (D1247) : **« Le dictionnaire de
 données décrit l'intégralité des données et affiche le niveau de
@@ -934,9 +936,10 @@ lecteur. *Ma lecture, en proposition* : le dictionnaire marque ce que la
 fonctionnelle ne montre pas, pour que le décideur sache ce qui vit hors
 de l'écran.
 
-**Le plan, en proposition** — sur les quatre axes de D1243, la forme
-de la fonctionnelle (D1189) et ce que le rang 1 a fixé ; les chapitres
-de l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
+**Le plan** — les quatre parties sur les quatre axes de D1243, acquises
+(D1250) ; les chapitres de chacune, en proposition, s'arbitrent un par
+un ; la forme est celle de la fonctionnelle (D1189) ; les chapitres de
+l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
 
 | Partie | Chapitre | Contenu | Source |
 |---|---|---|---|

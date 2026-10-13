@@ -2468,8 +2468,9 @@ comme chapitre (§19 → §22, D1187).*
 6. la représentation graphique (§5) : le rendu vérifié le 13/10 ; la
    forme au domaine 7 (deux contraintes Mermaid notées : le préfixe
    des paquetages, les styles de D1213 non rendus) ; cinq lectures à
-   confirmer à la reprise (la vue des modules, la vue sélective, le
-   diagramme d'états, le `title:` au singulier, la table d'entity.md) ;
+   confirmer à la reprise : les blocs 1 et 2 arbitrés le 13/10
+   (D1266–D1268) ; restent la vue sélective (bloc 3), le diagramme
+   d'états (bloc 4), le `title:` au singulier, la table d'entity.md ;
 7. les indicateurs de la troisième source (§8) — leur place est
    acquise (le chapitre 5.3, aux droits du lecteur, D1249/D1265), la
    liste par type reste ;

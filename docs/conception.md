@@ -24318,6 +24318,14 @@ avant la synthèse Q16).
   losanges vides et des pointillés » (D1268) — les associations
   dérivées dans la vue d'ensemble, les cardinalités gardées,
   `<<abstract>>` en attendant l'outil.
+- **2026-10-13 (suite 2) — LA PAUSE : LES BLOCS 1 ET 2 ARBITRÉS
+  (D1266–D1268, 1268 décisions).** « Je marque une pause ». À la
+  reprise : le bloc 3 (la vue sélective — le périmètre des champs, les
+  entités des autres modules, les marques), le bloc 4 (le diagramme
+  d'états), le `title:` au singulier, la table d'entity.md ; puis §9,
+  §8, le `describe()` du storage, le contrat du hook de type,
+  migration.md → 4.1, la déclinaison, la lisibilité de l'index 5.1, la
+  colonne 2 de la matrice.
 - **2026-10-13 — LA PAUSE : L'ÉTAPE 1 DU RANG 2 CLOSE, L'ÉTAPE 2
   OUVERTE (1265 décisions).** L'état d'avancement donné sur sa demande ;
   « Je marque la pause après ». Le plan du dictionnaire de la donnée

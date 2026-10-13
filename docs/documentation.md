@@ -1055,8 +1055,12 @@ dépendance, un seul trait par sens, sans poids ; les associations
 dérivées font flèche aussi. Dans le cas 5, les quatre couples liés le
 sont dans les deux sens — la référence dans un sens (`ligne_vente →
 article`), l'association dérivée dans l'autre (`article.commandes_vente`)
-— : quatre traits à deux têtes ; `commande` et `stock`, `tiers` et
-`stock` ne se touchent pas. *(Rendu vérifié.)*
+— : quatre traits à deux têtes, et **deux têtes sont deux dépendances**
+(D1267 : « Une association dérivée en face de chaque référence reste une
+dépendance. Enlevé le module et l'association ne tient plus ») ;
+`commande` et `stock`, `tiers` et `stock` ne se touchent pas. Une seule
+tête quand un seul sens existe ; le même trait pour la référence et
+l'association dérivée. *(Rendu vérifié.)*
 
 ```mermaid
 flowchart LR

@@ -1076,22 +1076,31 @@ flowchart LR
 
 **La vue de l'ensemble des entités du cas 5** (la deuxième vue), telle
 que Syncytium la calculerait — dix-huit entités, quatre paquetages, un
-trait par couple ; les associations dérivées (`commandes_vente`,
-`mouvements`…) n'y figurent pas ; les paquetages préfixés `module_`
-(la contrainte Mermaid ci-dessus). *(Rendu vérifié.)*
+trait par couple : **la généralisation** par le triangle, **la
+composition** par le losange plein et le trait plein, **la référence**
+par la flèche simple, **l'association dérivée par le losange vide et le
+pointillé** (D1268 — dix traits sur le cas 5, du côté de l'entité qui la
+porte), **les cardinalités** gardées — l'obligation et la multiplicité
+que le nom ne dit pas ; **le parent abstrait** annoté `<<abstract>>`,
+l'italique attendant l'outil ; les paquetages préfixés `module_` (la
+contrainte Mermaid ci-dessus). *(Rendu vérifié.)*
 
 ```mermaid
 classDiagram
   direction LR
   namespace module_technique {
-    class article
+    class article {
+      <<abstract>>
+    }
     class fabrique
     class semi_fini
     class fantome
     class nomenclature
   }
   namespace module_tiers {
-    class tiers
+    class tiers {
+      <<abstract>>
+    }
     class client
     class fournisseur
     class adresse
@@ -1137,6 +1146,16 @@ classDiagram
   mouvement --> "1" article
   mouvement --> "0..1" depot
   mouvement --> "0..1" emplacement
+  article o.. "0..*" ligne_vente
+  article o.. "0..*" ligne_achat
+  article o.. "0..*" mouvement
+  fabrique o.. "0..*" client
+  client o.. "0..*" commande_vente
+  fournisseur o.. "0..*" commande_achat
+  fournisseur o.. "0..*" article
+  depot o.. "0..*" niveau
+  depot o.. "0..*" mouvement
+  emplacement o.. "0..*" mouvement
 ```
 
 **La vue sélective du module `technique` du cas 5** (la troisième vue —

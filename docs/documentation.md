@@ -990,7 +990,7 @@ interactions ») :
 
 | La vue | Ce qu'elle montre | Pour qui | Où |
 |---|---|---|---|
-| **les modules et leurs liens** | une boîte par module ; un lien par référence ou association entre deux modules *(ma lecture)* | le décideur ; l'opérateur qui découvre | en tête de la fonctionnelle (§6, chapitre 1) et du dictionnaire (§15) |
+| **les modules et leurs liens** | une boîte par module ; **la flèche dans le sens de la dépendance** — de qui référence vers qui est référencé —, un seul trait par sens, sans poids ; **les associations dérivées font flèche aussi** : la vue montre les liens bidirectionnels (D1266) | le décideur ; l'opérateur qui découvre | en tête de la fonctionnelle (§6, chapitre 1) et du dictionnaire (§4, partie 2) |
 | **l'ensemble des entités** | toutes les entités de la version, par module, en diagramme de classes — **le nom du module, de l'entité et du champ seulement**, aux styles ci-dessous ; les listes en liens | le décideur ; le concepteur | le dictionnaire (§15), la documentation de l'information |
 | **le module, en vue sélective** | ses entités, et celles des autres modules qu'il référence ou qui le référencent, marquées de leur module *(ma lecture)* | l'opérateur du module ; le concepteur | le chapitre du module (§6, chapitre 3) |
 
@@ -1050,8 +1050,13 @@ lectures* : au singulier, le pluriel n'est pas une propriété ; le même
 `title:` que celui des surfaces.
 
 **La vue des modules et de leurs liens du cas 5** (D1214, la première
-vue) — une boîte par module, un trait par sens de référence ou
-d'association entre deux modules :
+vue ; D1266) — une boîte par module ; la flèche dans le sens de la
+dépendance, un seul trait par sens, sans poids ; les associations
+dérivées font flèche aussi. Dans le cas 5, les quatre couples liés le
+sont dans les deux sens — la référence dans un sens (`ligne_vente →
+article`), l'association dérivée dans l'autre (`article.commandes_vente`)
+— : quatre traits à deux têtes ; `commande` et `stock`, `tiers` et
+`stock` ne se touchent pas. *(Rendu vérifié.)*
 
 ```mermaid
 flowchart LR
@@ -1059,11 +1064,10 @@ flowchart LR
   tiers[tiers]
   commande[commande]
   stock[stock]
-  technique --> tiers
-  technique --> stock
-  commande --> technique
-  commande --> tiers
-  stock --> technique
+  technique <--> tiers
+  technique <--> stock
+  technique <--> commande
+  commande <--> tiers
 ```
 
 **La vue de l'ensemble des entités du cas 5** (la deuxième vue), telle
@@ -1765,7 +1769,7 @@ alphabétique du 05/10 est écarté.)*
 
 | La vue | Ce qu'elle montre |
 |---|---|
-| **les modules et leurs liens** | une boîte par module ; un lien par référence ou association entre deux modules *(ma lecture)* |
+| **les modules et leurs liens** | une boîte par module ; la flèche dans le sens de la dépendance, un seul trait par sens, sans poids ; les associations dérivées font flèche aussi — les liens bidirectionnels (D1266) |
 | **l'ensemble des entités de l'application** | toutes les entités de la version, par module, en diagramme de classes : **le nom du module, de l'entité et du champ seulement** ; les effets de style — **souligné** pour les identifiants, *italique* pour les champs calculés, « * » pour les champs sécurisés ou `rgpd:`, **gras** pour les champs servant de référence dans d'autres entités ; les listes — les associations, les compositions — **en liens** |
 | **chaque module, en vue sélective** | « inspirée du global mais limitée aux items du module et à ses interactions » : ses entités, et celles des autres modules qu'il référence ou qui le référencent, marquées de leur module *(ma lecture)* |
 

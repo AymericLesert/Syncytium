@@ -190,7 +190,7 @@ UML stricte est retirée.)*
 
 | la configuration | le diagramme (D1213) |
 |---|---|
-| le module | le paquetage ; dans la vue des modules (D1214), une boîte par module, un lien par référence ou association entre deux modules |
+| le module | le paquetage ; dans la vue des modules (D1214, D1266), une boîte par module, la flèche dans le sens de la dépendance, un seul trait par sens, sans poids ; les associations dérivées font flèche aussi — les liens bidirectionnels |
 | l'entité (`name:`) | la classe, par son nom ; le parent abstrait (D1035 — `tiers`) en italique |
 | `inheritance:` | la généralisation — le triangle vers le parent (D143–D145) |
 | le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit |

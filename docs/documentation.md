@@ -392,8 +392,9 @@ décisions, D1170–D1238.)*
      — les quatre blocs arbitrés et rendus, les groupes de champs
      (D1273), le `title:`, la table d'entity.md ; deux contraintes
      Mermaid relevées pour le domaine 7 ;
-  3. §9 — les écarts : ce qui compte comme écart ; la forme à
-     l'élément, à l'entité et au champ (D1257) ;
+  3. §9 — les écarts : **acquis le 14/10/2026 (D1281–D1283)** — ce
+     qui touche la donnée, la chaîne beta → production, les dépréciées
+     par les notes de version, une section par champ ;
   4. l'édition lisible par la machine : **acquis** — l'annexe A, la
      configuration dépliée, entière, les clés `*` retirées (D1245,
      D1247, D1250) ;
@@ -956,7 +957,7 @@ l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
 |---|---|---|---|
 | **1. La couverture** | | le cartouche, le filigrane Beta (D1142, D1145) | commun |
 | **2. La structure, avec ses évolutions** *(acquise, D1251–D1258)* | **2.1 La version** | le projet (le nom, la description, la version du format), le numéro, le statut (D338/D340), les langues, les notes de version — ni les environnements ni les storages, qui sont au guide d'exploitation (D1251) | `syncytium.yml`, `version.yml` |
-| | **2.2 Le modèle** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; puis une section par module, une sous-section par entité : la description, les identités nommées (D1170–D1171), le visage (`label:`), l'historisation — et comment lire les instantanés (D168–D173) —, le `rgpd:` ; **la table des champs, par groupe** (D1273 — une section par groupe, l'implicite en tête) — le nom, le type en clair et ses facettes *tel qu'appliqué*, les réglages fondus (D1253), le libellé en complément dans la langue du document, l'aide, l'obligation, le défaut, le niveau de confidentialité (D1247), les droits d'écriture ; une liste de valeurs composées en sous-table, nommée `entité.champ` (D1271, D1274) ; **les règles de l'entité** (D1254) — les validations (la règle, sa description, son message en gabarit), les calculés et leurs formules, les états avec leur graphe et leurs transitions, les automatismes ; **les évolutions de l'entité et de chaque champ** (D1257–D1258) — ajouté, renommé (`from:`), retypé, déprécié avec son remplacement, supprimé, avec la version et son statut : beta, ce qui va arriver ; la dernière production, la version courante ; les productions antérieures, le passé ; deprecated, l'historique dépassé ; §9 donne la forme du calcul ; toutes les entités, tous les champs (D1246–D1247) | calculé, les entités, la facette des types |
+| | **2.2 Le modèle** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; puis une section par module, une sous-section par entité : la description, les identités nommées (D1170–D1171), le visage (`label:`), l'historisation — et comment lire les instantanés (D168–D173) —, le `rgpd:` ; **la table des champs, par groupe** (D1273 — une section par groupe, l'implicite en tête) — le nom, le type en clair et ses facettes *tel qu'appliqué*, les réglages fondus (D1253), le libellé en complément dans la langue du document, l'aide, l'obligation, le défaut, le niveau de confidentialité (D1247), les droits d'écriture ; une liste de valeurs composées en sous-table, nommée `entité.champ` (D1271, D1274) ; **les règles de l'entité** (D1254) — les validations (la règle, sa description, son message en gabarit), les calculés et leurs formules, les états avec leur graphe et leurs transitions, les automatismes ; **les évolutions de l'entité et de chaque champ** (D1257–D1258, §9) — « depuis la version x » dans la table ; **une section par champ** (D1283) après la table : la description détaillée, l'historique (ajouté, renommé — `from:` —, retypé, déprécié avec son remplacement, supprimé, avec la version et son statut), les opérations qui l'écrivent et les règles qui le lisent, la télémétrie (D1216) ; toutes les entités, tous les champs (D1246–D1247) | calculé, les entités, la facette des types |
 | **3. Le stockage** *(acquis, D1255, D1260–D1261)* | | **les données telles qu'elles sont stockées** (D1260) — « le connecteur storage matérialise le stockage des types dans la base de données » ; pour tout outil de BI qui se connecte aux données sans passer par Syncytium : par entité sa table, par champ sa colonne, son type physique et sa conversion, les clés et les index, les tables de liaison et de l'historique ; la correspondance du nom logique au stockage (D630, D1255) ; *ma lecture, à confirmer* : par famille de storage présente dans la configuration, sans nommer les environnements ; servi par une instance, celui de son storage | la facette stockage des types (D683), le storage |
 | **4. L'origine** *(acquise, D1262)* | **4.1 Reprise des données** | le nom de la configuration (D1256, D1259) : les sources lues et ignorées, leurs colonnes décrites, les règles et leurs destinataires, la table des associations ([migration.md](migration.md)) ; au dépôt depuis la configuration de la reprise, à l'instance avec ce que les passages ont fait, le refusé non enregistré compris | la reprise |
 | | **4.2 Les imports** | ce qui entre par fichier : pour chaque entité importable, le gabarit de §14 (D1211) par les noms — les colonnes, la clé de rapprochement ; le fichier se télécharge depuis l'écran d'import | calculé |
@@ -1494,22 +1495,58 @@ contrôles, les optimisations ; **et la documentation de chaque entité
 et de chaque champ**, enrichie à la consultation de ce que le stockage
 en dit (D1155, §2).
 
-## 9. Les écarts entre versions (D1112) *(la forme, en proposition ; rendus à l'entité et au champ dans le dictionnaire de la donnée — D1257)*
+## 9. Les écarts entre versions (D1112) *(le rang 2, étape 3 — acquis, D1281–D1283 ; rendus à l'élément, D1257)*
 
 **Syncytium calcule les écarts et les présente ; le concepteur ne les
-décrit pas** — la description d'un champ dit ce qu'il est, jamais ce
-qui a changé ; les notes de version disent le sens fonctionnel.
-La documentation d'une version porte donc deux textes : *les notes de
-version*, écrites, et *« ce qui change »*, calculé depuis la version
-précédente du même statut ou de la chaîne (D4/D323) : les modules,
-entités et champs **ajoutés**, **renommés** (`from:` — D1111),
-**retypés**, **supprimés** ou **dépréciés** (D650 — avec leur
-remplacement), les validations et les droits modifiés. Pour le
-technicien, la même liste dit ce que son contrat perd ou gagne
-(D11–D13, D98–D99). **Les éléments antérieurs peuvent aussi s'ajouter en
-annotation** dans la documentation de la version (D1123) — à côté du
-champ : « renommé depuis `abrege` en 1.0.0.1 » — en plus de la liste ;
-*ma lecture* : l'annotation est une option de la génération.
+décrit pas** (D1112) — la description d'un champ dit ce qu'il est,
+jamais ce qui a changé ; les notes de version disent le sens
+fonctionnel ; le renommage se déclare par `from:` (D1111), seule
+déclaration fiable (D4).
+
+**Ce qui compte comme écart** (D1281) : **ce qui touche la donnée** —
+l'existence (ajouté, supprimé, déprécié avec son remplacement, D650), le
+nom (`from:`), le type et ses facettes, l'obligation, le défaut,
+l'identité, la confidentialité et le `rgpd:`, le groupe, les
+validations, les états. **Ni les calculés et leurs formules**, « puisque
+[le calculé] exploite la donnée », **ni les opérations et les droits**,
+qui « conditionnent leurs transformations », **ni les textes**. *Ma
+lecture* : un calculé est au dictionnaire par sa formule courante, sans
+histoire ; les opérations et les droits se lisent à l'usage (§4, la
+partie 5), sans histoire.
+
+**La version de référence** (D1282) : **une beta se compare à la beta
+précédente si elle existe, sinon à la dernière production ; la chaîne
+remonte toutes les beta et toutes les productions.** Pour les versions
+dépréciées, la documentation renvoie aux notes de version et **dit depuis
+quelle version un champ existe** : un champ disparu en déprécié
+n'apparaît pas, un champ apparu en déprécié porte la version de son
+apparition, les autres modifications en déprécié ne se disent pas. *Ma
+lecture* : chaque champ porte « depuis la version x », toujours ; les
+écarts détaillés ne se calculent qu'entre versions actives.
+
+**La forme** (D1283) : **pas dans la table, qui resterait trop dense —
+une section par champ**, après la table de l'entité, « pour tracer son
+historique, pour afficher le résultat de telemetry, pour fournir une
+documentation plus détaillée quand cela est nécessaire, pour décrire les
+opérations ... ». *Ma lecture, en proposition* : la table garde « depuis
+la version x » en une colonne courte ; la section du champ porte, dans
+l'ordre, la description détaillée, l'historique (les écarts par
+version, avec le statut — D1257), les opérations qui l'écrivent et les
+règles qui le lisent (l'écho de l'index 5.1), la télémétrie (D1216, à
+l'instance) ; elle ne s'écrit que si l'un de ces éléments existe. Au
+chapitre de la version (2.1), les notes écrites et la liste complète
+calculée.
+
+**L'exemple du cas 5**, entre la 1.0.0.0 (production) et la 1.0.0.1
+(beta) : `tiers.nom_court` renommé depuis `abrege` (`from:`) ;
+`tiers.langue` retypé, `text[..3]` devenu `enum` à quatre valeurs ;
+`technique.article.commentaire` ajouté. Sans le `from:`, le calcul
+aurait dit « `abrege` supprimé, `nom_court` ajouté ».
+
+**Pour le technicien** — le consommateur de l'API (D1148) : la même
+liste, calculée une fois, dit ce que son contrat perd ou gagne d'une
+version publiée à la suivante (D98–D99, D650, D94) ; elle sert la
+documentation du développeur, à son rang.
 
 ## 10. La documentation de l'API *(en proposition)*
 
@@ -2575,8 +2612,7 @@ comme chapitre (§19 → §22, D1187).*
 7. les indicateurs de la troisième source (§8) — leur place est
    acquise (le chapitre 5.3, aux droits du lecteur, D1249/D1265), la
    liste par type reste ;
-8. les écarts calculés (§9) : ce qui compte comme écart ; la forme à
-   l'entité et au champ (D1257) ;
+8. *(clos le 14/10 — §9 acquis, D1281–D1283)* ;
 9. la documentation de l'API — le principe ici, la forme au domaine 7
    (§10) ;
 10. les pièces encore en proposition, à arbitrer à leur rang : le

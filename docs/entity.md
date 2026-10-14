@@ -193,15 +193,15 @@ UML stricte est retirée.)*
 | le module | le paquetage ; dans la vue des modules (D1214, D1266), une boîte par module, la flèche dans le sens de la dépendance, un seul trait par sens, sans poids ; les associations dérivées font flèche aussi — les liens bidirectionnels |
 | l'entité (`name:`) | la classe, par son nom ; le parent abstrait (D1035 — `tiers`) en italique — `<<abstract>>` en attendant l'outil (D1268) |
 | `inheritance:` | la généralisation — le triangle vers le parent (D143–D145) |
-| le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit |
+| le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit ; seuls les champs de valeur sont des lignes : tout champ qui pointe vers une entité est un lien (D1270) |
 | `identity:` / `identities:` | **souligné** |
 | `formula:` | *italique* |
 | `confidentiality:` au-dessus de `public` (D25), ou `rgpd:` (D695) | **« * »** — le champ sécurisé |
 | le champ cible d'une référence (D396) ou d'une association (D405) dans une autre entité | **gras** |
-| `type: <entité>` — la référence | un lien vers la cible (le champ en gras chez la cible) |
+| `type: <entité>` — la référence | un lien fléché vers la cible, **le nom du champ en étiquette, un lien par champ ; pas de ligne dans l'entité** (D1270) ; le champ en gras chez la cible |
 | `type: list of <entité>` — la composition (D115) | un lien — « les listes apparaissent comme des liens » ; le losange plein et le trait plein, la cardinalité (D1268) |
 | `type: association with <entité> if …` — l'association dérivée (D405) | **le losange vide et le pointillé** (D1268), du côté de l'entité qui la porte, la cardinalité ; dans la vue d'ensemble comme dans la vue sélective ; une dépendance comme la référence (D1267) |
-| `type: list of [ … ]` — la liste de valeurs composées | le nom du champ ; pas une classe |
+| `type: list of [ … ]` — la liste de valeurs composées | **une structure interne** (D1271) : une classe du nom du champ, dans le paquetage de l'entité, ses colonnes en champs, composée par l'entité ; ses références en liens |
 | `states:` | un diagramme d'états à part : les valeurs du champ-statut, les passages permis (D422) |
 | `operations:`, `required:`, `history:`, `hint:`, `description:`, `placeholder:` | rien au diagramme — la table du dictionnaire (D1215) et le registre (D698) |
 

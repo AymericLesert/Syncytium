@@ -1164,16 +1164,20 @@ interactions » ; D1269 : « tous les champs (y compris les champs
 calculés). Les compositions et associations sont portées par les liens
 … les liens vers les autres modules et entités sont positionnés (sans
 mettre les champs dans ces entités liées hors du module) ») : les cinq
-entités du module avec tous leurs champs — l'article en a 47 — ; une
-référence est une ligne de champ *et* une flèche ; une composition
-(`nomenclature`) ou une association dérivée (`commandes_vente`,
-`clients`…) n'est qu'un lien, son nom en étiquette ; une liste de
-valeurs composées (`tarifs`, `stock_par_emplacement`) reste une ligne ;
-les entités liées des autres modules dans leur paquetage, sans champs.
-*(Rendu vérifié ; les marques de D1213 — souligné, italique, « * »,
-gras — absentes, Mermaid ne les porte pas : `code` et `complement`
-seraient soulignés, `nature` ou `dormant` en italique, `prix_revient`
-étoilé.)*
+entités du module avec tous leurs champs de valeur — l'article en a 33
+sur 47 — ; **tout champ qui pointe vers une entité est un lien, son nom
+en étiquette, un lien par champ** (D1270 : « Pour une référence, un lien
+avec une flèche est son nom en étiquette. Pas besoin de le rappeler dans
+l'entité ») — la référence en flèche, la composition en losange plein,
+l'association dérivée en losange vide et pointillé (D1268) ; **une liste
+de valeurs composées est une structure interne** (D1271 : `tarifs`,
+`stock_par_emplacement` — une classe du nom du champ, composée par
+l'article, ses références en liens) ; les entités liées des autres
+modules dans leur paquetage, sans champs ; les liens posés sont ceux que
+le module déclare (D1272). *(Rendu vérifié ; les marques de D1213 —
+souligné, italique, « * », gras — absentes, Mermaid ne les porte pas :
+`code` et `complement` seraient soulignés, `nature`, `dormant` ou
+`dernier_fournisseur` en italique, `prix_revient` étoilé.)*
 
 ```mermaid
 classDiagram
@@ -1211,24 +1215,15 @@ classDiagram
       date_modification
       plans
       gere_en_stock
-      depot_expedition
-      emplacement_expedition
-      depot_reception
-      emplacement_reception
-      depot_fabrication
-      emplacement_fabrication
-      depot_consommation
-      emplacement_consommation
-      fournisseur_defaut
-      tarifs
-      dernier_fournisseur
-      stock_par_emplacement
       dormant
       derniere_sortie
     }
+    class tarifs {
+      tranche
+      date_application
+    }
+    class stock_par_emplacement
     class fabrique {
-      client_defaut
-      dernier_client
       nombre_composants
       nombre_operations
       temps_gamme
@@ -1247,7 +1242,6 @@ classDiagram
       numero
       nature
       designation
-      composant
       quantite
       unite
       rendement
@@ -1262,6 +1256,7 @@ classDiagram
     }
   }
   namespace module_tiers {
+    class tiers
     class fournisseur
     class client
   }
@@ -1277,17 +1272,30 @@ classDiagram
   article <|-- fabrique
   article <|-- semi_fini
   article <|-- fantome
+  article *-- "0..*" tarifs : tarifs
+  article *-- "0..*" stock_par_emplacement : stock_par_emplacement
+  tarifs --> "1" tiers : tiers
+  stock_par_emplacement --> "1" emplacement : emplacement
   fabrique *-- "0..*" nomenclature : nomenclature
   semi_fini *-- "0..*" nomenclature : nomenclature
   fantome *-- "0..*" nomenclature : nomenclature
   nomenclature --> "1" article : composant
-  article --> "0..1" fournisseur
-  article --> "0..1" depot
-  article --> "0..1" emplacement
-  fabrique --> "0..1" client
+  article --> "0..1" fournisseur : fournisseur_defaut
+  article --> "0..1" fournisseur : dernier_fournisseur
+  article --> "0..1" depot : depot_expedition
+  article --> "0..1" depot : depot_reception
+  article --> "0..1" depot : depot_fabrication
+  article --> "0..1" depot : depot_consommation
+  article --> "0..1" emplacement : emplacement_expedition
+  article --> "0..1" emplacement : emplacement_reception
+  article --> "0..1" emplacement : emplacement_fabrication
+  article --> "0..1" emplacement : emplacement_consommation
+  fabrique --> "0..1" client : client_defaut
+  fabrique --> "0..1" client : dernier_client
   article o.. "0..*" ligne_vente : commandes_vente
   article o.. "0..*" ligne_achat : commandes_achat
   article o.. "0..*" mouvement : mouvements
+  article o.. "0..*" mouvement : mouvements_par_emplacement
   fabrique o.. "0..*" client : clients
 ```
 

@@ -24369,6 +24369,17 @@ avant la synthèse Q16).
   présenté puis arbitré : les suppressions à l'entité (le soft delete),
   les valeurs et leur fréquence quand la diversité est faible, le
   reste confirmé (D1287–D1288) — **§8 acquis, l'étape 5 close**.
+- **2026-10-14 (suite) — LA PAUSE : §9 ET §8 ACQUIS, L'ÉTAPE 6
+  PRÉSENTÉE (1288 décisions).** L'état d'avancement donné ; « je
+  marque une pause ». Le `describe()` du storage présenté (le chapitre
+  3 du dictionnaire : la table de correspondance logique → physique,
+  les tables de Syncytium, cinq lectures). À la reprise : les cinq
+  lectures de l'étape 6 ; puis le contrat du hook de type (la forme en
+  clair, les réglages fondus, les indicateurs, le stockage — étape 9),
+  ce que migration.md verse au chapitre 4.1, la déclinaison (le tiny,
+  l'entrepôt), la lisibilité de l'index 5.1, la colonne 2 de la
+  matrice ; les lectures en proposition : le seuil des valeurs par
+  fréquence (D1287), le critère `fields:` sans `type:` (D1279).
 - **2026-10-13 (suite 2) — LA PAUSE : LES BLOCS 1 ET 2 ARBITRÉS
   (D1266–D1268, 1268 décisions).** « Je marque une pause ». À la
   reprise : le bloc 3 (la vue sélective — le périmètre des champs, les

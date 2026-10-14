@@ -402,7 +402,8 @@ décisions, D1170–D1238.)*
      indicateurs par type et par entité, les valeurs par fréquence, le
      seuil en réglage (en proposition) ;
   6. le modèle physique : la partie 3 acquise (D1260) ; le contenu du
-     `describe()` du storage dans [connectors.md](connectors.md) ;
+     `describe()` du storage dans [connectors.md](connectors.md) —
+     présenté le 14/10, cinq lectures en attente ;
   7. les règles, l'historique, les volumes : **placés** (D1254, D1257,
      D1265) — le contenu avec les étapes 3 et 5 ;
   8. la reprise des données : le chapitre 4.1 acquis (D1262) ; ce que
@@ -2635,7 +2636,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Les points ouverts *(rafraîchis à la pause du 13/10/2026)*
+## 26. Les points ouverts *(rafraîchis à la pause du 14/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),

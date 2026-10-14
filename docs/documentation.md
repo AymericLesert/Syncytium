@@ -1495,7 +1495,7 @@ contrôles, les optimisations ; **et la documentation de chaque entité
 et de chaque champ**, enrichie à la consultation de ce que le stockage
 en dit (D1155, §2).
 
-## 9. Les écarts entre versions (D1112) *(le rang 2, étape 3 — acquis, D1281–D1283 ; rendus à l'élément, D1257)*
+## 9. Les écarts entre versions (D1112) *(le rang 2, étape 3 — acquis, D1281–D1284 ; rendus à l'élément, D1257)*
 
 **Syncytium calcule les écarts et les présente ; le concepteur ne les
 décrit pas** (D1112) — la description d'un champ dit ce qu'il est,
@@ -1514,9 +1514,14 @@ lecture* : un calculé est au dictionnaire par sa formule courante, sans
 histoire ; les opérations et les droits se lisent à l'usage (§4, la
 partie 5), sans histoire.
 
-**La version de référence** (D1282) : **une beta se compare à la beta
-précédente si elle existe, sinon à la dernière production ; la chaîne
-remonte toutes les beta et toutes les productions.** Pour les versions
+**La documentation décrit la version dans son état ; l'historique
+porte sur l'écart de cette version avec les versions antérieures**
+(D1284) — rien sur les versions qui la suivent : la documentation d'une
+production ne dit pas ce que la beta changera ; celle de la beta dit son
+état et ce qu'elle change. **La version de référence** (D1282) : **une
+beta se compare à la beta précédente si elle existe, sinon à la dernière
+production ; la chaîne remonte toutes les beta et toutes les
+productions.** Pour les versions
 dépréciées, la documentation renvoie aux notes de version et **dit depuis
 quelle version un champ existe** : un champ disparu en déprécié
 n'apparaît pas, un champ apparu en déprécié porte la version de son

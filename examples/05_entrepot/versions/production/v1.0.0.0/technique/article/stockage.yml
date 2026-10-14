@@ -1,0 +1,39 @@
+# Le stockage et les quatre lieux — les champs du groupe de l'article, référencés depuis fields.yml.
+
+gere_en_stock:
+  type: boolean
+  required: true
+  default: true
+  label: Géré en stock
+
+depot_expedition:
+  type: stock.depot
+  label: Dépôt d'expédition
+
+emplacement_expedition:
+  type: stock.emplacement
+  label: Emplacement d'expédition
+
+depot_reception:
+  type: stock.depot
+  label: Dépôt de réception
+
+emplacement_reception:
+  type: stock.emplacement
+  label: Emplacement de réception
+
+depot_fabrication:
+  type: stock.depot
+  label: Dépôt de fabrication
+
+emplacement_fabrication:
+  type: stock.emplacement
+  label: Emplacement de fabrication
+
+depot_consommation:
+  type: stock.depot
+  label: Dépôt de consommation
+
+emplacement_consommation:
+  type: stock.emplacement
+  label: Emplacement de consommation

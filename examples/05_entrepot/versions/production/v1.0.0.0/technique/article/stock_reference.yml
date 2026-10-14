@@ -1,0 +1,15 @@
+# Le stock de référence — les champs du groupe de l'article, référencés depuis fields.yml.
+
+stock_minimum:
+  type: decimal
+  label: Stock minimum
+  hint: Le seuil de réapprovisionnement.
+
+stock_maximum:
+  type: decimal
+  label: Stock maximum
+
+quantite_economique:
+  type: decimal
+  label: Quantité économique
+  hint: La quantité de commande ou de lancement qui minimise le coût.

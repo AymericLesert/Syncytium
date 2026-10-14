@@ -1,0 +1,53 @@
+# Les unités et les dimensions — les champs du groupe de l'article, référencés depuis fields.yml.
+
+unite_stock:
+  type: text[..2]
+  required: true
+  label: Unité de stock
+  placeholder: PC
+  hint: L'unité dans laquelle l'article est tenu en stock.
+
+unite_commande:
+  type: text[..2]
+  label: Unité de commande
+
+unite:
+  type: measure
+  units: [U, kg]
+  required: true
+  label: Unité
+  hint: Une unité de l'article, avec ses conversions — la plaque en pièces, en kilogrammes.
+  description: >-
+    La mesure « 1 × l'unité de stock », qui porte la matrice de conversion propre à l'article : les unités
+    supplémentaires de l'ERP — la plaque — avec leur coefficient vers une unité connue, le poids unitaire comme la
+    conversion de l'unité de stock vers le kilogramme ; la transitivité fait le reste, et la masse d'un mouvement est
+    quantite.to(kg). Les quantités des niveaux de stock et des lignes de commande, en décimal dans l'unité de
+    l'article, l'empruntent pour se convertir : (article.unite * quantite).to(kg). Les unités connues sont celles de la
+    liste — U, la pièce, n'a que sa diagonale ; kg ouvre le bloc des poids — et la comparaison est normalisée (KG = kg).
+
+poids:
+  type: measure
+  units: [kg, g]
+  label: Poids unitaire
+  hint: Le poids d'une unité — en kilogrammes.
+  description: Porté par l'article, lisible ici ; il est aussi le coefficient de l'unité vers le kilogramme.
+
+longueur:
+  type: measure
+  units: [mm]
+  label: Longueur
+
+largeur:
+  type: measure
+  units: [mm]
+  label: Largeur
+
+epaisseur:
+  type: measure
+  units: [mm]
+  label: Épaisseur
+
+volume:
+  type: measure
+  units: [dm3, m3]
+  label: Volume unitaire

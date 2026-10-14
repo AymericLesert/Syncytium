@@ -2329,8 +2329,9 @@ l'alimentation.)*
 ## Les groupes de champs de l'article (D1273, D1279)
 
 L'article déclare ses groupes dans `fields.yml`, au plus près des
-champs — une clé à `title:` et `fields:` (D1279 ; la classification
-dans `classification.yml`, référencé) —, repris de ses commentaires : la classification, les unités et les dimensions, les
+champs — une clé à `title:` et `fields:` (D1279), **un fichier par
+groupe** (D1280 : `classification.yml`, `unites.yml`, `prix.yml`…) —,
+repris de ses commentaires : la classification, les unités et les dimensions, les
 codes-barres, le stock de référence, les prix, la vie de l'article, le
 stockage et les quatre lieux, les liens, les champs calculés. Le code,
 son complément et les deux libellés restent hors groupe : le groupe

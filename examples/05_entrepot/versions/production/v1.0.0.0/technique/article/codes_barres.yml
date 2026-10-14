@@ -1,0 +1,9 @@
+# Les codes-barres — les champs du groupe de l'article, référencés depuis fields.yml.
+
+ean13:
+  type: text[13]
+  barcode: ean13
+  label: EAN 13
+  description: >-
+    Un texte à la facette code-barres : la facette valide les treize chiffres et la clé de contrôle, le composant de
+    sortie rend les barres ; une valeur fausse met la fiche en anomalie.

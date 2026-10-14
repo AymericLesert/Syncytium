@@ -649,7 +649,7 @@ application:
   logging:
     throttle: 1min                 # dynamique (D926)
   telemetry:
-    values: pareto[80/20]          # dynamique — les valeurs et leur fréquence au dictionnaire (D1290 ; la forme, ma lecture)
+    values: pareto[80/20]          # dynamique — les valeurs et leur fréquence au dictionnaire (D1290–D1291)
 ```
 
 *Hors de l'inventaire* : le seuil de complétude n'a pas de défaut, le

@@ -1512,9 +1512,9 @@ faible ou si quelques valeurs représentent une grande majorité », **les
 valeurs et leur fréquence s'affichent** — pour tout type, le texte
 compris, la référence par son visage. **Le seuil suit la courbe de
 Pareto** (D1290) : les valeurs s'affichent quand 20 % d'entre elles
-représentent 80 % des lignes ; *ma lecture* : les deux nombres en
-réglage du socle, surchargeable (D1175) — `telemetry: { values:
-pareto[80/20] }` ; la diversité faible, lue au ratio de D46, les montre
+représentent 80 % des lignes ; les deux nombres en réglage global
+de l'application (D1291) — `application: { telemetry: { values:
+pareto[80/20] } }` ; la diversité faible, lue au ratio de D46, les montre
 de même.
 
 **Pour l'entité** : le volume ; les créations, les modifications et

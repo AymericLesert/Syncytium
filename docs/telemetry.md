@@ -234,8 +234,9 @@ occupée (les numériques), la plage et la répartition par période (les
 dates), les cibles distinctes (la référence), le nombre d'éléments (les
 listes), le nombre et la taille (`file`) ; **les valeurs et leur
 fréquence quand la diversité est faible ou quand quelques valeurs font
-la grande majorité** (le seuil, un réglage en proposition —
-`telemetry: { values: { distinct: 20, majority: 80% } }`) ; pour
+la grande majorité** — **le seuil suit la courbe de Pareto, 20 % des
+valeurs pour 80 % des lignes** (D1290 ; les deux nombres en réglage,
+`telemetry: { values: pareto[80/20] }`, ma lecture) ; pour
 l'entité le volume, les créations, les modifications et **les
 suppressions** (le soft delete, D141), la répartition par état, la part
 d'historisés, les compteurs (D39). **Le hook de type livre ses

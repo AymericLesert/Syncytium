@@ -249,7 +249,7 @@ fields:
 ```
 
 **Les groupes de champs** (D1273, D1279–D1280) : dans la même carte,
-**une clé qui porte `fields:` sans `type:` est un groupe** — son
+**une clé qui porte `fields:` sans `type:` est un groupe** (D1289) — son
 `title:` par langue, ses champs en place ou dans un fichier référencé,
 un fichier par groupe dans le cas 5 ; les champs hors groupe forment le
 groupe implicite ; les noms de champs restent uniques dans l'entité et
@@ -649,7 +649,7 @@ application:
   logging:
     throttle: 1min                 # dynamique (D926)
   telemetry:
-    values: { distinct: 20, majority: 80% }   # dynamique — les valeurs et leur fréquence au dictionnaire (D1287, en proposition)
+    values: pareto[80/20]          # dynamique — les valeurs et leur fréquence au dictionnaire (D1290 ; la forme, ma lecture)
 ```
 
 *Hors de l'inventaire* : le seuil de complétude n'a pas de défaut, le

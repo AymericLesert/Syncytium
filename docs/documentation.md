@@ -1477,7 +1477,7 @@ l'aide courte, au « (?) » du champ, sur les trois écrans (D262).
 - **le glossaire** se lit au survol dans le masque comme dans la page
   — la première occurrence du terme (D1184).
 
-## 8. La troisième source — les données (D334) *(le rang 2, étape 5 — acquis, D1287–D1288)*
+## 8. La troisième source — les données (D334) *(le rang 2, étape 5 — acquis, D1287–D1290)*
 
 La documentation **exploite les données enregistrées** pour dire
 l'usage. Elle ne vit qu'**avec l'instance** : une documentation
@@ -1510,9 +1510,12 @@ Puis, par famille de type :
 valeurs est importante », les agrégats seuls ; « si la diversité est
 faible ou si quelques valeurs représentent une grande majorité », **les
 valeurs et leur fréquence s'affichent** — pour tout type, le texte
-compris, la référence par son visage. *Ma lecture, en proposition* : le
-seuil est un réglage du socle, surchargeable (D1175, D1239) —
-`telemetry: { values: { distinct: 20, majority: 80% } }`.
+compris, la référence par son visage. **Le seuil suit la courbe de
+Pareto** (D1290) : les valeurs s'affichent quand 20 % d'entre elles
+représentent 80 % des lignes ; *ma lecture* : les deux nombres en
+réglage du socle, surchargeable (D1175) — `telemetry: { values:
+pareto[80/20] }` ; la diversité faible, lue au ratio de D46, les montre
+de même.
 
 **Pour l'entité** : le volume ; les créations, les modifications et
 **les suppressions — Syncytium fait du soft delete** (D141) — par
@@ -2660,8 +2663,8 @@ comme chapitre (§19 → §22, D1187).*
 6. *(clos le 14/10 — §5 acquis, D1266–D1278 ; la forme au domaine 7,
    avec les contraintes Mermaid notées : le préfixe des paquetages, les
    styles et les compartiments non rendus)* ;
-7. *(clos le 14/10 — §8 acquis, D1287–D1288 ; le seuil des valeurs
-   par fréquence, un réglage en proposition)* ;
+7. *(clos le 14/10 — §8 acquis, D1287–D1290 ; le seuil par la courbe de
+   Pareto, 80/20)* ;
 8. *(clos le 14/10 — §9 acquis, D1281–D1283)* ;
 9. la documentation de l'API — le principe ici, la forme au domaine 7
    (§10) ;

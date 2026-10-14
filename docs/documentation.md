@@ -1055,7 +1055,9 @@ la vue d'ensemble fonctionnelle et les titres de la documentation —
 « Produit fabriqué », « Ligne de nomenclature » ; texte simple à une
 langue, par langue à plusieurs (D1101) ; sans lui, le `name:`. *Mes
 lectures* : au singulier, le pluriel n'est pas une propriété ; le même
-`title:` que celui des surfaces.
+`title:` que celui des surfaces — **confirmées** (D1277) : l'entrée de
+menu par défaut l'emploie tel quel, le `label:` de l'entrée (D1237) dit
+le pluriel voulu ; un formulaire sans `title:` prend celui de l'entité.
 
 **La vue des modules et de leurs liens du cas 5** (D1214, la première
 vue ; D1266) — une boîte par module ; la flèche dans le sens de la

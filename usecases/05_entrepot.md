@@ -2325,3 +2325,17 @@ utiles et pertinents pour présenter cette part de la documentation. »
 (D1207). Les personas se déclinent sur le véhicule et la banque ; ce que
 l'entrepôt donne à voir de la documentation reste la migration et
 l'alimentation.)*
+
+## Les groupes de champs de l'article (D1273)
+
+L'article déclare ses groupes (`groups:` dans `article.yml`), repris de
+ses commentaires : la classification, les unités et les dimensions, les
+codes-barres, le stock de référence, les prix, la vie de l'article, le
+stockage et les quatre lieux, les liens, les champs calculés. Le code,
+son complément et les deux libellés restent hors groupe : le groupe
+implicite, en en-tête de l'écran au-dessus des onglets. Le formulaire
+par défaut de l'article a donc neuf onglets ; le diagramme du module
+`technique` neuf compartiments ; ses structures internes se nomment
+`article.tarifs` et `article.stock_par_emplacement` (D1274). *(Le
+découpage est le mien, en proposition — les commentaires de
+`fields.yml` le portaient déjà.)*

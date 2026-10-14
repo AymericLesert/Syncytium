@@ -2476,7 +2476,11 @@ lists:
 ## `form`
 
 1. **Nom et famille** — `form`, une surface — `gui: forms: <nom>:` ;
-   **la première déclarée est le formulaire par défaut** (D438) ;
+   **la première déclarée est le formulaire par défaut** (D438) ; sans
+   déclaration, **le formulaire du socle suit les groupes de champs de
+   l'entité** (D1273 — `groups:`, entity.md) : un onglet par groupe, les
+   champs hors groupe en en-tête au-dessus de tous les onglets ; sans
+   `groups:`, pas d'onglet ;
    adressé par le menu (`[+form]` — D439), appelé par la liste
    (`add:`/`update:`/`delete:` — D530), par une opération (la
    relecture `commit: confirm` — D431/D596) ;

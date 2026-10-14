@@ -956,7 +956,7 @@ l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
 |---|---|---|---|
 | **1. La couverture** | | le cartouche, le filigrane Beta (D1142, D1145) | commun |
 | **2. La structure, avec ses évolutions** *(acquise, D1251–D1258)* | **2.1 La version** | le projet (le nom, la description, la version du format), le numéro, le statut (D338/D340), les langues, les notes de version — ni les environnements ni les storages, qui sont au guide d'exploitation (D1251) | `syncytium.yml`, `version.yml` |
-| | **2.2 Le modèle** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; puis une section par module, une sous-section par entité : la description, les identités nommées (D1170–D1171), le visage (`label:`), l'historisation — et comment lire les instantanés (D168–D173) —, le `rgpd:` ; **la table des champs** — le nom, le type en clair et ses facettes *tel qu'appliqué*, les réglages fondus (D1253), le libellé en complément dans la langue du document, l'aide, l'obligation, le défaut, le niveau de confidentialité (D1247), les droits d'écriture ; **les règles de l'entité** (D1254) — les validations (la règle, sa description, son message en gabarit), les calculés et leurs formules, les états avec leur graphe et leurs transitions, les automatismes ; **les évolutions de l'entité et de chaque champ** (D1257–D1258) — ajouté, renommé (`from:`), retypé, déprécié avec son remplacement, supprimé, avec la version et son statut : beta, ce qui va arriver ; la dernière production, la version courante ; les productions antérieures, le passé ; deprecated, l'historique dépassé ; §9 donne la forme du calcul ; toutes les entités, tous les champs (D1246–D1247) | calculé, les entités, la facette des types |
+| | **2.2 Le modèle** | les trois vues de §5 — l'ensemble, le module, l'entité — par les noms (D1218) ; puis une section par module, une sous-section par entité : la description, les identités nommées (D1170–D1171), le visage (`label:`), l'historisation — et comment lire les instantanés (D168–D173) —, le `rgpd:` ; **la table des champs, par groupe** (D1273 — une section par groupe, l'implicite en tête) — le nom, le type en clair et ses facettes *tel qu'appliqué*, les réglages fondus (D1253), le libellé en complément dans la langue du document, l'aide, l'obligation, le défaut, le niveau de confidentialité (D1247), les droits d'écriture ; une liste de valeurs composées en sous-table, nommée `entité.champ` (D1271, D1274) ; **les règles de l'entité** (D1254) — les validations (la règle, sa description, son message en gabarit), les calculés et leurs formules, les états avec leur graphe et leurs transitions, les automatismes ; **les évolutions de l'entité et de chaque champ** (D1257–D1258) — ajouté, renommé (`from:`), retypé, déprécié avec son remplacement, supprimé, avec la version et son statut : beta, ce qui va arriver ; la dernière production, la version courante ; les productions antérieures, le passé ; deprecated, l'historique dépassé ; §9 donne la forme du calcul ; toutes les entités, tous les champs (D1246–D1247) | calculé, les entités, la facette des types |
 | **3. Le stockage** *(acquis, D1255, D1260–D1261)* | | **les données telles qu'elles sont stockées** (D1260) — « le connecteur storage matérialise le stockage des types dans la base de données » ; pour tout outil de BI qui se connecte aux données sans passer par Syncytium : par entité sa table, par champ sa colonne, son type physique et sa conversion, les clés et les index, les tables de liaison et de l'historique ; la correspondance du nom logique au stockage (D630, D1255) ; *ma lecture, à confirmer* : par famille de storage présente dans la configuration, sans nommer les environnements ; servi par une instance, celui de son storage | la facette stockage des types (D683), le storage |
 | **4. L'origine** *(acquise, D1262)* | **4.1 Reprise des données** | le nom de la configuration (D1256, D1259) : les sources lues et ignorées, leurs colonnes décrites, les règles et leurs destinataires, la table des associations ([migration.md](migration.md)) ; au dépôt depuis la configuration de la reprise, à l'instance avec ce que les passages ont fait, le refusé non enregistré compris | la reprise |
 | | **4.2 Les imports** | ce qui entre par fichier : pour chaque entité importable, le gabarit de §14 (D1211) par les noms — les colonnes, la clé de rapprochement ; le fichier se télécharge depuis l'écran d'import | calculé |
@@ -1009,6 +1009,14 @@ paquetage ; `inheritance:` → la généralisation ; `states:` → **un
 diagramme d'états** à part, les valeurs du statut et les passages
 permis (D422) — le véhicule (cas 3) en a un. La table détaillée dans
 [entity.md](entity.md).
+
+**Les groupes de champs** (D1273 — `groups:` à l'entité, entity.md) :
+le diagramme fait **un compartiment titré par groupe** dans la classe,
+l'implicite en tête ; une classe de quarante champs se lit alors par
+blocs. Mermaid ne dessine pas de compartiment titré (la même réserve
+que les marques, l'outil au domaine 7) ; PlantUML le fait (`-- Les prix
+--`). **Une structure interne se nomme par son entité** : `article.tarifs`
+(D1274).
 
 **Les diagrammes s'appuient sur les noms, invariants** (D1218) — un
 seul jeu de diagrammes, quelle que soit la langue et quelle que soit la
@@ -1170,9 +1178,9 @@ en étiquette, un lien par champ** (D1270 : « Pour une référence, un lien
 avec une flèche est son nom en étiquette. Pas besoin de le rappeler dans
 l'entité ») — la référence en flèche, la composition en losange plein,
 l'association dérivée en losange vide et pointillé (D1268) ; **une liste
-de valeurs composées est une structure interne** (D1271 : `tarifs`,
-`stock_par_emplacement` — une classe du nom du champ, composée par
-l'article, ses références en liens) ; les entités liées des autres
+de valeurs composées est une structure interne** (D1271 : une classe
+nommée par son entité — `article.tarifs`, `article.stock_par_emplacement`
+(D1274) —, composée par l'article, ses références en liens) ; les entités liées des autres
 modules dans leur paquetage, sans champs ; les liens posés sont ceux que
 le module déclare (D1272). *(Rendu vérifié ; les marques de D1213 —
 souligné, italique, « * », gras — absentes, Mermaid ne les porte pas :
@@ -1218,11 +1226,11 @@ classDiagram
       dormant
       derniere_sortie
     }
-    class tarifs {
+    class tarifs["article.tarifs"] {
       tranche
       date_application
     }
-    class stock_par_emplacement
+    class stock_par_emplacement["article.stock_par_emplacement"]
     class fabrique {
       nombre_composants
       nombre_operations

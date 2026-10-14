@@ -58,6 +58,7 @@ droits à [rights.md](rights.md).*
 | `states:` | **le porteur du cycle de vie** — le champ énuméré désigné (`states: statut`) ; l'entité à hiérarchie a son statut dans ses positions (D353), jamais les deux | D424 |
 | `inheritance:` | l'enfant référence son parent — la hiérarchie se lit chez le parent (le bloc `states:` D353) | D353 |
 | `fields:` | les champs — le bloc ou la référence (`fields: fields.yml`) | D767 |
+| `groups:` | **les groupes de champs** — une vue sur les champs, le modèle reste plat : `groups: { prix: { title: Les prix, fields: [prix_revient, prix_moyen_pondere, prix_achat] } }` ; l'ordre d'écriture fait l'ordre ; un champ dans deux groupes, une erreur d'ingestion ; **les champs hors groupe forment le groupe implicite**. Le diagramme fait un compartiment par groupe, la table du dictionnaire une section, **le formulaire par défaut un onglet par groupe, l'implicite en en-tête au-dessus des onglets** | D1273 |
 | `operations:` | les opérations — le bloc ou la référence ; le mapping ordonné, l'ordre = les boutons | D432 |
 | `gui:` | la présentation — le bloc ou la référence | D767 |
 | `validation:` | les règles inter-champs — la liste d'expressions booléennes (D90), le `if` suffixé (« `date_operation = owner.ouverture if budget = "OUVERTURE"` ») ; l'évaluation **au scellé** de la transaction | D156, D594, D824 |
@@ -193,7 +194,7 @@ UML stricte est retirée.)*
 | le module | le paquetage ; dans la vue des modules (D1214, D1266), une boîte par module, la flèche dans le sens de la dépendance, un seul trait par sens, sans poids ; les associations dérivées font flèche aussi — les liens bidirectionnels |
 | l'entité (`name:`) | la classe, par son nom ; le parent abstrait (D1035 — `tiers`) en italique — `<<abstract>>` en attendant l'outil (D1268) |
 | `inheritance:` | la généralisation — le triangle vers le parent (D143–D145) |
-| le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit ; seuls les champs de valeur sont des lignes : tout champ qui pointe vers une entité est un lien (D1270) |
+| le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit ; seuls les champs de valeur sont des lignes : tout champ qui pointe vers une entité est un lien (D1270) ; **un compartiment par groupe** (`groups:`, D1273), l'implicite en tête |
 | `identity:` / `identities:` | **souligné** |
 | `formula:` | *italique* |
 | `confidentiality:` au-dessus de `public` (D25), ou `rgpd:` (D695) | **« * »** — le champ sécurisé |
@@ -201,7 +202,7 @@ UML stricte est retirée.)*
 | `type: <entité>` — la référence | un lien fléché vers la cible, **le nom du champ en étiquette, un lien par champ ; pas de ligne dans l'entité** (D1270) ; le champ en gras chez la cible |
 | `type: list of <entité>` — la composition (D115) | un lien — « les listes apparaissent comme des liens » ; le losange plein et le trait plein, la cardinalité (D1268) |
 | `type: association with <entité> if …` — l'association dérivée (D405) | **le losange vide et le pointillé** (D1268), du côté de l'entité qui la porte, la cardinalité ; dans la vue d'ensemble comme dans la vue sélective ; une dépendance comme la référence (D1267) |
-| `type: list of [ … ]` — la liste de valeurs composées | **une structure interne** (D1271) : une classe du nom du champ, dans le paquetage de l'entité, ses colonnes en champs, composée par l'entité ; ses références en liens |
+| `type: list of [ … ]` — la liste de valeurs composées | **une structure interne** (D1271) : une classe **nommée par son entité — `article.tarifs`** (D1274), dans le paquetage de l'entité, ses colonnes en champs, composée par l'entité ; ses références en liens |
 | `states:` | un diagramme d'états à part : les valeurs du champ-statut, les passages permis (D422) |
 | `operations:`, `required:`, `history:`, `hint:`, `description:`, `placeholder:` | rien au diagramme — la table du dictionnaire (D1215) et le registre (D698) |
 

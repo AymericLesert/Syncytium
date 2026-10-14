@@ -252,6 +252,12 @@ un hypercube aux dimensions des champs. En méthode dans une formule, ou
 en propriété d'une association dérivée, à côté du tri (`sort:`).
 *Ex. : `mouvements.group(emplacement, article).sum(…)`.* *(D1015–D1017)*
 
+**Groupe de champs** (`groups:`, à l'entité) — Une vue sur les champs
+d'une entité, nommée, titrée par langue, ordonnée : le modèle reste
+plat. Le diagramme en fait un compartiment, le dictionnaire une
+section, le formulaire par défaut un onglet ; les champs hors groupe
+forment le groupe implicite, en en-tête de l'écran. *(D1273)*
+
 **Groupe d'utilisateurs** (`group`, `groups.yml`) — Un ensemble nommé de personnes,
 brique des droits : la confidentialité, la visibilité d'un historique,
 les destinataires d'un rapport. Un groupe peut en contenir d'autres :

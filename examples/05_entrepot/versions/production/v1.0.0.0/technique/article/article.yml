@@ -28,6 +28,73 @@ history: true
 # Rangés par groupe ; la nomenclature et ses calculés vivent chez les trois dérivés qui la portent.
 fields: ~{fields.yml}
 
+# Les groupes de champs
+# Une vue sur les champs : un compartiment du diagramme, une section du dictionnaire, un onglet du formulaire ; le
+# code, son complément et les libellés restent hors groupe, en en-tête de l'écran.
+groups:
+
+  # La classification
+  classification:
+    title: La classification
+    fields: [type, famille, sous_famille, perissable, gestion, matieres]
+
+  # Les unités et les dimensions
+  unites:
+    title: Les unités et les dimensions
+    fields: [unite_stock, unite_commande, unite, poids, longueur, largeur, epaisseur, volume]
+
+  # Les codes-barres
+  codes_barres:
+    title: Les codes-barres
+    fields: [ean13]
+
+  # Le stock de référence
+  stock_reference:
+    title: Le stock de référence
+    fields: [stock_minimum, stock_maximum, quantite_economique]
+
+  # Les prix
+  prix:
+    title: Les prix
+    fields: [prix_revient, prix_moyen_pondere, prix_achat]
+
+  # La vie de l'article
+  vie:
+    title: La vie de l'article
+    fields: [actif, date_creation, date_modification, plans]
+
+  # Le stockage et les quatre lieux
+  stockage:
+    title: Le stockage et les quatre lieux
+    fields:
+      - gere_en_stock
+      - depot_expedition
+      - emplacement_expedition
+      - depot_reception
+      - emplacement_reception
+      - depot_fabrication
+      - emplacement_fabrication
+      - depot_consommation
+      - emplacement_consommation
+
+  # Les liens
+  liens:
+    title: Les liens
+    fields:
+      - fournisseur_defaut
+      - tarifs
+      - commandes_vente
+      - commandes_achat
+      - dernier_fournisseur
+      - mouvements
+      - mouvements_par_emplacement
+      - stock_par_emplacement
+
+  # Les champs calculés
+  calcules:
+    title: Les champs calculés
+    fields: [dormant, derniere_sortie]
+
 # La cohérence des données converties
 validation:
   - rule: stock_maximum >= stock_minimum if stock_maximum != null and stock_minimum != null

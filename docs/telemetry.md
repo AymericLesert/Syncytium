@@ -225,8 +225,22 @@ détail par champ dans la zone sur demande (D1216) ; à l'instance
 seulement, sur les données que le lecteur a le droit de consulter
 (D1248–D1249). *Ma lecture* : **un septième canal de restitution** à
 côté des six — *pull*, par la documentation, l'usage réel champ par
-champ. La liste des indicateurs par type (la collecte D38–D41, D46,
-D48) se fixe à l'étape 5 du rang 2, §8.
+champ. **La liste des indicateurs** (D1287, §8 de documentation.md) :
+pour tout champ le renseigné et la part de vides, la diversité
+représentative (D46), la dernière écriture ; par famille de type — la
+répartition et les valeurs jamais employées (`enum`, `boolean`, D48),
+les longueurs (`text`), le minimum, le maximum, la moyenne et la plage
+occupée (les numériques), la plage et la répartition par période (les
+dates), les cibles distinctes (la référence), le nombre d'éléments (les
+listes), le nombre et la taille (`file`) ; **les valeurs et leur
+fréquence quand la diversité est faible ou quand quelques valeurs font
+la grande majorité** (le seuil, un réglage en proposition —
+`telemetry: { values: { distinct: 20, majority: 80% } }`) ; pour
+l'entité le volume, les créations, les modifications et **les
+suppressions** (le soft delete, D141), la répartition par état, la part
+d'historisés, les compteurs (D39). **Le hook de type livre ses
+indicateurs** (D1288) ; le tableau de bord « telemetry » montre les
+mêmes chiffres.
 
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 télémétrie n'est pas ce que l'utilisateur fait) ; la maintenance et la

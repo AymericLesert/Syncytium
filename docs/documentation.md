@@ -398,8 +398,9 @@ décisions, D1170–D1238.)*
   4. l'édition lisible par la machine : **acquis** — l'annexe A, la
      configuration dépliée, entière, les clés `*` retirées (D1245,
      D1247, D1250) ;
-  5. §8 — les données : les indicateurs par type (le chapitre 5.3,
-     D1265 — la place est acquise, la liste reste) ;
+  5. §8 — les données : **acquis le 14/10/2026 (D1287–D1288)** — les
+     indicateurs par type et par entité, les valeurs par fréquence, le
+     seuil en réglage (en proposition) ;
   6. le modèle physique : la partie 3 acquise (D1260) ; le contenu du
      `describe()` du storage dans [connectors.md](connectors.md) ;
   7. les règles, l'historique, les volumes : **placés** (D1254, D1257,
@@ -1475,25 +1476,57 @@ l'aide courte, au « (?) » du champ, sur les trois écrans (D262).
 - **le glossaire** se lit au survol dans le masque comme dans la page
   — la première occurrence du terme (D1184).
 
-## 8. La troisième source — les données (D334) *(en proposition)*
+## 8. La troisième source — les données (D334) *(le rang 2, étape 5 — acquis, D1287–D1288)*
 
-La documentation technique **exploite les données enregistrées** pour
-dire l'usage : la part de valeurs renseignées d'un champ facultatif,
-**les valeurs d'un `enum` jamais employées**, les plages réellement
-occupées d'un numérique ou d'une date, la diversité représentative
-(D46 — un champ constant, candidat au retrait) et scalaire (D48 — un
-domaine surdimensionné, à resserrer). Elle ne vit qu'**avec
-l'instance** : une documentation générée au dépôt, sans base, n'a pas
-cette section ; la documentation servie par l'application l'a. **Ce
-qu'elle extrait, ce sont les données que le lecteur a le droit de
-consulter** (D1248–D1249) : le modèle est intégral, les données suivent
-les droits. *À
-trancher* : sur quels types et quels indicateurs (la liste des canaux
-de telemetry.md), et si cette part reste au concepteur ou se partage.
-Cette source nourrit la pièce §23 — la supervision des usages, les
-contrôles, les optimisations ; **et la documentation de chaque entité
-et de chaque champ**, enrichie à la consultation de ce que le stockage
-en dit (D1155, §2).
+La documentation **exploite les données enregistrées** pour dire
+l'usage. Elle ne vit qu'**avec l'instance** : une documentation
+générée au dépôt, sans base, n'a pas cette part ; la documentation
+servie par l'application l'a — **sur demande** (D1216), calculée à
+l'instant, rien ne se stocke (D38, D736) ; dans une édition, **la
+photographie à la date de l'édition**, la date au cartouche (D1288).
+**Ce qu'elle extrait, ce sont les données que le lecteur a le droit de
+consulter** (D1248–D1249) : un champ protégé ne montre rien à qui ne
+peut le lire. Sa place : le chapitre 5.3 du dictionnaire (D1265) et la
+section de chaque champ (D1283).
+
+**Les indicateurs** (D1287). Pour tout champ : le nombre de valeurs
+renseignées et la part de vides, **la diversité représentative** (D46 —
+un champ constant, candidat au retrait), la date de dernière écriture.
+Puis, par famille de type :
+
+| La famille | Les indicateurs |
+|---|---|
+| `enum`, `boolean` | la répartition par valeur ; **les valeurs jamais employées** (D48) |
+| `text` et dérivés | la longueur minimale, maximale, moyenne, rapportée à la borne déclarée |
+| `integer`, `decimal`, `amount`, `measure`, `percentage` | le minimum, le maximum, la moyenne ; la plage occupée rapportée au domaine (D48 — un domaine surdimensionné, à resserrer) |
+| `date`, `time`, `datetime`, `period`, `duration` | la plage ; la répartition par année ou par mois |
+| la référence | le nombre de cibles distinctes ; la part de références sans cible permise |
+| la composition, la liste, l'association | le nombre moyen d'éléments |
+| `file`, `image` | le nombre, la taille totale |
+| le calculé | les indicateurs de son type |
+
+**Les valeurs et leur fréquence** (D1287) : « si la diversité des
+valeurs est importante », les agrégats seuls ; « si la diversité est
+faible ou si quelques valeurs représentent une grande majorité », **les
+valeurs et leur fréquence s'affichent** — pour tout type, le texte
+compris, la référence par son visage. *Ma lecture, en proposition* : le
+seuil est un réglage du socle, surchargeable (D1175, D1239) —
+`telemetry: { values: { distinct: 20, majority: 80% } }`.
+
+**Pour l'entité** : le volume ; les créations, les modifications et
+**les suppressions — Syncytium fait du soft delete** (D141) — par
+période ; la répartition par état quand elle en a un ; la part
+d'enregistrements historisés ; les compteurs de lecture et d'écriture
+(D39).
+
+**Qui livre quoi** (D1288) : **le hook de type livre ses indicateurs**
+comme il livre sa forme en clair — une clause de son contrat
+([hooks.md](hooks.md), [types.md](types.md), l'étape 9) ;
+[telemetry.md](telemetry.md) porte la liste, le dictionnaire la
+consomme ; le tableau de bord « telemetry » du module d'administration
+(D736) montre les mêmes chiffres, à sa manière. Cette source nourrit
+aussi la pièce §23 — la supervision des usages, les contrôles, les
+optimisations.
 
 ## 9. Les écarts entre versions (D1112) *(le rang 2, étape 3 — acquis, D1281–D1286 ; rendus à l'élément, D1257)*
 
@@ -2626,9 +2659,8 @@ comme chapitre (§19 → §22, D1187).*
 6. *(clos le 14/10 — §5 acquis, D1266–D1278 ; la forme au domaine 7,
    avec les contraintes Mermaid notées : le préfixe des paquetages, les
    styles et les compartiments non rendus)* ;
-7. les indicateurs de la troisième source (§8) — leur place est
-   acquise (le chapitre 5.3, aux droits du lecteur, D1249/D1265), la
-   liste par type reste ;
+7. *(clos le 14/10 — §8 acquis, D1287–D1288 ; le seuil des valeurs
+   par fréquence, un réglage en proposition)* ;
 8. *(clos le 14/10 — §9 acquis, D1281–D1283)* ;
 9. la documentation de l'API — le principe ici, la forme au domaine 7
    (§10) ;

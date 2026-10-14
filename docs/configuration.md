@@ -648,6 +648,8 @@ application:
     retention: 7d                  # dynamique (D912)
   logging:
     throttle: 1min                 # dynamique (D926)
+  telemetry:
+    values: { distinct: 20, majority: 80% }   # dynamique — les valeurs et leur fréquence au dictionnaire (D1287, en proposition)
 ```
 
 *Hors de l'inventaire* : le seuil de complétude n'a pas de défaut, le

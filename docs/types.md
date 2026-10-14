@@ -220,7 +220,11 @@ clair est le type tel qu'appliqué** (D1253) : « les settings deviennent
 invisibles car intégrés au type » — la facette résout les trois niveaux
 de réglages (D1239) avant de livrer sa forme (« une date, écrite
 AAAAMMJJ » — sans dire d'où vient le masque) ; il n'y a pas de chapitre
-des types ni des réglages, le type vit dans la table des champs.
+des types ni des réglages, le type vit dans la table des champs. **Le
+hook de type livre aussi ses indicateurs de télémétrie** (D1288 — la
+liste par famille dans [telemetry.md](telemetry.md), D1287) : un type
+personnalisé dit ce qu'il mesure ; la clause entre au contrat du hook
+de type, à l'étape 9 du rang 2.
 
 **Les autres colonnes** — à leur rang : l'information (la facette
 stockage et les conversions, D119/D982), le développeur (la forme à

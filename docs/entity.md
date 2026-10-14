@@ -58,7 +58,7 @@ droits à [rights.md](rights.md).*
 | `states:` | **le porteur du cycle de vie** — le champ énuméré désigné (`states: statut`) ; l'entité à hiérarchie a son statut dans ses positions (D353), jamais les deux | D424 |
 | `inheritance:` | l'enfant référence son parent — la hiérarchie se lit chez le parent (le bloc `states:` D353) | D353 |
 | `fields:` | les champs — le bloc ou la référence (`fields: fields.yml`) | D767 |
-| `groups:` | **les groupes de champs** — une vue sur les champs, le modèle reste plat : `groups: { prix: { title: Les prix, fields: [prix_revient, prix_moyen_pondere, prix_achat] } }` ; l'ordre d'écriture fait l'ordre ; un champ dans deux groupes, une erreur d'ingestion ; **les champs hors groupe forment le groupe implicite** ; le `title:` texte simple à une langue, par langue à plusieurs (D1101). Le diagramme fait un compartiment par groupe, la table du dictionnaire une section, **le formulaire par défaut un onglet par groupe, l'implicite en en-tête au-dessus des onglets** | D1273, D1275 |
+| les groupes de champs, dans `fields:` | **un groupe est une clé de la carte des champs qui porte `fields:` et `title:`, sans `type:`** (D1279 — amende D1273) : `classification: { title: La classification, fields: ~{classification.yml} }` ou le bloc en place ; les champs hors groupe forment **le groupe implicite** ; les noms de champs restent uniques dans l'entité et s'adressent sans le groupe ; un groupe ne s'emboîte pas ; l'ordre est celui du fichier ; le `title:` texte simple à une langue, par langue à plusieurs (D1101). Le diagramme fait un compartiment par groupe, la table du dictionnaire une section, **le formulaire par défaut un onglet par groupe, l'implicite en en-tête au-dessus des onglets** (D1273). Un champ à `type:` et `fields:` est une liste de valeurs composées (D115), pas un groupe | D1273, D1275, D1279 |
 | `operations:` | les opérations — le bloc ou la référence ; le mapping ordonné, l'ordre = les boutons | D432 |
 | `gui:` | la présentation — le bloc ou la référence | D767 |
 | `validation:` | les règles inter-champs — la liste d'expressions booléennes (D90), le `if` suffixé (« `date_operation = owner.ouverture if budget = "OUVERTURE"` ») ; l'évaluation **au scellé** de la transaction | D156, D594, D824 |
@@ -195,7 +195,7 @@ D1266–D1278.)*
 | le module | le paquetage ; dans la vue des modules (D1214, D1266), une boîte par module, la flèche dans le sens de la dépendance, un seul trait par sens, sans poids ; les associations dérivées font flèche aussi — les liens bidirectionnels |
 | l'entité (`name:`) | la classe, par son nom ; le parent abstrait (D1035 — `tiers`) en italique — `<<abstract>>` en attendant l'outil (D1268) |
 | `inheritance:` | la généralisation — le triangle vers le parent (D143–D145, D1278) |
-| le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit ; seuls les champs de valeur sont des lignes : tout champ qui pointe vers une entité est un lien (D1270) ; **un compartiment par groupe** (`groups:`, D1273), l'implicite en tête |
+| le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit ; seuls les champs de valeur sont des lignes : tout champ qui pointe vers une entité est un lien (D1270) ; **un compartiment par groupe** (les groupes dans `fields:`, D1273/D1279), l'implicite en tête |
 | `identity:` / `identities:` | **souligné** |
 | `formula:` | *italique* |
 | `confidentiality:` au-dessus de `public` (D25), ou `rgpd:` (D695) | **« * »** — le champ sécurisé |

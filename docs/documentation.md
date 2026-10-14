@@ -1010,7 +1010,8 @@ diagramme d'états** à part, les valeurs du statut et les passages
 permis (D422) — le véhicule (cas 3) en a un. La table détaillée dans
 [entity.md](entity.md).
 
-**Les groupes de champs** (D1273 — `groups:` à l'entité, entity.md) :
+**Les groupes de champs** (D1273, D1279 — dans `fields:`, une clé à
+`title:` et `fields:` sans `type:`, entity.md) :
 le diagramme fait **un compartiment titré par groupe** dans la classe,
 l'implicite en tête ; une classe de quarante champs se lit alors par
 blocs. Mermaid ne dessine pas de compartiment titré (la même réserve

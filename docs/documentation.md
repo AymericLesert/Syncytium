@@ -1495,7 +1495,7 @@ contrôles, les optimisations ; **et la documentation de chaque entité
 et de chaque champ**, enrichie à la consultation de ce que le stockage
 en dit (D1155, §2).
 
-## 9. Les écarts entre versions (D1112) *(le rang 2, étape 3 — acquis, D1281–D1285 ; rendus à l'élément, D1257)*
+## 9. Les écarts entre versions (D1112) *(le rang 2, étape 3 — acquis, D1281–D1286 ; rendus à l'élément, D1257)*
 
 **Syncytium calcule les écarts et les présente ; le concepteur ne les
 décrit pas** (D1112) — la description d'un champ dit ce qu'il est,
@@ -1523,7 +1523,10 @@ de cette version dans la chaîne changent ; la documentation d'une
 production dit ce que la beta va renommer, retyper, supprimer,
 déprécier ; dans la section du champ, après l'historique, « à venir :
 1.0.0.1 (beta) — renommé en `nom_court` » ; au chapitre de la version,
-la liste des évolutions à venir. **La version de référence** (D1282) : **une
+la liste des évolutions à venir. **Plusieurs beta** (D1286) : chaque
+beta se compare à celle qui la précède, la première à la dernière
+production ; la production dit « à venir » pour toutes, dans l'ordre ;
+la plus élevée n'a pas d'« à venir ». **La version de référence** (D1282) : **une
 beta se compare à la beta précédente si elle existe, sinon à la dernière
 production ; la chaîne remonte toutes les beta et toutes les
 productions.** Pour les versions

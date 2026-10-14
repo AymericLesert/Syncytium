@@ -992,7 +992,7 @@ interactions ») :
 |---|---|---|---|
 | **les modules et leurs liens** | une boîte par module ; **la flèche dans le sens de la dépendance** — de qui référence vers qui est référencé —, un seul trait par sens, sans poids ; **les associations dérivées font flèche aussi** : la vue montre les liens bidirectionnels (D1266) | le décideur ; l'opérateur qui découvre | en tête de la fonctionnelle (§6, chapitre 1) et du dictionnaire (§4, partie 2) |
 | **l'ensemble des entités** | toutes les entités de la version, par module, en diagramme de classes — **le nom du module, de l'entité et du champ seulement**, aux styles ci-dessous ; les listes en liens | le décideur ; le concepteur | le dictionnaire (§15), la documentation de l'information |
-| **le module, en vue sélective** | ses entités, et celles des autres modules qu'il référence ou qui le référencent, marquées de leur module *(ma lecture)* | l'opérateur du module ; le concepteur | le chapitre du module (§6, chapitre 3) |
+| **le module, en vue sélective** | **module par module** (D1269) : toutes ses entités avec **tous leurs champs**, les calculés compris, aux styles ci-dessous ; les compositions et les associations portées par les liens, non par une ligne ; les liens vers les entités des autres modules posés, ces entités **sans leurs champs**, dans leur paquetage | l'opérateur du module ; le concepteur | le chapitre du module (§6, chapitre 3) ; la partie 2 du dictionnaire (§4) |
 
 *(Ma « vue de l'entité » de D1119 tombe : la table du dictionnaire la
 remplace.)*
@@ -1160,36 +1160,104 @@ classDiagram
 
 **La vue sélective du module `technique` du cas 5** (la troisième vue —
 D1214 : « inspirée du global mais limitée aux items du module et à ses
-interactions ») : les entités du module avec leurs champs, les entités
-des autres modules qu'il référence sans leurs champs, marquées de leur
-paquetage ; les champs sont réduits ici à ceux qui portent une marque
-ou un lien (l'identité `code`, `complement` ; la référence `composant` ;
-les calculés `nature`, `quantite_nette`), la vue réelle les montre tous.
-*(Rendu vérifié ; les marques de D1213 absentes — Mermaid ne les porte
-pas.)*
+interactions » ; D1269 : « tous les champs (y compris les champs
+calculés). Les compositions et associations sont portées par les liens
+… les liens vers les autres modules et entités sont positionnés (sans
+mettre les champs dans ces entités liées hors du module) ») : les cinq
+entités du module avec tous leurs champs — l'article en a 47 — ; une
+référence est une ligne de champ *et* une flèche ; une composition
+(`nomenclature`) ou une association dérivée (`commandes_vente`,
+`clients`…) n'est qu'un lien, son nom en étiquette ; une liste de
+valeurs composées (`tarifs`, `stock_par_emplacement`) reste une ligne ;
+les entités liées des autres modules dans leur paquetage, sans champs.
+*(Rendu vérifié ; les marques de D1213 — souligné, italique, « * »,
+gras — absentes, Mermaid ne les porte pas : `code` et `complement`
+seraient soulignés, `nature` ou `dormant` en italique, `prix_revient`
+étoilé.)*
 
 ```mermaid
 classDiagram
   direction LR
   namespace module_technique {
     class article {
+      <<abstract>>
       code
       complement
-      designation
-      fournisseur_defaut
+      libelle
+      libelle_secondaire
+      type
+      famille
+      sous_famille
+      perissable
+      gestion
+      matieres
+      unite_stock
+      unite_commande
+      unite
+      poids
+      longueur
+      largeur
+      epaisseur
+      volume
+      ean13
+      stock_minimum
+      stock_maximum
+      quantite_economique
+      prix_revient
+      prix_moyen_pondere
+      prix_achat
+      actif
+      date_creation
+      date_modification
+      plans
+      gere_en_stock
       depot_expedition
+      emplacement_expedition
+      depot_reception
+      emplacement_reception
+      depot_fabrication
+      emplacement_fabrication
+      depot_consommation
+      emplacement_consommation
+      fournisseur_defaut
+      tarifs
+      dernier_fournisseur
+      stock_par_emplacement
+      dormant
+      derniere_sortie
     }
     class fabrique {
-      client
+      client_defaut
+      dernier_client
+      nombre_composants
+      nombre_operations
+      temps_gamme
     }
-    class semi_fini
-    class fantome
+    class semi_fini {
+      nombre_composants
+      nombre_operations
+      temps_gamme
+    }
+    class fantome {
+      nombre_composants
+      nombre_operations
+      temps_gamme
+    }
     class nomenclature {
       numero
       nature
       designation
       composant
       quantite
+      unite
+      rendement
+      operation
+      jalon
+      temps_preparation
+      temps_ouverture
+      temps_attente
+      nombre_ouvriers
+      validite
       quantite_nette
     }
   }
@@ -1200,18 +1268,27 @@ classDiagram
   namespace module_stock {
     class depot
     class emplacement
+    class mouvement
+  }
+  namespace module_commande {
+    class ligne_vente
+    class ligne_achat
   }
   article <|-- fabrique
   article <|-- semi_fini
   article <|-- fantome
-  fabrique *-- "0..*" nomenclature
-  semi_fini *-- "0..*" nomenclature
-  fantome *-- "0..*" nomenclature
+  fabrique *-- "0..*" nomenclature : nomenclature
+  semi_fini *-- "0..*" nomenclature : nomenclature
+  fantome *-- "0..*" nomenclature : nomenclature
   nomenclature --> "1" article : composant
   article --> "0..1" fournisseur
   article --> "0..1" depot
   article --> "0..1" emplacement
   fabrique --> "0..1" client
+  article o.. "0..*" ligne_vente : commandes_vente
+  article o.. "0..*" ligne_achat : commandes_achat
+  article o.. "0..*" mouvement : mouvements
+  fabrique o.. "0..*" client : clients
 ```
 
 **Le diagramme d'états du véhicule** (le cas 3 — `states: statut`,
@@ -1794,7 +1871,7 @@ alphabétique du 05/10 est écarté.)*
 |---|---|
 | **les modules et leurs liens** | une boîte par module ; la flèche dans le sens de la dépendance, un seul trait par sens, sans poids ; les associations dérivées font flèche aussi — les liens bidirectionnels (D1266) |
 | **l'ensemble des entités de l'application** | toutes les entités de la version, par module, en diagramme de classes : **le nom du module, de l'entité et du champ seulement** ; les effets de style — **souligné** pour les identifiants, *italique* pour les champs calculés, « * » pour les champs sécurisés ou `rgpd:`, **gras** pour les champs servant de référence dans d'autres entités ; les listes — les associations, les compositions — **en liens** |
-| **chaque module, en vue sélective** | « inspirée du global mais limitée aux items du module et à ses interactions » : ses entités, et celles des autres modules qu'il référence ou qui le référencent, marquées de leur module *(ma lecture)* |
+| **chaque module, en vue sélective** | « inspirée du global mais limitée aux items du module et à ses interactions » : toutes ses entités avec tous leurs champs ; les compositions et les associations en liens ; les entités liées des autres modules sans leurs champs (D1269) |
 
 Aucun type au diagramme : la table le dit. *(Mes lectures : « sécurisé »
 = une confidentialité au-dessus de `public` (D25) ou un `rgpd:` (D695) ;

@@ -248,6 +248,23 @@ fields:
   date_creation: date_pmi            # un type dérivé (D992), la forme courte
 ```
 
+**Les groupes de champs** (D1273, D1279–D1280) : dans la même carte,
+**une clé qui porte `fields:` sans `type:` est un groupe** — son
+`title:` par langue, ses champs en place ou dans un fichier référencé,
+un fichier par groupe dans le cas 5 ; les champs hors groupe forment le
+groupe implicite ; les noms de champs restent uniques dans l'entité et
+s'adressent sans le groupe ; un groupe ne s'emboîte pas. Un champ qui
+porte `type:` et `fields:` est une liste de valeurs composées (D115),
+pas un groupe.
+
+```yaml
+fields:
+  code: text[..18]                   # hors groupe — le groupe implicite, l'en-tête de l'écran
+  prix:                              # un groupe : title: et fields:, sans type:
+    title: Les prix
+    fields: ~{prix.yml}              # ou le bloc en place
+```
+
 ### 2.9 Les deux formes d'une collection — la liste et la substitution (D1113)
 
 Les collections **`versions`, `modules` et `entities`** s'écrivent de **deux
@@ -339,7 +356,8 @@ versions/
 │       │   ├── <module>.yml         # name, description, allow:, entities:, menu:, dashboards
 │       │   └── <entité>/
 │       │       ├── <entité>.yml     # l'en-tête : name, identity, inheritance, history, fields:, validation:, gui:
-│       │       ├── fields.yml       # les champs
+│       │       ├── fields.yml       # les champs ; les groupes (title:, fields:) — D1279
+│       │       ├── <groupe>.yml     # les champs d'un groupe, référencés par fields: ~{<groupe>.yml} (D1280)
 │       │       └── gui.yml          # les surfaces (lists, forms, summary, widgets…)
 │       ├── hooks/                   # hooks.yml → les familles → les fiches (hooks.md)
 │       └── reprise/                 # la migration : reprise.yml, source/, mapping/ (mapping.md)

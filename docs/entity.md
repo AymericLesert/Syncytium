@@ -113,6 +113,17 @@ km_initial:
     fr: Le compteur au retrait du véhicule — la première ligne de consommation en part.
 ```
 
+**Les groupes de champs** (D1273, D1279–D1280). Dans la même carte, une
+clé qui porte `fields:` sans `type:` est un groupe : son `title:` par
+langue, ses champs en place ou dans un fichier référencé — un fichier
+par groupe dans le cas 5 (`prix: { title: Les prix, fields: ~{prix.yml}
+}`). Les champs hors groupe forment le groupe implicite ; les noms
+restent uniques dans l'entité et s'adressent sans le groupe ; un groupe
+ne s'emboîte pas ; l'ordre est celui du fichier. Le groupe est une vue :
+un compartiment du diagramme, une section de la table du dictionnaire,
+un onglet du formulaire par défaut — l'implicite en en-tête de l'écran,
+au-dessus des onglets.
+
 **Les propriétés du champ.**
 
 | la propriété | la nature | D |

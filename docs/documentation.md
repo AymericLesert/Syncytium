@@ -1309,15 +1309,23 @@ classDiagram
 
 **Le diagramme d'états du véhicule** (le cas 3 — `states: statut`,
 D422 : les valeurs du champ-statut, les passages permis, les droits de
-chaque état) : la naissance à la valeur par défaut, l'activation libre,
-la clôture au cliquet dès que la vente est posée. *(Rendu vérifié.)*
+chaque état ; D1276) : **un diagramme par entité qui déclare `states:`**,
+dans sa sous-section (la partie 2 du dictionnaire) et dans la section
+de son entrée de menu (la fonctionnelle, D1195) ; un dérivé hérite du
+cycle de vie de son parent. **Le trait porte la cible et la condition
+telle qu'écrite** (`when:`), pas de verbe inventé — le nom de
+l'opération qui déclenche le passage s'il y en a une ; la naissance par
+le `default:` ; **les actes permis (`allow:`) en note**, la table des
+états qui suit porte le détail — les actes, la condition, la description
+de chaque état. Dans la fonctionnelle, le libellé de l'état et la
+description du passage remplacent l'expression. *(Rendu vérifié.)*
 
 ```mermaid
 stateDiagram-v2
   direction LR
-  [*] --> creation : naissance
-  creation --> actif : activer
-  actif --> cloture : clore, quand date_vente != null
+  [*] --> creation : default
+  creation --> actif
+  actif --> cloture : date_vente != null
   cloture --> [*]
   note right of creation : create, read, update, delete
   note right of actif : create, read, update

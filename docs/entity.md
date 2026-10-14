@@ -203,7 +203,7 @@ UML stricte est retirée.)*
 | `type: list of <entité>` — la composition (D115) | un lien — « les listes apparaissent comme des liens » ; le losange plein et le trait plein, la cardinalité (D1268) |
 | `type: association with <entité> if …` — l'association dérivée (D405) | **le losange vide et le pointillé** (D1268), du côté de l'entité qui la porte, la cardinalité ; dans la vue d'ensemble comme dans la vue sélective ; une dépendance comme la référence (D1267) |
 | `type: list of [ … ]` — la liste de valeurs composées | **une structure interne** (D1271) : une classe **nommée par son entité — `article.tarifs`** (D1274), dans le paquetage de l'entité, ses colonnes en champs, composée par l'entité ; ses références en liens |
-| `states:` | un diagramme d'états à part : les valeurs du champ-statut, les passages permis (D422) |
+| `states:` | un diagramme d'états à part (D1276) : les valeurs du champ-statut, les passages permis (D422) — le trait porte la cible et la condition `when:` telle qu'écrite, le nom de l'opération qui déclenche le passage s'il y en a une ; les actes `allow:` en note, la table des états en détail ; un par entité qui déclare `states:`, le dérivé hérite |
 | `operations:`, `required:`, `history:`, `hint:`, `description:`, `placeholder:` | rien au diagramme — la table du dictionnaire (D1215) et le registre (D698) |
 
 **La table du dictionnaire** (D1215, ma forme) : une table par entité,

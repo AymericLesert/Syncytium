@@ -187,24 +187,25 @@ l'entité y devient *(en proposition)* :
 
 *(Amendé par D1213 : « uniquement le nom du module, de l'entité et du
 champ », des effets de style, les listes en liens — ma correspondance
-UML stricte est retirée.)*
+UML stricte est retirée. Acquise ligne à ligne par les blocs de §5,
+D1266–D1278.)*
 
-| la configuration | le diagramme (D1213) |
+| la configuration | le diagramme (D1213 ; la table acquise, D1278) |
 |---|---|
 | le module | le paquetage ; dans la vue des modules (D1214, D1266), une boîte par module, la flèche dans le sens de la dépendance, un seul trait par sens, sans poids ; les associations dérivées font flèche aussi — les liens bidirectionnels |
 | l'entité (`name:`) | la classe, par son nom ; le parent abstrait (D1035 — `tiers`) en italique — `<<abstract>>` en attendant l'outil (D1268) |
-| `inheritance:` | la généralisation — le triangle vers le parent (D143–D145) |
+| `inheritance:` | la généralisation — le triangle vers le parent (D143–D145, D1278) |
 | le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit ; seuls les champs de valeur sont des lignes : tout champ qui pointe vers une entité est un lien (D1270) ; **un compartiment par groupe** (`groups:`, D1273), l'implicite en tête |
 | `identity:` / `identities:` | **souligné** |
 | `formula:` | *italique* |
 | `confidentiality:` au-dessus de `public` (D25), ou `rgpd:` (D695) | **« * »** — le champ sécurisé |
-| le champ cible d'une référence (D396) ou d'une association (D405) dans une autre entité | **gras** |
-| `type: <entité>` — la référence | un lien fléché vers la cible, **le nom du champ en étiquette, un lien par champ ; pas de ligne dans l'entité** (D1270) ; le champ en gras chez la cible |
+| le champ cible d'une référence (D396) ou d'une association (D405) dans une autre entité | **gras** — chez la cible, sur le champ d'identité visé (D1278) |
+| `type: <entité>` — la référence | un lien fléché vers la cible, **le nom du champ en étiquette, un lien par champ ; pas de ligne dans l'entité** (D1270) ; **la cardinalité par l'obligation** — « 1 » si `required:`, « 0..1 » sinon, « 0..* » pour une liste (D1278) ; le champ en gras chez la cible |
 | `type: list of <entité>` — la composition (D115) | un lien — « les listes apparaissent comme des liens » ; le losange plein et le trait plein, la cardinalité (D1268) |
 | `type: association with <entité> if …` — l'association dérivée (D405) | **le losange vide et le pointillé** (D1268), du côté de l'entité qui la porte, la cardinalité ; dans la vue d'ensemble comme dans la vue sélective ; une dépendance comme la référence (D1267) |
 | `type: list of [ … ]` — la liste de valeurs composées | **une structure interne** (D1271) : une classe **nommée par son entité — `article.tarifs`** (D1274), dans le paquetage de l'entité, ses colonnes en champs, composée par l'entité ; ses références en liens |
 | `states:` | un diagramme d'états à part (D1276) : les valeurs du champ-statut, les passages permis (D422) — le trait porte la cible et la condition `when:` telle qu'écrite, le nom de l'opération qui déclenche le passage s'il y en a une ; les actes `allow:` en note, la table des états en détail ; un par entité qui déclare `states:`, le dérivé hérite |
-| `operations:`, `required:`, `history:`, `hint:`, `description:`, `placeholder:` | rien au diagramme — la table du dictionnaire (D1215) et le registre (D698) |
+| `operations:`, `history:`, `hint:`, `description:`, `placeholder:` | rien au diagramme — la table du dictionnaire (D1215) et le registre (D698) ; `required:` y est par la cardinalité (D1278) |
 
 **La table du dictionnaire** (D1215, ma forme) : une table par entité,
 une ligne par champ — le libellé avec les marques du diagramme, le type

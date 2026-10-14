@@ -388,10 +388,10 @@ décisions, D1170–D1238.)*
   1. §4 — le plan du dictionnaire de la donnée : **acquis le 13/10/2026
      (D1241–D1265)** — le périmètre, le titre, cinq parties dans
      l'ordre de l'auteur, les annexes ;
-  2. §5 — le modèle de données : les trois vues (acquises D1213–D1214),
-     la correspondance (entity.md), le diagramme d'états, **le rendu
-     vérifié le 13/10/2026** (deux contraintes Mermaid relevées) ; les
-     lectures restantes à confirmer ;
+  2. §5 — le modèle de données : **acquis le 14/10/2026 (D1266–D1278)**
+     — les quatre blocs arbitrés et rendus, les groupes de champs
+     (D1273), le `title:`, la table d'entity.md ; deux contraintes
+     Mermaid relevées pour le domaine 7 ;
   3. §9 — les écarts : ce qui compte comme écart ; la forme à
      l'élément, à l'entité et au champ (D1257) ;
   4. l'édition lisible par la machine : **acquis** — l'annexe A, la
@@ -2568,12 +2568,9 @@ comme chapitre (§19 → §22, D1187).*
    configuration.md, à trois niveaux, D1239)* ;
 5. *(clos le 13/10 — le plan du dictionnaire de la donnée, §4,
    D1241–D1265)* ;
-6. la représentation graphique (§5) : le rendu vérifié le 13/10 ; la
-   forme au domaine 7 (deux contraintes Mermaid notées : le préfixe
-   des paquetages, les styles de D1213 non rendus) ; cinq lectures à
-   confirmer à la reprise : les blocs 1 et 2 arbitrés le 13/10
-   (D1266–D1268) ; restent la vue sélective (bloc 3), le diagramme
-   d'états (bloc 4), le `title:` au singulier, la table d'entity.md ;
+6. *(clos le 14/10 — §5 acquis, D1266–D1278 ; la forme au domaine 7,
+   avec les contraintes Mermaid notées : le préfixe des paquetages, les
+   styles et les compartiments non rendus)* ;
 7. les indicateurs de la troisième source (§8) — leur place est
    acquise (le chapitre 5.3, aux droits du lecteur, D1249/D1265), la
    liste par type reste ;

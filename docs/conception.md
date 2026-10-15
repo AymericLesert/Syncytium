@@ -24436,6 +24436,16 @@ avant la synthèse Q16).
   l'annexe B). « Finalisons le rang » (D1314) — **LE RANG 2 EST CLOS** :
   onze étapes, deux déclinaisons, 73 décisions (D1241–D1313) ; la
   suite, le rang 3 (la réglementation) ou la PR.
+- **2026-10-16 (suite) — LA PR #46 OUVERTE, LA PAUSE.** « Crée la PR
+  vers develop » — `feature/documentation` → `develop`, 62 commits,
+  D1241–D1314, https://github.com/AymericLesert/Syncytium/pull/46 (par
+  l'API GitHub, gh absent du poste). « fais moi un état d'avancement et
+  je marque une pause » — l'état donné : les rangs 0, 1 et 2 clos ; à
+  la reprise, après la fusion, le rang 3 — la réglementation (§18 :
+  le registre, les droits des personnes, les mentions, la
+  journalisation, la sécurité, l'accessibilité ; la banque et le
+  tiny) — sur une branche à jour de `develop` ; le point ouvert hors
+  rang : les colonnes du socle (D1305).
 - **2026-10-14 (suite) — LA PAUSE : §9 ET §8 ACQUIS, L'ÉTAPE 6
   PRÉSENTÉE (1288 décisions).** L'état d'avancement donné ; « je
   marque une pause ». Le `describe()` du storage présenté (le chapitre

@@ -605,7 +605,10 @@ de vérifier qu'elle correspond au modèle (D801). Par entité : sa table, la co
 delete, les colonnes d'audit — **les colonnes du socle sont à étudier**
 (D1305 : leur implémentation n'est pas faite, « les colonnes
 supplémentaires sont liées à un type d'implémentation. Mais, nous
-pourrions adopter une autre approche ») ; par champ de valeur : sa ou ses colonnes,
+pourrions adopter une autre approche ») ; **la classe décline chaque
+type de composant en stockage — l'héritage compris, une table par
+dérivé ou une seule avec une colonne de type, à préciser à
+l'implémentation** (D1309) ; par champ de valeur : sa ou ses colonnes,
 le type natif, la nullité, la règle de conversion ; l'identité technique
 (D142) en clé primaire, l'identité fonctionnelle en clé unique sur les
 actifs (D141) ; la référence en clé étrangère ; la composition en table

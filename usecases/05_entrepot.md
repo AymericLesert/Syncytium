@@ -2452,10 +2452,10 @@ est marqué. **En proposition.**)*
 > **les colonnes protégées** `prix_revient`, `prix_moyen_pondere`,
 > `prix_achat` marquées « protégé — achats, direction » (D1247, D1300) ;
 > la table d'instantanés `technique_article_history` (D169). **La
-> hiérarchie** : *ma lecture — une table par dérivé pour ses champs
-> propres, liée au parent par l'identité technique ; la classe peut
-> choisir une seule table avec une colonne de type ; le `describe(model)`
-> dit ce qu'elle fait.*
+> hiérarchie** : la classe du storage décline chaque type de composant
+> en stockage, l'héritage compris — une table par dérivé ou une seule
+> avec une colonne de type, à préciser à l'implémentation (D1309) ; le
+> `describe(model)` dit ce qu'elle fait.
 >
 > **Les index** (D1292), avec leur origine : la clé primaire ; la clé
 > unique (`code`, `complement`) sur les actifs — l'identité ; les clés
@@ -2584,12 +2584,14 @@ est marqué. **En proposition.**)*
 **Ce que la déclinaison relève.** *(1)* La colonne « Écriture » de la
 table des champs doit rendre le droit le plus proche, module → entité →
 champ ; sans elle, le lecteur croirait `note_interne` fermé. *(2)* La
-hiérarchie au stockage — une table par dérivé ou une seule — est à la
-classe du storage ; le `describe(model)` doit le dire explicitement.
+hiérarchie au stockage — une table par dérivé ou une seule — est une
+déclinaison de la classe du storage, à préciser à l'implémentation
+(D1309) ; le `describe(model)` la dit.
 *(3)* Une version en lecture seule n'a pas de gabarit d'import : le
 chapitre 4.2 le dit plutôt que de disparaître. *(4)* L'index 5.1 tient
 par le pli : la synthèse en une ligne par entité, le détail aux seuls
 champs qui pèsent, l'exhaustif sur demande — la proposition de D1263,
-mesurée ici à 11 sur 47. *(5)* « Depuis la version x » vaut 1.0.0.0
-partout dans la 1.0.0.0 ; la colonne ne prend son sens qu'à la
-1.0.0.1, où trois champs se distinguent.
+mesurée ici à 11 sur 47. *(5)* « Depuis la version x » vaut la
+première version partout dans la première version — ici 1.0.0.0, mais
+une première version peut être 0.0.0.1 (D1310) ; la colonne ne prend
+son sens qu'à la suivante, où trois champs se distinguent.

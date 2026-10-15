@@ -415,8 +415,8 @@ décisions, D1170–D1238.)*
      indicateurs, l'exemple, le marquage), dans [hooks.md](hooks.md) et
      [types.md](types.md) ;
   10. la lisibilité de l'index 5.1 (D1263) — à la déclinaison ;
-  11. la colonne 2 de la matrice (§13) dans les artefacts — écrite le
-     15/10/2026, à valider.
+  11. la colonne 2 de la matrice (§13) dans les artefacts : **acquise
+     le 15/10/2026 (D1303)**.
 - **Déclinaison** : le tiny ; **l'entrepôt** (la hiérarchie de
   l'article, la reprise, les deux versions).
 - **Livrables** : §4, §5, §8, §9 validés ; [entity.md](entity.md) (la

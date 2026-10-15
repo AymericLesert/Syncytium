@@ -158,7 +158,7 @@ lecture, le file, le webhook.)*
 | `connect` / `disconnect` | à l'appel du connecteur (D621) |
 | `ping()` | la santé — **le statut** : `error`, `initialized`, `disconnected`, `connected`, `closed`… ; `every:` en précise la fréquence (D621) |
 | `onerror` | la défaillance — retourne **un mock de résultat** (le connecteur non critique — l'écho de la dégradation D68) ou **l'appel à la page de maintenance** (le connecteur clé) (D627) |
-| `describe()` | « générer de la documentation en markdown/html pour la documentation automatique de l'instance » (D630) — la règle de **tous** les hooks (D645), la doc technique assemblée version par version |
+| `describe()` — `describe(model)` pour le storage (D1299) | « générer de la documentation en markdown/html pour la documentation automatique de l'instance » (D630) — la règle de **tous** les hooks (D645), la doc technique assemblée version par version |
 
 **Les propriétés du socle** : `connection: permanent | on_demand |
 idle[15min]` *(en proposition — D621)*, `pool:` (le parallélisme
@@ -227,7 +227,7 @@ conversion vers le stockage**.
 | le groupe | les méthodes |
 |---|---|
 | la transaction | `begin` · `commit` · `rollback` — l'assise de la transaction tenue ouverte (D594) |
-| l'instance | `create_instance` · **`get_instance`** (l'introspection — le retour est **l'équivalent d'un module** : les entités et leurs champs, la mutualisation N colonnes → 1 champ, les contraintes, les dépendances — D684 ; **borné aux items de stockage** : jamais les surfaces ni les champs calculés — D685 ; pour un storage source, les items = **les entités de la carte `entities:`** — le fichier n'est jamais un item, D829) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
+| l'instance | `create_instance` · **`get_instance()`** (D1299 — « description d'un modèle à l'image du méta-modèle à partir du stockage » ; l'introspection — le retour est **l'équivalent d'un module** : les entités et leurs champs, la mutualisation N colonnes → 1 champ, les contraintes, les dépendances — D684 ; **borné aux items de stockage** : jamais les surfaces ni les champs calculés — D685 ; pour un storage source, les items = **les entités de la carte `entities:`** — le fichier n'est jamais un item, D829) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
 | les entités | `create_entity` · `update_entity` · `delete_entity` |
 | les enregistrements | `create` · `read` · `update` · `delete` — **l'écriture en lots** (D688 : create/update/delete portent une liste — le bulk natif de la classe), **la lecture au curseur** (D689 : read() rend un curseur qui convertit chaque ligne en enregistrement au fil du parcours — le lazy loading, la masse au suivi de progression) |
 
@@ -593,14 +593,15 @@ qu'elles sont stockées, pour tout outil de BI qui se connecte à la base
 sans passer par Syncytium — la facette stockage de chaque type (D683),
 assemblée par le storage.
 
-**Le contenu du `describe()` du storage** (l'étape 6 du rang 2 — D1292 ;
-les lectures 2 à 5 en attente) : la classe applique ses règles de
-conversion (le visiteur, D681–D683) au modèle qu'on lui donne et rend ce
-qu'elles produisent, dans son propre vocabulaire — par exception à D680,
+**Le contenu du `describe(model)` du storage** (l'étape 6 du rang 2 —
+D1292, D1299 : « description du modèle de données couvert par le modèle
+défini en paramètre - tel que les données doivent être stockées ») : la
+classe applique ses règles de transcription (D1296, D1298) au modèle
+qu'on lui donne et rend ce qu'elles produisent, dans son propre vocabulaire — par exception à D680,
 parce que la BI lit la base sans Syncytium : **une fonction pure de la
 configuration** (D645), calculée au dépôt, la même que `create_entity`
-exécute ; servi par une instance, `get_instance` vérifie que la base
-en place y correspond (D801). Par entité : sa table, la colonne du soft
+exécute ; servi par une instance, `get_instance()` lit la base et permet
+de vérifier qu'elle correspond au modèle (D801). Par entité : sa table, la colonne du soft
 delete, les colonnes d'audit ; par champ de valeur : sa ou ses colonnes,
 le type natif, la nullité, la règle de conversion ; l'identité technique
 (D142) en clé primaire, l'identité fonctionnelle en clé unique sur les

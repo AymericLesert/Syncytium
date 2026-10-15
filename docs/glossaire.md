@@ -489,8 +489,9 @@ optimisation et le stockage physique. Il traite l'unitaire et la masse ;
 son traitement est bijectif, standardisé, harmonisé, extensible par le
 format pivot — les types élémentaires, dans lesquels tout type
 Syncytium se décline (D1298). Il s'auto-décrit : ses règles de transcription des types vers la base ou
-la zone de stockage, rendues par son `describe()` — les tables, les
-colonnes, les clés, les index, les partitions. Il influe sur le hook de
+la zone de stockage, rendues par son `describe(model)` — les tables,
+les colonnes, les clés, les index, les partitions ; `get_instance()`
+lit la base et rend un modèle à l'image du méta-modèle (D1299). Il influe sur le hook de
 type, à qui il dit ce qu'il attend. *(D629, D680–D684, D1294–D1297)*
 
 **Style** — Le cadre technique du rendu, fourni par Syncytium (« au

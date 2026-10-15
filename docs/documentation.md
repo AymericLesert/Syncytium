@@ -409,8 +409,10 @@ décisions, D1170–D1238.)*
      D1265) — le contenu avec les étapes 3 et 5 ;
   8. la reprise des données : le chapitre 4.1 acquis (D1262) ; ce que
      [migration.md](migration.md) y verse ;
-  9. le contrat du hook de type — le type en clair tel qu'appliqué
-     (D1253), dans [hooks.md](hooks.md) et [types.md](types.md) ;
+  9. le contrat du hook de type : **acquis le 15/10/2026 (D1301)** —
+     les cinq livraisons (la forme en clair, la déclinaison, les
+     indicateurs, l'exemple, le marquage), dans [hooks.md](hooks.md) et
+     [types.md](types.md) ;
   10. la lisibilité de l'index 5.1 (D1263) — à la déclinaison ;
   11. la colonne 2 de la matrice (§13) dans les artefacts.
 - **Déclinaison** : le tiny ; **l'entrepôt** (la hiérarchie de
@@ -969,7 +971,7 @@ l'exploitation et de l'API ont rejoint §17 et §10 (D1242).
 | | **5.2 Les droits** | **la matrice des droits** (D1264 : « la visibilité est simple et rapide ») — les entités en lignes, les groupes en colonnes, les quatre actes et les opérations permises dans la case, la condition d'état quand il y en a une (D1172) ; la composition des groupes (D1099), le degré (D699) ; les profils de confidentialité lus comme « qui voit » chaque niveau | `groups.yml`, `settings.yml` |
 | | **5.3 Les données** | **une façon d'exploiter la télémétrie de Syncytium** (D1265) — §8 : les volumes par entité, la synthèse ; le détail par champ dans la zone sur demande (D1216) ; à l'instance seulement, sur les données que le lecteur a le droit de consulter (D1248–D1249) ; la liste des indicateurs par type, à l'étape 5 du rang 2 | l'instance, la télémétrie |
 | **Annexes** *(acquises, D1261)* | **A. La configuration dépliée** | entière, les clés `*` retirées (D1247), le niveau de confidentialité affiché ; lisible dans le document, JSON ou YAML pour la machine et l'IA (D1245) ; l'arbre des réglages y reste lisible (D1253) | calculé |
-| | **B. Le glossaire des types** | les types du catalogue et les types personnalisés, en clair (D1180) | calculé |
+| | **B. Le glossaire des types** | les types du catalogue et les types personnalisés employés par la version, en clair : la forme, les contraintes, l'exemple — construit des livraisons du hook de type (D1180, D1301) | calculé |
 
 ## 5. Le modèle de données — la représentation graphique (D1119)
 

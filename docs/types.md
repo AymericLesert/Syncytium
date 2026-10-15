@@ -238,6 +238,15 @@ liste par famille dans [telemetry.md](telemetry.md), D1287) : un type
 personnalisé dit ce qu'il mesure ; la clause entre au contrat du hook
 de type, à l'étape 9 du rang 2.
 
-**Les autres colonnes** — à leur rang : l'information (la facette
-stockage et les conversions, D119/D982), le développeur (la forme à
+**La facette documentation du hook de type — les cinq livraisons**
+(D1301, le rang 2) : la forme en clair par langue, les réglages fondus
+(D1253) ; la déclinaison en élémentaires (D1298) — la colonne
+« stockage » du catalogue ; les indicateurs (D1288) ; l'exemple
+générique sans `placeholder:` (D1211) ; le marquage `rgpd:` (D1178). Le
+moteur résout, le type formule ; les mots au catalogue (D1160) ; un type
+dérivé hérite de la facette de son socle ; l'annexe B du dictionnaire,
+le glossaire des types, s'en construit ; sans sa facette, un type est
+complet pour tourner, incomplet pour documenter (D1221).
+
+**Les autres colonnes** — à leur rang : le développeur (la forme à
 l'API, D20), la réglementation (le marquage porté par le type, D1178).

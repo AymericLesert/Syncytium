@@ -130,7 +130,25 @@ graphe de conversion).
   native écrite et relue) — et **l'identification** (D684) : le type
   sait **se reconnaître** dans une structure native à l'introspection
   (`get_instance` compose les identifications) ; un type-hook sans
-  ses règles de conversion ne se stocke pas — l'ingestion le refuse.
+  ses règles de conversion ne se stocke pas — l'ingestion le refuse ;
+  **depuis D1298, la règle de conversion est la déclinaison** : un
+  élémentaire avec ses propriétés génériques, ou une liste nommée
+  d'élémentaires, le storage ne transcrivant que ceux-là ;
+- **la facette documentation** (D1301 — le rang 2) : le type livre
+  **cinq choses**, le moteur assemble — **la forme en clair**, par
+  langue du moteur, les réglages fondus (« une date, écrite AAAAMMJJ »,
+  « un texte de 40 caractères au plus » — D1160, D1253) ; **la
+  déclinaison** en élémentaires (D1298) ; **les indicateurs** qu'il
+  mesure (D1288) ; **l'exemple** générique, quand le champ n'a pas de
+  `placeholder:` (D1211) ; **le marquage** qu'il porte, `rgpd:` (D1178).
+  Le moteur résout les trois niveaux de réglages (D1239) avant l'appel,
+  le type reçoit ses facettes appliquées et formule ; les mots viennent
+  du catalogue par langue (D1160/D1163), un type ajouté apporte ses
+  items ; un type dérivé hérite de la facette de son socle et peut
+  reformuler ; le glossaire des types (l'annexe B du dictionnaire) se
+  construit de ces livraisons ; un type sans sa facette est complet
+  pour tourner, incomplet pour documenter — la complétude le relève
+  (D1221), l'ingestion ne le refuse pas.
 
 **La collection est un type — et porte les agrégats** (D580) : les
 fonctions de la collection (`list of`, `association with`) sont ses

@@ -550,5 +550,29 @@ l'information — **le chapitre du stockage du dictionnaire de la donnée**
 la base de données » ; le chapitre représente les données telles
 qu'elles sont stockées, pour tout outil de BI qui se connecte à la base
 sans passer par Syncytium — la facette stockage de chaque type (D683),
-assemblée par le storage ; le contenu du `describe()`, à l'étape 6 du
-rang 2.
+assemblée par le storage.
+
+**Le contenu du `describe()` du storage** (l'étape 6 du rang 2 — D1292 ;
+les lectures 2 à 5 en attente) : la classe applique ses règles de
+conversion (le visiteur, D681–D683) au modèle qu'on lui donne et rend ce
+qu'elles produisent, dans son propre vocabulaire — par exception à D680,
+parce que la BI lit la base sans Syncytium : **une fonction pure de la
+configuration** (D645), calculée au dépôt, la même que `create_entity`
+exécute ; servi par une instance, `read_instance` vérifie que la base
+en place y correspond (D801). Par entité : sa table, la colonne du soft
+delete, les colonnes d'audit ; par champ de valeur : sa ou ses colonnes,
+le type natif, la nullité, la règle de conversion ; l'identité technique
+(D142) en clé primaire, l'identité fonctionnelle en clé unique sur les
+actifs (D141) ; la référence en clé étrangère ; la composition en table
+de l'enfant ; la structure interne en table nommée par l'entité
+(D1274) ; la liste de valeurs simples en table de liaison ou colonne
+structurée ; l'association dérivée, rien ; l'entité historisée et sa
+table d'instantanés (D169). **Les index, chacun avec son origine dans
+le modèle** (D1292 : « liés aux critères de recherche et de sélection
+définis dans le modèle ») — `searchable: strict | normalized |
+similarity | range` (D367/D371), `mutualizable[nom]` (D780), les
+`searchable:` et `sort:` des listes, les `filter:` des périmètres (D90),
+le champ-statut ; le storage décide la forme physique de chaque index.
+Puis les tables de Syncytium, signalées : la version (D680), `user`
+(D719), le journal et la table des associations de la reprise (D1037),
+les compteurs de télémétrie (D39).

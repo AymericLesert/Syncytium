@@ -176,7 +176,36 @@ démarrage.
 
 ## Les contrats par famille
 
-### `storage` (D629, D631–D632, D680–D681)
+### `storage` (D629, D631–D632, D680–D681 ; refondé D1294–D1297)
+
+**Les quatre énoncés de l'auteur** (D1294–D1297, le 15/10/2026) :
+
+1. **La définition** — « le storage est le lien entre les données
+   manipulées par Syncytium, la manipulation, son optimisation et le
+   stockage physique. »
+2. **Les objectifs** — « Il intègre tant les données de façon unitaire
+   que les données à traiter/lire en masse. Le traitement doit être
+   bijectif, standardisé et harmonisé, tout en offrant la capacité à
+   être extensible ... » — bijectif : ce qui s'écrit se relit à
+   l'identique (la symétrie structure/donnée, D683) ; standardisé et
+   harmonisé : le même contrat pour tout storage, le même rendu pour
+   tout type ; extensible : un storage nouveau visite tous les types,
+   un type nouveau est visité par tous les storages.
+3. **L'auto-description** — « Cela porte les règles de transcription
+   entre les types de données manipulées par Syncytium et le stockage
+   physique dans une base de données ou une zone de stockage
+   physique. » — le `describe()` en est le rendu ; la règle de
+   transcription sert trois fois : créer (`create_entity`),
+   reconnaître (`read_instance`), décrire (`describe()`) *(ma lecture)*.
+4. **Les interfaces, les pivots** — « Le storage influe le hook des
+   types pour définir les propriétés ou les éléments à couvrir. Au
+   storage de faire le nécessaire pour exploiter au mieux ces
+   données. » — le pivot est à l'initiative du storage : il dit ce
+   qu'il attend d'un type (la forme native, les gestes, l'identification,
+   les index qu'il sait porter, la partition), le type le fournit, le
+   storage en tire le meilleur parti ; un type qui ne couvre pas un
+   élément est dégradé (une colonne texte), jamais refusé *(ma lecture ;
+   le contrat du hook de type, [hooks.md](hooks.md))*.
 
 **Le contrat parle le langage du méta-modèle** (D680) — l'instance,
 l'entité, le champ ; jamais le vocabulaire du moteur (le schema

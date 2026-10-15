@@ -184,7 +184,13 @@ Tout type ajouté suit le contrat de la famille (voir
 opérateurs, les comparateurs, les fonctions dédiées, le tri) et **la
 représentation obligatoire** — « aucun type sans visage » (D459).
 L'exemple fondateur : le type `progression` (`integer[0..100]` +
-`component: fuel`), le champ `avancement: progression`.
+`component: fuel`), le champ `avancement: progression`. **Le storage
+influe sur le hook de type** (D1297) : « le storage influe le hook des
+types pour définir les propriétés ou les éléments à couvrir » — la
+forme native, les gestes, l'identification, les index, la partition ;
+le type les fournit, le storage « fait le nécessaire pour exploiter au
+mieux ces données » ; un élément non couvert est dégradé, jamais refusé
+*(ma lecture)* ; le contrat à l'étape 9 du rang 2.
 
 ## La documentation — la facette du type (D1158–D1159)
 

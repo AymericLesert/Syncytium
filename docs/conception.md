@@ -24412,6 +24412,10 @@ avant la synthèse Q16).
   Le dictionnaire du tiny décliné (usecases/01_tiny.md — cinq parties,
   deux annexes, la configuration dépliée écrite) ; ses cinq points
   arbitrés (D1304–D1308) — les colonnes du socle, un point ouvert.
+  Le dictionnaire de l'entrepôt décliné (usecases/05_entrepot.md — ce
+  que le tiny ne montrait pas : les évolutions, les groupes, les
+  profils, la hiérarchie au stockage, la reprise, la matrice ; l'index
+  5.1 mesuré à 11 champs sur 47), en proposition, cinq points relevés.
 - **2026-10-14 (suite) — LA PAUSE : §9 ET §8 ACQUIS, L'ÉTAPE 6
   PRÉSENTÉE (1288 décisions).** L'état d'avancement donné ; « je
   marque une pause ». Le `describe()` du storage présenté (le chapitre

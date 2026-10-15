@@ -2343,3 +2343,253 @@ par défaut de l'article a donc neuf onglets ; le diagramme du module
 découpage est le mien, en proposition — les commentaires de
 `fields.yml` le portaient déjà ; le contenu vérifié identique une fois
 aplati, l'ordre des champs conservé.)*
+
+## Le dictionnaire de la donnée — la déclinaison de l'entrepôt
+
+*(La déclinaison du rang 2 sur le cas 5, écrite le 15/10/2026 après
+celle du tiny (usecases/01_tiny.md) ; le plan de documentation.md §4,
+D1241–D1308. L'entrepôt est le cas qui met le plan à l'épreuve : deux
+versions, quatre modules, dix-huit entités, une hiérarchie, une reprise,
+des groupes et des profils de confidentialité, des associations
+dérivées, des structures internes. On ne réécrit pas ici les trois vues
+(§5 les montre déjà sur ce cas) ni la configuration dépliée (plus de
+deux cents fichiers) : on montre ce que le tiny ne pouvait pas montrer,
+et on mesure **la lisibilité de l'index 5.1** (D1263). Ce qui est de moi
+est marqué. **En proposition.**)*
+
+---
+
+> # entrepôt — Le dictionnaire de la donnée
+>
+> *La version 1.0.0.0 — production ; le français ; généré au dépôt.*
+>
+> ## 2. La structure, avec ses évolutions
+>
+> ### 2.1 La version
+>
+> **La version 1.0.0.0.** Production, le français. Notes de version : « La
+> première version de l'entrepôt de données : les données de Cegid PMI
+> standardisées, harmonisées… ». **L'historique** : première version.
+> **À venir — 1.0.0.1, beta** (D1285) : `tiers.nom_court` renommé depuis
+> `abrege` ; `tiers.langue` retypé, texte de trois caractères devenu
+> énuméré à quatre valeurs ; `technique.article.commentaire` ajouté. *(La
+> documentation de la 1.0.0.1, elle, dit son état et ces trois écarts en
+> historique, et n'a pas d'à venir — D1286.)*
+>
+> ### 2.2 Le modèle
+>
+> *(Les trois vues : la vue des modules à quatre boîtes et quatre traits
+> à deux têtes, la vue d'ensemble à dix-huit classes, la vue sélective de
+> chaque module — documentation.md §5 les donne pour `technique`.)*
+>
+> #### L'entité technique.article
+>
+> Un article de l'entreprise — son identité, sa famille, ses unités, ses
+> prix de revient et ses tarifs ; le parent des produits fabriqués,
+> semi-finis et fantômes. **Le parent abstrait** d'une hiérarchie :
+> `fabrique`, `semi_fini`, `fantome` en héritent. **L'identité** `code`,
+> `complement` — « identity », l'identité de naissance. **Le visage**
+> `{code}[{complement}] — {libelle}`. **Historisée.** **Le rgpd** : aucun
+> champ.
+>
+> **Les champs**, par groupe (D1273, D1279) — l'implicite en tête :
+> `code`, `complement`, `libelle`, `libelle_secondaire` ; puis neuf
+> groupes, un onglet chacun dans le formulaire du socle. L'extrait du
+> groupe **Les prix** :
+>
+> | Nom | Type | Libellé | Aide | Obligatoire | Défaut | Confidentialité | Écriture | Depuis |
+> |---|---|---|---|---|---|---|---|---|
+> | `prix_revient` | un montant, en euros par défaut | Prix de revient | Le prix de revient standard — … | non | — | **protégé** — achats, direction | personne (le module est en lecture seule) | 1.0.0.0 |
+> | `prix_moyen_pondere` | un montant, en euros par défaut | Prix moyen pondéré | … | non | — | protégé — achats, direction | personne | 1.0.0.0 |
+> | `prix_achat` | un montant, en euros par défaut | Prix d'achat | … | non | — | protégé — achats, direction | personne | 1.0.0.0 |
+>
+> *(« un montant, en euros par défaut » : le type `amount` avec le réglage
+> `currency: EUR` de `settings.yml` fondu dans la forme en clair (D1253) ;
+> « protégé — achats, direction » : le profil `financier` résolu (D1247) ;
+> la colonne « Écriture » dit le droit le plus proche : le module ferme
+> `create`, `update`, `delete` — seule la reprise écrit.)*
+>
+> **Les règles** (D1254). Deux validations : « le stock maximum
+> {stock_maximum} est sous le stock minimum {stock_minimum} » ; « l'article
+> est modifié le {date_modification}, avant sa création le
+> {date_creation} » — les messages par leurs gabarits (D1227). Cinq
+> calculés et leurs formules — `dormant` :
+> `context.now - derniere_sortie > 180d if derniere_sortie != null` ;
+> `derniere_sortie` : `mouvements.max(date if sens = "sortie")` ;
+> `dernier_fournisseur`, `nature`, `stock_par_emplacement`. Aucun état.
+>
+> **Les sections des champs** (D1283) — l'exemple de `prix_revient` :
+>
+> > **prix_revient.** Les prix sont des montants à devise … la direction.
+> > *(la description détaillée)* — **Historique** : depuis 1.0.0.0. **À
+> > venir** : rien. **Où il sert** : aucune formule, aucune validation ;
+> > la règle de reprise `01_articles` l'écrit depuis `ARTICLE.ARCNPRS`,
+> > par `amount(ARCNPRS)`. **Télémétrie** : *avec l'instance — le
+> > renseigné, le minimum, le maximum, la moyenne, la plage occupée ;
+> > rien pour qui n'est ni achats ni direction (D1249).*
+>
+> #### L'entité tiers.tiers — dans la documentation de la 1.0.0.1
+>
+> *(Pour montrer l'historique à l'élément.)* La section de `nom_court` :
+> **Historique** : 1.0.0.1 (beta) — renommé depuis `abrege` ; depuis
+> 1.0.0.0 sous son ancien nom. La section de `langue` : 1.0.0.1 (beta)
+> — retypé, `text[..3]` devenu énuméré (fr, en, de, es). La ligne de
+> `note_interne` : « Écriture : commercial, achats » — le droit du champ
+> l'emporte sur le module fermé (D1172).
+>
+> ## 3. Le stockage
+>
+> *Deux familles déclarées : `sqlite` (`home`) et le SQL Server de
+> `production` — deux `describe(model)` ; l'extrait ci-dessous pour SQL
+> Server, les noms physiques selon sa classe (ma lecture).*
+>
+> **La table `technique_article`** — 47 champs, 51 colonnes : chaque
+> `amount` fait deux colonnes (le montant, la devise), chaque `measure`
+> deux (la valeur, l'unité) — la déclinaison (D1298) ; `plans` une table
+> de liaison vers les fichiers ; **les structures internes**
+> `technique_article_tarifs` (tiers, tranche, date_application, seuil,
+> plage…) et `technique_article_stock_par_emplacement` (D1271, D1274) ;
+> **les colonnes protégées** `prix_revient`, `prix_moyen_pondere`,
+> `prix_achat` marquées « protégé — achats, direction » (D1247, D1300) ;
+> la table d'instantanés `technique_article_history` (D169). **La
+> hiérarchie** : *ma lecture — une table par dérivé pour ses champs
+> propres, liée au parent par l'identité technique ; la classe peut
+> choisir une seule table avec une colonne de type ; le `describe(model)`
+> dit ce qu'elle fait.*
+>
+> **Les index** (D1292), avec leur origine : la clé primaire ; la clé
+> unique (`code`, `complement`) sur les actifs — l'identité ; les clés
+> étrangères — `fournisseur_defaut`, les quatre dépôts, les quatre
+> emplacements ; et dans `tiers_tiers` l'index plein texte de
+> `mutualizable[qui]` sur `nom` et, chez `contact`, sur ses champs
+> branchés (D780) — le seul `searchable:` du cas. **Les partitions** :
+> aucune déclarée (D1293) ; *le froid des seize entités historisées par
+> période, par défaut*.
+>
+> **Les tables de Syncytium** : la version, `user`, la télémétrie, et
+> celles de la reprise — `migration`, `passage`, `passage_source`,
+> `passage_cible`, `passage_regle`, `cle`, `modele`, `anomalie_modele`,
+> `anomalie` (migration.md, D1292).
+>
+> ## 4. L'origine
+>
+> ### 4.1 Reprise des données
+>
+> **La migration déclarée** `cegid` : la base d'origine `cegid`, la base
+> miroir `temporaire`, le mode relatif, le rythme — le delta nocturne à
+> deux heures, la relecture complète le samedi soir (D943). **Les
+> sources** : vingt-trois tables de PMI par module
+> (`source/technique/ARTICLE.yml`…) — pour
+> `ARTICLE` : le périmètre `ARKTSOC = "100"`, l'identité
+> `[ARKTCODART, ARKTCOMART]`, les colonnes lues avec leur type lu
+> (`ARCTTYPART : enum {AC, CO, …}`) et leur description, les colonnes
+> écartées avec leur motif, les colonnes non citées relevées. **Les
+> règles** : trente-trois, dans l'ordre des cinq lots (`1_lieux` …
+> `5_stock`) — pour `01_articles` : la source `ARTICLE`, la cible
+> `technique.article`, le périmètre `ARCTFATN not in ["01", "09",
+> "12"]`, les champs mappés et leurs transformations (`type` par un
+> `select` des codes PMI, `perissable` par `mid(ARCTCODFAM, 4, 1) = "1"`),
+> le rapport au bureau d'études. **Le graphe source → cible** : par
+> colonne, `ARKTCODART` → `technique.article.code`, `fabrique.code`,
+> `semi_fini.code`, `fantome.code` (les quatre règles de l'article) ; par
+> champ, `article.code` ← « repris de `ARTICLE.ARKTCODART` par
+> `01_articles` ». **À l'instance** : le modèle lu de PMI et ses versions,
+> le dernier passage, la couverture et la complétude, les clés d'origine
+> par statut, le refusé et ses motifs.
+>
+> ### 4.2 Les imports
+>
+> *Aucune entité importable par fichier : le module est en lecture
+> seule, la reprise seule écrit — la section le dit (ma lecture).*
+>
+> ### 4.3 Les opérations
+>
+> Aucune opération déclarée par les entités ; les opérations de la
+> reprise — `migrate`, `reset_coverage` — relèvent du guide
+> d'exploitation (D1302) ; ici, ce qu'elles écrivent : tout, par leur
+> privilège.
+>
+> ## 5. L'usage
+>
+> ### 5.1 Où sert chaque champ — l'épreuve de la lisibilité (D1263)
+>
+> **La synthèse par entité**, en tête — une ligne par entité :
+>
+> | L'entité | Référencée par | Référence | Champs lus par une formule, une validation, une règle | Champs orphelins |
+> |---|---|---|---|---|
+> | `technique.article` | `nomenclature.composant`, `ligne_vente.article`, `ligne_achat.article`, `niveau.article`, `mouvement.article`, `fournisseur.articles` | `fournisseur` (2), `depot` (4), `emplacement` (4), `ligne_vente`, `ligne_achat`, `mouvement`, `client` (via `fabrique`) | 11 sur 47 | 0 — tous affichés par la liste ou le formulaire |
+>
+> **Le détail par champ, replié** — *dans la documentation servie, la
+> zone du champ l'ouvre (D1216) ; dans l'édition, une table par entité,
+> les usages triviaux — la seule saisie, le seul affichage en liste —
+> omis ; la pertinence par le poids : une formule, une validation, une
+> règle de reprise ou un rapport pèsent plus qu'un affichage* :
+>
+> | Le champ | Les formules | Les validations | La reprise | Les rapports et les écrans |
+> |---|---|---|---|---|
+> | `stock_minimum` | — | `stock_maximum >= stock_minimum …` | `01_articles` ← `ARCNSTOMIN` | la liste des articles |
+> | `derniere_sortie` | `dormant` la lit | — | — | le tableau de bord des dormants |
+> | `mouvements` | `derniere_sortie`, `stock_par_emplacement` la lisent | — | — | — |
+> | `prix_revient` | — | — | `01_articles` ← `amount(ARCNPRS)` | le formulaire, l'onglet Les prix |
+>
+> *(Le mesurage : l'article a 47 champs ; 11 entrent dans une formule,
+> une validation ou une règle ; 36 n'ont que la reprise et l'affichage.
+> La table repliée tient en onze lignes utiles ; la table complète en
+> quarante-sept. C'est là que « l'organisation, la synthèse et sa
+> pertinence » (D1263) se jouent : la synthèse en une ligne, le détail à
+> onze, l'exhaustif sur demande. À confirmer.)*
+>
+> ### 5.2 Les droits
+>
+> **La matrice** (D1264) — les entités en lignes, les six groupes en
+> colonnes ; l'extrait :
+>
+> | | commercial | achats | bureau_etudes | logistique | direction | administration |
+> |---|---|---|---|---|---|---|
+> | `technique.article` | lire | lire | lire | lire | lire | lire |
+> | `tiers.tiers` | lire ; **`note_interne` : modifier** | lire ; `note_interne` : modifier | lire | lire | lire | lire |
+> | `technique.article.prix_*` | — | voir | — | — | voir | voir |
+>
+> *(La direction est composée des quatre groupes métier (D1099) : elle
+> voit ce qu'ils voient ; l'administration a le degré `administrator`
+> (D699). « voir » sur une ligne de champ : le profil `financier` — le
+> niveau protégé lu comme « qui voit » (D1247).)*
+>
+> ### 5.3 Les données
+>
+> *(Avec l'instance seulement — pour `prix_revient`, le minimum, le
+> maximum, la moyenne et la plage, à qui peut le lire ; pour `type`,
+> l'énuméré, la répartition par valeur et les valeurs jamais employées ;
+> pour `article`, le volume, les créations, les modifications, les
+> suppressions par passage de reprise, la part d'historisés — D1287 ;
+> les valeurs par fréquence si Pareto 80/20 — D1290.)*
+>
+> ## Annexes
+>
+> **A. La configuration dépliée** — un seul arbre, les 215 fichiers
+> résolus, les défauts du socle écrits, le catalogue en français, les
+> clés `*` des connecteurs retirées (`password*`, `client_secret*` —
+> D1247) ; *de l'ordre de cinq mille lignes en YAML (ma lecture), pour
+> l'IA et la BI — non reproduite ici.* **B. Le glossaire des types** :
+> les types du catalogue employés (`text`, `enum`, `boolean`, `integer`,
+> `decimal`, `date`, `amount`, `measure`, `percentage`, `duration`,
+> `period`, `file`…) et les trois types dérivés de `settings.yml` —
+> `date_pmi` : « une date, écrite AAAAMMJJ » ; `time_pmi` : « une heure,
+> écrite HHMMSS » ; `amount` réglé : « un montant, en euros par
+> défaut » — chacun par sa forme, ses contraintes, son `placeholder`
+> (D1301, D1307).
+
+---
+
+**Ce que la déclinaison relève.** *(1)* La colonne « Écriture » de la
+table des champs doit rendre le droit le plus proche, module → entité →
+champ ; sans elle, le lecteur croirait `note_interne` fermé. *(2)* La
+hiérarchie au stockage — une table par dérivé ou une seule — est à la
+classe du storage ; le `describe(model)` doit le dire explicitement.
+*(3)* Une version en lecture seule n'a pas de gabarit d'import : le
+chapitre 4.2 le dit plutôt que de disparaître. *(4)* L'index 5.1 tient
+par le pli : la synthèse en une ligne par entité, le détail aux seuls
+champs qui pèsent, l'exhaustif sur demande — la proposition de D1263,
+mesurée ici à 11 sur 47. *(5)* « Depuis la version x » vaut 1.0.0.0
+partout dans la 1.0.0.0 ; la colonne ne prend son sens qu'à la
+1.0.0.1, où trois champs se distinguent.

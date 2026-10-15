@@ -24404,6 +24404,8 @@ avant la synthèse Q16).
   la colonne 2 de la matrice dans les neuf artefacts, les index et les
   partitions rappelés, validée (D1303) — **l'étape 11 close** ; la
   déclinaison ouverte, le tiny d'abord.
+  Le dictionnaire du tiny décliné (usecases/01_tiny.md — cinq parties,
+  deux annexes, la configuration dépliée écrite), en proposition.
 - **2026-10-14 (suite) — LA PAUSE : §9 ET §8 ACQUIS, L'ÉTAPE 6
   PRÉSENTÉE (1288 décisions).** L'état d'avancement donné ; « je
   marque une pause ». Le `describe()` du storage présenté (le chapitre

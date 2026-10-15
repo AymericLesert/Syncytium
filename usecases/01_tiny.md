@@ -198,6 +198,250 @@ l'authentification, les placeholders — des défauts du socle (D1173).
 Un texte sur dix-neuf, comme le 05/10 — le tiny dit ce qu'une
 configuration minimale donne, et ce qu'elle laisse à écrire.
 
+## Le dictionnaire de la donnée — la déclinaison sur le plan acquis
+
+*(La déclinaison du rang 2, écrite le 15/10/2026 sur le plan de
+documentation.md §4 — cinq parties et deux annexes, D1241–D1303 — et
+sur les règles du rang : les trois vues et les marques (D1213–D1214,
+D1266–D1278), les groupes (D1273, D1279), les écarts et la section par
+champ (D1281–D1286), les indicateurs (D1287–D1291), le stockage et le
+format pivot (D1292–D1300), le hook de type (D1301), la reprise
+(D1302). Le tiny reste la configuration minimale : tout ce qui suit
+naît des vingt-six lignes de `syncytium.yml` et des défauts du socle
+(configuration.md §3.5). Ce qui est de moi est marqué. **En
+proposition.**)*
+
+---
+
+> # tiny — Le dictionnaire de la donnée
+>
+> *La version 1.0.0.0 — production, la seule version active ; la langue
+> du poste ; généré au dépôt : les données de l'instance absentes, leur
+> cadre présent.*
+>
+> *(1. La couverture n'existe qu'en édition : le cartouche — tiny,
+> 1.0.0.0, la date, l'auteur de l'édition — ; pas de filigrane, la
+> version est en production.)*
+>
+> ## 2. La structure, avec ses évolutions
+>
+> ### 2.1 La version
+>
+> **Le projet.** `tiny` — Une entité, quatre champs et une application
+> complète avec API et documentation ; le format `Syncytium-1.0`.
+>
+> **La version 1.0.0.0.** Production ; la langue du poste. Notes de
+> version : « Version 1 de l'annuaire ». **L'historique** : première
+> version, aucune version antérieure. **À venir** : aucune beta.
+>
+> ### 2.2 Le modèle
+>
+> **La vue des modules.** Un module, `annuaire`, sans lien.
+>
+> **La vue de l'ensemble des entités.** Un paquetage, une classe : les
+> noms seuls, `nom` et `prenom` soulignés — l'identité ; rien en
+> italique, ni étoile, ni gras : aucun calculé, aucun champ protégé,
+> aucune référence.
+>
+> ```mermaid
+> classDiagram
+>   namespace module_annuaire {
+>     class personne {
+>       nom
+>       prenom
+>       age
+>       fonction
+>     }
+>   }
+> ```
+>
+> *(Les marques de D1213 absentes — Mermaid ne les porte pas ; la vue
+> sélective du module `annuaire` est la même, le module n'ayant ni
+> lien ni voisin.)*
+>
+> ### Le module annuaire
+>
+> *Aucune description.* Une entité.
+>
+> #### L'entité personne
+>
+> Les membres de l'entreprise.
+>
+> **L'identité.** `nom`, `prenom` — l'identité de naissance, les deux
+> champs obligatoires de ce fait (D1170) ; *ma lecture : écrite sous la
+> forme `identity:`, l'unique identité n'a pas de nom déclaré, le
+> dictionnaire la nomme par défaut.* **Le visage.** `{prenom} {nom}`.
+> **L'historisation.** Non — aucun instantané. **Le rgpd.** Aucun champ
+> marqué.
+>
+> **Les champs.** Aucun groupe déclaré : les quatre champs forment le
+> groupe implicite, en une seule table ; le formulaire du socle n'a pas
+> d'onglet (D1273).
+>
+> | Nom | Type | Libellé | Aide | Obligatoire | Défaut | Confidentialité | Écriture | Depuis |
+> |---|---|---|---|---|---|---|---|---|
+> | `nom` | un texte de 40 caractères au plus | nom | — | oui (l'identité) | — | public | tous | 1.0.0.0 |
+> | `prenom` | un texte de 40 caractères au plus | prenom | — | oui (l'identité) | — | public | tous | 1.0.0.0 |
+> | `age` | un entier | age | — | non | — | public | tous | 1.0.0.0 |
+> | `fonction` | un texte de 60 caractères au plus | fonction | — | non | — | public | tous | 1.0.0.0 |
+>
+> *(Le libellé est le nom, par le gabarit `${name}` du socle (D1181) ;
+> « Écriture : tous » — aucun groupe, un seul utilisateur, tous les
+> droits (D1176).)*
+>
+> **Les règles.** Aucune validation, aucun calculé, aucun état, aucun
+> automatisme.
+>
+> **Les sections des champs.** *(Aucune : nul champ n'a de description
+> détaillée, d'historique au-delà de sa naissance, d'évolution à venir
+> ni d'opération ; la télémétrie n'existe qu'avec l'instance — D1283, la
+> section ne s'écrit que si l'un de ses éléments existe.)*
+>
+> ## 3. Le stockage
+>
+> *Le storage `sqlite` de l'environnement `home` — la seule famille
+> déclarée ; le `describe(model)` de sa classe (D1299).*
+>
+> **La table `personne`** *(ma lecture : le nom de l'entité, la règle de
+> nommage de la classe sqlite ; le module n'est pas préfixé tant qu'il
+> n'y a pas d'homonyme).*
+>
+> | Le logique | La colonne | Le type natif | Nul | L'origine |
+> |---|---|---|---|---|
+> | l'identité technique (D142) | `id` | TEXT (uuid) | non | la clé primaire |
+> | `nom` | `nom` | TEXT, 40 au plus | non | `text[..40]` → texte |
+> | `prenom` | `prenom` | TEXT, 40 au plus | non | `text[..40]` → texte |
+> | `age` | `age` | INTEGER | oui | `integer` → entier |
+> | `fonction` | `fonction` | TEXT, 60 au plus | oui | `text[..60]` → texte |
+> | le soft delete (D141) | `deleted_at` | TEXT (horodatage) | oui | le socle |
+> | l'audit (D76) | `created_at`, `created_by`, `updated_at`, `updated_by` | TEXT | — | le socle |
+>
+> *(Les noms des colonnes du socle sont de moi, en proposition ; la
+> déclinaison de chaque type en élémentaire — D1298 — est en colonne
+> « origine ».)*
+>
+> **Les index.** Une clé unique sur (`nom`, `prenom`), les actifs
+> seulement — l'identité (D141, D1292). Aucun autre : aucun
+> `searchable:`, aucune référence, aucun état, aucune liste à critères
+> déclarée. **Les partitions.** Aucune (D1293).
+>
+> **Les tables de Syncytium.** La version (D680) ; `user` (D719) — un
+> seul utilisateur, sans authentification ; les compteurs de télémétrie
+> (D39). Pas de tables de reprise.
+>
+> ## 4. L'origine
+>
+> **4.1 Reprise des données.** *Absent — aucune migration déclarée
+> (D1302).*
+>
+> **4.2 Les imports.** Une entité importable, `personne` : le gabarit
+> `personne.csv` — les colonnes `nom`, `prenom`, `age`, `fonction`, par
+> les noms ; la clé de rapprochement `nom` + `prenom` ; la ligne
+> d'exemple par les exemples génériques des types (D1301 — aucun
+> `placeholder:`). Le fichier se télécharge depuis l'écran d'import.
+>
+> **4.3 Les opérations.** Aucune opération déclarée ; les quatre actes du
+> socle — la création, la lecture, la modification, la suppression —
+> sur `personne`, par l'écran et par l'API.
+>
+> ## 5. L'usage
+>
+> **5.1 Où sert chaque champ.** *(L'index, trivial ici : la synthèse par
+> entité tient en une ligne, le détail en quatre.)*
+>
+> | Le champ | Où il sert |
+> |---|---|
+> | `nom` | l'identité ; le visage `{prenom} {nom}` ; la liste et le formulaire du socle |
+> | `prenom` | l'identité ; le visage ; la liste et le formulaire |
+> | `age` | la liste et le formulaire |
+> | `fonction` | la liste et le formulaire |
+>
+> `personne` n'est référencée par aucune entité et n'en référence
+> aucune.
+>
+> **5.2 Les droits.** Aucun groupe déclaré : un seul utilisateur, tous
+> les droits (D1176) — la matrice a une ligne, `personne`, et une
+> colonne, « tous » ; les quatre actes permis, sans condition. Aucun
+> profil de confidentialité : tout est `public`.
+>
+> **5.3 Les données.** *(Avec l'instance seulement — au dépôt, le
+> cadre vide : le volume de `personne`, les créations, les
+> modifications, les suppressions par période ; par champ le renseigné,
+> la diversité, pour `age` le minimum, le maximum, la moyenne et la plage
+> occupée, pour les textes les longueurs — D1287 ; les valeurs par
+> fréquence si Pareto 80/20 — D1290.)*
+>
+> ## Annexes
+>
+> ### A. La configuration dépliée
+>
+> *(Un seul arbre — D1245, D1250 : les défauts du socle écrits aux trois
+> niveaux, le catalogue dans la langue du poste ; aucune clé `*` à
+> retirer. Les valeurs sont celles de l'inventaire des défauts de
+> configuration.md §3.5 ; la forme est de moi, en proposition.)*
+>
+> ```yaml
+> from: Syncytium-1.0
+> name: tiny
+> description: Une entité, quatre champs et une application complète avec API et documentation
+> visibility: promotional
+> environments:
+>   home:
+>     description: Exécution en mode local
+>     storage: { name: sqlite, family: storage, class: sqlite }
+> versions:
+>   production:
+>     environment: home
+>     1.0.0.0:
+>       languages: [<la langue du poste>]
+>       title: tiny
+>       release-notes: Version 1 de l'annuaire
+>       history: false
+>       menu: { annuaire: { personne: { label: personne, link: personne[list] } } }
+>       settings: { field: { text: { normalize: trim(me) } } }
+>       groups: {}
+>       modules:
+>         annuaire:
+>           title: annuaire
+>           entities:
+>             personne:
+>               title: personne
+>               description: Les membres de l'entreprise
+>               label: "{prenom} {nom}"
+>               identities: { identity: [nom, prenom] }
+>               history: false
+>               allow: [create, read, update, delete]
+>               fields:
+>                 nom:      { type: text[..40], required: true,  mode: editable, label: nom,      confidentiality: public, default: null, unchanged: false }
+>                 prenom:   { type: text[..40], required: true,  mode: editable, label: prenom,   confidentiality: public, default: null, unchanged: false }
+>                 age:      { type: integer,    required: false, mode: editable, label: age,      confidentiality: public, default: null, unchanged: false }
+>                 fonction: { type: text[..60], required: false, mode: editable, label: fonction, confidentiality: public, default: null, unchanged: false }
+>               gui:
+>                 lists:  { default: { searchable: [], columns: [nom, prenom, age, fonction] } }
+>                 forms:  { default: { items: [nom, prenom, age, fonction] } }
+> ```
+>
+> ### B. Le glossaire des types
+>
+> | Le type | En clair | Les contraintes | L'exemple |
+> |---|---|---|---|
+> | `text[..40]` | un texte de 40 caractères au plus | les blancs rognés (`trim`) | « texte » *(l'exemple générique du type, ma lecture)* |
+> | `text[..60]` | un texte de 60 caractères au plus | idem | « texte » |
+> | `integer` | un entier | sans borne | 0 |
+
+---
+
+**Ce que la complétude relève** (`syncytium document home dictionnaire
+--check`, D1221) : *le même relevé que la fonctionnelle* — aucun
+`title:`, aucune `description:` de module, aucun `hint:` ni
+`description:` de champ, aucun `placeholder:` ; et, propre au
+dictionnaire : aucun groupe de champs (acceptable à quatre champs),
+aucun `searchable:` (la liste du socle cherche sur quoi ? — *un point
+pour l'entrepôt*). Ce que le dictionnaire montre malgré tout : la
+structure entière, le stockage, les index, le gabarit d'import, la
+configuration dépliée — tout ce que le concepteur n'a pas écrit, le
+socle le dit.
+
 ## Les frottements relevés
 
 *(chaque frottement = une décision à prendre ; mes lectures en

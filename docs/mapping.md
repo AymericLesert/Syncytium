@@ -917,8 +917,10 @@ l'utilisateur voit (D1209, D1227) ; les champs `unchanged:` se disent
 **La migration déclarée, dans le dictionnaire de la donnée** (la colonne
 2 — le rang 2, D1302) : le chapitre 4.1 « Reprise des données »
 (D1259) — la migration déclarée, **les sources** (par table d'origine,
-le périmètre, l'identité et la partition, les colonnes lues avec le type
-lu et le type décrit, les colonnes écartées et leur motif), **les
+le périmètre, l'identité et la clé de partition de la couverture
+(D879/D1050 — comment la source se lit, à distinguer de la partition
+de stockage de D1293), les colonnes lues avec le type lu et le type
+décrit, les colonnes écartées et leur motif), **les
 règles** (dans l'ordre : la source, la cible, le périmètre, les champs
 mappés et leurs transformations, les destinataires), **le graphe source
 → cible dans les deux sens** — l'index 5.1 lu depuis l'autre bout

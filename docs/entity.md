@@ -305,7 +305,8 @@ règles** (D1254) — les validations, les calculés et leurs formules, les
 états avec leur graphe et leurs transitions (D1276), les automatismes ;
 toutes les entités, tous les champs (D1246). Elle figure dans les trois
 vues (D1213–D1214, D1266–D1269), sa table au chapitre 3 avec ses index
-et ses partitions (D1292–D1293), qui la référence à l'index 5.1
+— ceux de ses identités, de ses références, de ses `searchable:` et des
+critères de ses listes — et ses partitions (`partition:`, D1292–D1293), qui la référence à l'index 5.1
 (D1263), ses droits à la matrice 5.2 (D1264), ses données au 5.3 — le
 volume, les créations, les modifications, les suppressions, la
 répartition par état (D1287). **Le champ** a sa ligne dans la table et

@@ -241,7 +241,10 @@ de type, à l'étape 9 du rang 2.
 **La facette documentation du hook de type — les cinq livraisons**
 (D1301, le rang 2) : la forme en clair par langue, les réglages fondus
 (D1253) ; la déclinaison en élémentaires (D1298) — la colonne
-« stockage » du catalogue ; les indicateurs (D1288) ; l'exemple
+« stockage » du catalogue ; **les modes de recherche qu'il admet**
+(`strict`, `normalized`, `similarity`, `range` — D367/D371), origines
+des index du chapitre 3 (D1292), et s'il peut porter une partition
+(D1293 — une date par période, un énuméré) ; les indicateurs (D1288) ; l'exemple
 générique sans `placeholder:` (D1211) ; le marquage `rgpd:` (D1178). Le
 moteur résout, le type formule ; les mots au catalogue (D1160) ; un type
 dérivé hérite de la facette de son socle ; l'annexe B du dictionnaire,

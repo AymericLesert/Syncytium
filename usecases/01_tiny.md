@@ -268,9 +268,8 @@ proposition.**)*
 > Les membres de l'entreprise.
 >
 > **L'identité.** `nom`, `prenom` — l'identité de naissance, les deux
-> champs obligatoires de ce fait (D1170) ; *ma lecture : écrite sous la
-> forme `identity:`, l'unique identité n'a pas de nom déclaré, le
-> dictionnaire la nomme par défaut.* **Le visage.** `{prenom} {nom}`.
+> champs obligatoires de ce fait (D1170) ; écrite sous la forme
+> `identity:`, elle se nomme « identity » par défaut (D1304). **Le visage.** `{prenom} {nom}`.
 > **L'historisation.** Non — aucun instantané. **Le rgpd.** Aucun champ
 > marqué.
 >
@@ -316,14 +315,15 @@ proposition.**)*
 > | le soft delete (D141) | `deleted_at` | TEXT (horodatage) | oui | le socle |
 > | l'audit (D76) | `created_at`, `created_by`, `updated_at`, `updated_by` | TEXT | — | le socle |
 >
-> *(Les noms des colonnes du socle sont de moi, en proposition ; la
-> déclinaison de chaque type en élémentaire — D1298 — est en colonne
-> « origine ».)*
+> *(Les colonnes du socle sont à étudier — D1305 : leur implémentation
+> n'est pas faite, une autre approche reste possible ; les noms écrits
+> ici sont des jalons. La déclinaison de chaque type en élémentaire —
+> D1298 — est en colonne « origine ».)*
 >
 > **Les index.** Une clé unique sur (`nom`, `prenom`), les actifs
 > seulement — l'identité (D141, D1292). Aucun autre : aucun
-> `searchable:`, aucune référence, aucun état, aucune liste à critères
-> déclarée. **Les partitions.** Aucune (D1293).
+> `searchable:` — rien n'est cherchable (D1308) —, aucune référence,
+> aucun état, aucune liste à critères déclarée. **Les partitions.** Aucune (D1293).
 >
 > **Les tables de Syncytium.** La version (D680) ; `user` (D719) — un
 > seul utilisateur, sans authentification ; les compteurs de télémétrie
@@ -337,8 +337,8 @@ proposition.**)*
 > **4.2 Les imports.** Une entité importable, `personne` : le gabarit
 > `personne.csv` — les colonnes `nom`, `prenom`, `age`, `fonction`, par
 > les noms ; la clé de rapprochement `nom` + `prenom` ; la ligne
-> d'exemple par les exemples génériques des types (D1301 — aucun
-> `placeholder:`). Le fichier se télécharge depuis l'écran d'import.
+> d'exemple par le `placeholder` des types (D1307 — aucun champ n'a le
+> sien). Le fichier se télécharge depuis l'écran d'import.
 >
 > **4.3 Les opérations.** Aucune opération déclarée ; les quatre actes du
 > socle — la création, la lecture, la modification, la suppression —
@@ -375,10 +375,11 @@ proposition.**)*
 >
 > ### A. La configuration dépliée
 >
-> *(Un seul arbre — D1245, D1250 : les défauts du socle écrits aux trois
-> niveaux, le catalogue dans la langue du poste ; aucune clé `*` à
-> retirer. Les valeurs sont celles de l'inventaire des défauts de
-> configuration.md §3.5 ; la forme est de moi, en proposition.)*
+> *(Un seul arbre — D1245, D1250, D1306 : les défauts du socle écrits aux
+> trois niveaux — « un outil tiers ne peut pas les déduire seul » —, le
+> catalogue dans la langue du poste ; aucune clé `*` à retirer. Les
+> valeurs sont celles de l'inventaire des défauts de configuration.md
+> §3.5 ; la forme est de moi, en proposition.)*
 >
 > ```yaml
 > from: Syncytium-1.0
@@ -425,9 +426,9 @@ proposition.**)*
 >
 > | Le type | En clair | Les contraintes | L'exemple |
 > |---|---|---|---|
-> | `text[..40]` | un texte de 40 caractères au plus | les blancs rognés (`trim`) | « texte » *(l'exemple générique du type, ma lecture)* |
-> | `text[..60]` | un texte de 60 caractères au plus | idem | « texte » |
-> | `integer` | un entier | sans borne | 0 |
+> | `text[..40]` | un texte de 40 caractères au plus | les blancs rognés (`trim`) | le `placeholder` du type (D1307) |
+> | `text[..60]` | un texte de 60 caractères au plus | idem | le `placeholder` du type |
+> | `integer` | un entier | sans borne | le `placeholder` du type |
 
 ---
 
@@ -435,9 +436,9 @@ proposition.**)*
 --check`, D1221) : *le même relevé que la fonctionnelle* — aucun
 `title:`, aucune `description:` de module, aucun `hint:` ni
 `description:` de champ, aucun `placeholder:` ; et, propre au
-dictionnaire : aucun groupe de champs (acceptable à quatre champs),
-aucun `searchable:` (la liste du socle cherche sur quoi ? — *un point
-pour l'entrepôt*). Ce que le dictionnaire montre malgré tout : la
+dictionnaire : aucun groupe de champs (acceptable à quatre champs) ;
+aucun `searchable:` — rien n'est cherchable (D1308), un choix que le
+dictionnaire dit et que la complétude ne relève pas. Ce que le dictionnaire montre malgré tout : la
 structure entière, le stockage, les index, le gabarit d'import, la
 configuration dépliée — tout ce que le concepteur n'a pas écrit, le
 socle le dit.

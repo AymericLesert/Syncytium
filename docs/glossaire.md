@@ -81,15 +81,6 @@ D1221)*
 
 **Composant graphique** (`component`) — La représentation graphique d'un champ à l'écran ou sur un document (PDF, Excel, ...) : la jauge d'un pourcentage, le calendrier d'une date, le toggle d'un booléen. *(D64)*
 
-**Storage** (`storage`, une famille de connecteurs) — Le lien entre
-les données manipulées par Syncytium, leur manipulation, son
-optimisation et le stockage physique. Il traite l'unitaire et la masse ;
-son traitement est bijectif, standardisé, harmonisé, extensible. Il
-s'auto-décrit : ses règles de transcription des types vers la base ou
-la zone de stockage, rendues par son `describe()` — les tables, les
-colonnes, les clés, les index, les partitions. Il influe sur le hook de
-type, à qui il dit ce qu'il attend. *(D629, D680–D684, D1294–D1297)*
-
 **Type composé** — Un type prêt à l'emploi, fourni par Syncytium ou proposé par une extension, bâti sur un type de base
 avec sa validation incorporée : `amount` (un montant et sa devise),
 `siren` (contrôlé), `period` (début ≤ fin)… *(D122)*
@@ -491,6 +482,15 @@ dépendent de la version d'exécution »). La fiche d'une ressource :
 `name`, `description`, `file`, `credit:` — le crédit des éléments
 tiers, par courtoisie.
 *(D346, amendé par D803)*
+
+**Storage** (`storage`, une famille de connecteurs) — Le lien entre
+les données manipulées par Syncytium, leur manipulation, son
+optimisation et le stockage physique. Il traite l'unitaire et la masse ;
+son traitement est bijectif, standardisé, harmonisé, extensible. Il
+s'auto-décrit : ses règles de transcription des types vers la base ou
+la zone de stockage, rendues par son `describe()` — les tables, les
+colonnes, les clés, les index, les partitions. Il influe sur le hook de
+type, à qui il dit ce qu'il attend. *(D629, D680–D684, D1294–D1297)*
 
 **Style** — Le cadre technique du rendu, fourni par Syncytium (« au
 même titre que les composants graphiques, Syncytium propose un ou

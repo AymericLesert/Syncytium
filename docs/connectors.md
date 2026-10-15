@@ -602,7 +602,10 @@ parce que la BI lit la base sans Syncytium : **une fonction pure de la
 configuration** (D645), calculée au dépôt, la même que `create_entity`
 exécute ; servi par une instance, `get_instance()` lit la base et permet
 de vérifier qu'elle correspond au modèle (D801). Par entité : sa table, la colonne du soft
-delete, les colonnes d'audit ; par champ de valeur : sa ou ses colonnes,
+delete, les colonnes d'audit — **les colonnes du socle sont à étudier**
+(D1305 : leur implémentation n'est pas faite, « les colonnes
+supplémentaires sont liées à un type d'implémentation. Mais, nous
+pourrions adopter une autre approche ») ; par champ de valeur : sa ou ses colonnes,
 le type natif, la nullité, la règle de conversion ; l'identité technique
 (D142) en clé primaire, l'identité fonctionnelle en clé unique sur les
 actifs (D141) ; la référence en clé étrangère ; la composition en table

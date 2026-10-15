@@ -208,7 +208,7 @@ D1266–D1278.)*
 | l'entité (`name:`) | la classe, par son nom ; le parent abstrait (D1035 — `tiers`) en italique — `<<abstract>>` en attendant l'outil (D1268) |
 | `inheritance:` | la généralisation — le triangle vers le parent (D143–D145, D1278) |
 | le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit ; seuls les champs de valeur sont des lignes : tout champ qui pointe vers une entité est un lien (D1270) ; **un compartiment par groupe** (les groupes dans `fields:`, D1273/D1279), l'implicite en tête |
-| `identity:` / `identities:` | **souligné** |
+| `identity:` / `identities:` | **souligné** ; l'identité écrite `identity:` se nomme par défaut « identity » (D1304) |
 | `formula:` | *italique* |
 | `confidentiality:` au-dessus de `public` (D25), ou `rgpd:` (D695) | **« * »** — le champ sécurisé |
 | le champ cible d'une référence (D396) ou d'une association (D405) dans une autre entité | **gras** — chez la cible, sur le champ d'identité visé (D1278) |

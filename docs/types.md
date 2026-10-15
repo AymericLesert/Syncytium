@@ -244,8 +244,9 @@ de type, à l'étape 9 du rang 2.
 « stockage » du catalogue ; **les modes de recherche qu'il admet**
 (`strict`, `normalized`, `similarity`, `range` — D367/D371), origines
 des index du chapitre 3 (D1292), et s'il peut porter une partition
-(D1293 — une date par période, un énuméré) ; les indicateurs (D1288) ; l'exemple
-générique sans `placeholder:` (D1211) ; le marquage `rgpd:` (D1178). Le
+(D1293 — une date par période, un énuméré) ; les indicateurs (D1288) ; l'exemple —
+le `placeholder` du type, que celui du champ surcharge (D1211,
+D1307) ; le marquage `rgpd:` (D1178). Le
 moteur résout, le type formule ; les mots au catalogue (D1160) ; un type
 dérivé hérite de la facette de son socle ; l'annexe B du dictionnaire,
 le glossaire des types, s'en construit ; sans sa facette, un type est

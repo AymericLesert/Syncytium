@@ -139,8 +139,8 @@ graphe de conversion).
   langue du moteur, les réglages fondus (« une date, écrite AAAAMMJJ »,
   « un texte de 40 caractères au plus » — D1160, D1253) ; **la
   déclinaison** en élémentaires (D1298) ; **les indicateurs** qu'il
-  mesure (D1288) ; **l'exemple** générique, quand le champ n'a pas de
-  `placeholder:` (D1211) ; **le marquage** qu'il porte, `rgpd:` (D1178) ;
+  mesure (D1288) ; **l'exemple** — le `placeholder` du type (D1307), quand le champ n'a
+  pas le sien (D1211) ; **le marquage** qu'il porte, `rgpd:` (D1178) ;
   et, pour le chapitre du stockage, **les modes de recherche qu'il
   admet** — les index que le storage en tire (D1292) — et **s'il peut
   porter une partition** (D1293).

@@ -604,6 +604,7 @@ field:
   mode: editable                   # (D364)
   label: "${name}"                 # (D1181)
   confidentiality: public          # (D25)
+  searchable: none                 # sans searchable:, rien n'est cherchable (D1308)
   default: <nul>                   # (D941)
   unchanged: false                 # (D941)
   text:

@@ -377,7 +377,7 @@ décisions, D1170–D1238.)*
   `usecases/05_entrepot.md`.
 - **Dépendances** : aucune.
 
-#### Rang 2 — l'information, pour la BI et l'IA (documentation 2)
+#### Rang 2 — l'information, pour la BI et l'IA (documentation 2) — *clos le 16/10/2026, D1314*
 
 - **Périmètre** : le modèle (en tables et en diagrammes), les règles,
   les données et leurs usages, les écarts entre versions, le
@@ -417,12 +417,23 @@ décisions, D1170–D1238.)*
   10. la lisibilité de l'index 5.1 (D1263) — à la déclinaison ;
   11. la colonne 2 de la matrice (§13) dans les artefacts : **acquise
      le 15/10/2026 (D1303)**.
-- **Déclinaison** : le tiny ; **l'entrepôt** (la hiérarchie de
-  l'article, la reprise, les deux versions).
-- **Livrables** : §4, §5, §8, §9 validés ; [entity.md](entity.md) (la
-  correspondance UML), [types.md](types.md) (la diversité par type),
-  [connectors.md](connectors.md) (le contenu de `describe()`),
-  [telemetry.md](telemetry.md), [migration.md](migration.md).
+- **Déclinaison** : **faite** — le tiny (usecases/01_tiny.md, et la
+  documentation d'exemple `usecases/01_tiny_dictionnaire.md`) ;
+  l'entrepôt (usecases/05_entrepot.md — les évolutions, les groupes,
+  les profils, la hiérarchie au stockage, la reprise, l'index mesuré) ;
+  les points arbitrés D1304–D1313.
+- **Livrables** : **acquis** — §4, §5, §8, §9 ; [entity.md](entity.md)
+  (la correspondance, les groupes, `partition:`), [types.md](types.md)
+  (la facette du type, la déclinaison), [connectors.md](connectors.md)
+  (le storage refondé, `describe(model)`, les index, les partitions),
+  [telemetry.md](telemetry.md) (les indicateurs),
+  [migration.md](migration.md) (le chapitre 4.1), [hooks.md](hooks.md)
+  (le contrat du hook de type), [configuration.md](configuration.md)
+  (les groupes, les réglages), [rights.md](rights.md),
+  [administration.md](administration.md), [composants.md](composants.md),
+  [mapping.md](mapping.md), le glossaire ; la colonne 2 de la matrice
+  (D1303) ; les groupes de champs dans la configuration du cas 5.
+  **Ouvert au-delà du rang** : les colonnes du socle (D1305).
 - **Dépendances** : la forme des diagrammes et de l'édition machine
   au domaine 7 ; les indicateurs à l'instance.
 
@@ -2644,7 +2655,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Les points ouverts *(rafraîchis à la pause du 14/10/2026)*
+## 26. Les points ouverts *(rafraîchis à la clôture du rang 2, le 16/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -2672,7 +2683,8 @@ comme chapitre (§19 → §22, D1187).*
    Pareto, 80/20)* ;
 8. *(clos le 14/10 — §9 acquis, D1281–D1283)* ;
 9. la documentation de l'API — le principe ici, la forme au domaine 7
-   (§10) ;
+   (§10) ; les écarts filtrés par l'exposition pour le technicien
+   (D1285), au rang 5 ;
 10. les pièces encore en proposition, à arbitrer à leur rang : le
     guide d'exploitation (§17), la conformité (§18), la complétude et
     son seuil (§20), la maintenance (§23 — la part de chaque lecteur,
@@ -2682,6 +2694,9 @@ comme chapitre (§19 → §22, D1187).*
 11. le contexte (D1131, D1133–D1135) : la formation comme usage ; la
     réglementation élargie à la sécurité ; les compléments par
     documentation ;
+13. *(ouvert le 15/10 — hors rang)* les colonnes du socle au stockage —
+    l'identité technique, le soft delete, l'audit — à étudier à
+    l'implémentation (D1305) ;
 12. *(clos le 11/10 — l'IA, D1222–D1226 : elle assiste le concepteur par
     une skill de la documentation du développeur, le moteur génère sans
     elle ; la skill s'écrit au rang 5.)*

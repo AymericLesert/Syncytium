@@ -153,7 +153,7 @@ La lecture au registre :
   entier**, table par table et champ par champ (D176/D648) — le
   hors-périmètre (D859) déclaré `ignored` (D657 : « on peut
   ignorer, jamais oublier ») ; l'ossature engendrée par
-  `read_instance` (D653) rend la chose tenable sur des centaines de
+  `get_instance` (D653) rend la chose tenable sur des centaines de
   tables ;
 - **l'anomalie** : toute table ou tout champ du schéma réel absent
   de la description = une anomalie remontée — la complétude
@@ -251,7 +251,7 @@ cadrage :
   rejets = **un rapport, jamais une quarantaine** — la correction à
   la source, la relance sur les manquants ;
 - **le mapping** (D646–D672) : `source/` dans la grammaire —
-  l'ossature engendrée par `read_instance` (D653), `ignored` à
+  l'ossature engendrée par `get_instance` (D653), `ignored` à
   l'entité ou au champ (D657), la normalisation (D660), le
   `filter:` du périmètre (D663) ; `mapping/` aux clés
   fonctionnelles (D654) ; **le mode `relative`** (D649/D671 — les
@@ -281,7 +281,7 @@ cadrage :
   `hooks/types/`, D644/D777) ;
 - **le premier storage lu par connexion**, pas par fichier — la
   classe `sqlserver` consignée (D613/D619), un schéma d'une
-  instance SQL Server (D860) : `read_instance` pour de vrai
+  instance SQL Server (D860) : `get_instance` pour de vrai
   (D653/D829), la lecture au curseur (D689) ;
 - **le premier storage cible `postgresql`** (D860 — le domestique
   portait le sqlite natif D729) : l'entrepôt = un schéma, l'instance
@@ -461,7 +461,7 @@ Deux classeurs fournis le 05/09/2026, **hors du dépôt**
   `reprise.yml` liste ses fichiers **un par un**, sans regex (le
   pattern D806 reste licite ailleurs, l'auteur le refuse ici) ;
   l'ossature engendrée depuis le schéma réel (D653 — le rôle de
-  `read_instance`), le concepteur la raffine ; **la taxonomie de la
+  `get_instance`), le concepteur la raffine ; **la taxonomie de la
   couverture s'ajuste** (D861–D862) : la complétude = décrit /
   absent, la couverture = migré / décrit sans règle — *l'état
   « ignoré » : conservé pour une exclusion explicite, ou l'exclusion
@@ -524,7 +524,7 @@ mot :
 La lecture — ce qui se corrige et ce qui se précise :
 
 - **la description est un acte du concepteur, jamais une
-  génération** : `read_instance` (D653) sert la comparaison, pas
+  génération** : `get_instance` (D653) sert la comparaison, pas
   l'écriture — l'ossature engendrée que je proposais (D866) est
   retirée ; chaque table et chaque colonne décrite l'est parce
   qu'elle a été comprise ;

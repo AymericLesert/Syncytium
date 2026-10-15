@@ -177,8 +177,8 @@ décrite par le méta-modèle également. » À la racine de la version :
 - **`source/`** — la description du modèle d'origine, **table par
   table et colonne par colonne, dans la grammaire de description** ;
   **Syncytium s'assure de la complétude du modèle** : la description
-  confrontée au schéma réel (`read_instance` — D629/D680), l'écart
-  signalé ; `read_instance` peut engendrer l'ossature, le concepteur
+  confrontée au schéma réel (`get_instance` — D629/D680), l'écart
+  signalé ; `get_instance` peut engendrer l'ossature, le concepteur
   la raffine ;
 - **`mapping/`** — les règles de conversion, **table par table, aux
   origines multiples possibles**.

@@ -129,7 +129,7 @@ graphe de conversion).
   valeur** (D683) : `create`/`update`/`read` d'une valeur (la forme
   native écrite et relue) — et **l'identification** (D684) : le type
   sait **se reconnaître** dans une structure native à l'introspection
-  (`read_instance` compose les identifications) ; un type-hook sans
+  (`get_instance` compose les identifications) ; un type-hook sans
   ses règles de conversion ne se stocke pas — l'ingestion le refuse.
 
 **La collection est un type — et porte les agrégats** (D580) : les
@@ -420,7 +420,7 @@ error/initialized/disconnected/connected/closed, la fréquence à
 `every:`), `onerror` (le mock ou la page de maintenance — D627) et
 `describe()` (la documentation markdown/html de l'instance — D630).
 Les contrats détaillés — storage (la transaction, l'instance —
-`read_instance`/`duplicate_instance`/`rename_instance` —, les
+`get_instance`/`duplicate_instance`/`rename_instance` —, les
 entités et les enregistrements composés des types-visiteurs
 (D680–D689 : l'écriture en lots, la lecture au curseur), la
 migration à chaud orchestrée par le moteur), smtp (`send`), file

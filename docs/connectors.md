@@ -208,7 +208,7 @@ démarrage.
    physique dans une base de données ou une zone de stockage
    physique. » — le `describe()` en est le rendu ; la règle de
    transcription sert trois fois : créer (`create_entity`),
-   reconnaître (`read_instance`), décrire (`describe()`) *(ma lecture)*.
+   reconnaître (`get_instance`), décrire (`describe()`) *(ma lecture)*.
 4. **Les interfaces, les pivots** — « Le storage influe le hook des
    types pour définir les propriétés ou les éléments à couvrir. Au
    storage de faire le nécessaire pour exploiter au mieux ces
@@ -227,7 +227,7 @@ conversion vers le stockage**.
 | le groupe | les méthodes |
 |---|---|
 | la transaction | `begin` · `commit` · `rollback` — l'assise de la transaction tenue ouverte (D594) |
-| l'instance | `create_instance` · **`read_instance`** (l'introspection — le retour est **l'équivalent d'un module** : les entités et leurs champs, la mutualisation N colonnes → 1 champ, les contraintes, les dépendances — D684 ; **borné aux items de stockage** : jamais les surfaces ni les champs calculés — D685 ; pour un storage source, les items = **les entités de la carte `entities:`** — le fichier n'est jamais un item, D829) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
+| l'instance | `create_instance` · **`get_instance`** (l'introspection — le retour est **l'équivalent d'un module** : les entités et leurs champs, la mutualisation N colonnes → 1 champ, les contraintes, les dépendances — D684 ; **borné aux items de stockage** : jamais les surfaces ni les champs calculés — D685 ; pour un storage source, les items = **les entités de la carte `entities:`** — le fichier n'est jamais un item, D829) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
 | les entités | `create_entity` · `update_entity` · `delete_entity` |
 | les enregistrements | `create` · `read` · `update` · `delete` — **l'écriture en lots** (D688 : create/update/delete portent une liste — le bulk natif de la classe), **la lecture au curseur** (D689 : read() rend un curseur qui convertit chaque ligne en enregistrement au fil du parcours — le lazy loading, la masse au suivi de progression) |
 
@@ -246,7 +246,7 @@ de valeur** (D683 — `create`/`update`/`read` d'une valeur) ; les
 méthodes d'entité **se composent des gestes des types**, les
 méthodes d'enregistrement **des fonctions de valeur** — la symétrie
 structure/donnée ; et **le type s'identifie à l'introspection**
-(D684 — la réciproque : read_instance compose les reconnaissances
+(D684 — la réciproque : get_instance compose les reconnaissances
 des types) ; un storage nouveau visite tous les types sans qu'aucun
 ne change.
 
@@ -491,7 +491,7 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
   changement de type par **les conversions que chaque type porte**
   D579/D584 ; les règles de création/suppression D11–D13
   persistent) ; **l'usage 2 parle le même langage** : le `from:`
-  tire le storage d'origine (`read_instance` — D680), **l'exhaustivité** des
+  tire le storage d'origine (`get_instance` — D680), **l'exhaustivité** des
   tables, colonnes, dépendances et contraintes — tout est couvert ou
   **déclaré ignoré** (D176 étendu), la traduction par les fonctions
   et conversions du langage unique ;
@@ -503,7 +503,7 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
 - **les deux maisons (D652–D653)** : **`source/`** — le modèle
   d'origine décrit **dans la grammaire du méta-modèle**, table par
   table et colonne par colonne (Syncytium s'assure de la complétude
-  du modèle contre `read_instance`) ; **`mapping/`** — les règles de
+  du modèle contre `get_instance`) ; **`mapping/`** — les règles de
   conversion table par table, aux origines multiples possibles ;
 - **la construction et la clé fonctionnelle (D654)** : le mapping
   construit l'enregistrement avant sa validation (D177) ; la clé
@@ -599,7 +599,7 @@ conversion (le visiteur, D681–D683) au modèle qu'on lui donne et rend ce
 qu'elles produisent, dans son propre vocabulaire — par exception à D680,
 parce que la BI lit la base sans Syncytium : **une fonction pure de la
 configuration** (D645), calculée au dépôt, la même que `create_entity`
-exécute ; servi par une instance, `read_instance` vérifie que la base
+exécute ; servi par une instance, `get_instance` vérifie que la base
 en place y correspond (D801). Par entité : sa table, la colonne du soft
 delete, les colonnes d'audit ; par champ de valeur : sa ou ses colonnes,
 le type natif, la nullité, la règle de conversion ; l'identité technique

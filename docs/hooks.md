@@ -567,6 +567,19 @@ attendues (D1162–D1163) ; un hook ajouté à Syncytium pour Syncytium les
 porte toutes ; un hook du concepteur, celles de sa version ; une langue
 manquante est une erreur d'ingestion.
 
+**Les hooks, dans le dictionnaire de la donnée** (la colonne 2 — le rang
+2) : **la notion de hook n'y apparaît pas** (D1244 — « les hooks
+s'intégreront au document sans que la notion de hook apparaisse ») ; le
+lecteur voit ce que chaque hook livre par sa facette : **le hook de
+type**, la forme en clair, la déclinaison, les indicateurs, l'exemple, le
+marquage (D1301) ; **le hook d'opération**, la description de
+l'opération (D1227) et son contrat au chapitre 4.3 — ce qu'elle lit, ce
+qu'elle écrit, ses effets (D1262) ; **le hook de fonction**, le texte des
+formules dans les règles de l'entité (D1254) ; **le hook de connecteur
+storage**, le chapitre 3 par `describe(model)` (D1299) ; les hooks de
+composant et de style, rien. L'inventaire des hooks câblés et comment en
+écrire un vont à la documentation du développeur (D1244).
+
 **Les autres colonnes** — à leur rang : le développeur (le contrat du
 hook, ses propriétés — `degree`, `execution`, `deterministic`,
 `connectors` —, le `describe` D645 ; **la skill** des consignes du

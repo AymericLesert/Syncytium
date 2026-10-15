@@ -293,9 +293,31 @@ le champ sans `label:` (D1182), sans `hint:` ni `description:` (D1199),
 l'énuméré sans libellé, l'entité sans aucun marquage `rgpd:` (D1177 —
 signalée, jamais qualifiée) ; ni `history:` tu, ni les droits tus (D1173).
 
-**Les autres colonnes** — à leur rang : l'information (le rang 2 — la
-fiche complète, les formules, le graphe des emplois et l'impact d'une
-modification, D1198) ; le développeur (ses points d'API) ; la
+**L'entité et le champ, dans le dictionnaire de la donnée** (la colonne
+2 — le rang 2, D1241–D1302) : **l'entité** a sa sous-section au chapitre
+2.2, dans la section de son module (D1252) — sa description, ses
+identités nommées, son visage, son historisation et comment lire ses
+instantanés, son `rgpd:` ; **la table des champs par groupe** (D1273,
+D1279) — le nom, le type en clair tel qu'appliqué (D1253), le libellé en
+complément, l'aide, l'obligation, le défaut, le niveau de confidentialité
+(D1247), les droits d'écriture, « depuis la version x » (D1282) ; **ses
+règles** (D1254) — les validations, les calculés et leurs formules, les
+états avec leur graphe et leurs transitions (D1276), les automatismes ;
+toutes les entités, tous les champs (D1246). Elle figure dans les trois
+vues (D1213–D1214, D1266–D1269), sa table au chapitre 3 avec ses index
+et ses partitions (D1292–D1293), qui la référence à l'index 5.1
+(D1263), ses droits à la matrice 5.2 (D1264), ses données au 5.3 — le
+volume, les créations, les modifications, les suppressions, la
+répartition par état (D1287). **Le champ** a sa ligne dans la table et
+**sa section** après elle (D1283) : la description détaillée,
+l'historique et les évolutions à venir (D1285), les opérations qui
+l'écrivent et les règles qui le lisent (D1198), la télémétrie (D1216,
+D1287) — aux droits du lecteur (D1249). Un champ qui pointe vers une
+entité est un lien du diagramme, non une ligne (D1270) ; une liste de
+valeurs composées, une structure interne nommée `entité.champ` (D1271,
+D1274).
+
+**Les autres colonnes** — à leur rang : le développeur (ses points d'API) ; la
 réglementation (ses données `rgpd:`, sa rétention) ; la promotionnelle
 (son titre dans la vue d'ensemble) ; la maintenance (ses usages, ses
 anomalies).

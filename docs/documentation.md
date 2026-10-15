@@ -415,7 +415,8 @@ décisions, D1170–D1238.)*
      indicateurs, l'exemple, le marquage), dans [hooks.md](hooks.md) et
      [types.md](types.md) ;
   10. la lisibilité de l'index 5.1 (D1263) — à la déclinaison ;
-  11. la colonne 2 de la matrice (§13) dans les artefacts.
+  11. la colonne 2 de la matrice (§13) dans les artefacts — écrite le
+     15/10/2026, à valider.
 - **Déclinaison** : le tiny ; **l'entrepôt** (la hiérarchie de
   l'article, la reprise, les deux versions).
 - **Livrables** : §4, §5, §8, §9 validés ; [entity.md](entity.md) (la
@@ -1850,9 +1851,9 @@ rubrique qui la spécifie. Trois lignes, pour la forme :
 
 | Le composant | 1 Fonctionnelle | 2 Information | 3 Développeur | 4 D.A.T. | 5 Réglementation | 6 Promotionnelle | 7 Maintenance | 8 Projet | 9 Exploitation |
 |---|---|---|---|---|---|---|---|---|---|
-| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa fiche : l'identité, les champs, les règles, le diagramme, le nombre de lignes (D1155) | ses points d'API | — | ses données marquées `rgpd:`, sa rétention | son titre dans la vue d'ensemble | ses usages, ses anomalies | — | — |
-| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | son type en clair, ses facettes, ses validations, ce que le stockage en dit (D1155) ; **ses emplois et l'impact d'une modification** — le graphe des liens que l'ingestion garantit (D1198) | son exposition (D20) | — | sa confidentialité, son `rgpd:` | — | sa diversité, ses valeurs inemployées | — | — |
-| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa définition : la base, les facettes, les champs qui l'emploient | — | — | le marquage qu'il porte (D1178) | — | — | — | — |
+| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | ses points d'API | — | ses données marquées `rgpd:`, sa rétention | son titre dans la vue d'ensemble | ses usages, ses anomalies | — | — |
+| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3 | son exposition (D20) | — | sa confidentialité, son `rgpd:` | — | sa diversité, ses valeurs inemployées | — | — |
+| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa forme en clair tel qu'appliqué, sa déclinaison, ses indicateurs, son exemple (D1301) ; son entrée à l'annexe B | — | — | le marquage qu'il porte (D1178) | — | — | — | — |
 | le wizard | le scénario, la planche, le parcours guidé | — | — | — | — | un cas d'usage | sa fréquence d'emploi | — | — |
 
 **La matrice se remplit rang par rang** (D1159) : chaque rang du plan

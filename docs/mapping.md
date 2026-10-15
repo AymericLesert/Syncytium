@@ -914,9 +914,18 @@ des opérations de l'entité parce qu'elles transforment ce que
 l'utilisateur voit (D1209, D1227) ; les champs `unchanged:` se disent
 « saisis ici, jamais repris » (D941).
 
-**Les autres colonnes** — à leur rang : l'information (le rang 2 — les
-sources décrites, les règles, les trois taux D862, le graphe source →
-cible et l'impact d'une évolution de la source, D1198) ; le guide
+**La migration déclarée, dans le dictionnaire de la donnée** (la colonne
+2 — le rang 2, D1302) : le chapitre 4.1 « Reprise des données »
+(D1259) — la migration déclarée, **les sources** (par table d'origine,
+le périmètre, l'identité et la partition, les colonnes lues avec le type
+lu et le type décrit, les colonnes écartées et leur motif), **les
+règles** (dans l'ordre : la source, la cible, le périmètre, les champs
+mappés et leurs transformations, les destinataires), **le graphe source
+→ cible dans les deux sens** — l'index 5.1 lu depuis l'autre bout
+(D1198, D1186) ; à l'instance, le modèle lu et ses versions, les
+passages ; le détail dans [migration.md](migration.md).
+
+**Les autres colonnes** — à leur rang : le guide
 d'exploitation (le rang 7 — `migrate`, `reset_coverage`, le rythme, les
 rapports de rejets D929, les anomalies D1032) ; la réglementation (la
 provenance D178, les données personnelles reprises) ; la maintenance

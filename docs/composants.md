@@ -3013,6 +3013,16 @@ surface, puis, pour chaque composant qui en a, sa description ; le
 « ? » le montre, mène à la page de l'écran et porte l'assistance
 (D1192) ; le glossaire s'y lit au survol (D1184).
 
+**Les surfaces et les composants graphiques, dans le dictionnaire de la
+donnée** (la colonne 2 — le rang 2) : presque rien d'eux-mêmes — le
+dictionnaire décrit la donnée, non l'écran (D1241, D1246). Ce qui passe :
+**à l'index 5.1**, les écrans, les listes et les rapports qui lisent un
+champ (D1198, D1263) ; **au chapitre 3**, les `searchable:`, `sort:` et
+`filter:` des listes, origines des index (D1292) ; **au chapitre 4.3**,
+les opérations qu'un écran déclenche, par leur contrat (D1262) ; **le
+formulaire du socle** suit les groupes de champs (D1273). La forme en
+clair d'un type (D1301) nomme son composant par défaut sans le décrire.
+
 **Les autres colonnes** — à leur rang : la maintenance (la fréquence
 d'emploi de chaque écran, D1168), le développeur (le hook d'interface
 listé, D918).

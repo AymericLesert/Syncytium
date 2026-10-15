@@ -24426,6 +24426,13 @@ avant la synthèse Q16).
   précisés puis tranchés : la colonne des exceptions d'écriture (D1311),
   la reprise seule écrit, dit en clair (D1312), l'index par le pli
   (D1313).
+- **2026-10-16 — LA DOCUMENTATION D'EXEMPLE DU TINY.** « Avant de
+  finaliser, écris-moi une documentation d'exemple pour tiny ? » — le
+  dictionnaire de la donnée de tiny, tel que généré au dépôt, sans
+  annotation : `usecases/01_tiny_dictionnaire.md` (le cartouche, 2.1,
+  2.2 avec les deux vues, 3 la table sqlite et ses index, 4.1 absent,
+  4.2 le gabarit, 4.3, 5.1, 5.2, 5.3 le cadre, l'annexe A dépliée,
+  l'annexe B).
 - **2026-10-14 (suite) — LA PAUSE : §9 ET §8 ACQUIS, L'ÉTAPE 6
   PRÉSENTÉE (1288 décisions).** L'état d'avancement donné ; « je
   marque une pause ». Le `describe()` du storage présenté (le chapitre

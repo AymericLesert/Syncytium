@@ -209,7 +209,9 @@ format pivot (D1292–D1300), le hook de type (D1301), la reprise
 (D1302). Le tiny reste la configuration minimale : tout ce qui suit
 naît des vingt-six lignes de `syncytium.yml` et des défauts du socle
 (configuration.md §3.5). Ce qui est de moi est marqué. **En
-proposition.**)*
+proposition.** La même documentation, telle que le moteur la
+produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md),
+écrite le 16/10/2026 sur la demande de l'auteur.)*
 
 ---
 

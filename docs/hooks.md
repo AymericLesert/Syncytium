@@ -177,7 +177,9 @@ fields:
 influe le hook des types pour définir les propriétés ou les éléments à
 couvrir. Au storage de faire le nécessaire pour exploiter au mieux ces
 données. » — le storage énonce la liste de ce qu'il attend d'un type ;
-le type la couvre par ses règles de transcription (D1296) ; la forme en
+le type la couvre par sa déclinaison en types élémentaires — un
+élémentaire ou une liste nommée d'élémentaires, le format pivot
+(D1298) — et ses règles de transcription (D1296) ; la forme en
 clair, les indicateurs (D1288) et la règle de stockage sont les trois
 facettes que le contrat du hook de type livre à la documentation — à
 écrire à l'étape 9 du rang 2.

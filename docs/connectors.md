@@ -189,8 +189,20 @@ démarrage.
    être extensible ... » — bijectif : ce qui s'écrit se relit à
    l'identique (la symétrie structure/donnée, D683) ; standardisé et
    harmonisé : le même contrat pour tout storage, le même rendu pour
-   tout type ; extensible : un storage nouveau visite tous les types,
-   un type nouveau est visité par tous les storages.
+   tout type ; **extensible par le format pivot** (D1298) : « l'usage
+   d'un format pivot doit offrir l'extensibilité du modèle. Le pivot
+   couvre les types et le stockage des composants élémentaires
+   (booléen, entier, long, decimal, text, ...). Un type Syncytium doit
+   pouvoir se décliner en type élémentaire directement accessible via
+   les types élémentaires ou en liste nommée de types élémentaires. Le
+   storage gère alors ces 2 cas et assure la conversion entre le type
+   élémentaire et le type de stockage. Pour un type élémentaire, le
+   type Syncytium fournit les propriétés génériques (pour text : min et
+   max longueur, ....) » — le nom : un texte de 40 caractères au plus ;
+   la quantité : `{ valeur: decimal, unite: enum }`, l'énuméré stocké en
+   entier (l'indice) ou en texte (le code ISO). Un storage ne connaît
+   que les élémentaires : un type nouveau n'oblige aucun storage, un
+   storage nouveau n'oblige aucun type *(ma lecture)*.
 3. **L'auto-description** — « Cela porte les règles de transcription
    entre les types de données manipulées par Syncytium et le stockage
    physique dans une base de données ou une zone de stockage

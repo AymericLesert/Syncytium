@@ -486,8 +486,9 @@ tiers, par courtoisie.
 **Storage** (`storage`, une famille de connecteurs) — Le lien entre
 les données manipulées par Syncytium, leur manipulation, son
 optimisation et le stockage physique. Il traite l'unitaire et la masse ;
-son traitement est bijectif, standardisé, harmonisé, extensible. Il
-s'auto-décrit : ses règles de transcription des types vers la base ou
+son traitement est bijectif, standardisé, harmonisé, extensible par le
+format pivot — les types élémentaires, dans lesquels tout type
+Syncytium se décline (D1298). Il s'auto-décrit : ses règles de transcription des types vers la base ou
 la zone de stockage, rendues par son `describe()` — les tables, les
 colonnes, les clés, les index, les partitions. Il influe sur le hook de
 type, à qui il dit ce qu'il attend. *(D629, D680–D684, D1294–D1297)*
@@ -533,6 +534,13 @@ premier déclaré est le défaut.
 il se stocke, s'affiche et se cherche. Le nom suffit — un type du
 catalogue (simple, référence ou composé - hook inclus) ou un type personnalisé (ensemble de propriétés communes à plusieurs champs).
 *(D408)*
+
+**Type élémentaire** (le format pivot) — Un des composants
+élémentaires du stockage : booléen, entier, long, décimal, texte… avec
+ses propriétés génériques (la longueur d'un texte, les bornes d'un
+entier). Tout type Syncytium se décline en un type élémentaire ou en
+une liste nommée de types élémentaires ; le storage ne convertit que
+ceux-là, ce qui fait l'extensibilité du modèle. *(D1298)*
 
 **Type personnalisé** — Description commune d'un type et de ses propriétés tel qu'il puisse être réutilisable sur plusieurs champs de l'application.
 Il porte aussi les facettes de sens — `rgpd:`, la confidentialité — dont

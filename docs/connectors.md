@@ -573,6 +573,12 @@ définis dans le modèle ») — `searchable: strict | normalized |
 similarity | range` (D367/D371), `mutualizable[nom]` (D780), les
 `searchable:` et `sort:` des listes, les `filter:` des périmètres (D90),
 le champ-statut ; le storage décide la forme physique de chaque index.
-Puis les tables de Syncytium, signalées : la version (D680), `user`
+**Les partitions** (D1293) — *ma lecture, en proposition* : déclarées à
+l'entité (`partition: date_comptable[year]`, `partition: [site,
+statut]`), le ou les champs dont les valeurs découpent la table, par
+période pour une date ; sans déclaration, pas de partition ; le froid de
+l'historisation (D169) par période par défaut ; le storage décide la
+forme, le `describe()` la rend avec son origine. Puis les tables de
+Syncytium, signalées : la version (D680), `user`
 (D719), le journal et la table des associations de la reprise (D1037),
 les compteurs de télémétrie (D39).

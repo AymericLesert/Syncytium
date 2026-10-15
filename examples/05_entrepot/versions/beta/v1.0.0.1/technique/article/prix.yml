@@ -1,0 +1,23 @@
+# Les prix — les champs du groupe de l'article, référencés depuis fields.yml.
+
+prix_revient:
+  type: amount
+  confidentiality: ${settings.confidentiality.financier}
+  label: Prix de revient
+  hint: Le prix de revient standard — réservé aux achats et à la direction.
+  description: >-
+    Les prix sont des montants à devise dans la valeur ; le profil financier des réglages les réserve aux achats et à
+    la direction.
+
+prix_moyen_pondere:
+  type: amount
+  confidentiality: ${settings.confidentiality.financier}
+  label: Prix moyen pondéré
+  hint: Le PMP du stock — réservé aux achats et à la direction.
+
+prix_achat:
+  type: amount
+  confidentiality: ${settings.confidentiality.financier}
+  label: Prix d'achat
+  hint: Le dernier prix d'achat connu — réservé aux achats et à la direction.
+  description: Le prix du premier fournisseur.

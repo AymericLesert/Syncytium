@@ -442,7 +442,10 @@ rang.)*
 **Le principe** : on ne lit que ce qu'on voit (D1141, D334) — la
 confidentialité et les droits filtrent la documentation comme ils
 filtrent l'écran ; une entité invisible n'a ni section ni ligne ; un
-champ invisible n'est pas au dictionnaire du lecteur.
+champ invisible n'est pas au dictionnaire du lecteur — dans la
+fonctionnelle ; **au dictionnaire de la donnée, le modèle est intégral et
+le niveau de confidentialité affiché** (D1247), seules les données de
+l'instance suivent les droits du lecteur (D1249).
 
 **Le groupe, dans la fonctionnelle** — **son persona** (D1200, D1208 :
 le mono-poste déclare son groupe pour le porter) ouvre le chapitre des
@@ -464,6 +467,18 @@ l'`allow` d'un champ (D886) se lit au champ.
 décident de la diffuser (D1142). **Les lecteurs** de chaque
 documentation : la table de [documentation.md](documentation.md) §3
 (D1154).
+
+**Les groupes et les droits, dans le dictionnaire de la donnée** (la
+colonne 2 — le rang 2) : **le chapitre 5.2, la matrice des droits**
+(D1264 — « la visibilité est simple et rapide ») — les entités en
+lignes, les groupes en colonnes, les quatre actes et les opérations
+permises dans la case, la condition d'état quand il y en a une
+(D1172) ; la composition des groupes (D1099), le degré (D699) ; les
+profils de confidentialité lus comme « qui voit » chaque niveau. **Le
+modèle est intégral pour tous, le niveau de confidentialité affiché à
+chaque champ** (D1247) ; **les données de l'instance suivent les droits
+du lecteur** (D1249). Les personas n'y sont pas — le dictionnaire est centré sur la donnée
+(D1241).
 
 **Les autres colonnes** — à leur rang : la réglementation (le rang 3 —
 la matrice des droits, l'extraction demandée par l'usager D1149, le

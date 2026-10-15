@@ -211,3 +211,41 @@ raccords validés :
 **La télémétrie est soldée** (D743) — le seul reste : le calibrage
 des seuils SEQUITUR sur données réelles, aux cas d'usage (Q59, comme
 prévu par D319).
+
+## La documentation — la facette de la télémétrie (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne de l'information remplie au rang 2, les autres à leur
+rang.)*
+
+**La télémétrie, dans le dictionnaire de la donnée** (D1265 — « Cette
+partie est une façon d'exploiter la télémétrie de Syncytium ») : le
+chapitre 5.3, les données — les volumes par entité, la synthèse, le
+détail par champ dans la zone sur demande (D1216) ; à l'instance
+seulement, sur les données que le lecteur a le droit de consulter
+(D1248–D1249). *Ma lecture* : **un septième canal de restitution** à
+côté des six — *pull*, par la documentation, l'usage réel champ par
+champ. **La liste des indicateurs** (D1287, §8 de documentation.md) :
+pour tout champ le renseigné et la part de vides, la diversité
+représentative (D46), la dernière écriture ; par famille de type — la
+répartition et les valeurs jamais employées (`enum`, `boolean`, D48),
+les longueurs (`text`), le minimum, le maximum, la moyenne et la plage
+occupée (les numériques), la plage et la répartition par période (les
+dates), les cibles distinctes (la référence), le nombre d'éléments (les
+listes), le nombre et la taille (`file`) ; **les valeurs et leur
+fréquence quand la diversité est faible ou quand quelques valeurs font
+la grande majorité** — **le seuil suit la courbe de Pareto, 20 % des
+valeurs pour 80 % des lignes** (D1290 ; les deux nombres en réglage global de
+l'application, `application: { telemetry: { values: pareto[80/20] } }`,
+D1291) ; pour
+l'entité le volume, les créations, les modifications et **les
+suppressions** (le soft delete, D141), la répartition par état, la part
+d'historisés, les compteurs (D39). **Le hook de type livre ses
+indicateurs** (D1288) ; le tableau de bord « telemetry » montre les
+mêmes chiffres.
+
+**Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
+télémétrie n'est pas ce que l'utilisateur fait) ; la maintenance et la
+supervision (§23 — le tableau de bord, la synthèse périodique, les
+alertes) ; le guide d'exploitation (le journal, ses niveaux, sa
+rétention).

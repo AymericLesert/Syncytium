@@ -129,8 +129,29 @@ graphe de conversion).
   valeur** (D683) : `create`/`update`/`read` d'une valeur (la forme
   native écrite et relue) — et **l'identification** (D684) : le type
   sait **se reconnaître** dans une structure native à l'introspection
-  (`read_instance` compose les identifications) ; un type-hook sans
-  ses règles de conversion ne se stocke pas — l'ingestion le refuse.
+  (`get_instance` compose les identifications) ; un type-hook sans
+  ses règles de conversion ne se stocke pas — l'ingestion le refuse ;
+  **depuis D1298, la règle de conversion est la déclinaison** : un
+  élémentaire avec ses propriétés génériques, ou une liste nommée
+  d'élémentaires, le storage ne transcrivant que ceux-là ;
+- **la facette documentation** (D1301 — le rang 2) : le type livre
+  **cinq choses**, le moteur assemble — **la forme en clair**, par
+  langue du moteur, les réglages fondus (« une date, écrite AAAAMMJJ »,
+  « un texte de 40 caractères au plus » — D1160, D1253) ; **la
+  déclinaison** en élémentaires (D1298) ; **les indicateurs** qu'il
+  mesure (D1288) ; **l'exemple** — le `placeholder` du type (D1307), quand le champ n'a
+  pas le sien (D1211) ; **le marquage** qu'il porte, `rgpd:` (D1178) ;
+  et, pour le chapitre du stockage, **les modes de recherche qu'il
+  admet** — les index que le storage en tire (D1292) — et **s'il peut
+  porter une partition** (D1293).
+  Le moteur résout les trois niveaux de réglages (D1239) avant l'appel,
+  le type reçoit ses facettes appliquées et formule ; les mots viennent
+  du catalogue par langue (D1160/D1163), un type ajouté apporte ses
+  items ; un type dérivé hérite de la facette de son socle et peut
+  reformuler ; le glossaire des types (l'annexe B du dictionnaire) se
+  construit de ces livraisons ; un type sans sa facette est complet
+  pour tourner, incomplet pour documenter — la complétude le relève
+  (D1221), l'ingestion ne le refuse pas.
 
 **La collection est un type — et porte les agrégats** (D580) : les
 fonctions de la collection (`list of`, `association with`) sont ses
@@ -172,6 +193,17 @@ settings:
 fields:
   avancement: progression
 ```
+
+**Le pivot avec le storage** (D1297 — le 15/10/2026) : « Le storage
+influe le hook des types pour définir les propriétés ou les éléments à
+couvrir. Au storage de faire le nécessaire pour exploiter au mieux ces
+données. » — le storage énonce la liste de ce qu'il attend d'un type ;
+le type la couvre par sa déclinaison en types élémentaires — un
+élémentaire ou une liste nommée d'élémentaires, le format pivot
+(D1298) — et ses règles de transcription (D1296) ; la forme en
+clair, les indicateurs (D1288) et la règle de stockage sont les trois
+facettes que le contrat du hook de type livre à la documentation — à
+écrire à l'étape 9 du rang 2.
 
 ### 2. Le hook de composant (D64–D68, D452, D566)
 
@@ -409,7 +441,7 @@ error/initialized/disconnected/connected/closed, la fréquence à
 `every:`), `onerror` (le mock ou la page de maintenance — D627) et
 `describe()` (la documentation markdown/html de l'instance — D630).
 Les contrats détaillés — storage (la transaction, l'instance —
-`read_instance`/`duplicate_instance`/`rename_instance` —, les
+`get_instance`/`duplicate_instance`/`rename_instance` —, les
 entités et les enregistrements composés des types-visiteurs
 (D680–D689 : l'écriture en lots, la lecture au curseur), la
 migration à chaud orchestrée par le moteur), smtp (`send`), file
@@ -537,6 +569,19 @@ clair, ses contraintes, son exemple, dans chaque langue du moteur
 attendues (D1162–D1163) ; un hook ajouté à Syncytium pour Syncytium les
 porte toutes ; un hook du concepteur, celles de sa version ; une langue
 manquante est une erreur d'ingestion.
+
+**Les hooks, dans le dictionnaire de la donnée** (la colonne 2 — le rang
+2) : **la notion de hook n'y apparaît pas** (D1244 — « les hooks
+s'intégreront au document sans que la notion de hook apparaisse ») ; le
+lecteur voit ce que chaque hook livre par sa facette : **le hook de
+type**, la forme en clair, la déclinaison, les indicateurs, l'exemple, le
+marquage (D1301) ; **le hook d'opération**, la description de
+l'opération (D1227) et son contrat au chapitre 4.3 — ce qu'elle lit, ce
+qu'elle écrit, ses effets (D1262) ; **le hook de fonction**, le texte des
+formules dans les règles de l'entité (D1254) ; **le hook de connecteur
+storage**, le chapitre 3 par `describe(model)` (D1299) ; les hooks de
+composant et de style, rien. L'inventaire des hooks câblés et comment en
+écrire un vont à la documentation du développeur (D1244).
 
 **Les autres colonnes** — à leur rang : le développeur (le contrat du
 hook, ses propriétés — `degree`, `execution`, `deterministic`,

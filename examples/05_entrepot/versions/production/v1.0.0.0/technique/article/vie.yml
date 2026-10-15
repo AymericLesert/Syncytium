@@ -1,0 +1,23 @@
+# La vie de l'article — les champs du groupe de l'article, référencés depuis fields.yml.
+
+actif:
+  type: boolean
+  required: true
+  default: true
+  label: Actif
+  hint: Faux quand l'ERP bloque l'article.
+
+date_creation:
+  type: date
+  label: Créé le
+
+date_modification:
+  type: date
+  label: Modifié le
+
+plans:
+  type: list of file
+  extensions: [pdf, dwg, dxf, step]
+  label: Plans
+  hint: Les plans de l'article, lus dans le répertoire des plans.
+  description: La liste est remplie par le connecteur des plans, en complément de la base d'origine.

@@ -586,6 +586,19 @@ change, `beta` → la complétude) ; `visibility:` au projet (D1151).
 Le seuil de complétude est à la discrétion du concepteur : le moteur
 mesure, ne refuse pas (D1221).
 
+**L'administration, dans le dictionnaire de la donnée** (la colonne 2 —
+le rang 2) : **les environnements et les storages n'y sont pas** (D1251
+— au guide d'exploitation) ; **le dictionnaire se sert depuis
+l'application** (D1123, D1144 — la version et la langue de l'émetteur),
+privé par la `visibility:` du projet (D1151), ses données à la demande
+(D1216, D1288) ; **l'édition** en est la photographie datée (D1288).
+**Les tables de Syncytium** — la version (D680), `user` (D719), le
+journal et la table des associations de la reprise (D1037), les
+compteurs de télémétrie (D39) — figurent au chapitre 3, signalées
+(D1292) ; les données de `_migration` au chapitre 4.1 (D1302). Le
+tableau de bord « telemetry » du module d'administration montre les
+mêmes chiffres que le chapitre 5.3 (D736, D1288).
+
 **Les autres colonnes** — à leur rang : le guide d'exploitation (le
 rang 7 — l'installation, la configuration, la supervision, les
 opérations de maintenance, D1134) ; la maintenance (le rang 8 — les

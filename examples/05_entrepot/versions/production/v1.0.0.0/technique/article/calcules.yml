@@ -1,0 +1,13 @@
+# Les champs calculés — les champs du groupe de l'article, référencés depuis fields.yml.
+
+dormant:
+  type: boolean
+  formula: context.now - derniere_sortie > 180d if derniere_sortie != null
+  label: Dormant
+  hint: Aucune sortie de stock depuis six mois.
+  description: Un indicateur du tableau de bord ; le contexte courant donne la date du jour.
+
+derniere_sortie:
+  type: date
+  formula: mouvements.max(date if sens = "sortie")
+  label: Dernière sortie

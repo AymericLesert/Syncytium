@@ -158,7 +158,7 @@ lecture, le file, le webhook.)*
 | `connect` / `disconnect` | à l'appel du connecteur (D621) |
 | `ping()` | la santé — **le statut** : `error`, `initialized`, `disconnected`, `connected`, `closed`… ; `every:` en précise la fréquence (D621) |
 | `onerror` | la défaillance — retourne **un mock de résultat** (le connecteur non critique — l'écho de la dégradation D68) ou **l'appel à la page de maintenance** (le connecteur clé) (D627) |
-| `describe()` | « générer de la documentation en markdown/html pour la documentation automatique de l'instance » (D630) — la règle de **tous** les hooks (D645), la doc technique assemblée version par version |
+| `describe()` — `describe(model)` pour le storage (D1299) | « générer de la documentation en markdown/html pour la documentation automatique de l'instance » (D630) — la règle de **tous** les hooks (D645), la doc technique assemblée version par version |
 
 **Les propriétés du socle** : `connection: permanent | on_demand |
 idle[15min]` *(en proposition — D621)*, `pool:` (le parallélisme
@@ -176,7 +176,48 @@ démarrage.
 
 ## Les contrats par famille
 
-### `storage` (D629, D631–D632, D680–D681)
+### `storage` (D629, D631–D632, D680–D681 ; refondé D1294–D1297)
+
+**Les quatre énoncés de l'auteur** (D1294–D1297, le 15/10/2026) :
+
+1. **La définition** — « le storage est le lien entre les données
+   manipulées par Syncytium, la manipulation, son optimisation et le
+   stockage physique. »
+2. **Les objectifs** — « Il intègre tant les données de façon unitaire
+   que les données à traiter/lire en masse. Le traitement doit être
+   bijectif, standardisé et harmonisé, tout en offrant la capacité à
+   être extensible ... » — bijectif : ce qui s'écrit se relit à
+   l'identique (la symétrie structure/donnée, D683) ; standardisé et
+   harmonisé : le même contrat pour tout storage, le même rendu pour
+   tout type ; **extensible par le format pivot** (D1298) : « l'usage
+   d'un format pivot doit offrir l'extensibilité du modèle. Le pivot
+   couvre les types et le stockage des composants élémentaires
+   (booléen, entier, long, decimal, text, ...). Un type Syncytium doit
+   pouvoir se décliner en type élémentaire directement accessible via
+   les types élémentaires ou en liste nommée de types élémentaires. Le
+   storage gère alors ces 2 cas et assure la conversion entre le type
+   élémentaire et le type de stockage. Pour un type élémentaire, le
+   type Syncytium fournit les propriétés génériques (pour text : min et
+   max longueur, ....) » — le nom : un texte de 40 caractères au plus ;
+   la quantité : `{ valeur: decimal, unite: enum }`, l'énuméré stocké en
+   entier (l'indice) ou en texte (le code ISO). Un storage ne connaît
+   que les élémentaires : un type nouveau n'oblige aucun storage, un
+   storage nouveau n'oblige aucun type (D1300).
+3. **L'auto-description** — « Cela porte les règles de transcription
+   entre les types de données manipulées par Syncytium et le stockage
+   physique dans une base de données ou une zone de stockage
+   physique. » — le `describe()` en est le rendu ; la règle de
+   transcription sert trois fois : créer (`create_entity`),
+   reconnaître (`get_instance()`), décrire (`describe(model)`) (D1300).
+4. **Les interfaces, les pivots** — « Le storage influe le hook des
+   types pour définir les propriétés ou les éléments à couvrir. Au
+   storage de faire le nécessaire pour exploiter au mieux ces
+   données. » — le pivot est à l'initiative du storage : il dit ce
+   qu'il attend d'un type (la forme native, les gestes, l'identification,
+   les index qu'il sait porter, la partition), le type le fournit, le
+   storage en tire le meilleur parti ; un type qui ne couvre pas un
+   élément est dégradé (une colonne texte), jamais refusé *(D1300 ;
+   le contrat du hook de type, [hooks.md](hooks.md))*.
 
 **Le contrat parle le langage du méta-modèle** (D680) — l'instance,
 l'entité, le champ ; jamais le vocabulaire du moteur (le schema
@@ -186,7 +227,7 @@ conversion vers le stockage**.
 | le groupe | les méthodes |
 |---|---|
 | la transaction | `begin` · `commit` · `rollback` — l'assise de la transaction tenue ouverte (D594) |
-| l'instance | `create_instance` · **`read_instance`** (l'introspection — le retour est **l'équivalent d'un module** : les entités et leurs champs, la mutualisation N colonnes → 1 champ, les contraintes, les dépendances — D684 ; **borné aux items de stockage** : jamais les surfaces ni les champs calculés — D685 ; pour un storage source, les items = **les entités de la carte `entities:`** — le fichier n'est jamais un item, D829) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
+| l'instance | `create_instance` · **`get_instance()`** (D1299 — « description d'un modèle à l'image du méta-modèle à partir du stockage » ; l'introspection — le retour est **l'équivalent d'un module** : les entités et leurs champs, la mutualisation N colonnes → 1 champ, les contraintes, les dépendances — D684 ; **borné aux items de stockage** : jamais les surfaces ni les champs calculés — D685 ; pour un storage source, les items = **les entités de la carte `entities:`** — le fichier n'est jamais un item, D829) · **`duplicate_instance`** (structure + données — D674) · **`rename_instance`** (la bascule, la restauration — D678) · `delete_instance` |
 | les entités | `create_entity` · `update_entity` · `delete_entity` |
 | les enregistrements | `create` · `read` · `update` · `delete` — **l'écriture en lots** (D688 : create/update/delete portent une liste — le bulk natif de la classe), **la lecture au curseur** (D689 : read() rend un curseur qui convertit chaque ligne en enregistrement au fil du parcours — le lazy loading, la masse au suivi de progression) |
 
@@ -205,7 +246,7 @@ de valeur** (D683 — `create`/`update`/`read` d'une valeur) ; les
 méthodes d'entité **se composent des gestes des types**, les
 méthodes d'enregistrement **des fonctions de valeur** — la symétrie
 structure/donnée ; et **le type s'identifie à l'introspection**
-(D684 — la réciproque : read_instance compose les reconnaissances
+(D684 — la réciproque : get_instance compose les reconnaissances
 des types) ; un storage nouveau visite tous les types sans qu'aucun
 ne change.
 
@@ -450,7 +491,7 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
   changement de type par **les conversions que chaque type porte**
   D579/D584 ; les règles de création/suppression D11–D13
   persistent) ; **l'usage 2 parle le même langage** : le `from:`
-  tire le storage d'origine (`read_instance` — D680), **l'exhaustivité** des
+  tire le storage d'origine (`get_instance` — D680), **l'exhaustivité** des
   tables, colonnes, dépendances et contraintes — tout est couvert ou
   **déclaré ignoré** (D176 étendu), la traduction par les fonctions
   et conversions du langage unique ;
@@ -462,7 +503,7 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
 - **les deux maisons (D652–D653)** : **`source/`** — le modèle
   d'origine décrit **dans la grammaire du méta-modèle**, table par
   table et colonne par colonne (Syncytium s'assure de la complétude
-  du modèle contre `read_instance`) ; **`mapping/`** — les règles de
+  du modèle contre `get_instance`) ; **`mapping/`** — les règles de
   conversion table par table, aux origines multiples possibles ;
 - **la construction et la clé fonctionnelle (D654)** : le mapping
   construit l'enregistrement avant sa validation (D177) ; la clé
@@ -545,4 +586,52 @@ connexions de l'application à son environnement, le schéma calculé
 des connecteurs, D1131) ; le guide d'exploitation (le rang 7 — le
 paramétrage, les secrets `*` D944, `unencrypted:` D901, le mock D627) ;
 la réglementation (les sortants et ce qu'ils emportent, D698) ;
-l'information (le storage et sa facette, D683).
+l'information — **le chapitre du stockage du dictionnaire de la donnée**
+(D1260) : « le connecteur storage matérialise le stockage des types dans
+la base de données » ; le chapitre représente les données telles
+qu'elles sont stockées, pour tout outil de BI qui se connecte à la base
+sans passer par Syncytium — la facette stockage de chaque type (D683),
+assemblée par le storage.
+
+**Le contenu du `describe(model)` du storage** (l'étape 6 du rang 2,
+acquise D1300 — D1292, D1299 : « description du modèle de données couvert par le modèle
+défini en paramètre - tel que les données doivent être stockées ») : la
+classe applique ses règles de transcription (D1296, D1298) au modèle
+qu'on lui donne et rend ce qu'elles produisent, dans son propre vocabulaire — par exception à D680,
+parce que la BI lit la base sans Syncytium : **une fonction pure de la
+configuration** (D645), calculée au dépôt, la même que `create_entity`
+exécute ; servi par une instance, `get_instance()` lit la base et permet
+de vérifier qu'elle correspond au modèle (D801). Par entité : sa table, la colonne du soft
+delete, les colonnes d'audit — **les colonnes du socle sont à étudier**
+(D1305 : leur implémentation n'est pas faite, « les colonnes
+supplémentaires sont liées à un type d'implémentation. Mais, nous
+pourrions adopter une autre approche ») ; **la classe décline chaque
+type de composant en stockage — l'héritage compris, une table par
+dérivé ou une seule avec une colonne de type, à préciser à
+l'implémentation** (D1309) ; par champ de valeur : sa ou ses colonnes,
+le type natif, la nullité, la règle de conversion ; l'identité technique
+(D142) en clé primaire, l'identité fonctionnelle en clé unique sur les
+actifs (D141) ; la référence en clé étrangère ; la composition en table
+de l'enfant ; la structure interne en table nommée par l'entité
+(D1274) ; la liste de valeurs simples en table de liaison ou colonne
+structurée ; l'association dérivée, rien ; l'entité historisée et sa
+table d'instantanés (D169). **Les index, chacun avec son origine dans
+le modèle** (D1292 : « liés aux critères de recherche et de sélection
+définis dans le modèle ») — `searchable: strict | normalized |
+similarity | range` (D367/D371), `mutualizable[nom]` (D780), les
+`searchable:` et `sort:` des listes, les `filter:` des périmètres (D90),
+le champ-statut ; le storage décide la forme physique de chaque index.
+**Les partitions** (D1293, acquises D1300) : déclarées à
+l'entité (`partition: date_comptable[year]`, `partition: [site,
+statut]`), le ou les champs dont les valeurs découpent la table, par
+période pour une date ; sans déclaration, pas de partition ; le froid de
+l'historisation (D169) par période par défaut ; le storage décide la
+forme, le `describe()` la rend avec son origine. Puis les tables de
+Syncytium, signalées : la version (D680), `user`
+(D719), le journal et la table des associations de la reprise (D1037),
+les compteurs de télémétrie (D39). Par champ, la déclinaison en
+élémentaires (D1298) puis la ou les colonnes ; les noms physiques
+suivent la règle du storage ; les colonnes protégées sont marquées de
+leur niveau de confidentialité (D1247) ; au dépôt, chaque famille de
+storage déclarée rend sa forme sans connexion ; servi par une instance,
+celle de son storage (D1300).

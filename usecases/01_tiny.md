@@ -277,16 +277,16 @@ proposition.**)*
 > groupe implicite, en une seule table ; le formulaire du socle n'a pas
 > d'onglet (D1273).
 >
-> | Nom | Type | Libellé | Aide | Obligatoire | Défaut | Confidentialité | Écriture | Depuis |
+> | Nom | Type | Libellé | Aide | Obligatoire | Défaut | Confidentialité | Exceptions d'écriture | Depuis |
 > |---|---|---|---|---|---|---|---|---|
-> | `nom` | un texte de 40 caractères au plus | nom | — | oui (l'identité) | — | public | tous | 1.0.0.0 |
-> | `prenom` | un texte de 40 caractères au plus | prenom | — | oui (l'identité) | — | public | tous | 1.0.0.0 |
-> | `age` | un entier | age | — | non | — | public | tous | 1.0.0.0 |
-> | `fonction` | un texte de 60 caractères au plus | fonction | — | non | — | public | tous | 1.0.0.0 |
+> | `nom` | un texte de 40 caractères au plus | nom | — | oui (l'identité) | — | public | — | 1.0.0.0 |
+> | `prenom` | un texte de 40 caractères au plus | prenom | — | oui (l'identité) | — | public | — | 1.0.0.0 |
+> | `age` | un entier | age | — | non | — | public | — | 1.0.0.0 |
+> | `fonction` | un texte de 60 caractères au plus | fonction | — | non | — | public | — | 1.0.0.0 |
 >
 > *(Le libellé est le nom, par le gabarit `${name}` du socle (D1181) ;
-> « Écriture : tous » — aucun groupe, un seul utilisateur, tous les
-> droits (D1176).)*
+> aucune exception d'écriture (D1311) — aucun groupe, un seul
+> utilisateur, tous les droits (D1176).)*
 >
 > **Les règles.** Aucune validation, aucun calculé, aucun état, aucun
 > automatisme.

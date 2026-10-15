@@ -2397,17 +2397,18 @@ est marqué. **En proposition.**)*
 > groupes, un onglet chacun dans le formulaire du socle. L'extrait du
 > groupe **Les prix** :
 >
-> | Nom | Type | Libellé | Aide | Obligatoire | Défaut | Confidentialité | Écriture | Depuis |
+> | Nom | Type | Libellé | Aide | Obligatoire | Défaut | Confidentialité | Exceptions d'écriture | Depuis |
 > |---|---|---|---|---|---|---|---|---|
-> | `prix_revient` | un montant, en euros par défaut | Prix de revient | Le prix de revient standard — … | non | — | **protégé** — achats, direction | personne (le module est en lecture seule) | 1.0.0.0 |
-> | `prix_moyen_pondere` | un montant, en euros par défaut | Prix moyen pondéré | … | non | — | protégé — achats, direction | personne | 1.0.0.0 |
-> | `prix_achat` | un montant, en euros par défaut | Prix d'achat | … | non | — | protégé — achats, direction | personne | 1.0.0.0 |
+> | `prix_revient` | un montant, en euros par défaut | Prix de revient | Le prix de revient standard — … | non | — | **protégé** — achats, direction | — | 1.0.0.0 |
+> | `prix_moyen_pondere` | un montant, en euros par défaut | Prix moyen pondéré | … | non | — | protégé — achats, direction | — | 1.0.0.0 |
+> | `prix_achat` | un montant, en euros par défaut | Prix d'achat | … | non | — | protégé — achats, direction | — | 1.0.0.0 |
 >
 > *(« un montant, en euros par défaut » : le type `amount` avec le réglage
 > `currency: EUR` de `settings.yml` fondu dans la forme en clair (D1253) ;
 > « protégé — achats, direction » : le profil `financier` résolu (D1247) ;
-> la colonne « Écriture » dit le droit le plus proche : le module ferme
-> `create`, `update`, `delete` — seule la reprise écrit.)*
+> la colonne des exceptions d'écriture (D1311) est vide — les champs
+> suivent leur entité, et le module ferme `create`, `update`, `delete` :
+> seule la reprise écrit.)*
 >
 > **Les règles** (D1254). Deux validations : « le stock maximum
 > {stock_maximum} est sous le stock minimum {stock_minimum} » ; « l'article
@@ -2434,8 +2435,8 @@ est marqué. **En proposition.**)*
 > **Historique** : 1.0.0.1 (beta) — renommé depuis `abrege` ; depuis
 > 1.0.0.0 sous son ancien nom. La section de `langue` : 1.0.0.1 (beta)
 > — retypé, `text[..3]` devenu énuméré (fr, en, de, es). La ligne de
-> `note_interne` : « Écriture : commercial, achats » — le droit du champ
-> l'emporte sur le module fermé (D1172).
+> `note_interne` : l'exception d'écriture « commercial, achats » (D1311)
+> — le droit du champ l'emporte sur le module fermé (D1172).
 >
 > ## 3. Le stockage
 >
@@ -2475,8 +2476,9 @@ est marqué. **En proposition.**)*
 >
 > ### 4.1 Reprise des données
 >
-> **La migration déclarée** `cegid` : la base d'origine `cegid`, la base
-> miroir `temporaire`, le mode relatif, le rythme — le delta nocturne à
+> **Les modules sont fermés à l'écriture : les données n'entrent que par
+> la reprise** (D1312). **La migration déclarée** `cegid` : la base
+> d'origine `cegid`, la base miroir `temporaire`, le mode relatif, le rythme — le delta nocturne à
 > deux heures, la relecture complète le samedi soir (D943). **Les
 > sources** : vingt-trois tables de PMI par module
 > (`source/technique/ARTICLE.yml`…) — pour
@@ -2499,8 +2501,9 @@ est marqué. **En proposition.**)*
 >
 > ### 4.2 Les imports
 >
-> *Aucune entité importable par fichier : le module est en lecture
-> seule, la reprise seule écrit — la section le dit (ma lecture).*
+> Aucune entité importable par fichier : les modules sont fermés à
+> l'écriture, la reprise seule écrit — la description de la reprise
+> (4.1) le met en clair (D1312).
 >
 > ### 4.3 Les opérations
 >
@@ -2537,7 +2540,7 @@ est marqué. **En proposition.**)*
 > La table repliée tient en onze lignes utiles ; la table complète en
 > quarante-sept. C'est là que « l'organisation, la synthèse et sa
 > pertinence » (D1263) se jouent : la synthèse en une ligne, le détail à
-> onze, l'exhaustif sur demande. À confirmer.)*
+> onze, l'exhaustif sur demande — acquis, D1313.)*
 >
 > ### 5.2 Les droits
 >
@@ -2581,17 +2584,18 @@ est marqué. **En proposition.**)*
 
 ---
 
-**Ce que la déclinaison relève.** *(1)* La colonne « Écriture » de la
-table des champs doit rendre le droit le plus proche, module → entité →
-champ ; sans elle, le lecteur croirait `note_interne` fermé. *(2)* La
+**Ce que la déclinaison relève.** *(1)* La table des champs porte la
+colonne des exceptions d'écriture (D1311) : vide quand le champ suit
+son entité, « commercial, achats » pour `note_interne`. *(2)* La
 hiérarchie au stockage — une table par dérivé ou une seule — est une
 déclinaison de la classe du storage, à préciser à l'implémentation
 (D1309) ; le `describe(model)` la dit.
-*(3)* Une version en lecture seule n'a pas de gabarit d'import : le
-chapitre 4.2 le dit plutôt que de disparaître. *(4)* L'index 5.1 tient
-par le pli : la synthèse en une ligne par entité, le détail aux seuls
-champs qui pèsent, l'exhaustif sur demande — la proposition de D1263,
-mesurée ici à 11 sur 47. *(5)* « Depuis la version x » vaut la
+*(3)* Des modules fermés à l'écriture n'ont pas de gabarit d'import :
+le chapitre 4.2 le dit et la description de la reprise le met en clair
+(D1312). *(4)* L'index 5.1 tient
+par le pli (D1313) : la synthèse en une ligne par entité, le détail aux
+seuls champs qui pèsent, l'exhaustif sur demande — mesuré ici à 11
+sur 47. *(5)* « Depuis la version x » vaut la
 première version partout dans la première version — ici 1.0.0.0, mais
 une première version peut être 0.0.0.1 (D1310) ; la colonne ne prend
 son sens qu'à la suivante, où trois champs se distinguent.

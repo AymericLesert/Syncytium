@@ -634,8 +634,11 @@ versions** (D1053 — la version courante du modèle de la source, ses
 écarts, les anomalies de complétude et de description) ; **les
 passages** (le dernier passage, la couverture et la complétude D862, la
 table des clés d'origine par statut D1047, le refusé non enregistré et
-ses motifs D1032). **La frontière** : le dictionnaire dit d'où vient la
-donnée et où en est la correspondance ; le guide d'exploitation (D1206)
+ses motifs D1032). **Quand les modules sont fermés à l'écriture**, la
+description de la reprise le met en clair : les données n'entrent que
+par elle, et le chapitre des imports (4.2) y renvoie (D1312). **La
+frontière** : le dictionnaire dit d'où vient la donnée et où en est la
+correspondance ; le guide d'exploitation (D1206)
 dit comment lancer `migrate` et `reset_coverage`, lire les rapports,
 régler la rétention — les rapports ne sont pas dans le dictionnaire,
 leurs comptes par statut si. Les entités du module (migration, passage,

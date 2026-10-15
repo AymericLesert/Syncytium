@@ -300,7 +300,8 @@ identités nommées, son visage, son historisation et comment lire ses
 instantanés, son `rgpd:` ; **la table des champs par groupe** (D1273,
 D1279) — le nom, le type en clair tel qu'appliqué (D1253), le libellé en
 complément, l'aide, l'obligation, le défaut, le niveau de confidentialité
-(D1247), les droits d'écriture, « depuis la version x » (D1282) ; **ses
+(D1247), les exceptions d'écriture (D1311), « depuis la version x »
+(D1282, D1310) ; **ses
 règles** (D1254) — les validations, les calculés et leurs formules, les
 états avec leur graphe et leurs transitions (D1276), les automatismes ;
 toutes les entités, tous les champs (D1246). Elle figure dans les trois

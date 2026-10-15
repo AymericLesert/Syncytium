@@ -189,13 +189,12 @@ influe sur le hook de type** (D1297) : « le storage influe le hook des
 types pour définir les propriétés ou les éléments à couvrir » — la
 forme native, les gestes, l'identification, les index, la partition ;
 le type les fournit, le storage « fait le nécessaire pour exploiter au
-mieux ces données ». **La déclinaison en types élémentaires** (D1298 —
-le format pivot) : tout type Syncytium se décline **en un type
+mieux ces données ». **La déclinaison en types élémentaires** (D1298,
+D1300 — le format pivot) : tout type Syncytium se décline **en un type
 élémentaire** — booléen, entier, long, décimal, texte… — avec ses
 propriétés génériques (`text[..40]` : la longueur maximale), **ou en
 une liste nommée d'élémentaires** — `measure` → `{ valeur: decimal,
-unite: enum }`, `amount` → `{ valeur: decimal, devise: text[3] }` *(ma
-lecture)* ; l'énuméré se décline en entier (l'indice) ou en texte (le
+unite: enum }`, `amount` → `{ valeur: decimal, devise: text[3] }` (D1300) ; l'énuméré se décline en entier (l'indice) ou en texte (le
 code) ; le storage ne convertit que des élémentaires. Le contrat à
 l'étape 9 du rang 2.
 

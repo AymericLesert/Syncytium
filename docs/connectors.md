@@ -202,13 +202,13 @@ démarrage.
    la quantité : `{ valeur: decimal, unite: enum }`, l'énuméré stocké en
    entier (l'indice) ou en texte (le code ISO). Un storage ne connaît
    que les élémentaires : un type nouveau n'oblige aucun storage, un
-   storage nouveau n'oblige aucun type *(ma lecture)*.
+   storage nouveau n'oblige aucun type (D1300).
 3. **L'auto-description** — « Cela porte les règles de transcription
    entre les types de données manipulées par Syncytium et le stockage
    physique dans une base de données ou une zone de stockage
    physique. » — le `describe()` en est le rendu ; la règle de
    transcription sert trois fois : créer (`create_entity`),
-   reconnaître (`get_instance`), décrire (`describe()`) *(ma lecture)*.
+   reconnaître (`get_instance()`), décrire (`describe(model)`) (D1300).
 4. **Les interfaces, les pivots** — « Le storage influe le hook des
    types pour définir les propriétés ou les éléments à couvrir. Au
    storage de faire le nécessaire pour exploiter au mieux ces
@@ -216,7 +216,7 @@ démarrage.
    qu'il attend d'un type (la forme native, les gestes, l'identification,
    les index qu'il sait porter, la partition), le type le fournit, le
    storage en tire le meilleur parti ; un type qui ne couvre pas un
-   élément est dégradé (une colonne texte), jamais refusé *(ma lecture ;
+   élément est dégradé (une colonne texte), jamais refusé *(D1300 ;
    le contrat du hook de type, [hooks.md](hooks.md))*.
 
 **Le contrat parle le langage du méta-modèle** (D680) — l'instance,
@@ -593,8 +593,8 @@ qu'elles sont stockées, pour tout outil de BI qui se connecte à la base
 sans passer par Syncytium — la facette stockage de chaque type (D683),
 assemblée par le storage.
 
-**Le contenu du `describe(model)` du storage** (l'étape 6 du rang 2 —
-D1292, D1299 : « description du modèle de données couvert par le modèle
+**Le contenu du `describe(model)` du storage** (l'étape 6 du rang 2,
+acquise D1300 — D1292, D1299 : « description du modèle de données couvert par le modèle
 défini en paramètre - tel que les données doivent être stockées ») : la
 classe applique ses règles de transcription (D1296, D1298) au modèle
 qu'on lui donne et rend ce qu'elles produisent, dans son propre vocabulaire — par exception à D680,
@@ -615,7 +615,7 @@ définis dans le modèle ») — `searchable: strict | normalized |
 similarity | range` (D367/D371), `mutualizable[nom]` (D780), les
 `searchable:` et `sort:` des listes, les `filter:` des périmètres (D90),
 le champ-statut ; le storage décide la forme physique de chaque index.
-**Les partitions** (D1293) — *ma lecture, en proposition* : déclarées à
+**Les partitions** (D1293, acquises D1300) : déclarées à
 l'entité (`partition: date_comptable[year]`, `partition: [site,
 statut]`), le ou les champs dont les valeurs découpent la table, par
 période pour une date ; sans déclaration, pas de partition ; le froid de
@@ -623,4 +623,9 @@ l'historisation (D169) par période par défaut ; le storage décide la
 forme, le `describe()` la rend avec son origine. Puis les tables de
 Syncytium, signalées : la version (D680), `user`
 (D719), le journal et la table des associations de la reprise (D1037),
-les compteurs de télémétrie (D39).
+les compteurs de télémétrie (D39). Par champ, la déclinaison en
+élémentaires (D1298) puis la ou les colonnes ; les noms physiques
+suivent la règle du storage ; les colonnes protégées sont marquées de
+leur niveau de confidentialité (D1247) ; au dépôt, chaque famille de
+storage déclarée rend sa forme sans connexion ; servi par une instance,
+celle de son storage (D1300).

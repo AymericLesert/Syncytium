@@ -460,8 +460,9 @@ décisions, D1170–D1238.)*
   4. les mentions d'information et la journalisation des accès :
      **acquis le 19/10/2026 (D1335–D1336)** — `rgpd.notice` générée,
      ancrée par le concepteur, le manque notifié ; les deux chapitres ;
-  5. la cinquième élargie à la sécurité : les dépendances (D924), le
-     code tiers (D918), les secrets (D944) ;
+  5. la cinquième élargie à la sécurité : **acquis le 19/10/2026
+     (D1337–D1338)** — le chapitre de la sécurité, une section par
+     principe en trois paragraphes ;
   6. l'accessibilité des écrans générés et les obligations du secteur.
 - **Déclinaison** : **la banque** (ses champs `rgpd:`) ; le tiny (le
   registre vide d'une entité nominative — frottement 5).
@@ -2322,8 +2323,11 @@ signalés (D705) ; **les secrets** — par connecteur, les clés `*` par
 leur nom, jamais leur valeur (D944), le chiffrement au repos et en
 transit (D707, D902) ; **les mesures de sécurité du registre renvoient
 à ce chapitre** ; **Syncytium ne qualifie pas la sécurité** — des
-faits, ni verdict ni note (D1319) ; la structure du chapitre, en
-cours ; **les droits des
+faits, ni verdict ni note (D1319) ; **la structure** (D1338) : une
+section par principe — les douze de [security.md](security.md) —,
+chacune en trois paragraphes, le socle, la configuration, l'instance ;
+en tête, un sommaire des douze avec un mot d'état — déclaré, vérifié,
+absent ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche

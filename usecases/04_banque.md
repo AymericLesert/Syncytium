@@ -639,3 +639,58 @@ soldés (D1229–D1230) ; la réécriture en ajoute deux :
    cible et renvoie à sa section ; les formes en clair sont miennes, à
    fixer au rang 2 (D1160) ; les champs libres d'un formulaire d'appel
    disent aussi leur type, dans la colonne du déclenchement.
+
+
+## La réglementation — la déclinaison de la banque (le rang 3)
+
+*(La déclinaison du rang 3, écrite le 19/10/2026 sur §18 de
+documentation.md — D1317–D1343. La banque est le mono-poste d'un foyer :
+aucun champ `rgpd:` — les tiers des écritures, les titulaires des
+comptes ne sont pas marqués ; ce n'est pas une anomalie (D1319). Le cas
+montre ce que la documentation 5 donne à une application sans
+traitement déclaré, et ce qu'elle donnerait si le concepteur marquait
+un champ. **En proposition.**)*
+
+---
+
+> # banque — La réglementation et la sécurité
+>
+> ## Le registre des traitements
+>
+> Aucun traitement : aucun champ ne porte le marquage `rgpd:`.
+>
+> ## Les droits des personnes, les mentions d'information
+>
+> *Aucun module soumis.*
+>
+> ## La journalisation des accès
+>
+> Les refus d'autorisation sont journalisés ; aucun champ audité.
+>
+> ## La sécurité de l'instance
+>
+> *Les douze principes, une section chacun (D1338) — l'audience : le
+> groupe `foyer` (D1208), tous ses membres voient tout ; les secrets :
+> aucune clé `*`, le sqlite natif ; la disponibilité : la sauvegarde du
+> fichier ; le chat : absent.*
+>
+> ## L'accessibilité
+>
+> Les critères du RGAA testés à l'ingestion sur les composants employés
+> — dont le graphique `chart[ecriture.evolution_budget]` et le tableau de
+> bord d'accueil (D1237) — : par critère, passe, ne passe pas, non
+> testé. *Aucune déclaration : `accessibility:` absent.*
+>
+> ## Les obligations du secteur
+>
+> *Aucun texte : `regulation:` absent.*
+
+---
+
+**Ce que donnerait un marquage.** Si le concepteur écrivait
+`tiers: { type: text[..40], rgpd: identity }` sur l'écriture, la banque
+aurait un traitement par acte du socle sur `ecriture`, `foyer` pour
+responsable à déclarer, et `rgpd.extract("Dupont")` réunirait les
+écritures du tiers Dupont ; le registre le dirait, « non précisé » tant
+que le bloc `rgpd:` manquerait. Le cas reste sans marquage : c'est le
+foyer qui tient ses propres comptes.

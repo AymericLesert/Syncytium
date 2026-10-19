@@ -2599,3 +2599,138 @@ sur 47. *(5)* « Depuis la version x » vaut la
 première version partout dans la première version — ici 1.0.0.0, mais
 une première version peut être 0.0.0.1 (D1310) ; la colonne ne prend
 son sens qu'à la suivante, où trois champs se distinguent.
+
+
+## La réglementation — la déclinaison de l'entrepôt (le rang 3)
+
+*(La déclinaison du rang 3, écrite le 19/10/2026 sur §18 de
+documentation.md — D1317–D1343. L'entrepôt est le seul cas marqué :
+`tiers.contact` porte six champs `rgpd: personal` — le nom, le prénom,
+le téléphone, le portable, l'email, l'anniversaire — et
+`stock.mouvement.utilisateur`, « l'opérateur qui a saisi — un nom de
+personne ». Les modules sont fermés à l'écriture, la reprise seule
+écrit (D1312) ; aucun bloc `rgpd:` n'est déclaré. On montre le registre
+tel qu'il sortirait aujourd'hui, puis ce que le concepteur ajouterait.
+**En proposition.**)*
+
+---
+
+> # entrepôt — La réglementation et la sécurité
+>
+> ## Le registre des traitements
+>
+> **Les modules soumis** : `tiers` (l'entité `contact`), `stock`
+> (l'entité `mouvement`). `technique` et `commande` ne portent aucun
+> champ marqué.
+>
+> **Le responsable, la base légale, la finalité** : *non précisés* —
+> aucun bloc `rgpd:` au projet, aux modules, aux entités ni aux
+> traitements (D1327). **Le DPO** : *non précisé*.
+>
+> ### Le module tiers
+>
+> **Les données.** `contact` — Une personne chez un tiers, son rôle et
+> ses coordonnées ; stockée dans la table `tiers_contact` (le
+> dictionnaire, chapitre 3), historisée ; six champs `personal` :
+> `nom`, `prenom`, `telephone`, `portable`, `email`, `anniversaire` ;
+> aucun `identity` *(à marquer : `nom` et `prenom` — voir ci-dessous)*.
+>
+> **Les traitements.**
+>
+> | Le traitement | La forme | Qui le déclenche | Les données | Les destinataires | La fréquence |
+> |---|---|---|---|---|---|
+> | lire un contact | l'acte du socle | tous les groupes | les six champs | — | à la demande |
+> | créer, modifier, supprimer un contact | les actes du socle | personne — le module est fermé | — | — | — |
+> | la reprise des contacts | les règles `05_contacts_clients`, `06_contacts_fournisseurs` (la source `CONTACT`) | la reprise, par son privilège ; `migrate` par `delta_nocturne` | les six champs, depuis `cegid` | — | chaque nuit à deux heures |
+> | le rapport des anomalies de la reprise | le `report:` de la source et de la règle | la reprise | les valeurs anonymisées (D1065) | le groupe destinataire, par `smtp` — hors du système | à chaque passage |
+> | l'anonymisation | `rgpd.anonymize` | `administration` | les six champs | — | *non déclarée* |
+> | le nettoyage | `cleanup.yml` | l'environnement | les fichiers de détail de la reprise | — | chaque jour, 90 jours de rétention |
+>
+> **La rétention** : les fichiers de détail, 90 jours ; les
+> enregistrements, *non précisée* — aucune règle d'anonymisation
+> déclarée (D1334). **Le lieu** : *non précisé* — aucun `country:` sur
+> `entrepot` ni sur `smtp`.
+>
+> ### Le module stock
+>
+> **Les données.** `mouvement.utilisateur` — « Saisi par », un nom de
+> personne ; stocké dans `stock_mouvement`, historisé.
+>
+> **Les traitements.** Lire un mouvement, tous les groupes ; la reprise
+> des mouvements, depuis `MVTSTO`, chaque nuit et la relecture complète
+> du samedi ; le rapport des anomalies ; l'anonymisation, *non
+> déclarée*.
+>
+> ## Les droits des personnes
+>
+> Par module soumis : l'accès et la portabilité par
+> `rgpd.extract(identity)`, au plancher `manager` — *sans champ
+> `identity`, pas de point de départ* ; la rectification : les modules
+> sont fermés, la correction se fait à la source, PMI, et la reprise la
+> rapporte ; l'effacement par `rgpd.anonymize`, `administration` ; la
+> limitation : aucun état déclaré.
+>
+> ## Les mentions d'information
+>
+> `rgpd.notice` — *non ancrée* : aucun `paragraph` ne la porte ; **un
+> manque** (D1335). La provenance entrerait dans la mention : « reprises
+> de PMI ».
+>
+> ## La journalisation des accès
+>
+> Aucun champ `sensitive` ; aucun `trace: audit` ; les refus journalisés.
+> *À l'instance : les comptes.*
+>
+> ## La sécurité de l'instance
+>
+> *Les douze principes, une section chacun (D1338)* — les secrets :
+> quatre clés `*` (`entrepot.password`, `cegid.password`,
+> `authentication.client_secret`, `smtp.password`), chiffrées ; aucun
+> `unencrypted:` ; l'audience : six groupes, la direction composée ;
+> les frontières d'extension : aucun hook d'interface ; la
+> disponibilité : les délais de la reprise, `on_running: wait` ; le
+> chat : absent ; les dépendances, à l'instance.
+>
+> ## L'accessibilité, les obligations du secteur
+>
+> Les critères du RGAA testés à l'ingestion sur les composants employés ;
+> *aucune déclaration, aucun texte de secteur.*
+
+---
+
+**Ce que le concepteur ajouterait**, pour que le registre cesse de dire
+« non précisé » — en proposition, à écrire dans la configuration si
+l'auteur le veut :
+
+```yaml
+# settings.yml — le bloc global du projet (D1323)
+rgpd:
+  controller: direction
+  legal: legitimate_interest
+  purpose: Tenir l'entrepôt de données de l'entreprise, miroir de l'ERP
+  contact: direction@example.org
+  dpo: { name: …, email: … }
+
+# tiers/contact/contact.yml — les champs d'identité (D1332)
+#   nom:    { type: text[..40], rgpd: identity }
+#   prenom: { type: text[..40], rgpd: identity }
+
+# l'anonymisation des contacts sortis de l'ERP, chaque mois (D1334)
+operations:
+  anonymiser_contacts:
+    every: monthly[1 at 03:00]
+    operations: [ rgpd.anonymize(tiers.contact, actif = false and date_modification < now - 3y) ]
+
+# environments/production/connectors.yml — le lieu (D1328)
+#   entrepot: { rgpd: { country: FR } }
+#   smtp:     { rgpd: { country: FR } }
+```
+
+**Ce que la déclinaison relève.** *(1)* Un module fermé à l'écriture
+n'a que des traitements de lecture, de reprise et d'appui : le registre
+le dit sans ligne vide. *(2)* Le rapport des anomalies par mail est un
+destinataire externe, même anonymisé — il figure. *(3)* Sans `identity`,
+`rgpd.extract` n'a pas de point de départ : le marquage `personal` seul
+ne suffit pas à répondre à « toutes les données de Mme Martin ». *(4)*
+La forme de `rgpd.anonymize` avec un périmètre — l'entité et la
+condition — est de moi, à arbitrer.

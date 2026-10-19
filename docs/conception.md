@@ -24528,6 +24528,12 @@ avant la synthèse Q16).
   projet, `regulation:` à l'entité ou au module, des textes (D1341–
   D1342) — **l'étape 6 close** ; restent la déclinaison, la rubrique
   de security.md, la colonne 5 ; les trois lectures confirmées (D1343).
+  La déclinaison écrite : le tiny (« aucun traitement »), la banque
+  (le mono-poste sans marquage, et ce qu'un marquage donnerait),
+  l'entrepôt (le registre complet — les deux modules soumis, les
+  traitements de lecture, de reprise et d'appui, les « non précisé »,
+  et ce que le concepteur ajouterait) — en proposition, quatre points
+  relevés.
 - **2026-10-17 — L'ÉTAT DU DOMAINE 5.** Le tableau de bord (le mod
   construit le 17/10, qui lit la table du §1.2) montrait le domaine 5
   encore « À couvrir », l'état de la création du §1.2 (D643) ;

@@ -2240,9 +2240,13 @@ operations:
       purpose: Relancer les clients en retard de paiement   # la finalité, par langue
 ```
 
-*(mes lectures : héritable par la cascade depuis le module ou l'entité,
-propriété par propriété ; une propriété absente, « non précisée » au
-registre ; `retention:` et les destinataires, à arbitrer) ; **les droits des
+**Le même bloc dans les settings, global au projet** (D1323 : « rgpd:
+se décline pour une visibilité globale dans tout le projet ») —
+`settings: { rgpd: { controller: direction, legal_basis: contract } }`,
+les défauts de tout traitement, que le module, l'entité ou le
+traitement surchargent propriété par propriété (D359) *(ma lecture)* ;
+*(mes lectures : une propriété absente à tous les niveaux, « non
+précisée » au registre ; `retention:` et les destinataires, à arbitrer) ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche

@@ -653,6 +653,13 @@ application:
     values: pareto[80/20]          # dynamique — les valeurs et leur fréquence au dictionnaire (D1290–D1291)
 ```
 
+**Le bloc `rgpd:` des settings** (D1323) : à la racine, comme les
+profils de confidentialité — `rgpd: { controller: <groupe>,
+legal_basis: …, purpose: … }` — les défauts réglementaires de tout
+traitement du projet, surchargés par le module, l'entité ou le
+traitement propriété par propriété (D1322, la cascade D359) ; sans
+défaut du socle — absent, le registre écrit « non précisé ».
+
 *Hors de l'inventaire* : le seuil de complétude n'a pas de défaut, le
 moteur mesure et ne refuse pas (D1221) ; le statut `production` seul
 accepté (D1115) est une règle, non un défaut ; les profils de

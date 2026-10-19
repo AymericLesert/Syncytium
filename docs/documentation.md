@@ -457,7 +457,9 @@ décisions, D1170–D1238.)*
      — le chapitre par module, `rgpd.extract(identity)` depuis
      l'identité civile, `rgpd.anonymize`, la limitation par l'état, le
      contact et le DPO ;
-  4. les mentions d'information et la journalisation des accès (D43) ;
+  4. les mentions d'information et la journalisation des accès :
+     **acquis le 19/10/2026 (D1335–D1336)** — `rgpd.notice` générée,
+     ancrée par le concepteur, le manque notifié ; les deux chapitres ;
   5. la cinquième élargie à la sécurité : les dépendances (D924), le
      code tiers (D918), les secrets (D944) ;
   6. l'accessibilité des écrans générés et les obligations du secteur.
@@ -2295,7 +2297,22 @@ seuls champs, exacte ou normalisée, présente les enregistrements trouvés, le
 responsable confirme, puis Syncytium suit les références et les
 compositions (D1198) et réunit ce qui est lié ; le résultat, une édition
 à cartouche (D1142), journalisée (D62) ; l'opposition et le retrait du
-consentement par l'anonymisation des seuls champs `consent` ; **les droits des
+consentement par l'anonymisation des seuls champs `consent`. **Les
+mentions d'information** (D1335) : générées depuis le registre — le
+texte du socle `rgpd.notice`, par entité marquée ou par module, dans
+chaque langue, assemblé des blocs `rgpd:` et des paragraphes du
+catalogue — ; **« le concepteur ancre l'opération à son choix »**, par
+un `paragraph` (D488), sur le formulaire, la page d'accueil, l'édition
+de `rgpd.extract` ou ailleurs ; **« si l'option n'apparaît pas et que
+"rgpd" est présent, un manque doit être notifié »** — la complétude
+compte la mention non ancrée ; la provenance (D178) entre dans la
+mention en mots simples et dans la documentation pour le contexte.
+**La journalisation des accès** (D1336) : par module soumis, un chapitre
+des mentions — le texte généré dans chaque langue et ses places — et
+un chapitre de la journalisation — ce qui est audité (le `sensitive`
+d'office, `trace: audit`, D702–D704), ce qui est journalisé (les actes,
+les refus, D43), qui consulte (`administrator`), la rétention et
+l'anonymisation de l'audit (D41), les comptes à l'instance ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche
@@ -2330,7 +2347,8 @@ Le rapport du concepteur, à la façon de la couverture (D861/D1060) :
 champs sans `hint:` ni `description:`, les énumérés sans libellé, les
 opérations et les hooks sans description ni md, les surfaces sans
 `description:` (le masque vide), **le traitement sans responsable**
-(D1320 — « non précisé ») ; non l'entité sans marquage `rgpd:` — un
+(D1320 — « non précisé ») et **la mention d'information non ancrée**
+quand `rgpd:` est présent (D1335) ; non l'entité sans marquage `rgpd:` — un
 projet sans champ marqué n'est pas une anomalie, Syncytium ne décide
 pas de ce qui est réglementaire (D1319, amende D1177) —, **les champs libres d'un
 formulaire d'appel** sans `hint:` ni `description:` (D1230) ; un taux par module et par version ;

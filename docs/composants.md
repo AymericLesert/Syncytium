@@ -1491,7 +1491,9 @@ page:                              # la section seule, directement (D490)
    informations légales de l'entreprise » ;
 2. **Rôle** — le texte venu de la configuration, affiché tel quel —
    **aucun champ derrière** : la mention, l'explication,
-   l'avertissement ; **et le gabarit** — « le paragraph peut être un
+   l'avertissement — dont **la mention d'information RGPD**, le texte
+   du socle `rgpd.notice` généré depuis le registre, que le concepteur
+   ancre à son choix (D1335) ; **et le gabarit** — « le paragraph peut être un
    gabarit, utilisable dans le cas d'une lettre » (D559,
    l'étoffement Q55) : les variables de l'enregistrement dans le
    texte (« Cher {customer}, votre commande {number}… ») — le

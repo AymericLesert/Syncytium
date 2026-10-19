@@ -390,6 +390,11 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   **`trace: limited`** en exclusion totale (le mot de passe, la clé —
   D463/D603) ; l'entité d'audit au module d'administration, ses
   surfaces au degré `administrator`.
+- **La documentation 5** (D1336) : par module soumis, le chapitre des
+  mentions — `rgpd.notice` générée depuis le registre, ancrée par le
+  concepteur, le manque notifié sinon (D1335) — et le chapitre de la
+  journalisation des accès — l'audité, le journalisé, qui consulte, la
+  rétention de l'audit, les comptes à l'instance.
 - **La finalité sécurité de la télémétrie** (D43) : **journaliser les
   refus d'autorisation** — le carburant du canal — et les échecs
   d'authentification (D720). **Le modèle de risque** (D47) : la pente

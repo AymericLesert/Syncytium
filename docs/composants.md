@@ -3025,6 +3025,15 @@ les opérations qu'un écran déclenche, par leur contrat (D1262) ; **le
 formulaire du socle** suit les groupes de champs (D1273). La forme en
 clair d'un type (D1301) nomme son composant par défaut sans le décrire.
 
+**Les surfaces et les composants, dans la réglementation** (la colonne 5
+— le rang 3) : **le `paragraph` ancre la mention** `rgpd.notice`
+(D1335) — sur un formulaire, la page d'accueil, une édition ; sans
+ancrage, le manque est notifié ; **le wizard est une suite
+d'opérations**, un traitement du registre quand une étape touche un
+champ marqué (D1318, D1329) ; **chaque composant, du socle ou ajouté,
+passe les tests du RGAA à l'ingestion** (D1339–D1340) — le chapitre de
+l'accessibilité en montre le résultat par critère et par composant.
+
 **Les autres colonnes** — à leur rang : la maintenance (la fréquence
 d'emploi de chaque écran, D1168), le développeur (le hook d'interface
 listé, D918).

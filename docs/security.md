@@ -699,3 +699,40 @@ décisions) : « dans cette session, je clos le point sécurité.
 Peut-être ajouterons-nous d'autres points, si nécessaire. » Ce
 document reste la vue vivante : toute décision nouvelle qui touche
 la sécurité s'y reporte, comme au §1.2 de la conception.
+
+## La documentation — la facette de la sécurité (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 5 — la réglementation — remplie au rang 3, D1317–D1344 ;
+les autres à leur rang.)*
+
+**La sécurité, dans la réglementation** (la documentation 5, §18) :
+**le registre des traitements** — une ligne par traitement, une
+opération ou une suite impliquant un champ `rgpd:` (D1317–D1318,
+D1329), groupé par module soumis (D1321), avec le bloc `rgpd:` résolu à
+quatre niveaux — `controller`, `legal`, `purpose`, `contact`, `dpo`
+(D1322–D1327), « non précisé » quand une propriété manque — ; l'entité
+dit le stockage, la rétention vient du nettoyage et de l'anonymisation
+(D1328, D1334), le lieu du `country:` du connecteur ; **les droits des
+personnes** — `rgpd.extract(identity)` depuis les champs `identity`,
+`rgpd.anonymize`, la limitation par l'état (D1330–D1333) ; **les
+mentions** — `rgpd.notice` générée, ancrée par le concepteur, le manque
+notifié sinon (D1335) ; **la journalisation des accès** — l'audité, le
+journalisé, qui consulte, la rétention de l'audit (D1336) ; **le
+chapitre de la sécurité** — les douze principes de ce document, une
+section chacun en trois paragraphes, le socle, la configuration,
+l'instance, un sommaire d'état en tête (D1337–D1338) : les dépendances
+(D924), le code tiers (D918), les secrets par leur nom (D944) ; aucun
+verdict (D1319) ; **l'accessibilité** — les critères du RGAA testés à
+l'ingestion, par critère et par composant, `accessibility:` au projet
+(D1339–D1341) ; **les obligations du secteur** — `regulation:` à
+l'entité ou au module (D1342).
+
+**Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
+sécurité n'est pas ce que l'utilisateur fait ; le masque dit ce qui est
+protégé) ; l'information (le niveau de confidentialité affiché à chaque
+champ, D1247 ; les colonnes protégées du chapitre 3, D1300 ; la matrice
+des droits 5.2) ; le D.A.T. (le rang 6 — l'authentification, les
+origines, le chiffrement en transit) ; le guide d'exploitation (le rang
+7 — les secrets, le wizard, la sauvegarde, le passif) ; la maintenance
+(le rang 8 — les refus, les alertes, les seuils).

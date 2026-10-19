@@ -319,7 +319,20 @@ entité est un lien du diagramme, non une ligne (D1270) ; une liste de
 valeurs composées, une structure interne nommée `entité.champ` (D1271,
 D1274).
 
-**Les autres colonnes** — à leur rang : le développeur (ses points d'API) ; la
-réglementation (ses données `rgpd:`, sa rétention) ; la promotionnelle
+**L'entité et le champ, dans la réglementation** (la colonne 5 — le rang
+3, D1317–D1344) : **le champ marqué `rgpd:`** — `personal`, `sensitive`,
+`consent`, `identity` (D695, D1332), par lui-même ou par son type
+(D1178) — fait du module un module soumis et de l'entité le stockage de
+la donnée (D1317) ; l'entité porte, dans ses settings, le bloc `rgpd:`
+du niveau entité (D1325) ; ses quatre actes du socle sont des
+traitements du registre, ses opérations déclarées aussi quand elles
+touchent un champ marqué, son wizard est une suite (D1318, D1329) ; son
+état peut servir la limitation (D1172, D1331) ; ses champs `identity`
+sont le point de départ de `rgpd.extract` ; sa rétention vient de
+l'anonymisation déclarée sur elle (`rgpd.anonymize` avec `every:`,
+D1334) ; sa table de stockage et ses colonnes protégées, par renvoi au
+dictionnaire (D1321).
+
+**Les autres colonnes** — à leur rang : le développeur (ses points d'API) ; la promotionnelle
 (son titre dans la vue d'ensemble) ; la maintenance (ses usages, ses
 anomalies).

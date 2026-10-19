@@ -252,5 +252,12 @@ dérivé hérite de la facette de son socle ; l'annexe B du dictionnaire,
 le glossaire des types, s'en construit ; sans sa facette, un type est
 complet pour tourner, incomplet pour documenter (D1221).
 
+**Le type, dans la réglementation** (la colonne 5 — le rang 3) : **le
+marquage porté par le type** (D1178) — `rgpd: personal | sensitive |
+consent | identity` sur un type personnalisé, hérité par tout champ qui
+l'emploie — ; le registre se lit alors par type, puis par champ ; le
+`sensitive` audité d'office (D703) ; la forme en clair du type dit le
+marquage (D1301).
+
 **Les autres colonnes** — à leur rang : le développeur (la forme à
-l'API, D20), la réglementation (le marquage porté par le type, D1178).
+l'API, D20), 

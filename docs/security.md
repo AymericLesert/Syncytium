@@ -432,7 +432,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   techniques — la surveillance des salariés est évitée par
   construction ; **la sécurité du SI reste une finalité légitime**
   pour tracer les tentatives nominatives (§6.4).
-- **Le marquage** (D695) : `rgpd: personal | sensitive | consent` — le
+- **Le marquage** (D695) : `rgpd: personal | sensitive | consent` — et
+  `identity` en proposition (D1332 — l'identité civile, le point de
+  départ de l'extraction `extract`, D1331) — le
   modèle sait ce qui est personnel ; le `sensitive` (l'article 9)
   audité d'office (D703).
 - **L'effacement = l'anonymisation** (D137, D139, D696) : jamais une

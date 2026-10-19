@@ -2276,8 +2276,20 @@ déclare le contact du responsable et le DPO** — `settings: { rgpd: {
 controller: direction, contact: …, dpo: { name: …, email: …, phone: … }
 } }` *(ma lecture de la forme)* ; la limitation est servie par l'`allow:`
 par état que le concepteur déclare (D1172), l'effacement par
-`anonymize` (D697), l'accès et la portabilité par l'extraction (D1149 —
-sa forme en cours) ; **les droits des
+`anonymize` (D697), l'accès et la portabilité par **l'extraction — `extract`, la
+vingtième opération du socle, au plancher `manager`** (D1331) ; **le
+marquage de l'identité civile** (D1332) : « rgpd sur un champ pour
+marquer l'identité d'une personne (Nom, Prénom, ou autre propriété) -
+ici, l'identité n'est pas un identifiant unique mais l'identifiant
+civil de la personne. En apportant cette précision et en parcourant
+l'arbre de la donnée, nous pouvons définir toutes les données liées à
+une personne et que ces données lui sont personnelles » — *ma lecture* :
+`rgpd: identity`, une quatrième valeur ; `extract` cherche sur ces seuls
+champs, exacte ou normalisée, présente les enregistrements trouvés, le
+responsable confirme, puis Syncytium suit les références et les
+compositions (D1198) et réunit ce qui est lié ; le résultat, une édition
+à cartouche (D1142), journalisée (D62) ; l'opposition et le retrait du
+consentement par l'anonymisation des seuls champs `consent` ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche

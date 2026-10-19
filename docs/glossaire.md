@@ -156,6 +156,14 @@ contient : le plus proche l'emporte. *(D348/D360)*
 
 **Valeur de démonstration** (`placeholder`) — Description visuelle permet de capter l'attention d'un utilisateur sur la validité de la donnée. L'exemple affiché dans un champ vide ; pour une image, l'icône de fond. *(D364/D390)*
 
+**Extraction** (`extract`) — L'opération du socle qui réunit tout ce
+qui concerne une personne : depuis les champs qui portent son identité
+civile (`rgpd: identity`), les enregistrements trouvés et confirmés,
+puis ce que l'arbre de la donnée y relie — les références, les
+compositions, l'historique, le journal des accès, les traitements qui
+l'ont touchée. Au plancher `manager`, à la demande de l'usager ; le
+résultat, une édition à cartouche, journalisée. *(D1149, D1331–D1332)*
+
 **Exécution à blanc** (Dry-run) — La répétition générale afin de valider la conformité d'une nouvelle version du modèle. Cela ouvre droit à un rapport sur les non-repects ou les impossibilités liés à la migration. Le but est de garantir la stabilité du système et sa continuité de service. *(D120)*
 
 **Dictionnaire de la donnée** — Le titre de la documentation de

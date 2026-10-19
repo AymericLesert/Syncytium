@@ -243,7 +243,11 @@ settings:
 
 - **le marquage** (D695) : la facette **`rgpd:`** aux trois valeurs —
   `personal` (la donnée personnelle), `sensitive` (l'article 9 — le
-  régime renforcé), `consent` (le traitement au consentement) :
+  régime renforcé), `consent` (le traitement au consentement) — et une
+  quatrième en proposition, **`identity`** (D1332 : l'identité civile
+  de la personne — le nom, le prénom —, non un identifiant unique ;
+  depuis ces champs, l'arbre de la donnée dit tout ce qui est lié à une
+  personne ; l'opération `extract` du socle, D1331, part d'eux) :
 
 ```yaml
 fields:

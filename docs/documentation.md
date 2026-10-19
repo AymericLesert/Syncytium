@@ -595,11 +595,32 @@ décisions, D1170–D1238.)*
 - **Livrables** : une section « La promotionnelle ».
 - **Dépendances** : les huit autres ; le jeu de données (D869).
 
-#### Après les neuf
+#### Rang 10 — Syncytium lui-même, et `docs/` consultable sur GitHub (D1316) *(en proposition)*
 
-Le regroupement physique de documentation.md par documentation
-(D1021), la mise à jour du [glossaire](glossaire.md), les points
-ouverts de §26 soldés un à un, la PR vers `develop`.
+« Prévois un rang dans le plan de la documentation pour documenter
+Syncytium et reprendre toute la documentation docs/ rédigée en la
+rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
+
+- **Périmètre** : Syncytium comme produit — le moteur, ses règles, son
+  catalogue, ce que les seize artefacts décrivent — et le dépôt comme
+  lieu de lecture : `docs/`, le registre, les cas d'usage, les
+  exemples.
+- **Sections** : aucune ; documentation.md et le [glossaire](glossaire.md)
+  en pivots.
+- **Étapes** *(mes lectures)* :
+  1. l'inventaire des artefacts et de leur état — ce qui est acquis, en
+     proposition, périmé ;
+  2. la structure de lecture : un sommaire d'entrée, les renvois entre
+     artefacts et registre, le glossaire en pivot, les cas d'usage comme
+     illustrations ;
+  3. le rendu sur GitHub : le Markdown natif, les diagrammes Mermaid
+     rendus, les pages ou le wiki — la forme au domaine 7 (D1126) ;
+  4. la reprise artefact par artefact — le regroupement physique de
+     documentation.md par documentation (D1021), la mise à jour du
+     glossaire, les points ouverts de §26 soldés un à un.
+- **Déclinaison** : le dépôt lui-même.
+- **Livrables** : `docs/` consultable sur GitHub ; la PR vers `develop`.
+- **Dépendances** : les neuf autres rangs — le rang 10 les clôt.
 
 ## 1. Le principe — trois documentations, trois sources, une seule version
 

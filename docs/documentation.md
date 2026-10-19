@@ -445,13 +445,14 @@ décisions, D1170–D1238.)*
   obligations du secteur.
 - **Sections** : §18.
 - **Étapes** :
-  1. ce qu'est un traitement dans Syncytium (le module ? l'entité à
-     `rgpd:` ?), et ce que le registre en calcule : les données, la
-     confidentialité, les destinataires (les groupes, les connecteurs
-     sortants), les durées, l'anonymisation (D696/D698), les transferts
-     (le LLM) ;
-  2. ce qui s'écrit : la finalité, la base légale — où (un bloc `rgpd:`
-     au module ou à l'entité, un fichier complémentaire) ;
+  1. ce qu'est un traitement et ce que le registre calcule : **acquis
+     le 19/10/2026 (D1317–D1321, D1329)** — une opération ou une suite
+     impliquant un champ `rgpd:`, l'entité le stockage, le module le
+     périmètre, groupé par module ;
+  2. ce qui s'écrit : **acquis le 19/10/2026 (D1322–D1328)** — le bloc
+     `rgpd:` à quatre niveaux (`controller`, `legal`, `purpose`), la
+     rétention au nettoyage, l'échéance à l'anonymisation, `country:`
+     au connecteur ;
   3. les droits des personnes : comment l'application sert l'accès, la
      rectification, l'effacement — une surface du socle ? ;
   4. les mentions d'information et la journalisation des accès (D43) ;
@@ -2204,9 +2205,11 @@ l'historisation, la confidentialité ; le module est le périmètre
 soumis, une section du registre par module. **Une suite d'opérations a
 trois formes** (D1318) — le wizard, l'action qui en définit une
 (`operations: [ … ]`, D609), le déclencheur qui référence une opération
-ou une liste (`when:`, `every:`) — : *ma lecture*, une suite est une
-ligne du registre, ses étapes en détail ; un champ marqué touché par
-une étape marque la suite entière. Les champs marqués
+ou une liste (`when:`, `every:`) — : *ma lecture*, une suite est **un seul
+traitement** (D1329) — son responsable, sa base légale, sa finalité
+écrits une fois, ses étapes dans l'ordre avec ce que chacune lit ou
+écrit ; une opération du socle lancée par trois suites apparaît trois
+fois ; un champ marqué touché par une étape marque la suite entière. Les champs marqués
 `rgpd:` (D695), le marquage généralisé par le type (D1178). **Un projet
 sans aucun champ `rgpd:` n'est pas forcément une anomalie : Syncytium
 ne décide pas de ce qui est réglementaire** (D1319 — amende D1177) : le

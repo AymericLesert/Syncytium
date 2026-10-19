@@ -656,8 +656,9 @@ application:
 **Le bloc `rgpd:` des settings** (D1323) : à la racine, comme les
 profils de confidentialité — `rgpd: { controller: <groupe>,
 legal_basis: …, purpose: … }` — les défauts réglementaires de tout
-traitement du projet, surchargés par le module, l'entité ou le
-traitement propriété par propriété (D1322, la cascade D359) ; sans
+traitement du projet, surchargés par les settings du module, puis par
+le traitement, propriété par propriété (D1322, D1324 — trois niveaux,
+l'entité n'en est pas un) ; sans
 défaut du socle — absent, le registre écrit « non précisé ».
 
 *Hors de l'inventaire* : le seuil de complétude n'a pas de défaut, le

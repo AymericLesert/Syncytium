@@ -81,14 +81,6 @@ D1221)*
 
 **Composant graphique** (`component`) — La représentation graphique d'un champ à l'écran ou sur un document (PDF, Excel, ...) : la jauge d'un pourcentage, le calendrier d'une date, le toggle d'un booléen. *(D64)*
 
-**Traitement (RGPD)** — Une opération ou une suite d'opérations —
-un wizard, une action, un déclencheur — impliquant au moins un champ
-`rgpd:`. L'entité qui porte le champ décrit le stockage de la donnée ;
-le module qui porte une telle entité est soumis au RGPD ;
-l'anonymisation et le nettoyage sont des traitements d'appui, tenus
-par leur fréquence et leur règle. Le registre des traitements en fait
-une ligne par traitement. *(D1317–D1318)*
-
 **Type composé** — Un type prêt à l'emploi, fourni par Syncytium ou proposé par une extension, bâti sur un type de base
 avec sa validation incorporée : `amount` (un montant et sa devise),
 `siren` (contrôlé), `period` (début ≤ fin)… *(D122)*
@@ -525,6 +517,14 @@ développeur aux versions publiées. *(D1148 — le rôle s'appelait
 concepteur.)*
 
 **Télémétrie** — Tous compteurs, journaux ou rapports visant à assurer la stabilité du projet (fonctionnement, migration, sécurité, ...) et à apporter des conseils sur des optimisations à apporter tant en termes de développement interne qu'en usage pour les applications tierces. *(D38)*
+
+**Traitement (RGPD)** — Une opération ou une suite d'opérations —
+un wizard, une action, un déclencheur — impliquant au moins un champ
+`rgpd:`. L'entité qui porte le champ décrit le stockage de la donnée ;
+le module qui porte une telle entité est soumis au RGPD ;
+l'anonymisation et le nettoyage sont des traitements d'appui, tenus
+par leur fréquence et leur règle. Le registre des traitements en fait
+une ligne par traitement. *(D1317–D1318)*
 
 **Tri** (`sort`) — L'ordre naturel d'un type — alphabétique, numérique,
 chronologique — réglable là où plusieurs ordres se défendent.

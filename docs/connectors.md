@@ -160,7 +160,10 @@ lecture, le file, le webhook.)*
 | `onerror` | la défaillance — retourne **un mock de résultat** (le connecteur non critique — l'écho de la dégradation D68) ou **l'appel à la page de maintenance** (le connecteur clé) (D627) |
 | `describe()` — `describe(model)` pour le storage (D1299) | « générer de la documentation en markdown/html pour la documentation automatique de l'instance » (D630) — la règle de **tous** les hooks (D645), la doc technique assemblée version par version |
 
-**Les propriétés du socle** : `connection: permanent | on_demand |
+**Les propriétés du socle** : `rgpd: { country: FR }` — le pays du
+stockage ou de la destination, pour le registre des traitements (D1328 ;
+le lieu du storage, les transferts hors Union des connecteurs sortants),
+`connection: permanent | on_demand |
 idle[15min]` *(en proposition — D621)*, `pool:` (le parallélisme
 asynchrone — D622/D436), `retry:` et `timeout:` (la reprise sur
 erreur — D625 ; l'homonymie notée : ce retry n'est pas la reprise de

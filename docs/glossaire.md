@@ -525,8 +525,8 @@ le module qui porte une telle entité est soumis au RGPD ;
 l'anonymisation et le nettoyage sont des traitements d'appui, tenus
 par leur fréquence et leur règle. Le registre des traitements en fait
 une ligne par traitement, avec son bloc `rgpd:` — le responsable
-(`controller`, un groupe d'utilisateurs), la base légale, la finalité
-(`purpose`) —, « non précisé » quand une propriété manque ; un projet sans champ
+(`controller`, un groupe d'utilisateurs), la base légale (`legal`, à
+valeurs fermées), la finalité (`purpose`) —, « non précisé » quand une propriété manque ; un projet sans champ
 `rgpd:` n'est pas une anomalie, Syncytium ne décide pas de ce qui est
 réglementaire. *(D1317–D1322)*
 

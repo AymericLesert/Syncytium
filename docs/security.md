@@ -443,8 +443,12 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   survit. `anonymize` = la dix-neuvième opération, plancher
   `administrator` (D697) ; le fichier anonymisé = le contenu détruit,
   les mots-clés cohérents (Q39).
-- **La rétention** (D698, D411) : la donnée marquée dont la rétention
-  échoit **s'anonymise d'office** ; les traces de journal à
+- **La rétention** (D698, D411, D1328) : portée par l'opération de
+  nettoyage (`cleanup.yml`) ; la rétention d'une donnée est la plus
+  longue période parmi ses traitements ; l'échéance de validité est
+  portée par l'anonymisation — la donnée marquée dont la rétention
+  échoit **s'anonymise d'office** ; le pays du stockage, `country:` dans
+  la section `rgpd:` du connecteur ; les traces de journal à
   rétention paramétrable et anonymisation optionnelle (D41).
 - **Le registre des traitements auto-documenté** (D698) : généré du
   modèle — **une ligne par traitement, c'est-à-dire par opération qui
@@ -456,8 +460,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   périmètre soumis ; les champs `rgpd:`, leur confidentialité, leur
   rétention, leurs connecteurs sortants ; **le responsable du traitement,
   un groupe d'utilisateurs, propriété du traitement** (D1320) — dans
-  **le bloc `rgpd:` du traitement** (D1322 : `controller`, la base
-  légale, `purpose`… ; le même bloc dans les settings du projet, du
+  **le bloc `rgpd:` du traitement** (D1322 : `controller`, `legal` — la base
+  légale à valeurs fermées, un paragraphe par valeur au catalogue,
+  D1326 —, `purpose`… ; le même bloc dans les settings du projet, du
   module et de l'entité, D1323–D1325 — quatre niveaux, le plus proche
   l'emporte), « non précisé » au registre quand il
   manque ; **un projet sans aucun champ `rgpd:` n'est pas une anomalie :

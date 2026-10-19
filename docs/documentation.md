@@ -2236,13 +2236,13 @@ operations:
     operations: [ select_impayes, notify ]
     rgpd:
       controller: comptabilite     # le responsable — un groupe (D1320)
-      legal_basis: contract        # « legacy » lu comme la base légale (ma lecture)
+      legal: contract              # la base légale, à valeurs fermées (D1326)
       purpose: Relancer les clients en retard de paiement   # la finalité, par langue
 ```
 
 **Le même bloc dans les settings, global au projet** (D1323 : « rgpd:
 se décline pour une visibilité globale dans tout le projet ») —
-`settings: { rgpd: { controller: direction, legal_basis: contract } }`,
+`settings: { rgpd: { controller: direction, legal: contract } }`,
 les défauts de tout traitement ; **quatre niveaux** (D1324–D1325 :
 « rgpd: apparaît dans les settings du projet, du module, de l'entité ou
 d'un traitement ») — le module et l'entité les surchargent dans leurs
@@ -2251,8 +2251,21 @@ plus proche l'emporte ; à l'entité, le bloc des settings se distingue
 du marquage de ses champs par sa place ; les actes du socle sur une
 entité marquée prennent le bloc de l'entité, à défaut du module *(ma
 lecture)* ;
-*(mes lectures : une propriété absente à tous les niveaux, « non
-précisée » au registre ; `retention:` et les destinataires, à arbitrer) ; **les droits des
+**`legal:`** (D1326) : les six valeurs du RGPD — `consent`, `contract`,
+`legal_obligation`, `vital_interests`, `public_task`,
+`legitimate_interest` — et, pour chacune, un paragraphe en clair porté
+par le catalogue du moteur, par langue (D1160) : le concepteur écrit la
+valeur, Syncytium le texte. **Une propriété absente à tous les
+niveaux** est « non précisée » au registre et la complétude la compte ;
+un groupe inconnu en `controller:` est une erreur d'ingestion ;
+`purpose:` est un texte par langue (D1327). **La rétention et
+l'échéance** (D1328) : « la rétention est déjà portée par l'opération
+de cleanup. La rétention est la plus longue période parmi les
+traitements. L'échéance de la validité de la donnée portée par
+l'anonymisation » — le registre calcule, par donnée marquée, la
+rétention résultante et l'échéance *(ma lecture)* ; **le pays du
+stockage**, `country:` dans la section `rgpd:` du connecteur — le lieu
+du storage, les transferts hors Union des connecteurs sortants ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche

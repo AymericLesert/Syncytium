@@ -447,8 +447,14 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   échoit **s'anonymise d'office** ; les traces de journal à
   rétention paramétrable et anonymisation optionnelle (D41).
 - **Le registre des traitements auto-documenté** (D698) : généré du
-  modèle — les champs `rgpd:`, leur confidentialité, leur rétention,
-  leurs connecteurs sortants ; une entité sans aucun marquage est
+  modèle — **une ligne par traitement, c'est-à-dire par opération qui
+  implique un champ `rgpd:`** (D1317 : les actes du socle, les
+  opérations déclarées, les règles de reprise, l'import et l'export, les
+  notifications et les webhooks, le LLM ; l'anonymisation et le
+  nettoyage comme traitements d'appui, avec leur fréquence et leur
+  règle) ; l'entité marquée décrit le stockage, le module marqué est le
+  périmètre soumis ; les champs `rgpd:`, leur confidentialité, leur
+  rétention, leurs connecteurs sortants ; une entité sans aucun marquage est
   signalée à la relecture par la complétude de la documentation, jamais
   qualifiée par le moteur — il compte, il ne devine pas (D1177) ; le
   marquage se généralise par le type personnalisé qui le porte

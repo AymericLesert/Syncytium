@@ -2182,16 +2182,30 @@ D1080) ; les dépendances (D924). *À trancher* : ce qui vient de la
 configuration seule et ce qui demande l'instance (les états, les
 derniers passages).
 
-## 18. La conformité *(en proposition)*
+## 18. La conformité *(le rang 3 — en cours ; le traitement défini, D1317)*
 
 « Le document que la TPE peine à tenir, Syncytium le génère » (D698) :
-**le registre des traitements** — les entités et les champs marqués
-`rgpd:`, leur finalité (la description), leur confidentialité, leur
-rétention et l'anonymisation à l'échéance (D696/D698), les connecteurs
-sortants qui les emportent (les mails, les webhooks) — une entité sans
-aucun champ marqué écrit « rien à inscrire », et la complétude (§20) la
-signale à la relecture sans qualifier ses champs : elle compte, elle ne
-devine pas (D1177) ; **les droits des
+**le registre des traitements**. **Le traitement** (D1317) : « une
+opération ou une suite d'opérations impliquant au moins un champ avec
+l'option rgpd. L'entité portant le champ rgpd: décrit le stockage de
+cette donnée. Le module portant au moins une entité avec un champ rgpd:
+est soumis à la RGPD. L'anonymisation et le nettoyage sont des
+traitements qui viennent appuyer le réglementaire en tenant la
+fréquence des opérations, de la règle portée par l'opération, ... » —
+*mes lectures* : les lignes du registre sont des opérations — les
+quatre actes du socle sur une entité marquée, les opérations déclarées
+dont le contrat lit ou écrit un champ marqué, les règles de reprise qui
+l'écrivent, l'import et l'export, les notifications et les mails qui
+l'emportent, les webhooks, l'appel du LLM (D957), et les traitements
+d'appui — `anonymize` (D697), le nettoyage (`cleanup.yml`, D1073), la
+rétention échue (D698) — avec leur fréquence (D943) et leur règle ;
+l'entité donne le stockage (le dictionnaire, chapitre 3),
+l'historisation, la confidentialité ; le module est le périmètre
+soumis, une section du registre par module. Les champs marqués
+`rgpd:` (D695), le marquage généralisé par le type (D1178) ; une entité
+sans aucun champ marqué écrit « rien à inscrire », et la complétude
+(§20) la signale à la relecture sans qualifier ses champs : elle compte,
+elle ne devine pas (D1177) ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche

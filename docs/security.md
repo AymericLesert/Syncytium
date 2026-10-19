@@ -457,8 +457,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   rétention, leurs connecteurs sortants ; **le responsable du traitement,
   un groupe d'utilisateurs, propriété du traitement** (D1320) — dans
   **le bloc `rgpd:` du traitement** (D1322 : `controller`, la base
-  légale, `purpose`… ; le même bloc dans les settings du projet et
-  du module, D1323–D1324 — trois niveaux, le plus proche l'emporte), « non précisé » au registre quand il
+  légale, `purpose`… ; le même bloc dans les settings du projet, du
+  module et de l'entité, D1323–D1325 — quatre niveaux, le plus proche
+  l'emporte), « non précisé » au registre quand il
   manque ; **un projet sans aucun champ `rgpd:` n'est pas une anomalie :
   Syncytium ne décide pas de ce qui est réglementaire** (D1319 — amende
   D1177 : la complétude ne relève plus l'absence de marquage) ; le

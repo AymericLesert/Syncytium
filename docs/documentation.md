@@ -2243,12 +2243,13 @@ operations:
 **Le même bloc dans les settings, global au projet** (D1323 : « rgpd:
 se décline pour une visibilité globale dans tout le projet ») —
 `settings: { rgpd: { controller: direction, legal_basis: contract } }`,
-les défauts de tout traitement ; **trois niveaux** (D1324 : « rgpd:
-apparaît dans les settings du projet, du module ou d'un traitement ») —
-le module les surcharge dans ses settings, le traitement dans son
-bloc, propriété par propriété, le plus proche l'emporte ; l'entité n'en
-est pas un niveau, son `rgpd:` reste le marquage de ses champs ; les
-actes du socle sur une entité marquée prennent le bloc du module *(ma
+les défauts de tout traitement ; **quatre niveaux** (D1324–D1325 :
+« rgpd: apparaît dans les settings du projet, du module, de l'entité ou
+d'un traitement ») — le module et l'entité les surchargent dans leurs
+settings, le traitement dans son bloc, propriété par propriété, le
+plus proche l'emporte ; à l'entité, le bloc des settings se distingue
+du marquage de ses champs par sa place ; les actes du socle sur une
+entité marquée prennent le bloc de l'entité, à défaut du module *(ma
 lecture)* ;
 *(mes lectures : une propriété absente à tous les niveaux, « non
 précisée » au registre ; `retention:` et les destinataires, à arbitrer) ; **les droits des

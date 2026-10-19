@@ -2836,7 +2836,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Les points ouverts *(rafraîchis à la clôture du rang 2, le 16/10/2026)*
+## 26. Les points ouverts *(rafraîchis à la pause du 20/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -2867,8 +2867,8 @@ comme chapitre (§19 → §22, D1187).*
    (§10) ; les écarts filtrés par l'exposition pour le technicien
    (D1285), au rang 5 ;
 10. les pièces encore en proposition, à arbitrer à leur rang : le
-    guide d'exploitation (§17), la conformité (§18), la complétude et
-    son seuil (§20), la maintenance (§23 — la part de chaque lecteur,
+    guide d'exploitation (§17) — §18, la conformité, acquise au rang 3
+    (D1317–D1344) —, la complétude et son seuil (§20), la maintenance (§23 — la part de chaque lecteur,
     la périodicité, les seuils), l'assistance (§25 — le nom du module,
     actif par défaut, les réponses retenues, la question anonyme, la
     F.A.Q. au dépôt) ;

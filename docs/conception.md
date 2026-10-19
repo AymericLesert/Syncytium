@@ -24540,6 +24540,13 @@ avant la synthèse Q16).
   La rubrique « La documentation » de security.md écrite, la colonne 5
   de la matrice dans les dix artefacts et la matrice d'ensemble, le
   plan du rang 3 à jour — à valider.
+- **2026-10-20 — LA PAUSE : LE RANG 3 ENTIER, À VALIDER (1344
+  décisions).** « je marque une pause ». Les six étapes du rang 3
+  acquises (D1317–D1343), la déclinaison faite et l'entrepôt marqué
+  (D1344), la rubrique de security.md et la colonne 5 écrites. À la
+  reprise : la validation des dix rubriques de la colonne 5, puis la
+  clôture du rang 3 ; ensuite le rang 4, le projet et le support
+  (documentation 8), ou la PR.
 - **2026-10-17 — L'ÉTAT DU DOMAINE 5.** Le tableau de bord (le mod
   construit le 17/10, qui lit la table du §1.2) montrait le domaine 5
   encore « À couvrir », l'état de la création du §1.2 (D643) ;

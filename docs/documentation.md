@@ -2312,7 +2312,18 @@ des mentions — le texte généré dans chaque langue et ses places — et
 un chapitre de la journalisation — ce qui est audité (le `sensitive`
 d'office, `trace: audit`, D702–D704), ce qui est journalisé (les actes,
 les refus, D43), qui consulte (`administrator`), la rétention et
-l'anonymisation de l'audit (D41), les comptes à l'instance ; **les droits des
+l'anonymisation de l'audit (D41), les comptes à l'instance. **La sécurité de l'instance** (D1337 — la
+cinquième élargie à la sécurité) : un chapitre au niveau du projet —
+**les dépendances** du moteur et des hooks avec leurs versions,
+calculées à l'instance, les failles « identifiées hors du moteur »
+(D924) ; **le code tiers** — les hooks d'interface câblés, les origines
+autorisées de l'environnement (D918), les connecteurs en `unencrypted:`
+signalés (D705) ; **les secrets** — par connecteur, les clés `*` par
+leur nom, jamais leur valeur (D944), le chiffrement au repos et en
+transit (D707, D902) ; **les mesures de sécurité du registre renvoient
+à ce chapitre** ; **Syncytium ne qualifie pas la sécurité** — des
+faits, ni verdict ni note (D1319) ; la structure du chapitre, en
+cours ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche

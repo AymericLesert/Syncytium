@@ -2268,7 +2268,16 @@ traitements. L'échéance de la validité de la donnée portée par
 l'anonymisation » — le registre calcule, par donnée marquée, la
 rétention résultante et l'échéance *(ma lecture)* ; **le pays du
 stockage**, `country:` dans la section `rgpd:` du connecteur — le lieu
-du storage, les transferts hors Union des connecteurs sortants ; **les droits des
+du storage, les transferts hors Union des connecteurs sortants. **Les droits des
+personnes** (D1330) : un chapitre par module soumis — pour chaque droit,
+l'opération qui le sert, qui l'exécute, ce qu'elle produit ; le texte de
+chaque droit et le délai légal au catalogue du moteur ; **le projet
+déclare le contact du responsable et le DPO** — `settings: { rgpd: {
+controller: direction, contact: …, dpo: { name: …, email: …, phone: … }
+} }` *(ma lecture de la forme)* ; la limitation est servie par l'`allow:`
+par état que le concepteur déclare (D1172), l'effacement par
+`anonymize` (D697), l'accès et la portabilité par l'extraction (D1149 —
+sa forme en cours) ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche

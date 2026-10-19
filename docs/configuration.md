@@ -655,7 +655,8 @@ application:
 
 **Le bloc `rgpd:` des settings** (D1323) : à la racine, comme les
 profils de confidentialité — `rgpd: { controller: <groupe>,
-legal: …, purpose: … }` — les défauts réglementaires de tout
+legal: …, purpose: …, contact: …, dpo: { name, email, phone } }`
+(le contact et le DPO au projet, D1330) — les défauts réglementaires de tout
 traitement du projet, surchargés par les settings du module, de
 l'entité, puis par le traitement, propriété par propriété (D1322,
 D1324–D1325 — quatre niveaux) ; sans

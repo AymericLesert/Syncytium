@@ -471,11 +471,11 @@ proposition)*
 4. **Le socle dans la documentation** (le point ouvert 11) : le
    chapitre 2 vient de Syncytium, identique pour toute application ;
    la configuration ne le nourrit pas. À confirmer.
-5. **Le registre vide d'une entité nominative** — *soldé* (D1177) :
-   `nom`, `prenom`, `age`, `fonction` sans `rgpd:` — la documentation
-   dit « rien à inscrire » ; la complétude signale l'entité sans aucun
-   marquage comme un point à relire, sans qualifier ses champs : elle
-   compte, elle ne devine pas. Le marquage se généralise par un type
+5. **Le registre vide d'une entité nominative** — *soldé* (D1177, amendé
+   D1319) : `nom`, `prenom`, `age`, `fonction` sans `rgpd:` — la
+   documentation dit « aucun traitement » ; la complétude ne relève pas
+   l'absence de marquage : un projet sans champ `rgpd:` n'est pas une
+   anomalie, Syncytium ne décide pas de ce qui est réglementaire. Le marquage se généralise par un type
    personnalisé qui le porte (`nom: { type: text[..40], rgpd: personal }`,
    D1178) ; le tiny, minimal, n'en déclare pas.
 6. **La langue de l'édition** — *soldé* (D1144, D1160) : les textes de

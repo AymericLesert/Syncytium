@@ -454,9 +454,12 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   nettoyage comme traitements d'appui, avec leur fréquence et leur
   règle) ; l'entité marquée décrit le stockage, le module marqué est le
   périmètre soumis ; les champs `rgpd:`, leur confidentialité, leur
-  rétention, leurs connecteurs sortants ; une entité sans aucun marquage est
-  signalée à la relecture par la complétude de la documentation, jamais
-  qualifiée par le moteur — il compte, il ne devine pas (D1177) ; le
+  rétention, leurs connecteurs sortants ; **le responsable du traitement,
+  un groupe d'utilisateurs, propriété du traitement** (D1320 —
+  `controller:` en proposition), « non précisé » au registre quand il
+  manque ; **un projet sans aucun champ `rgpd:` n'est pas une anomalie :
+  Syncytium ne décide pas de ce qui est réglementaire** (D1319 — amende
+  D1177 : la complétude ne relève plus l'absence de marquage) ; le
   marquage se généralise par le type personnalisé qui le porte
   (`nom: { type: text[..40], rgpd: personal }`, D1178) — le registre se
   lit alors par type, puis par champ.

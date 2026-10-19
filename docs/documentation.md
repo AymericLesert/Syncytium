@@ -2207,10 +2207,18 @@ trois formes** (D1318) — le wizard, l'action qui en définit une
 ou une liste (`when:`, `every:`) — : *ma lecture*, une suite est une
 ligne du registre, ses étapes en détail ; un champ marqué touché par
 une étape marque la suite entière. Les champs marqués
-`rgpd:` (D695), le marquage généralisé par le type (D1178) ; une entité
-sans aucun champ marqué écrit « rien à inscrire », et la complétude
-(§20) la signale à la relecture sans qualifier ses champs : elle compte,
-elle ne devine pas (D1177) ; **les droits des
+`rgpd:` (D695), le marquage généralisé par le type (D1178). **Un projet
+sans aucun champ `rgpd:` n'est pas forcément une anomalie : Syncytium
+ne décide pas de ce qui est réglementaire** (D1319 — amende D1177) : le
+registre écrit « aucun traitement », la complétude ne relève pas
+l'absence de marquage. **Le responsable du traitement** (D1320) : « une
+propriété d'un traitement … un groupe d'utilisateurs, rendant sa
+définition et sa vérification plus simple » ; un traitement sans
+responsable « peut apparaître comme non précisé dans la documentation,
+le concepteur pourra compléter » — *ma lecture* : la clé `controller:`
+sur l'opération, le wizard, le déclencheur, héritable du module et de
+l'entité par la cascade (D359) ; qui peut déclencher reste l'`allow:` et
+le degré ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche
@@ -2244,8 +2252,10 @@ Le rapport du concepteur, à la façon de la couverture (D861/D1060) :
 **ce qui n'est pas décrit** — les entités sans `description:`, les
 champs sans `hint:` ni `description:`, les énumérés sans libellé, les
 opérations et les hooks sans description ni md, les surfaces sans
-`description:` (le masque vide), l'entité sans aucun marquage `rgpd:`
-— signalée, jamais qualifiée (D1177), **les champs libres d'un
+`description:` (le masque vide), **le traitement sans responsable**
+(D1320 — « non précisé ») ; non l'entité sans marquage `rgpd:` — un
+projet sans champ marqué n'est pas une anomalie, Syncytium ne décide
+pas de ce qui est réglementaire (D1319, amende D1177) —, **les champs libres d'un
 formulaire d'appel** sans `hint:` ni `description:` (D1230) ; un taux par module et par version ;
 dans la documentation technique, et à l'ingestion comme avertissement.
 **Un défaut du socle n'est pas un manque** (D1173) : `history:` tu, les

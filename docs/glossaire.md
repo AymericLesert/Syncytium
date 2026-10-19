@@ -524,7 +524,10 @@ un wizard, une action, un déclencheur — impliquant au moins un champ
 le module qui porte une telle entité est soumis au RGPD ;
 l'anonymisation et le nettoyage sont des traitements d'appui, tenus
 par leur fréquence et leur règle. Le registre des traitements en fait
-une ligne par traitement. *(D1317–D1318)*
+une ligne par traitement, avec son responsable — un groupe
+d'utilisateurs, « non précisé » s'il manque ; un projet sans champ
+`rgpd:` n'est pas une anomalie, Syncytium ne décide pas de ce qui est
+réglementaire. *(D1317–D1320)*
 
 **Tri** (`sort`) — L'ordre naturel d'un type — alphabétique, numérique,
 chronologique — réglable là où plusieurs ordres se défendent.

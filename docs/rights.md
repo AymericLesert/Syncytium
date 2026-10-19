@@ -247,7 +247,8 @@ settings:
   quatrième en proposition, **`identity`** (D1332 : l'identité civile
   de la personne — le nom, le prénom —, non un identifiant unique ;
   depuis ces champs, l'arbre de la donnée dit tout ce qui est lié à une
-  personne ; l'opération `extract` du socle, D1331, part d'eux) :
+  personne ; l'opération `rgpd.extract(identity)` du socle, D1331/D1333, part
+  d'eux) :
 
 ```yaml
 fields:

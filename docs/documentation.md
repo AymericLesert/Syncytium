@@ -453,8 +453,10 @@ décisions, D1170–D1238.)*
      `rgpd:` à quatre niveaux (`controller`, `legal`, `purpose`), la
      rétention au nettoyage, l'échéance à l'anonymisation, `country:`
      au connecteur ;
-  3. les droits des personnes : comment l'application sert l'accès, la
-     rectification, l'effacement — une surface du socle ? ;
+  3. les droits des personnes : **acquis le 19/10/2026 (D1330–D1333)**
+     — le chapitre par module, `rgpd.extract(identity)` depuis
+     l'identité civile, `rgpd.anonymize`, la limitation par l'état, le
+     contact et le DPO ;
   4. les mentions d'information et la journalisation des accès (D43) ;
   5. la cinquième élargie à la sécurité : les dépendances (D924), le
      code tiers (D918), les secrets (D944) ;
@@ -2276,16 +2278,17 @@ déclare le contact du responsable et le DPO** — `settings: { rgpd: {
 controller: direction, contact: …, dpo: { name: …, email: …, phone: … }
 } }` *(ma lecture de la forme)* ; la limitation est servie par l'`allow:`
 par état que le concepteur déclare (D1172), l'effacement par
-`anonymize` (D697), l'accès et la portabilité par **l'extraction — `extract`, la
-vingtième opération du socle, au plancher `manager`** (D1331) ; **le
+`anonymize` (D697), l'accès et la portabilité par **l'extraction — `rgpd.extract(identity)`, la
+vingtième opération du socle, au plancher `manager`** (D1331, D1333 — la
+famille `rgpd` des opérations réglementaires, `rgpd.anonymize` y entre) ; **le
 marquage de l'identité civile** (D1332) : « rgpd sur un champ pour
 marquer l'identité d'une personne (Nom, Prénom, ou autre propriété) -
 ici, l'identité n'est pas un identifiant unique mais l'identifiant
 civil de la personne. En apportant cette précision et en parcourant
 l'arbre de la donnée, nous pouvons définir toutes les données liées à
 une personne et que ces données lui sont personnelles » — *ma lecture* :
-`rgpd: identity`, une quatrième valeur ; `extract` cherche sur ces seuls
-champs, exacte ou normalisée, présente les enregistrements trouvés, le
+`rgpd: identity`, une quatrième valeur ; `rgpd.extract` cherche sur ces
+seuls champs, exacte ou normalisée, présente les enregistrements trouvés, le
 responsable confirme, puis Syncytium suit les références et les
 compositions (D1198) et réunit ce qui est lié ; le résultat, une édition
 à cartouche (D1142), journalisée (D62) ; l'opposition et le retrait du

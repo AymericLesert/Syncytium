@@ -2201,7 +2201,12 @@ d'appui — `anonymize` (D697), le nettoyage (`cleanup.yml`, D1073), la
 rétention échue (D698) — avec leur fréquence (D943) et leur règle ;
 l'entité donne le stockage (le dictionnaire, chapitre 3),
 l'historisation, la confidentialité ; le module est le périmètre
-soumis, une section du registre par module. Les champs marqués
+soumis, une section du registre par module. **Une suite d'opérations a
+trois formes** (D1318) — le wizard, l'action qui en définit une
+(`operations: [ … ]`, D609), le déclencheur qui référence une opération
+ou une liste (`when:`, `every:`) — : *ma lecture*, une suite est une
+ligne du registre, ses étapes en détail ; un champ marqué touché par
+une étape marque la suite entière. Les champs marqués
 `rgpd:` (D695), le marquage généralisé par le type (D1178) ; une entité
 sans aucun champ marqué écrit « rien à inscrire », et la complétude
 (§20) la signale à la relecture sans qualifier ses champs : elle compte,

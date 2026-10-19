@@ -2225,7 +2225,24 @@ traitement » — *ma lecture* : une section par module soumis, une
 sous-section par traitement (son nom, sa forme, son responsable, qui
 peut le déclencher, sa fréquence, sa règle), puis les données qu'il
 exploite — les champs `rgpd:` par entité, leur niveau, leur stockage
-(le renvoi au dictionnaire), leur rétention, les connecteurs sortants ; **les droits des
+(le renvoi au dictionnaire), leur rétention, les connecteurs sortants. **Le bloc `rgpd:` du
+traitement** (D1322) : « la clé "rgpd:" qui déclinera les propriétés
+propres à la RGPD comme "controller", "legacy", "purpose" ... » — la même
+clé qu'au champ, où elle marque (D695) ; au traitement, le bloc :
+
+```yaml
+operations:
+  relance_impayes:                 # une opération déclarée — un traitement
+    operations: [ select_impayes, notify ]
+    rgpd:
+      controller: comptabilite     # le responsable — un groupe (D1320)
+      legal_basis: contract        # « legacy » lu comme la base légale (ma lecture)
+      purpose: Relancer les clients en retard de paiement   # la finalité, par langue
+```
+
+*(mes lectures : héritable par la cascade depuis le module ou l'entité,
+propriété par propriété ; une propriété absente, « non précisée » au
+registre ; `retention:` et les destinataires, à arbitrer) ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche

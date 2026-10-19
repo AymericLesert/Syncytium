@@ -455,8 +455,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   règle) ; l'entité marquée décrit le stockage, le module marqué est le
   périmètre soumis ; les champs `rgpd:`, leur confidentialité, leur
   rétention, leurs connecteurs sortants ; **le responsable du traitement,
-  un groupe d'utilisateurs, propriété du traitement** (D1320 —
-  `controller:` en proposition), « non précisé » au registre quand il
+  un groupe d'utilisateurs, propriété du traitement** (D1320) — dans
+  **le bloc `rgpd:` du traitement** (D1322 : `controller`, la base
+  légale, `purpose`…, héritable par la cascade, ma lecture), « non précisé » au registre quand il
   manque ; **un projet sans aucun champ `rgpd:` n'est pas une anomalie :
   Syncytium ne décide pas de ce qui est réglementaire** (D1319 — amende
   D1177 : la complétude ne relève plus l'absence de marquage) ; le

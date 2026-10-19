@@ -2698,33 +2698,25 @@ tel qu'il sortirait aujourd'hui, puis ce que le concepteur ajouterait.
 
 ---
 
-**Ce que le concepteur ajouterait**, pour que le registre cesse de dire
-« non précisé » — en proposition, à écrire dans la configuration si
-l'auteur le veut :
+**Ce que le concepteur a ajouté** (D1344 — écrit le 19/10/2026 dans la
+configuration, les deux versions et les deux environnements), pour que
+le registre cesse de dire « non précisé » :
 
-```yaml
-# settings.yml — le bloc global du projet (D1323)
-rgpd:
-  controller: direction
-  legal: legitimate_interest
-  purpose: Tenir l'entrepôt de données de l'entreprise, miroir de l'ERP
-  contact: direction@example.org
-  dpo: { name: …, email: … }
+- `settings.yml` : le bloc `rgpd:` global — `controller: direction`,
+  `legal: legitimate_interest`, `purpose`, `contact`, `dpo` (D1323) ;
+- `tiers/contact/contact.yml` : `nom` et `prenom` en `rgpd: identity`
+  (D1332) ; l'opération `anonymiser` — `every: monthly[1 at 03:00]`,
+  `rgpd.anonymize(owner.actif = false and owner.date_modification <
+  context.now - 3y)`, avec son `purpose` (D1334) ;
+- `environments/production/connectors.yml` et `staging` : `rgpd:
+  { country: FR }` sur `entrepot`, `cegid`, `smtp` (D1328) ;
+- `syncytium.yml` : `home: ~{documentation/home.md}`, la page d'accueil
+  qui ancre `${rgpd.notice}` (D1335).
 
-# tiers/contact/contact.yml — les champs d'identité (D1332)
-#   nom:    { type: text[..40], rgpd: identity }
-#   prenom: { type: text[..40], rgpd: identity }
-
-# l'anonymisation des contacts sortis de l'ERP, chaque mois (D1334)
-operations:
-  anonymiser_contacts:
-    every: monthly[1 at 03:00]
-    operations: [ rgpd.anonymize(tiers.contact, actif = false and date_modification < now - 3y) ]
-
-# environments/production/connectors.yml — le lieu (D1328)
-#   entrepot: { rgpd: { country: FR } }
-#   smtp:     { rgpd: { country: FR } }
-```
+Le registre dit alors le responsable, la base légale, la finalité, le
+contact et le DPO ; la rétention des contacts, trois ans après la sortie
+du tiers ; le lieu, la France ; la mention, ancrée sur la page
+d'accueil ; `rgpd.extract("Martin")` a son point de départ.
 
 **Ce que la déclinaison relève.** *(1)* Un module fermé à l'écriture
 n'a que des traitements de lecture, de reprise et d'appui : le registre
@@ -2732,5 +2724,5 @@ le dit sans ligne vide. *(2)* Le rapport des anomalies par mail est un
 destinataire externe, même anonymisé — il figure. *(3)* Sans `identity`,
 `rgpd.extract` n'a pas de point de départ : le marquage `personal` seul
 ne suffit pas à répondre à « toutes les données de Mme Martin ». *(4)*
-La forme de `rgpd.anonymize` avec un périmètre — l'entité et la
-condition — est de moi, à arbitrer.
+`rgpd.anonymize` prend un périmètre — une condition sur l'entité qui
+la déclare (D1344).

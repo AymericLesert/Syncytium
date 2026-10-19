@@ -16,6 +16,11 @@ entrepot:
     user: ${ENTREPOT_USER}
     password*: ${ENTREPOT_PASSWORD}
 
+  # Le réglementaire
+  # Le stockage est en France.
+  rgpd:
+    country: FR
+
 # Cegid PMI
 # La base d'origine de la reprise : une copie de la base de PMI, jamais la production, lue en lecture seule.
 cegid:
@@ -50,6 +55,11 @@ cegid:
       N: decimal
       J: date[yyyymmdd]
       S: text[6]
+
+  # Le réglementaire
+  # L'ERP est en France.
+  rgpd:
+    country: FR
 
 # La base miroir de la reprise
 # La migration y construit et contrôle l'entrepôt avant d'en reporter les différences ; la base est tenue en mémoire, le
@@ -92,3 +102,8 @@ smtp:
     port: 587
     address_from: ${SMTP_FROM}
     password*: ${SMTP_PASSWORD}
+
+  # Le réglementaire
+  # Le relais de messagerie est en France.
+  rgpd:
+    country: FR

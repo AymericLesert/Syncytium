@@ -9,6 +9,10 @@ name: entrepot
 # La description du projet
 description: L'entrepôt de données de l'entreprise — les données de Cegid PMI standardisées, harmonisées et fiabilisées
 
+# La page d'accueil
+# Globale, hors des versions : la présentation de l'entrepôt et la mention d'information du RGPD, ancrée là.
+home: ~{documentation/home.md}
+
 # Les environnements d'exécution
 # Chaque environnement porte le storage de l'application, ses connecteurs, sa journalisation et son nettoyage ; rien ne
 # se déduit de l'arborescence, la déclaration fait foi.

@@ -24537,6 +24537,9 @@ avant la synthèse Q16).
   les blocs `rgpd:` écrits dans la configuration de l'entrepôt — le
   settings, le contact (`identity`, `anonymiser`), les connecteurs
   (`country`), la page d'accueil (`${rgpd.notice}`) (D1344).
+  La rubrique « La documentation » de security.md écrite, la colonne 5
+  de la matrice dans les dix artefacts et la matrice d'ensemble, le
+  plan du rang 3 à jour — à valider.
 - **2026-10-17 — L'ÉTAT DU DOMAINE 5.** Le tableau de bord (le mod
   construit le 17/10, qui lit la table du §1.2) montrait le domaine 5
   encore « À couvrir », l'état de la création du §1.2 (D643) ;

@@ -584,11 +584,20 @@ en `none` la retire ; **le `llm`** sert le chat, pas la documentation
 (D1226). Les connecteurs sortants qui emportent des données personnelles
 se nomment à la conformité (§18), non à la fonctionnelle.
 
+**Les connecteurs, dans la réglementation** (la colonne 5 — le rang 3) :
+**`rgpd: { country: … }`** — le pays du stockage pour le storage, de la
+destination pour les sortants ; le registre en tire le lieu et les
+transferts hors Union (D1328) ; **les connecteurs sortants** — `smtp`,
+`webhook`, `llm` — sont les destinataires externes des traitements qui
+leur passent un champ marqué (D1317), le rapport de la reprise par mail
+compris, même anonymisé (D1344) ; **au chapitre de la sécurité**, les
+secrets `*` par leur nom, jamais leur valeur (D944), `unencrypted:`
+signalé (D705), les origines autorisées (D918).
+
 **Les autres colonnes** — à leur rang : le D.A.T. (le rang 6 — les
 connexions de l'application à son environnement, le schéma calculé
 des connecteurs, D1131) ; le guide d'exploitation (le rang 7 — le
 paramétrage, les secrets `*` D944, `unencrypted:` D901, le mock D627) ;
-la réglementation (les sortants et ce qu'ils emportent, D698) ;
 l'information — **le chapitre du stockage du dictionnaire de la donnée**
 (D1260) : « le connecteur storage matérialise le stockage des types dans
 la base de données » ; le chapitre représente les données telles

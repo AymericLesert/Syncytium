@@ -599,6 +599,15 @@ compteurs de télémétrie (D39) — figurent au chapitre 3, signalées
 tableau de bord « telemetry » du module d'administration montre les
 mêmes chiffres que le chapitre 5.3 (D736, D1288).
 
+**L'administration, dans la réglementation** (la colonne 5 — le rang
+3) : **l'entité d'audit** et ses surfaces au degré `administrator`
+(D702–D704), le chapitre de la journalisation des accès (D1336) ; **les
+dépendances** du moteur et des hooks, calculées à l'instance, au
+chapitre de la sécurité (D924, D1337) ; **le nettoyage** reste aux
+fichiers et aux traces, l'anonymisation aux enregistrements (D1334) ;
+**les tests du RGAA** enregistrés à l'ingestion (D1340) ; le DPO et le
+contact déclarés au projet (D1330).
+
 **Les autres colonnes** — à leur rang : le guide d'exploitation (le
 rang 7 — l'installation, la configuration, la supervision, les
 opérations de maintenance, D1134) ; la maintenance (le rang 8 — les

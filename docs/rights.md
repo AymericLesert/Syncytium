@@ -489,8 +489,15 @@ chaque champ** (D1247) ; **les données de l'instance suivent les droits
 du lecteur** (D1249). Les personas n'y sont pas — le dictionnaire est centré sur la donnée
 (D1241).
 
-**Les autres colonnes** — à leur rang : la réglementation (le rang 3 —
-la matrice des droits, l'extraction demandée par l'usager D1149, le
-registre) ; le guide d'exploitation (les groupes et leur gestion, les
+**Les groupes et les droits, dans la réglementation** (la colonne 5 — le
+rang 3) : **le responsable du traitement est un groupe** —
+`controller:` dans le bloc `rgpd:` (D1320) — ; **qui peut déclencher**
+chaque traitement reste l'`allow:` et le degré, que le registre montre à
+côté du responsable (D1327) ; **les destinataires internes**, les
+groupes qui lisent, par la confidentialité ; **`rgpd.extract`** au
+plancher `manager`, **`rgpd.anonymize`** au plancher `administrator`
+(D1331, D1333) ; la limitation par l'`allow:` d'un état (D1172).
+
+**Les autres colonnes** — à leur rang : ; le guide d'exploitation (les groupes et leur gestion, les
 affectations D341) ; la promotionnelle (le mode public, `visibility:`
 D1151).

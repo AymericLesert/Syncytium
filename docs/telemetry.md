@@ -244,6 +244,13 @@ d'historisés, les compteurs (D39). **Le hook de type livre ses
 indicateurs** (D1288) ; le tableau de bord « telemetry » montre les
 mêmes chiffres.
 
+**La télémétrie, dans la réglementation** (la colonne 5 — le rang 3) :
+**la journalisation des accès** (D1336) — les refus d'autorisation
+journalisés (D43), l'audit des lectures au grain de l'acte (D702–D704),
+leurs comptes par période à l'instance ; **l'extraction** d'une personne
+reprend les accès qui la concernent (D1331) ; la rétention et
+l'anonymisation des traces (D41) au chapitre de la journalisation.
+
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 télémétrie n'est pas ce que l'utilisateur fait) ; la maintenance et la
 supervision (§23 — le tableau de bord, la synthèse périodique, les

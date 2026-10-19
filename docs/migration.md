@@ -647,9 +647,14 @@ chapitre 3 (D1292), leurs données ici. Une version sans reprise n'a pas
 de chapitre 4.1 ; une version à plusieurs migrations, une section par
 migration.
 
-**Les autres colonnes** — à leur rang : le guide d'exploitation (le
-rang 7 — les passages, les trois taux D862, les rejets et leurs
+**Le module `_migration`, dans la réglementation** (la colonne 5 — le
+rang 3) : **la reprise est un traitement d'origine** du registre, par
+règle, quand elle écrit un champ marqué (D1317, D1344) ; **le rapport
+des anomalies par mail est un destinataire externe**, même anonymisé
+(D1065, D1344) ; les fichiers de détail à rétention par le nettoyage
+(D1334) ; la provenance de chaque champ marqué par le graphe source →
+cible, dans la mention et dans la documentation (D1335).
+
+**Les autres colonnes** — à leur rang : le guide d'exploitation (le rang 7 — les passages, les trois taux D862, les rejets et leurs
 rapports D929, `migrate` et `reset_coverage`, le rythme) ; la
-maintenance (le rang 8 — la couverture et les compteurs) ; la
-réglementation (les données personnelles reprises et leur provenance
-D178).
+maintenance (le rang 8 — la couverture et les compteurs).

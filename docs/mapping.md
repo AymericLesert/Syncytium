@@ -927,8 +927,15 @@ mappés et leurs transformations, les destinataires), **le graphe source
 (D1198, D1186) ; à l'instance, le modèle lu et ses versions, les
 passages ; le détail dans [migration.md](migration.md).
 
+**La migration déclarée, dans la réglementation** (la colonne 5 — le
+rang 3) : **les règles de reprise qui écrivent un champ marqué sont des
+traitements** du registre (D1317), par leur source, leur cible, leur
+rapport et ses destinataires ; **la provenance** (D178) entre dans la
+mention d'information — « reprises de PMI » — et dans la documentation,
+pour le contexte (D1335) ; la rétention des fichiers de détail au
+nettoyage (D1065, D1334).
+
 **Les autres colonnes** — à leur rang : le guide
 d'exploitation (le rang 7 — `migrate`, `reset_coverage`, le rythme, les
-rapports de rejets D929, les anomalies D1032) ; la réglementation (la
-provenance D178, les données personnelles reprises) ; la maintenance
+rapports de rejets D929, les anomalies D1032) ; la maintenance
 (la couverture et les compteurs, [migration.md](migration.md)).

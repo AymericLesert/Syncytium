@@ -2267,8 +2267,11 @@ un groupe inconnu en `controller:` est une erreur d'ingestion ;
 l'échéance** (D1328) : « la rétention est déjà portée par l'opération
 de cleanup. La rétention est la plus longue période parmi les
 traitements. L'échéance de la validité de la donnée portée par
-l'anonymisation » — le registre calcule, par donnée marquée, la
-rétention résultante et l'échéance *(ma lecture)* ; **le pays du
+l'anonymisation » — **le nettoyage reste aux fichiers et aux traces, l'anonymisation
+des enregistrements porte sa règle et sa fréquence** (D1334 :
+`rgpd.anonymize` déclarée avec `every:` et son `filter:`), le registre
+fait la somme — par donnée marquée, la rétention résultante et
+l'échéance, à l'instance (D1329) ; **le pays du
 stockage**, `country:` dans la section `rgpd:` du connecteur — le lieu
 du storage, les transferts hors Union des connecteurs sortants. **Les droits des
 personnes** (D1330) : un chapitre par module soumis — pour chaque droit,

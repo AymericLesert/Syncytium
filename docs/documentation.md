@@ -2218,7 +2218,14 @@ responsable « peut apparaître comme non précisé dans la documentation,
 le concepteur pourra compléter » — *ma lecture* : la clé `controller:`
 sur l'opération, le wizard, le déclencheur, héritable du module et de
 l'entité par la cascade (D359) ; qui peut déclencher reste l'`allow:` et
-le degré ; **les droits des
+le degré ; **la forme** (D1321) : « la réglementation présente la
+documentation des traitements groupée par module. La référence aux
+données exploitées par les traitements viennent compléter la section du
+traitement » — *ma lecture* : une section par module soumis, une
+sous-section par traitement (son nom, sa forme, son responsable, qui
+peut le déclencher, sa fréquence, sa règle), puis les données qu'il
+exploite — les champs `rgpd:` par entité, leur niveau, leur stockage
+(le renvoi au dictionnaire), leur rétention, les connecteurs sortants ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche

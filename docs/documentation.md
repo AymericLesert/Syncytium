@@ -463,7 +463,9 @@ décisions, D1170–D1238.)*
   5. la cinquième élargie à la sécurité : **acquis le 19/10/2026
      (D1337–D1338)** — le chapitre de la sécurité, une section par
      principe en trois paragraphes ;
-  6. l'accessibilité des écrans générés et les obligations du secteur.
+  6. l'accessibilité des écrans générés et les obligations du secteur :
+     **acquis le 19/10/2026 (D1339–D1342)** — le RGAA testé à
+     l'ingestion, `accessibility:` et `regulation:`.
 - **Déclinaison** : **la banque** (ses champs `rgpd:`) ; le tiny (le
   registre vide d'une entité nominative — frottement 5).
 - **Livrables** : §18 validé ; [security.md](security.md) (le registre
@@ -1720,6 +1722,7 @@ visibility: promotional          # public | private | promotional (D1151)
 home: ~{home.md}                 # la page d'accueil, globale — hors des versions (D1156)
 author: Aymeric Lesert           # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
+accessibility: ~{documentation/accessibility.md}   # la déclaration d'accessibilité, un texte du concepteur par langue (D1341)
 glossary:                        # le glossaire des termes du métier (D1180 ; la clé validée, D1219)
   tiers: Toute personne ou société en relation avec l'entreprise — client, fournisseur, prospect.
   article:                       # un terme = une liste de mots, singulier et pluriel (D1197 ; `words:` validé, D1219)
@@ -1734,6 +1737,7 @@ module, par la clé `documentation:` de son fichier :
 # modules/stock/documentation.yml (en proposition)
 glossary:
   lot: Une quantité d'un article reçue ou fabriquée en une fois, suivie sous un même numéro.
+regulation: ~{documentation/regulation.md}   # les obligations du secteur, un texte par langue — au module ou à l'entité (D1342)
 ```
 
 **À la version** — ce qui est versionné avec la configuration (D1156) :
@@ -2327,7 +2331,21 @@ faits, ni verdict ni note (D1319) ; **la structure** (D1338) : une
 section par principe — les douze de [security.md](security.md) —,
 chacune en trois paragraphes, le socle, la configuration, l'instance ;
 en tête, un sommaire des douze avec un mot d'état — déclaré, vérifié,
-absent ; **les droits des
+absent. **L'accessibilité** (D1339–D1341) : « Syncytium va s'appuyer sur
+RGAA. Mais, Syncytium ne pourra pas répondre aux 106 points portés par
+cette norme. Cependant, en utilisant les tests, nous pouvons préciser
+les cas qui passent et ceux qui ne passent pas. Et, nous nous
+limiterons à cela. Le but, ici, est de montrer à quel niveau nous
+sommes pas forcément un objectif à atteindre » ; les critères **testés
+par Syncytium et enregistrés dès l'ingestion**, pour les composants
+endogènes comme exogènes — le chapitre montre, par critère, passe, ne
+passe pas, non testé, et par composant le détail *(ma lecture)* ; **la
+déclaration d'accessibilité**, un texte du concepteur dans
+`accessibility:` de `documentation.yml` du projet, le texte seul.
+**Les obligations du secteur** (D1342) : `regulation:` de
+`documentation.yml` d'une entité ou d'un module — le chapitre les
+reproduit par module et y joint ce que le registre sait, les rétentions
+et les bases légales *(ma lecture)* ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche

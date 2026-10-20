@@ -371,6 +371,9 @@ from: Syncytium-1.0                  # le format, la première clé (D1083)
 name: entrepot
 description: L'entrepôt de données de l'entreprise — …
 visibility: promotional              # public | private | promotional — ce qui se lit sans aucun droit (D1151, en proposition)
+author: Aymeric Lesert               # celui qui a conçu l'application (D1153)
+contact: evolutions@example.org      # le contact des demandes d'évolution (D1153)
+copyright: © 2026 L'entrepôt SAS     # le titulaire des droits d'auteur de l'application (D1355)
 environments: ~{environments/environments.yml}
 versions: ~{versions/versions.yml}
 ```
@@ -381,6 +384,13 @@ défaut et mise à disposition (D1150) ; `public` — la documentation en
 mode public, sans donnée ni rien de confidentiel. *Mes lectures* : la
 clé au projet, le défaut `promotional`, la place dans `syncytium.yml` —
 à confirmer avec la promotionnelle (documentation.md, le rang 9).
+
+**`author:`, `contact:`, `copyright:` — le projet nommé** (D1153,
+D1355) : le concepteur, celui qui a conçu l'application et reçoit les
+demandes d'évolution ; le titulaire des droits d'auteur de la
+configuration. La page des versions (documentation.md §26) les
+reprend, avec les auteurs de chaque version et les droits de chaque
+ressource.
 
 **`from:` — l'origine, partout** (D1086) : un seul sens pour trois
 places — **le projet** (`syncytium.yml`) : le modèle Syncytium dont la
@@ -485,6 +495,7 @@ version: 1.0.0.0
 languages: [fr, en]                  # les langues de la version, la première par défaut (D217/D1101)
 release-notes: |                     # les évolutions de la version (D808/D1096) — l'historique par concaténation
   La première version de l'entrepôt de données — …
+authors: [Aymeric Lesert]            # les personnes qui ont écrit la version (D1355)
 settings: ~{settings.yml}
 groups: ~{groups.yml}
 migrations: ~{reprise/reprise.yml}   # les migrations déclarées (D662)
@@ -492,7 +503,7 @@ modules:                             # la liste explicite (D415/D766)
   - ~{technique/technique.yml}
   - ~{tiers/tiers.yml}
 hooks: ~{hooks/hooks.yml}            # les hooks de la version (D777)
-resources: ~{resources/resources.yml}   # les ressources déclarées (D346)
+resources: ~{resources/resources.yml}   # les ressources déclarées (D346) — chacune avec copyright: et url: (D1355)
 from: <statut>/<version>             # en sandbox seulement : la version d'origine (D907), supprimé à la promotion (D928)
 ```
 

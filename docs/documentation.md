@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — §26, le rang 4 (D1347–D1354) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — §26, le rang 4 (D1347–D1355) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -484,10 +484,10 @@ décisions, D1170–D1238.)*
 - **Étapes** :
   1. la page des versions : les statuts, les passages, les Sunsets
      (D340/D650), la documentation de chacune (D1123–D1124) —
-     *acquise, D1347 (le Sunset lu comme l'état, D742) ; D1350 (les dates
-     lues à l'instance) ; D1349/D1352/D1354 (les ressources, les
-     droits d'auteur, les auteurs — `copyright:`, `authors:` en
-     proposition) à préciser* ;
+     *acquise, D1347–D1355 : le Sunset lu comme l'état (D742), les dates
+     lues à l'instance (D1350), les ressources, les droits d'auteur et
+     les auteurs (D1349/D1352/D1354) — `copyright:`, `authors:`
+     (D1355)* ;
   2. le dépôt du client (D336) et la version du format (D1083) : ce
      que la documentation en dit ;
   3. signaler et demander : les liens vers le suivi du projet, où ils
@@ -2841,7 +2841,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1354)*
+## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1355)*
 
 **La huitième documentation** (D1133) : le cycle de vie des versions,
 les notes et ce qui change, le dépôt du client, signaler et demander,
@@ -2876,16 +2876,17 @@ D1349 : « les ressources, les droits, les auteurs et les liens vers les
 droits »** — **les droits d'auteur, non les droits et privilèges**
 (D1352 : « erreur liée à une homonymie, "les droits" Vs "les droits
 d'auteur" » ; D1354 : « Non, je faisais mention aux droits
-d'auteur ») ; *ma lecture, à confirmer* : la page nomme **les
+d'auteur » ; confirmée, D1355) : la page nomme **les
 titulaires des droits d'auteur** — ceux de l'application, sa
 configuration (l'entreprise, le concepteur), et ceux de chaque
 ressource embarquée (`resources/`, D346 : les icônes, les images, les
 polices), **avec le lien vers le texte de leurs droits** ; **les
 auteurs**, les personnes qui ont écrit la version (D1153 ne nomme que
 le concepteur du projet, `author:`) ; Syncytium dit les siens. Les
-clés, en proposition : `copyright:` au projet (`syncytium.yml`, à
-côté d'`author:` et `contact:`), `authors:` à la version, et par
-entrée de `resources.yml` un `copyright:` et un `url:`. Les droits
+clés (D1355) : `copyright:` au projet (`syncytium.yml`, à côté
+d'`author:` et `contact:`), `authors:` à la version, et par entrée de
+`resources.yml` un `copyright:` et un `url:` —
+[configuration.md](configuration.md) §3.1 et §3.4. Les droits
 d'accès restent à la documentation des droits
 ([rights.md](rights.md)). **Les
 passages** : les transitions de D344–D345 — beta vers production,

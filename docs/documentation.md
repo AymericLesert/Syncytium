@@ -437,7 +437,7 @@ décisions, D1170–D1238.)*
 - **Dépendances** : la forme des diagrammes et de l'édition machine
   au domaine 7 ; les indicateurs à l'instance.
 
-#### Rang 3 — la réglementation (documentation 5)
+#### Rang 3 — la réglementation (documentation 5) — *clos le 20/10/2026, D1346*
 
 - **Périmètre** : le registre des traitements, les droits des
   personnes, les mentions d'information, la journalisation des accès,
@@ -2195,7 +2195,7 @@ D1080) ; les dépendances (D924). *À trancher* : ce qui vient de la
 configuration seule et ce qui demande l'instance (les états, les
 derniers passages).
 
-## 18. La conformité *(le rang 3 — en cours ; le traitement défini, D1317)*
+## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 
 « Le document que la TPE peine à tenir, Syncytium le génère » (D698) :
 **le registre des traitements**. **Le traitement** (D1317) : « une
@@ -2837,7 +2837,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Les points ouverts *(rafraîchis à la pause du 20/10/2026)*
+## 26. Les points ouverts *(rafraîchis à la clôture du rang 3, le 20/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),

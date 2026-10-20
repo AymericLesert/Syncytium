@@ -480,10 +480,12 @@ décisions, D1170–D1238.)*
 
 - **Périmètre** : le cycle de vie des versions, les notes et ce qui
   change, le dépôt du client, signaler et demander, le support.
-- **Sections** : §9 ; une section à créer.
+- **Sections** : §9 ; §26 (créée le 20/10/2026).
 - **Étapes** :
   1. la page des versions : les statuts, les passages, les Sunsets
-     (D340/D650), la documentation de chacune (D1123–D1124) ;
+     (D340/D650), la documentation de chacune (D1123–D1124) —
+     *acquise, D1347 (le Sunset lu comme l'état, D742) ; les dates des
+     passages à préciser* ;
   2. le dépôt du client (D336) et la version du format (D1083) : ce
      que la documentation en dit ;
   3. signaler et demander : les liens vers le suivi du projet, où ils
@@ -628,7 +630,7 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      rendus, les pages ou le wiki — la forme au domaine 7 (D1126) ;
   4. la reprise artefact par artefact — le regroupement physique de
      documentation.md par documentation (D1021), la mise à jour du
-     glossaire, les points ouverts de §26 soldés un à un.
+     glossaire, les points ouverts de §27 soldés un à un.
 - **Déclinaison** : le dépôt lui-même.
 - **Livrables** : `docs/` consultable sur GitHub ; la PR vers `develop`.
 - **Dépendances** : les neuf autres rangs — le rang 10 les clôt.
@@ -672,7 +674,7 @@ Elle a **trois sources** (D1122) :
 La documentation rédigée du projet Syncytium — les artefacts de
 `docs/` — n'est pas une source de la documentation de l'application ;
 ce que D645 lui demandait d'en porter (« la documentation technique de
-Syncytium ») reste à placer (§26).
+Syncytium ») reste à placer (§27).
 
 Et une règle qui les tient ensemble : **chaque version active porte sa
 documentation** (D1123 — D645/D810) ; *la version documentée est
@@ -2837,7 +2839,48 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Les points ouverts *(rafraîchis à la clôture du rang 3, le 20/10/2026)*
+## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1348)*
+
+**La huitième documentation** (D1133) : le cycle de vie des versions,
+les notes et ce qui change, le dépôt du client, signaler et demander,
+le support ; l'assistance (§25) en est le pendant dans l'application.
+Ses lecteurs : le dirigeant, l'administrateur, l'utilisateur (§3,
+D1154).
+
+### 1. La page des versions (D1347)
+
+**Ce qu'elle liste** : toutes les versions que le projet connaît, dans
+les quatre dossiers (D340 ; rien ne s'efface, D345), du numéro le plus
+haut au plus bas — le numéro, le statut, l'environnement que le statut
+implique (beta sur le staging, production sur la production), les
+langues, les notes de version écrites (D808, D1096) ; rien de plus sur
+les environnements, qui sont au guide d'exploitation (D1251). **Les
+passages** : les transitions de D344–D345 — beta vers production,
+production vers dépréciée ou interdite, beta vers interdite ; *à
+préciser* : les dates des passages (la lecture 2). **L'état, jamais
+l'échéance** (D742 — le « Sunset » du plan se lit comme la
+dépréciation, un état porté par la version, en trois temps, D650) : une
+dépréciée « encore appelable, remplacée par la x », une interdite
+« retirée » ; l'intention de dépréciation se lit sur la production,
+comme l'« à venir » de §9 (D1285). **La documentation de chacune**
+(D1123–D1124) : pour une version active, le lien vers ses
+documentations, la plus élevée par défaut ; pour une dépréciée, l'avis
+et la liste des actives par leurs notes ; pour une interdite, le même
+avis, ses notes conservées pour mémoire (D345). **Ce qui change** : les
+notes écrites, l'évolution fonctionnelle (D1112), puis, calculé, le
+résumé des écarts de §9 en mots et par module — tant de champs ajoutés,
+renommés, retypés, supprimés, dépréciés —, le renvoi au dictionnaire
+pour le détail ; sur la production, l'« à venir » des beta ; la suite
+des pages fait l'historique par concaténation (D808). **Où elle se
+lit** : dans l'application, pour tous les degrés, `reader` compris — la
+version courante de l'environnement et ses notes, puis la liste ;
+notifiée à la promotion par `notify: release`, les notes et ce qui
+change (D1167). Aucune clé nouvelle de configuration.
+
+*Les étapes 2 à 4 — le dépôt du client et la version du format,
+signaler et demander, le support — à venir.*
+
+## 27. Les points ouverts *(rafraîchis à la clôture du rang 3, le 20/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),

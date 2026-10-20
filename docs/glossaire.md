@@ -204,6 +204,12 @@ l'instance) et ce que le concepteur a écrit pour le dire. Elle
 s'intitule « Le dictionnaire de la donnée » ; son plan est le §4 de
 documentation.md. *(D1131, D1241, D1243)*
 
+**Documentation du projet et du support** — La huitième
+documentation : le cycle de vie des versions et leur page (le numéro,
+le statut, les notes écrites, les écarts calculés — l'état, jamais
+l'échéance), le dépôt du client, signaler et demander, le support.
+*(D1133, D1347)*
+
 **Édition** — Un extrait figé de la documentation pour qui n'a pas de
 compte, préparé par un `manager` ou un `administrator` dans la limite de
 ses droits, à cartouche, dans la langue et la version de l'émetteur,

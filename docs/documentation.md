@@ -484,7 +484,8 @@ décisions, D1170–D1238.)*
 - **Étapes** :
   1. la page des versions : les statuts, les passages, les Sunsets
      (D340/D650), la documentation de chacune (D1123–D1124) —
-     *acquise, D1347 (le Sunset lu comme l'état, D742) ; les dates des
+     *acquise, D1347 (le Sunset lu comme l'état, D742) ; D1349 (les
+     ressources, les droits, les auteurs) à préciser ; les dates des
      passages à préciser* ;
   2. le dépôt du client (D336) et la version du format (D1083) : ce
      que la documentation en dit ;
@@ -2866,7 +2867,17 @@ les quatre dossiers (D340 ; rien ne s'efface, D345), du numéro le plus
 haut au plus bas — le numéro, le statut, l'environnement que le statut
 implique (beta sur le staging, production sur la production), les
 langues, les notes de version écrites (D808, D1096) ; rien de plus sur
-les environnements, qui sont au guide d'exploitation (D1251). **Les
+les environnements, qui sont au guide d'exploitation (D1251) ; **et,
+D1349 : « les ressources, les droits, les auteurs et les liens vers les
+droits »** — *mes lectures, à confirmer* : les ressources, ce que la
+version embarque — `resources:` (D346 : logos, icônes, images,
+documents) ; les droits, le modèle des droits de la version — les
+groupes et leurs degrés (`groups.yml`, D341, D699) ; les liens vers
+les droits, le renvoi à la documentation des droits — la matrice par
+module ([rights.md](rights.md)), « mes droits » de la fonctionnelle ;
+les auteurs, ceux qui ont écrit la version — `authors:` dans
+`version.yml`, en proposition (D1153 ne nomme que le concepteur du
+projet, `author:`). **Les
 passages** : les transitions de D344–D345 — beta vers production,
 production vers dépréciée ou interdite, beta vers interdite ; *à
 préciser* : les dates des passages (la lecture 2). **L'état, jamais

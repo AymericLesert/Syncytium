@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — rien de rédigé encore |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — §26, le rang 4 (D1347–D1348) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -2420,7 +2420,7 @@ chacun déclaré ou implicite, mis en regard des lecteurs de §3 :
 | Le canal | Ce qui passe | Le format | Pour qui | Déclaré où |
 |---|---|---|---|---|
 | **1. dans l'application** | les masques (§7), la page de chaque module et de chaque surface (le « ? »), l'assistance (§25), le parcours guidé (§19), la planche d'un wizard (§24), la documentation servie à ses niveaux (D1138) | la page servie par l'application — l'édition *lisible* (§11) | qui a un compte, à ses droits et dans sa langue (D1139–D1147) | implicite — toujours |
-| **2. en fichiers, au dépôt** | toutes les documentations, générées depuis la configuration seule, sans les chapitres de l'instance (D1157) ; versionnables avec le dépôt du client (D336) | Markdown, HTML — *lisible* ; la forme au domaine 7 (D1126) | le concepteur | `output:` de l'environnement (§12) ; la commande `syncytium document` (D1167) |
+| **2. en fichiers, au dépôt** | toutes les documentations, générées depuis la configuration seule, sans les chapitres de l'instance (D1157) ; versionnables avec le dépôt du client (D336) — **un produit, non une maison : la documentation, dans son ensemble, est portée par l'application (D1348 ; *ma lecture, à confirmer*)** | Markdown, HTML — *lisible* ; la forme au domaine 7 (D1126) | le concepteur | `output:` de l'environnement (§12) ; la commande `syncytium document` (D1167) |
 | **3. l'édition** | un extrait figé, à cartouche (D1142), au gabarit (D1143), au filigrane s'il est beta (D1145), dans la langue et la version de l'émetteur (D1144) | PDF ou HTML — *imprimable* ou *lisible* | qui n'a pas de compte — l'usager (D1149), l'auditeur de passage, l'hébergeur ; préparée par un `manager` ou un `administrator` qui décide de la diffuser | `templates:` de la version (§12) |
 | **4. notifié** | ce qui se rapporte : les notes d'une version promue et ce qui change, le rapport de complétude (§20) — le mécanisme des notifications (D108/D397), de nouveaux déclencheurs ; les usages, eux, s'intègrent à la documentation de chaque composant (D1168) | la notification, le corps du mail, une pièce jointe PDF | les groupes destinataires | `notify:` (§12, D1167) |
 | **5. imprimée** | un chapitre ou le tout (D53/D187) ; les planches des modes opératoires, une page A4 chacune (§24, D1129) | PDF — *imprimable* ; la dimension de page du gabarit | l'opérateur, le papier sur le bureau | les gabarits (§12) |
@@ -2845,7 +2845,19 @@ du tiny) ou l'exporte.
 les notes et ce qui change, le dépôt du client, signaler et demander,
 le support ; l'assistance (§25) en est le pendant dans l'application.
 Ses lecteurs : le dirigeant, l'administrateur, l'utilisateur (§3,
-D1154).
+D1154). **Elle est portée par l'application, comme toute
+documentation** (D1348 : « la documentation, dans son ensemble, est
+portée par l'application. Seule la documentation de Syncytium
+lui-même, la spécification du projet Syncytium que nous menons est
+portée par le dépôt de Syncytium. ») — *mes lectures, à confirmer* : la
+maison de toute documentation générée est l'application, la page des
+versions comme les autres ; le dépôt du client (D336) porte la
+configuration, jamais la documentation générée ; les fichiers de la
+commande `syncytium document` (D1167, le canal 2 de §21) sont un
+produit — une édition, un essai —, non une maison ; le concepteur sans
+compte (D1153) lit par ces fichiers, ou reçoit un compte `reader` ;
+`docs/` du dépôt de Syncytium porte la spécification du projet, le
+rang 10 (D1316).
 
 ### 1. La page des versions (D1347)
 
@@ -2872,7 +2884,7 @@ résumé des écarts de §9 en mots et par module — tant de champs ajoutés,
 renommés, retypés, supprimés, dépréciés —, le renvoi au dictionnaire
 pour le détail ; sur la production, l'« à venir » des beta ; la suite
 des pages fait l'historique par concaténation (D808). **Où elle se
-lit** : dans l'application, pour tous les degrés, `reader` compris — la
+lit** : dans l'application, pour tous les degrés, `reader` compris (D1348) — la
 version courante de l'environnement et ses notes, puis la liste ;
 notifiée à la promotion par `notify: release`, les notes et ce qui
 change (D1167). Aucune clé nouvelle de configuration.

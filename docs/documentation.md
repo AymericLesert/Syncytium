@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — §26, le rang 4 (D1347–D1352) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — §26, le rang 4 (D1347–D1353) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -906,7 +906,7 @@ glossaire les porte sous « Lecteur ».)*
 
 | Le rôle | Qui c'est | Ce qu'il cherche | Lit dedans ou une édition |
 |---|---|---|---|
-| **le concepteur** | celui qui écrit la configuration (le glossaire) — **un rôle sans compte ni degré** (D1153) : il peut laisser le projet aux administrateurs sans accéder à l'application ni à ses données | le modèle complet, les règles, les écarts, les hooks, la reprise, la complétude | **au dépôt**, les fichiers générés ; dedans seulement s'il reçoit un compte, à son degré comme un autre ; la documentation le nomme — celui qui a conçu l'application, le contact des demandes d'évolution |
+| **le concepteur** | celui qui écrit la configuration (le glossaire) — **un rôle sans compte ni degré** (D1153) : il peut laisser le projet aux administrateurs sans accéder à l'application ni à ses données | le modèle complet, les règles, les écarts, les hooks, la reprise, la complétude | **par les fichiers de `syncytium document`** (le canal 2, un produit — D1348) **ou dans son propre environnement**, la sandbox (D907) — D1353 ; dedans seulement s'il reçoit un compte, à son degré comme un autre ; la documentation le nomme — celui qui a conçu l'application, le contact des demandes d'évolution |
 | **l'administrateur** | celui qui fait tourner l'instance — le degré `administrator` (D699) | les environnements, les connecteurs, le journal, les opérations, le registre, les groupes | dedans |
 | **le responsable métier** | le degré `manager` (D699) — celui qui répond aux questions (§25) et pilote un module | les parcours de son module, les personas, les règles qui s'y appliquent, les usages | dedans |
 | **l'utilisateur** | l'opérateur, le degré `user` | ce que fait chaque écran, chaque champ, chaque opération ; la procédure sur une page, posée sur le bureau (D1129) | dedans — les masques, les pages, les planches imprimées |
@@ -2841,7 +2841,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1352)*
+## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1353)*
 
 **La huitième documentation** (D1133) : le cycle de vie des versions,
 les notes et ce qui change, le dépôt du client, signaler et demander,
@@ -2852,15 +2852,15 @@ documentation** (D1348 : « la documentation, dans son ensemble, est
 portée par l'application. Seule la documentation de Syncytium
 lui-même, la spécification du projet Syncytium que nous menons est
 portée par le dépôt de Syncytium. ») — *mes lectures, confirmées
-(D1351), sauf la troisième* : la
+(D1351, D1353)* : la
 maison de toute documentation générée est l'application, la page des
 versions comme les autres ; le dépôt du client (D336) porte la
 configuration, jamais la documentation générée ; les fichiers de la
 commande `syncytium document` (D1167, le canal 2 de §21) sont un
-produit — une édition, un essai —, non une maison ; *à préciser* — le
-concepteur sans compte (D1153) lit par ces fichiers, ou reçoit un
-compte `reader`, ou lit dans son propre environnement (la sandbox,
-D907) ;
+produit — une édition, un essai —, non une maison ; **le concepteur
+sans compte (D1153) lit par ces fichiers, ou dans son propre
+environnement — la sandbox (D907) ou le local** (D1353 : « a et c »,
+le compte `reader` qu'on lui donnerait écarté) ;
 `docs/` du dépôt de Syncytium porte la spécification du projet, le
 rang 10 (D1316).
 

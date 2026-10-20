@@ -24557,6 +24557,10 @@ avant la synthèse Q16).
   finalisons le rang » (D1346) — **LE RANG 3 EST CLOS** : six étapes,
   trois déclinaisons, 30 décisions (D1316–D1345) ; la suite, le rang 4
   ou la PR.
+  **La PR #47 ouverte** (`feature/documentation` → `develop`, 29
+  commits, D1315–D1346,
+  https://github.com/AymericLesert/Syncytium/pull/47) — par l'API
+  GitHub ; le travail continue sur la branche.
 - **2026-10-17 — L'ÉTAT DU DOMAINE 5.** Le tableau de bord (le mod
   construit le 17/10, qui lit la table du §1.2) montrait le domaine 5
   encore « À couvrir », l'état de la création du §1.2 (D643) ;

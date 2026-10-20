@@ -24609,6 +24609,18 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-20 (suite 3) — LA PAUSE : L'ÉTAPE 1 DU RANG 4 CLOSE (D1355,
+  1355 décisions).** « Je confirme, je committe cette partie et je
+  marque une pause ». La page des versions acquise (D1347–D1355) ; la
+  documentation portée par l'application (D1348, D1351, D1353) ; les
+  clés `author:`, `contact:`, `copyright:`, `authors:` dans
+  configuration.md. À la reprise : l'étape 2 du rang 4 — le dépôt du
+  client (D336) et la version du format (D1083), ce que la
+  documentation en dit ; puis l'étape 3, signaler et demander (les
+  liens vers le suivi du projet, où ils se déclarent), l'étape 4, le
+  support (qui répond, les engagements — écrits, §25 en pendant) ; la
+  déclinaison sur l'entrepôt ; la colonne 8 de la matrice dans les
+  artefacts ; la forme de `resources.yml` à écrire.
 - **2026-10-17 — L'ÉTAT DU DOMAINE 5.** Le tableau de bord (le mod
   construit le 17/10, qui lit la table du §1.2) montrait le domaine 5
   encore « À couvrir », l'état de la création du §1.2 (D643) ;

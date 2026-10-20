@@ -592,7 +592,7 @@ des opérations du socle — `rgpd.extract(identity)`, `rgpd.anonymize`
 (D1333) — ; **le hook d'interface**, seul code tiers au navigateur, est
 nommé au chapitre de la sécurité (D918, D1337) ; **le hook de
 composant** passe les tests du RGAA comme les composants du socle
-(D1340) ; **le hook de connecteur** porte `rgpd: { country: … }`
+(D1340) ; **le hook de connecteur** porte `rgpd: { countries: [ … ] }`
 (D1328).
 
 **Les autres colonnes** — à leur rang : le développeur (le contrat du

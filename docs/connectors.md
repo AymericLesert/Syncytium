@@ -160,8 +160,10 @@ lecture, le file, le webhook.)*
 | `onerror` | la défaillance — retourne **un mock de résultat** (le connecteur non critique — l'écho de la dégradation D68) ou **l'appel à la page de maintenance** (le connecteur clé) (D627) |
 | `describe()` — `describe(model)` pour le storage (D1299) | « générer de la documentation en markdown/html pour la documentation automatique de l'instance » (D630) — la règle de **tous** les hooks (D645), la doc technique assemblée version par version |
 
-**Les propriétés du socle** : `rgpd: { country: FR }` — le pays du
-stockage ou de la destination, pour le registre des traitements (D1328 ;
+**Les propriétés du socle** : `rgpd: { countries: [FR] }` — le ou les
+pays du stockage ou de la destination, une liste — « selon
+l'implémentation du connecteur, nous pouvons avoir plusieurs zones de
+stockage ou d'échange » (D1345) —, pour le registre des traitements (D1328 ;
 le lieu du storage, les transferts hors Union des connecteurs sortants),
 `connection: permanent | on_demand |
 idle[15min]` *(en proposition — D621)*, `pool:` (le parallélisme
@@ -585,8 +587,8 @@ en `none` la retire ; **le `llm`** sert le chat, pas la documentation
 se nomment à la conformité (§18), non à la fonctionnelle.
 
 **Les connecteurs, dans la réglementation** (la colonne 5 — le rang 3) :
-**`rgpd: { country: … }`** — le pays du stockage pour le storage, de la
-destination pour les sortants ; le registre en tire le lieu et les
+**`rgpd: { countries: [ … ] }`** — les pays du stockage pour le storage,
+de la destination pour les sortants, une liste (D1345) ; le registre en tire le lieu et les
 transferts hors Union (D1328) ; **les connecteurs sortants** — `smtp`,
 `webhook`, `llm` — sont les destinataires externes des traitements qui
 leur passent un champ marqué (D1317), le rapport de la reprise par mail

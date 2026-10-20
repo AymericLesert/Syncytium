@@ -456,8 +456,8 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   avec `every:`) ; la rétention d'une donnée est la plus longue période
   parmi ses traitements, le registre fait la somme ; l'échéance de
   validité est portée par l'anonymisation — la donnée marquée dont la rétention
-  échoit **s'anonymise d'office** ; le pays du stockage, `country:` dans
-  la section `rgpd:` du connecteur ; les traces de journal à
+  échoit **s'anonymise d'office** ; les pays du stockage, `countries:` dans
+  la section `rgpd:` du connecteur (D1345) ; les traces de journal à
   rétention paramétrable et anonymisation optionnelle (D41).
 - **Le registre des traitements auto-documenté** (D698) : généré du
   modèle — **une ligne par traitement, c'est-à-dire par opération qui
@@ -713,7 +713,7 @@ D1329), groupé par module soumis (D1321), avec le bloc `rgpd:` résolu à
 quatre niveaux — `controller`, `legal`, `purpose`, `contact`, `dpo`
 (D1322–D1327), « non précisé » quand une propriété manque — ; l'entité
 dit le stockage, la rétention vient du nettoyage et de l'anonymisation
-(D1328, D1334), le lieu du `country:` du connecteur ; **les droits des
+(D1328, D1334), les lieux des `countries:` du connecteur (D1345) ; **les droits des
 personnes** — `rgpd.extract(identity)` depuis les champs `identity`,
 `rgpd.anonymize`, la limitation par l'état (D1330–D1333) ; **les
 mentions** — `rgpd.notice` générée, ancrée par le concepteur, le manque

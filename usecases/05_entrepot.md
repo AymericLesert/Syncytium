@@ -2648,7 +2648,7 @@ tel qu'il sortirait aujourd'hui, puis ce que le concepteur ajouterait.
 >
 > **La rétention** : les fichiers de détail, 90 jours ; les
 > enregistrements, *non précisée* — aucune règle d'anonymisation
-> déclarée (D1334). **Le lieu** : *non précisé* — aucun `country:` sur
+> déclarée (D1334). **Le lieu** : *non précisé* — aucun `countries:` sur
 > `entrepot` ni sur `smtp`.
 >
 > ### Le module stock
@@ -2709,7 +2709,7 @@ le registre cesse de dire « non précisé » :
   `rgpd.anonymize(owner.actif = false and owner.date_modification <
   context.now - 3y)`, avec son `purpose` (D1334) ;
 - `environments/production/connectors.yml` et `staging` : `rgpd:
-  { country: FR }` sur `entrepot`, `cegid`, `smtp` (D1328) ;
+  { countries: [FR] }` sur `entrepot`, `cegid`, `smtp` (D1328, D1345) ;
 - `syncytium.yml` : `home: ~{documentation/home.md}`, la page d'accueil
   qui ancre `${rgpd.notice}` (D1335).
 

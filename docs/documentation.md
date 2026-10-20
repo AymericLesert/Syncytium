@@ -451,7 +451,7 @@ décisions, D1170–D1238.)*
      périmètre, groupé par module ;
   2. ce qui s'écrit : **acquis le 19/10/2026 (D1322–D1328)** — le bloc
      `rgpd:` à quatre niveaux (`controller`, `legal`, `purpose`), la
-     rétention au nettoyage, l'échéance à l'anonymisation, `country:`
+     rétention au nettoyage, l'échéance à l'anonymisation, `countries:`
      au connecteur ;
   3. les droits des personnes : **acquis le 19/10/2026 (D1330–D1333)**
      — le chapitre par module, `rgpd.extract(identity)` depuis
@@ -2282,7 +2282,8 @@ des enregistrements porte sa règle et sa fréquence** (D1334 :
 `rgpd.anonymize` déclarée avec `every:` et son `filter:`), le registre
 fait la somme — par donnée marquée, la rétention résultante et
 l'échéance, à l'instance (D1329) ; **le pays du
-stockage**, `country:` dans la section `rgpd:` du connecteur — le lieu
+stockage**, `countries:` dans la section `rgpd:` du connecteur, une
+liste (D1345) — le lieu
 du storage, les transferts hors Union des connecteurs sortants. **Les droits des
 personnes** (D1330) : un chapitre par module soumis — pour chaque droit,
 l'opération qui le sert, qui l'exécute, ce qu'elle produit ; le texte de

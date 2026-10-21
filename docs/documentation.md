@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner, le support — §26, le rang 4 (D1347–D1382) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner, le support — §26, le rang 4, clos (D1347–D1383) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -476,7 +476,7 @@ décisions, D1170–D1238.)*
 - **Dépendances** : aucune pour le registre ; l'instance pour les
   accès journalisés.
 
-#### Rang 4 — le projet et le support (documentation 8)
+#### Rang 4 — le projet et le support (documentation 8) — *clos le 22/10/2026, D1383*
 
 - **Périmètre** : le cycle de vie des versions, les notes et ce qui
   change, le dépôt du client, signaler et demander, le support.
@@ -509,8 +509,7 @@ décisions, D1170–D1238.)*
 - **Livrables** : une section « Le projet et le support » (§26, les
   quatre chapitres acquis) ; [configuration.md](configuration.md),
   [composants.md](composants.md) ; la colonne 8 de la matrice dans les
-  onze artefacts et la matrice d'ensemble (écrite le 22/10/2026, à
-  valider).
+  onze artefacts et la matrice d'ensemble (D1383).
 - **Dépendances** : aucune.
 
 #### Rang 5 — le développeur (documentation 3)
@@ -2854,7 +2853,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1355 ; l'étape 2, le dépôt et le format, acquise : D1356–D1362 ; l'étape 3, le support dans l'application, acquise : D1363–D1374 ; l'étape 4, le support, acquise : D1375–D1381)*
+## 26. Le projet et le support *(le rang 4 — acquis, D1347–D1383 : la page des versions, le dépôt et le core, le support dans l'application, le support ; la déclinaison sur l'entrepôt, D1382)*
 
 **La huitième documentation** (D1133) : le cycle de vie des versions,
 les notes et ce qui change, le dépôt du client, signaler et demander,
@@ -3118,10 +3117,10 @@ lisent dans l'application ; la F.A.Q. de la fonctionnelle (§6,
 chapitre 5) ne porte que la paire.
 
 *La déclinaison sur l'entrepôt est faite (D1382) ; la colonne 8 de la
-matrice écrite le 22/10/2026 dans les onze artefacts et la matrice
-d'ensemble — à valider.*
+matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
+le rang 4 est clos (D1383).*
 
-## 27. Les points ouverts *(rafraîchis à la clôture du rang 3, le 20/10/2026)*
+## 27. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -3154,9 +3153,8 @@ comme chapitre (§19 → §22, D1187).*
 10. les pièces encore en proposition, à arbitrer à leur rang : le
     guide d'exploitation (§17) — §18, la conformité, acquise au rang 3
     (D1317–D1344) —, la complétude et son seuil (§20), la maintenance (§23 — la part de chaque lecteur,
-    la périodicité, les seuils), l'assistance (§25 — le nom du module,
-    actif par défaut, les réponses retenues, la question anonyme, la
-    F.A.Q. au dépôt) ;
+    la périodicité, les seuils) ; l'assistance (§25) acquise au rang 4 — fondue
+    dans §26, chapitre 3 (D1363–D1374) ;
 11. le contexte (D1131, D1133–D1135) : la formation comme usage ; la
     réglementation élargie à la sécurité ; les compléments par
     documentation ;

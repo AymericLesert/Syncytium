@@ -3006,7 +3006,7 @@ ticket:
     texte: text
     auteur: _administration.utilisateur
     date: datetime
-    statut: enum[nouveau, pris_en_compte, planifie, livre, clos, refuse]   # en proposition
+    statut: enum[nouveau, pris_en_compte, planifie, livre, clos, refuse]   # acquis (D1370)
     version: version             # facultative — la version qui planifie ou livre (D1365)
     gestionnaire: _administration.utilisateur   # celui qui traite le ticket (D1366, D1369)
     lien: url                    # le lien vers un ticket externe, s'il est renseigné

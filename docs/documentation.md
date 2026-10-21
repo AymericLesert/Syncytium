@@ -2891,13 +2891,13 @@ d'auteur" » ; D1354 : « Non, je faisais mention aux droits
 d'auteur » ; confirmée, D1355) : la page nomme **les
 titulaires des droits d'auteur** — ceux de l'application, sa
 configuration (l'entreprise, le concepteur), et ceux de chaque
-ressource embarquée (`resources/`, D346 : les icônes, les images, les
-polices), **avec le lien vers le texte de leurs droits** ; **les
+ressource embarquée (`resources/`, D803 : les icônes, les images, les
+polices), **avec leur `credit:` — l'auteur et le lien** (D1384) ; **les
 auteurs**, les personnes qui ont écrit la version (D1153 ne nomme que
 le concepteur du projet, `author:`) ; Syncytium dit les siens. Les
 clés (D1355) : `copyright:` au projet (`syncytium.yml`, à côté
-d'`author:` et `contact:`), `authors:` à la version, et par entrée de
-`resources.yml` un `copyright:` et un `url:` —
+d'`author:` et `contact:`), `authors:` à la version ; pour les
+ressources, le `credit:` de D803 suffit (D1384) —
 [configuration.md](configuration.md) §3.1 et §3.4. Les droits
 d'accès restent à la documentation des droits
 ([rights.md](rights.md)). **Les

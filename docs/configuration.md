@@ -516,7 +516,7 @@ modules:                             # la liste explicite (D415/D766)
   - ~{technique/technique.yml}
   - ~{tiers/tiers.yml}
 hooks: ~{hooks/hooks.yml}            # les hooks de la version (D777)
-resources: ~{resources/resources.yml}   # les ressources déclarées (D346) — chacune avec copyright: et url: (D1355)
+resources: ~{resources/resources.yml}   # les ressources déclarées (D803) — chacune avec son credit: (D1384)
 from: <statut>/<version>             # en sandbox seulement : la version d'origine (D907), supprimé à la promotion (D928)
 ```
 

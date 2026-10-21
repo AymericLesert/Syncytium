@@ -2970,6 +2970,24 @@ assistant:
     api_key*: ${LLM_API_KEY}       # la marque * — le secret chiffré (D944/D902)
 ```
 
+## L'assistance — les trois groupes d'une surface (D1372)
+
+Une surface — un écran, un wizard, un tableau de bord — porte trois
+propriétés, chacune un groupe d'utilisateurs : qui traite une anomalie,
+qui répond à une question fonctionnelle, qui enregistre une demande
+d'évolution. À la création d'un ticket depuis le « ? » de la surface
+(documentation.md §26, chapitre 3), le groupe destinataire est connu et
+transmis automatiquement ; le gestionnaire du ticket se prend dans ce
+groupe. *En proposition*, un bloc `assistance:` aux clés anglaises
+(D335), héritable par la cascade du module et des settings (D359) :
+
+```yaml
+assistance:
+  anomaly: support_technique      # qui traite une anomalie
+  question: responsables_metier   # qui répond à une question fonctionnelle
+  evolution: direction            # qui enregistre une demande d'évolution
+```
+
 ## La documentation — la facette des composants graphiques et des surfaces (D1158–D1159)
 
 *(La rubrique de la matrice de [documentation.md](documentation.md)

@@ -3029,7 +3029,23 @@ couvre aussi une fonction de recherche générale (sur un enregistrement,
 un page, une action, ...) ») — *ma lecture* : la recherche de la
 fonctionnelle (§6, les compléments du rang 1), depuis le même menu. **À l'ouverture** (D1366) : le ticket paraît
 au profil de l'utilisateur, qui y retrouve tous ses tickets, et en
-notification du `manager` ou de l'`administrator` ; une personne le
+notification **du groupe que la surface désigne pour ce type** (D1372 :
+« un composant gui (wizard, screen, ...) porte 3 propriétés faisant
+référence à un groupe pour traiter une anomalie, pour répondre à une
+question fonctionnelle ou pour enregistrer une demande d'évolution.
+Ainsi, lors de la création d'un ticket, le groupe destinataire est
+connu et transmis automatiquement. ») — *ma lecture, en proposition* :
+
+```yaml
+# la surface — un bloc, trois groupes (D1372)
+assistance:
+  anomaly: support_technique      # qui traite une anomalie
+  question: responsables_metier   # qui répond à une question fonctionnelle
+  evolution: direction            # qui enregistre une demande d'évolution
+```
+
+héritable par la cascade du module et des settings (D359) ; le
+gestionnaire se prend dans ce groupe ; une personne le
 prend (`gestionnaire:`, D1369) ; **une alerte régulière, paramétrée au profil**,
 informe de l'arrivée d'un ticket ou de l'absence de mise à jour, hors
 clos et refus — *ma lecture* : une notification `every:` par

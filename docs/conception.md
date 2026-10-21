@@ -24647,6 +24647,18 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-22 (suite) — LA PAUSE : LE RANG 4 CLOS ET SOLDÉ, LA PR #47
+  MISE À JOUR (1391 décisions).** « créer une PR et marquons une
+  pause ». La PR #47 (`feature/documentation` → `develop`), ouverte le
+  20/10 sur le rang 3, porte déjà la branche : son titre et sa
+  description réécrits pour couvrir les deux rangs — 80 commits, D1315
+  à D1391 ; aucune seconde PR possible sur la même branche. À la
+  reprise : le rang 5, le développeur (documentation 3) — l'étape 1, le
+  contrat d'API (§10) ; puis étendre (les hooks, le `describe`, le md
+  D778, le hook d'interface D918), enrichir (la documentation de
+  Syncytium dans celle de l'application), les formats d'échange ; la
+  déclinaison sur le tiny et la banque ; la skill des consignes pour
+  l'IA (D1224) ; la dépendance : la forme du contrat au domaine 7.
 - **2026-10-22 — REPRISE : L'ÉTAPE 4 CLOSE, LA DÉCLINAISON FAITE, LE RANG 4 CLOS (D1375–D1391,
   1391 décisions).** Le support, six lectures ; « 1. ok - … une
   question posée est dans la langue de l'utilisateur (langue à mettre

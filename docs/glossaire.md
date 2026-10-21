@@ -216,7 +216,7 @@ support dans l'application : les tickets (anomalie, évolution,
 question) du module interne `_assistance`, leurs messages, leur
 statut, le groupe gestionnaire désigné par la surface, D1363–D1373 ; la
 question répondue va à la F.A.Q. de la fonctionnelle.
-*(D1133, D1347–D1373)*
+*(D1133, D1347–D1374)*
 
 **Édition** — Un extrait figé de la documentation pour qui n'a pas de
 compte, préparé par un `manager` ou un `administrator` dans la limite de

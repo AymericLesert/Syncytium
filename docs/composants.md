@@ -2978,8 +2978,8 @@ qui répond à une question fonctionnelle, qui enregistre une demande
 d'évolution. À la création d'un ticket depuis le « ? » de la surface
 (documentation.md §26, chapitre 3), le groupe destinataire est connu et
 transmis automatiquement ; le gestionnaire du ticket se prend dans ce
-groupe. *En proposition*, un bloc `assistance:` aux clés anglaises
-(D335), héritable par la cascade du module et des settings (D359) :
+groupe. Le bloc `assistance:` aux clés anglaises (D335), héritable par
+la cascade du module et des settings (D359) — acquis, D1374 :
 
 ```yaml
 assistance:

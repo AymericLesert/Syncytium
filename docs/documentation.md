@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner — §26, le rang 4 (D1347–D1373) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner — §26, le rang 4 (D1347–D1374) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -493,7 +493,11 @@ décisions, D1170–D1238.)*
      — aucune clé, l'adresse lue depuis le dossier si elle est publique,
      le versionnement calculé, `syncytium init`, le core nommé par `from:` (D1360–D1361) ;
   3. signaler et demander : les liens vers le suivi du projet, où ils
-     se déclarent (une clé `support:` ? `documentation.yml` ?) ;
+     se déclarent (une clé `support:` ? `documentation.yml` ?) : **acquis
+     le 21/10/2026 (D1363–D1374)** — portés par l'application, le module
+     `_assistance`, les tickets (anomalie, évolution, question), les
+     trois groupes de la surface, le « ? », la réponse publiée à la
+     clôture ; §25 fondu ;
   4. le support : qui répond, les engagements — écrits ; l'assistance
      (§25) en pendant.
 - **Déclinaison** : **l'entrepôt** (la 1.0.0.0 en production, la
@@ -2843,7 +2847,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1355 ; l'étape 2, le dépôt et le format, acquise : D1356–D1362)*
+## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1355 ; l'étape 2, le dépôt et le format, acquise : D1356–D1362 ; l'étape 3, le support dans l'application, acquise : D1363–D1374)*
 
 **La huitième documentation** (D1133) : le cycle de vie des versions,
 les notes et ce qui change, le dépôt du client, signaler et demander,
@@ -2968,7 +2972,7 @@ remote ; si elle répond sans droit, la page la montre ; sinon rien, et
 aucun degré à régler — ma proposition « à partir de `manager` »
 retirée. Rien ne s'écrit à cette étape.
 
-### 3. Signaler, demander, questionner — le support dans l'application (D1363–D1373)
+### 3. Signaler, demander, questionner — le support dans l'application (D1363–D1374)
 
 **Portés par l'application** (D1363 : « Cette étape aborde le
 signalement d'une anomalie et la demande d'une évolution. Ces 2
@@ -2986,7 +2990,7 @@ l'ancre de l'écran et, s'il y en a un, l'enregistrement montré**
 (D1364 : « l'ancre de l'écran et éventuellement l'id de
 l'enregistrement de l'entité porté par l'écran au moment de la
 demande »). **Planifiée et livrée portent une version, facultative**
-(D1365). *Mes lectures, à confirmer* : **un module interne du socle**,
+(D1365). *Mes lectures, confirmées (D1374)* : **un module interne du socle**,
 `_assistance` (D1368 — le préfixe des modules internes, D1029, à
 côté de `_migration` et `_chat`), qui naît avec le moteur ; **son
 modèle**, deux entités, en esquisse :
@@ -3034,10 +3038,10 @@ notification **du groupe que la surface désigne pour ce type** (D1372 :
 référence à un groupe pour traiter une anomalie, pour répondre à une
 question fonctionnelle ou pour enregistrer une demande d'évolution.
 Ainsi, lors de la création d'un ticket, le groupe destinataire est
-connu et transmis automatiquement. ») — *ma lecture, en proposition* :
+connu et transmis automatiquement. ») — le bloc, acquis (D1374) :
 
 ```yaml
-# la surface — un bloc, trois groupes (D1372)
+# la surface — un bloc, trois groupes (D1372, D1374)
 assistance:
   anomaly: support_technique      # qui traite une anomalie
   question: responsables_metier   # qui répond à une question fonctionnelle

@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — §26, le rang 4 (D1347–D1362) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — §26, le rang 4 (D1347–D1363) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -2968,7 +2968,58 @@ remote ; si elle répond sans droit, la page la montre ; sinon rien, et
 aucun degré à régler — ma proposition « à partir de `manager` »
 retirée. Rien ne s'écrit à cette étape.
 
-*Les étapes 3 et 4 — signaler et demander, le support — à venir.*
+### 3. Signaler et demander (D1363)
+
+**Deux gestes, portés par l'application** (D1363 : « Cette étape
+aborde le signalement d'une anomalie et la demande d'une évolution.
+Ces 2 éléments sont portés par l'application dans un mode basique :
+enregistrement d'une anomalie ou d'une demande ; liste de messages
+(qui, date et message) ; lien vers un ticket (si renseigné) ; statut
+de l'anomalie et de la demande. Ces informations sont gérées par
+Syncytium via son modèle de données interne ») — mes lectures 2 et 3
+écartées : ni bloc `support:` avec des adresses, ni lien externe depuis
+le « ? » ; le ticket est un lien par demande, renseigné quand il
+existe. *Mes lectures, à confirmer* : **un module interne du socle**,
+`_support` (le nom est mien — le préfixe des modules internes, D1029,
+à côté de `_migration`, `_assistance`, `_chat`), qui naît avec le
+moteur ; **son modèle**, deux entités, en esquisse :
+
+```yaml
+demande:
+  description: Une anomalie signalée ou une évolution demandée depuis un écran
+  label: "{titre}"
+  identity: [numero]
+  states: statut
+  fields:
+    numero: integer
+    type: enum[anomalie, evolution]
+    ancre: text                  # l'adresse de l'écran d'où vient la demande (D566, D1121)
+    titre: text[..120]
+    texte: text
+    auteur: _administration.utilisateur
+    date: datetime
+    statut: enum[nouvelle, prise_en_compte, planifiee, livree, refusee]   # en proposition
+    ticket: url                  # le lien vers le ticket, s'il est renseigné
+message:
+  description: Un message du dialogue autour d'une demande
+  fields:
+    demande: demande
+    auteur: _administration.utilisateur
+    date: datetime
+    texte: text
+```
+
+**Qui fait quoi** : qui a un compte enregistre une demande et
+dialogue ; `manager` et `administrator` tiennent le statut et
+renseignent le ticket. **Depuis l'application** : le « ? » de chaque
+surface ouvre l'enregistrement avec l'ancre, la version et
+l'environnement ; la liste `_support[demandes]`, par statut.
+**Le chapitre 3 de §26** décrit le mode basique et ses statuts ; la
+liste des demandes vit à l'instance (D1157). L'assistance (§25) reste
+le lieu des questions ; le support (l'étape 4) dit qui répond et dans
+quels délais.
+
+*L'étape 4 — le support — à venir.*
 
 ## 27. Les points ouverts *(rafraîchis à la clôture du rang 3, le 20/10/2026)*
 

@@ -24649,7 +24649,12 @@ avant la synthèse Q16).
   comptabiliser les types et les statuts. Elle présente les
   indicateurs. Le détails n'apparaît pas dans le document. » (D1379).
   Le chapitre 4 de §26 écrit — **les quatre étapes du rang 4 sont
-  acquises** ; restent la déclinaison sur l'entrepôt et la colonne 8.
+  acquises**. La déclinaison écrite sur l'entrepôt, en proposition
+  (usecases/05_entrepot.md) : les deux versions, le core, le dépôt des
+  exemples public, « tous les tickets vont à l'administration », aucun
+  texte de support ; ce que le concepteur ajouterait — `author:`,
+  `contact:`, `copyright:`, `authors:`, `pages: support:`,
+  `assistance:` au settings. Reste la colonne 8 de la matrice.
 - **2026-10-21 — REPRISE : LES ÉTAPES 2 ET 3 DU RANG 4 CLOSES (D1356–D1374,
   1374 décisions).** « re ». Le dépôt du client et la version du format,
   cinq lectures ; « 1. Le dépôt vit dans un dépôt distinct du projet

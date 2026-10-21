@@ -504,9 +504,11 @@ décisions, D1170–D1238.)*
      quoi », les indicateurs par type et par statut, les tickets dans
      l'application seulement.
 - **Déclinaison** : **l'entrepôt** (la 1.0.0.0 en production, la
-  1.0.0.1 en beta).
-- **Livrables** : une section « Le projet et le support » ;
-  [configuration.md](configuration.md).
+  1.0.0.1 en beta) — **écrite le 22/10/2026, en proposition**
+  ([usecases/05_entrepot.md](../usecases/05_entrepot.md)).
+- **Livrables** : une section « Le projet et le support » (§26, les
+  quatre chapitres acquis) ; [configuration.md](configuration.md),
+  [composants.md](composants.md).
 - **Dépendances** : aucune.
 
 #### Rang 5 — le développeur (documentation 3)

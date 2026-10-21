@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — §26, le rang 4 (D1347–D1360) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — §26, le rang 4 (D1347–D1361) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -491,7 +491,7 @@ décisions, D1170–D1238.)*
   2. le dépôt du client (D336) et la version du format (D1083) : ce
      que la documentation en dit : **acquis le 21/10/2026 (D1356–D1359)**
      — aucune clé, l'adresse lue depuis le dossier si elle est publique,
-     le versionnement calculé, `syncytium init` (D1360) ;
+     le versionnement calculé, `syncytium init`, le core nommé par `from:` (D1360–D1361) ;
   3. signaler et demander : les liens vers le suivi du projet, où ils
      se déclarent (une clé `support:` ? `documentation.yml` ?) ;
   4. le support : qui répond, les engagements — écrits ; l'assistance
@@ -2843,7 +2843,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1355 ; l'étape 2, le dépôt et le format, acquise : D1356–D1360)*
+## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1355 ; l'étape 2, le dépôt et le format, acquise : D1356–D1361)*
 
 **La huitième documentation** (D1133) : le cycle de vie des versions,
 les notes et ce qui change, le dépôt du client, signaler et demander,
@@ -2915,7 +2915,7 @@ version courante de l'environnement et ses notes, puis la liste ;
 notifiée à la promotion par `notify: release`, les notes et ce qui
 change (D1167). Aucune clé nouvelle de configuration.
 
-### 2. Le dépôt et le format (D1356–D1360)
+### 2. Le dépôt et le core (D1356–D1361)
 
 **Le dépôt** : la configuration vit dans un dépôt distinct du projet
 Syncytium (D336), versionné par le client. **Aucune clé ne le pointe**
@@ -2935,27 +2935,30 @@ les relit pas (D327) ; la documentation le dit en une phrase — ce qui
 est servi est la version ingérée, modifier un fichier n'a d'effet qu'au
 dépôt d'une nouvelle version, le build au moins (D326) ; le registre
 des versions essayées (D326) complète la page des versions — les essais
-refusés et leur cause, à l'instance. **La version du format** :
+refusés et leur cause, à l'instance. **Le core, nommé par `from:`** :
 `from: Syncytium-1.0`, la première clé (D1083) ; D1358 : « La version
 du format est utilisée par un utilitaire pour récupérer le core,
 ingérer la configuration, créer l'instance et mettre à disposition la
 suite d'outils qui facilitera l'exploitation du projet. » ; D1360 :
 « "Syncytium init" est la commande. La documentation dit le format et
 le format de la documentation va dépendre la capacité du core à
-interpréter la configuration. » — **`syncytium init`**, l'amorçage,
-hors du moteur : il lit `from:`, récupère le core — le moteur qui
-parle ce format —, ingère la configuration, crée l'instance et
-installe la suite d'outils (les commandes du moteur, D1080, D1167) ;
-la documentation 8 dit le format que parle la configuration et le core
-qui la sert ; **la forme de la documentation est celle du core** —
-*ma lecture* : une configuration `Syncytium-1.0` servie par un core
-2.3 reçoit une documentation 2.3, dans ce que ce core sait lire du
-format ; *à confirmer* : le refus d'un format trop récent (D330) vaut pour un
-moteur lancé directement, l'utilitaire l'évite en récupérant le core
-qui convient ; la conversion d'un format antérieur (D331) reste et se
-mentionne — « format Syncytium-1.0, lu par le core 2.3 » ; l'outil de
-mise à niveau est un outil du concepteur (D332), au rang 5 ; le détail
-de l'utilitaire au guide d'exploitation (§17, le rang 7). **L'adresse
+interpréter la configuration. » ; D1361 : « Le from: porte la version
+du core de Syncytium. Syncytium-1.0 dispose de son moteur
+d'interprétation de la configuration et de sa conversion en
+documentation. Une version Syncytium-2.0 dispose aussi de son moteur
+d'interprétation et de sa propre conversion (pouvant tenir une
+évolution de la version 1.0) » — **`syncytium init`**, l'amorçage,
+hors du moteur : il lit `from:`, récupère ce core, ingère la
+configuration, crée l'instance et installe la suite d'outils (les
+commandes du moteur, D1080, D1167) ; **la documentation est celle du
+core nommé** — son moteur d'interprétation, sa conversion ; la
+documentation 8 dit le core qui sert la configuration. *Ma lecture* :
+changer de core est un geste du concepteur — `from: Syncytium-2.0` —,
+le core 2.0 tenant l'évolution depuis la 1.0, la conversion à
+l'ingestion (D331) ; un core inconnu « n'existe pas » à l'amorçage,
+l'écho de D330 ; l'outil de mise à niveau est un outil du concepteur
+(D332), au rang 5 ; *à confirmer* : le détail de l'utilitaire au guide
+d'exploitation (§17, le rang 7). **L'adresse
 du dépôt, lue depuis le dossier** (D1359 : « L'adresse du dépôt est
 portée par le dossier qui contient le projet. Les commandes git
 permettent de trouver facilement le dépôt d'origine. Si elle est

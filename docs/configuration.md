@@ -38,11 +38,13 @@ décisions citées renvoient à la [conception](conception.md).
   documentation générée (D333/D645).
 - **Le dépôt du client est distinct du projet** (D336) ; le projet
   embarque `template/`, un « Hello world ! » clonable (D337).
-- **La version du format en tête** (D322) : la description déclare la
-  version du méta-schéma qu'elle parle — **`from: Syncytium-1.0`, la
-  première clé de `syncytium.yml`** (D1083) ; un format plus récent que le
-  moteur est refusé sur la seule lecture de l'en-tête (D330), un format
-  antérieur est converti à l'ingestion (D331).
+- **Le core en tête** (D322, D1361) : la description déclare le core de
+  Syncytium qui l'interprète et génère sa documentation — **`from:
+  Syncytium-1.0`, la première clé de `syncytium.yml`** (D1083) ;
+  `syncytium init` récupère ce core (D1358, D1360) ; un core plus récent
+  tient l'évolution du précédent — la conversion à l'ingestion (D331) ;
+  un format plus récent que le moteur est refusé sur la seule lecture de
+  l'en-tête (D330).
 
 **Les règles d'écriture face à YAML (D892)** — la grammaire des
 expressions vit dans des scalaires YAML, deux règles la protègent :
@@ -367,7 +369,7 @@ versions/
 ### 3.1 `syncytium.yml` — le projet
 
 ```yaml
-from: Syncytium-1.0                  # le format, la première clé (D1083)
+from: Syncytium-1.0                  # le core de Syncytium, la première clé (D1083, D1361)
 name: entrepot
 description: L'entrepôt de données de l'entreprise — …
 visibility: promotional              # public | private | promotional — ce qui se lit sans aucun droit (D1151, en proposition)
@@ -395,10 +397,12 @@ ressource.
 **`from:` — la clé de l'amorçage, `syncytium init`** (D1358, D1360) : « La version du format
 est utilisée par un utilitaire pour récupérer le core, ingérer la
 configuration, créer l'instance et mettre à disposition la suite
-d'outils qui facilitera l'exploitation du projet. » — `syncytium init`,
-hors du moteur, lit la première clé et récupère le core qui parle ce
-format ; la documentation générée est celle de ce core ; le détail au
-guide d'exploitation (documentation.md §17).
+d'outils qui facilitera l'exploitation du projet. » — `from:` porte la
+version du core de Syncytium (D1361), chaque core ayant son moteur
+d'interprétation et sa conversion en documentation ; `syncytium init`,
+hors du moteur, lit la première clé et récupère ce core ; la
+documentation générée est la sienne ; le détail au guide
+d'exploitation (documentation.md §17).
 
 **`from:` — l'origine, partout** (D1086) : un seul sens pour trois
 places — **le projet** (`syncytium.yml`) : le modèle Syncytium dont la

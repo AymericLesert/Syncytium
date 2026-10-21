@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — §26, le rang 4 (D1347–D1355) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — §26, le rang 4 (D1347–D1359) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -489,7 +489,10 @@ décisions, D1170–D1238.)*
      d'auteur et les auteurs (D1349/D1352/D1354), `copyright:` et
      `authors:` (D1355) ;
   2. le dépôt du client (D336) et la version du format (D1083) : ce
-     que la documentation en dit ;
+     que la documentation en dit : **acquis le 21/10/2026 (D1356–D1359)**
+     — aucune clé, l'adresse lue depuis le dossier si elle est publique,
+     le versionnement calculé, l'utilitaire d'amorçage (ses lectures à
+     confirmer) ;
   3. signaler et demander : les liens vers le suivi du projet, où ils
      se déclarent (une clé `support:` ? `documentation.yml` ?) ;
   4. le support : qui répond, les engagements — écrits ; l'assistance
@@ -2841,7 +2844,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1355)*
+## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1355 ; l'étape 2, le dépôt et le format, acquise : D1356–D1359)*
 
 **La huitième documentation** (D1133) : le cycle de vie des versions,
 les notes et ce qui change, le dépôt du client, signaler et demander,
@@ -2948,7 +2951,15 @@ moteur lancé directement, l'utilitaire l'évite en récupérant le core
 qui convient ; la conversion d'un format antérieur (D331) reste et se
 mentionne — « format Syncytium-1.0, lu par le core 2.3 » ; l'outil de
 mise à niveau est un outil du concepteur (D332), au rang 5 ; le détail
-de l'utilitaire au guide d'exploitation (§17, le rang 7).
+de l'utilitaire au guide d'exploitation (§17, le rang 7). **L'adresse
+du dépôt, lue depuis le dossier** (D1359 : « L'adresse du dépôt est
+portée par le dossier qui contient le projet. Les commandes git
+permettent de trouver facilement le dépôt d'origine. Si elle est
+accessible, elle est publique. Sinon, pas de mention sur l'origine du
+dépôt. ») — *ma lecture* : le moteur lit l'origine du dossier, le
+remote ; si elle répond sans droit, la page la montre ; sinon rien, et
+aucun degré à régler — ma proposition « à partir de `manager` »
+retirée. Rien ne s'écrit à cette étape.
 
 *Les étapes 3 et 4 — signaler et demander, le support — à venir.*
 

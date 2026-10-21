@@ -209,8 +209,10 @@ documentation : le cycle de vie des versions et leur page (le numéro,
 le statut, les notes écrites, les écarts calculés — l'état, jamais
 l'échéance —, les dates lues à l'instance, les ressources, les droits
 d'auteur, les auteurs), le dépôt du
-client, signaler et demander, le support.
-*(D1133, D1347–D1355)*
+client (aucune clé : l'adresse lue depuis le dossier si elle est
+publique, le versionnement calculé, l'utilitaire d'amorçage lit
+`from:`), signaler et demander, le support.
+*(D1133, D1347–D1359)*
 
 **Édition** — Un extrait figé de la documentation pour qui n'a pas de
 compte, préparé par un `manager` ou un `administrator` dans la limite de

@@ -218,7 +218,7 @@ statut, le groupe gestionnaire désigné par la surface, D1363–D1373 ; la
 question répondue va à la F.A.Q. de la fonctionnelle, la paire seule),
 le support (un texte écrit sans engagement, les indicateurs statiques et
 dynamiques, D1375–D1380).
-*(D1133, D1347–D1389)*
+*(D1133, D1347–D1390)*
 
 **Édition** — Un extrait figé de la documentation pour qui n'a pas de
 compte, préparé par un `manager` ou un `administrator` dans la limite de

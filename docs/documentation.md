@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — §26, le rang 4 (D1347–D1363) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner — §26, le rang 4 (D1347–D1367) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -2753,7 +2753,7 @@ suit — l'écart D1112 la signale). **Un wizard donne sa planche sans
 rien écrire** (D1130, §22) : ses steps sont les étapes, chaque step
 son écran.
 
-## 25. L'assistance — les questions, les réponses, les commentaires (D1132) *(en proposition)*
+## 25. L'assistance — les questions, les réponses, les commentaires (D1132) *(fondu dans §26, chapitre 3 — D1367 : la question est un type de support)*
 
 **« Concernant la F.A.Q., cela peut se transformer en fonctionnalité
 proposée par le socle. Mon idée est de permettre aux utilisateurs
@@ -2968,56 +2968,76 @@ remote ; si elle répond sans droit, la page la montre ; sinon rien, et
 aucun degré à régler — ma proposition « à partir de `manager` »
 retirée. Rien ne s'écrit à cette étape.
 
-### 3. Signaler et demander (D1363)
+### 3. Signaler, demander, questionner — le support dans l'application (D1363–D1367)
 
-**Deux gestes, portés par l'application** (D1363 : « Cette étape
-aborde le signalement d'une anomalie et la demande d'une évolution.
-Ces 2 éléments sont portés par l'application dans un mode basique :
+**Portés par l'application** (D1363 : « Cette étape aborde le
+signalement d'une anomalie et la demande d'une évolution. Ces 2
+éléments sont portés par l'application dans un mode basique :
 enregistrement d'une anomalie ou d'une demande ; liste de messages
 (qui, date et message) ; lien vers un ticket (si renseigné) ; statut
 de l'anomalie et de la demande. Ces informations sont gérées par
 Syncytium via son modèle de données interne ») — mes lectures 2 et 3
-écartées : ni bloc `support:` avec des adresses, ni lien externe depuis
-le « ? » ; le ticket est un lien par demande, renseigné quand il
-existe. *Mes lectures, à confirmer* : **un module interne du socle**,
+du départ écartées : ni bloc `support:` avec des adresses, ni lien
+externe depuis le « ? ». **La question de la F.A.Q. est un type de
+support** (D1367 : « Une question du FAQ est un type de support, dont
+la question et la réponse sont mises au pot commun et ajoutées à la
+documentation fonctionnelle. ») — §25 se fond ici. **Le ticket porte
+l'ancre de l'écran et, s'il y en a un, l'enregistrement montré**
+(D1364 : « l'ancre de l'écran et éventuellement l'id de
+l'enregistrement de l'entité porté par l'écran au moment de la
+demande »). **Planifiée et livrée portent une version, facultative**
+(D1365). *Mes lectures, à confirmer* : **un module interne du socle**,
 `_support` (le nom est mien — le préfixe des modules internes, D1029,
-à côté de `_migration`, `_assistance`, `_chat`), qui naît avec le
-moteur ; **son modèle**, deux entités, en esquisse :
+à côté de `_migration` et `_chat`), qui naît avec le moteur ; **son
+modèle**, deux entités, en esquisse :
 
 ```yaml
-demande:
-  description: Une anomalie signalée ou une évolution demandée depuis un écran
+ticket:
+  description: Une anomalie signalée, une évolution demandée ou une question posée depuis un écran
   label: "{titre}"
   identity: [numero]
   states: statut
   fields:
     numero: integer
-    type: enum[anomalie, evolution]
-    ancre: text                  # l'adresse de l'écran d'où vient la demande (D566, D1121)
+    type: enum[anomalie, evolution, question]
+    ancre: text                  # l'adresse de l'écran d'où vient le ticket (D566, D1121)
+    enregistrement: reference    # facultatif — l'entité et l'identifiant montrés au moment du ticket (D1364)
     titre: text[..120]
     texte: text
     auteur: _administration.utilisateur
     date: datetime
-    statut: enum[nouvelle, prise_en_compte, planifiee, livree, refusee]   # en proposition
-    ticket: url                  # le lien vers le ticket, s'il est renseigné
+    statut: enum[nouveau, pris_en_compte, planifie, livre, clos, refuse]   # en proposition
+    version: version             # facultative — la version qui planifie ou livre (D1365)
+    traitant: _administration.utilisateur   # celui qui traite le ticket (D1366)
+    lien: url                    # le lien vers un ticket externe, s'il est renseigné
 message:
-  description: Un message du dialogue autour d'une demande
+  description: Un message du dialogue autour d'un ticket ; pour une question, la réponse retenue
   fields:
-    demande: demande
+    ticket: ticket
     auteur: _administration.utilisateur
     date: datetime
     texte: text
+    reponse: boolean             # la réponse retenue d'une question — au pot commun (D1367)
 ```
 
-**Qui fait quoi** : qui a un compte enregistre une demande et
-dialogue ; `manager` et `administrator` tiennent le statut et
-renseignent le ticket. **Depuis l'application** : le « ? » de chaque
-surface ouvre l'enregistrement avec l'ancre, la version et
-l'environnement ; la liste `_support[demandes]`, par statut.
-**Le chapitre 3 de §26** décrit le mode basique et ses statuts ; la
-liste des demandes vit à l'instance (D1157). L'assistance (§25) reste
-le lieu des questions ; le support (l'étape 4) dit qui répond et dans
-quels délais.
+**Le « ? »** (D1366 : « L'accès au support s'effectue via le (?) -
+dernier cet icône, nous commençons à voir quelques points à adresser
+(documentation, ticket, ...) ») — *ma lecture* : un menu par surface,
+qui se complète au fil des rangs — la documentation de l'écran (§7),
+un ticket, une question. **À l'ouverture** (D1366) : le ticket paraît
+au profil de l'utilisateur, qui y retrouve tous ses tickets, et en
+notification du `manager` ou de l'`administrator` ; une personne le
+prend (`traitant:`) ; **une alerte régulière, paramétrée au profil**,
+informe de l'arrivée d'un ticket ou de l'absence de mise à jour, hors
+clos et refus — *ma lecture* : une notification `every:` par
+utilisateur (D108/D397, D1167). **La question** (D1367) : répondue,
+elle est publique — visible de tous, au degré `reader` — et sa paire
+question-réponse s'ajoute au chapitre F.A.Q. de la fonctionnelle (§6,
+chapitre 5, D1189), ancrée à l'écran ; les anomalies et les évolutions
+restent à leur auteur, aux `manager` et aux `administrator`.
+**Le chapitre 3 de §26** décrit le mode basique, ses types et ses
+statuts ; la liste des tickets vit à l'instance (D1157). Le support
+(l'étape 4) dit qui répond et dans quels délais.
 
 *L'étape 4 — le support — à venir.*
 

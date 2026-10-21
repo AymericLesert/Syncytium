@@ -3008,7 +3008,7 @@ ticket:
     date: datetime
     statut: enum[nouveau, pris_en_compte, planifie, livre, clos, refuse]   # en proposition
     version: version             # facultative — la version qui planifie ou livre (D1365)
-    traitant: _administration.utilisateur   # celui qui traite le ticket (D1366)
+    gestionnaire: _administration.utilisateur   # celui qui traite le ticket (D1366, D1369)
     lien: url                    # le lien vers un ticket externe, s'il est renseigné
 message:
   description: Un message du dialogue autour d'un ticket ; pour une question, la réponse retenue
@@ -3027,7 +3027,7 @@ qui se complète au fil des rangs — la documentation de l'écran (§7),
 un ticket, une question. **À l'ouverture** (D1366) : le ticket paraît
 au profil de l'utilisateur, qui y retrouve tous ses tickets, et en
 notification du `manager` ou de l'`administrator` ; une personne le
-prend (`traitant:`) ; **une alerte régulière, paramétrée au profil**,
+prend (`gestionnaire:`, D1369) ; **une alerte régulière, paramétrée au profil**,
 informe de l'arrivée d'un ticket ou de l'absence de mise à jour, hors
 clos et refus — *ma lecture* : une notification `every:` par
 utilisateur (D108/D397, D1167). **La question** (D1367) : répondue,

@@ -2913,8 +2913,19 @@ version courante de l'environnement et ses notes, puis la liste ;
 notifiée à la promotion par `notify: release`, les notes et ce qui
 change (D1167). Aucune clé nouvelle de configuration.
 
-*Les étapes 2 à 4 — le dépôt du client et la version du format,
-signaler et demander, le support — à venir.*
+### 2. Le dépôt et le format (D1356–D1359)
+
+**Le dépôt** : la configuration vit dans un dépôt distinct du projet
+Syncytium (D336), versionné par le client. **Aucune clé ne le pointe**
+(D1356 : « La documentation n'a pas besoin de décrire dans une clé qui
+pointe le repository. Cela est porté par l'outil de gestion du code
+source (git, scion,...). Si la documentation veut l'exposer, cela peut
+être porté dans la documentation générale du projet. ») — ma
+proposition `repository:` retirée ; *ma lecture* : le concepteur qui
+veut nommer le dépôt l'écrit dans la présentation générale (§6,
+chapitre 1).
+
+*Les étapes 3 et 4 — signaler et demander, le support — à venir.*
 
 ## 27. Les points ouverts *(rafraîchis à la clôture du rang 3, le 20/10/2026)*
 

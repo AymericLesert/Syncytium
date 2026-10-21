@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner, le support — §26, le rang 4, clos (D1347–D1387) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner, le support — §26, le rang 4, clos (D1347–D1388) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -2853,7 +2853,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Le projet et le support *(le rang 4 — acquis, D1347–D1387 : la page des versions, le dépôt et le core, le support dans l'application, le support ; la déclinaison sur l'entrepôt, D1382)*
+## 26. Le projet et le support *(le rang 4 — acquis, D1347–D1388 : la page des versions, le dépôt et le core, le support dans l'application, le support ; la déclinaison sur l'entrepôt, D1382)*
 
 **La huitième documentation** (D1133) : le cycle de vie des versions,
 les notes et ce qui change, le dépôt du client, signaler et demander,
@@ -3011,21 +3011,22 @@ ticket:
     numero: integer
     type: enum[anomalie, evolution, question]
     ancre: text                  # l'adresse de l'écran d'où vient le ticket (D566, D1121)
-    enregistrement: _socle.record   # facultatif — l'enregistrement montré ; par héritage, toute entité (D1364, D1385)
+    enregistrement: _syncytium.record   # facultatif — l'enregistrement montré, de n'importe quelle entité (D1364, D1385, D1388)
     titre: text[..120]
     texte: text
-    auteur: _administration.utilisateur
+    auteur: _syncytium.user      # l'utilisateur du socle (D1388)
     langue: text                 # la langue de l'auteur — la question et la réponse sont dans sa langue (D1375)
     date: datetime
     statut: enum[nouveau, pris_en_compte, planifie, livre, clos, refuse]   # acquis (D1370)
     version: version             # facultative — la version qui planifie ou livre (D1365)
-    gestionnaire: _administration.utilisateur   # celui qui traite le ticket (D1366, D1369)
+    gestionnaire: _syncytium.user   # celui qui traite le ticket (D1366, D1369)
+    groupe: _syncytium.group     # le groupe destinataire, transmis par la surface (D1372)
     lien: url                    # le lien vers un ticket externe, s'il est renseigné (D1386)
 message:
   description: Un message du dialogue autour d'un ticket ; pour une question, la réponse retenue
   fields:
     ticket: ticket
-    auteur: _administration.utilisateur
+    auteur: _syncytium.user
     date: datetime
     texte: text
     reponse: boolean             # la réponse retenue d'une question — au pot commun (D1367)

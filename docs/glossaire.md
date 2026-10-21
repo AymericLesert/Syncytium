@@ -218,7 +218,7 @@ statut, le groupe gestionnaire désigné par la surface, D1363–D1373 ; la
 question répondue va à la F.A.Q. de la fonctionnelle, la paire seule),
 le support (un texte écrit sans engagement, les indicateurs statiques et
 dynamiques, D1375–D1380).
-*(D1133, D1347–D1387)*
+*(D1133, D1347–D1388)*
 
 **Édition** — Un extrait figé de la documentation pour qui n'a pas de
 compte, préparé par un `manager` ou un `administrator` dans la limite de
@@ -399,7 +399,8 @@ entités, son menu, sa page d'accueil — la donnée et l'expérience
 ensemble. Un module décrit une partie fonctionnelle d'une application (aussi appelée module fonctionnel) comme pour un ERP : la gestion ADV, le référentiel des produits, la gestion et la planification de la production, ...
 *(D347/D416)*
 
-**Module interne** (`_migration`, `_administration`, `_chat`) — Un
+**Module interne** (`_syncytium`, `_migration`, `_administration`,
+`_assistance`, `_chat`) — Un
 module servi par Syncytium, jamais déclaré par l'application ; son nom
 commence par `_`, le préfixe des modules internes, et Syncytium refuse
 ce premier caractère aux modules d'application. *(D1029)*

@@ -3024,7 +3024,10 @@ message:
 dernier cet icône, nous commençons à voir quelques points à adresser
 (documentation, ticket, ...) ») — *ma lecture* : un menu par surface,
 qui se complète au fil des rangs — la documentation de l'écran (§7),
-un ticket, une question. **À l'ouverture** (D1366) : le ticket paraît
+un ticket, une question ; **et une recherche générale** (D1371 : « (?)
+couvre aussi une fonction de recherche générale (sur un enregistrement,
+un page, une action, ...) ») — *ma lecture* : la recherche de la
+fonctionnelle (§6, les compléments du rang 1), depuis le même menu. **À l'ouverture** (D1366) : le ticket paraît
 au profil de l'utilisateur, qui y retrouve tous ses tickets, et en
 notification du `manager` ou de l'`administrator` ; une personne le
 prend (`gestionnaire:`, D1369) ; **une alerte régulière, paramétrée au profil**,

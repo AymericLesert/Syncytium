@@ -2923,7 +2923,17 @@ source (git, scion,...). Si la documentation veut l'exposer, cela peut
 être porté dans la documentation générale du projet. ») — ma
 proposition `repository:` retirée ; *ma lecture* : le concepteur qui
 veut nommer le dépôt l'écrit dans la présentation générale (§6,
-chapitre 1).
+chapitre 1). **Comment il se versionne, calculé** (D1357) : le dossier
+des versions et ses quatre statuts (D324, D340) — déposer une version
+dans un dossier est le geste, l'ingestion porte le statut (D344) ; par
+version, l'arbre des fichiers tel que l'ingestion l'a lu, les fichiers
+atteints par `~{…}` (D1082), rien d'autre. **Les fichiers après
+ingestion** (D1357) : le moteur ne les réécrit jamais (D331–D332) et ne
+les relit pas (D327) ; la documentation le dit en une phrase — ce qui
+est servi est la version ingérée, modifier un fichier n'a d'effet qu'au
+dépôt d'une nouvelle version, le build au moins (D326) ; le registre
+des versions essayées (D326) complète la page des versions — les essais
+refusés et leur cause, à l'instance.
 
 *Les étapes 3 et 4 — signaler et demander, le support — à venir.*
 

@@ -3099,8 +3099,8 @@ cours par statut, dynamique pour matérialiser le nombre de tickets
 ouverts par jour, par semaine ou par mois (selon l'écart entre la date
 d'ouverture de l'application et le jour courant) ») — *ma lecture* :
 le pas se choisit seul, par jour tant que l'application a moins d'un
-mois, par semaine jusqu'à un an, par mois au-delà, en proposition ; la
-date d'ouverture est celle de la première ingestion (D326). Rien de
+mois, par semaine jusqu'à un an, par mois au-delà — confirmé, D1382 ;
+la date d'ouverture est celle de la première ingestion (D326). Rien de
 plus. **Les degrés** (D1377) : le texte et la table à tous, `reader`
 compris ; les indicateurs à partir de `manager`. **La complétude**
 (D1377) : un projet sans texte de support est relevé (§20), le chapitre

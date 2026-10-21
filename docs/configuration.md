@@ -392,12 +392,13 @@ configuration. La page des versions (documentation.md §26) les
 reprend, avec les auteurs de chaque version et les droits de chaque
 ressource.
 
-**`from:` — la clé de l'amorçage** (D1358) : « La version du format
+**`from:` — la clé de l'amorçage, `syncytium init`** (D1358, D1360) : « La version du format
 est utilisée par un utilitaire pour récupérer le core, ingérer la
 configuration, créer l'instance et mettre à disposition la suite
-d'outils qui facilitera l'exploitation du projet. » — l'utilitaire,
+d'outils qui facilitera l'exploitation du projet. » — `syncytium init`,
 hors du moteur, lit la première clé et récupère le core qui parle ce
-format ; sa forme au guide d'exploitation (documentation.md §17).
+format ; la documentation générée est celle de ce core ; le détail au
+guide d'exploitation (documentation.md §17).
 
 **`from:` — l'origine, partout** (D1086) : un seul sens pour trois
 places — **le projet** (`syncytium.yml`) : le modèle Syncytium dont la

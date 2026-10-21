@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner — §26, le rang 4 (D1347–D1374) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner, le support — §26, le rang 4 (D1347–D1379) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -499,7 +499,10 @@ décisions, D1170–D1238.)*
      trois groupes de la surface, le « ? », la réponse publiée à la
      clôture ; §25 fondu ;
   4. le support : qui répond, les engagements — écrits ; l'assistance
-     (§25) en pendant.
+     (§25) en pendant : **acquis le 22/10/2026 (D1375–D1379)** — un texte
+     écrit sans engagement, la langue du ticket, la table « qui répond à
+     quoi », les indicateurs par type et par statut, les tickets dans
+     l'application seulement.
 - **Déclinaison** : **l'entrepôt** (la 1.0.0.0 en production, la
   1.0.0.1 en beta).
 - **Livrables** : une section « Le projet et le support » ;
@@ -2847,7 +2850,7 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1355 ; l'étape 2, le dépôt et le format, acquise : D1356–D1362 ; l'étape 3, le support dans l'application, acquise : D1363–D1374)*
+## 26. Le projet et le support *(le rang 4 — en cours ; l'étape 1, la page des versions, acquise : D1347–D1355 ; l'étape 2, le dépôt et le format, acquise : D1356–D1362 ; l'étape 3, le support dans l'application, acquise : D1363–D1374 ; l'étape 4, le support, acquise : D1375–D1379)*
 
 **La huitième documentation** (D1133) : le cycle de vie des versions,
 les notes et ce qui change, le dépôt du client, signaler et demander,
@@ -3009,6 +3012,7 @@ ticket:
     titre: text[..120]
     texte: text
     auteur: _administration.utilisateur
+    langue: text                 # la langue de l'auteur — la question et la réponse sont dans sa langue (D1375)
     date: datetime
     statut: enum[nouveau, pris_en_compte, planifie, livre, clos, refuse]   # acquis (D1370)
     version: version             # facultative — la version qui planifie ou livre (D1365)
@@ -3063,7 +3067,43 @@ restent à leur auteur, aux `manager` et aux `administrator`.
 statuts ; la liste des tickets vit à l'instance (D1157). Le support
 (l'étape 4) dit qui répond et dans quels délais.
 
-*L'étape 4 — le support — à venir.*
+### 4. Le support (D1375–D1379)
+
+**Un texte écrit, sans engagement** : qui répond et comment le joindre —
+un Markdown par langue, versionné avec la configuration (D1156),
+référencé par `pages: support:` du `documentation.yml` de la version
+(§12) ; **« Ici, nous n'allons pas poser d'engagement »** (D1376) — ni
+délais promis, ni réel mesuré contre une promesse. **La langue** (D1375 :
+« une question posée est dans la langue de l'utilisateur (langue à
+mettre dans le ticket). La réponse aussi. Pour une FAQ, la question et
+la réponse sont disponibles dans la langue d'édition. ») — un champ
+`langue:` sur le ticket ; *ma lecture, à confirmer* : la paire
+question-réponse d'une question close se donne dans chaque langue de la
+version, le gestionnaire fournit les traductions à la clôture, à défaut
+la langue d'origine s'affiche telle quelle. **Ce que Syncytium ajoute,
+calculé** : la table « qui répond à quoi », lue depuis les blocs
+`assistance:` (D1372) — par module et par surface, le groupe des
+anomalies, des questions, des évolutions ; et, à l'instance, **les
+indicateurs** (D1379 : « La documentation peut comptabiliser les types
+et les statuts. Elle présente les indicateurs. Le détails n'apparaît
+pas dans le document. ») — les tickets par type et par statut, rien de
+plus. **Les degrés** (D1377) : le texte et la table à tous, `reader`
+compris ; les indicateurs à partir de `manager`. **La complétude**
+(D1377) : un projet sans texte de support est relevé (§20), le chapitre
+dit « aucun texte de support » ; une surface sans bloc `assistance:`
+hérité n'est pas relevée — le ticket va au `manager` et à
+l'`administrator`, le défaut du socle (D1173). **Les tickets ne
+quittent pas l'application** (D1378 : « Hors de l'application, hors de
+la FAQ, non présent à la documentation. Les tickets et les évolutions
+sont portés par l'application seulement. La FAQ dans la documentation
+ne diffuse que la question et la réponse (sans précisé les autres
+informations). Dans l'application, ces informations sont diffusées. »)
+— l'auteur, le gestionnaire, les dates, le statut, les messages se
+lisent dans l'application ; la F.A.Q. de la fonctionnelle (§6,
+chapitre 5) ne porte que la paire.
+
+*Restent la déclinaison sur l'entrepôt et la colonne 8 de la matrice
+dans les artefacts.*
 
 ## 27. Les points ouverts *(rafraîchis à la clôture du rang 3, le 20/10/2026)*
 

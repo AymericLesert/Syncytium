@@ -2987,8 +2987,8 @@ l'ancre de l'écran et, s'il y en a un, l'enregistrement montré**
 l'enregistrement de l'entité porté par l'écran au moment de la
 demande »). **Planifiée et livrée portent une version, facultative**
 (D1365). *Mes lectures, à confirmer* : **un module interne du socle**,
-`_support` (le nom est mien — le préfixe des modules internes, D1029,
-à côté de `_migration` et `_chat`), qui naît avec le moteur ; **son
+`_assistance` (D1368 — le préfixe des modules internes, D1029, à
+côté de `_migration` et `_chat`), qui naît avec le moteur ; **son
 modèle**, deux entités, en esquisse :
 
 ```yaml

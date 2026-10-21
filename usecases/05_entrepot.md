@@ -2821,8 +2821,9 @@ ajouterait. **En proposition.**)*
 > `administrator`, `administration`, et aucun `manager` : **tous les
 > tickets vont à l'administration**.
 >
-> **Les indicateurs** *(l'instance)* : les tickets par type et par
-> statut — vide au dépôt.
+> **Les indicateurs** *(l'instance)* : en cours, par statut ; ouverts
+> par jour, par semaine ou par mois selon l'ancienneté de l'application
+> (D1380) — vide au dépôt.
 >
 > **La F.A.Q.** : les questions closes, leur question et leur réponse —
 > dans la fonctionnelle, chapitre 5 ; aucune au dépôt.

@@ -483,11 +483,11 @@ décisions, D1170–D1238.)*
 - **Sections** : §9 ; §26 (créée le 20/10/2026).
 - **Étapes** :
   1. la page des versions : les statuts, les passages, les Sunsets
-     (D340/D650), la documentation de chacune (D1123–D1124) —
-     *acquise, D1347–D1355 : le Sunset lu comme l'état (D742), les dates
-     lues à l'instance (D1350), les ressources, les droits d'auteur et
-     les auteurs (D1349/D1352/D1354) — `copyright:`, `authors:`
-     (D1355)* ;
+     (D340/D650), la documentation de chacune (D1123–D1124) : **acquis
+     le 20/10/2026 (D1347–D1355)** — le Sunset lu comme l'état (D742),
+     les dates lues à l'instance (D1350), les ressources, les droits
+     d'auteur et les auteurs (D1349/D1352/D1354), `copyright:` et
+     `authors:` (D1355) ;
   2. le dépôt du client (D336) et la version du format (D1083) : ce
      que la documentation en dit ;
   3. signaler et demander : les liens vers le suivi du projet, où ils

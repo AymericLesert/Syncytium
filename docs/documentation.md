@@ -3011,7 +3011,7 @@ ticket:
     numero: integer
     type: enum[anomalie, evolution, question]
     ancre: text                  # l'adresse de l'écran d'où vient le ticket (D566, D1121)
-    enregistrement: reference    # facultatif — l'entité et l'identifiant montrés au moment du ticket (D1364)
+    enregistrement: _socle.record   # facultatif — l'enregistrement montré ; par héritage, toute entité (D1364, D1385)
     titre: text[..120]
     texte: text
     auteur: _administration.utilisateur

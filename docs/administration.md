@@ -443,12 +443,12 @@ syncytium rotate    # re-chiffre le .env et les champs des types chiffrants
 ```
 
 **La copie d'un environnement** (D1078–D1080) : la base de l'environnement
-source vers celui de la cible — les données et le module `_migration` avec
-elles ; l'option `--with-storage` emporte aussi les fichiers de détail des
+source vers celui de la cible — les données et les modules internes
+`_migration` et `_assistance` avec elles (D1078, D1387) ; l'option `--with-storage` emporte aussi les fichiers de détail des
 migrations (D1066), re-chiffrés sous les clés de la cible :
 
 ```bash
-syncytium copy production staging                  # les données et _migration
+syncytium copy production staging                  # les données, _migration et _assistance
 syncytium copy production staging --with-storage   # + les fichiers de détail, re-chiffrés
 ```
 

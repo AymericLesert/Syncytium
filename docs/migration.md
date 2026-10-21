@@ -530,7 +530,7 @@ d'administration (D711) :
   jamais pendant la bascule ; un redémarrage du serveur vaut
   interruption, la relance est manuelle ;
 - **la copie d'un environnement** (D1078–D1080) — `syncytium copy
-  <source> <cible>` emporte les données et `_migration` ;
+  <source> <cible>` emporte les données, `_migration` et `_assistance` (D1387) ;
   `--with-storage` emporte aussi les fichiers de détail, re-chiffrés
   sous les clés de la cible ;
 - **la sandbox** (D921–D922) — `reload` rejoue l'ingestion et la

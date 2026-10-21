@@ -2736,7 +2736,8 @@ porte ni `author:`, ni `contact:`, ni `copyright:` ; aucune version ne
 porte `authors:` ; aucune ressource déclarée ; aucun bloc `assistance:`
 sur les surfaces ; aucun texte de support. On montre la documentation
 telle qu'elle sortirait aujourd'hui, puis ce que le concepteur
-ajouterait. **En proposition.**)*
+ajouterait. **Confirmée, et les clés écrites dans la configuration le
+22/10/2026 — D1382.**)*
 
 ---
 
@@ -2834,18 +2835,19 @@ ajouterait. **En proposition.**)*
 
 ---
 
-**Ce que le concepteur ajouterait** — en proposition, à écrire dans la
-configuration si l'auteur le demande (comme les blocs `rgpd:` du rang
-3, D1344) :
+**Ce que le concepteur ajouterait** — **écrit dans la configuration le
+22/10/2026** (D1382, comme les blocs `rgpd:` du rang 3, D1344) ; le
+traceur d'orphelins : 220 fichiers atteints, aucun orphelin :
 
 ```yaml
 # syncytium.yml — le projet nommé (D1153, D1355)
 author: Aymeric Lesert
-contact: entrepot@example.org
+contact: entrepot@entreprise.example
 copyright: © 2026 L'entreprise
 
-# versions/production/v1.0.0.0/version.yml — les auteurs de la version (D1355)
+# versions/production/v1.0.0.0/version.yml — les auteurs et la documentation de la version (D1355, D1219)
 authors: [Aymeric Lesert]
+documentation: ~{documentation.yml}
 
 # versions/production/v1.0.0.0/documentation.yml — le texte du support (D1375)
 pages:

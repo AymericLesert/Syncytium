@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner, le support — §26, le rang 4 (D1347–D1381) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner, le support — §26, le rang 4 (D1347–D1382) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -504,8 +504,8 @@ décisions, D1170–D1238.)*
      quoi », les indicateurs par type et par statut, les tickets dans
      l'application seulement.
 - **Déclinaison** : **l'entrepôt** (la 1.0.0.0 en production, la
-  1.0.0.1 en beta) — **écrite le 22/10/2026, en proposition**
-  ([usecases/05_entrepot.md](../usecases/05_entrepot.md)).
+  1.0.0.1 en beta) — **faite** (D1382 — les clés écrites dans la
+  configuration ; [usecases/05_entrepot.md](../usecases/05_entrepot.md)).
 - **Livrables** : une section « Le projet et le support » (§26, les
   quatre chapitres acquis) ; [configuration.md](configuration.md),
   [composants.md](composants.md).
@@ -3115,8 +3115,8 @@ informations). Dans l'application, ces informations sont diffusées. »)
 lisent dans l'application ; la F.A.Q. de la fonctionnelle (§6,
 chapitre 5) ne porte que la paire.
 
-*Restent la déclinaison sur l'entrepôt et la colonne 8 de la matrice
-dans les artefacts.*
+*La déclinaison sur l'entrepôt est faite (D1382) ; reste la colonne 8
+de la matrice dans les artefacts.*
 
 ## 27. Les points ouverts *(rafraîchis à la clôture du rang 3, le 20/10/2026)*
 

@@ -27,6 +27,10 @@ release-notes: |
   # Le pilotage
   - Le tableau de bord du stock.
 
+# Les auteurs de la version
+# Les personnes qui ont écrit cette version de la configuration.
+authors: [Aymeric Lesert]
+
 # Les réglages de la version
 # Les types et leurs défauts, les profils de confidentialité.
 settings: ~{settings.yml}
@@ -34,6 +38,10 @@ settings: ~{settings.yml}
 # Les groupes d'utilisateurs
 # Les strates de l'entreprise, de l'opérateur aux dirigeants.
 groups: ~{groups.yml}
+
+# La documentation de la version
+# Le texte du support : qui répond, comment joindre l'entreprise.
+documentation: ~{documentation.yml}
 
 # Les migrations
 # La reprise des données de PMI : la base d'origine, les tables sources, les règles, le rythme.

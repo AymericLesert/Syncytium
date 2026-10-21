@@ -508,6 +508,7 @@ languages: [fr, en]                  # les langues de la version, la première p
 release-notes: |                     # les évolutions de la version (D808/D1096) — l'historique par concaténation
   La première version de l'entrepôt de données — …
 authors: [Aymeric Lesert]            # les personnes qui ont écrit la version (D1355)
+documentation: ~{documentation.yml}  # la documentation de la version — les pages, les scénarios, les gabarits (D1219)
 settings: ~{settings.yml}
 groups: ~{groups.yml}
 migrations: ~{reprise/reprise.yml}   # les migrations déclarées (D662)

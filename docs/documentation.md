@@ -2933,7 +2933,22 @@ les relit pas (D327) ; la documentation le dit en une phrase — ce qui
 est servi est la version ingérée, modifier un fichier n'a d'effet qu'au
 dépôt d'une nouvelle version, le build au moins (D326) ; le registre
 des versions essayées (D326) complète la page des versions — les essais
-refusés et leur cause, à l'instance.
+refusés et leur cause, à l'instance. **La version du format** :
+`from: Syncytium-1.0`, la première clé (D1083) ; D1358 : « La version
+du format est utilisée par un utilitaire pour récupérer le core,
+ingérer la configuration, créer l'instance et mettre à disposition la
+suite d'outils qui facilitera l'exploitation du projet. » — *mes
+lectures, à confirmer* : un utilitaire d'amorçage, hors du moteur
+(`syncytium init`, en proposition), lit `from:`, récupère le core — le
+moteur qui parle ce format —, ingère la configuration, crée l'instance
+et installe la suite d'outils (les commandes du moteur, D1080, D1167) ;
+la documentation 8 dit le format que parle la configuration et le core
+qui la sert ; le refus d'un format trop récent (D330) vaut pour un
+moteur lancé directement, l'utilitaire l'évite en récupérant le core
+qui convient ; la conversion d'un format antérieur (D331) reste et se
+mentionne — « format Syncytium-1.0, lu par le core 2.3 » ; l'outil de
+mise à niveau est un outil du concepteur (D332), au rang 5 ; le détail
+de l'utilitaire au guide d'exploitation (§17, le rang 7).
 
 *Les étapes 3 et 4 — signaler et demander, le support — à venir.*
 

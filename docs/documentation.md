@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner — §26, le rang 4 (D1347–D1367) |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner — §26, le rang 4 (D1347–D1373) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -2968,7 +2968,7 @@ remote ; si elle répond sans droit, la page la montre ; sinon rien, et
 aucun degré à régler — ma proposition « à partir de `manager` »
 retirée. Rien ne s'écrit à cette étape.
 
-### 3. Signaler, demander, questionner — le support dans l'application (D1363–D1367)
+### 3. Signaler, demander, questionner — le support dans l'application (D1363–D1373)
 
 **Portés par l'application** (D1363 : « Cette étape aborde le
 signalement d'une anomalie et la demande d'une évolution. Ces 2
@@ -3049,8 +3049,9 @@ gestionnaire se prend dans ce groupe ; une personne le
 prend (`gestionnaire:`, D1369) ; **une alerte régulière, paramétrée au profil**,
 informe de l'arrivée d'un ticket ou de l'absence de mise à jour, hors
 clos et refus — *ma lecture* : une notification `every:` par
-utilisateur (D108/D397, D1167). **La question** (D1367) : répondue,
-elle est publique — visible de tous, au degré `reader` — et sa paire
+utilisateur (D108/D397, D1167). **La question** (D1367, D1373) : le message retenu porte
+`reponse: true` et **se publie quand la question est close** — alors
+publique, visible de tous au degré `reader` — et sa paire
 question-réponse s'ajoute au chapitre F.A.Q. de la fonctionnelle (§6,
 chapitre 5, D1189), ancrée à l'écran ; les anomalies et les évolutions
 restent à leur auteur, aux `manager` et aux `administrator`.

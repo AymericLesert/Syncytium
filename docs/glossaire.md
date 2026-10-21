@@ -213,9 +213,10 @@ client (aucune clé : l'adresse lue depuis le dossier si elle est
 publique, le versionnement calculé, `syncytium init` lit `from:`, la version du core, et récupère
 ce core — la documentation est la sienne, D1360–D1361), signaler, demander et questionner — le
 support dans l'application : les tickets (anomalie, évolution,
-question) de Syncytium, leurs messages, leur statut, D1363–D1367 ; la
+question) du module interne `_assistance`, leurs messages, leur
+statut, le groupe gestionnaire désigné par la surface, D1363–D1373 ; la
 question répondue va à la F.A.Q. de la fonctionnelle.
-*(D1133, D1347–D1367)*
+*(D1133, D1347–D1373)*
 
 **Édition** — Un extrait figé de la documentation pour qui n'a pas de
 compte, préparé par un `manager` ou un `administrator` dans la limite de

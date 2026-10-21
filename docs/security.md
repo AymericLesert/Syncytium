@@ -728,6 +728,13 @@ l'ingestion, par critère et par composant, `accessibility:` au projet
 (D1339–D1341) ; **les obligations du secteur** — `regulation:` à
 l'entité ou au module (D1342).
 
+**La sécurité, dans le projet et le support** (la colonne 8 — le rang
+4) : **l'adresse du dépôt** ne se montre que si elle est publique
+(D1359) ; **les tickets ne quittent pas l'application** (D1378) —
+l'auteur, le gestionnaire, les messages restent dedans, la F.A.Q. ne
+porte que la paire ; **la documentation entière est portée par
+l'application** (D1348), sous ses droits.
+
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 sécurité n'est pas ce que l'utilisateur fait ; le masque dit ce qui est
 protégé) ; l'information (le niveau de confidentialité affiché à chaque

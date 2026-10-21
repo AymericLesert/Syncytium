@@ -595,6 +595,11 @@ composant** passe les tests du RGAA comme les composants du socle
 (D1340) ; **le hook de connecteur** porte `rgpd: { countries: [ … ] }`
 (D1328).
 
+**Les hooks, dans le projet et le support** (la colonne 8 — le rang 4) :
+rien de propre — les opérations ne sont pas des écarts (D1281) ; les
+notifications des tickets et l'alerte du profil passent par le
+mécanisme des notifications du socle (D1366, D108/D397).
+
 **Les autres colonnes** — à leur rang : le développeur (le contrat du
 hook, ses propriétés — `degree`, `execution`, `deterministic`,
 `connectors` —, le `describe` D645 ; **la skill** des consignes du

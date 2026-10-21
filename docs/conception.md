@@ -24667,7 +24667,9 @@ avant la synthèse Q16).
   l'entrepôt » (D1382) — `author:`, `contact:`, `copyright:` ;
   `authors:`, `documentation:` et le texte du support aux deux
   versions ; `assistance:` aux deux `settings.yml` ; le traceur : 220
-  fichiers, aucun orphelin. Reste la colonne 8 de la matrice.
+  fichiers, aucun orphelin. La colonne 8 de la matrice écrite dans
+  les onze artefacts et la matrice d'ensemble — à valider, puis la
+  clôture du rang 4.
 - **2026-10-21 — REPRISE : LES ÉTAPES 2 ET 3 DU RANG 4 CLOSES (D1356–D1374,
   1374 décisions).** « re ». Le dépôt du client et la version du format,
   cinq lectures ; « 1. Le dépôt vit dans un dépôt distinct du projet

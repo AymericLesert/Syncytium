@@ -596,6 +596,12 @@ compris, même anonymisé (D1344) ; **au chapitre de la sécurité**, les
 secrets `*` par leur nom, jamais leur valeur (D944), `unencrypted:`
 signalé (D705), les origines autorisées (D918).
 
+**Les connecteurs, dans le projet et le support** (la colonne 8 — le
+rang 4) : **le storage héberge les tables du module `_assistance`** —
+les tickets et leurs messages — comme celles de `_migration` (D1363,
+D1368) ; la page des versions dit l'environnement qu'implique le
+statut, rien des connecteurs (D1347, D1251).
+
 **Les autres colonnes** — à leur rang : le D.A.T. (le rang 6 — les
 connexions de l'application à son environnement, le schéma calculé
 des connecteurs, D1131) ; le guide d'exploitation (le rang 7 — le

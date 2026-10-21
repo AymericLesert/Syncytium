@@ -333,6 +333,14 @@ l'anonymisation déclarée sur elle (`rgpd.anonymize` avec `every:`,
 D1334) ; sa table de stockage et ses colonnes protégées, par renvoi au
 dictionnaire (D1321).
 
+**L'entité et le champ, dans le projet et le support** (la colonne 8 —
+le rang 4) : **ce qui change** — par module, les champs ajoutés,
+renommés, retypés, supprimés, dépréciés d'une version à la suivante, en
+résumé sur la page des versions (D1347, §9 de documentation.md),
+l'« à venir » sur la production (D1285) ; **l'enregistrement cité par un
+ticket** — l'entité et son identifiant montrés au moment de la demande
+(D1364) ; rien d'écrit par l'entité.
+
 **Les autres colonnes** — à leur rang : le développeur (ses points d'API) ; la promotionnelle
 (son titre dans la vue d'ensemble) ; la maintenance (ses usages, ses
 anomalies).

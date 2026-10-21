@@ -498,6 +498,16 @@ groupes qui lisent, par la confidentialité ; **`rgpd.extract`** au
 plancher `manager`, **`rgpd.anonymize`** au plancher `administrator`
 (D1331, D1333) ; la limitation par l'`allow:` d'un état (D1172).
 
+**Les groupes et les droits, dans le projet et le support** (la colonne
+8 — le rang 4) : **les trois groupes du bloc `assistance:`** — qui
+traite une anomalie, qui répond à une question, qui enregistre une
+évolution (D1372) ; le gestionnaire se prend dans le groupe (D1369) ;
+sans bloc, le `manager` et l'`administrator` (D1377) ; **les degrés de
+lecture** — la page des versions, le dépôt, le texte du support et
+« qui répond à quoi » à tous, `reader` compris, les indicateurs à partir
+de `manager` (D1347, D1377) ; un ticket se lit par son auteur et par le
+groupe, une question close par tous, dans sa langue (D1373, D1381).
+
 **Les autres colonnes** — à leur rang : ; le guide d'exploitation (les groupes et leur gestion, les
 affectations D341) ; la promotionnelle (le mode public, `visibility:`
 D1151).

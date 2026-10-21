@@ -608,8 +608,17 @@ fichiers et aux traces, l'anonymisation aux enregistrements (D1334) ;
 **les tests du RGAA** enregistrés à l'ingestion (D1340) ; le DPO et le
 contact déclarés au projet (D1330).
 
+**L'administration, dans le projet et le support** (la colonne 8 — le
+rang 4) : **la page des versions** — les statuts par dossier, les dates
+d'ingestion et de promotion lues au registre des versions (D1350), les
+essais refusés et leur cause (D1357) ; **`syncytium init`** —
+l'amorçage qui lit `from:`, récupère le core, ingère, crée l'instance
+(D1358, D1360) ; **le profil de l'utilisateur** — ses tickets, l'alerte
+régulière `every:` (D1366) ; **la notification** des tickets au groupe
+désigné (D1372).
+
 **Les autres colonnes** — à leur rang : le guide d'exploitation (le
 rang 7 — l'installation, la configuration, la supervision, les
 opérations de maintenance, D1134) ; la maintenance (le rang 8 — les
 usages, les contrôles, les optimisations, D1128) ; le D.A.T. (le rang
-6) ; le projet et le support (le rang 4, D1133).
+6).

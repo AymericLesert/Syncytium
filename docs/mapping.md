@@ -935,6 +935,11 @@ mention d'information — « reprises de PMI » — et dans la documentation,
 pour le contexte (D1335) ; la rétention des fichiers de détail au
 nettoyage (D1065, D1334).
 
+**La migration déclarée, dans le projet et le support** (la colonne 8
+— le rang 4) : rien — les règles de reprise ne sont pas des écarts
+(D1281) ; les notes de version disent, en clair, ce que la reprise
+apporte (D1096).
+
 **Les autres colonnes** — à leur rang : le guide
 d'exploitation (le rang 7 — `migrate`, `reset_coverage`, le rythme, les
 rapports de rejets D929, les anomalies D1032) ; la maintenance

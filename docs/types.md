@@ -259,5 +259,9 @@ l'emploie — ; le registre se lit alors par type, puis par champ ; le
 `sensitive` audité d'office (D703) ; la forme en clair du type dit le
 marquage (D1301).
 
+**Le type, dans le projet et le support** (la colonne 8 — le rang 4) :
+un champ retypé est un écart de « ce qui change » sur la page des
+versions (D1281, D1347) ; rien d'autre.
+
 **Les autres colonnes** — à leur rang : le développeur (la forme à
 l'API, D20), 

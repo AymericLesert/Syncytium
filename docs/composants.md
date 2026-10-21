@@ -3052,6 +3052,16 @@ champ marqué (D1318, D1329) ; **chaque composant, du socle ou ajouté,
 passe les tests du RGAA à l'ingestion** (D1339–D1340) — le chapitre de
 l'accessibilité en montre le résultat par critère et par composant.
 
+**Les surfaces et les composants, dans le projet et le support** (la
+colonne 8 — le rang 4) : **la surface porte le bloc `assistance:`** —
+les trois groupes, les anomalies, les questions, les évolutions,
+héritable par la cascade (D1372, D1374) ; **son « ? »** ouvre la
+documentation de l'écran, un ticket, une question, la recherche
+générale (D1366, D1371) ; le ticket porte l'ancre de la surface et
+l'enregistrement montré (D1364) ; les questions closes de la surface
+rejoignent la F.A.Q. de la fonctionnelle (D1367, D1373) ; les
+composants graphiques, rien.
+
 **Les autres colonnes** — à leur rang : la maintenance (la fréquence
 d'emploi de chaque écran, D1168), le développeur (le hook d'interface
 listé, D918).

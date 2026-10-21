@@ -655,6 +655,11 @@ des anomalies par mail est un destinataire externe**, même anonymisé
 (D1334) ; la provenance de chaque champ marqué par le graphe source →
 cible, dans la mention et dans la documentation (D1335).
 
+**Le module `_migration`, dans le projet et le support** (la colonne 8
+— le rang 4) : rien — `_assistance` est son pendant pour les tickets
+(D1363, D1368) : un module interne, ses tables au storage, ses données
+à l'instance (D1157).
+
 **Les autres colonnes** — à leur rang : le guide d'exploitation (le rang 7 — les passages, les trois taux D862, les rejets et leurs
 rapports D929, `migrate` et `reset_coverage`, le rythme) ; la
 maintenance (le rang 8 — la couverture et les compteurs).

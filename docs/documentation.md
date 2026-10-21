@@ -134,7 +134,7 @@ Les sept couvrent ce que les décisions ont décrit. Quatre compléments :
 | **5. Réglementation** | l'usager, le DPO, l'administrateur | §18 la conformité — le registre (D698), la matrice des droits, la sécurité de l'instance |
 | **6. Promotionnelle** | le prospect, le dirigeant | rien encore — la seule à faire naître |
 | **7. Maintenance, risques, améliorations** — l'analyse | l'administrateur, le concepteur, le décideur | §23 les contrôles et la supervision, les optimisations ; §8 les données ; §20 la complétude ; §9 les écarts (le risque d'une version) |
-| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander — rien de rédigé encore |
+| **8. Le projet et le support** (D1133) | le dirigeant, l'administrateur, l'utilisateur | §9 les notes de version ; le cycle de vie des versions (D340/D650/D1123–D1124) ; le dépôt du client (D336) ; signaler, demander, questionner, le support — §26, le rang 4, clos (D1347–D1391) |
 | **9. Le guide d'exploitation** : l'installation, la configuration, la supervision, les opérations de maintenance (D1134) | l'administrateur | §17 le guide d'exploitation ; §23 les opérations de maintenance |
 | *le socle de la génération* — transversal | — | §1 le principe ; §2 le carburant ; §3 les lecteurs ; §11 les formats ; §12 `documentation.yml` ; §13 le tiny et la méthode ; §21 la diffusion |
 
@@ -437,7 +437,7 @@ décisions, D1170–D1238.)*
 - **Dépendances** : la forme des diagrammes et de l'édition machine
   au domaine 7 ; les indicateurs à l'instance.
 
-#### Rang 3 — la réglementation (documentation 5)
+#### Rang 3 — la réglementation (documentation 5) — *clos le 20/10/2026, D1346*
 
 - **Périmètre** : le registre des traitements, les droits des
   personnes, les mentions d'information, la journalisation des accès,
@@ -445,44 +445,71 @@ décisions, D1170–D1238.)*
   obligations du secteur.
 - **Sections** : §18.
 - **Étapes** :
-  1. ce qu'est un traitement dans Syncytium (le module ? l'entité à
-     `rgpd:` ?), et ce que le registre en calcule : les données, la
-     confidentialité, les destinataires (les groupes, les connecteurs
-     sortants), les durées, l'anonymisation (D696/D698), les transferts
-     (le LLM) ;
-  2. ce qui s'écrit : la finalité, la base légale — où (un bloc `rgpd:`
-     au module ou à l'entité, un fichier complémentaire) ;
-  3. les droits des personnes : comment l'application sert l'accès, la
-     rectification, l'effacement — une surface du socle ? ;
-  4. les mentions d'information et la journalisation des accès (D43) ;
-  5. la cinquième élargie à la sécurité : les dépendances (D924), le
-     code tiers (D918), les secrets (D944) ;
-  6. l'accessibilité des écrans générés et les obligations du secteur.
-- **Déclinaison** : **la banque** (ses champs `rgpd:`) ; le tiny (le
-  registre vide d'une entité nominative — frottement 5).
-- **Livrables** : §18 validé ; [security.md](security.md) (le registre
-  généré), [rights.md](rights.md).
+  1. ce qu'est un traitement et ce que le registre calcule : **acquis
+     le 19/10/2026 (D1317–D1321, D1329)** — une opération ou une suite
+     impliquant un champ `rgpd:`, l'entité le stockage, le module le
+     périmètre, groupé par module ;
+  2. ce qui s'écrit : **acquis le 19/10/2026 (D1322–D1328)** — le bloc
+     `rgpd:` à quatre niveaux (`controller`, `legal`, `purpose`), la
+     rétention au nettoyage, l'échéance à l'anonymisation, `countries:`
+     au connecteur ;
+  3. les droits des personnes : **acquis le 19/10/2026 (D1330–D1333)**
+     — le chapitre par module, `rgpd.extract(identity)` depuis
+     l'identité civile, `rgpd.anonymize`, la limitation par l'état, le
+     contact et le DPO ;
+  4. les mentions d'information et la journalisation des accès :
+     **acquis le 19/10/2026 (D1335–D1336)** — `rgpd.notice` générée,
+     ancrée par le concepteur, le manque notifié ; les deux chapitres ;
+  5. la cinquième élargie à la sécurité : **acquis le 19/10/2026
+     (D1337–D1338)** — le chapitre de la sécurité, une section par
+     principe en trois paragraphes ;
+  6. l'accessibilité des écrans générés et les obligations du secteur :
+     **acquis le 19/10/2026 (D1339–D1342)** — le RGAA testé à
+     l'ingestion, `accessibility:` et `regulation:`.
+- **Déclinaison** : **faite** (D1344) — le tiny (aucun traitement), la
+  banque (le mono-poste sans marquage), l'entrepôt (le registre complet,
+  ses blocs `rgpd:` écrits dans la configuration).
+- **Livrables** : §18 acquis (D1317–D1344) ; [security.md](security.md)
+  (la rubrique « La documentation », le registre, le chapitre de la
+  sécurité), [rights.md](rights.md) ; la colonne 5 de la matrice dans
+  les dix artefacts et la matrice d'ensemble.
 - **Dépendances** : aucune pour le registre ; l'instance pour les
   accès journalisés.
 
-#### Rang 4 — le projet et le support (documentation 8)
+#### Rang 4 — le projet et le support (documentation 8) — *clos le 22/10/2026, D1383*
 
 - **Périmètre** : le cycle de vie des versions, les notes et ce qui
   change, le dépôt du client, signaler et demander, le support.
-- **Sections** : §9 ; une section à créer.
+- **Sections** : §9 ; §26 (créée le 20/10/2026).
 - **Étapes** :
   1. la page des versions : les statuts, les passages, les Sunsets
-     (D340/D650), la documentation de chacune (D1123–D1124) ;
+     (D340/D650), la documentation de chacune (D1123–D1124) : **acquis
+     le 20/10/2026 (D1347–D1355)** — le Sunset lu comme l'état (D742),
+     les dates lues à l'instance (D1350), les ressources, les droits
+     d'auteur et les auteurs (D1349/D1352/D1354), `copyright:` et
+     `authors:` (D1355) ;
   2. le dépôt du client (D336) et la version du format (D1083) : ce
-     que la documentation en dit ;
+     que la documentation en dit : **acquis le 21/10/2026 (D1356–D1362)**
+     — aucune clé, l'adresse lue depuis le dossier si elle est publique,
+     le versionnement calculé, `syncytium init`, le core nommé par `from:` (D1360–D1361) ;
   3. signaler et demander : les liens vers le suivi du projet, où ils
-     se déclarent (une clé `support:` ? `documentation.yml` ?) ;
+     se déclarent (une clé `support:` ? `documentation.yml` ?) : **acquis
+     le 21/10/2026 (D1363–D1374)** — portés par l'application, le module
+     `_assistance`, les tickets (anomalie, évolution, question), les
+     trois groupes de la surface, le « ? », la réponse publiée à la
+     clôture ; §25 fondu ;
   4. le support : qui répond, les engagements — écrits ; l'assistance
-     (§25) en pendant.
+     (§25) en pendant : **acquis le 22/10/2026 (D1375–D1381)** — un texte
+     écrit sans engagement, la langue du ticket, la table « qui répond à
+     quoi », les indicateurs par type et par statut, les tickets dans
+     l'application seulement.
 - **Déclinaison** : **l'entrepôt** (la 1.0.0.0 en production, la
-  1.0.0.1 en beta).
-- **Livrables** : une section « Le projet et le support » ;
-  [configuration.md](configuration.md).
+  1.0.0.1 en beta) — **faite** (D1382 — les clés écrites dans la
+  configuration ; [usecases/05_entrepot.md](../usecases/05_entrepot.md)).
+- **Livrables** : une section « Le projet et le support » (§26, les
+  quatre chapitres acquis) ; [configuration.md](configuration.md),
+  [composants.md](composants.md) ; la colonne 8 de la matrice dans les
+  onze artefacts et la matrice d'ensemble (D1383).
 - **Dépendances** : aucune.
 
 #### Rang 5 — le développeur (documentation 3)
@@ -595,11 +622,32 @@ décisions, D1170–D1238.)*
 - **Livrables** : une section « La promotionnelle ».
 - **Dépendances** : les huit autres ; le jeu de données (D869).
 
-#### Après les neuf
+#### Rang 10 — Syncytium lui-même, et `docs/` consultable sur GitHub (D1316) *(en proposition)*
 
-Le regroupement physique de documentation.md par documentation
-(D1021), la mise à jour du [glossaire](glossaire.md), les points
-ouverts de §26 soldés un à un, la PR vers `develop`.
+« Prévois un rang dans le plan de la documentation pour documenter
+Syncytium et reprendre toute la documentation docs/ rédigée en la
+rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
+
+- **Périmètre** : Syncytium comme produit — le moteur, ses règles, son
+  catalogue, ce que les seize artefacts décrivent — et le dépôt comme
+  lieu de lecture : `docs/`, le registre, les cas d'usage, les
+  exemples.
+- **Sections** : aucune ; documentation.md et le [glossaire](glossaire.md)
+  en pivots.
+- **Étapes** *(mes lectures)* :
+  1. l'inventaire des artefacts et de leur état — ce qui est acquis, en
+     proposition, périmé ;
+  2. la structure de lecture : un sommaire d'entrée, les renvois entre
+     artefacts et registre, le glossaire en pivot, les cas d'usage comme
+     illustrations ;
+  3. le rendu sur GitHub : le Markdown natif, les diagrammes Mermaid
+     rendus, les pages ou le wiki — la forme au domaine 7 (D1126) ;
+  4. la reprise artefact par artefact — le regroupement physique de
+     documentation.md par documentation (D1021), la mise à jour du
+     glossaire, les points ouverts de §27 soldés un à un.
+- **Déclinaison** : le dépôt lui-même.
+- **Livrables** : `docs/` consultable sur GitHub ; la PR vers `develop`.
+- **Dépendances** : les neuf autres rangs — le rang 10 les clôt.
 
 ## 1. Le principe — trois documentations, trois sources, une seule version
 
@@ -640,7 +688,7 @@ Elle a **trois sources** (D1122) :
 La documentation rédigée du projet Syncytium — les artefacts de
 `docs/` — n'est pas une source de la documentation de l'application ;
 ce que D645 lui demandait d'en porter (« la documentation technique de
-Syncytium ») reste à placer (§26).
+Syncytium ») reste à placer (§27).
 
 Et une règle qui les tient ensemble : **chaque version active porte sa
 documentation** (D1123 — D645/D810) ; *la version documentée est
@@ -870,7 +918,7 @@ glossaire les porte sous « Lecteur ».)*
 
 | Le rôle | Qui c'est | Ce qu'il cherche | Lit dedans ou une édition |
 |---|---|---|---|
-| **le concepteur** | celui qui écrit la configuration (le glossaire) — **un rôle sans compte ni degré** (D1153) : il peut laisser le projet aux administrateurs sans accéder à l'application ni à ses données | le modèle complet, les règles, les écarts, les hooks, la reprise, la complétude | **au dépôt**, les fichiers générés ; dedans seulement s'il reçoit un compte, à son degré comme un autre ; la documentation le nomme — celui qui a conçu l'application, le contact des demandes d'évolution |
+| **le concepteur** | celui qui écrit la configuration (le glossaire) — **un rôle sans compte ni degré** (D1153) : il peut laisser le projet aux administrateurs sans accéder à l'application ni à ses données | le modèle complet, les règles, les écarts, les hooks, la reprise, la complétude | **par les fichiers de `syncytium document`** (le canal 2, un produit — D1348) **ou dans son propre environnement**, la sandbox (D907) — D1353 ; dedans seulement s'il reçoit un compte, à son degré comme un autre ; la documentation le nomme — celui qui a conçu l'application, le contact des demandes d'évolution |
 | **l'administrateur** | celui qui fait tourner l'instance — le degré `administrator` (D699) | les environnements, les connecteurs, le journal, les opérations, le registre, les groupes | dedans |
 | **le responsable métier** | le degré `manager` (D699) — celui qui répond aux questions (§25) et pilote un module | les parcours de son module, les personas, les règles qui s'y appliquent, les usages | dedans |
 | **l'utilisateur** | l'opérateur, le degré `user` | ce que fait chaque écran, chaque champ, chaque opération ; la procédure sur une page, posée sur le bureau (D1129) | dedans — les masques, les pages, les planches imprimées |
@@ -1693,6 +1741,7 @@ visibility: promotional          # public | private | promotional (D1151)
 home: ~{home.md}                 # la page d'accueil, globale — hors des versions (D1156)
 author: Aymeric Lesert           # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
+accessibility: ~{documentation/accessibility.md}   # la déclaration d'accessibilité, un texte du concepteur par langue (D1341)
 glossary:                        # le glossaire des termes du métier (D1180 ; la clé validée, D1219)
   tiers: Toute personne ou société en relation avec l'entreprise — client, fournisseur, prospect.
   article:                       # un terme = une liste de mots, singulier et pluriel (D1197 ; `words:` validé, D1219)
@@ -1707,6 +1756,7 @@ module, par la clé `documentation:` de son fichier :
 # modules/stock/documentation.yml (en proposition)
 glossary:
   lot: Une quantité d'un article reçue ou fabriquée en une fois, suivie sous un même numéro.
+regulation: ~{documentation/regulation.md}   # les obligations du secteur, un texte par langue — au module ou à l'entité (D1342)
 ```
 
 **À la version** — ce qui est versionné avec la configuration (D1156) :
@@ -1862,10 +1912,10 @@ rubrique qui la spécifie. Trois lignes, pour la forme :
 
 | Le composant | 1 Fonctionnelle | 2 Information | 3 Développeur | 4 D.A.T. | 5 Réglementation | 6 Promotionnelle | 7 Maintenance | 8 Projet | 9 Exploitation |
 |---|---|---|---|---|---|---|---|---|---|
-| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 avec ses index et ses partitions (D1292–D1293) ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | ses points d'API | — | ses données marquées `rgpd:`, sa rétention | son titre dans la vue d'ensemble | ses usages, ses anomalies | — | — |
-| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3, l'index que son `searchable:` ou son identité lui vaut (D1292), la partition qu'il porte (D1293) | son exposition (D20) | — | sa confidentialité, son `rgpd:` | — | sa diversité, ses valeurs inemployées | — | — |
-| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa forme en clair tel qu'appliqué, sa déclinaison, ses indicateurs, son exemple (D1301) ; les modes de recherche qu'il admet, origines des index (D1292) ; son entrée à l'annexe B | — | — | le marquage qu'il porte (D1178) | — | — | — | — |
-| le wizard | le scénario, la planche, le parcours guidé | — | — | — | — | un cas d'usage | sa fréquence d'emploi | — | — |
+| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 avec ses index et ses partitions (D1292–D1293) ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | ses points d'API | — | le stockage de ses champs `rgpd:`, son module soumis ; ses actes du socle et ses opérations comme traitements, son wizard comme suite (D1317–D1318) ; son bloc `rgpd:` (D1325) ; son état pour la limitation ; sa rétention par `rgpd.anonymize` (D1334) | son titre dans la vue d'ensemble | ses usages, ses anomalies | ses écarts dans « ce qui change » de la page des versions (§9) ; l'enregistrement cité par un ticket (D1364) | — |
+| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3, l'index que son `searchable:` ou son identité lui vaut (D1292), la partition qu'il porte (D1293) | son exposition (D20) | — | son marquage `rgpd:` — `personal`, `sensitive`, `consent`, `identity` (D695, D1332) —, par lui-même ou par son type ; son niveau de confidentialité, son audit (D703), sa rétention calculée, les traitements qui le touchent ; `identity`, le point de départ de `rgpd.extract` | — | sa diversité, ses valeurs inemployées | ajouté, renommé, retypé, supprimé — « ce qui change » (D1347) | — |
+| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa forme en clair tel qu'appliqué, sa déclinaison, ses indicateurs, son exemple (D1301) ; les modes de recherche qu'il admet, origines des index (D1292) ; son entrée à l'annexe B | — | — | le marquage qu'il porte (D1178) — `personal`, `sensitive`, `consent`, `identity` —, hérité par tout champ qui l'emploie ; le registre se lit par type puis par champ | — | — | un champ retypé — « ce qui change » | — |
+| le wizard | le scénario, la planche, le parcours guidé | — | — | — | une suite d'opérations — un traitement du registre quand une étape touche un champ marqué (D1318, D1329) | un cas d'usage | sa fréquence d'emploi | son bloc `assistance:` (D1372) ; le « ? » — la documentation, un ticket, une question, la recherche (D1366, D1371) | — |
 
 **La matrice se remplit rang par rang** (D1159) : chaque rang du plan
 (le contexte, partie 5) spécifie la colonne de sa documentation pour
@@ -2161,16 +2211,161 @@ D1080) ; les dépendances (D924). *À trancher* : ce qui vient de la
 configuration seule et ce qui demande l'instance (les états, les
 derniers passages).
 
-## 18. La conformité *(en proposition)*
+## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 
 « Le document que la TPE peine à tenir, Syncytium le génère » (D698) :
-**le registre des traitements** — les entités et les champs marqués
-`rgpd:`, leur finalité (la description), leur confidentialité, leur
-rétention et l'anonymisation à l'échéance (D696/D698), les connecteurs
-sortants qui les emportent (les mails, les webhooks) — une entité sans
-aucun champ marqué écrit « rien à inscrire », et la complétude (§20) la
-signale à la relecture sans qualifier ses champs : elle compte, elle ne
-devine pas (D1177) ; **les droits des
+**le registre des traitements**. **Le traitement** (D1317) : « une
+opération ou une suite d'opérations impliquant au moins un champ avec
+l'option rgpd. L'entité portant le champ rgpd: décrit le stockage de
+cette donnée. Le module portant au moins une entité avec un champ rgpd:
+est soumis à la RGPD. L'anonymisation et le nettoyage sont des
+traitements qui viennent appuyer le réglementaire en tenant la
+fréquence des opérations, de la règle portée par l'opération, ... » —
+*mes lectures* : les lignes du registre sont des opérations — les
+quatre actes du socle sur une entité marquée, les opérations déclarées
+dont le contrat lit ou écrit un champ marqué, les règles de reprise qui
+l'écrivent, l'import et l'export, les notifications et les mails qui
+l'emportent, les webhooks, l'appel du LLM (D957), et les traitements
+d'appui — `anonymize` (D697), le nettoyage (`cleanup.yml`, D1073), la
+rétention échue (D698) — avec leur fréquence (D943) et leur règle ;
+l'entité donne le stockage (le dictionnaire, chapitre 3),
+l'historisation, la confidentialité ; le module est le périmètre
+soumis, une section du registre par module. **Une suite d'opérations a
+trois formes** (D1318) — le wizard, l'action qui en définit une
+(`operations: [ … ]`, D609), le déclencheur qui référence une opération
+ou une liste (`when:`, `every:`) — : *ma lecture*, une suite est **un seul
+traitement** (D1329) — son responsable, sa base légale, sa finalité
+écrits une fois, ses étapes dans l'ordre avec ce que chacune lit ou
+écrit ; une opération du socle lancée par trois suites apparaît trois
+fois ; un champ marqué touché par une étape marque la suite entière. Les champs marqués
+`rgpd:` (D695), le marquage généralisé par le type (D1178). **Un projet
+sans aucun champ `rgpd:` n'est pas forcément une anomalie : Syncytium
+ne décide pas de ce qui est réglementaire** (D1319 — amende D1177) : le
+registre écrit « aucun traitement », la complétude ne relève pas
+l'absence de marquage. **Le responsable du traitement** (D1320) : « une
+propriété d'un traitement … un groupe d'utilisateurs, rendant sa
+définition et sa vérification plus simple » ; un traitement sans
+responsable « peut apparaître comme non précisé dans la documentation,
+le concepteur pourra compléter » — *ma lecture* : la clé `controller:`
+sur l'opération, le wizard, le déclencheur, héritable du module et de
+l'entité par la cascade (D359) ; qui peut déclencher reste l'`allow:` et
+le degré ; **la forme** (D1321) : « la réglementation présente la
+documentation des traitements groupée par module. La référence aux
+données exploitées par les traitements viennent compléter la section du
+traitement » — *ma lecture* : une section par module soumis, une
+sous-section par traitement (son nom, sa forme, son responsable, qui
+peut le déclencher, sa fréquence, sa règle), puis les données qu'il
+exploite — les champs `rgpd:` par entité, leur niveau, leur stockage
+(le renvoi au dictionnaire), leur rétention, les connecteurs sortants. **Le bloc `rgpd:` du
+traitement** (D1322) : « la clé "rgpd:" qui déclinera les propriétés
+propres à la RGPD comme "controller", "legacy", "purpose" ... » — la même
+clé qu'au champ, où elle marque (D695) ; au traitement, le bloc :
+
+```yaml
+operations:
+  relance_impayes:                 # une opération déclarée — un traitement
+    operations: [ select_impayes, notify ]
+    rgpd:
+      controller: comptabilite     # le responsable — un groupe (D1320)
+      legal: contract              # la base légale, à valeurs fermées (D1326)
+      purpose: Relancer les clients en retard de paiement   # la finalité, par langue
+```
+
+**Le même bloc dans les settings, global au projet** (D1323 : « rgpd:
+se décline pour une visibilité globale dans tout le projet ») —
+`settings: { rgpd: { controller: direction, legal: contract } }`,
+les défauts de tout traitement ; **quatre niveaux** (D1324–D1325 :
+« rgpd: apparaît dans les settings du projet, du module, de l'entité ou
+d'un traitement ») — le module et l'entité les surchargent dans leurs
+settings, le traitement dans son bloc, propriété par propriété, le
+plus proche l'emporte ; à l'entité, le bloc des settings se distingue
+du marquage de ses champs par sa place ; les actes du socle sur une
+entité marquée prennent le bloc de l'entité, à défaut du module *(ma
+lecture)* ;
+**`legal:`** (D1326) : les six valeurs du RGPD — `consent`, `contract`,
+`legal_obligation`, `vital_interests`, `public_task`,
+`legitimate_interest` — et, pour chacune, un paragraphe en clair porté
+par le catalogue du moteur, par langue (D1160) : le concepteur écrit la
+valeur, Syncytium le texte. **Une propriété absente à tous les
+niveaux** est « non précisée » au registre et la complétude la compte ;
+un groupe inconnu en `controller:` est une erreur d'ingestion ;
+`purpose:` est un texte par langue (D1327). **La rétention et
+l'échéance** (D1328) : « la rétention est déjà portée par l'opération
+de cleanup. La rétention est la plus longue période parmi les
+traitements. L'échéance de la validité de la donnée portée par
+l'anonymisation » — **le nettoyage reste aux fichiers et aux traces, l'anonymisation
+des enregistrements porte sa règle et sa fréquence** (D1334 :
+`rgpd.anonymize` déclarée avec `every:` et son `filter:`), le registre
+fait la somme — par donnée marquée, la rétention résultante et
+l'échéance, à l'instance (D1329) ; **le pays du
+stockage**, `countries:` dans la section `rgpd:` du connecteur, une
+liste (D1345) — le lieu
+du storage, les transferts hors Union des connecteurs sortants. **Les droits des
+personnes** (D1330) : un chapitre par module soumis — pour chaque droit,
+l'opération qui le sert, qui l'exécute, ce qu'elle produit ; le texte de
+chaque droit et le délai légal au catalogue du moteur ; **le projet
+déclare le contact du responsable et le DPO** — `settings: { rgpd: {
+controller: direction, contact: …, dpo: { name: …, email: …, phone: … }
+} }` *(ma lecture de la forme)* ; la limitation est servie par l'`allow:`
+par état que le concepteur déclare (D1172), l'effacement par
+`anonymize` (D697), l'accès et la portabilité par **l'extraction — `rgpd.extract(identity)`, la
+vingtième opération du socle, au plancher `manager`** (D1331, D1333 — la
+famille `rgpd` des opérations réglementaires, `rgpd.anonymize` y entre) ; **le
+marquage de l'identité civile** (D1332) : « rgpd sur un champ pour
+marquer l'identité d'une personne (Nom, Prénom, ou autre propriété) -
+ici, l'identité n'est pas un identifiant unique mais l'identifiant
+civil de la personne. En apportant cette précision et en parcourant
+l'arbre de la donnée, nous pouvons définir toutes les données liées à
+une personne et que ces données lui sont personnelles » — *ma lecture* :
+`rgpd: identity`, une quatrième valeur ; `rgpd.extract` cherche sur ces
+seuls champs, exacte ou normalisée, présente les enregistrements trouvés, le
+responsable confirme, puis Syncytium suit les références et les
+compositions (D1198) et réunit ce qui est lié ; le résultat, une édition
+à cartouche (D1142), journalisée (D62) ; l'opposition et le retrait du
+consentement par l'anonymisation des seuls champs `consent`. **Les
+mentions d'information** (D1335) : générées depuis le registre — le
+texte du socle `rgpd.notice`, par entité marquée ou par module, dans
+chaque langue, assemblé des blocs `rgpd:` et des paragraphes du
+catalogue — ; **« le concepteur ancre l'opération à son choix »**, par
+un `paragraph` (D488), sur le formulaire, la page d'accueil, l'édition
+de `rgpd.extract` ou ailleurs ; **« si l'option n'apparaît pas et que
+"rgpd" est présent, un manque doit être notifié »** — la complétude
+compte la mention non ancrée ; la provenance (D178) entre dans la
+mention en mots simples et dans la documentation pour le contexte.
+**La journalisation des accès** (D1336) : par module soumis, un chapitre
+des mentions — le texte généré dans chaque langue et ses places — et
+un chapitre de la journalisation — ce qui est audité (le `sensitive`
+d'office, `trace: audit`, D702–D704), ce qui est journalisé (les actes,
+les refus, D43), qui consulte (`administrator`), la rétention et
+l'anonymisation de l'audit (D41), les comptes à l'instance. **La sécurité de l'instance** (D1337 — la
+cinquième élargie à la sécurité) : un chapitre au niveau du projet —
+**les dépendances** du moteur et des hooks avec leurs versions,
+calculées à l'instance, les failles « identifiées hors du moteur »
+(D924) ; **le code tiers** — les hooks d'interface câblés, les origines
+autorisées de l'environnement (D918), les connecteurs en `unencrypted:`
+signalés (D705) ; **les secrets** — par connecteur, les clés `*` par
+leur nom, jamais leur valeur (D944), le chiffrement au repos et en
+transit (D707, D902) ; **les mesures de sécurité du registre renvoient
+à ce chapitre** ; **Syncytium ne qualifie pas la sécurité** — des
+faits, ni verdict ni note (D1319) ; **la structure** (D1338) : une
+section par principe — les douze de [security.md](security.md) —,
+chacune en trois paragraphes, le socle, la configuration, l'instance ;
+en tête, un sommaire des douze avec un mot d'état — déclaré, vérifié,
+absent. **L'accessibilité** (D1339–D1341) : « Syncytium va s'appuyer sur
+RGAA. Mais, Syncytium ne pourra pas répondre aux 106 points portés par
+cette norme. Cependant, en utilisant les tests, nous pouvons préciser
+les cas qui passent et ceux qui ne passent pas. Et, nous nous
+limiterons à cela. Le but, ici, est de montrer à quel niveau nous
+sommes pas forcément un objectif à atteindre » ; les critères **testés
+par Syncytium et enregistrés dès l'ingestion**, pour les composants
+endogènes comme exogènes — le chapitre montre, par critère, passe, ne
+passe pas, non testé, et par composant le détail *(ma lecture)* ; **la
+déclaration d'accessibilité**, un texte du concepteur dans
+`accessibility:` de `documentation.yml` du projet, le texte seul.
+**Les obligations du secteur** (D1342) : `regulation:` de
+`documentation.yml` d'une entité ou d'un module — le chapitre les
+reproduit par module et y joint ce que le registre sait, les rétentions
+et les bases légales *(ma lecture)* ; **les droits des
 personnes** — l'usager demande **l'extraction des traitements et des
 informations qui le concernent** ; un responsable métier ou un
 administrateur exécute la requête, qui produit une édition à cartouche
@@ -2204,8 +2399,11 @@ Le rapport du concepteur, à la façon de la couverture (D861/D1060) :
 **ce qui n'est pas décrit** — les entités sans `description:`, les
 champs sans `hint:` ni `description:`, les énumérés sans libellé, les
 opérations et les hooks sans description ni md, les surfaces sans
-`description:` (le masque vide), l'entité sans aucun marquage `rgpd:`
-— signalée, jamais qualifiée (D1177), **les champs libres d'un
+`description:` (le masque vide), **le traitement sans responsable**
+(D1320 — « non précisé ») et **la mention d'information non ancrée**
+quand `rgpd:` est présent (D1335) ; non l'entité sans marquage `rgpd:` — un
+projet sans champ marqué n'est pas une anomalie, Syncytium ne décide
+pas de ce qui est réglementaire (D1319, amende D1177) —, **les champs libres d'un
 formulaire d'appel** sans `hint:` ni `description:` (D1230) ; un taux par module et par version ;
 dans la documentation technique, et à l'ingestion comme avertissement.
 **Un défaut du socle n'est pas un manque** (D1173) : `history:` tu, les
@@ -2236,7 +2434,7 @@ chacun déclaré ou implicite, mis en regard des lecteurs de §3 :
 | Le canal | Ce qui passe | Le format | Pour qui | Déclaré où |
 |---|---|---|---|---|
 | **1. dans l'application** | les masques (§7), la page de chaque module et de chaque surface (le « ? »), l'assistance (§25), le parcours guidé (§19), la planche d'un wizard (§24), la documentation servie à ses niveaux (D1138) | la page servie par l'application — l'édition *lisible* (§11) | qui a un compte, à ses droits et dans sa langue (D1139–D1147) | implicite — toujours |
-| **2. en fichiers, au dépôt** | toutes les documentations, générées depuis la configuration seule, sans les chapitres de l'instance (D1157) ; versionnables avec le dépôt du client (D336) | Markdown, HTML — *lisible* ; la forme au domaine 7 (D1126) | le concepteur | `output:` de l'environnement (§12) ; la commande `syncytium document` (D1167) |
+| **2. en fichiers, au dépôt** | toutes les documentations, générées depuis la configuration seule, sans les chapitres de l'instance (D1157) ; versionnables avec le dépôt du client (D336) — **un produit, non une maison : la documentation, dans son ensemble, est portée par l'application (D1348, confirmée D1351)** | Markdown, HTML — *lisible* ; la forme au domaine 7 (D1126) | le concepteur | `output:` de l'environnement (§12) ; la commande `syncytium document` (D1167) |
 | **3. l'édition** | un extrait figé, à cartouche (D1142), au gabarit (D1143), au filigrane s'il est beta (D1145), dans la langue et la version de l'émetteur (D1144) | PDF ou HTML — *imprimable* ou *lisible* | qui n'a pas de compte — l'usager (D1149), l'auditeur de passage, l'hébergeur ; préparée par un `manager` ou un `administrator` qui décide de la diffuser | `templates:` de la version (§12) |
 | **4. notifié** | ce qui se rapporte : les notes d'une version promue et ce qui change, le rapport de complétude (§20) — le mécanisme des notifications (D108/D397), de nouveaux déclencheurs ; les usages, eux, s'intègrent à la documentation de chaque composant (D1168) | la notification, le corps du mail, une pièce jointe PDF | les groupes destinataires | `notify:` (§12, D1167) |
 | **5. imprimée** | un chapitre ou le tout (D53/D187) ; les planches des modes opératoires, une page A4 chacune (§24, D1129) | PDF — *imprimable* ; la dimension de page du gabarit | l'opérateur, le papier sur le bureau | les gabarits (§12) |
@@ -2565,7 +2763,7 @@ suit — l'écart D1112 la signale). **Un wizard donne sa planche sans
 rien écrire** (D1130, §22) : ses steps sont les étapes, chaque step
 son écran.
 
-## 25. L'assistance — les questions, les réponses, les commentaires (D1132) *(en proposition)*
+## 25. L'assistance — les questions, les réponses, les commentaires (D1132) *(fondu dans §26, chapitre 3 — D1367 : la question est un type de support)*
 
 **« Concernant la F.A.Q., cela peut se transformer en fonctionnalité
 proposée par le socle. Mon idée est de permettre aux utilisateurs
@@ -2655,7 +2853,277 @@ question anonyme ; la F.A.Q. dans la documentation du dépôt — les
 questions vivent à l'instance, le dépôt la montre vide (le frottement 9
 du tiny) ou l'exporte.
 
-## 26. Les points ouverts *(rafraîchis à la clôture du rang 2, le 16/10/2026)*
+## 26. Le projet et le support *(le rang 4 — acquis, D1347–D1391 : la page des versions, le dépôt et le core, le support dans l'application, le support ; la déclinaison sur l'entrepôt, D1382)*
+
+**La huitième documentation** (D1133) : le cycle de vie des versions,
+les notes et ce qui change, le dépôt du client, signaler et demander,
+le support ; l'assistance (§25) en est le pendant dans l'application.
+Ses lecteurs : le dirigeant, l'administrateur, l'utilisateur (§3,
+D1154). **Elle est portée par l'application, comme toute
+documentation** (D1348 : « la documentation, dans son ensemble, est
+portée par l'application. Seule la documentation de Syncytium
+lui-même, la spécification du projet Syncytium que nous menons est
+portée par le dépôt de Syncytium. ») — *mes lectures, confirmées
+(D1351, D1353)* : la
+maison de toute documentation générée est l'application, la page des
+versions comme les autres ; le dépôt du client (D336) porte la
+configuration, jamais la documentation générée ; les fichiers de la
+commande `syncytium document` (D1167, le canal 2 de §21) sont un
+produit — une édition, un essai —, non une maison ; **le concepteur
+sans compte (D1153) lit par ces fichiers, ou dans son propre
+environnement — la sandbox (D907) ou le local** (D1353 : « a et c »,
+le compte `reader` qu'on lui donnerait écarté) ;
+`docs/` du dépôt de Syncytium porte la spécification du projet, le
+rang 10 (D1316).
+
+### 1. La page des versions (D1347)
+
+**Ce qu'elle liste** : toutes les versions que le projet connaît, dans
+les quatre dossiers (D340 ; rien ne s'efface, D345), du numéro le plus
+haut au plus bas — le numéro, le statut, l'environnement que le statut
+implique (beta sur le staging, production sur la production), les
+langues, les notes de version écrites (D808, D1096) ; rien de plus sur
+les environnements, qui sont au guide d'exploitation (D1251) ; **et,
+D1349 : « les ressources, les droits, les auteurs et les liens vers les
+droits »** — **les droits d'auteur, non les droits et privilèges**
+(D1352 : « erreur liée à une homonymie, "les droits" Vs "les droits
+d'auteur" » ; D1354 : « Non, je faisais mention aux droits
+d'auteur » ; confirmée, D1355) : la page nomme **les
+titulaires des droits d'auteur** — ceux de l'application, sa
+configuration (l'entreprise, le concepteur), et ceux de chaque
+ressource embarquée (`resources/`, D803 : les icônes, les images, les
+polices), **avec leur `credit:` — l'auteur et le lien** (D1384) ; **les
+auteurs**, les personnes qui ont écrit la version (D1153 ne nomme que
+le concepteur du projet, `author:`) ; Syncytium dit les siens. Les
+clés (D1355) : `copyright:` au projet (`syncytium.yml`, à côté
+d'`author:` et `contact:`), `authors:` à la version ; pour les
+ressources, le `credit:` de D803 suffit (D1384) —
+[configuration.md](configuration.md) §3.1 et §3.4. Les droits
+d'accès restent à la documentation des droits
+([rights.md](rights.md)). **Les
+passages** : les transitions de D344–D345 — beta vers production,
+production vers dépréciée ou interdite, beta vers interdite ; **les
+dates d'ingestion et de promotion, lues au registre des versions de
+l'instance** (D1350 — D326, D344 ; la page vit dans l'application,
+D1348). **L'état, jamais
+l'échéance** (D742 — le « Sunset » du plan se lit comme la
+dépréciation, un état porté par la version, en trois temps, D650) : une
+dépréciée « encore appelable, remplacée par la x », une interdite
+« retirée » ; l'intention de dépréciation se lit sur la production,
+comme l'« à venir » de §9 (D1285). **La documentation de chacune**
+(D1123–D1124) : pour une version active, le lien vers ses
+documentations, la plus élevée par défaut ; pour une dépréciée, l'avis
+et la liste des actives par leurs notes ; pour une interdite, le même
+avis, ses notes conservées pour mémoire (D345). **Ce qui change** : les
+notes écrites, l'évolution fonctionnelle (D1112), puis, calculé, le
+résumé des écarts de §9 en mots et par module — tant de champs ajoutés,
+renommés, retypés, supprimés, dépréciés —, le renvoi au dictionnaire
+pour le détail ; sur la production, l'« à venir » des beta ; la suite
+des pages fait l'historique par concaténation (D808). **Où elle se
+lit** : dans l'application, pour tous les degrés, `reader` compris (D1348) — la
+version courante de l'environnement et ses notes, puis la liste ;
+notifiée à la promotion par `notify: release`, les notes et ce qui
+change (D1167). Aucune clé nouvelle de configuration.
+
+### 2. Le dépôt et le core (D1356–D1362)
+
+**Le dépôt** : la configuration vit dans un dépôt distinct du projet
+Syncytium (D336), versionné par le client. **Aucune clé ne le pointe**
+(D1356 : « La documentation n'a pas besoin de décrire dans une clé qui
+pointe le repository. Cela est porté par l'outil de gestion du code
+source (git, scion,...). Si la documentation veut l'exposer, cela peut
+être porté dans la documentation générale du projet. ») — ma
+proposition `repository:` retirée ; *ma lecture* : le concepteur qui
+veut nommer le dépôt l'écrit dans la présentation générale (§6,
+chapitre 1). **Comment il se versionne, calculé** (D1357) : le dossier
+des versions et ses quatre statuts (D324, D340) — déposer une version
+dans un dossier est le geste, l'ingestion porte le statut (D344) ; par
+version, l'arbre des fichiers tel que l'ingestion l'a lu, les fichiers
+atteints par `~{…}` (D1082), rien d'autre. **Les fichiers après
+ingestion** (D1357) : le moteur ne les réécrit jamais (D331–D332) et ne
+les relit pas (D327) ; la documentation le dit en une phrase — ce qui
+est servi est la version ingérée, modifier un fichier n'a d'effet qu'au
+dépôt d'une nouvelle version, le build au moins (D326) ; le registre
+des versions essayées (D326) complète la page des versions — les essais
+refusés et leur cause, à l'instance. **Le core, nommé par `from:`** :
+`from: Syncytium-1.0`, la première clé (D1083) ; D1358 : « La version
+du format est utilisée par un utilitaire pour récupérer le core,
+ingérer la configuration, créer l'instance et mettre à disposition la
+suite d'outils qui facilitera l'exploitation du projet. » ; D1360 :
+« "Syncytium init" est la commande. La documentation dit le format et
+le format de la documentation va dépendre la capacité du core à
+interpréter la configuration. » ; D1361 : « Le from: porte la version
+du core de Syncytium. Syncytium-1.0 dispose de son moteur
+d'interprétation de la configuration et de sa conversion en
+documentation. Une version Syncytium-2.0 dispose aussi de son moteur
+d'interprétation et de sa propre conversion (pouvant tenir une
+évolution de la version 1.0) » — **`syncytium init`**, l'amorçage,
+hors du moteur : il lit `from:`, récupère ce core, ingère la
+configuration, crée l'instance et installe la suite d'outils (les
+commandes du moteur, D1080, D1167) ; **la documentation est celle du
+core nommé** — son moteur d'interprétation, sa conversion ; la
+documentation 8 dit le core qui sert la configuration. *Ma lecture* :
+changer de core est un geste du concepteur — `from: Syncytium-2.0` —,
+le core 2.0 tenant l'évolution depuis la 1.0, la conversion à
+l'ingestion (D331) ; un core inconnu « n'existe pas » à l'amorçage,
+l'écho de D330 ; l'outil de mise à niveau est un outil du concepteur
+(D332), au rang 5 ; le détail de l'utilitaire au guide d'exploitation
+(§17, le rang 7) — confirmé, D1362. **L'adresse
+du dépôt, lue depuis le dossier** (D1359 : « L'adresse du dépôt est
+portée par le dossier qui contient le projet. Les commandes git
+permettent de trouver facilement le dépôt d'origine. Si elle est
+accessible, elle est publique. Sinon, pas de mention sur l'origine du
+dépôt. ») — *ma lecture* : le moteur lit l'origine du dossier, le
+remote ; si elle répond sans droit, la page la montre ; sinon rien, et
+aucun degré à régler — ma proposition « à partir de `manager` »
+retirée. Rien ne s'écrit à cette étape.
+
+### 3. Signaler, demander, questionner — le support dans l'application (D1363–D1374)
+
+**Portés par l'application** (D1363 : « Cette étape aborde le
+signalement d'une anomalie et la demande d'une évolution. Ces 2
+éléments sont portés par l'application dans un mode basique :
+enregistrement d'une anomalie ou d'une demande ; liste de messages
+(qui, date et message) ; lien vers un ticket (si renseigné) ; statut
+de l'anomalie et de la demande. Ces informations sont gérées par
+Syncytium via son modèle de données interne ») — mes lectures 2 et 3
+du départ écartées : ni bloc `support:` avec des adresses, ni lien
+externe depuis le « ? ». **La question de la F.A.Q. est un type de
+support** (D1367 : « Une question du FAQ est un type de support, dont
+la question et la réponse sont mises au pot commun et ajoutées à la
+documentation fonctionnelle. ») — §25 se fond ici. **Le ticket porte
+l'ancre de l'écran et, s'il y en a un, l'enregistrement montré**
+(D1364 : « l'ancre de l'écran et éventuellement l'id de
+l'enregistrement de l'entité porté par l'écran au moment de la
+demande »). **Planifiée et livrée portent une version, facultative**
+(D1365). *Mes lectures, confirmées (D1374)* : **un module interne du socle**,
+`_assistance` (D1368 — le préfixe des modules internes, D1029, à
+côté de `_migration` et `_chat`), qui naît avec le moteur ; **son
+modèle**, deux entités, en esquisse :
+
+```yaml
+ticket:
+  description: Une anomalie signalée, une évolution demandée ou une question posée depuis un écran
+  label: "{titre}"
+  identity: [numero]
+  states: statut
+  fields:
+    numero: integer
+    type: enum[anomalie, evolution, question]
+    ancre: text                  # l'adresse de l'écran d'où vient le ticket (D566, D1121)
+    enregistrement: _syncytium.record   # facultatif — l'enregistrement montré, de n'importe quelle entité, tous modules ; la racine est virtuelle, son implémentation non décrite (D1364, D1385, D1388–D1391)
+    titre: text[..120]
+    texte: text
+    auteur: _syncytium.user      # l'utilisateur du socle (D1388)
+    langue: text                 # la langue de l'auteur — la question et la réponse sont dans sa langue (D1375)
+    date: datetime
+    statut: enum[nouveau, pris_en_compte, planifie, livre, clos, refuse]   # acquis (D1370)
+    version: version             # facultative — la version qui planifie ou livre (D1365)
+    gestionnaire: _syncytium.user   # celui qui traite le ticket (D1366, D1369)
+    groupe: _syncytium.group     # le groupe destinataire, transmis par la surface (D1372)
+    lien: url                    # le lien vers un ticket externe, s'il est renseigné (D1386)
+message:
+  description: Un message du dialogue autour d'un ticket ; pour une question, la réponse retenue
+  fields:
+    ticket: ticket
+    auteur: _syncytium.user
+    date: datetime
+    texte: text
+    reponse: boolean             # la réponse retenue d'une question — au pot commun (D1367)
+    langue: text                 # la langue du message ; la paire retenue se décline par langue (D1381)
+```
+
+**Le « ? »** (D1366 : « L'accès au support s'effectue via le (?) -
+dernier cet icône, nous commençons à voir quelques points à adresser
+(documentation, ticket, ...) ») — *ma lecture* : un menu par surface,
+qui se complète au fil des rangs — la documentation de l'écran (§7),
+un ticket, une question ; **et une recherche générale** (D1371 : « (?)
+couvre aussi une fonction de recherche générale (sur un enregistrement,
+un page, une action, ...) ») — *ma lecture* : la recherche de la
+fonctionnelle (§6, les compléments du rang 1), depuis le même menu. **À l'ouverture** (D1366) : le ticket paraît
+au profil de l'utilisateur, qui y retrouve tous ses tickets, et en
+notification **du groupe que la surface désigne pour ce type** (D1372 :
+« un composant gui (wizard, screen, ...) porte 3 propriétés faisant
+référence à un groupe pour traiter une anomalie, pour répondre à une
+question fonctionnelle ou pour enregistrer une demande d'évolution.
+Ainsi, lors de la création d'un ticket, le groupe destinataire est
+connu et transmis automatiquement. ») — le bloc, acquis (D1374) :
+
+```yaml
+# la surface — un bloc, trois groupes (D1372, D1374)
+assistance:
+  anomaly: support_technique      # qui traite une anomalie
+  question: responsables_metier   # qui répond à une question fonctionnelle
+  evolution: direction            # qui enregistre une demande d'évolution
+```
+
+héritable par la cascade du module et des settings (D359) ; le
+gestionnaire se prend dans ce groupe ; une personne le
+prend (`gestionnaire:`, D1369) ; **une alerte régulière, paramétrée au profil**,
+informe de l'arrivée d'un ticket ou de l'absence de mise à jour, hors
+clos et refus — *ma lecture* : une notification `every:` par
+utilisateur (D108/D397, D1167). **La question** (D1367, D1373) : le message retenu porte
+`reponse: true` et **se publie quand la question est close** — alors
+publique, visible de tous au degré `reader` — et sa paire
+question-réponse s'ajoute au chapitre F.A.Q. de la fonctionnelle (§6,
+chapitre 5, D1189), ancrée à l'écran ; les anomalies et les évolutions
+restent à leur auteur, aux `manager` et aux `administrator`.
+**Le chapitre 3 de §26** décrit le mode basique, ses types et ses
+statuts ; la liste des tickets vit à l'instance (D1157) ; **une copie
+d'environnement emporte `_assistance` avec les données**, comme
+`_migration` (D1387, D1078). Le support
+(l'étape 4) dit qui répond et dans quels délais.
+
+### 4. Le support (D1375–D1381)
+
+**Un texte écrit, sans engagement** : qui répond et comment le joindre —
+un Markdown par langue, versionné avec la configuration (D1156),
+référencé par `pages: support:` du `documentation.yml` de la version
+(§12) ; **« Ici, nous n'allons pas poser d'engagement »** (D1376) — ni
+délais promis, ni réel mesuré contre une promesse. **La langue** (D1375 :
+« une question posée est dans la langue de l'utilisateur (langue à
+mettre dans le ticket). La réponse aussi. Pour une FAQ, la question et
+la réponse sont disponibles dans la langue d'édition. ») — un champ
+`langue:` sur le ticket ; **la paire question-réponse se pose dans
+une langue, le gestionnaire la décline dans les autres langues, celles
+qu'il sait, et la documentation comme l'accès ne sont disponibles que
+dans la langue de l'utilisateur** (D1381) — une question close sans
+déclinaison dans la langue d'un utilisateur ne lui est pas montrée, ni
+dans l'application ni dans la F.A.Q. de sa langue ; mon repli sur la
+langue d'origine retiré. **Ce que Syncytium ajoute,
+calculé** : la table « qui répond à quoi », lue depuis les blocs
+`assistance:` (D1372) — par module et par surface, le groupe des
+anomalies, des questions, des évolutions ; et, à l'instance, **les
+indicateurs** (D1379 : « La documentation peut comptabiliser les types
+et les statuts. Elle présente les indicateurs. Le détails n'apparaît
+pas dans le document. ») — les tickets par type et par statut ; **statiques et
+dynamiques** (D1380 : « statiques pour montrer le nombre de tickets en
+cours par statut, dynamique pour matérialiser le nombre de tickets
+ouverts par jour, par semaine ou par mois (selon l'écart entre la date
+d'ouverture de l'application et le jour courant) ») — *ma lecture* :
+le pas se choisit seul, par jour tant que l'application a moins d'un
+mois, par semaine jusqu'à un an, par mois au-delà — confirmé, D1382 ;
+la date d'ouverture est celle de la première ingestion (D326). Rien de
+plus. **Les degrés** (D1377) : le texte et la table à tous, `reader`
+compris ; les indicateurs à partir de `manager`. **La complétude**
+(D1377) : un projet sans texte de support est relevé (§20), le chapitre
+dit « aucun texte de support » ; une surface sans bloc `assistance:`
+hérité n'est pas relevée — le ticket va au `manager` et à
+l'`administrator`, le défaut du socle (D1173). **Les tickets ne
+quittent pas l'application** (D1378 : « Hors de l'application, hors de
+la FAQ, non présent à la documentation. Les tickets et les évolutions
+sont portés par l'application seulement. La FAQ dans la documentation
+ne diffuse que la question et la réponse (sans précisé les autres
+informations). Dans l'application, ces informations sont diffusées. »)
+— l'auteur, le gestionnaire, les dates, le statut, les messages se
+lisent dans l'application ; la F.A.Q. de la fonctionnelle (§6,
+chapitre 5) ne porte que la paire.
+
+*La déclinaison sur l'entrepôt est faite (D1382) ; la colonne 8 de la
+matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
+le rang 4 est clos (D1383).*
+
+## 27. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -2686,11 +3154,10 @@ comme chapitre (§19 → §22, D1187).*
    (§10) ; les écarts filtrés par l'exposition pour le technicien
    (D1285), au rang 5 ;
 10. les pièces encore en proposition, à arbitrer à leur rang : le
-    guide d'exploitation (§17), la conformité (§18), la complétude et
-    son seuil (§20), la maintenance (§23 — la part de chaque lecteur,
-    la périodicité, les seuils), l'assistance (§25 — le nom du module,
-    actif par défaut, les réponses retenues, la question anonyme, la
-    F.A.Q. au dépôt) ;
+    guide d'exploitation (§17) — §18, la conformité, acquise au rang 3
+    (D1317–D1344) —, la complétude et son seuil (§20), la maintenance (§23 — la part de chaque lecteur,
+    la périodicité, les seuils) ; l'assistance (§25) acquise au rang 4 — fondue
+    dans §26, chapitre 3 (D1363–D1374) ;
 11. le contexte (D1131, D1133–D1135) : la formation comme usage ; la
     réglementation élargie à la sécurité ; les compléments par
     documentation ;

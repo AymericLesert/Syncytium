@@ -244,6 +244,19 @@ d'historisés, les compteurs (D39). **Le hook de type livre ses
 indicateurs** (D1288) ; le tableau de bord « telemetry » montre les
 mêmes chiffres.
 
+**La télémétrie, dans la réglementation** (la colonne 5 — le rang 3) :
+**la journalisation des accès** (D1336) — les refus d'autorisation
+journalisés (D43), l'audit des lectures au grain de l'acte (D702–D704),
+leurs comptes par période à l'instance ; **l'extraction** d'une personne
+reprend les accès qui la concernent (D1331) ; la rétention et
+l'anonymisation des traces (D41) au chapitre de la journalisation.
+
+**La télémétrie, dans le projet et le support** (la colonne 8 — le rang
+4) : **les indicateurs du support** — statiques, les tickets en cours
+par statut ; dynamiques, les tickets ouverts par jour, par semaine ou
+par mois selon l'ancienneté de l'application (D1379–D1380) — calculés
+sur `_assistance`, à l'instance, sans le détail ; rien d'autre.
+
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 télémétrie n'est pas ce que l'utilisateur fait) ; la maintenance et la
 supervision (§23 — le tableau de bord, la synthèse périodique, les

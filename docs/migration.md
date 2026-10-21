@@ -530,7 +530,7 @@ d'administration (D711) :
   jamais pendant la bascule ; un redémarrage du serveur vaut
   interruption, la relance est manuelle ;
 - **la copie d'un environnement** (D1078–D1080) — `syncytium copy
-  <source> <cible>` emporte les données et `_migration` ;
+  <source> <cible>` emporte les données, `_migration` et `_assistance` (D1387) ;
   `--with-storage` emporte aussi les fichiers de détail, re-chiffrés
   sous les clés de la cible ;
 - **la sandbox** (D921–D922) — `reload` rejoue l'ingestion et la
@@ -647,9 +647,19 @@ chapitre 3 (D1292), leurs données ici. Une version sans reprise n'a pas
 de chapitre 4.1 ; une version à plusieurs migrations, une section par
 migration.
 
-**Les autres colonnes** — à leur rang : le guide d'exploitation (le
-rang 7 — les passages, les trois taux D862, les rejets et leurs
+**Le module `_migration`, dans la réglementation** (la colonne 5 — le
+rang 3) : **la reprise est un traitement d'origine** du registre, par
+règle, quand elle écrit un champ marqué (D1317, D1344) ; **le rapport
+des anomalies par mail est un destinataire externe**, même anonymisé
+(D1065, D1344) ; les fichiers de détail à rétention par le nettoyage
+(D1334) ; la provenance de chaque champ marqué par le graphe source →
+cible, dans la mention et dans la documentation (D1335).
+
+**Le module `_migration`, dans le projet et le support** (la colonne 8
+— le rang 4) : rien — `_assistance` est son pendant pour les tickets
+(D1363, D1368) : un module interne, ses tables au storage, ses données
+à l'instance (D1157).
+
+**Les autres colonnes** — à leur rang : le guide d'exploitation (le rang 7 — les passages, les trois taux D862, les rejets et leurs
 rapports D929, `migrate` et `reset_coverage`, le rythme) ; la
-maintenance (le rang 8 — la couverture et les compteurs) ; la
-réglementation (les données personnelles reprises et leur provenance
-D178).
+maintenance (le rang 8 — la couverture et les compteurs).

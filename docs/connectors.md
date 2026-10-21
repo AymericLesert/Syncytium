@@ -160,7 +160,12 @@ lecture, le file, le webhook.)*
 | `onerror` | la défaillance — retourne **un mock de résultat** (le connecteur non critique — l'écho de la dégradation D68) ou **l'appel à la page de maintenance** (le connecteur clé) (D627) |
 | `describe()` — `describe(model)` pour le storage (D1299) | « générer de la documentation en markdown/html pour la documentation automatique de l'instance » (D630) — la règle de **tous** les hooks (D645), la doc technique assemblée version par version |
 
-**Les propriétés du socle** : `connection: permanent | on_demand |
+**Les propriétés du socle** : `rgpd: { countries: [FR] }` — le ou les
+pays du stockage ou de la destination, une liste — « selon
+l'implémentation du connecteur, nous pouvons avoir plusieurs zones de
+stockage ou d'échange » (D1345) —, pour le registre des traitements (D1328 ;
+le lieu du storage, les transferts hors Union des connecteurs sortants),
+`connection: permanent | on_demand |
 idle[15min]` *(en proposition — D621)*, `pool:` (le parallélisme
 asynchrone — D622/D436), `retry:` et `timeout:` (la reprise sur
 erreur — D625 ; l'homonymie notée : ce retry n'est pas la reprise de
@@ -581,11 +586,26 @@ en `none` la retire ; **le `llm`** sert le chat, pas la documentation
 (D1226). Les connecteurs sortants qui emportent des données personnelles
 se nomment à la conformité (§18), non à la fonctionnelle.
 
+**Les connecteurs, dans la réglementation** (la colonne 5 — le rang 3) :
+**`rgpd: { countries: [ … ] }`** — les pays du stockage pour le storage,
+de la destination pour les sortants, une liste (D1345) ; le registre en tire le lieu et les
+transferts hors Union (D1328) ; **les connecteurs sortants** — `smtp`,
+`webhook`, `llm` — sont les destinataires externes des traitements qui
+leur passent un champ marqué (D1317), le rapport de la reprise par mail
+compris, même anonymisé (D1344) ; **au chapitre de la sécurité**, les
+secrets `*` par leur nom, jamais leur valeur (D944), `unencrypted:`
+signalé (D705), les origines autorisées (D918).
+
+**Les connecteurs, dans le projet et le support** (la colonne 8 — le
+rang 4) : **le storage héberge les tables du module `_assistance`** —
+les tickets et leurs messages — comme celles de `_migration` (D1363,
+D1368) ; la page des versions dit l'environnement qu'implique le
+statut, rien des connecteurs (D1347, D1251).
+
 **Les autres colonnes** — à leur rang : le D.A.T. (le rang 6 — les
 connexions de l'application à son environnement, le schéma calculé
 des connecteurs, D1131) ; le guide d'exploitation (le rang 7 — le
 paramétrage, les secrets `*` D944, `unencrypted:` D901, le mock D627) ;
-la réglementation (les sortants et ce qu'ils emportent, D698) ;
 l'information — **le chapitre du stockage du dictionnaire de la donnée**
 (D1260) : « le connecteur storage matérialise le stockage des types dans
 la base de données » ; le chapitre représente les données telles

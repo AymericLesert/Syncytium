@@ -1,6 +1,7 @@
 # Le contact
 # Les personnes chez un tiers : une composition du tiers. Les champs nominatifs portent le marquage des données
-# personnelles — l'anonymisation et la rétention savent où frapper ; le premier exemple au RGPD.
+# personnelles — le nom et le prénom disent l'identité civile, le point de départ de l'extraction ; l'anonymisation
+# des contacts des tiers inactifs est le traitement d'appui du module.
 name: contact
 
 # La description de l'entité
@@ -36,13 +37,13 @@ fields:
   nom:
     type: text[..40]
     required: true
-    rgpd: personal
+    rgpd: identity
     searchable: mutualizable[qui]
     label: Nom
 
   prenom:
     type: text[..40]
-    rgpd: personal
+    rgpd: identity
     label: Prénom
 
   fonction:
@@ -82,3 +83,15 @@ fields:
   date_creation:
     type: date
     label: Créé le
+
+# Les opérations
+# L'anonymisation des contacts des tiers inactifs depuis trois ans, chaque mois : le traitement d'appui du RGPD ; le
+# responsable et la base légale viennent du projet, la finalité est la sienne.
+operations:
+
+  # L'anonymisation
+  anonymiser:
+    every: monthly[1 at 03:00]
+    operations: [ rgpd.anonymize(owner.actif = false and owner.date_modification < context.now - 3y) ]
+    rgpd:
+      purpose: Effacer l'identité des contacts des tiers sortis de l'ERP depuis plus de trois ans

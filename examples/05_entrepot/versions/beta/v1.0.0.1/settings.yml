@@ -57,3 +57,43 @@ confidentiality:
   commercial:
     level: protected
     groups: [commercial, direction]
+
+# Le réglementaire
+# Le bloc rgpd: du projet, hérité par les modules, les entités et les traitements : qui répond des traitements, sur
+# quelle base, pour quelle finalité ; le contact et le délégué.
+rgpd:
+
+  # Le responsable des traitements
+  # Un groupe d'utilisateurs : la direction répond de l'entrepôt.
+  controller: direction
+
+  # La base légale
+  # L'intérêt légitime de l'entreprise : tenir le miroir de son ERP.
+  legal: legitimate_interest
+
+  # La finalité
+  purpose: Tenir l'entrepôt de données de l'entreprise, miroir de l'ERP, pour le pilotage et la préparation
+
+  # Le contact
+  contact: direction@entreprise.example
+
+  # Le délégué à la protection des données
+  dpo:
+    name: Le délégué de l'entreprise
+    email: dpo@entreprise.example
+
+# Le support
+# Les groupes qui reçoivent les tickets ouverts depuis les écrans ; hérité par toutes les surfaces de la version.
+assistance:
+
+  # Les anomalies
+  # L'administration de l'entrepôt : la reprise, la configuration.
+  anomaly: administration
+
+  # Les questions
+  # La logistique, qui connaît les stocks et fait suivre aux autres services.
+  question: logistique
+
+  # Les évolutions
+  # La direction, qui arbitre et planifie.
+  evolution: direction

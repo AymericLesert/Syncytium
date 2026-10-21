@@ -2599,3 +2599,270 @@ sur 47. *(5)* « Depuis la version x » vaut la
 première version partout dans la première version — ici 1.0.0.0, mais
 une première version peut être 0.0.0.1 (D1310) ; la colonne ne prend
 son sens qu'à la suivante, où trois champs se distinguent.
+
+
+## La réglementation — la déclinaison de l'entrepôt (le rang 3)
+
+*(La déclinaison du rang 3, écrite le 19/10/2026 sur §18 de
+documentation.md — D1317–D1343. L'entrepôt est le seul cas marqué :
+`tiers.contact` porte six champs `rgpd: personal` — le nom, le prénom,
+le téléphone, le portable, l'email, l'anniversaire — et
+`stock.mouvement.utilisateur`, « l'opérateur qui a saisi — un nom de
+personne ». Les modules sont fermés à l'écriture, la reprise seule
+écrit (D1312) ; aucun bloc `rgpd:` n'est déclaré. On montre le registre
+tel qu'il sortirait aujourd'hui, puis ce que le concepteur ajouterait.
+**En proposition.**)*
+
+---
+
+> # entrepôt — La réglementation et la sécurité
+>
+> ## Le registre des traitements
+>
+> **Les modules soumis** : `tiers` (l'entité `contact`), `stock`
+> (l'entité `mouvement`). `technique` et `commande` ne portent aucun
+> champ marqué.
+>
+> **Le responsable, la base légale, la finalité** : *non précisés* —
+> aucun bloc `rgpd:` au projet, aux modules, aux entités ni aux
+> traitements (D1327). **Le DPO** : *non précisé*.
+>
+> ### Le module tiers
+>
+> **Les données.** `contact` — Une personne chez un tiers, son rôle et
+> ses coordonnées ; stockée dans la table `tiers_contact` (le
+> dictionnaire, chapitre 3), historisée ; six champs `personal` :
+> `nom`, `prenom`, `telephone`, `portable`, `email`, `anniversaire` ;
+> aucun `identity` *(à marquer : `nom` et `prenom` — voir ci-dessous)*.
+>
+> **Les traitements.**
+>
+> | Le traitement | La forme | Qui le déclenche | Les données | Les destinataires | La fréquence |
+> |---|---|---|---|---|---|
+> | lire un contact | l'acte du socle | tous les groupes | les six champs | — | à la demande |
+> | créer, modifier, supprimer un contact | les actes du socle | personne — le module est fermé | — | — | — |
+> | la reprise des contacts | les règles `05_contacts_clients`, `06_contacts_fournisseurs` (la source `CONTACT`) | la reprise, par son privilège ; `migrate` par `delta_nocturne` | les six champs, depuis `cegid` | — | chaque nuit à deux heures |
+> | le rapport des anomalies de la reprise | le `report:` de la source et de la règle | la reprise | les valeurs anonymisées (D1065) | le groupe destinataire, par `smtp` — hors du système | à chaque passage |
+> | l'anonymisation | `rgpd.anonymize` | `administration` | les six champs | — | *non déclarée* |
+> | le nettoyage | `cleanup.yml` | l'environnement | les fichiers de détail de la reprise | — | chaque jour, 90 jours de rétention |
+>
+> **La rétention** : les fichiers de détail, 90 jours ; les
+> enregistrements, *non précisée* — aucune règle d'anonymisation
+> déclarée (D1334). **Le lieu** : *non précisé* — aucun `countries:` sur
+> `entrepot` ni sur `smtp`.
+>
+> ### Le module stock
+>
+> **Les données.** `mouvement.utilisateur` — « Saisi par », un nom de
+> personne ; stocké dans `stock_mouvement`, historisé.
+>
+> **Les traitements.** Lire un mouvement, tous les groupes ; la reprise
+> des mouvements, depuis `MVTSTO`, chaque nuit et la relecture complète
+> du samedi ; le rapport des anomalies ; l'anonymisation, *non
+> déclarée*.
+>
+> ## Les droits des personnes
+>
+> Par module soumis : l'accès et la portabilité par
+> `rgpd.extract(identity)`, au plancher `manager` — *sans champ
+> `identity`, pas de point de départ* ; la rectification : les modules
+> sont fermés, la correction se fait à la source, PMI, et la reprise la
+> rapporte ; l'effacement par `rgpd.anonymize`, `administration` ; la
+> limitation : aucun état déclaré.
+>
+> ## Les mentions d'information
+>
+> `rgpd.notice` — *non ancrée* : aucun `paragraph` ne la porte ; **un
+> manque** (D1335). La provenance entrerait dans la mention : « reprises
+> de PMI ».
+>
+> ## La journalisation des accès
+>
+> Aucun champ `sensitive` ; aucun `trace: audit` ; les refus journalisés.
+> *À l'instance : les comptes.*
+>
+> ## La sécurité de l'instance
+>
+> *Les douze principes, une section chacun (D1338)* — les secrets :
+> quatre clés `*` (`entrepot.password`, `cegid.password`,
+> `authentication.client_secret`, `smtp.password`), chiffrées ; aucun
+> `unencrypted:` ; l'audience : six groupes, la direction composée ;
+> les frontières d'extension : aucun hook d'interface ; la
+> disponibilité : les délais de la reprise, `on_running: wait` ; le
+> chat : absent ; les dépendances, à l'instance.
+>
+> ## L'accessibilité, les obligations du secteur
+>
+> Les critères du RGAA testés à l'ingestion sur les composants employés ;
+> *aucune déclaration, aucun texte de secteur.*
+
+---
+
+**Ce que le concepteur a ajouté** (D1344 — écrit le 19/10/2026 dans la
+configuration, les deux versions et les deux environnements), pour que
+le registre cesse de dire « non précisé » :
+
+- `settings.yml` : le bloc `rgpd:` global — `controller: direction`,
+  `legal: legitimate_interest`, `purpose`, `contact`, `dpo` (D1323) ;
+- `tiers/contact/contact.yml` : `nom` et `prenom` en `rgpd: identity`
+  (D1332) ; l'opération `anonymiser` — `every: monthly[1 at 03:00]`,
+  `rgpd.anonymize(owner.actif = false and owner.date_modification <
+  context.now - 3y)`, avec son `purpose` (D1334) ;
+- `environments/production/connectors.yml` et `staging` : `rgpd:
+  { countries: [FR] }` sur `entrepot`, `cegid`, `smtp` (D1328, D1345) ;
+- `syncytium.yml` : `home: ~{documentation/home.md}`, la page d'accueil
+  qui ancre `${rgpd.notice}` (D1335).
+
+Le registre dit alors le responsable, la base légale, la finalité, le
+contact et le DPO ; la rétention des contacts, trois ans après la sortie
+du tiers ; le lieu, la France ; la mention, ancrée sur la page
+d'accueil ; `rgpd.extract("Martin")` a son point de départ.
+
+**Ce que la déclinaison relève.** *(1)* Un module fermé à l'écriture
+n'a que des traitements de lecture, de reprise et d'appui : le registre
+le dit sans ligne vide. *(2)* Le rapport des anomalies par mail est un
+destinataire externe, même anonymisé — il figure. *(3)* Sans `identity`,
+`rgpd.extract` n'a pas de point de départ : le marquage `personal` seul
+ne suffit pas à répondre à « toutes les données de Mme Martin ». *(4)*
+`rgpd.anonymize` prend un périmètre — une condition sur l'entité qui
+la déclare (D1344).
+
+## Le projet et le support — la déclinaison de l'entrepôt (le rang 4)
+
+*(La déclinaison du rang 4, écrite le 22/10/2026 sur §26 de
+documentation.md — D1347–D1379. L'entrepôt a deux versions actives : la
+1.0.0.0 en production, la 1.0.0.1 en beta (D1081) ; `syncytium.yml` ne
+porte ni `author:`, ni `contact:`, ni `copyright:` ; aucune version ne
+porte `authors:` ; aucune ressource déclarée ; aucun bloc `assistance:`
+sur les surfaces ; aucun texte de support. On montre la documentation
+telle qu'elle sortirait aujourd'hui, puis ce que le concepteur
+ajouterait. **Confirmée, et les clés écrites dans la configuration le
+22/10/2026 — D1382.**)*
+
+---
+
+> # entrepôt — Le projet et le support
+>
+> ## 1. Les versions
+>
+> | La version | Le statut | L'environnement | Ingérée le | Promue le |
+> |---|---|---|---|---|
+> | **1.0.0.1** | beta | staging | *(l'instance)* | — |
+> | **1.0.0.0** | production | production | *(l'instance)* | *(l'instance)* |
+>
+> *Les dates viennent du registre des versions de l'instance (D1350) ;
+> aucune version dépréciée ni interdite ; aucun essai refusé.*
+>
+> ### 1.0.0.1 — beta
+>
+> **Les notes de version.** La seconde version de l'entrepôt, en essai
+> sur le staging : trois évolutions du modèle. *Le modèle* — le tiers :
+> le nom abrégé devient le nom court ; la langue se choisit dans une
+> liste — français, anglais, allemand, espagnol. L'article : un
+> commentaire du bureau d'études, que l'entrepôt possède — la reprise
+> ne le touche pas.
+>
+> **Ce qui change, depuis la 1.0.0.0** (calculé, §9) : le module
+> `tiers` — un champ renommé (`abrege` → `nom_court`), un champ retypé
+> (`langue`, un texte de trois caractères devenu une liste de quatre
+> valeurs) ; le module `technique` — un champ ajouté
+> (`article.commentaire`). Le détail au dictionnaire de la donnée.
+>
+> **Les auteurs** : *non précisés*. **Les droits d'auteur** : *non
+> précisés*. **Les ressources** : aucune. **La documentation** : la
+> fonctionnelle, le dictionnaire de la donnée, la réglementation… de
+> cette version.
+>
+> ### 1.0.0.0 — production
+>
+> **Les notes de version.** La première version de l'entrepôt de
+> données : les données de Cegid PMI standardisées, harmonisées et
+> fiabilisées, de l'opérateur aux dirigeants. *Le modèle* — quatre
+> modules : technique, tiers, commande, stock ; l'entrepôt en lecture
+> seule ; l'historique partout sauf sur les niveaux et les mouvements ;
+> les champs financiers réservés aux achats et à la direction. *La
+> reprise* — la base PMI lue chaque nuit, la relecture complète le
+> dimanche ; les anomalies adressées chaque matin. *Le pilotage* — le
+> tableau de bord des stocks.
+>
+> **À venir** (D1285) : la 1.0.0.1 (beta) renomme `tiers.abrege` en
+> `nom_court`, retype `tiers.langue`, ajoute `technique.article.commentaire`.
+>
+> **Les auteurs**, **les droits d'auteur** : *non précisés*. **Les
+> ressources** : aucune.
+>
+> ## 2. Le dépôt et le core
+>
+> **Le core** : `Syncytium-1.0` — `syncytium init` l'a récupéré, a
+> ingéré la configuration et créé l'instance ; la documentation est
+> celle de ce core (D1361).
+>
+> **Le dépôt** : la configuration vit dans un dépôt distinct de
+> Syncytium (D336). *L'origine, lue depuis le dossier* : montrée si
+> elle répond sans droit, sinon rien (D1359) — ici, le dépôt des
+> exemples de Syncytium, public.
+>
+> **Le versionnement** : le dossier `versions/` — `beta/` (la
+> 1.0.0.1), `production/` (la 1.0.0.0) ; par version, les fichiers que
+> l'ingestion a lus : `version.yml`, `settings.yml`, `groups.yml`, la
+> reprise, les quatre modules — soit 109 fichiers atteints depuis
+> `syncytium.yml` (D1081). Les fichiers sont inertes après ingestion :
+> ce qui est servi est la version ingérée ; une modification n'a d'effet
+> qu'au dépôt d'une nouvelle version.
+>
+> ## 3. Signaler, demander, questionner
+>
+> Depuis le « ? » de chaque écran : une anomalie, une évolution, une
+> question. Le ticket porte l'écran, l'enregistrement montré, votre
+> langue ; il paraît dans votre profil et chez ceux qui le traitent.
+>
+> **Qui répond à quoi** (calculé depuis les blocs `assistance:`) :
+> *aucun bloc déclaré* — les tickets vont au `manager` et à
+> l'`administrator` ; l'entrepôt n'a qu'un groupe au degré
+> `administrator`, `administration`, et aucun `manager` : **tous les
+> tickets vont à l'administration**.
+>
+> **Les indicateurs** *(l'instance)* : en cours, par statut ; ouverts
+> par jour, par semaine ou par mois selon l'ancienneté de l'application
+> (D1380) — vide au dépôt.
+>
+> **La F.A.Q.** : les questions closes, leur question et leur réponse —
+> dans la fonctionnelle, chapitre 5 ; aucune au dépôt.
+>
+> ## 4. Le support
+>
+> *Aucun texte de support* — relevé par la complétude (D1377).
+
+---
+
+**Ce que le concepteur ajouterait** — **écrit dans la configuration le
+22/10/2026** (D1382, comme les blocs `rgpd:` du rang 3, D1344) ; le
+traceur d'orphelins : 220 fichiers atteints, aucun orphelin :
+
+```yaml
+# syncytium.yml — le projet nommé (D1153, D1355)
+author: Aymeric Lesert
+contact: entrepot@entreprise.example
+copyright: © 2026 L'entreprise
+
+# versions/production/v1.0.0.0/version.yml — les auteurs et la documentation de la version (D1355, D1219)
+authors: [Aymeric Lesert]
+documentation: ~{documentation.yml}
+
+# versions/production/v1.0.0.0/documentation.yml — le texte du support (D1375)
+pages:
+  support: ~{documentation/support.md}   # qui répond, comment le joindre — sans engagement (D1376)
+
+# versions/production/v1.0.0.0/settings.yml — les trois groupes, hérités par toutes les surfaces (D1372)
+assistance:
+  anomaly: administration     # l'administration traite les anomalies
+  question: logistique        # la logistique répond aux questions sur les stocks
+  evolution: direction        # la direction enregistre les demandes d'évolution
+```
+
+*Avec ces lignes : la page des versions nomme le concepteur, le
+contact et le titulaire des droits ; le chapitre 4 porte le texte du
+support ; les tickets du tableau de bord `stock[pilotage]` vont à
+l'administration, à la logistique ou à la direction selon leur type.
+Le bloc `assistance:` au `settings.yml` vaut pour toutes les surfaces
+par la cascade (D359) ; une surface peut le surcharger.*

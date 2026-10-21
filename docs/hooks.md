@@ -583,6 +583,23 @@ storage**, le chapitre 3 par `describe(model)` (D1299) ; les hooks de
 composant et de style, rien. L'inventaire des hooks câblés et comment en
 écrire un vont à la documentation du développeur (D1244).
 
+**Les hooks, dans la réglementation** (la colonne 5 — le rang 3) : **le
+hook d'opération** est un traitement quand il implique un champ `rgpd:`
+(D1317) — la déclaration porte le bloc `rgpd:` du traitement
+(`controller`, `legal`, `purpose`, D1322) et, pour une suite, `operations:
+[ … ]` fait une ligne du registre (D1318, D1329) ; **la famille `rgpd`**
+des opérations du socle — `rgpd.extract(identity)`, `rgpd.anonymize`
+(D1333) — ; **le hook d'interface**, seul code tiers au navigateur, est
+nommé au chapitre de la sécurité (D918, D1337) ; **le hook de
+composant** passe les tests du RGAA comme les composants du socle
+(D1340) ; **le hook de connecteur** porte `rgpd: { countries: [ … ] }`
+(D1328).
+
+**Les hooks, dans le projet et le support** (la colonne 8 — le rang 4) :
+rien de propre — les opérations ne sont pas des écarts (D1281) ; les
+notifications des tickets et l'alerte du profil passent par le
+mécanisme des notifications du socle (D1366, D108/D397).
+
 **Les autres colonnes** — à leur rang : le développeur (le contrat du
 hook, ses propriétés — `degree`, `execution`, `deterministic`,
 `connectors` —, le `describe` D645 ; **la skill** des consignes du

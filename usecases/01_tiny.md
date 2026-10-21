@@ -445,6 +445,74 @@ structure entière, le stockage, les index, le gabarit d'import, la
 configuration dépliée — tout ce que le concepteur n'a pas écrit, le
 socle le dit.
 
+## La réglementation — la déclinaison sur le plan acquis (le rang 3)
+
+*(La déclinaison du rang 3, écrite le 19/10/2026 sur §18 de
+documentation.md — D1317–D1343. Le tiny n'a aucun champ `rgpd:` : ce
+n'est pas une anomalie, Syncytium ne décide pas de ce qui est
+réglementaire (D1319). Ce que la documentation 5 écrit malgré tout.
+**En proposition.**)*
+
+---
+
+> # tiny — La réglementation et la sécurité
+>
+> ## Le registre des traitements
+>
+> Aucun traitement : aucun champ ne porte le marquage `rgpd:`. *(Le
+> module `annuaire` n'est pas soumis ; `personne` a un nom, un prénom,
+> un âge et une fonction, que le concepteur n'a pas marqués — c'est son
+> choix, la documentation ne le relève pas.)*
+>
+> ## Les droits des personnes
+>
+> *Aucun module soumis.* L'extraction `rgpd.extract(identity)` et
+> l'anonymisation `rgpd.anonymize` existent au socle ; sans champ
+> `rgpd: identity`, l'extraction n'a pas de point de départ.
+>
+> ## Les mentions d'information
+>
+> *Aucune : aucun traitement.*
+>
+> ## La journalisation des accès
+>
+> Aucun champ audité d'office (`sensitive`) ni en `trace: audit` ; les
+> refus d'autorisation sont journalisés (D43) — *avec l'instance, leurs
+> comptes.*
+>
+> ## La sécurité de l'instance
+>
+> | Le principe | L'état |
+> |---|---|
+> | l'audience | déclaré — un seul utilisateur, tous les droits |
+> | les droits d'action | déclaré — tout permis |
+> | les degrés | absent — aucun groupe |
+> | les groupes et les modules | absent |
+> | les frontières d'extension | déclaré — aucun hook, aucun composant ajouté |
+> | l'intégrité | déclaré — le socle |
+> | la traçabilité | déclaré — aucune historisation |
+> | l'audit et la détection | déclaré — les refus journalisés |
+> | le RGPD | absent — aucun marquage |
+> | les secrets et le chiffrement | déclaré — aucune clé `*` ; HTTPS |
+> | la disponibilité | déclaré — les fusibles du socle ; pas de passif |
+> | le chat | absent |
+>
+> *(puis une section par principe, trois paragraphes — le socle, la
+> configuration, l'instance — D1338 ; les dépendances du moteur, à
+> l'instance — D924.)*
+>
+> ## L'accessibilité
+>
+> Les critères du RGAA testés à l'ingestion sur les composants du
+> socle employés — la liste, le formulaire, le widget de résumé, les
+> quatre types de champ — : par critère, passe, ne passe pas, non testé
+> (D1339–D1340). *Aucune déclaration d'accessibilité : `accessibility:`
+> absent.*
+>
+> ## Les obligations du secteur
+>
+> *Aucun texte : `regulation:` absent.*
+
 ## Les frottements relevés
 
 *(chaque frottement = une décision à prendre ; mes lectures en
@@ -471,11 +539,11 @@ proposition)*
 4. **Le socle dans la documentation** (le point ouvert 11) : le
    chapitre 2 vient de Syncytium, identique pour toute application ;
    la configuration ne le nourrit pas. À confirmer.
-5. **Le registre vide d'une entité nominative** — *soldé* (D1177) :
-   `nom`, `prenom`, `age`, `fonction` sans `rgpd:` — la documentation
-   dit « rien à inscrire » ; la complétude signale l'entité sans aucun
-   marquage comme un point à relire, sans qualifier ses champs : elle
-   compte, elle ne devine pas. Le marquage se généralise par un type
+5. **Le registre vide d'une entité nominative** — *soldé* (D1177, amendé
+   D1319) : `nom`, `prenom`, `age`, `fonction` sans `rgpd:` — la
+   documentation dit « aucun traitement » ; la complétude ne relève pas
+   l'absence de marquage : un projet sans champ `rgpd:` n'est pas une
+   anomalie, Syncytium ne décide pas de ce qui est réglementaire. Le marquage se généralise par un type
    personnalisé qui le porte (`nom: { type: text[..40], rgpd: personal }`,
    D1178) ; le tiny, minimal, n'en déclare pas.
 6. **La langue de l'édition** — *soldé* (D1144, D1160) : les textes de

@@ -443,12 +443,12 @@ syncytium rotate    # re-chiffre le .env et les champs des types chiffrants
 ```
 
 **La copie d'un environnement** (D1078–D1080) : la base de l'environnement
-source vers celui de la cible — les données et le module `_migration` avec
-elles ; l'option `--with-storage` emporte aussi les fichiers de détail des
+source vers celui de la cible — les données et les modules internes
+`_migration` et `_assistance` avec elles (D1078, D1387) ; l'option `--with-storage` emporte aussi les fichiers de détail des
 migrations (D1066), re-chiffrés sous les clés de la cible :
 
 ```bash
-syncytium copy production staging                  # les données et _migration
+syncytium copy production staging                  # les données, _migration et _assistance
 syncytium copy production staging --with-storage   # + les fichiers de détail, re-chiffrés
 ```
 
@@ -599,8 +599,26 @@ compteurs de télémétrie (D39) — figurent au chapitre 3, signalées
 tableau de bord « telemetry » du module d'administration montre les
 mêmes chiffres que le chapitre 5.3 (D736, D1288).
 
+**L'administration, dans la réglementation** (la colonne 5 — le rang
+3) : **l'entité d'audit** et ses surfaces au degré `administrator`
+(D702–D704), le chapitre de la journalisation des accès (D1336) ; **les
+dépendances** du moteur et des hooks, calculées à l'instance, au
+chapitre de la sécurité (D924, D1337) ; **le nettoyage** reste aux
+fichiers et aux traces, l'anonymisation aux enregistrements (D1334) ;
+**les tests du RGAA** enregistrés à l'ingestion (D1340) ; le DPO et le
+contact déclarés au projet (D1330).
+
+**L'administration, dans le projet et le support** (la colonne 8 — le
+rang 4) : **la page des versions** — les statuts par dossier, les dates
+d'ingestion et de promotion lues au registre des versions (D1350), les
+essais refusés et leur cause (D1357) ; **`syncytium init`** —
+l'amorçage qui lit `from:`, récupère le core, ingère, crée l'instance
+(D1358, D1360) ; **le profil de l'utilisateur** — ses tickets, l'alerte
+régulière `every:` (D1366) ; **la notification** des tickets au groupe
+désigné (D1372).
+
 **Les autres colonnes** — à leur rang : le guide d'exploitation (le
 rang 7 — l'installation, la configuration, la supervision, les
 opérations de maintenance, D1134) ; la maintenance (le rang 8 — les
 usages, les contrôles, les optimisations, D1128) ; le D.A.T. (le rang
-6) ; le projet et le support (le rang 4, D1133).
+6).

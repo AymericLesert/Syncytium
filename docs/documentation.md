@@ -1674,7 +1674,7 @@ prépare : le préavis de la dépréciation en trois temps (D650), le 426
 sous la version minimale (D94) ; elle sert la documentation du
 développeur, à son rang.
 
-## 10. La documentation de l'API *(le rang 5, étape 1 — en cours : le périmètre acquis, D1393)*
+## 10. La documentation de l'API *(le rang 5, étape 1 — en cours : le périmètre, D1393 ; le contrat par entité, D1394)*
 
 D334 : « les techniciens de parties tierces — les consommateurs des
 API, dont la documentation générée s'enrichit ». Pour chaque version
@@ -1698,6 +1698,25 @@ lien vers son contrat et ses écarts. Le lecteur premier est le
 technicien, un compte technique (D28) ; le concepteur lit aussi, pour
 vérifier ce que sa configuration expose ; l'analyste (D1152) y trouve
 l'édition machine.
+
+**Le contrat par entité** (D1394 : « Le contrat par entité affiche
+uniquement ce qui est autorisé au compte technique qui accède à cette
+documentation. ») — ni les entités, ni les champs, ni les actes que ses
+groupes (D196, D1172) et l'exposition (D20, D25) lui refusent, pas même
+en négatif ; une section par entité permise, dans cet ordre : **les
+champs exposés** — les `public` seuls, par leur nom, le type en clair
+tel qu'appliqué (D1160), l'obligation, le défaut, les valeurs d'un
+énuméré, la `description:` ; les calculés en lecture seule (D21, D102) ;
+**les opérations** — les actes du socle permis, puis les opérations
+déclarées avec leur contrat, ce qu'elles lisent et écrivent, leurs
+paramètres (le chapitre 4.3 du dictionnaire, D1242), leur mode,
+synchrone ou asynchrone avec la ressource de suivi (D24) ; **les
+lectures** — l'unitaire, la liste, l'intégralité par curseur opaque
+(D22, D100), les critères de recherche et de sélection que le modèle
+déclare (D1292) ; **les écritures** — l'unitaire et le lot de
+transactions, la remontée par transaction (D101) ; **les liens** — les
+références et les associations vers les entités exposées, par leur
+nom ; vers une entité non permise, le lien ne paraît pas.
 
 ## 11. Les formats et le support *(le rang 0, étape 7 — acquis, D1165–D1166)*
 

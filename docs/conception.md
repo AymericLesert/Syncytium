@@ -24784,7 +24784,9 @@ avant la synthèse Q16).
   longue à écrire. « 1. je confirme pour tiny 2. A l'intérieur du
   fichier, n'y a-t-il pas les déclinaisons par langue ? » — non, un
   fichier par langue partout ; « vas-y corrige » (D1424) — les douze
-  md et les quatre fiches écrits, le traceur à 68 fichiers.
+  md et les quatre fiches écrits, le traceur à 68 fichiers. La colonne
+  3 de la matrice écrite dans les onze artefacts et la matrice
+  d'ensemble — à valider, puis la clôture du rang 5.
 - **2026-10-22 (suite) — LA PAUSE : LE RANG 4 CLOS ET SOLDÉ, LA PR #47
   MISE À JOUR (1391 décisions).** « créer une PR et marquons une
   pause ». La PR #47 (`feature/documentation` → `develop`), ouverte le

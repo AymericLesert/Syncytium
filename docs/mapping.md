@@ -940,6 +940,12 @@ nettoyage (D1065, D1334).
 (D1281) ; les notes de version disent, en clair, ce que la reprise
 apporte (D1096).
 
+**La migration déclarée, dans la documentation du développeur** (la
+colonne 3 — le rang 5) : rien de propre — la reprise n'est pas un
+appel ; le gabarit technique de l'import (D1414) est la porte du
+programme qui voudrait alimenter l'entrepôt sans reprise ; les règles
+de reprise ne sont pas des écarts du contrat (D1281).
+
 **Les autres colonnes** — à leur rang : le guide
 d'exploitation (le rang 7 — `migrate`, `reset_coverage`, le rythme, les
 rapports de rejets D929, les anomalies D1032) ; la maintenance

@@ -607,9 +607,17 @@ rien de propre — les opérations ne sont pas des écarts (D1281) ; les
 notifications des tickets et l'alerte du profil passent par le
 mécanisme des notifications du socle (D1366, D108/D397).
 
-**Les autres colonnes** — à leur rang : le développeur (le contrat du
-hook, ses propriétés — `degree`, `execution`, `deterministic`,
-`connectors` —, le `describe` D645 ; **la skill** des consignes du
-moteur pour l'IA, D1224) ; le D.A.T. (le hook d'interface, le seul
+**Les hooks, dans la documentation du développeur** (la colonne 3 — le
+rang 5) : **l'inventaire** par famille (D1404, D1406) — la fiche, la
+description par son md dans la langue du lecteur (D1403, D1405), les
+propriétés `degree`, `execution`, `deterministic`, les connecteurs, les
+références comptées et localisées, le code par son existence et son
+emplacement ; **le hook d'opération** au contrat d'API, son md montré au
+technicien (D1402), ses paramètres dont le changement est un écart
+(D1401) ; **la référence** pour en écrire un, six chapitres par
+famille, celle du core nommé par `from:` (D1408) ; **la skill**, la
+couche du core et le complément de la version (D1409–D1410).
+
+**Les autres colonnes** — à leur rang : le D.A.T. (le hook d'interface, le seul
 code tiers au navigateur, D918) ; la maintenance (la fréquence
 d'emploi de chaque opération, D1168).

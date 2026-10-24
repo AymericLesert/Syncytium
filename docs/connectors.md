@@ -602,6 +602,17 @@ les tickets et leurs messages — comme celles de `_migration` (D1363,
 D1368) ; la page des versions dit l'environnement qu'implique le
 statut, rien des connecteurs (D1347, D1251).
 
+**Les connecteurs, dans la documentation du développeur** (la colonne 3
+— le rang 5) : **le `webhook` entrant** — une section par point
+d'entrée, la route versionnée, le mode, les paramètres,
+l'authentification, l'opération déclenchée, la réponse, les codes
+(D1415–D1419) ; **le `webhook` sortant** — ce qui sort par lui, le
+contrat du message, le mécanisme d'authentification par son nom, la clé
+d'émission, l'état et la trace (D1420–D1423) ; **le storage**, les
+formats de l'import et de l'export, le CSV pivot, le classeur (D1412) ;
+à l'inventaire, un connecteur personnalisé par sa fiche, ses
+paramètres sans secrets, ses `countries:` (D1406).
+
 **Les autres colonnes** — à leur rang : le D.A.T. (le rang 6 — les
 connexions de l'application à son environnement, le schéma calculé
 des connecteurs, D1131) ; le guide d'exploitation (le rang 7 — le

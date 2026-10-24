@@ -735,6 +735,16 @@ l'auteur, le gestionnaire, les messages restent dedans, la F.A.Q. ne
 porte que la paire ; **la documentation entière est portée par
 l'application** (D1348), sous ses droits.
 
+**La sécurité, dans la documentation du développeur** (la colonne 3 —
+le rang 5) : **le porteur seul**, jamais le cookie (D917) ; la clé
+rotative, le « pour le compte de », OAuth2 en déclinaison (D107) ;
+aucune valeur de secret dans le contrat, la console saisit la clé et ne
+la stocke pas (D1398) ; le code d'un hook par son existence et son
+emplacement, jamais son contenu (D1406) ; l'appel lancé depuis la
+console est réel, journalisé, confirmé en écriture (D1398) ; les
+webhooks entrants authentifiés d'office (D642) ; les origines et HTTPS
+au D.A.T. (D918, D919).
+
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 sécurité n'est pas ce que l'utilisateur fait ; le masque dit ce qui est
 protégé) ; l'information (le niveau de confidentialité affiché à chaque

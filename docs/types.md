@@ -263,5 +263,14 @@ marquage (D1301).
 un champ retypé est un écart de « ce qui change » sur la page des
 versions (D1281, D1347) ; rien d'autre.
 
-**Les autres colonnes** — à leur rang : le développeur (la forme à
-l'API, D20), 
+**Le type, dans la documentation du développeur** (la colonne 3 — le
+rang 5) : **la forme de ses valeurs** dans un appel et dans une cellule
+du gabarit — fixée par le type, non par la langue (D1414) — et le type
+en clair à côté de chaque champ du contrat ; **un type personnalisé** a
+sa fiche à l'inventaire (D1406–D1407) — la forme en clair, la
+déclinaison, les contraintes, l'exemple, les indicateurs, les modes de
+recherche, le glossaire, les champs qui le portent — et l'entrée de la
+référence pour en écrire un (D1408) ; son md par langue (D1403, D1405).
+
+**Les autres colonnes** — à leur rang : la maintenance (le rang 8 —
+les valeurs inemployées d'un type, D46/D48). 

@@ -660,6 +660,11 @@ cible, dans la mention et dans la documentation (D1335).
 (D1363, D1368) : un module interne, ses tables au storage, ses données
 à l'instance (D1157).
 
+**Le module `_migration`, dans la documentation du développeur** (la
+colonne 3 — le rang 5) : rien — ses entités ne sont pas exposées à
+l'API du technicien ; `migrate` et `reset_coverage` sont des commandes
+du guide d'exploitation.
+
 **Les autres colonnes** — à leur rang : le guide d'exploitation (le rang 7 — les passages, les trois taux D862, les rejets et leurs
 rapports D929, `migrate` et `reset_coverage`, le rythme) ; la
 maintenance (le rang 8 — la couverture et les compteurs).

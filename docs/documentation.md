@@ -532,7 +532,10 @@ décisions, D1170–D1238.)*
      par langue, l'inventaire du concepteur, les types et composants, la
      référence du core nommé, la skill en deux couches ;
   3. enrichir : la documentation de référence de Syncytium dans celle
-     de l'application (le point 11) — embarquée ou liée ;
+     de l'application (le point 11) — embarquée ou liée : **acquis le
+     24/10/2026 (D1410–D1411)** — la référence embarquée entière, le
+     produit lié à la version du core, la skill du core et son
+     complément ;
   4. les formats d'échange : le gabarit CSV côté technique, les
      webhooks.
 - **Déclinaison** : le tiny (les exemples d'appel) ; **la banque** (ses
@@ -3262,7 +3265,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, en cours : D1410)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3412,6 +3415,38 @@ la documentation du développeur et s'exporte en édition machine, un
 dossier de fichiers pour l'assistant IA (D1152) ; sa forme, au domaine
 7 ; elle n'entre pas dans le contrat d'API du technicien. Le contenu de
 la couche du core se détaille à l'étape 3, avec la référence.
+
+### 2. Enrichir — la référence de Syncytium dans la documentation de l'application (D1410–D1411)
+
+**Trois matières de Syncytium, trois sorts** (D1411) : **les textes du
+socle**, ce que toute application fait — déjà embarqués dans la
+fonctionnelle, le chapitre 2 de §6, bornés à ce que la version emploie
+(D1189) ; **la référence du développeur** — écrire un hook (D1408), la
+grammaire des clés — **embarquée entière**, non bornée : le concepteur
+la lit pour ajouter ce que sa version n'emploie pas encore ; elle
+voyage avec le core que `syncytium init` récupère (D1358, D1360), elle
+est servie par l'application comme le reste (D1348), dans la langue du
+lecteur parmi celles du core (D1162), et ne change qu'avec lui ;
+**Syncytium comme produit** — les décisions, l'architecture, l'étude
+comparative, le rang 10 (D1316) — **lié, jamais embarqué** : le lien
+pointe la version du core, Syncytium-1.0, sur le dépôt de Syncytium,
+la règle de D1408 tient ; sans accès au dépôt, le lien est une adresse,
+pas un manque. **La couche du core de la skill** (D1409) : la grammaire
+des clés tirée du méta-schéma (D44), par niveau, avec les types de
+valeurs et la cascade (D359) ; les règles d'ingestion et leurs erreurs
+en clair ; les recommandations d'écriture — l'intro avant chaque clé,
+les 120 caractères, les propriétés plutôt que les commentaires, les
+références `~{…}` et les orphelins (D1084, D1085, D1097, D1100, D956,
+D1082) ; les exemples du socle, le tiny en premier (D1026) ; la
+référence des hooks ; **le core porte sa skill, le projet n'y ajoute
+qu'un complément** (D1410). **Où** : un chapitre « La référence de
+Syncytium-1.0 » après l'inventaire ; la console de §10 y renvoie pour
+les actes du socle ; l'édition machine emporte la skill ; l'édition
+imprimable n'imprime la référence que sur demande, chapitre par
+chapitre. **La complétude** (§20) ne mesure rien ici. **Un projet
+`private`** (D1151) montre la référence à son concepteur et à ses
+techniciens : « Cela montre l'éventail des éléments techniques à
+disposition du concepteur. »
 
 ## 28. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 

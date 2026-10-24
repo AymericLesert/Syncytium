@@ -24661,6 +24661,23 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-24 (suite) — LA PAUSE : L'ÉTAPE 1 DU RANG 5 PRESQUE CLOSE
+  (D1393–D1401, 1401 décisions).** « je marque une pause ». Le contrat
+  d'API parcouru lecture par lecture : le périmètre (D1393), le contrat
+  par entité aux seuls droits du compte (D1394–D1396), le socle en tête
+  (D1397), la console interactive — l'authentification, les paramètres
+  dont l'environnement, chaque appel lancé et son résultat, l'édition à
+  la vue du compte (D1398–D1400) —, les écarts dont le changement de
+  paramètres (D1401). Le tableau de bord lit désormais l'état « en
+  cours » d'une étape (le mod, le plan). À la reprise : les lectures 6
+  et 7 — où le contrat se lit (la console, l'édition par compte,
+  l'édition machine), ce qui s'écrit (rien de nouveau ; le md du hook
+  montré au technicien ?) — puis la clôture de l'étape 1 et §10 réécrit
+  d'un trait ; l'étape 2, étendre — les cinq familles de hooks, écrire
+  un hook et son md (D778), le `describe()`, le hook d'interface (D918),
+  les types et composants personnalisés ; l'étape 3, enrichir ; l'étape
+  4, les formats d'échange ; la déclinaison sur le tiny et la banque ;
+  la skill des consignes pour l'IA (D1224) ; la colonne 3 de la matrice.
 - **2026-10-24 — REPRISE : LA PR #47 FUSIONNÉE, LES ADR AU RANG 10
   (D1392, 1392 décisions).** « re ». La PR #47 fusionnée dans `develop`
   dans la nuit du 21 au 22 (le squash porte le titre mis à jour, D1315–

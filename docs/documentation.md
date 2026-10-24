@@ -537,7 +537,8 @@ décisions, D1170–D1238.)*
      produit lié à la version du core, la skill du core et son
      complément ;
   4. les formats d'échange : le gabarit CSV côté technique, les
-     webhooks.
+     webhooks — *en cours (D1412–D1413 : les formats de l'import, le
+     CSV pivot ; deux facettes sans conseil)*.
 - **Déclinaison** : le tiny (les exemples d'appel) ; **la banque** (ses
   hooks).
 - **Livrables** : §10 validé ; [hooks.md](hooks.md),
@@ -3267,7 +3268,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411 ; l'étape 4, échanger, en cours : D1412–D1413)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3449,6 +3450,18 @@ chapitre. **La complétude** (§20) ne mesure rien ici. **Un projet
 `private`** (D1151) montre la référence à son concepteur et à ses
 techniciens : « Cela montre l'éventail des éléments techniques à
 disposition du concepteur. »
+
+### 3. Échanger — les formats d'échange (D1412–D1413, en cours)
+
+**Les formats de l'import** (D1412 : « l'import CSV, l'import EXCEL,
+l'import ODS ... le format pivot est du CSV. Le fichier EXCEL ou l'ODS
+regroupe des onglets où chaque onglet peut être un fichier CSV. ») —
+le CSV pivot, un classeur = un onglet par entité (§14). **Deux facettes
+du même import** (D1413 : « Nous laissons le choix sans conseil car ce
+ne sont que 2 facettes de l'import. ») — le lot de transactions de
+l'API (D101) et le fichier ; le chapitre décrit les deux, sans
+recommander. *Le gabarit technique, les webhooks entrants et sortants,
+l'édition machine, ce qui s'écrit — en cours d'arbitrage.*
 
 ## 28. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 

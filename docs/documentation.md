@@ -3274,7 +3274,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411 ; l'étape 4, échanger, en cours : D1412–D1420)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411 ; l'étape 4, échanger, en cours : D1412–D1421)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3457,7 +3457,7 @@ chapitre. **La complétude** (§20) ne mesure rien ici. **Un projet
 techniciens : « Cela montre l'éventail des éléments techniques à
 disposition du concepteur. »
 
-### 3. Échanger — les formats d'échange (D1412–D1420, en cours)
+### 3. Échanger — les formats d'échange (D1412–D1421, en cours)
 
 **Les formats de l'import** (D1412 : « l'import CSV, l'import EXCEL,
 l'import ODS ... le format pivot est du CSV. Le fichier EXCEL ou l'ODS
@@ -3525,7 +3525,9 @@ valeur ; **la clé d'émission, portée par le socle** (D1420 : « Lorsque
 le webhook sortant est sollicité, le message est stocké et identifié
 par Syncytium. Puis, le message est envoyé avec cet identifiant. Si le
 message est reçu 2 fois par le destinataire, c'est au destinataire de
-le refuser s'il a déjà traité le premier. ») ; **la reprise** —
+le refuser s'il a déjà traité le premier. ») — **et le socle marque
+son état** (D1421) : *en proposition*, en attente, envoyé, acquitté, en
+erreur avec le motif, abandonné après les reprises ; **la reprise** —
 `retry:`, `timeout:`, la position de sécurité (D625), le doublon
 possible et l'idempotence au destinataire (D87) ; **le filtre** — une
 émission paraît si l'opération ou la notification qui l'émet est
@@ -3533,7 +3535,7 @@ visible du compte (D1394), le connecteur par son nom, sa famille, ses
 `countries:` (D1345) ; **dans la console** — l'exemple du message tel
 qu'il partira, sans bouton, c'est l'application qui émet ; à
 l'instance, le dernier envoi de chaque émission — le message stocké,
-son identifiant, sa date, son état (D1157) —, que chacun voit pour les
+son identifiant, sa date, son état (D1157, D1421) —, que chacun voit pour les
 envois que ses appels ont déclenchés. *L'édition machine, ce qui
 s'écrit — en cours d'arbitrage.*
 

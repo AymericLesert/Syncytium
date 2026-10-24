@@ -2866,3 +2866,127 @@ support ; les tickets du tableau de bord `stock[pilotage]` vont à
 l'administration, à la logistique ou à la direction selon leur type.
 Le bloc `assistance:` au `settings.yml` vaut pour toutes les surfaces
 par la cascade (D359) ; une surface peut le surcharger.*
+
+## Le D.A.T. — la déclinaison de l'entrepôt (le rang 6)
+
+*(La déclinaison du rang 6, écrite le 24/10/2026 sur §28 de
+documentation.md — D1426–D1431. L'entrepôt a deux environnements,
+`production` et `staging`, ni passif ni sandbox ; sept connecteurs,
+déclarés à l'identique dans les deux, les valeurs par les variables ;
+dix-sept variables, dont quatre confidentielles ; aucun hook ; aucun
+`listen:`, aucun texte du réseau. On montre le D.A.T. tel qu'il
+sortirait aujourd'hui, puis ce que le concepteur ajouterait.
+**Confirmée, et les textes écrits dans la configuration le 24/10/2026 —
+D1434.**)*
+
+---
+
+> # entrepôt — Le D.A.T.
+>
+> ## 1. Le schéma des connexions
+>
+> *Un schéma par environnement ; celui de la production. Les
+> silhouettes et les flux, calculés ; le protocole et le port, ceux de
+> la classe.*
+>
+> | de | vers | la famille, la classe | le protocole, le port | ce qui circule |
+> |---|---|---|---|---|
+> | **les utilisateurs** — les six groupes, leur navigateur | l'instance | — | HTTPS, le port de `listen:` *(non déclaré)* | l'interface |
+> | **l'administrateur, le concepteur** — le poste | l'instance | — | les commandes du moteur | `init`, `copy`, `document` |
+> | l'instance | `entrepot` | storage, postgresql | TCP 5432 | tout le modèle — le chapitre 3 du dictionnaire |
+> | l'instance | `cegid` — **reprise** (D1433) | storage, sqlserver | TCP 1433 | la reprise, en lecture, chaque nuit, la relecture le dimanche — des champs `rgpd:` (§18) ; l'état à l'instance |
+> | l'instance | `temporaire` | storage, memory | — | les tables de travail de la reprise |
+> | l'instance | `plans` | file, file_std | le système de fichiers | les plans des articles |
+> | l'instance | `location` | location, ban | HTTPS 443, `api-adresse.data.gouv.fr` | les adresses des tiers |
+> | l'instance | `authentication` | authentication, azure_ad | HTTPS 443, le tenant | l'identité des utilisateurs |
+> | l'instance | `smtp` | smtp, smtp_std | TCP 587 | les rapports de la reprise — des valeurs anonymisées (D1065) |
+>
+> *Les `countries:` : `entrepot`, `cegid`, `smtp` en `[FR]` ; aucun
+> webhook, aucun LLM, aucun technicien déclaré.*
+>
+> **Le réseau** : *non décrit* — la description de l'environnement tient
+> en une ligne ; où est l'instance, ce que traverse le flux vers la base
+> PMI, qui tient le pare-feu et le DNS : à écrire (D1426).
+>
+> ## 2. Les environnements
+>
+> | l'environnement | la nature | le rôle | la version servie | le statut |
+> |---|---|---|---|---|
+> | `production` | la production active | l'entrepôt alimenté chaque nuit depuis la base PMI de production | 1.0.0.0 | production |
+> | `staging` | le staging | l'entrepôt d'essai alimenté depuis une copie de la base PMI | 1.0.0.1 | beta |
+>
+> **Les relations** : la production vers le staging par
+> `syncytium copy production staging`, les données, `_migration`,
+> `_assistance`, les fichiers de détail avec `--with-storage` (D1080,
+> D1387) ; aucun passif, aucune sandbox.
+>
+> **Les flux et les ports** : la table du chapitre 1, la même pour le
+> staging — les mêmes connecteurs, les valeurs du staging. **L'instance
+> elle-même** : `listen:` *non déclaré* — l'adresse et le port servis
+> viennent des variables du déploiement (D1427).
+>
+> **Les journaux** : la production en `info`, le staging en `debug`
+> (D343) ; un fichier par jour dans `${SYNCYTIUM_LOG_DIRECTORY}`,
+> 128 Mo, dix sauvegardes ; la rétention 30 jours par le nettoyage,
+> les fichiers de détail de la reprise 90 jours.
+>
+> ## 3. Le paramétrage externe
+>
+> **Les variables**, par environnement — dix-sept, dont quatre
+> confidentielles ; renseignées : *(l'instance)* :
+>
+> | la variable | l'emploi | confidentielle |
+> |---|---|---|
+> | `ENTREPOT_HOST`, `ENTREPOT_DATABASE`, `ENTREPOT_USER` | le storage `entrepot` | non |
+> | `ENTREPOT_PASSWORD` | le storage `entrepot` | **oui** |
+> | `CEGID_SERVER`, `CEGID_DATABASE`, `CEGID_USER` | la base d'origine `cegid` | non |
+> | `CEGID_PASSWORD` | la base d'origine `cegid` | **oui** |
+> | `PLANS_DIRECTORY` | le connecteur `plans` | non |
+> | `AZURE_TENANT`, `AZURE_CLIENT_ID` | l'authentification `azure_ad` | non |
+> | `AZURE_CLIENT_SECRET` | l'authentification `azure_ad` | **oui** |
+> | `SMTP_HOST`, `SMTP_FROM` | le connecteur `smtp` | non |
+> | `SMTP_PASSWORD` | le connecteur `smtp` | **oui** |
+> | `SYNCYTIUM_LOG_DIRECTORY`, `SYNCYTIUM_MIGRATION_DIRECTORY` | le journal, les fichiers de la reprise | non |
+>
+> *Le fichier des variables est créé par `syncytium init` (D1429) ; les
+> quatre confidentielles chiffrées par le wizard (D902).*
+>
+> **Les comptes chez les tiers**, calculés : une application Azure AD
+> dans le tenant, avec son secret ; un compte d'envoi SMTP ; un compte
+> de lecture sur la base PMI. *Qui les détient, comment on les
+> renouvelle : à écrire.* **Le certificat** : *à écrire* ; l'auto-signé
+> de Syncytium à défaut (D919). **Le DNS, le pare-feu** : *à écrire*,
+> depuis la table des flux.
+>
+> ## 4. Le dimensionnement et les dépendances
+>
+> **La référence** : la TPE, une vingtaine d'utilisateurs simultanés,
+> des bases jusqu'à plusieurs Go, un mono-serveur (D15). **L'instance** :
+> *(les volumes par entité, la taille de la base, les comptes — vide au
+> dépôt.)*
+>
+> **Les dépendances** : le core Syncytium-1.0 ; les classes employées —
+> postgresql, sqlserver, memory, file_std, ban, azure_ad, smtp_std — et
+> ce qu'elles exigent, le pilote PostgreSQL, le pilote SQL Server ;
+> aucun hook, aucune dépendance du projet. **La veille des CVE** : *non
+> reliée* — l'autorisation de l'administrateur absente (D1431).
+>
+> **Les postes** : les navigateurs supportés par le core, à sa
+> référence.
+
+---
+
+**Ce que le concepteur ajouterait** — **écrit dans la configuration le
+24/10/2026** (D1434) : le texte du réseau dans la description de chaque
+environnement, `environments/production/README.md` et
+`environments/staging/README.md` — où tourne l'instance, ce que
+traversent les flux, le nom et le certificat, qui tient quoi —, et
+`listen:` ; le traceur : 222 fichiers atteints, aucun orphelin.
+
+```yaml
+# environments/production/production.yml
+description: ~{README.md}            # le texte du réseau : où est l'instance, les flux, qui tient le pare-feu et le DNS
+listen:                              # l'adresse et le port servis — par les variables du déploiement (D1427)
+  url: ${SYNCYTIUM_URL}
+  port: ${SYNCYTIUM_PORT}
+```

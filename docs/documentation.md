@@ -551,26 +551,38 @@ décisions, D1170–D1238.)*
   la matrice d'ensemble (D1425).
 - **Dépendances** : la forme du contrat d'API au domaine 7.
 
-#### Rang 6 — le D.A.T. (documentation 4)
+#### Rang 6 — le D.A.T. (documentation 4) — *clos le 24/10/2026, D1435*
 
 - **Périmètre** : les inter-connexions de l'application avec son
   environnement et le paramétrage externe indispensable (D1134).
-- **Sections** : §4 (chapitres 1 et 11) ; une section à créer.
+- **Sections** : §4 (chapitres 1 et 11) ; §28 (créée le 24/10/2026).
 - **Étapes** :
   1. le schéma des connexions, calculé : l'instance, le storage,
      l'authentification, le SMTP, les bases d'origine, les webhooks et
-     API tierces, le LLM, les postes ;
+     API tierces, le LLM, les postes : **acquis le 24/10/2026 (D1426)**
+     — par environnement, les silhouettes par le moteur, le réseau en
+     texte porté par la description de l'environnement ;
   2. les environnements et leur rôle (D339, D112–D114), les flux et
-     les ports ;
+     les ports : **acquis le 24/10/2026 (D1427)** — la table, les
+     relations calculées, les flux et les ports, `listen:` par le `.env` ;
   3. le paramétrage externe : les variables `${…}` que la
      configuration référence (calculables), les comptes chez les
-     tiers, les certificats (D919), le DNS, le pare-feu (écrits) ;
-  4. le dimensionnement (D15), les dépendances (D924).
+     tiers, les certificats (D919), le DNS, le pare-feu (écrits) :
+     **acquis le 24/10/2026 (D1428)** — la liste des variables exposée
+     dans la limite des confidentialités, le fichier au déploiement ;
+  4. le dimensionnement (D15), les dépendances (D924) : **acquis le
+     24/10/2026 (D1430)** — la référence écrite, l'instance calculée,
+     les dépendances du core et des hooks ; la veille des CVE par la
+     voie b (D1431).
 - **Déclinaison** : **l'entrepôt** (production et staging, trois
-  storages, `azure_ad`, `smtp`, la base Cegid).
-- **Livrables** : une section « Le D.A.T. » ;
-  [connectors.md](connectors.md), [security.md](security.md),
-  [administration.md](administration.md).
+  storages, `azure_ad`, `smtp`, la base Cegid) — **faite** (D1434 — le texte du réseau et
+  `listen:` écrits dans la configuration ;
+  [usecases/05_entrepot.md](../usecases/05_entrepot.md)).
+- **Livrables** : une section « Le D.A.T. » (§28, les quatre chapitres
+  acquis) ; [connectors.md](connectors.md), [security.md](security.md),
+  [administration.md](administration.md), [hooks.md](hooks.md),
+  [configuration.md](configuration.md) ; la colonne 4 de la matrice dans
+  les onze artefacts et la matrice d'ensemble (D1435).
 - **Dépendances** : les choix techniques (D1025).
 
 #### Rang 7 — le guide d'exploitation (documentation 9)
@@ -659,7 +671,7 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      rendus, les pages ou le wiki — la forme au domaine 7 (D1126) ;
   4. la reprise artefact par artefact — le regroupement physique de
      documentation.md par documentation (D1021), la mise à jour du
-     glossaire, les points ouverts de §28 soldés un à un ;
+     glossaire, les points ouverts de §29 soldés un à un ;
   5. **le registre en ADR** (D1392 — acquis : « La voie b au rang
      10 ») : un fichier par décision dans `docs/decisions/`, canonique,
      l'index généré ; la conversion scriptée et vérifiée par
@@ -711,7 +723,7 @@ Elle a **trois sources** (D1122) :
 La documentation rédigée du projet Syncytium — les artefacts de
 `docs/` — n'est pas une source de la documentation de l'application ;
 ce que D645 lui demandait d'en porter (« la documentation technique de
-Syncytium ») reste à placer (§28).
+Syncytium ») reste à placer (§29).
 
 Et une règle qui les tient ensemble : **chaque version active porte sa
 documentation** (D1123 — D645/D810) ; *la version documentée est
@@ -2065,10 +2077,10 @@ rubrique qui la spécifie. Trois lignes, pour la forme :
 
 | Le composant | 1 Fonctionnelle | 2 Information | 3 Développeur | 4 D.A.T. | 5 Réglementation | 6 Promotionnelle | 7 Maintenance | 8 Projet | 9 Exploitation |
 |---|---|---|---|---|---|---|---|---|---|
-| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 avec ses index et ses partitions (D1292–D1293) ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | sa section du contrat si le compte peut l'atteindre (D1394) : les champs `public`, les actes permis, les lectures et les écritures, les liens, les exemples ; ses écarts filtrés (D1401) | — | le stockage de ses champs `rgpd:`, son module soumis ; ses actes du socle et ses opérations comme traitements, son wizard comme suite (D1317–D1318) ; son bloc `rgpd:` (D1325) ; son état pour la limitation ; sa rétention par `rgpd.anonymize` (D1334) | son titre dans la vue d'ensemble | ses usages, ses anomalies | ses écarts dans « ce qui change » de la page des versions (§9) ; l'enregistrement cité par un ticket (D1364) | — |
-| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3, l'index que son `searchable:` ou son identité lui vaut (D1292), la partition qu'il porte (D1293) | exposé s'il est `public` (D20), par son nom, le type en clair, le format de la valeur ; un écart du contrat quand il change | — | son marquage `rgpd:` — `personal`, `sensitive`, `consent`, `identity` (D695, D1332) —, par lui-même ou par son type ; son niveau de confidentialité, son audit (D703), sa rétention calculée, les traitements qui le touchent ; `identity`, le point de départ de `rgpd.extract` | — | sa diversité, ses valeurs inemployées | ajouté, renommé, retypé, supprimé — « ce qui change » (D1347) | — |
-| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa forme en clair tel qu'appliqué, sa déclinaison, ses indicateurs, son exemple (D1301) ; les modes de recherche qu'il admet, origines des index (D1292) ; son entrée à l'annexe B | sa fiche à l'inventaire (D1406) et l'entrée de la référence pour en écrire un (D1408) ; la forme de ses valeurs dans les appels et le gabarit | — | le marquage qu'il porte (D1178) — `personal`, `sensitive`, `consent`, `identity` —, hérité par tout champ qui l'emploie ; le registre se lit par type puis par champ | — | — | un champ retypé — « ce qui change » | — |
-| le wizard | le scénario, la planche, le parcours guidé | — | une suite d'opérations : son contrat d'appel quand il est exposé ; à l'inventaire, les hooks qu'il enchaîne | — | une suite d'opérations — un traitement du registre quand une étape touche un champ marqué (D1318, D1329) | un cas d'usage | sa fréquence d'emploi | son bloc `assistance:` (D1372) ; le « ? » — la documentation, un ticket, une question, la recherche (D1366, D1371) | — |
+| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 avec ses index et ses partitions (D1292–D1293) ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | sa section du contrat si le compte peut l'atteindre (D1394) : les champs `public`, les actes permis, les lectures et les écritures, les liens, les exemples ; ses écarts filtrés (D1401) | rien de propre ; ses champs `rgpd:` marquent le flux qui les emporte (D1426) ; ses volumes au dimensionnement (D1430) | le stockage de ses champs `rgpd:`, son module soumis ; ses actes du socle et ses opérations comme traitements, son wizard comme suite (D1317–D1318) ; son bloc `rgpd:` (D1325) ; son état pour la limitation ; sa rétention par `rgpd.anonymize` (D1334) | son titre dans la vue d'ensemble | ses usages, ses anomalies | ses écarts dans « ce qui change » de la page des versions (§9) ; l'enregistrement cité par un ticket (D1364) | — |
+| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3, l'index que son `searchable:` ou son identité lui vaut (D1292), la partition qu'il porte (D1293) | exposé s'il est `public` (D20), par son nom, le type en clair, le format de la valeur ; un écart du contrat quand il change | `rgpd:` signalé sur le flux ; rien d'autre | son marquage `rgpd:` — `personal`, `sensitive`, `consent`, `identity` (D695, D1332) —, par lui-même ou par son type ; son niveau de confidentialité, son audit (D703), sa rétention calculée, les traitements qui le touchent ; `identity`, le point de départ de `rgpd.extract` | — | sa diversité, ses valeurs inemployées | ajouté, renommé, retypé, supprimé — « ce qui change » (D1347) | — |
+| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa forme en clair tel qu'appliqué, sa déclinaison, ses indicateurs, son exemple (D1301) ; les modes de recherche qu'il admet, origines des index (D1292) ; son entrée à l'annexe B | sa fiche à l'inventaire (D1406) et l'entrée de la référence pour en écrire un (D1408) ; la forme de ses valeurs dans les appels et le gabarit | rien — sa forme native au dictionnaire | le marquage qu'il porte (D1178) — `personal`, `sensitive`, `consent`, `identity` —, hérité par tout champ qui l'emploie ; le registre se lit par type puis par champ | — | — | un champ retypé — « ce qui change » | — |
+| le wizard | le scénario, la planche, le parcours guidé | — | une suite d'opérations : son contrat d'appel quand il est exposé ; à l'inventaire, les hooks qu'il enchaîne | rien | une suite d'opérations — un traitement du registre quand une étape touche un champ marqué (D1318, D1329) | un cas d'usage | sa fréquence d'emploi | son bloc `assistance:` (D1372) ; le « ? » — la documentation, un ticket, une question, la recherche (D1366, D1371) | — |
 
 **La matrice se remplit rang par rang** (D1159) : chaque rang du plan
 (le contexte, partie 5) spécifie la colonne de sa documentation pour
@@ -3553,7 +3565,168 @@ description d'API, avec le reste du contrat ; la forme au domaine 7
 de l'entrée du webhook et de l'opération, le `placeholder:` pour
 l'exemple ; la complétude (§20) relève une entrée sans description.
 
-## 28. Les points ouverts *(rafraîchis à la clôture du rang 5, le 24/10/2026)*
+## 28. Le D.A.T. — l'architecture technique *(le rang 6 — acquis, D1426–D1435 : le schéma des connexions, les environnements, le paramétrage externe, le dimensionnement et les dépendances ; la déclinaison sur l'entrepôt, D1434)*
+
+**La quatrième documentation** (D1134) : « une description des
+inter-connexions entre l'application et son environnement + l'ensemble
+du paramétrage externe à l'application mais indispensable à son
+fonctionnement » ; le guide d'exploitation (§17) explique
+l'installation, la configuration, la supervision et la maintenance. Ses
+lecteurs : l'administrateur, le concepteur, l'hébergeur sans les
+secrets (§3, D1154). Portée par l'application comme le reste (D1348).
+
+### 1. Le schéma des connexions (D1426, D1433)
+
+**Un diagramme calculé**, comme le modèle de données (D1119), **par
+environnement** : au centre l'instance ; autour, un nœud par connecteur
+déclaré à l'environnement (D342, D616), groupé par famille — le storage,
+les bases d'origine de la reprise, l'authentification, le SMTP, les
+fichiers, le géocodeur, les webhooks entrants et sortants, le LLM ; un
+trait par flux, dans le sens de l'appel, étiqueté par le protocole et
+le port que la classe du connecteur implique ; les `${…}` résolues sans
+les secrets, qui paraissent par leur nom (D944) ; les `countries:`
+(D1345) ; les données personnelles signalées sur le flux qu'un champ
+`rgpd:` emprunte (§18) ; le storage renvoie au chapitre 3 du
+dictionnaire. **Le connecteur d'une reprise se distingue** (D1433 : « il
+peut être temporaire ou désactiver après un certain temps ») — *ma
+lecture* : celui qu'une migration nomme en `from:`, dessiné à part avec
+la mention « reprise », le rythme déclaré, une fois ou périodique, et, à
+l'instance, son état — actif, le dernier passage, désactivé depuis ;
+désactivé, il reste sur le schéma, grisé, tant que la configuration le
+déclare. **Les silhouettes des postes sont dessinées par le
+moteur** (D1426) — les utilisateurs et leur navigateur, les techniciens
+et leurs systèmes, l'administrateur et le concepteur avec les
+commandes du moteur — avec les flux qui en partent. **Le réseau est un
+texte écrit, porté par la description de l'environnement** (D1426 :
+« La capacité de Syncytium à décrire son environnement se limite à ce
+qu'il peut gérer ou à ce qu'il a besoin. Les parefeux, les dns, les
+authentifications, ... ne sont pas de la responsabilité de Syncytium
+mais des équipes d'intégration et d'administration système et
+réseau ») — *ma lecture* : la `description:` de l'environnement prend
+un fichier Markdown (D810) : où est l'instance, ce que traversent les
+flux, qui tient le pare-feu et le DNS ; le D.A.T. la place sous le
+schéma. **Le rendu** : Mermaid, aux contraintes notées (D1278) ; la
+forme au domaine 7.
+
+### 2. Les environnements et leur rôle, les flux et les ports (D1427)
+
+**La table des environnements déclarés** : le nom, la nature — le
+staging, la production active, la production passive (D339), la sandbox
+et sa référence (D907) —, le rôle, la version et le statut servis, beta
+sur le staging, production sur la production (D340) ; pour le passif,
+l'actif qu'il double ; sous chaque ligne, le texte du réseau porté par
+la `description:` de l'environnement (D1426). **Les relations entre
+environnements**, calculées : la copie de la production vers le staging
+et son mode de synchronisation (D112–D113), l'actif vers le passif
+(D114), la référence vers la sandbox (D907) ; un trait par relation sur
+le schéma, avec ce qu'elle emporte — les données, `_migration`,
+`_assistance`, les fichiers de détail avec `--with-storage` (D1080,
+D1387). **Les flux et les ports**, par environnement et par
+connecteur : le protocole et le port de la classe, le sens, ce qui
+circule ; pour l'instance, l'adresse et le port qu'elle sert en HTTPS
+(D919), les routes de l'API et des webhooks ; une table que l'équipe
+réseau lit pour ouvrir ce qu'il faut, sans que Syncytium décide des
+règles (D1426). **L'adresse et le port de l'instance entrent dans la
+configuration par des variables d'environnement** (D1427 : « le
+listen:url + port est à mettre à la configuration mais via des
+variables d'environnement (.env). En fait, cela relève du déploiement
+et cela n'est pas porté par Syncytium et il ne doit pas être nécessaire
+de changer de version si une configuration réseau change. ») — *ma
+lecture* : `listen: { url: ${SYNCYTIUM_URL}, port: ${SYNCYTIUM_PORT} }`
+dans `environments/<env>.yml`, en proposition, les valeurs dans le
+`.env`, hors des versions (D325, D342) ; le D.A.T. les montre résolues.
+**Les journaux** : le niveau par environnement (D343), l'emplacement, le
+puits, sans valeur confidentielle ; la lecture au guide d'exploitation.
+**Ce qui s'écrit** : la `description:` de l'environnement ; un
+environnement sans description est relevé par la complétude (§20).
+
+### 3. Le paramétrage externe indispensable (D1428–D1429)
+
+**Ce qui est stable : la liste des variables d'environnement que la
+configuration porte** (D1428 : « Ici, je nomme .env en raison de mon
+habitude de l'utilisation de Python. Ce fichier pourrait être
+différent. Ce qui est stable est la liste des variables d'environnement
+portées par la configuration du projet qui est à exposer dans le DAT
+(dans la limite des confidentialités) ») — **calculée**, par
+environnement : chaque `${…}` référencée (D321), sa source — le fichier
+des variables, un mot-clé, un item de la configuration —, son défaut,
+sa nature, confidentielle par la marque `*` (D944), où elle est
+employée, le connecteur et le paramètre ; à l'instance, si elle est
+renseignée, jamais sa valeur quand elle est confidentielle. Le fichier
+qui les tient relève du déploiement, non de Syncytium (D1427) ; **il
+est créé automatiquement par `syncytium init`**, toutes les variables
+référencées, nommées exactement, les valeurs à renseigner — « Pas de
+gabarit template (risque d'oubli ou d'erreurs de nom de variable) »
+(D1429) ; *ma lecture* : les confidentielles marquées pour le wizard
+qui les chiffre (D902), une variable qu'une version ultérieure ajoute
+signalée manquante au démarrage et complétée par la commande. **Les
+comptes chez les tiers**, calculés depuis les connecteurs — ce que
+chacun attend : un compte du fournisseur d'identité avec son `tenant`,
+son `client_id` et son secret, un compte SMTP, un accès à la base
+d'origine, une clé du LLM — et complétés à l'écrit : qui le détient,
+comment on le renouvelle, dans le texte de l'environnement (D1426).
+**Les secrets** : chiffrés par le wizard, le clair refusé au démarrage
+avec la commande à exécuter (D902). **Les certificats** : HTTPS partout
+(D919) ; par environnement, le certificat employé, son émetteur, son
+échéance, écrits ; l'auto-signé de Syncytium signalé comme tel. **Le
+DNS et le pare-feu** : écrits dans le texte de l'environnement
+(D1426) ; la table des flux et des ports du chapitre 2 en est la base.
+**La complétude** (§20) : une variable référencée sans valeur à
+l'instance, un environnement sans description ; les comptes et les
+certificats, écrits, ne sont pas mesurés.
+
+### 4. Le dimensionnement et les dépendances (D1430–D1431)
+
+**Le dimensionnement de référence**, écrit par Syncytium une fois pour
+son core : ce pour quoi le moteur est conçu — la TPE, une vingtaine
+d'utilisateurs simultanés, des bases jusqu'à plusieurs Go, un
+mono-serveur (D15, D16) — et ce que cela implique de machine, de
+mémoire, de disque, de réseau, par classe de storage ; les chiffres au
+domaine 7. **Le dimensionnement de l'instance**, calculé : les volumes
+par entité et la taille de la base (D1155, D1265), les comptes et les
+groupes, les fichiers des entités et leur poids, le rythme des tâches
+périodiques et de la reprise ; à côté, la référence, pour que
+l'administrateur voie la marge ; au dépôt, le cadre vide (D1157). **Les
+dépendances**, calculées : le core, Syncytium-1.0, et sa date (D1361) ;
+les dépendances du moteur avec leurs versions épinglées et leur licence
+(D924, D19) ; les classes de connecteurs de l'environnement et ce
+qu'elles exigent — le pilote de la base, le client SMTP ; **et les
+dépendances des hooks du concepteur, déclarées par leur fiche** (D1430 :
+« oui, cela doit y figurer. Le projet vient en complément de ce que le
+core fournit déjà. ») — **`dependencies:` sur la fiche du hook**
+(D1432) : le nom, la version, la licence de chaque bibliothèque
+embarquée ; absente, aucune ; reprise par l'inventaire (D1406) et
+comparée par la veille (D1431). **La veille et la mise à
+jour**, écrites et courtes : la veille des vulnérabilités est hors du
+moteur, au dépôt public ou par une action extérieure (D924) ; la mise à
+jour du core est une migration technique sur sollicitation (D17),
+détaillée au guide d'exploitation. **La veille des CVE — la voie b,
+acquise** (D1431 : « je valide la voie b ») : la veille se fait **au
+dépôt du source**, par son outillage, et le projet publie **par core un
+fichier d'avis signé** — l'avis, sa gravité, le core qui corrige ;
+**l'instance le lit sur autorisation de l'administrateur**, désactivée
+par défaut, vérifie la signature, compare à son core et aux
+bibliothèques déclarées par ses hooks, et montre ce qui la concerne
+ici et à la maintenance (§23), avec une notification à
+l'administrateur ; **hors connexion**, le D.A.T. dit « la veille n'est
+pas reliée » et l'administrateur dépose le fichier à la main ; la mise
+à jour reste la migration technique sur sollicitation (D17) ; **la
+nomenclature logicielle** du core et des hooks, CycloneDX ou SPDX, en
+édition machine, pour le scanner de l'entreprise ; la lecture du
+fichier dit au projet qu'une instance existe et quel core elle fait
+tourner — « ça peut s'avérer intéressant pour moi concernant le fait
+que Syncytium soit utilisé et quelle version », l'auteur l'assume,
+« même si rien empêche un tiers de dupliquer le dépôt et de travailler
+avec sa version » ; la forme du fichier, de la signature et de la
+nomenclature au domaine 7. **Les postes des utilisateurs** : les navigateurs
+supportés et leur version minimale, écrits par Syncytium pour son
+core ; rien d'autre n'est requis. **La complétude** ne mesure rien ici.
+
+*La déclinaison sur l'entrepôt est faite (D1434) ; la colonne 4 de la
+matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
+le rang 6 est clos (D1435).*
+
+## 29. Les points ouverts *(rafraîchis à la clôture du rang 6, le 24/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),

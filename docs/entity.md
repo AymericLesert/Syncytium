@@ -354,6 +354,11 @@ les droits, en tête et en annotation (D1401) ; **son gabarit technique**
 par les noms (D1414) ; le `hint:` et le `title:` n'y paraissent pas
 (D1402).
 
+**L'entité et le champ, dans le D.A.T.** (la colonne 4 — le rang 6) :
+rien de propre — une entité n'est pas une connexion ; ses champs
+`rgpd:` marquent sur le schéma le flux qui les emporte (D1426, §18) ;
+ses volumes entrent au dimensionnement de l'instance (D1430).
+
 **Les autres colonnes** — à leur rang : la promotionnelle
 (son titre dans la vue d'ensemble) ; la maintenance (ses usages, ses
 anomalies).

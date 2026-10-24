@@ -41,7 +41,8 @@ chaîne à deux étages** (D644/D777 — le patron des modules
 D765/D766) : `hooks.yml` référence **les fichiers de famille**,
 chaque fichier de famille **liste ses fiches** (l'énumération ou le
 pattern regex — D806), **la fiche du hook** (D809) portant `name`,
-`description`, `code` et `properties` — les chemins relatifs au
+`description`, `code`, `properties` et, quand il embarque des
+bibliothèques, `dependencies` (D1432) — les chemins relatifs au
 fichier courant (D768). Les hooks du socle vivent dans
 l'arborescence de Syncytium — la même porte (D52), deux maisons.
 
@@ -74,6 +75,7 @@ description: documentation.md        # → le md du fonctionnement (D778) — un
                                      #   (D1403, D1405) : description: { fr: ~{documentation.fr.md}, en: ~{documentation.en.md} }
 code: source.txt                     # → le code — le langage du domaine 7 (D570)
 properties: { }                      # les propriétés du hook
+dependencies: [ ]                    # les bibliothèques embarquées — le nom, la version, la licence (D1432) ; absente = aucune
 ```
 
 **Chaque hook s'accompagne d'un fichier md par langue qu'il supporte**
@@ -618,6 +620,12 @@ technicien (D1402), ses paramètres dont le changement est un écart
 famille, celle du core nommé par `from:` (D1408) ; **la skill**, la
 couche du core et le complément de la version (D1409–D1410).
 
-**Les autres colonnes** — à leur rang : le D.A.T. (le hook d'interface, le seul
-code tiers au navigateur, D918) ; la maintenance (la fréquence
+**Les hooks, dans le D.A.T.** (la colonne 4 — le rang 6) : **leurs
+dépendances** par `dependencies:` (D1430, D1432), dans la liste des
+dépendances à côté de celles du core, comparées par la veille des CVE
+(D1431) ; **le hook de connecteur** personnalisé, un nœud du schéma
+comme les connecteurs du socle (D1426) ; **le hook d'interface** sur le
+poste de l'utilisateur (D918).
+
+**Les autres colonnes** — à leur rang : la maintenance (la fréquence
 d'emploi de chaque opération, D1168).

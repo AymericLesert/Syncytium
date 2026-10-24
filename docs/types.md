@@ -272,5 +272,9 @@ déclinaison, les contraintes, l'exemple, les indicateurs, les modes de
 recherche, le glossaire, les champs qui le portent — et l'entrée de la
 référence pour en écrire un (D1408) ; son md par langue (D1403, D1405).
 
+**Le type, dans le D.A.T.** (la colonne 4 — le rang 6) : rien — un type
+n'a pas de connexion ; sa forme native par storage est au chapitre 3 du
+dictionnaire (D1297).
+
 **Les autres colonnes** — à leur rang : la maintenance (le rang 8 —
 les valeurs inemployées d'un type, D46/D48). 

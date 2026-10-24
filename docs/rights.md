@@ -516,6 +516,13 @@ l'intersection des droits (D1396) ; l'édition produite pour un compte
 (D1400) ; le concepteur voit tout l'inventaire (D1404) ; un projet
 `private` montre la référence (D1411).
 
+**Les groupes et les droits, dans le D.A.T.** (la colonne 4 — le rang
+6) : **ses lecteurs** — l'administrateur, le concepteur, l'hébergeur
+sans les secrets (D1154) ; **l'authentification** comme connecteur du
+schéma, le fournisseur d'identité et le compte qu'il attend (D1426,
+D1428) ; rien des droits d'accès, qui sont à la documentation des
+droits.
+
 **Les autres colonnes** — à leur rang : ; le guide d'exploitation (les groupes et leur gestion, les
 affectations D341) ; la promotionnelle (le mode public, `visibility:`
 D1151).

@@ -665,6 +665,11 @@ colonne 3 — le rang 5) : rien — ses entités ne sont pas exposées à
 l'API du technicien ; `migrate` et `reset_coverage` sont des commandes
 du guide d'exploitation.
 
+**Le module `_migration`, dans le D.A.T.** (la colonne 4 — le rang 6) :
+emporté par la copie d'un environnement (D1078, D1387) — la relation
+production vers staging du chapitre 2 (D1427) ; les fichiers de détail
+et leur rétention au nettoyage.
+
 **Les autres colonnes** — à leur rang : le guide d'exploitation (le rang 7 — les passages, les trois taux D862, les rejets et leurs
 rapports D929, `migrate` et `reset_coverage`, le rythme) ; la
 maintenance (le rang 8 — la couverture et les compteurs).

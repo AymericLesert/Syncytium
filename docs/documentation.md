@@ -1880,7 +1880,7 @@ home: ~{home.md}                 # la page d'accueil, globale — hors des versi
 author: Aymeric Lesert           # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
 accessibility: ~{documentation/accessibility.md}   # la déclaration d'accessibilité, un texte du concepteur par langue (D1341)
-skill: ~{documentation/skill.md}   # ce que l'IA doit savoir de cette application — le complément de la skill, par langue (D1409)
+skill: ~{documentation/skill.md}   # le complément de la skill du core, par langue — jamais un remplacement (D1409, D1410)
 glossary:                        # le glossaire des termes du métier (D1180 ; la clé validée, D1219)
   tiers: Toute personne ou société en relation avec l'entreprise — client, fournisseur, prospect.
   article:                       # un terme = une liste de mots, singulier et pluriel (D1197 ; `words:` validé, D1219)
@@ -3262,7 +3262,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, en cours : D1410)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3403,7 +3403,10 @@ version**, généré depuis la configuration — les hooks et les types du
 projet avec leur fiche et leur md, le glossaire des termes du métier
 (D1180), les conventions du projet — et un texte libre, « ce que l'IA
 doit savoir de cette application », `skill:` dans le `documentation.yml`
-du projet, par langue (§12). L'IA charge les deux. La skill se génère
+du projet, par langue (§12). L'IA charge les deux. **Le core porte sa
+skill ; le projet peut y ajouter un complément, jamais un remplacement
+ni une substitution** (D1410) — à la différence du catalogue des
+langues (D1163), rien ne se surcharge. La skill se génère
 comme le reste, déterministe (D1225) ; elle se lit au concepteur dans
 la documentation du développeur et s'exporte en édition machine, un
 dossier de fichiers pour l'assistant IA (D1152) ; sa forme, au domaine

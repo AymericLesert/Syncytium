@@ -205,9 +205,9 @@ depuis la console, les écarts entre versions ; la même description en
 la grammaire des clés, les règles d'ingestion, les recommandations, les
 exemples du socle —, versionnée avec lui ; le complément de la version,
 généré depuis la configuration — ses hooks, ses types, son glossaire,
-ses conventions — et le texte libre `skill:` du projet. Générée,
-déterministe ; lue au concepteur, exportée en édition machine.
-*(D1224, D1226, D1409)*
+ses conventions — et le texte libre `skill:` du projet, un complément,
+jamais un remplacement. Générée, déterministe ; lue au concepteur,
+exportée en édition machine. *(D1224, D1226, D1409–D1410)*
 
 **Documentation (la facette)** — Chaque composant porte sa
 documentation, comme il porte son affichage ou son stockage ; chaque

@@ -3565,7 +3565,7 @@ description d'API, avec le reste du contrat ; la forme au domaine 7
 de l'entrée du webhook et de l'opération, le `placeholder:` pour
 l'exemple ; la complétude (§20) relève une entrée sans description.
 
-## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; les quatre étapes acquises : le schéma D1426, les environnements D1427, le paramétrage externe D1428–D1429, le dimensionnement et les dépendances D1430–D1432)*
+## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; les quatre étapes acquises : le schéma D1426 et D1433, les environnements D1427, le paramétrage externe D1428–D1429, le dimensionnement et les dépendances D1430–D1432)*
 
 **La quatrième documentation** (D1134) : « une description des
 inter-connexions entre l'application et son environnement + l'ensemble
@@ -3575,7 +3575,7 @@ l'installation, la configuration, la supervision et la maintenance. Ses
 lecteurs : l'administrateur, le concepteur, l'hébergeur sans les
 secrets (§3, D1154). Portée par l'application comme le reste (D1348).
 
-### 1. Le schéma des connexions (D1426)
+### 1. Le schéma des connexions (D1426, D1433)
 
 **Un diagramme calculé**, comme le modèle de données (D1119), **par
 environnement** : au centre l'instance ; autour, un nœud par connecteur
@@ -3587,7 +3587,13 @@ le port que la classe du connecteur implique ; les `${…}` résolues sans
 les secrets, qui paraissent par leur nom (D944) ; les `countries:`
 (D1345) ; les données personnelles signalées sur le flux qu'un champ
 `rgpd:` emprunte (§18) ; le storage renvoie au chapitre 3 du
-dictionnaire. **Les silhouettes des postes sont dessinées par le
+dictionnaire. **Le connecteur d'une reprise se distingue** (D1433 : « il
+peut être temporaire ou désactiver après un certain temps ») — *ma
+lecture* : celui qu'une migration nomme en `from:`, dessiné à part avec
+la mention « reprise », le rythme déclaré, une fois ou périodique, et, à
+l'instance, son état — actif, le dernier passage, désactivé depuis ;
+désactivé, il reste sur le schéma, grisé, tant que la configuration le
+déclare. **Les silhouettes des postes sont dessinées par le
 moteur** (D1426) — les utilisateurs et leur navigateur, les techniciens
 et leurs systèmes, l'administrateur et le concepteur avec les
 commandes du moteur — avec les flux qui en partent. **Le réseau est un

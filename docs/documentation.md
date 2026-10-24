@@ -644,9 +644,17 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      rendus, les pages ou le wiki — la forme au domaine 7 (D1126) ;
   4. la reprise artefact par artefact — le regroupement physique de
      documentation.md par documentation (D1021), la mise à jour du
-     glossaire, les points ouverts de §27 soldés un à un.
+     glossaire, les points ouverts de §27 soldés un à un ;
+  5. **le registre en ADR** (D1392 — acquis : « La voie b au rang
+     10 ») : un fichier par décision dans `docs/decisions/`, canonique,
+     l'index généré ; la conversion scriptée et vérifiée par
+     comparaison — les mots, la numérotation, les renvois à
+     l'identique ; les seuls ajouts, le statut et les liens « amende /
+     amendée par » ; §3.2c et le journal inchangés ; CLAUDE.md et le
+     tableau de bord adaptés.
 - **Déclinaison** : le dépôt lui-même.
-- **Livrables** : `docs/` consultable sur GitHub ; la PR vers `develop`.
+- **Livrables** : `docs/` consultable sur GitHub ; `docs/decisions/`
+  et son index (D1392) ; la PR vers `develop`.
 - **Dépendances** : les neuf autres rangs — le rang 10 les clôt.
 
 ## 1. Le principe — trois documentations, trois sources, une seule version

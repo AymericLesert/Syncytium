@@ -1675,7 +1675,7 @@ prépare : le préavis de la dépréciation en trois temps (D650), le 426
 sous la version minimale (D94) ; elle sert la documentation du
 développeur, à son rang.
 
-## 10. La documentation de l'API *(le rang 5, étape 1 — en cours : le périmètre, D1393 ; le contrat par entité, D1394–D1396 ; le socle en tête, D1397 ; la console interactive, D1398–D1399)*
+## 10. La documentation de l'API *(le rang 5, étape 1 — en cours : le périmètre, D1393 ; le contrat par entité, D1394–D1396 ; le socle en tête, D1397 ; la console interactive, D1398–D1400)*
 
 D334 : « les techniciens de parties tierces — les consommateurs des
 API, dont la documentation générée s'enrichit ». Pour chaque version
@@ -1775,7 +1775,10 @@ bouton qui lance la commande, récupère le résultat et l'affiche ;
 (D1399), la sandbox (D907) pour essayer sans risque ; **les valeurs d'exemple** — le `placeholder:` du champ, celui
 du type, le défaut (D1307), jamais une donnée ; **l'édition non
 interactive** (le canal 2, l'édition machine) garde le même contenu
-sans le lancement.
+sans le lancement, **les exemples compris, à la vue du compte
+technique et du « pour le compte de »** (D1400) — produite pour un
+compte, filtrée comme la console, jamais en général ; elle porte le
+compte et le sujet pour lesquels elle a été produite.
 
 ## 11. Les formats et le support *(le rang 0, étape 7 — acquis, D1165–D1166)*
 

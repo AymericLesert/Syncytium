@@ -1675,7 +1675,7 @@ prépare : le préavis de la dépréciation en trois temps (D650), le 426
 sous la version minimale (D94) ; elle sert la documentation du
 développeur, à son rang.
 
-## 10. La documentation de l'API *(le rang 5, étape 1 — en cours : le périmètre, D1393 ; le contrat par entité, D1394–D1396 ; le socle en tête, D1397 ; la console interactive, D1398–D1400)*
+## 10. La documentation de l'API *(le rang 5, étape 1 — en cours : le périmètre, D1393 ; le contrat par entité, D1394–D1396 ; le socle en tête, D1397 ; la console interactive, D1398–D1400 ; les écarts, D1401)*
 
 D334 : « les techniciens de parties tierces — les consommateurs des
 API, dont la documentation générée s'enrichit ». Pour chaque version
@@ -1779,6 +1779,25 @@ sans le lancement, **les exemples compris, à la vue du compte
 technique et du « pour le compte de »** (D1400) — produite pour un
 compte, filtrée comme la console, jamais en général ; elle porte le
 compte et le sujet pour lesquels elle a été produite.
+
+**Les écarts pour le technicien** (D1401 ; D1285 — « important pour le
+technicien qui doit préparer l'évolution de l'appel des API ») : **la
+liste de §9, filtrée deux fois** — par l'exposition (D20), un champ
+`protegee` ou `privee` n'y paraît pas ; par les droits du compte qui
+lit (D1394), une entité qu'il ne peut pas lire non plus ; **au chapitre
+de la version**, en tête — la version publiée précédente, le résumé par
+entité, puis le détail, chaque écart disant ce qu'il fait à l'appel :
+une clé qui change, un format qui change, un appel qui casse, une
+valeur nouvelle possible ; **dans la section de l'entité**, l'écart en
+annotation à côté du champ — « renommé depuis `abrege` en 1.0.0.1 »
+(D1123) ; **l'« à venir »** sur la version épinglée — ce que la ou les
+beta au-dessus changeront pour ce contrat, dans l'ordre (D1286), avec le
+préavis de la dépréciation (D650), et la bascule sur la beta par le
+paramètre de version pour essayer l'appel futur (D1399) ; **le
+changement des paramètres d'une opération déclarée est un écart à
+présenter** (D1401 : « le changement de paramètres est un écart à
+présenter ») — un écart du contrat, calculé sur le contrat de
+l'opération, que D1281 ne compte pas parmi les écarts de la donnée.
 
 ## 11. Les formats et le support *(le rang 0, étape 7 — acquis, D1165–D1166)*
 

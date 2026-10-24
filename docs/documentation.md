@@ -512,7 +512,7 @@ décisions, D1170–D1238.)*
   onze artefacts et la matrice d'ensemble (D1383).
 - **Dépendances** : aucune.
 
-#### Rang 5 — le développeur (documentation 3)
+#### Rang 5 — le développeur (documentation 3) — *clos le 24/10/2026, D1425*
 
 - **Périmètre** : le contrat d'API par version, l'extension par les
   hooks et les composants, l'enrichissement par la configuration, les
@@ -548,7 +548,7 @@ décisions, D1170–D1238.)*
 - **Livrables** : §10 validé ; [hooks.md](hooks.md),
   [connectors.md](connectors.md) ; le sort de `docs/` dans
   l'application ; la colonne 3 de la matrice dans les onze artefacts et
-  la matrice d'ensemble (écrite le 24/10/2026, à valider).
+  la matrice d'ensemble (D1425).
 - **Dépendances** : la forme du contrat d'API au domaine 7.
 
 #### Rang 6 — le D.A.T. (documentation 4)
@@ -3279,7 +3279,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; les étapes 2 à 4 acquises : étendre D1403–D1409, enrichir D1410–D1411, échanger D1412–D1423 ; §10 porte l'étape 1)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — acquis, D1403–D1425 ; §10 porte le contrat d'API, D1393–D1402 ; la déclinaison sur le tiny et la banque, D1424)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3553,7 +3553,7 @@ description d'API, avec le reste du contrat ; la forme au domaine 7
 de l'entrée du webhook et de l'opération, le `placeholder:` pour
 l'exemple ; la complétude (§20) relève une entrée sans description.
 
-## 28. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
+## 28. Les points ouverts *(rafraîchis à la clôture du rang 5, le 24/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -3580,9 +3580,9 @@ comme chapitre (§19 → §22, D1187).*
 7. *(clos le 14/10 — §8 acquis, D1287–D1290 ; le seuil par la courbe de
    Pareto, 80/20)* ;
 8. *(clos le 14/10 — §9 acquis, D1281–D1283)* ;
-9. la documentation de l'API — le principe ici, la forme au domaine 7
-   (§10) ; les écarts filtrés par l'exposition pour le technicien
-   (D1285), au rang 5 ;
+9. *(clos le 24/10 — le rang 5 entier, D1393–D1425 : la console
+   interactive aux droits du compte, les écarts filtrés, la forme au
+   domaine 7)* ;
 10. les pièces encore en proposition, à arbitrer à leur rang : le
     guide d'exploitation (§17) — §18, la conformité, acquise au rang 3
     (D1317–D1344) —, la complétude et son seuil (§20), la maintenance (§23 — la part de chaque lecteur,

@@ -198,7 +198,7 @@ l'application, qui s'authentifie, prend ses paramètres (la version,
 que le compte technique a le droit d'appeler — le chapitre commun en
 tête, une section par entité permise, les exemples d'appel lancés
 depuis la console, les écarts entre versions ; la même description en
-édition pour un compte, ou au format machine. *(D1393–D1402)*
+édition pour un compte, ou au format machine. *(D1393–D1402, D1425)*
 
 **Skill (les consignes pour l'IA)** — Le paquet qu'une IA charge pour
 écrire ou améliorer une configuration Syncytium : la couche du core —

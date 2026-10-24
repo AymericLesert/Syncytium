@@ -24740,7 +24740,10 @@ avant la synthèse Q16).
   matrice écrite dans les onze artefacts et la matrice d'ensemble — à
   valider ; « crée la PR sur develop et main. Passons au rang 7 »
   (D1435) — **LE RANG 6 EST CLOS** : quatre étapes, la déclinaison, 10
-  décisions (D1426–D1435).
+  décisions (D1426–D1435). **La PR #50 ouverte** (`feature/documentation`
+  → `develop`, 12 commits, D1426–D1435) ; la PR vers `main` ne peut pas
+  s'ouvrir avant la fusion de la #50 — `develop` et `main` sont
+  identiques depuis les fusions du jour ; le rang 7 s'ouvre.
 - **2026-10-24 (suite) — LA PAUSE : L'ÉTAPE 1 DU RANG 5 PRESQUE CLOSE
   (D1393–D1401, 1401 décisions).** « je marque une pause ». Le contrat
   d'API parcouru lecture par lecture : le périmètre (D1393), le contrat

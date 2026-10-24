@@ -542,7 +542,11 @@ décisions, D1170–D1238.)*
      webhooks entrants par la route versionnée et les codes 200/426/410/404,
      les sortants avec la clé d'émission, l'état et la trace.
 - **Déclinaison** : le tiny (les exemples d'appel) ; **la banque** (ses
-  hooks).
+  hooks) — **écrite le 24/10/2026, en proposition**
+  ([usecases/01_tiny.md](../usecases/01_tiny.md),
+  [usecases/04_banque.md](../usecases/04_banque.md)) : le contrat nu du
+  tiny, l'inventaire des quatre hooks de la banque et son manque de
+  langues.
 - **Livrables** : §10 validé ; [hooks.md](hooks.md),
   [connectors.md](connectors.md) ; le sort de `docs/` dans
   l'application.

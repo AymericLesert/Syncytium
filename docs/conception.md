@@ -24776,7 +24776,11 @@ avant la synthèse Q16).
   états en proposition) ; « Et, on garde une trace de tous les
   envois. » (D1422) ; « je valide » (D1423) — **l'étape 4 close** :
   les quatre étapes du rang 5 acquises ; restent la déclinaison sur le
-  tiny et la banque, la colonne 3, la clôture.
+  tiny et la banque, la colonne 3, la clôture. La déclinaison écrite,
+  en proposition : le tiny — le contrat nu, `none`, la silhouette des
+  exemples, « aucune extension » ; la banque — les quatre hooks, le
+  manque des md `en` et `es` que l'ingestion refuse, la fiche en forme
+  longue à écrire.
 - **2026-10-22 (suite) — LA PAUSE : LE RANG 4 CLOS ET SOLDÉ, LA PR #47
   MISE À JOUR (1391 décisions).** « créer une PR et marquons une
   pause ». La PR #47 (`feature/documentation` → `develop`), ouverte le

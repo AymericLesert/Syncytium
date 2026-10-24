@@ -263,6 +263,12 @@ contrat ni dans les exemples (D1398) ; à l'instance, le dernier envoi
 de chaque émission sortante et son état (D1421) ; les indicateurs des
 appels par compte relèvent de la maintenance.
 
+**La télémétrie, dans le D.A.T.** (la colonne 4 — le rang 6) : **le
+dimensionnement de l'instance** — les volumes par entité, la taille de
+la base, les comptes et les groupes, le poids des fichiers, le rythme
+des tâches (D1430), lus par la télémétrie (D1155, D1265), à côté de la
+référence ; les journaux et leur rotation (D343).
+
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 télémétrie n'est pas ce que l'utilisateur fait) ; la maintenance et la
 supervision (§23 — le tableau de bord, la synthèse périodique, les

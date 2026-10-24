@@ -626,8 +626,16 @@ production et les beta, 200 avec `Deprecation` pour une production
 dépassée, 426, 410, 404 (D1418–D1419) ; la trace des envois sortants et
 sa rétention au nettoyage (D1422).
 
+**L'administration, dans le D.A.T.** (la colonne 4 — le rang 6) : **les
+environnements** — la table, leur nature et leur rôle, les relations
+et `syncytium copy` (D1427) ; **`listen:`** et les variables du
+déploiement (D1427) ; **le fichier des variables** créé par
+`syncytium init` (D1429), les secrets chiffrés (D902) ; **les
+journaux** par niveau (D343) ; **la veille des CVE** sur autorisation
+de l'administrateur (D1431) ; **la mise à jour du core** sur
+sollicitation (D17).
+
 **Les autres colonnes** — à leur rang : le guide d'exploitation (le
 rang 7 — l'installation, la configuration, la supervision, les
 opérations de maintenance, D1134) ; la maintenance (le rang 8 — les
-usages, les contrôles, les optimisations, D1128) ; le D.A.T. (le rang
-6).
+usages, les contrôles, les optimisations, D1128).

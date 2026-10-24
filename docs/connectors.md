@@ -613,9 +613,19 @@ formats de l'import et de l'export, le CSV pivot, le classeur (D1412) ;
 à l'inventaire, un connecteur personnalisé par sa fiche, ses
 paramètres sans secrets, ses `countries:` (D1406).
 
-**Les autres colonnes** — à leur rang : le D.A.T. (le rang 6 — les
-connexions de l'application à son environnement, le schéma calculé
-des connecteurs, D1131) ; le guide d'exploitation (le rang 7 — le
+**Les connecteurs, dans le D.A.T.** (la colonne 4 — le rang 6), le
+cœur de la documentation : **le schéma des connexions**, par
+environnement — un nœud par connecteur déclaré (D342, D616), groupé par
+famille, le protocole et le port que sa classe implique, les paramètres
+sans les secrets (D944), les `countries:` (D1345), les données
+personnelles signalées sur le flux (§18) ; **le connecteur d'une
+reprise** dessiné à part, son rythme, son état à l'instance (D1433) ;
+**les variables** que ses paramètres référencent (D1428) ; **les comptes
+chez les tiers** que sa classe attend, complétés à l'écrit ; **ses
+classes et leurs pilotes** aux dépendances (D1430) ; le storage renvoie
+au chapitre 3 du dictionnaire.
+
+**Les autres colonnes** — à leur rang : le guide d'exploitation (le rang 7 — le
 paramétrage, les secrets `*` D944, `unencrypted:` D901, le mock D627) ;
 l'information — **le chapitre du stockage du dictionnaire de la donnée**
 (D1260) : « le connecteur storage matérialise le stockage des types dans

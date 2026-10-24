@@ -24735,7 +24735,9 @@ avant la synthèse Q16).
   désactiver après un certain temps. » (D1433). « 1. peut-on compléter
   la description de l'environnement avec un texte plausible ? 2. ajoute
   un listen 3. à écrire 4. ok » (D1434) — les deux README.md et
-  `listen:` écrits, le traceur à 222 fichiers.
+  `listen:` écrits, le traceur à 222 fichiers. La colonne 4 de la
+  matrice écrite dans les onze artefacts et la matrice d'ensemble — à
+  valider, puis la clôture du rang 6.
 - **2026-10-24 (suite) — LA PAUSE : L'ÉTAPE 1 DU RANG 5 PRESQUE CLOSE
   (D1393–D1401, 1401 décisions).** « je marque une pause ». Le contrat
   d'API parcouru lecture par lecture : le périmètre (D1393), le contrat

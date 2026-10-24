@@ -2132,7 +2132,8 @@ Excel, dans la facette d'affichage (D187/D120). La documentation
 attendu** (D1211) :
 
 - **un gabarit par entité et par langue** — les en-têtes sont les
-  libellés des champs dans la langue de l'opérateur (D236) ; il se lit
+  libellés des champs dans la langue de l'opérateur (D236), **ou les
+  noms de la configuration : l'import accepte les deux** (D1414) ; il se lit
   dans les annexes de la fonctionnelle (le chapitre 7, D1183) et se
   télécharge depuis l'écran d'import ;
 - **ses colonnes** — les champs saisissables seuls (ni calculés, ni
@@ -3268,7 +3269,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411 ; l'étape 4, échanger, en cours : D1412–D1413)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411 ; l'étape 4, échanger, en cours : D1412–D1414)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3451,7 +3452,7 @@ chapitre. **La complétude** (§20) ne mesure rien ici. **Un projet
 techniciens : « Cela montre l'éventail des éléments techniques à
 disposition du concepteur. »
 
-### 3. Échanger — les formats d'échange (D1412–D1413, en cours)
+### 3. Échanger — les formats d'échange (D1412–D1414, en cours)
 
 **Les formats de l'import** (D1412 : « l'import CSV, l'import EXCEL,
 l'import ODS ... le format pivot est du CSV. Le fichier EXCEL ou l'ODS
@@ -3460,8 +3461,26 @@ le CSV pivot, un classeur = un onglet par entité (§14). **Deux facettes
 du même import** (D1413 : « Nous laissons le choix sans conseil car ce
 ne sont que 2 facettes de l'import. ») — le lot de transactions de
 l'API (D101) et le fichier ; le chapitre décrit les deux, sans
-recommander. *Le gabarit technique, les webhooks entrants et sortants,
-l'édition machine, ce qui s'écrit — en cours d'arbitrage.*
+recommander. **Le gabarit technique** (D1414) — celui de §14, pour le
+programme qui produit le fichier : **l'en-tête par les noms** de la
+configuration, stables d'une langue et d'une version à l'autre sauf
+renommage dit par les écarts (§9) — **l'import accepte les deux
+en-têtes**, par libellés dans une langue de la version ou par noms
+(D1414 : « nous autorisons les 2 ») ; **une table par colonne** — le
+nom, le type en clair tel qu'appliqué, le format de la cellule fixé par
+le type et non par la langue (la date en ISO, le booléen `true`/`false`,
+le séparateur du décimal), l'obligation, le défaut, les valeurs d'un
+énuméré **par leur code**, une référence par la clé de rapprochement de
+l'entité cible, la clé de rapprochement de la ligne (D1035, D1171) ;
+**les colonnes absentes** — les calculés, les fichiers, les
+communications (D236), les champs que le compte ne peut pas écrire
+(D1394) ; les colonnes `rgpd:` marquées ; **la ligne d'exemple** par les
+placeholders, jamais une donnée ; **le classeur** (D1412) — un onglet
+par entité, nommé par l'entité, dans l'ordre des dépendances ; le
+gabarit se télécharge en CSV, Excel ou ODS ; **l'export miroir** (D237)
+se lit avec le même gabarit, les deux modes et le dry-run rappelés
+(D235). *Les webhooks entrants et sortants, l'édition machine, ce qui
+s'écrit — en cours d'arbitrage.*
 
 ## 28. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 

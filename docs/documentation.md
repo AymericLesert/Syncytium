@@ -3269,7 +3269,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411 ; l'étape 4, échanger, en cours : D1412–D1415)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411 ; l'étape 4, échanger, en cours : D1412–D1416)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3452,7 +3452,7 @@ chapitre. **La complétude** (§20) ne mesure rien ici. **Un projet
 techniciens : « Cela montre l'éventail des éléments techniques à
 disposition du concepteur. »
 
-### 3. Échanger — les formats d'échange (D1412–D1415, en cours)
+### 3. Échanger — les formats d'échange (D1412–D1416, en cours)
 
 **Les formats de l'import** (D1412 : « l'import CSV, l'import EXCEL,
 l'import ODS ... le format pivot est du CSV. Le fichier EXCEL ou l'ODS
@@ -3484,6 +3484,13 @@ d'entrée de la version : **la route et le mode** — `api/<version>/webhook/<no
 get, put, post ou delete (D624, D640) ; **la route porte la version,
 sans en-tête de surcharge** (D1415 : « La route porte la version. pas
 de surcharge, c'est inutile. ») — une beta s'appelle par sa route ;
+**les versions atteignables sont celles de production et les beta**
+(D1416 : « Le n° de la version permet de cibler la version disponible.
+si la version n'est pas disponible, une erreur 303 (obsolete) ou 404
+sera à retourner ») — *ma lecture, à confirmer* : la version qui a
+existé et n'est plus servie, « obsolète » ; celle qui n'existe pas,
+404 ; le code de l'obsolète à fixer avec le 426 de D94, un seul code à
+l'API et au webhook ;
 **les paramètres**, en en-tête ou à l'URL, par leur nom, leur type en
 clair, leur obligation, leur description ; **l'authentification**, la
 même que l'API, le porteur (D642, D917), le « pour le compte de » s'il

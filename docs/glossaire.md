@@ -200,6 +200,15 @@ tête, une section par entité permise, les exemples d'appel lancés
 depuis la console, les écarts entre versions ; la même description en
 édition pour un compte, ou au format machine. *(D1393–D1402)*
 
+**Skill (les consignes pour l'IA)** — Le paquet qu'une IA charge pour
+écrire ou améliorer une configuration Syncytium : la couche du core —
+la grammaire des clés, les règles d'ingestion, les recommandations, les
+exemples du socle —, versionnée avec lui ; le complément de la version,
+généré depuis la configuration — ses hooks, ses types, son glossaire,
+ses conventions — et le texte libre `skill:` du projet. Générée,
+déterministe ; lue au concepteur, exportée en édition machine.
+*(D1224, D1226, D1409)*
+
 **Documentation (la facette)** — Chaque composant porte sa
 documentation, comme il porte son affichage ou son stockage ; chaque
 type de composant la décline dans chacune des neuf documentations ;

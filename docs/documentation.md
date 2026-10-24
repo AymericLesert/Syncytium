@@ -527,9 +527,10 @@ décisions, D1170–D1238.)*
      écarts, les trois lieux ;
   2. étendre : les cinq familles de hooks — écrire un hook, son md
      (D778), `describe()`, la librairie d'exploration, le hook
-     d'interface listé (D918) ; les types et composants personnalisés
-     — *en cours (D1403–D1404 : la description par md et par langue,
-     l'inventaire du concepteur)* ;
+     d'interface listé (D918) ; les types et composants personnalisés :
+     **acquis le 24/10/2026 (D1403–D1409)** — la description par md et
+     par langue, l'inventaire du concepteur, les types et composants, la
+     référence du core nommé, la skill en deux couches ;
   3. enrichir : la documentation de référence de Syncytium dans celle
      de l'application (le point 11) — embarquée ou liée ;
   4. les formats d'échange : le gabarit CSV côté technique, les
@@ -1879,6 +1880,7 @@ home: ~{home.md}                 # la page d'accueil, globale — hors des versi
 author: Aymeric Lesert           # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
 accessibility: ~{documentation/accessibility.md}   # la déclaration d'accessibilité, un texte du concepteur par langue (D1341)
+skill: ~{documentation/skill.md}   # ce que l'IA doit savoir de cette application — le complément de la skill, par langue (D1409)
 glossary:                        # le glossaire des termes du métier (D1180 ; la clé validée, D1219)
   tiers: Toute personne ou société en relation avec l'entreprise — client, fournisseur, prospect.
   article:                       # un terme = une liste de mots, singulier et pluriel (D1197 ; `words:` validé, D1219)
@@ -3260,7 +3262,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5, étape 2 — en cours : la description des hooks, D1403–D1405 ; l'inventaire, D1404, D1406 ; les types et composants personnalisés, D1407 ; la référence, D1408)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3269,7 +3271,7 @@ documentation de référence de Syncytium dans celle de l'application —,
 **les formats d'échange** (§14 et les webhooks) ; la skill des
 consignes pour l'IA (D1224).
 
-### 1. Étendre (D1403)
+### 1. Étendre (D1403–D1409)
 
 **Deux faces** : **l'inventaire**, ce que cette version a ajouté au
 socle, calculé depuis la configuration ; **la référence**, comment
@@ -3389,6 +3391,24 @@ complétude ; **la forme du code**, le langage, les outils — au domaine
 une version donnée » — la référence de Syncytium-1.0 pour un projet en
 Syncytium-1.0, rien de ce qu'un core ultérieur ajoute. Son emplacement,
 embarquée ou liée : l'étape 3.
+
+**Ce qui s'écrit, et la skill** (D1409) : rien de nouveau pour
+l'inventaire — le md par langue et les `properties` existent. **La
+skill des consignes pour l'IA** (D1224) a **deux couches**, comme le
+catalogue des langues (D1163) : **celle du core**, livrée et versionnée
+avec Syncytium-1.0 — la grammaire des clés tirée du méta-schéma (D44),
+les règles d'ingestion, les recommandations d'écriture (D1084–D1085,
+D1097, D1100), les exemples du socle — ; **le complément de la
+version**, généré depuis la configuration — les hooks et les types du
+projet avec leur fiche et leur md, le glossaire des termes du métier
+(D1180), les conventions du projet — et un texte libre, « ce que l'IA
+doit savoir de cette application », `skill:` dans le `documentation.yml`
+du projet, par langue (§12). L'IA charge les deux. La skill se génère
+comme le reste, déterministe (D1225) ; elle se lit au concepteur dans
+la documentation du développeur et s'exporte en édition machine, un
+dossier de fichiers pour l'assistant IA (D1152) ; sa forme, au domaine
+7 ; elle n'entre pas dans le contrat d'API du technicien. Le contenu de
+la couche du core se détaille à l'étape 3, avec la référence.
 
 ## 28. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 

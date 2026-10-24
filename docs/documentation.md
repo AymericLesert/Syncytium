@@ -521,8 +521,10 @@ décisions, D1170–D1238.)*
 - **Étapes** :
   1. §10 — le contrat d'API : par entité, les opérations (D22, D24),
      les champs exposés (D20), l'authentification (D28), l'épinglage
-     (D98), les erreurs (D94), les exemples — *en cours (D1393–D1397 :
-     le périmètre, le contrat par entité, le socle en tête)* ;
+     (D98), les erreurs (D94), les exemples : **acquis le 24/10/2026
+     (D1393–D1402)** — chaque version publiée, le contrat aux seuls
+     droits du compte, le chapitre en tête, la console interactive, les
+     écarts, les trois lieux ;
   2. étendre : les cinq familles de hooks — écrire un hook, son md
      (D778), `describe()`, la librairie d'exploration, le hook
      d'interface listé (D918) ; les types et composants personnalisés ;
@@ -1675,129 +1677,142 @@ prépare : le préavis de la dépréciation en trois temps (D650), le 426
 sous la version minimale (D94) ; elle sert la documentation du
 développeur, à son rang.
 
-## 10. La documentation de l'API *(le rang 5, étape 1 — en cours : le périmètre, D1393 ; le contrat par entité, D1394–D1396 ; le socle en tête, D1397 ; la console interactive, D1398–D1400 ; les écarts, D1401)*
+## 10. La documentation de l'API — le contrat du technicien *(le rang 5, étape 1 — acquis, D1393–D1402)*
 
 D334 : « les techniciens de parties tierces — les consommateurs des
-API, dont la documentation générée s'enrichit ». Pour chaque version
-**publiée** (D99), la documentation donne, par entité : les champs
-exposés (D20 — la politique d'exposition), les opérations, les
-exemples d'appel — la lecture, la création, la modification, la
-suppression, la recherche — tels que le tiny les montre (D1026),
-l'épinglage de version (D98). **La forme** (un format standard de
-description d'API, les exemples en `curl`) relève de l'architecture
-technique (D1025) ; le principe — l'API documentée depuis le modèle,
-version par version — est acquis.
+API, dont la documentation générée s'enrichit ». **Le contrat d'API est
+documenté depuis le modèle, version par version** (D1026, D1123) ; sa
+forme — le format standard de description, les langages des exemples —
+relève des choix techniques (D1025, D1126). Ce que la documentation
+contient est fixé ici.
 
-**Le périmètre** (D1393) : le contrat de **chaque version publiée**,
-une par une — la production, et la beta, version active au sens de
-D1124, dont le contrat porte le filigrane Beta (D1145) et dit comment la
-solliciter, l'en-tête de surcharge appel par appel (D98, D103) ; une
-dépréciée ou une interdite n'a que l'avis de D1124. Par défaut, le
-technicien lit le contrat de **la version épinglée à son compte**
-(D98), avec la liste des autres versions publiées et, pour chacune, le
-lien vers son contrat et ses écarts. Le lecteur premier est le
-technicien, un compte technique (D28) ; le concepteur lit aussi, pour
-vérifier ce que sa configuration expose ; l'analyste (D1152) y trouve
-l'édition machine.
+**Le périmètre** (D1393) : le contrat de **chaque version publiée**
+(D99), une par une — la production, et la beta, version active au sens
+de D1124, dont le contrat porte le filigrane Beta (D1145) et dit
+comment la solliciter, l'en-tête de surcharge appel par appel (D98,
+D103) ; une dépréciée ou une interdite n'a que l'avis de D1124. Par
+défaut, le technicien lit le contrat de **la version épinglée à son
+compte** (D98), avec la liste des autres versions publiées et, pour
+chacune, le lien vers son contrat et ses écarts. Le lecteur premier est
+le technicien, un compte technique (D28) ; le concepteur lit aussi,
+pour vérifier ce que sa configuration expose ; l'analyste (D1152) y
+trouve l'édition machine.
 
-**Le contrat par entité** (D1394 : « Le contrat par entité affiche
-uniquement ce qui est autorisé au compte technique qui accède à cette
-documentation. ») — ni les entités, ni les champs, ni les actes que ses
-groupes (D196, D1172) et l'exposition (D20, D25) lui refusent, pas même
-en négatif ; une section par entité permise, dans cet ordre : **les
-champs exposés** — les `public` seuls, par leur nom, le type en clair
-tel qu'appliqué (D1160), l'obligation, le défaut, les valeurs d'un
-énuméré, la `description:` ; les calculés en lecture seule (D21, D102) ;
-**les opérations** — les actes du socle permis, puis les opérations
-déclarées avec leur contrat, ce qu'elles lisent et écrivent, leurs
-paramètres (le chapitre 4.3 du dictionnaire, D1242), leur mode,
-synchrone ou asynchrone avec la ressource de suivi (D24) ; **les
-lectures** — l'unitaire, la liste, l'intégralité par curseur opaque
-(D22, D100), les critères de recherche et de sélection que le modèle
-déclare (D1292) ; **les écritures** — l'unitaire et le lot de
-transactions, la remontée par transaction (D101) ; **les liens** — les
-références et les associations vers les entités exposées, par leur
-nom ; vers une entité non permise, le lien ne paraît pas. **Le compte
-est prévenu** (D1395 : « Le socle informe le compte technique que les
-fonctions affichées peuvent être limitées au périmètre auquel il a
-droit. Si une fonctionnalité est manquante, mettre un petit asterix
-dans la documentation pour l'informer qu'il faut contacter
-l'administrateur pour faire évoluer ses droits. ») — l'avertissement
-en tête ; l'astérisque là où une fonction manque, la note « contactez
-l'administrateur ». **« Pour le compte de »** (D1396) : « l'affichage du
-contrat dépend de l'intersection des droits du compte précisé et du
-compte appelant » — ni plus que le compte technique, ni plus que la
-personne.
-
-**Le socle, en tête** (D1397 : « Un chapitre en tête est très bien.
-Cela formalise les éléments qui sont communs à tous les contrats
-exposés. ») — avant les entités : **s'authentifier** — le porteur seul,
-jamais le cookie (D917) ; la clé du compte et sa rotation, le « pour le
-compte de » et ce qu'il borne (D76, D107) ; OAuth2 si l'environnement
-le déclare ; jamais une valeur, le contrat dit le mécanisme et
-l'administrateur remet la clé ; **choisir sa version** — l'épinglée,
-l'en-tête de surcharge, les versions publiées qu'il peut viser, celles
-qu'il ne peut pas et pourquoi (D98, D99) ; **les réponses d'erreur**,
-en table — 401 et 403, le porteur et les droits ; 404 ; 422, la
-validation, avec le message des règles tel que la configuration le
-rédige (D1105, D1106) ; 426, la version (D94) ; 429 et `Retry-After`,
-le débit (D105) ; 202 et la ressource de suivi (D24) ; **les limites** —
-le débit du compte, la pagination, la taille d'un lot — *ma lecture* :
-telles qu'elles valent pour le compte qui lit ; **la dépréciation** —
-l'intention, l'acte, le retrait (D650), portés par la version et jamais
-par une date (D742), et où lire l'« à venir » ; les origines autorisées
-(D918) et HTTPS (D919) relèvent de l'environnement, le D.A.T. les dit.
-
-**Une documentation interactive** (D1398 : « cette documentation doit
-être interactive. Après une phase d'authentification et d'exemples de
-code pour s'authentifier, le contrat s'expose. Les paramètres sont à
+**Une console interactive** (D1398 : « cette documentation doit être
+interactive. Après une phase d'authentification et d'exemples de code
+pour s'authentifier, le contrat s'expose. Les paramètres sont à
 proposer (pour le compte de, ...). La documentation se met à jour en
 fonction de ces paramètres. Pour chaque appel possible classé par
 entité, une action/opération, le format des paramètres et la
 description portée par les champs de l'entité ou des paramètres des
 opérations, un exemple de lignes d'appel avec curl, python, ... (à voir
 lors des choix techniques), et la possibilité de lancer la commande, de
-récupérer le résultat et de l'afficher. ») — *mes lectures, acquises
-(D1399)* : la console vit dans l'application, servie au compte
-technique (D1348 ; le canal 6 de §21) ; **la phase d'authentification**
-— la clé se saisit dans la console, jamais stockée dans la
-documentation, avec les exemples de code pour s'authentifier ; **les
-paramètres** — la version (l'épinglée, la surcharge par en-tête, D98),
-« pour le compte de » (D1396), la langue, **et l'environnement, au
-choix parmi ceux que l'instance porte** (D1399) — et le contrat se
-recalcule (D1394) ; **chaque appel**, classé par entité — l'action ou
-l'opération, le format de ses paramètres, la description portée par
-les champs de l'entité ou par les paramètres de l'opération, un exemple
-en curl, python, … (les langages aux choix techniques, D1025), le
-bouton qui lance la commande, récupère le résultat et l'affiche ;
-**lancer** exécute l'appel réel sous les droits du compte, journalisé
-(D62) — une écriture demande confirmation ; sur l'environnement choisi
-(D1399), la sandbox (D907) pour essayer sans risque ; **les valeurs d'exemple** — le `placeholder:` du champ, celui
-du type, le défaut (D1307), jamais une donnée ; **l'édition non
-interactive** (le canal 2, l'édition machine) garde le même contenu
-sans le lancement, **les exemples compris, à la vue du compte
-technique et du « pour le compte de »** (D1400) — produite pour un
-compte, filtrée comme la console, jamais en général ; elle porte le
-compte et le sujet pour lesquels elle a été produite.
+récupérer le résultat et de l'afficher. ») — la console vit dans
+l'application, servie au compte technique (D1348 ; le canal 6 de §21).
+**La phase d'authentification** : la clé se saisit dans la console,
+jamais stockée dans la documentation, avec les exemples de code pour
+s'authentifier. **Les paramètres** : la version — l'épinglée ou la
+surcharge par en-tête (D98) —, « pour le compte de » (D1396), la
+langue, et **l'environnement, au choix parmi ceux que l'instance
+porte** (D1399) ; à chaque changement, le contrat se recalcule (D1394).
+**Chaque appel**, classé par entité : l'action ou l'opération, le
+format de ses paramètres, la description portée par les champs de
+l'entité ou par les paramètres de l'opération, un exemple en curl,
+python, … (les langages aux choix techniques), et le bouton qui lance
+la commande, récupère le résultat et l'affiche. **Lancer** exécute
+l'appel réel, sous les droits du compte, journalisé (D62) — une
+écriture demande confirmation ; sur l'environnement choisi, la sandbox
+(D907) pour essayer sans risque. **Les valeurs d'exemple** : le
+`placeholder:` du champ, celui du type, le défaut (D1307) ; jamais une
+donnée de l'instance.
+
+**Le chapitre en tête, commun à tous les contrats** (D1397 : « Un
+chapitre en tête est très bien. Cela formalise les éléments qui sont
+communs à tous les contrats exposés. ») : **s'authentifier** — le
+porteur seul, jamais le cookie (D917) ; la clé du compte et sa
+rotation, le « pour le compte de » et ce qu'il borne (D76, D107) ;
+OAuth2 si l'environnement le déclare ; jamais une valeur, le contrat
+dit le mécanisme et l'administrateur remet la clé ; **choisir sa
+version** — l'épinglée, l'en-tête de surcharge, les versions publiées
+qu'il peut viser, celles qu'il ne peut pas et pourquoi (D98, D99) ;
+**les réponses d'erreur**, en table — 401 et 403, le porteur et les
+droits ; 404 ; 422, la validation, avec le message des règles tel que
+la configuration le rédige (D1105, D1106) ; 426, la version (D94) ; 429
+et `Retry-After`, le débit (D105) ; 202 et la ressource de suivi
+(D24) ; **les limites** — le débit du compte, la pagination, la taille
+d'un lot, telles qu'elles valent pour le compte qui lit ; **la
+dépréciation** — l'intention, l'acte, le retrait (D650), portés par la
+version et jamais par une date (D742), et où lire l'« à venir » ; les
+origines autorisées (D918) et HTTPS (D919) relèvent de l'environnement,
+le D.A.T. les dit. **Le compte est prévenu** (D1395 : « Le socle informe
+le compte technique que les fonctions affichées peuvent être limitées
+au périmètre auquel il a droit. Si une fonctionnalité est manquante,
+mettre un petit asterix dans la documentation pour l'informer qu'il
+faut contacter l'administrateur pour faire évoluer ses droits. ») —
+l'avertissement en tête ; l'astérisque là où une fonction manque, la
+note « contactez l'administrateur ».
+
+**Le contrat par entité** (D1394 : « Le contrat par entité affiche
+uniquement ce qui est autorisé au compte technique qui accède à cette
+documentation. ») — ni les entités, ni les champs, ni les actes que ses
+groupes (D196, D1172) et l'exposition (D20, D25) lui refusent, pas même
+en négatif, l'astérisque excepté ; **« pour le compte de »** (D1396) :
+« l'affichage du contrat dépend de l'intersection des droits du compte
+précisé et du compte appelant » — ni plus que le compte technique, ni
+plus que la personne. Une section par entité permise, dans cet ordre :
+**les champs exposés** — les `public` seuls, par leur nom, le type en
+clair tel qu'appliqué (D1160), l'obligation, le défaut, les valeurs
+d'un énuméré, la `description:` ; les calculés en lecture seule (D21,
+D102) ; **les opérations** — les actes du socle permis, puis les
+opérations déclarées avec leur contrat, ce qu'elles lisent et écrivent,
+leurs paramètres (le chapitre 4.3 du dictionnaire, D1242), leur mode,
+synchrone ou asynchrone avec la ressource de suivi (D24), **et le md de
+leur hook** (D778, D1402) — le mode d'emploi de l'appel ; **les
+lectures** — l'unitaire, la liste, l'intégralité par curseur opaque
+(D22, D100), les critères de recherche et de sélection que le modèle
+déclare (D1292) ; **les écritures** — l'unitaire et le lot de
+transactions, la remontée par transaction (D101) ; **les liens** — les
+références et les associations vers les entités exposées, par leur
+nom ; vers une entité non permise, le lien ne paraît pas.
 
 **Les écarts pour le technicien** (D1401 ; D1285 — « important pour le
 technicien qui doit préparer l'évolution de l'appel des API ») : **la
-liste de §9, filtrée deux fois** — par l'exposition (D20), un champ
-`protegee` ou `privee` n'y paraît pas ; par les droits du compte qui
-lit (D1394), une entité qu'il ne peut pas lire non plus ; **au chapitre
-de la version**, en tête — la version publiée précédente, le résumé par
-entité, puis le détail, chaque écart disant ce qu'il fait à l'appel :
-une clé qui change, un format qui change, un appel qui casse, une
-valeur nouvelle possible ; **dans la section de l'entité**, l'écart en
-annotation à côté du champ — « renommé depuis `abrege` en 1.0.0.1 »
-(D1123) ; **l'« à venir »** sur la version épinglée — ce que la ou les
-beta au-dessus changeront pour ce contrat, dans l'ordre (D1286), avec le
+liste de §9, filtrée deux fois** — par l'exposition (D20) et par les
+droits du compte qui lit (D1394) ; **au chapitre de la version**, en
+tête — la version publiée précédente, le résumé par entité, puis le
+détail, chaque écart disant ce qu'il fait à l'appel : une clé qui
+change, un format qui change, un appel qui casse, une valeur nouvelle
+possible ; **dans la section de l'entité**, l'écart en annotation à
+côté du champ — « renommé depuis `abrege` en 1.0.0.1 » (D1123) ;
+**l'« à venir »** sur la version épinglée — ce que la ou les beta
+au-dessus changeront pour ce contrat, dans l'ordre (D1286), avec le
 préavis de la dépréciation (D650), et la bascule sur la beta par le
 paramètre de version pour essayer l'appel futur (D1399) ; **le
 changement des paramètres d'une opération déclarée est un écart à
 présenter** (D1401 : « le changement de paramètres est un écart à
 présenter ») — un écart du contrat, calculé sur le contrat de
 l'opération, que D1281 ne compte pas parmi les écarts de la donnée.
+
+**Où le contrat se lit** (D1402), trois lieux, tous aux droits du
+compte technique : **la console**, dans l'application, le lieu premier
+— le canal 6 de §21 ; **l'édition non interactive**, le canal 3 —
+produite pour un compte et son « pour le compte de » (D1400 : « L'édition
+non interactive garde le même contenu, les exemples compris à la vue du
+compte technique et du "pour le compte de" »), jamais en général, HTML
+ou PDF, le cartouche et le filigrane (D1142, D1145) ; le concepteur
+peut la produire au dépôt par `syncytium document` (D1167) en nommant
+le compte ; **l'édition machine**, le canal 7 — la même description
+dans un format standard de description d'API, pour un outil : le client
+qui génère le code d'appel, le testeur, l'IA qui écrit le programme du
+technicien, le portail d'un partenaire ; même filtre que la console,
+sans le lancement. L'une se lit, l'autre se branche (D1165).
+
+**Ce qui s'écrit** (D1402) : rien de nouveau. La `description:` de
+l'entité, du champ, de l'opération et de ses paramètres sert telle
+quelle ; le `hint:` et le `title:` (D1120) sont pour l'utilisateur et ne
+paraissent pas ; les noms sont ceux de la configuration (D335) ; le
+`placeholder:` donne les valeurs d'exemple ; le md du hook (D778) est
+montré ; la complétude (§20) ne compte rien de plus.
 
 ## 11. Les formats et le support *(le rang 0, étape 7 — acquis, D1165–D1166)*
 

@@ -572,8 +572,8 @@ décisions, D1170–D1238.)*
      dans la limite des confidentialités, le fichier au déploiement ;
   4. le dimensionnement (D15), les dépendances (D924) : **acquis le
      24/10/2026 (D1430)** — la référence écrite, l'instance calculée,
-     les dépendances du core et des hooks ; la veille des CVE en
-     proposition.
+     les dépendances du core et des hooks ; la veille des CVE par la
+     voie b (D1431).
 - **Déclinaison** : **l'entrepôt** (production et staging, trois
   storages, `azure_ad`, `smtp`, la base Cegid).
 - **Livrables** : une section « Le D.A.T. » ;
@@ -3561,7 +3561,7 @@ description d'API, avec le reste du contrat ; la forme au domaine 7
 de l'entrée du webhook et de l'opération, le `placeholder:` pour
 l'exemple ; la complétude (§20) relève une entrée sans description.
 
-## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; les quatre étapes acquises : le schéma D1426, les environnements D1427, le paramétrage externe D1428–D1429, le dimensionnement et les dépendances D1430)*
+## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; les quatre étapes acquises : le schéma D1426, les environnements D1427, le paramétrage externe D1428–D1429, le dimensionnement et les dépendances D1430–D1431)*
 
 **La quatrième documentation** (D1134) : « une description des
 inter-connexions entre l'application et son environnement + l'ensemble
@@ -3665,7 +3665,7 @@ DNS et le pare-feu** : écrits dans le texte de l'environnement
 l'instance, un environnement sans description ; les comptes et les
 certificats, écrits, ne sont pas mesurés.
 
-### 4. Le dimensionnement et les dépendances (D1430)
+### 4. Le dimensionnement et les dépendances (D1430–D1431)
 
 **Le dimensionnement de référence**, écrit par Syncytium une fois pour
 son core : ce pour quoi le moteur est conçu — la TPE, une vingtaine
@@ -3689,13 +3689,25 @@ proposition, repris par l'inventaire (D1406). **La veille et la mise à
 jour**, écrites et courtes : la veille des vulnérabilités est hors du
 moteur, au dépôt public ou par une action extérieure (D924) ; la mise à
 jour du core est une migration technique sur sollicitation (D17),
-détaillée au guide d'exploitation. *En proposition, sur la question de
-l'auteur* : **la nomenclature logicielle** du core et des hooks,
-CycloneDX ou SPDX, en édition machine du D.A.T., pour le scanner de
-l'entreprise ; **un flux d'avis signé** publié par le projet par core,
-que l'instance lit sur choix de l'administrateur, désactivé par
-défaut, et dont les avis paraissent ici et à la maintenance (§23) avec
-le core qui corrige. **Les postes des utilisateurs** : les navigateurs
+détaillée au guide d'exploitation. **La veille des CVE — la voie b,
+acquise** (D1431 : « je valide la voie b ») : la veille se fait **au
+dépôt du source**, par son outillage, et le projet publie **par core un
+fichier d'avis signé** — l'avis, sa gravité, le core qui corrige ;
+**l'instance le lit sur autorisation de l'administrateur**, désactivée
+par défaut, vérifie la signature, compare à son core et aux
+bibliothèques déclarées par ses hooks, et montre ce qui la concerne
+ici et à la maintenance (§23), avec une notification à
+l'administrateur ; **hors connexion**, le D.A.T. dit « la veille n'est
+pas reliée » et l'administrateur dépose le fichier à la main ; la mise
+à jour reste la migration technique sur sollicitation (D17) ; **la
+nomenclature logicielle** du core et des hooks, CycloneDX ou SPDX, en
+édition machine, pour le scanner de l'entreprise ; la lecture du
+fichier dit au projet qu'une instance existe et quel core elle fait
+tourner — « ça peut s'avérer intéressant pour moi concernant le fait
+que Syncytium soit utilisé et quelle version », l'auteur l'assume,
+« même si rien empêche un tiers de dupliquer le dépôt et de travailler
+avec sa version » ; la forme du fichier, de la signature et de la
+nomenclature au domaine 7. **Les postes des utilisateurs** : les navigateurs
 supportés et leur version minimale, écrits par Syncytium pour son
 core ; rien d'autre n'est requis. **La complétude** ne mesure rien ici.
 

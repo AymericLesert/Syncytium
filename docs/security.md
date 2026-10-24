@@ -745,6 +745,15 @@ console est réel, journalisé, confirmé en écriture (D1398) ; les
 webhooks entrants authentifiés d'office (D642) ; les origines et HTTPS
 au D.A.T. (D918, D919).
 
+**La veille des vulnérabilités** (D924, D1431) : hors du moteur — au
+dépôt du source, par son outillage ; le projet publie par core un
+fichier d'avis signé, que l'instance lit sur autorisation de
+l'administrateur, désactivée par défaut, et compare à son core et aux
+bibliothèques déclarées par ses hooks ; la nomenclature logicielle en
+édition machine ; la mise à jour reste la migration technique sur
+sollicitation (D17). Le D.A.T. (documentation.md §28) et la maintenance
+(§23) en portent l'affichage.
+
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 sécurité n'est pas ce que l'utilisateur fait ; le masque dit ce qui est
 protégé) ; l'information (le niveau de confidentialité affiché à chaque

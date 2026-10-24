@@ -537,8 +537,10 @@ décisions, D1170–D1238.)*
      produit lié à la version du core, la skill du core et son
      complément ;
   4. les formats d'échange : le gabarit CSV côté technique, les
-     webhooks — *en cours (D1412–D1413 : les formats de l'import, le
-     CSV pivot ; deux facettes sans conseil)*.
+     webhooks : **acquis le 24/10/2026 (D1412–D1423)** — le CSV pivot et
+     le classeur, le gabarit par les noms et les deux en-têtes, les
+     webhooks entrants par la route versionnée et les codes 200/426/410/404,
+     les sortants avec la clé d'émission, l'état et la trace.
 - **Déclinaison** : le tiny (les exemples d'appel) ; **la banque** (ses
   hooks).
 - **Livrables** : §10 validé ; [hooks.md](hooks.md),
@@ -3274,7 +3276,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411 ; l'étape 4, échanger, en cours : D1412–D1422)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; les étapes 2 à 4 acquises : étendre D1403–D1409, enrichir D1410–D1411, échanger D1412–D1423 ; §10 porte l'étape 1)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3457,7 +3459,7 @@ chapitre. **La complétude** (§20) ne mesure rien ici. **Un projet
 techniciens : « Cela montre l'éventail des éléments techniques à
 disposition du concepteur. »
 
-### 3. Échanger — les formats d'échange (D1412–D1422, en cours)
+### 3. Échanger — les formats d'échange (D1412–D1423)
 
 **Les formats de l'import** (D1412 : « l'import CSV, l'import EXCEL,
 l'import ODS ... le format pivot est du CSV. Le fichier EXCEL ou l'ODS
@@ -3526,8 +3528,8 @@ le webhook sortant est sollicité, le message est stocké et identifié
 par Syncytium. Puis, le message est envoyé avec cet identifiant. Si le
 message est reçu 2 fois par le destinataire, c'est au destinataire de
 le refuser s'il a déjà traité le premier. ») — **et le socle marque
-son état** (D1421) : *en proposition*, en attente, envoyé, acquitté, en
-erreur avec le motif, abandonné après les reprises ; **et garde une
+son état** (D1421, D1423) : en attente, envoyé, acquitté, en erreur
+avec le motif, abandonné après les reprises ; **et garde une
 trace de tous les envois** (D1422) — chaque message, son identifiant,
 sa date, son état, ses tentatives ; la rétention au nettoyage (D1073),
 à régler au guide d'exploitation ; **la reprise** —
@@ -3539,8 +3541,14 @@ visible du compte (D1394), le connecteur par son nom, sa famille, ses
 qu'il partira, sans bouton, c'est l'application qui émet ; à
 l'instance, le dernier envoi de chaque émission — le message stocké,
 son identifiant, sa date, son état (D1157, D1421) —, que chacun voit pour les
-envois que ses appels ont déclenchés. *L'édition machine, ce qui
-s'écrit — en cours d'arbitrage.*
+envois que ses appels ont déclenchés ; l'historique entier à l'instance,
+pour l'administrateur et la supervision (§23). **L'édition machine des
+échanges** (D1423) : le gabarit en fichier, CSV, Excel ou ODS ; le
+contrat des webhooks entrants et sortants dans le format standard de
+description d'API, avec le reste du contrat ; la forme au domaine 7
+(D1025, D1165). **Ce qui s'écrit** : rien de nouveau — la `description:`
+de l'entrée du webhook et de l'opération, le `placeholder:` pour
+l'exemple ; la complétude (§20) relève une entrée sans description.
 
 ## 28. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 

@@ -24721,7 +24721,11 @@ avant la synthèse Q16).
   « le CVE est fait par le dépôt du source. Et, le fichier disponible
   est accessible par les instances (sous condition d'une connexion
   disponible) ? » — oui, en deux temps ; « je valide la voie b. De
-  plus, ça peut s'avérer intéressant pour moi … » (D1431).
+  plus, ça peut s'avérer intéressant pour moi … » (D1431). La
+  déclinaison du D.A.T. écrite sur l'entrepôt, en proposition : le
+  schéma de la production, les deux environnements, dix-sept variables
+  dont quatre confidentielles, le réseau non décrit et `listen:` à
+  écrire ; la veille non reliée.
 - **2026-10-24 (suite) — LA PAUSE : L'ÉTAPE 1 DU RANG 5 PRESQUE CLOSE
   (D1393–D1401, 1401 décisions).** « je marque une pause ». Le contrat
   d'API parcouru lecture par lecture : le périmètre (D1393), le contrat

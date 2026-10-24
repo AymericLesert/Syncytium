@@ -3260,7 +3260,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5, étape 2 — en cours : la description des hooks, D1403–D1405 ; l'inventaire, D1404, D1406)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5, étape 2 — en cours : la description des hooks, D1403–D1405 ; l'inventaire, D1404, D1406 ; les types et composants personnalisés, D1407)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3350,6 +3350,24 @@ demeure calculé** : la phrase par champ d'un type (« une mesure en
 kilogrammes, un nombre décimal et son unité »), la correspondance
 logique-physique d'un storage — des résultats de l'application du hook
 au modèle, que personne n'écrit.
+
+**Les types et les composants personnalisés** (D1407) — **un type
+traverse les documentations** : la fiche complète au développeur
+(D1406) ; sa forme en clair sur chaque champ du dictionnaire, sans la
+notion de hook (D1244) ; son entrée au glossaire des types de la
+fonctionnelle (D1179) ; son marquage au réglementaire ; la fiche dit,
+en bas, où le type paraît ailleurs. **Le visage** est vérifié à
+l'ingestion (D459) : la fiche dit par quoi le type se représente, le
+composant d'écran et le gabarit de document. **Le composant** porte le
+résultat du RGAA critère par critère (D1340) — ceux qui passent, ceux
+qui ne passent pas, ceux qui ne s'appliquent pas ; le réglementaire
+(§18) reprend le niveau d'ensemble ; **le concepteur peut écrire, dans
+le md du composant, pourquoi un critère ne passe pas et ce qui est
+prévu**, montré à côté du critère en échec. **Le hook d'interface**
+liste les pages où il est chargé (D918) ; le D.A.T. et le guide
+d'exploitation le reprennent. **La complétude** (§20) relève le md
+manquant d'un type ou d'un composant ; pas l'exemple générique absent,
+le `placeholder:` du champ y supplée.
 
 ## 28. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 

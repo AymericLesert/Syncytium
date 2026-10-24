@@ -3558,7 +3558,7 @@ description d'API, avec le reste du contrat ; la forme au domaine 7
 de l'entrée du webhook et de l'opération, le `placeholder:` pour
 l'exemple ; la complétude (§20) relève une entrée sans description.
 
-## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; l'étape 1, le schéma, D1426 ; l'étape 2, les environnements, D1427 ; l'étape 3, le paramétrage externe, D1428)*
+## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; l'étape 1, le schéma, D1426 ; l'étape 2, les environnements, D1427 ; l'étape 3, le paramétrage externe, D1428–D1429)*
 
 **La quatrième documentation** (D1134) : « une description des
 inter-connexions entre l'application et son environnement + l'ensemble
@@ -3627,7 +3627,7 @@ puits, sans valeur confidentielle ; la lecture au guide d'exploitation.
 **Ce qui s'écrit** : la `description:` de l'environnement ; un
 environnement sans description est relevé par la complétude (§20).
 
-### 3. Le paramétrage externe indispensable (D1428)
+### 3. Le paramétrage externe indispensable (D1428–D1429)
 
 **Ce qui est stable : la liste des variables d'environnement que la
 configuration porte** (D1428 : « Ici, je nomme .env en raison de mon
@@ -3640,7 +3640,13 @@ des variables, un mot-clé, un item de la configuration —, son défaut,
 sa nature, confidentielle par la marque `*` (D944), où elle est
 employée, le connecteur et le paramètre ; à l'instance, si elle est
 renseignée, jamais sa valeur quand elle est confidentielle. Le fichier
-qui les tient relève du déploiement, non de Syncytium (D1427). **Les
+qui les tient relève du déploiement, non de Syncytium (D1427) ; **il
+est créé automatiquement par `syncytium init`**, toutes les variables
+référencées, nommées exactement, les valeurs à renseigner — « Pas de
+gabarit template (risque d'oubli ou d'erreurs de nom de variable) »
+(D1429) ; *ma lecture* : les confidentielles marquées pour le wizard
+qui les chiffre (D902), une variable qu'une version ultérieure ajoute
+signalée manquante au démarrage et complétée par la commande. **Les
 comptes chez les tiers**, calculés depuis les connecteurs — ce que
 chacun attend : un compte du fournisseur d'identité avec son `tenant`,
 son `client_id` et son secret, un compte SMTP, un accès à la base

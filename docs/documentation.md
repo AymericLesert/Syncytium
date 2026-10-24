@@ -647,7 +647,7 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      rendus, les pages ou le wiki — la forme au domaine 7 (D1126) ;
   4. la reprise artefact par artefact — le regroupement physique de
      documentation.md par documentation (D1021), la mise à jour du
-     glossaire, les points ouverts de §27 soldés un à un ;
+     glossaire, les points ouverts de §28 soldés un à un ;
   5. **le registre en ADR** (D1392 — acquis : « La voie b au rang
      10 ») : un fichier par décision dans `docs/decisions/`, canonique,
      l'index généré ; la conversion scriptée et vérifiée par
@@ -699,7 +699,7 @@ Elle a **trois sources** (D1122) :
 La documentation rédigée du projet Syncytium — les artefacts de
 `docs/` — n'est pas une source de la documentation de l'application ;
 ce que D645 lui demandait d'en porter (« la documentation technique de
-Syncytium ») reste à placer (§27).
+Syncytium ») reste à placer (§28).
 
 Et une règle qui les tient ensemble : **chaque version active porte sa
 documentation** (D1123 — D645/D810) ; *la version documentée est
@@ -3258,7 +3258,51 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5, étape 2 — en cours : la description des hooks, D1403)*
+
+**La troisième documentation**, celle du technicien et du concepteur
+(§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
+la version a ajouté au socle et comment en ajouter —, **enrichir** — la
+documentation de référence de Syncytium dans celle de l'application —,
+**les formats d'échange** (§14 et les webhooks) ; la skill des
+consignes pour l'IA (D1224).
+
+### 1. Étendre (D1403)
+
+**Deux faces** : **l'inventaire**, ce que cette version a ajouté au
+socle, calculé depuis la configuration ; **la référence**, comment
+écrire un hook, un type, un composant — la documentation de Syncytium,
+que l'étape 3 placera, embarquée ou liée. Les six familles de
+[hooks.md](hooks.md) — le type, le composant, l'opération, la fonction,
+le connecteur, le style — et les autres points d'extension.
+
+**La description d'un hook est déclarée, non générée** (D1403 : « la
+méthode describe() du hook est probablement décorrellée par rapport à
+ce que nous avons déjà fait. Je propose que Syncytium porte une section
+"hook:" avec une sous-section par type de hook puis une autre
+sous-section par implémentation. Pour chaque hook, une description dans
+un md avec l'utilisation de gabarit pour y intégrer les informations de
+la configuration éventuelle + une par langue supportée par le hook. »)
+— un md par langue, les gabarits de D562 qui y insèrent les
+`properties` et la déclaration du hook telles que la version les
+règle ; **Syncytium porte une section `hook:`**, une sous-section par
+famille, une par implémentation, où ses propres hooks sont décrits de
+même, et l'application y ajoute les siens ; **les langues**, la règle
+de D1162–D1163 avec l'exemple de l'auteur : « Syncytium gère les
+langues [fr, en, es, de]. Tous les hooks portés par Syncytium doivent
+obligatoirement disposer des descriptions pour chacune des langues. Un
+projet qui gère juste [fr, en]. Les propres hooks doivent
+obligatoirement disposer des descriptions pour fr et en seulement. Pas
+besoin de traiter es et de. Sinon, c'est une erreur d'ingestion. »
+*Mes lectures, à confirmer* : la fiche écrit la description par langue
+comme les autres textes — `description: { fr: ~{documentation.fr.md},
+en: ~{documentation.en.md} }` ; ce qui n'est pas un texte reste
+calculé depuis les déclarations du hook — la correspondance
+logique-physique du storage (D1255, D1299), la forme en clair d'un type
+(D1160) ; le `describe()` de D645 n'écrit plus de texte. Les md des
+hooks du véhicule et de la banque, monolingues, sont à compléter.
+
+## 28. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),

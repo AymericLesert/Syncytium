@@ -570,7 +570,10 @@ décisions, D1170–D1238.)*
      tiers, les certificats (D919), le DNS, le pare-feu (écrits) :
      **acquis le 24/10/2026 (D1428)** — la liste des variables exposée
      dans la limite des confidentialités, le fichier au déploiement ;
-  4. le dimensionnement (D15), les dépendances (D924).
+  4. le dimensionnement (D15), les dépendances (D924) : **acquis le
+     24/10/2026 (D1430)** — la référence écrite, l'instance calculée,
+     les dépendances du core et des hooks ; la veille des CVE en
+     proposition.
 - **Déclinaison** : **l'entrepôt** (production et staging, trois
   storages, `azure_ad`, `smtp`, la base Cegid).
 - **Livrables** : une section « Le D.A.T. » ;
@@ -3558,7 +3561,7 @@ description d'API, avec le reste du contrat ; la forme au domaine 7
 de l'entrée du webhook et de l'opération, le `placeholder:` pour
 l'exemple ; la complétude (§20) relève une entrée sans description.
 
-## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; l'étape 1, le schéma, D1426 ; l'étape 2, les environnements, D1427 ; l'étape 3, le paramétrage externe, D1428–D1429)*
+## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; les quatre étapes acquises : le schéma D1426, les environnements D1427, le paramétrage externe D1428–D1429, le dimensionnement et les dépendances D1430)*
 
 **La quatrième documentation** (D1134) : « une description des
 inter-connexions entre l'application et son environnement + l'ensemble
@@ -3662,7 +3665,42 @@ DNS et le pare-feu** : écrits dans le texte de l'environnement
 l'instance, un environnement sans description ; les comptes et les
 certificats, écrits, ne sont pas mesurés.
 
-*L'étape 4 — le dimensionnement et les dépendances — à venir.*
+### 4. Le dimensionnement et les dépendances (D1430)
+
+**Le dimensionnement de référence**, écrit par Syncytium une fois pour
+son core : ce pour quoi le moteur est conçu — la TPE, une vingtaine
+d'utilisateurs simultanés, des bases jusqu'à plusieurs Go, un
+mono-serveur (D15, D16) — et ce que cela implique de machine, de
+mémoire, de disque, de réseau, par classe de storage ; les chiffres au
+domaine 7. **Le dimensionnement de l'instance**, calculé : les volumes
+par entité et la taille de la base (D1155, D1265), les comptes et les
+groupes, les fichiers des entités et leur poids, le rythme des tâches
+périodiques et de la reprise ; à côté, la référence, pour que
+l'administrateur voie la marge ; au dépôt, le cadre vide (D1157). **Les
+dépendances**, calculées : le core, Syncytium-1.0, et sa date (D1361) ;
+les dépendances du moteur avec leurs versions épinglées et leur licence
+(D924, D19) ; les classes de connecteurs de l'environnement et ce
+qu'elles exigent — le pilote de la base, le client SMTP ; **et les
+dépendances des hooks du concepteur, déclarées par leur fiche** (D1430 :
+« oui, cela doit y figurer. Le projet vient en complément de ce que le
+core fournit déjà. ») — *ma lecture* : `dependencies:` sur la fiche, le
+nom, la version, la licence de chaque bibliothèque embarquée, en
+proposition, repris par l'inventaire (D1406). **La veille et la mise à
+jour**, écrites et courtes : la veille des vulnérabilités est hors du
+moteur, au dépôt public ou par une action extérieure (D924) ; la mise à
+jour du core est une migration technique sur sollicitation (D17),
+détaillée au guide d'exploitation. *En proposition, sur la question de
+l'auteur* : **la nomenclature logicielle** du core et des hooks,
+CycloneDX ou SPDX, en édition machine du D.A.T., pour le scanner de
+l'entreprise ; **un flux d'avis signé** publié par le projet par core,
+que l'instance lit sur choix de l'administrateur, désactivé par
+défaut, et dont les avis paraissent ici et à la maintenance (§23) avec
+le core qui corrige. **Les postes des utilisateurs** : les navigateurs
+supportés et leur version minimale, écrits par Syncytium pour son
+core ; rien d'autre n'est requis. **La complétude** ne mesure rien ici.
+
+*Restent la déclinaison sur l'entrepôt et la colonne 4 de la matrice
+dans les artefacts.*
 
 ## 29. Les points ouverts *(rafraîchis à la clôture du rang 5, le 24/10/2026)*
 

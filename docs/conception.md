@@ -24789,7 +24789,11 @@ avant la synthèse Q16).
   3 de la matrice écrite dans les onze artefacts et la matrice
   d'ensemble ; « je valide » (D1425) — **LE RANG 5 EST CLOS** : quatre
   étapes, la déclinaison, 33 décisions (D1393–D1425) ; la suite, le rang
-  6 — le D.A.T. — ou la PR.
+  6 — le D.A.T. — ou la PR. « committe et crée la PR vers develop et
+  main » — **la PR #48 ouverte** (`feature/documentation` → `develop`,
+  38 commits, D1392–D1425) et **la PR #49 ouverte** (`develop` → `main`,
+  la sixième publication, D1241–D1425 une fois la première fusionnée) ;
+  le travail continue sur la branche.
 - **2026-10-22 (suite) — LA PAUSE : LE RANG 4 CLOS ET SOLDÉ, LA PR #47
   MISE À JOUR (1391 décisions).** « créer une PR et marquons une
   pause ». La PR #47 (`feature/documentation` → `develop`), ouverte le

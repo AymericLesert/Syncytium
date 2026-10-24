@@ -1674,7 +1674,7 @@ prépare : le préavis de la dépréciation en trois temps (D650), le 426
 sous la version minimale (D94) ; elle sert la documentation du
 développeur, à son rang.
 
-## 10. La documentation de l'API *(le rang 5, étape 1 — en cours : le périmètre, D1393 ; le contrat par entité, D1394)*
+## 10. La documentation de l'API *(le rang 5, étape 1 — en cours : le périmètre, D1393 ; le contrat par entité, D1394–D1396 ; le socle en tête, D1397)*
 
 D334 : « les techniciens de parties tierces — les consommateurs des
 API, dont la documentation générée s'enrichit ». Pour chaque version
@@ -1716,7 +1716,36 @@ lectures** — l'unitaire, la liste, l'intégralité par curseur opaque
 déclare (D1292) ; **les écritures** — l'unitaire et le lot de
 transactions, la remontée par transaction (D101) ; **les liens** — les
 références et les associations vers les entités exposées, par leur
-nom ; vers une entité non permise, le lien ne paraît pas.
+nom ; vers une entité non permise, le lien ne paraît pas. **Le compte
+est prévenu** (D1395 : « Le socle informe le compte technique que les
+fonctions affichées peuvent être limitées au périmètre auquel il a
+droit. Si une fonctionnalité est manquante, mettre un petit asterix
+dans la documentation pour l'informer qu'il faut contacter
+l'administrateur pour faire évoluer ses droits. ») — l'avertissement
+en tête ; l'astérisque là où une fonction manque, la note « contactez
+l'administrateur ». **« Pour le compte de »** (D1396) : « l'affichage du
+contrat dépend de l'intersection des droits du compte précisé et du
+compte appelant » — ni plus que le compte technique, ni plus que la
+personne.
+
+**Le socle, en tête** (D1397 : « Un chapitre en tête est très bien.
+Cela formalise les éléments qui sont communs à tous les contrats
+exposés. ») — avant les entités : **s'authentifier** — le porteur seul,
+jamais le cookie (D917) ; la clé du compte et sa rotation, le « pour le
+compte de » et ce qu'il borne (D76, D107) ; OAuth2 si l'environnement
+le déclare ; jamais une valeur, le contrat dit le mécanisme et
+l'administrateur remet la clé ; **choisir sa version** — l'épinglée,
+l'en-tête de surcharge, les versions publiées qu'il peut viser, celles
+qu'il ne peut pas et pourquoi (D98, D99) ; **les réponses d'erreur**,
+en table — 401 et 403, le porteur et les droits ; 404 ; 422, la
+validation, avec le message des règles tel que la configuration le
+rédige (D1105, D1106) ; 426, la version (D94) ; 429 et `Retry-After`,
+le débit (D105) ; 202 et la ressource de suivi (D24) ; **les limites** —
+le débit du compte, la pagination, la taille d'un lot — *ma lecture* :
+telles qu'elles valent pour le compte qui lit ; **la dépréciation** —
+l'intention, l'acte, le retrait (D650), portés par la version et jamais
+par une date (D742), et où lire l'« à venir » ; les origines autorisées
+(D918) et HTTPS (D919) relèvent de l'environnement, le D.A.T. les dit.
 
 ## 11. Les formats et le support *(le rang 0, étape 7 — acquis, D1165–D1166)*
 

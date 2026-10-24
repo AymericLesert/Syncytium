@@ -3269,7 +3269,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411 ; l'étape 4, échanger, en cours : D1412–D1414)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411 ; l'étape 4, échanger, en cours : D1412–D1415)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3452,7 +3452,7 @@ chapitre. **La complétude** (§20) ne mesure rien ici. **Un projet
 techniciens : « Cela montre l'éventail des éléments techniques à
 disposition du concepteur. »
 
-### 3. Échanger — les formats d'échange (D1412–D1414, en cours)
+### 3. Échanger — les formats d'échange (D1412–D1415, en cours)
 
 **Les formats de l'import** (D1412 : « l'import CSV, l'import EXCEL,
 l'import ODS ... le format pivot est du CSV. Le fichier EXCEL ou l'ODS
@@ -3479,8 +3479,25 @@ placeholders, jamais une donnée ; **le classeur** (D1412) — un onglet
 par entité, nommé par l'entité, dans l'ordre des dépendances ; le
 gabarit se télécharge en CSV, Excel ou ODS ; **l'export miroir** (D237)
 se lit avec le même gabarit, les deux modes et le dry-run rappelés
-(D235). *Les webhooks entrants et sortants, l'édition machine, ce qui
-s'écrit — en cours d'arbitrage.*
+(D235). **Les webhooks entrants** (D1415), une section par point
+d'entrée de la version : **la route et le mode** — `api/<version>/webhook/<nom>`,
+get, put, post ou delete (D624, D640) ; **la route porte la version,
+sans en-tête de surcharge** (D1415 : « La route porte la version. pas
+de surcharge, c'est inutile. ») — une beta s'appelle par sa route ;
+**les paramètres**, en en-tête ou à l'URL, par leur nom, leur type en
+clair, leur obligation, leur description ; **l'authentification**, la
+même que l'API, le porteur (D642, D917), le « pour le compte de » s'il
+est admis ; le point d'entrée ne paraît pour un compte que si
+l'opération qu'il déclenche lui est permise (D1394) ; **l'opération
+déclenchée** (D641, D609) et son contrat, ce qu'elle lit et écrit, son
+md ; **la réponse**, synchrone, ou le 202 avec la ressource de suivi
+quand l'opération est une tâche (D24, D87) ; les erreurs, celles du
+chapitre en tête ; **dans la console**, l'exemple d'appel et le bouton
+pour l'essayer sur l'environnement choisi (D1398–D1399), une écriture
+demandant confirmation ; **les écarts** — un point d'entrée ajouté,
+retiré, ou aux paramètres changés, un écart du contrat (D1401). *Les
+webhooks sortants, l'édition machine, ce qui s'écrit — en cours
+d'arbitrage.*
 
 ## 28. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 

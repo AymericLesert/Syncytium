@@ -2121,9 +2121,11 @@ cartouche d'une édition reste signé d'un humain (D1142).
 ## 14. L'export et l'import *(le rang 1 — acquis, D1211)*
 
 L'import est un écran du module, réservé au responsable métier ou à
-l'administrateur (D211) ; il ne prend que des fichiers CSV, un par
-entité, en tout-ou-rien après un dry-run, avec un rapport cellule par
-cellule (D234, D120) ; l'export est une fonction de la liste, CSV ou
+l'administrateur (D211) ; il prend des fichiers CSV, un par entité, en
+tout-ou-rien après un dry-run, avec un rapport cellule par cellule
+(D234, D120) — **et l'Excel, l'ODS… : le CSV est le format pivot, un
+classeur regroupe des onglets dont chacun peut être un fichier CSV, une
+entité par onglet** (D1412) ; l'export est une fonction de la liste, CSV ou
 Excel, dans la facette d'affichage (D187/D120). La documentation
 **génère, pour chaque entité importable, le gabarit du fichier
 attendu** (D1211) :

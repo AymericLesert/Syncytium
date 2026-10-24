@@ -521,7 +521,8 @@ décisions, D1170–D1238.)*
 - **Étapes** :
   1. §10 — le contrat d'API : par entité, les opérations (D22, D24),
      les champs exposés (D20), l'authentification (D28), l'épinglage
-     (D98), les erreurs (D94), les exemples ;
+     (D98), les erreurs (D94), les exemples — *en cours (D1393–D1397 :
+     le périmètre, le contrat par entité, le socle en tête)* ;
   2. étendre : les cinq familles de hooks — écrire un hook, son md
      (D778), `describe()`, la librairie d'exploration, le hook
      d'interface listé (D918) ; les types et composants personnalisés ;

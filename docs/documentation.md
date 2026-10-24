@@ -527,7 +527,9 @@ décisions, D1170–D1238.)*
      écarts, les trois lieux ;
   2. étendre : les cinq familles de hooks — écrire un hook, son md
      (D778), `describe()`, la librairie d'exploration, le hook
-     d'interface listé (D918) ; les types et composants personnalisés ;
+     d'interface listé (D918) ; les types et composants personnalisés
+     — *en cours (D1403–D1404 : la description par md et par langue,
+     l'inventaire du concepteur)* ;
   3. enrichir : la documentation de référence de Syncytium dans celle
      de l'application (le point 11) — embarquée ou liée ;
   4. les formats d'échange : le gabarit CSV côté technique, les
@@ -3258,7 +3260,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5, étape 2 — en cours : la description des hooks, D1403)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5, étape 2 — en cours : la description des hooks, D1403 ; l'inventaire du concepteur, D1404)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3301,6 +3303,20 @@ calculé depuis les déclarations du hook — la correspondance
 logique-physique du storage (D1255, D1299), la forme en clair d'un type
 (D1160) ; le `describe()` de D645 n'écrit plus de texte. Les md des
 hooks du véhicule et de la banque, monolingues, sont à compléter.
+
+**L'inventaire, pour le concepteur** (D1404 : « Pour le concepteur, il
+voit tous les hooks présents dans le projet. Syncytium lui indique le
+nombre de références du hook dans le projet avec des références vers sa
+localisation. ») — par famille, chaque hook : sa fiche, sa description
+dans la langue du lecteur, ses propriétés, ses langues, **le nombre de
+ses références dans le projet et les renvois vers chacune** — les
+champs typés par ce type, les opérations déclarées sur cette
+opération, les surfaces qui emploient ce composant, les environnements
+qui déclarent ce connecteur (le graphe de D1198, D1263) ; zéro
+référence, un hook inemployé, signalé. **Pour le technicien**, le même
+inventaire filtré par D1394 : les hooks d'opération qu'il peut appeler ;
+les types, les composants et les connecteurs, qui ne sont pas des
+actes, paraissent.
 
 ## 28. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 

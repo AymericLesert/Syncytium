@@ -2875,8 +2875,9 @@ documentation.md — D1426–D1431. L'entrepôt a deux environnements,
 déclarés à l'identique dans les deux, les valeurs par les variables ;
 dix-sept variables, dont quatre confidentielles ; aucun hook ; aucun
 `listen:`, aucun texte du réseau. On montre le D.A.T. tel qu'il
-sortirait aujourd'hui, puis ce que le concepteur ajouterait. **En
-proposition.**)*
+sortirait aujourd'hui, puis ce que le concepteur ajouterait.
+**Confirmée, et les textes écrits dans la configuration le 24/10/2026 —
+D1434.**)*
 
 ---
 
@@ -2975,9 +2976,12 @@ proposition.**)*
 
 ---
 
-**Ce que le concepteur ajouterait** — en proposition, à écrire dans la
-configuration si l'auteur le demande : le texte du réseau dans la
-description de chaque environnement, et `listen:`.
+**Ce que le concepteur ajouterait** — **écrit dans la configuration le
+24/10/2026** (D1434) : le texte du réseau dans la description de chaque
+environnement, `environments/production/README.md` et
+`environments/staging/README.md` — où tourne l'instance, ce que
+traversent les flux, le nom et le certificat, qui tient quoi —, et
+`listen:` ; le traceur : 222 fichiers atteints, aucun orphelin.
 
 ```yaml
 # environments/production/production.yml

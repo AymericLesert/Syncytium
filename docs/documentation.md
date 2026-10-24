@@ -575,11 +575,9 @@ décisions, D1170–D1238.)*
      les dépendances du core et des hooks ; la veille des CVE par la
      voie b (D1431).
 - **Déclinaison** : **l'entrepôt** (production et staging, trois
-  storages, `azure_ad`, `smtp`, la base Cegid) — **écrite le
-  24/10/2026, en proposition**
-  ([usecases/05_entrepot.md](../usecases/05_entrepot.md)) : le schéma
-  de la production, les deux environnements, dix-sept variables, le
-  réseau et `listen:` à écrire.
+  storages, `azure_ad`, `smtp`, la base Cegid) — **faite** (D1434 — le texte du réseau et
+  `listen:` écrits dans la configuration ;
+  [usecases/05_entrepot.md](../usecases/05_entrepot.md)).
 - **Livrables** : une section « Le D.A.T. » ;
   [connectors.md](connectors.md), [security.md](security.md),
   [administration.md](administration.md).
@@ -3722,8 +3720,8 @@ nomenclature au domaine 7. **Les postes des utilisateurs** : les navigateurs
 supportés et leur version minimale, écrits par Syncytium pour son
 core ; rien d'autre n'est requis. **La complétude** ne mesure rien ici.
 
-*La déclinaison sur l'entrepôt est écrite, en proposition ; reste la
-colonne 4 de la matrice dans les artefacts.*
+*La déclinaison sur l'entrepôt est faite (D1434) ; reste la colonne 4
+de la matrice dans les artefacts.*
 
 ## 29. Les points ouverts *(rafraîchis à la clôture du rang 5, le 24/10/2026)*
 

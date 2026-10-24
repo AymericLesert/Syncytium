@@ -1,5 +1,11 @@
 # La description de l'environnement de développement
-description: L'environnement de staging — l'entrepôt d'essai alimenté depuis une copie de la base PMI
+description: ~{README.md}
+
+# L'adresse et le port servis
+# Par les variables du déploiement : un changement du réseau ne fait pas une nouvelle version.
+listen:
+  url: ${SYNCYTIUM_URL}
+  port: ${SYNCYTIUM_PORT}
 
 # La base de l'application
 # Le connecteur storage qui porte le modèle et ses données ; les autres storages de l'environnement servent la reprise.

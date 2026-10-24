@@ -567,7 +567,9 @@ décisions, D1170–D1238.)*
      relations calculées, les flux et les ports, `listen:` par le `.env` ;
   3. le paramétrage externe : les variables `${…}` que la
      configuration référence (calculables), les comptes chez les
-     tiers, les certificats (D919), le DNS, le pare-feu (écrits) ;
+     tiers, les certificats (D919), le DNS, le pare-feu (écrits) :
+     **acquis le 24/10/2026 (D1428)** — la liste des variables exposée
+     dans la limite des confidentialités, le fichier au déploiement ;
   4. le dimensionnement (D15), les dépendances (D924).
 - **Déclinaison** : **l'entrepôt** (production et staging, trois
   storages, `azure_ad`, `smtp`, la base Cegid).
@@ -3556,7 +3558,7 @@ description d'API, avec le reste du contrat ; la forme au domaine 7
 de l'entrée du webhook et de l'opération, le `placeholder:` pour
 l'exemple ; la complétude (§20) relève une entrée sans description.
 
-## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; l'étape 1, le schéma, D1426 ; l'étape 2, les environnements, D1427)*
+## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; l'étape 1, le schéma, D1426 ; l'étape 2, les environnements, D1427 ; l'étape 3, le paramétrage externe, D1428)*
 
 **La quatrième documentation** (D1134) : « une description des
 inter-connexions entre l'application et son environnement + l'ensemble
@@ -3625,8 +3627,36 @@ puits, sans valeur confidentielle ; la lecture au guide d'exploitation.
 **Ce qui s'écrit** : la `description:` de l'environnement ; un
 environnement sans description est relevé par la complétude (§20).
 
-*Les étapes 3 et 4 — le paramétrage externe, le dimensionnement et les
-dépendances — à venir.*
+### 3. Le paramétrage externe indispensable (D1428)
+
+**Ce qui est stable : la liste des variables d'environnement que la
+configuration porte** (D1428 : « Ici, je nomme .env en raison de mon
+habitude de l'utilisation de Python. Ce fichier pourrait être
+différent. Ce qui est stable est la liste des variables d'environnement
+portées par la configuration du projet qui est à exposer dans le DAT
+(dans la limite des confidentialités) ») — **calculée**, par
+environnement : chaque `${…}` référencée (D321), sa source — le fichier
+des variables, un mot-clé, un item de la configuration —, son défaut,
+sa nature, confidentielle par la marque `*` (D944), où elle est
+employée, le connecteur et le paramètre ; à l'instance, si elle est
+renseignée, jamais sa valeur quand elle est confidentielle. Le fichier
+qui les tient relève du déploiement, non de Syncytium (D1427). **Les
+comptes chez les tiers**, calculés depuis les connecteurs — ce que
+chacun attend : un compte du fournisseur d'identité avec son `tenant`,
+son `client_id` et son secret, un compte SMTP, un accès à la base
+d'origine, une clé du LLM — et complétés à l'écrit : qui le détient,
+comment on le renouvelle, dans le texte de l'environnement (D1426).
+**Les secrets** : chiffrés par le wizard, le clair refusé au démarrage
+avec la commande à exécuter (D902). **Les certificats** : HTTPS partout
+(D919) ; par environnement, le certificat employé, son émetteur, son
+échéance, écrits ; l'auto-signé de Syncytium signalé comme tel. **Le
+DNS et le pare-feu** : écrits dans le texte de l'environnement
+(D1426) ; la table des flux et des ports du chapitre 2 en est la base.
+**La complétude** (§20) : une variable référencée sans valeur à
+l'instance, un environnement sans description ; les comptes et les
+certificats, écrits, ne sont pas mesurés.
+
+*L'étape 4 — le dimensionnement et les dépendances — à venir.*
 
 ## 29. Les points ouverts *(rafraîchis à la clôture du rang 5, le 24/10/2026)*
 

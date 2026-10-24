@@ -423,8 +423,10 @@ via des variables d'environnement (.env). En fait, cela relève du
 déploiement et cela n'est pas porté par Syncytium et il ne doit pas être
 nécessaire de changer de version si une configuration réseau change. » —
 `listen: { url: ${SYNCYTIUM_URL}, port: ${SYNCYTIUM_PORT} }` dans
-`environments/<env>.yml`, les valeurs dans le `.env` de l'environnement,
-hors des versions ; le D.A.T. (documentation.md §28) les montre résolues.
+`environments/<env>.yml`, les valeurs dans le fichier des variables de
+l'environnement — `.env` par habitude, « ce fichier pourrait être
+différent » (D1428) —, hors des versions ; le D.A.T. (documentation.md
+§28) expose la liste des variables, dans la limite des confidentialités.
 
 **Un dossier par environnement** : ce qui est commun à toutes les
 versions mais propre à chaque environnement — les connecteurs, les

@@ -41,7 +41,8 @@ chaîne à deux étages** (D644/D777 — le patron des modules
 D765/D766) : `hooks.yml` référence **les fichiers de famille**,
 chaque fichier de famille **liste ses fiches** (l'énumération ou le
 pattern regex — D806), **la fiche du hook** (D809) portant `name`,
-`description`, `code` et `properties` — les chemins relatifs au
+`description`, `code`, `properties` et, quand il embarque des
+bibliothèques, `dependencies` (D1432) — les chemins relatifs au
 fichier courant (D768). Les hooks du socle vivent dans
 l'arborescence de Syncytium — la même porte (D52), deux maisons.
 
@@ -74,7 +75,7 @@ description: documentation.md        # → le md du fonctionnement (D778) — un
                                      #   (D1403, D1405) : description: { fr: ~{documentation.fr.md}, en: ~{documentation.en.md} }
 code: source.txt                     # → le code — le langage du domaine 7 (D570)
 properties: { }                      # les propriétés du hook
-dependencies: [ ]                    # les bibliothèques embarquées — le nom, la version, la licence (D1430, en proposition)
+dependencies: [ ]                    # les bibliothèques embarquées — le nom, la version, la licence (D1432) ; absente = aucune
 ```
 
 **Chaque hook s'accompagne d'un fichier md par langue qu'il supporte**

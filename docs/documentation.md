@@ -3565,7 +3565,7 @@ description d'API, avec le reste du contrat ; la forme au domaine 7
 de l'entrée du webhook et de l'opération, le `placeholder:` pour
 l'exemple ; la complétude (§20) relève une entrée sans description.
 
-## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; les quatre étapes acquises : le schéma D1426, les environnements D1427, le paramétrage externe D1428–D1429, le dimensionnement et les dépendances D1430–D1431)*
+## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; les quatre étapes acquises : le schéma D1426, les environnements D1427, le paramétrage externe D1428–D1429, le dimensionnement et les dépendances D1430–D1432)*
 
 **La quatrième documentation** (D1134) : « une description des
 inter-connexions entre l'application et son environnement + l'ensemble
@@ -3687,9 +3687,10 @@ les dépendances du moteur avec leurs versions épinglées et leur licence
 qu'elles exigent — le pilote de la base, le client SMTP ; **et les
 dépendances des hooks du concepteur, déclarées par leur fiche** (D1430 :
 « oui, cela doit y figurer. Le projet vient en complément de ce que le
-core fournit déjà. ») — *ma lecture* : `dependencies:` sur la fiche, le
-nom, la version, la licence de chaque bibliothèque embarquée, en
-proposition, repris par l'inventaire (D1406). **La veille et la mise à
+core fournit déjà. ») — **`dependencies:` sur la fiche du hook**
+(D1432) : le nom, la version, la licence de chaque bibliothèque
+embarquée ; absente, aucune ; reprise par l'inventaire (D1406) et
+comparée par la veille (D1431). **La veille et la mise à
 jour**, écrites et courtes : la veille des vulnérabilités est hors du
 moteur, au dépôt public ou par une action extérieure (D924) ; la mise à
 jour du core est une migration technique sur sollicitation (D17),

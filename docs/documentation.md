@@ -551,7 +551,7 @@ décisions, D1170–D1238.)*
   la matrice d'ensemble (D1425).
 - **Dépendances** : la forme du contrat d'API au domaine 7.
 
-#### Rang 6 — le D.A.T. (documentation 4)
+#### Rang 6 — le D.A.T. (documentation 4) — *clos le 24/10/2026, D1435*
 
 - **Périmètre** : les inter-connexions de l'application avec son
   environnement et le paramétrage externe indispensable (D1134).
@@ -582,8 +582,7 @@ décisions, D1170–D1238.)*
   acquis) ; [connectors.md](connectors.md), [security.md](security.md),
   [administration.md](administration.md), [hooks.md](hooks.md),
   [configuration.md](configuration.md) ; la colonne 4 de la matrice dans
-  les onze artefacts et la matrice d'ensemble (écrite le 24/10/2026, à
-  valider).
+  les onze artefacts et la matrice d'ensemble (D1435).
 - **Dépendances** : les choix techniques (D1025).
 
 #### Rang 7 — le guide d'exploitation (documentation 9)
@@ -3566,7 +3565,7 @@ description d'API, avec le reste du contrat ; la forme au domaine 7
 de l'entrée du webhook et de l'opération, le `placeholder:` pour
 l'exemple ; la complétude (§20) relève une entrée sans description.
 
-## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; les quatre étapes acquises : le schéma D1426 et D1433, les environnements D1427, le paramétrage externe D1428–D1429, le dimensionnement et les dépendances D1430–D1432)*
+## 28. Le D.A.T. — l'architecture technique *(le rang 6 — acquis, D1426–D1435 : le schéma des connexions, les environnements, le paramétrage externe, le dimensionnement et les dépendances ; la déclinaison sur l'entrepôt, D1434)*
 
 **La quatrième documentation** (D1134) : « une description des
 inter-connexions entre l'application et son environnement + l'ensemble
@@ -3724,10 +3723,10 @@ supportés et leur version minimale, écrits par Syncytium pour son
 core ; rien d'autre n'est requis. **La complétude** ne mesure rien ici.
 
 *La déclinaison sur l'entrepôt est faite (D1434) ; la colonne 4 de la
-matrice écrite le 24/10/2026 dans les onze artefacts et la matrice
-d'ensemble — à valider.*
+matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
+le rang 6 est clos (D1435).*
 
-## 29. Les points ouverts *(rafraîchis à la clôture du rang 5, le 24/10/2026)*
+## 29. Les points ouverts *(rafraîchis à la clôture du rang 6, le 24/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),

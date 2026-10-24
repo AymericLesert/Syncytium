@@ -209,6 +209,16 @@ ses conventions — et le texte libre `skill:` du projet, un complément,
 jamais un remplacement. Générée, déterministe ; lue au concepteur,
 exportée en édition machine. *(D1224, D1226, D1409–D1410)*
 
+**D.A.T. (le dossier d'architecture technique)** — La quatrième
+documentation : les inter-connexions de l'application avec son
+environnement et le paramétrage externe indispensable — le schéma des
+connexions calculé par environnement, les silhouettes des postes, le
+réseau en texte porté par la description de l'environnement ; les
+environnements, leurs relations, les flux et les ports ; la liste des
+variables d'environnement, les comptes chez les tiers, les certificats ;
+le dimensionnement et les dépendances, du core et des hooks, la veille
+des CVE par le fichier d'avis du dépôt. *(D1134, D1426–D1435)*
+
 **Documentation (la facette)** — Chaque composant porte sa
 documentation, comme il porte son affichage ou son stockage ; chaque
 type de composant la décline dans chacune des neuf documentations ;

@@ -1675,7 +1675,7 @@ prépare : le préavis de la dépréciation en trois temps (D650), le 426
 sous la version minimale (D94) ; elle sert la documentation du
 développeur, à son rang.
 
-## 10. La documentation de l'API *(le rang 5, étape 1 — en cours : le périmètre, D1393 ; le contrat par entité, D1394–D1396 ; le socle en tête, D1397)*
+## 10. La documentation de l'API *(le rang 5, étape 1 — en cours : le périmètre, D1393 ; le contrat par entité, D1394–D1396 ; le socle en tête, D1397 ; la console interactive, D1398)*
 
 D334 : « les techniciens de parties tierces — les consommateurs des
 API, dont la documentation générée s'enrichit ». Pour chaque version
@@ -1747,6 +1747,35 @@ telles qu'elles valent pour le compte qui lit ; **la dépréciation** —
 l'intention, l'acte, le retrait (D650), portés par la version et jamais
 par une date (D742), et où lire l'« à venir » ; les origines autorisées
 (D918) et HTTPS (D919) relèvent de l'environnement, le D.A.T. les dit.
+
+**Une documentation interactive** (D1398 : « cette documentation doit
+être interactive. Après une phase d'authentification et d'exemples de
+code pour s'authentifier, le contrat s'expose. Les paramètres sont à
+proposer (pour le compte de, ...). La documentation se met à jour en
+fonction de ces paramètres. Pour chaque appel possible classé par
+entité, une action/opération, le format des paramètres et la
+description portée par les champs de l'entité ou des paramètres des
+opérations, un exemple de lignes d'appel avec curl, python, ... (à voir
+lors des choix techniques), et la possibilité de lancer la commande, de
+récupérer le résultat et de l'afficher. ») — *mes lectures, à
+confirmer* : la console vit dans l'application, servie au compte
+technique (D1348 ; le canal 6 de §21) ; **la phase d'authentification**
+— la clé se saisit dans la console, jamais stockée dans la
+documentation, avec les exemples de code pour s'authentifier ; **les
+paramètres** — la version (l'épinglée, la surcharge par en-tête, D98),
+« pour le compte de » (D1396), la langue — et le contrat se recalcule
+(D1394) ; **chaque appel**, classé par entité — l'action ou
+l'opération, le format de ses paramètres, la description portée par
+les champs de l'entité ou par les paramètres de l'opération, un exemple
+en curl, python, … (les langages aux choix techniques, D1025), le
+bouton qui lance la commande, récupère le résultat et l'affiche ;
+**lancer** exécute l'appel réel sous les droits du compte, journalisé
+(D62) — une écriture demande confirmation ; l'environnement est celui
+de l'instance qu'on documente, la sandbox (D907) pour essayer sans
+risque ; **les valeurs d'exemple** — le `placeholder:` du champ, celui
+du type, le défaut (D1307), jamais une donnée ; **l'édition non
+interactive** (le canal 2, l'édition machine) garde le même contenu
+sans le lancement.
 
 ## 11. Les formats et le support *(le rang 0, étape 7 — acquis, D1165–D1166)*
 

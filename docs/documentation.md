@@ -555,11 +555,13 @@ décisions, D1170–D1238.)*
 
 - **Périmètre** : les inter-connexions de l'application avec son
   environnement et le paramétrage externe indispensable (D1134).
-- **Sections** : §4 (chapitres 1 et 11) ; une section à créer.
+- **Sections** : §4 (chapitres 1 et 11) ; §28 (créée le 24/10/2026).
 - **Étapes** :
   1. le schéma des connexions, calculé : l'instance, le storage,
      l'authentification, le SMTP, les bases d'origine, les webhooks et
-     API tierces, le LLM, les postes ;
+     API tierces, le LLM, les postes : **acquis le 24/10/2026 (D1426)**
+     — par environnement, les silhouettes par le moteur, le réseau en
+     texte porté par la description de l'environnement ;
   2. les environnements et leur rôle (D339, D112–D114), les flux et
      les ports ;
   3. le paramétrage externe : les variables `${…}` que la
@@ -659,7 +661,7 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      rendus, les pages ou le wiki — la forme au domaine 7 (D1126) ;
   4. la reprise artefact par artefact — le regroupement physique de
      documentation.md par documentation (D1021), la mise à jour du
-     glossaire, les points ouverts de §28 soldés un à un ;
+     glossaire, les points ouverts de §29 soldés un à un ;
   5. **le registre en ADR** (D1392 — acquis : « La voie b au rang
      10 ») : un fichier par décision dans `docs/decisions/`, canonique,
      l'index généré ; la conversion scriptée et vérifiée par
@@ -711,7 +713,7 @@ Elle a **trois sources** (D1122) :
 La documentation rédigée du projet Syncytium — les artefacts de
 `docs/` — n'est pas une source de la documentation de l'application ;
 ce que D645 lui demandait d'en porter (« la documentation technique de
-Syncytium ») reste à placer (§28).
+Syncytium ») reste à placer (§29).
 
 Et une règle qui les tient ensemble : **chaque version active porte sa
 documentation** (D1123 — D645/D810) ; *la version documentée est
@@ -3553,7 +3555,47 @@ description d'API, avec le reste du contrat ; la forme au domaine 7
 de l'entrée du webhook et de l'opération, le `placeholder:` pour
 l'exemple ; la complétude (§20) relève une entrée sans description.
 
-## 28. Les points ouverts *(rafraîchis à la clôture du rang 5, le 24/10/2026)*
+## 28. Le D.A.T. — l'architecture technique *(le rang 6, étape 1 — en cours : le schéma des connexions, D1426)*
+
+**La quatrième documentation** (D1134) : « une description des
+inter-connexions entre l'application et son environnement + l'ensemble
+du paramétrage externe à l'application mais indispensable à son
+fonctionnement » ; le guide d'exploitation (§17) explique
+l'installation, la configuration, la supervision et la maintenance. Ses
+lecteurs : l'administrateur, le concepteur, l'hébergeur sans les
+secrets (§3, D1154). Portée par l'application comme le reste (D1348).
+
+### 1. Le schéma des connexions (D1426)
+
+**Un diagramme calculé**, comme le modèle de données (D1119), **par
+environnement** : au centre l'instance ; autour, un nœud par connecteur
+déclaré à l'environnement (D342, D616), groupé par famille — le storage,
+les bases d'origine de la reprise, l'authentification, le SMTP, les
+fichiers, le géocodeur, les webhooks entrants et sortants, le LLM ; un
+trait par flux, dans le sens de l'appel, étiqueté par le protocole et
+le port que la classe du connecteur implique ; les `${…}` résolues sans
+les secrets, qui paraissent par leur nom (D944) ; les `countries:`
+(D1345) ; les données personnelles signalées sur le flux qu'un champ
+`rgpd:` emprunte (§18) ; le storage renvoie au chapitre 3 du
+dictionnaire. **Les silhouettes des postes sont dessinées par le
+moteur** (D1426) — les utilisateurs et leur navigateur, les techniciens
+et leurs systèmes, l'administrateur et le concepteur avec les
+commandes du moteur — avec les flux qui en partent. **Le réseau est un
+texte écrit, porté par la description de l'environnement** (D1426 :
+« La capacité de Syncytium à décrire son environnement se limite à ce
+qu'il peut gérer ou à ce qu'il a besoin. Les parefeux, les dns, les
+authentifications, ... ne sont pas de la responsabilité de Syncytium
+mais des équipes d'intégration et d'administration système et
+réseau ») — *ma lecture* : la `description:` de l'environnement prend
+un fichier Markdown (D810) : où est l'instance, ce que traversent les
+flux, qui tient le pare-feu et le DNS ; le D.A.T. la place sous le
+schéma. **Le rendu** : Mermaid, aux contraintes notées (D1278) ; la
+forme au domaine 7.
+
+*Les étapes 2 à 4 — les environnements et leur rôle, le paramétrage
+externe, le dimensionnement et les dépendances — à venir.*
+
+## 29. Les points ouverts *(rafraîchis à la clôture du rang 5, le 24/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),

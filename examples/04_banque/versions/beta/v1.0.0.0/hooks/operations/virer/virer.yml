@@ -3,8 +3,11 @@
 name: virer
 
 # La description
-# La documentation de l'opération, en Markdown.
-description: ~{documentation.md}
+# La documentation de l'opération, en Markdown, une par langue de la version.
+description:
+  fr: ~{documentation.fr.md}
+  en: ~{documentation.en.md}
+  es: ~{documentation.es.md}
 
 # Le code
 code: ~{source.txt}

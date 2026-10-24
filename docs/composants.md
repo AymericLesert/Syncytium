@@ -3062,6 +3062,15 @@ l'enregistrement montré (D1364) ; les questions closes de la surface
 rejoignent la F.A.Q. de la fonctionnelle (D1367, D1373) ; les
 composants graphiques, rien.
 
+**Les surfaces et les composants, dans la documentation du
+développeur** (la colonne 3 — le rang 5) : **un composant personnalisé**
+a sa fiche à l'inventaire — le visage, les modes, les types rendus, le
+RGAA critère par critère avec le md qui explique un échec, les surfaces
+qui l'emploient (D1406–D1407) ; **le hook d'interface** listé à part,
+avec les pages où il est chargé (D918, D1407) ; **le wizard** exposé à
+l'API est une suite d'opérations, son contrat d'appel au chapitre de
+l'entité ; les surfaces du socle, rien de propre — la référence de
+Syncytium (D1411).
+
 **Les autres colonnes** — à leur rang : la maintenance (la fréquence
-d'emploi de chaque écran, D1168), le développeur (le hook d'interface
-listé, D918).
+d'emploi de chaque écran, D1168).

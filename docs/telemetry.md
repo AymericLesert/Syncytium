@@ -257,6 +257,12 @@ par statut ; dynamiques, les tickets ouverts par jour, par semaine ou
 par mois selon l'ancienneté de l'application (D1379–D1380) — calculés
 sur `_assistance`, à l'instance, sans le détail ; rien d'autre.
 
+**La télémétrie, dans la documentation du développeur** (la colonne 3 —
+le rang 5) : rien d'écrit — les données vivantes n'entrent ni dans le
+contrat ni dans les exemples (D1398) ; à l'instance, le dernier envoi
+de chaque émission sortante et son état (D1421) ; les indicateurs des
+appels par compte relèvent de la maintenance.
+
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 télémétrie n'est pas ce que l'utilisateur fait) ; la maintenance et la
 supervision (§23 — le tableau de bord, la synthèse périodique, les

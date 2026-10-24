@@ -341,6 +341,19 @@ l'« à venir » sur la production (D1285) ; **l'enregistrement cité par un
 ticket** — l'entité et son identifiant montrés au moment de la demande
 (D1364) ; rien d'écrit par l'entité.
 
-**Les autres colonnes** — à leur rang : le développeur (ses points d'API) ; la promotionnelle
+**L'entité et le champ, dans la documentation du développeur** (la
+colonne 3 — le rang 5) : **sa section du contrat d'API** (§10) pour le
+compte qui peut l'atteindre (D1394) — les champs `public` par leur nom,
+le type en clair tel qu'appliqué et le format de la valeur dans l'appel,
+l'obligation, le défaut, les énumérés par leur code, la `description:` ;
+les actes permis et les opérations avec leur contrat ; les lectures, la
+liste, le curseur, les critères admis (D1292) ; les écritures, le lot ;
+les liens vers les entités exposées ; les exemples d'appel lancés
+depuis la console (D1398) ; **ses écarts** filtrés par l'exposition et
+les droits, en tête et en annotation (D1401) ; **son gabarit technique**
+par les noms (D1414) ; le `hint:` et le `title:` n'y paraissent pas
+(D1402).
+
+**Les autres colonnes** — à leur rang : la promotionnelle
 (son titre dans la vue d'ensemble) ; la maintenance (ses usages, ses
 anomalies).

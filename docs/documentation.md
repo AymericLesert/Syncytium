@@ -512,7 +512,7 @@ décisions, D1170–D1238.)*
   onze artefacts et la matrice d'ensemble (D1383).
 - **Dépendances** : aucune.
 
-#### Rang 5 — le développeur (documentation 3)
+#### Rang 5 — le développeur (documentation 3) — *clos le 24/10/2026, D1425*
 
 - **Périmètre** : le contrat d'API par version, l'extension par les
   hooks et les composants, l'enrichissement par la configuration, les
@@ -521,19 +521,34 @@ décisions, D1170–D1238.)*
 - **Étapes** :
   1. §10 — le contrat d'API : par entité, les opérations (D22, D24),
      les champs exposés (D20), l'authentification (D28), l'épinglage
-     (D98), les erreurs (D94), les exemples ;
+     (D98), les erreurs (D94), les exemples : **acquis le 24/10/2026
+     (D1393–D1402)** — chaque version publiée, le contrat aux seuls
+     droits du compte, le chapitre en tête, la console interactive, les
+     écarts, les trois lieux ;
   2. étendre : les cinq familles de hooks — écrire un hook, son md
      (D778), `describe()`, la librairie d'exploration, le hook
-     d'interface listé (D918) ; les types et composants personnalisés ;
+     d'interface listé (D918) ; les types et composants personnalisés :
+     **acquis le 24/10/2026 (D1403–D1409)** — la description par md et
+     par langue, l'inventaire du concepteur, les types et composants, la
+     référence du core nommé, la skill en deux couches ;
   3. enrichir : la documentation de référence de Syncytium dans celle
-     de l'application (le point 11) — embarquée ou liée ;
+     de l'application (le point 11) — embarquée ou liée : **acquis le
+     24/10/2026 (D1410–D1411)** — la référence embarquée entière, le
+     produit lié à la version du core, la skill du core et son
+     complément ;
   4. les formats d'échange : le gabarit CSV côté technique, les
-     webhooks.
+     webhooks : **acquis le 24/10/2026 (D1412–D1423)** — le CSV pivot et
+     le classeur, le gabarit par les noms et les deux en-têtes, les
+     webhooks entrants par la route versionnée et les codes 200/426/410/404,
+     les sortants avec la clé d'émission, l'état et la trace.
 - **Déclinaison** : le tiny (les exemples d'appel) ; **la banque** (ses
-  hooks).
+  hooks) — **faite** (D1424 — les md par langue écrits dans la banque ;
+  [usecases/01_tiny.md](../usecases/01_tiny.md),
+  [usecases/04_banque.md](../usecases/04_banque.md)).
 - **Livrables** : §10 validé ; [hooks.md](hooks.md),
   [connectors.md](connectors.md) ; le sort de `docs/` dans
-  l'application.
+  l'application ; la colonne 3 de la matrice dans les onze artefacts et
+  la matrice d'ensemble (D1425).
 - **Dépendances** : la forme du contrat d'API au domaine 7.
 
 #### Rang 6 — le D.A.T. (documentation 4)
@@ -644,9 +659,17 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      rendus, les pages ou le wiki — la forme au domaine 7 (D1126) ;
   4. la reprise artefact par artefact — le regroupement physique de
      documentation.md par documentation (D1021), la mise à jour du
-     glossaire, les points ouverts de §27 soldés un à un.
+     glossaire, les points ouverts de §28 soldés un à un ;
+  5. **le registre en ADR** (D1392 — acquis : « La voie b au rang
+     10 ») : un fichier par décision dans `docs/decisions/`, canonique,
+     l'index généré ; la conversion scriptée et vérifiée par
+     comparaison — les mots, la numérotation, les renvois à
+     l'identique ; les seuls ajouts, le statut et les liens « amende /
+     amendée par » ; §3.2c et le journal inchangés ; CLAUDE.md et le
+     tableau de bord adaptés.
 - **Déclinaison** : le dépôt lui-même.
-- **Livrables** : `docs/` consultable sur GitHub ; la PR vers `develop`.
+- **Livrables** : `docs/` consultable sur GitHub ; `docs/decisions/`
+  et son index (D1392) ; la PR vers `develop`.
 - **Dépendances** : les neuf autres rangs — le rang 10 les clôt.
 
 ## 1. Le principe — trois documentations, trois sources, une seule version
@@ -688,7 +711,7 @@ Elle a **trois sources** (D1122) :
 La documentation rédigée du projet Syncytium — les artefacts de
 `docs/` — n'est pas une source de la documentation de l'application ;
 ce que D645 lui demandait d'en porter (« la documentation technique de
-Syncytium ») reste à placer (§27).
+Syncytium ») reste à placer (§28).
 
 Et une règle qui les tient ensemble : **chaque version active porte sa
 documentation** (D1123 — D645/D810) ; *la version documentée est
@@ -1666,18 +1689,147 @@ prépare : le préavis de la dépréciation en trois temps (D650), le 426
 sous la version minimale (D94) ; elle sert la documentation du
 développeur, à son rang.
 
-## 10. La documentation de l'API *(en proposition)*
+## 10. La documentation de l'API — le contrat du technicien *(le rang 5, étape 1 — acquis, D1393–D1402)*
 
 D334 : « les techniciens de parties tierces — les consommateurs des
-API, dont la documentation générée s'enrichit ». Pour chaque version
-**publiée** (D99), la documentation donne, par entité : les champs
-exposés (D20 — la politique d'exposition), les opérations, les
-exemples d'appel — la lecture, la création, la modification, la
-suppression, la recherche — tels que le tiny les montre (D1026),
-l'épinglage de version (D98). **La forme** (un format standard de
-description d'API, les exemples en `curl`) relève de l'architecture
-technique (D1025) ; le principe — l'API documentée depuis le modèle,
-version par version — est acquis.
+API, dont la documentation générée s'enrichit ». **Le contrat d'API est
+documenté depuis le modèle, version par version** (D1026, D1123) ; sa
+forme — le format standard de description, les langages des exemples —
+relève des choix techniques (D1025, D1126). Ce que la documentation
+contient est fixé ici.
+
+**Le périmètre** (D1393) : le contrat de **chaque version publiée**
+(D99), une par une — la production, et la beta, version active au sens
+de D1124, dont le contrat porte le filigrane Beta (D1145) et dit
+comment la solliciter, l'en-tête de surcharge appel par appel (D98,
+D103) ; une dépréciée ou une interdite n'a que l'avis de D1124. Par
+défaut, le technicien lit le contrat de **la version épinglée à son
+compte** (D98), avec la liste des autres versions publiées et, pour
+chacune, le lien vers son contrat et ses écarts. Le lecteur premier est
+le technicien, un compte technique (D28) ; le concepteur lit aussi,
+pour vérifier ce que sa configuration expose ; l'analyste (D1152) y
+trouve l'édition machine.
+
+**Une console interactive** (D1398 : « cette documentation doit être
+interactive. Après une phase d'authentification et d'exemples de code
+pour s'authentifier, le contrat s'expose. Les paramètres sont à
+proposer (pour le compte de, ...). La documentation se met à jour en
+fonction de ces paramètres. Pour chaque appel possible classé par
+entité, une action/opération, le format des paramètres et la
+description portée par les champs de l'entité ou des paramètres des
+opérations, un exemple de lignes d'appel avec curl, python, ... (à voir
+lors des choix techniques), et la possibilité de lancer la commande, de
+récupérer le résultat et de l'afficher. ») — la console vit dans
+l'application, servie au compte technique (D1348 ; le canal 6 de §21).
+**La phase d'authentification** : la clé se saisit dans la console,
+jamais stockée dans la documentation, avec les exemples de code pour
+s'authentifier. **Les paramètres** : la version — l'épinglée ou la
+surcharge par en-tête (D98) —, « pour le compte de » (D1396), la
+langue, et **l'environnement, au choix parmi ceux que l'instance
+porte** (D1399) ; à chaque changement, le contrat se recalcule (D1394).
+**Chaque appel**, classé par entité : l'action ou l'opération, le
+format de ses paramètres, la description portée par les champs de
+l'entité ou par les paramètres de l'opération, un exemple en curl,
+python, … (les langages aux choix techniques), et le bouton qui lance
+la commande, récupère le résultat et l'affiche. **Lancer** exécute
+l'appel réel, sous les droits du compte, journalisé (D62) — une
+écriture demande confirmation ; sur l'environnement choisi, la sandbox
+(D907) pour essayer sans risque. **Les valeurs d'exemple** : le
+`placeholder:` du champ, celui du type, le défaut (D1307) ; jamais une
+donnée de l'instance.
+
+**Le chapitre en tête, commun à tous les contrats** (D1397 : « Un
+chapitre en tête est très bien. Cela formalise les éléments qui sont
+communs à tous les contrats exposés. ») : **s'authentifier** — le
+porteur seul, jamais le cookie (D917) ; la clé du compte et sa
+rotation, le « pour le compte de » et ce qu'il borne (D76, D107) ;
+OAuth2 si l'environnement le déclare ; jamais une valeur, le contrat
+dit le mécanisme et l'administrateur remet la clé ; **choisir sa
+version** — l'épinglée, l'en-tête de surcharge, les versions publiées
+qu'il peut viser, celles qu'il ne peut pas et pourquoi (D98, D99) ;
+**les réponses d'erreur**, en table — 401 et 403, le porteur et les
+droits ; 404 ; 422, la validation, avec le message des règles tel que
+la configuration le rédige (D1105, D1106) ; **la version visée** (D1417–D1419) — une
+production qui n'est plus la dernière **répond 200 avec le résultat et
+les en-têtes de dépréciation**, `Deprecation` et `Link
+rel="successor-version"`, sans `Sunset` (D742) — l'intention et l'acte
+de D650 ; **426** avec la version à employer quand on cesse de servir,
+sous la version minimale (D94) ; **410** quand la version a été
+rejetée — interdite, retirée (D345) — ; **404** jamais déclarée ; 429 et `Retry-After`, le débit (D105) ; 202 et la ressource
+de suivi (D24) ; **les limites** — le débit du compte, la pagination, la taille
+d'un lot, telles qu'elles valent pour le compte qui lit ; **la
+dépréciation** — l'intention, l'acte, le retrait (D650), portés par la
+version et jamais par une date (D742), et où lire l'« à venir » ; les
+origines autorisées (D918) et HTTPS (D919) relèvent de l'environnement,
+le D.A.T. les dit. **Le compte est prévenu** (D1395 : « Le socle informe
+le compte technique que les fonctions affichées peuvent être limitées
+au périmètre auquel il a droit. Si une fonctionnalité est manquante,
+mettre un petit asterix dans la documentation pour l'informer qu'il
+faut contacter l'administrateur pour faire évoluer ses droits. ») —
+l'avertissement en tête ; l'astérisque là où une fonction manque, la
+note « contactez l'administrateur ».
+
+**Le contrat par entité** (D1394 : « Le contrat par entité affiche
+uniquement ce qui est autorisé au compte technique qui accède à cette
+documentation. ») — ni les entités, ni les champs, ni les actes que ses
+groupes (D196, D1172) et l'exposition (D20, D25) lui refusent, pas même
+en négatif, l'astérisque excepté ; **« pour le compte de »** (D1396) :
+« l'affichage du contrat dépend de l'intersection des droits du compte
+précisé et du compte appelant » — ni plus que le compte technique, ni
+plus que la personne. Une section par entité permise, dans cet ordre :
+**les champs exposés** — les `public` seuls, par leur nom, le type en
+clair tel qu'appliqué (D1160), l'obligation, le défaut, les valeurs
+d'un énuméré, la `description:` ; les calculés en lecture seule (D21,
+D102) ; **les opérations** — les actes du socle permis, puis les
+opérations déclarées avec leur contrat, ce qu'elles lisent et écrivent,
+leurs paramètres (le chapitre 4.3 du dictionnaire, D1242), leur mode,
+synchrone ou asynchrone avec la ressource de suivi (D24), **et le md de
+leur hook** (D778, D1402) — le mode d'emploi de l'appel ; **les
+lectures** — l'unitaire, la liste, l'intégralité par curseur opaque
+(D22, D100), les critères de recherche et de sélection que le modèle
+déclare (D1292) ; **les écritures** — l'unitaire et le lot de
+transactions, la remontée par transaction (D101) ; **les liens** — les
+références et les associations vers les entités exposées, par leur
+nom ; vers une entité non permise, le lien ne paraît pas.
+
+**Les écarts pour le technicien** (D1401 ; D1285 — « important pour le
+technicien qui doit préparer l'évolution de l'appel des API ») : **la
+liste de §9, filtrée deux fois** — par l'exposition (D20) et par les
+droits du compte qui lit (D1394) ; **au chapitre de la version**, en
+tête — la version publiée précédente, le résumé par entité, puis le
+détail, chaque écart disant ce qu'il fait à l'appel : une clé qui
+change, un format qui change, un appel qui casse, une valeur nouvelle
+possible ; **dans la section de l'entité**, l'écart en annotation à
+côté du champ — « renommé depuis `abrege` en 1.0.0.1 » (D1123) ;
+**l'« à venir »** sur la version épinglée — ce que la ou les beta
+au-dessus changeront pour ce contrat, dans l'ordre (D1286), avec le
+préavis de la dépréciation (D650), et la bascule sur la beta par le
+paramètre de version pour essayer l'appel futur (D1399) ; **le
+changement des paramètres d'une opération déclarée est un écart à
+présenter** (D1401 : « le changement de paramètres est un écart à
+présenter ») — un écart du contrat, calculé sur le contrat de
+l'opération, que D1281 ne compte pas parmi les écarts de la donnée.
+
+**Où le contrat se lit** (D1402), trois lieux, tous aux droits du
+compte technique : **la console**, dans l'application, le lieu premier
+— le canal 6 de §21 ; **l'édition non interactive**, le canal 3 —
+produite pour un compte et son « pour le compte de » (D1400 : « L'édition
+non interactive garde le même contenu, les exemples compris à la vue du
+compte technique et du "pour le compte de" »), jamais en général, HTML
+ou PDF, le cartouche et le filigrane (D1142, D1145) ; le concepteur
+peut la produire au dépôt par `syncytium document` (D1167) en nommant
+le compte ; **l'édition machine**, le canal 7 — la même description
+dans un format standard de description d'API, pour un outil : le client
+qui génère le code d'appel, le testeur, l'IA qui écrit le programme du
+technicien, le portail d'un partenaire ; même filtre que la console,
+sans le lancement. L'une se lit, l'autre se branche (D1165).
+
+**Ce qui s'écrit** (D1402) : rien de nouveau. La `description:` de
+l'entité, du champ, de l'opération et de ses paramètres sert telle
+quelle ; le `hint:` et le `title:` (D1120) sont pour l'utilisateur et ne
+paraissent pas ; les noms sont ceux de la configuration (D335) ; le
+`placeholder:` donne les valeurs d'exemple ; le md du hook (D778) est
+montré ; la complétude (§20) ne compte rien de plus.
 
 ## 11. Les formats et le support *(le rang 0, étape 7 — acquis, D1165–D1166)*
 
@@ -1742,6 +1894,7 @@ home: ~{home.md}                 # la page d'accueil, globale — hors des versi
 author: Aymeric Lesert           # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
 accessibility: ~{documentation/accessibility.md}   # la déclaration d'accessibilité, un texte du concepteur par langue (D1341)
+skill: ~{documentation/skill.md}   # le complément de la skill du core, par langue — jamais un remplacement (D1409, D1410)
 glossary:                        # le glossaire des termes du métier (D1180 ; la clé validée, D1219)
   tiers: Toute personne ou société en relation avec l'entreprise — client, fournisseur, prospect.
   article:                       # un terme = une liste de mots, singulier et pluriel (D1197 ; `words:` validé, D1219)
@@ -1912,10 +2065,10 @@ rubrique qui la spécifie. Trois lignes, pour la forme :
 
 | Le composant | 1 Fonctionnelle | 2 Information | 3 Développeur | 4 D.A.T. | 5 Réglementation | 6 Promotionnelle | 7 Maintenance | 8 Projet | 9 Exploitation |
 |---|---|---|---|---|---|---|---|---|---|
-| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 avec ses index et ses partitions (D1292–D1293) ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | ses points d'API | — | le stockage de ses champs `rgpd:`, son module soumis ; ses actes du socle et ses opérations comme traitements, son wizard comme suite (D1317–D1318) ; son bloc `rgpd:` (D1325) ; son état pour la limitation ; sa rétention par `rgpd.anonymize` (D1334) | son titre dans la vue d'ensemble | ses usages, ses anomalies | ses écarts dans « ce qui change » de la page des versions (§9) ; l'enregistrement cité par un ticket (D1364) | — |
-| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3, l'index que son `searchable:` ou son identité lui vaut (D1292), la partition qu'il porte (D1293) | son exposition (D20) | — | son marquage `rgpd:` — `personal`, `sensitive`, `consent`, `identity` (D695, D1332) —, par lui-même ou par son type ; son niveau de confidentialité, son audit (D703), sa rétention calculée, les traitements qui le touchent ; `identity`, le point de départ de `rgpd.extract` | — | sa diversité, ses valeurs inemployées | ajouté, renommé, retypé, supprimé — « ce qui change » (D1347) | — |
-| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa forme en clair tel qu'appliqué, sa déclinaison, ses indicateurs, son exemple (D1301) ; les modes de recherche qu'il admet, origines des index (D1292) ; son entrée à l'annexe B | — | — | le marquage qu'il porte (D1178) — `personal`, `sensitive`, `consent`, `identity` —, hérité par tout champ qui l'emploie ; le registre se lit par type puis par champ | — | — | un champ retypé — « ce qui change » | — |
-| le wizard | le scénario, la planche, le parcours guidé | — | — | — | une suite d'opérations — un traitement du registre quand une étape touche un champ marqué (D1318, D1329) | un cas d'usage | sa fréquence d'emploi | son bloc `assistance:` (D1372) ; le « ? » — la documentation, un ticket, une question, la recherche (D1366, D1371) | — |
+| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 avec ses index et ses partitions (D1292–D1293) ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | sa section du contrat si le compte peut l'atteindre (D1394) : les champs `public`, les actes permis, les lectures et les écritures, les liens, les exemples ; ses écarts filtrés (D1401) | — | le stockage de ses champs `rgpd:`, son module soumis ; ses actes du socle et ses opérations comme traitements, son wizard comme suite (D1317–D1318) ; son bloc `rgpd:` (D1325) ; son état pour la limitation ; sa rétention par `rgpd.anonymize` (D1334) | son titre dans la vue d'ensemble | ses usages, ses anomalies | ses écarts dans « ce qui change » de la page des versions (§9) ; l'enregistrement cité par un ticket (D1364) | — |
+| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3, l'index que son `searchable:` ou son identité lui vaut (D1292), la partition qu'il porte (D1293) | exposé s'il est `public` (D20), par son nom, le type en clair, le format de la valeur ; un écart du contrat quand il change | — | son marquage `rgpd:` — `personal`, `sensitive`, `consent`, `identity` (D695, D1332) —, par lui-même ou par son type ; son niveau de confidentialité, son audit (D703), sa rétention calculée, les traitements qui le touchent ; `identity`, le point de départ de `rgpd.extract` | — | sa diversité, ses valeurs inemployées | ajouté, renommé, retypé, supprimé — « ce qui change » (D1347) | — |
+| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa forme en clair tel qu'appliqué, sa déclinaison, ses indicateurs, son exemple (D1301) ; les modes de recherche qu'il admet, origines des index (D1292) ; son entrée à l'annexe B | sa fiche à l'inventaire (D1406) et l'entrée de la référence pour en écrire un (D1408) ; la forme de ses valeurs dans les appels et le gabarit | — | le marquage qu'il porte (D1178) — `personal`, `sensitive`, `consent`, `identity` —, hérité par tout champ qui l'emploie ; le registre se lit par type puis par champ | — | — | un champ retypé — « ce qui change » | — |
+| le wizard | le scénario, la planche, le parcours guidé | — | une suite d'opérations : son contrat d'appel quand il est exposé ; à l'inventaire, les hooks qu'il enchaîne | — | une suite d'opérations — un traitement du registre quand une étape touche un champ marqué (D1318, D1329) | un cas d'usage | sa fréquence d'emploi | son bloc `assistance:` (D1372) ; le « ? » — la documentation, un ticket, une question, la recherche (D1366, D1371) | — |
 
 **La matrice se remplit rang par rang** (D1159) : chaque rang du plan
 (le contexte, partie 5) spécifie la colonne de sa documentation pour
@@ -1979,15 +2132,18 @@ cartouche d'une édition reste signé d'un humain (D1142).
 ## 14. L'export et l'import *(le rang 1 — acquis, D1211)*
 
 L'import est un écran du module, réservé au responsable métier ou à
-l'administrateur (D211) ; il ne prend que des fichiers CSV, un par
-entité, en tout-ou-rien après un dry-run, avec un rapport cellule par
-cellule (D234, D120) ; l'export est une fonction de la liste, CSV ou
+l'administrateur (D211) ; il prend des fichiers CSV, un par entité, en
+tout-ou-rien après un dry-run, avec un rapport cellule par cellule
+(D234, D120) — **et l'Excel, l'ODS… : le CSV est le format pivot, un
+classeur regroupe des onglets dont chacun peut être un fichier CSV, une
+entité par onglet** (D1412) ; l'export est une fonction de la liste, CSV ou
 Excel, dans la facette d'affichage (D187/D120). La documentation
 **génère, pour chaque entité importable, le gabarit du fichier
 attendu** (D1211) :
 
 - **un gabarit par entité et par langue** — les en-têtes sont les
-  libellés des champs dans la langue de l'opérateur (D236) ; il se lit
+  libellés des champs dans la langue de l'opérateur (D236), **ou les
+  noms de la configuration : l'import accepte les deux** (D1414) ; il se lit
   dans les annexes de la fonctionnelle (le chapitre 7, D1183) et se
   télécharge depuis l'écran d'import ;
 - **ses colonnes** — les champs saisissables seuls (ni calculés, ni
@@ -3123,7 +3279,281 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — acquis, D1403–D1425 ; §10 porte le contrat d'API, D1393–D1402 ; la déclinaison sur le tiny et la banque, D1424)*
+
+**La troisième documentation**, celle du technicien et du concepteur
+(§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
+la version a ajouté au socle et comment en ajouter —, **enrichir** — la
+documentation de référence de Syncytium dans celle de l'application —,
+**les formats d'échange** (§14 et les webhooks) ; la skill des
+consignes pour l'IA (D1224).
+
+### 1. Étendre (D1403–D1409)
+
+**Deux faces** : **l'inventaire**, ce que cette version a ajouté au
+socle, calculé depuis la configuration ; **la référence**, comment
+écrire un hook, un type, un composant — la documentation de Syncytium,
+que l'étape 3 placera, embarquée ou liée. Les six familles de
+[hooks.md](hooks.md) — le type, le composant, l'opération, la fonction,
+le connecteur, le style — et les autres points d'extension.
+
+**La description d'un hook est déclarée, non générée** (D1403 : « la
+méthode describe() du hook est probablement décorrellée par rapport à
+ce que nous avons déjà fait. Je propose que Syncytium porte une section
+"hook:" avec une sous-section par type de hook puis une autre
+sous-section par implémentation. Pour chaque hook, une description dans
+un md avec l'utilisation de gabarit pour y intégrer les informations de
+la configuration éventuelle + une par langue supportée par le hook. »)
+— un md par langue, les gabarits de D562 qui y insèrent les
+`properties` et la déclaration du hook telles que la version les
+règle ; **Syncytium porte une section `hook:`**, une sous-section par
+famille, une par implémentation, où ses propres hooks sont décrits de
+même, et l'application y ajoute les siens ; **les langues**, la règle
+de D1162–D1163 avec l'exemple de l'auteur : « Syncytium gère les
+langues [fr, en, es, de]. Tous les hooks portés par Syncytium doivent
+obligatoirement disposer des descriptions pour chacune des langues. Un
+projet qui gère juste [fr, en]. Les propres hooks doivent
+obligatoirement disposer des descriptions pour fr et en seulement. Pas
+besoin de traiter es et de. Sinon, c'est une erreur d'ingestion. »
+**La fiche écrit la description par langue comme les autres textes**
+(D1405) — `description: { fr: ~{documentation.fr.md}, en:
+~{documentation.en.md} }`, la forme simple quand la version n'a qu'une
+langue (D1101) ; ce qui n'est pas un texte reste
+calculé depuis les déclarations du hook — la correspondance
+logique-physique du storage (D1255, D1299), la forme en clair d'un type
+(D1160) ; le `describe()` de D645 n'écrit plus de texte. Les md des
+hooks du véhicule et de la banque, monolingues, sont à compléter à la
+déclinaison de ce rang (D1405). Une version sans hook, le tiny : le
+chapitre paraît, « aucune extension », et la référence.
+
+**L'inventaire, pour le concepteur** (D1404 : « Pour le concepteur, il
+voit tous les hooks présents dans le projet. Syncytium lui indique le
+nombre de références du hook dans le projet avec des références vers sa
+localisation. ») — par famille, chaque hook : sa fiche, sa description
+dans la langue du lecteur, ses propriétés, ses langues, **le nombre de
+ses références dans le projet et les renvois vers chacune** — les
+champs typés par ce type, les opérations déclarées sur cette
+opération, les surfaces qui emploient ce composant, les environnements
+qui déclarent ce connecteur (le graphe de D1198, D1263) ; zéro
+référence, un hook inemployé, signalé. **Pour le technicien**, le même
+inventaire filtré par D1394 : les hooks d'opération qu'il peut appeler ;
+les types, les composants et les connecteurs, qui ne sont pas des
+actes, paraissent.
+
+**L'entrée d'un hook, par famille** (D1406) — **le tronc commun** : le
+nom, la famille, la description dans la langue du lecteur, les langues
+portées, la version d'apparition (D1283), les références comptées et
+localisées (D1404), **le code par son existence et son emplacement
+seuls, jamais son contenu**, dans aucune documentation (D1406, D918) ;
+**le type** : la forme en clair, l'élémentaire ou la liste de sa
+déclinaison, ses contraintes et son exemple, ses indicateurs, les modes
+de recherche admis (D1160, D1297–D1301, D1292), son entrée au glossaire
+des types (D1179), les champs qui le portent ; **le composant** : son
+visage, ses modes, les types qu'il rend, le résultat des tests du RGAA
+critère par critère (D1340), les surfaces qui l'emploient ; **le hook
+d'interface** listé à part, en tête de la famille, « code tiers au
+navigateur, sous la responsabilité du concepteur » (D918) ;
+**l'opération** : son contrat, ce qu'elle lit et écrit, ses paramètres
+et leur formulaire d'appel, `degree`, `execution`, `deterministic` et sa
+fenêtre (D697, D57, D59, D904), les connecteurs touchés, synchrone ou
+asynchrone, et ce qui l'appelle — les entités, les boutons, les
+déclencheurs, les suites ; **la fonction** : sa signature, ses types
+d'entrée et de sortie, son déterminisme, simple ou complexe pour le
+garde-fou (D104), les formules et les règles qui l'appellent ; **le
+connecteur** : sa famille et sa classe, ses paramètres sans les valeurs
+confidentielles (D944), ses `countries:` (D1345), ce qu'il déclare au
+registre, les environnements qui le déclarent, pour un storage le
+renvoi au chapitre 3 du dictionnaire ; **le style** : ce qu'il
+surcharge du thème (D752–D755), les surfaces qui l'emploient. **Ce qui
+demeure calculé** : la phrase par champ d'un type (« une mesure en
+kilogrammes, un nombre décimal et son unité »), la correspondance
+logique-physique d'un storage — des résultats de l'application du hook
+au modèle, que personne n'écrit.
+
+**Les types et les composants personnalisés** (D1407) — **un type
+traverse les documentations** : la fiche complète au développeur
+(D1406) ; sa forme en clair sur chaque champ du dictionnaire, sans la
+notion de hook (D1244) ; son entrée au glossaire des types de la
+fonctionnelle (D1179) ; son marquage au réglementaire ; la fiche dit,
+en bas, où le type paraît ailleurs. **Le visage** est vérifié à
+l'ingestion (D459) : la fiche dit par quoi le type se représente, le
+composant d'écran et le gabarit de document. **Le composant** porte le
+résultat du RGAA critère par critère (D1340) — ceux qui passent, ceux
+qui ne passent pas, ceux qui ne s'appliquent pas ; le réglementaire
+(§18) reprend le niveau d'ensemble ; **le concepteur peut écrire, dans
+le md du composant, pourquoi un critère ne passe pas et ce qui est
+prévu**, montré à côté du critère en échec. **Le hook d'interface**
+liste les pages où il est chargé (D918) ; le D.A.T. et le guide
+d'exploitation le reprennent. **La complétude** (§20) relève le md
+manquant d'un type ou d'un composant ; pas l'exemple générique absent,
+le `placeholder:` du champ y supplée.
+
+**Écrire un hook — la référence** (D1408), la documentation de
+Syncytium lui-même, six chapitres, un par famille, sur le même plan :
+**ce que la famille fait** et quand on en écrit un, les exemples du
+socle décrits comme ceux du concepteur dans la section `hook:` (D1403) ;
+**le contrat** — la signature, ce que le hook reçoit et rend, les
+propriétés de la fiche et leurs valeurs, ce que l'ingestion vérifie et
+ses erreurs en clair (D581) ; **ce que le moteur fournit** — la
+librairie d'exploration, les noms logiques, la transaction, les droits
+et la validation qu'on ne contourne pas (D572, D599), le catalogue des
+textes par langue (D1160, D1163), le storage qui fait le nécessaire
+pour un type (D1297), les tests du RGAA pour un composant (D1340) ;
+**la maison** — la fiche, le md par langue, le code, la chaîne à deux
+étages, l'éclatement libre (D644, D777, D809), les langues attendues
+(D1162–D1163) ; **essayer** — la sandbox (D907), l'ingestion, la
+complétude ; **la forme du code**, le langage, les outils — au domaine
+7. **La référence est celle du core nommé par `from:`** (D1361) :
+« uniquement ce qui est inclus, pas les versions postérieures depuis
+une version donnée » — la référence de Syncytium-1.0 pour un projet en
+Syncytium-1.0, rien de ce qu'un core ultérieur ajoute. Son emplacement,
+embarquée ou liée : l'étape 3.
+
+**Ce qui s'écrit, et la skill** (D1409) : rien de nouveau pour
+l'inventaire — le md par langue et les `properties` existent. **La
+skill des consignes pour l'IA** (D1224) a **deux couches**, comme le
+catalogue des langues (D1163) : **celle du core**, livrée et versionnée
+avec Syncytium-1.0 — la grammaire des clés tirée du méta-schéma (D44),
+les règles d'ingestion, les recommandations d'écriture (D1084–D1085,
+D1097, D1100), les exemples du socle — ; **le complément de la
+version**, généré depuis la configuration — les hooks et les types du
+projet avec leur fiche et leur md, le glossaire des termes du métier
+(D1180), les conventions du projet — et un texte libre, « ce que l'IA
+doit savoir de cette application », `skill:` dans le `documentation.yml`
+du projet, par langue (§12). L'IA charge les deux. **Le core porte sa
+skill ; le projet peut y ajouter un complément, jamais un remplacement
+ni une substitution** (D1410) — à la différence du catalogue des
+langues (D1163), rien ne se surcharge. La skill se génère
+comme le reste, déterministe (D1225) ; elle se lit au concepteur dans
+la documentation du développeur et s'exporte en édition machine, un
+dossier de fichiers pour l'assistant IA (D1152) ; sa forme, au domaine
+7 ; elle n'entre pas dans le contrat d'API du technicien. Le contenu de
+la couche du core se détaille à l'étape 3, avec la référence.
+
+### 2. Enrichir — la référence de Syncytium dans la documentation de l'application (D1410–D1411)
+
+**Trois matières de Syncytium, trois sorts** (D1411) : **les textes du
+socle**, ce que toute application fait — déjà embarqués dans la
+fonctionnelle, le chapitre 2 de §6, bornés à ce que la version emploie
+(D1189) ; **la référence du développeur** — écrire un hook (D1408), la
+grammaire des clés — **embarquée entière**, non bornée : le concepteur
+la lit pour ajouter ce que sa version n'emploie pas encore ; elle
+voyage avec le core que `syncytium init` récupère (D1358, D1360), elle
+est servie par l'application comme le reste (D1348), dans la langue du
+lecteur parmi celles du core (D1162), et ne change qu'avec lui ;
+**Syncytium comme produit** — les décisions, l'architecture, l'étude
+comparative, le rang 10 (D1316) — **lié, jamais embarqué** : le lien
+pointe la version du core, Syncytium-1.0, sur le dépôt de Syncytium,
+la règle de D1408 tient ; sans accès au dépôt, le lien est une adresse,
+pas un manque. **La couche du core de la skill** (D1409) : la grammaire
+des clés tirée du méta-schéma (D44), par niveau, avec les types de
+valeurs et la cascade (D359) ; les règles d'ingestion et leurs erreurs
+en clair ; les recommandations d'écriture — l'intro avant chaque clé,
+les 120 caractères, les propriétés plutôt que les commentaires, les
+références `~{…}` et les orphelins (D1084, D1085, D1097, D1100, D956,
+D1082) ; les exemples du socle, le tiny en premier (D1026) ; la
+référence des hooks ; **le core porte sa skill, le projet n'y ajoute
+qu'un complément** (D1410). **Où** : un chapitre « La référence de
+Syncytium-1.0 » après l'inventaire ; la console de §10 y renvoie pour
+les actes du socle ; l'édition machine emporte la skill ; l'édition
+imprimable n'imprime la référence que sur demande, chapitre par
+chapitre. **La complétude** (§20) ne mesure rien ici. **Un projet
+`private`** (D1151) montre la référence à son concepteur et à ses
+techniciens : « Cela montre l'éventail des éléments techniques à
+disposition du concepteur. »
+
+### 3. Échanger — les formats d'échange (D1412–D1423)
+
+**Les formats de l'import** (D1412 : « l'import CSV, l'import EXCEL,
+l'import ODS ... le format pivot est du CSV. Le fichier EXCEL ou l'ODS
+regroupe des onglets où chaque onglet peut être un fichier CSV. ») —
+le CSV pivot, un classeur = un onglet par entité (§14). **Deux facettes
+du même import** (D1413 : « Nous laissons le choix sans conseil car ce
+ne sont que 2 facettes de l'import. ») — le lot de transactions de
+l'API (D101) et le fichier ; le chapitre décrit les deux, sans
+recommander. **Le gabarit technique** (D1414) — celui de §14, pour le
+programme qui produit le fichier : **l'en-tête par les noms** de la
+configuration, stables d'une langue et d'une version à l'autre sauf
+renommage dit par les écarts (§9) — **l'import accepte les deux
+en-têtes**, par libellés dans une langue de la version ou par noms
+(D1414 : « nous autorisons les 2 ») ; **une table par colonne** — le
+nom, le type en clair tel qu'appliqué, le format de la cellule fixé par
+le type et non par la langue (la date en ISO, le booléen `true`/`false`,
+le séparateur du décimal), l'obligation, le défaut, les valeurs d'un
+énuméré **par leur code**, une référence par la clé de rapprochement de
+l'entité cible, la clé de rapprochement de la ligne (D1035, D1171) ;
+**les colonnes absentes** — les calculés, les fichiers, les
+communications (D236), les champs que le compte ne peut pas écrire
+(D1394) ; les colonnes `rgpd:` marquées ; **la ligne d'exemple** par les
+placeholders, jamais une donnée ; **le classeur** (D1412) — un onglet
+par entité, nommé par l'entité, dans l'ordre des dépendances ; le
+gabarit se télécharge en CSV, Excel ou ODS ; **l'export miroir** (D237)
+se lit avec le même gabarit, les deux modes et le dry-run rappelés
+(D235). **Les webhooks entrants** (D1415), une section par point
+d'entrée de la version : **la route et le mode** — `api/<version>/webhook/<nom>`,
+get, put, post ou delete (D624, D640) ; **la route porte la version,
+sans en-tête de surcharge** (D1415 : « La route porte la version. pas
+de surcharge, c'est inutile. ») — une beta s'appelle par sa route ;
+**les versions atteignables sont la dernière production et les beta**
+(D1416, D1418 : « La dernière version active est la dernière version en
+production, ou une des versions beta. » ; « Le n° de la version permet de cibler la version disponible.
+si la version n'est pas disponible, une erreur 303 (obsolete) ou 404
+sera à retourner ») — fixé par D1417–D1419 : une production dépassée
+sert avec les en-têtes de dépréciation, **426** sous la minimale,
+**410** rejetée, **404** jamais déclarée ; le même jeu de codes qu'à
+l'API, dans la table des erreurs du chapitre en tête ;
+**les paramètres**, en en-tête ou à l'URL, par leur nom, leur type en
+clair, leur obligation, leur description ; **l'authentification**, la
+même que l'API, le porteur (D642, D917), le « pour le compte de » s'il
+est admis ; le point d'entrée ne paraît pour un compte que si
+l'opération qu'il déclenche lui est permise (D1394) ; **l'opération
+déclenchée** (D641, D609) et son contrat, ce qu'elle lit et écrit, son
+md ; **la réponse**, synchrone, ou le 202 avec la ressource de suivi
+quand l'opération est une tâche (D24, D87) ; les erreurs, celles du
+chapitre en tête ; **dans la console**, l'exemple d'appel et le bouton
+pour l'essayer sur l'environnement choisi (D1398–D1399), une écriture
+demandant confirmation ; **les écarts** — un point d'entrée ajouté,
+retiré, ou aux paramètres changés, un écart du contrat (D1401).
+**Les webhooks sortants** (D1420), une section par connecteur
+`webhook` sortant de la version (D606) : **ce qui sort par lui** — les
+notifications dont il est le canal, sur les opérations, les
+déclencheurs et `notify:` (D108, D1167) ; l'anomalie d'une tâche lancée
+par l'API, renvoyée au déclencheur (D87) ; les opérations dont le
+contrat écrit vers lui — chaque émission nommée, avec ce qui la
+déclenche ; **le contrat de ce que le technicien recevra**, par
+émission — la destination telle que l'environnement la déclare, sans
+ses secrets (D944), le mode, le gabarit du message résolu avec des
+valeurs d'exemple, jamais une donnée, les champs par leur nom et leur
+type en clair, les pièces jointes, la réponse attendue de son système ;
+**comment l'authentifier** — le mécanisme par son nom, jamais sa
+valeur ; **la clé d'émission, portée par le socle** (D1420 : « Lorsque
+le webhook sortant est sollicité, le message est stocké et identifié
+par Syncytium. Puis, le message est envoyé avec cet identifiant. Si le
+message est reçu 2 fois par le destinataire, c'est au destinataire de
+le refuser s'il a déjà traité le premier. ») — **et le socle marque
+son état** (D1421, D1423) : en attente, envoyé, acquitté, en erreur
+avec le motif, abandonné après les reprises ; **et garde une
+trace de tous les envois** (D1422) — chaque message, son identifiant,
+sa date, son état, ses tentatives ; la rétention au nettoyage (D1073),
+à régler au guide d'exploitation ; **la reprise** —
+`retry:`, `timeout:`, la position de sécurité (D625), le doublon
+possible et l'idempotence au destinataire (D87) ; **le filtre** — une
+émission paraît si l'opération ou la notification qui l'émet est
+visible du compte (D1394), le connecteur par son nom, sa famille, ses
+`countries:` (D1345) ; **dans la console** — l'exemple du message tel
+qu'il partira, sans bouton, c'est l'application qui émet ; à
+l'instance, le dernier envoi de chaque émission — le message stocké,
+son identifiant, sa date, son état (D1157, D1421) —, que chacun voit pour les
+envois que ses appels ont déclenchés ; l'historique entier à l'instance,
+pour l'administrateur et la supervision (§23). **L'édition machine des
+échanges** (D1423) : le gabarit en fichier, CSV, Excel ou ODS ; le
+contrat des webhooks entrants et sortants dans le format standard de
+description d'API, avec le reste du contrat ; la forme au domaine 7
+(D1025, D1165). **Ce qui s'écrit** : rien de nouveau — la `description:`
+de l'entrée du webhook et de l'opération, le `placeholder:` pour
+l'exemple ; la complétude (§20) relève une entrée sans description.
+
+## 28. Les points ouverts *(rafraîchis à la clôture du rang 5, le 24/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -3150,9 +3580,9 @@ comme chapitre (§19 → §22, D1187).*
 7. *(clos le 14/10 — §8 acquis, D1287–D1290 ; le seuil par la courbe de
    Pareto, 80/20)* ;
 8. *(clos le 14/10 — §9 acquis, D1281–D1283)* ;
-9. la documentation de l'API — le principe ici, la forme au domaine 7
-   (§10) ; les écarts filtrés par l'exposition pour le technicien
-   (D1285), au rang 5 ;
+9. *(clos le 24/10 — le rang 5 entier, D1393–D1425 : la console
+   interactive aux droits du compte, les écarts filtrés, la forme au
+   domaine 7)* ;
 10. les pièces encore en proposition, à arbitrer à leur rang : le
     guide d'exploitation (§17) — §18, la conformité, acquise au rang 3
     (D1317–D1344) —, la complétude et son seuil (§20), la maintenance (§23 — la part de chaque lecteur,

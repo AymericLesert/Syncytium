@@ -617,6 +617,15 @@ l'amorçage qui lit `from:`, récupère le core, ingère, crée l'instance
 régulière `every:` (D1366) ; **la notification** des tickets au groupe
 désigné (D1372).
 
+**L'administration, dans la documentation du développeur** (la colonne
+3 — le rang 5) : **le compte technique** et sa clé — le mécanisme dit
+sans sa valeur, l'administrateur la remet (D1397) ; **l'épinglage de
+version** et sa bascule tracée (D98) ; **la console**, ses paramètres
+dont l'environnement (D1399) ; les versions servies — la dernière
+production et les beta, 200 avec `Deprecation` pour une production
+dépassée, 426, 410, 404 (D1418–D1419) ; la trace des envois sortants et
+sa rétention au nettoyage (D1422).
+
 **Les autres colonnes** — à leur rang : le guide d'exploitation (le
 rang 7 — l'installation, la configuration, la supervision, les
 opérations de maintenance, D1134) ; la maintenance (le rang 8 — les

@@ -569,3 +569,102 @@ proposition)*
    supervision (chapitre 14), l'assistance (chapitre 16) et la
    troisième source n'existent qu'avec l'instance — la documentation du
    dépôt les montre vides, avec leur cadre.
+
+## Le développeur — la déclinaison du tiny (le rang 5)
+
+*(La déclinaison du rang 5, écrite le 24/10/2026 sur §10 et §27 de
+documentation.md — D1393–D1423. Le tiny a une version, la 1.0.0.0 en
+production (D1115), une entité à quatre champs, aucun hook, aucun
+webhook, aucun groupe déclaré : il montre le contrat d'API dans sa
+forme la plus nue. La forme des adresses et des exemples est au
+domaine 7 ; les exemples ci-dessous sont des silhouettes. **Confirmée
+le 24/10/2026 — D1424.**)*
+
+---
+
+> # tiny — Le développeur
+>
+> ## 1. Le contrat d'API — la version 1.0.0.0
+>
+> *La console : l'authentification, puis les paramètres — la version
+> (1.0.0.0, la seule publiée), « pour le compte de » (aucun compte
+> nominatif déclaré), la langue, l'environnement (`home`, le seul).*
+>
+> ### S'authentifier
+>
+> L'environnement `home` ne déclare pas d'authentification : les
+> défauts du poste (D1114) — *ma lecture* : `none` (D759), l'utilisateur
+> par défaut au degré `administrator`, aucun défi ; le contrat le dit et
+> les exemples ne portent aucun porteur (confirmé, D1424).
+>
+> ### Choisir sa version
+>
+> 1.0.0.0, la dernière production, la seule version déclarée ; aucune
+> beta, aucune dépréciée. Une autre version visée : 404.
+>
+> ### Les réponses d'erreur
+>
+> 401 et 403 (sans objet sous `none`), 404, 422 — la validation :
+> `nom` et `prenom` obligatoires (l'identité, D1170), `age` un entier,
+> `nom` et `prenom` de 40 caractères au plus, `fonction` de 60 —, 426 et
+> 410 (sans objet), 429 et `Retry-After` (15 requêtes par seconde,
+> D105), 202 (sans objet : aucune opération asynchrone).
+>
+> ### `annuaire.personne` — Les membres de l'entreprise
+>
+> **Les champs exposés** (tous `public`, le défaut de D25) :
+>
+> | le champ | le type en clair | obligatoire | le défaut |
+> |---|---|---|---|
+> | `nom` | un texte de 40 caractères au plus | oui (l'identité) | — |
+> | `prenom` | un texte de 40 caractères au plus | oui (l'identité) | — |
+> | `age` | un entier | non | — |
+> | `fonction` | un texte de 60 caractères au plus | non | — |
+>
+> **Les opérations** : les quatre actes du socle — créer, lire,
+> modifier, supprimer ; aucune opération déclarée. **Les lectures** :
+> l'unitaire par l'identité `nom` + `prenom`, la liste, l'intégralité
+> par curseur ; les critères : l'identité, aucun `searchable:`. **Les
+> écritures** : l'unitaire, le lot de transactions. **Les liens** :
+> aucun.
+>
+> **Les exemples** *(les silhouettes ; la forme au domaine 7)* — lire :
+> `GET …/1.0.0.0/annuaire/personne/{nom}/{prenom}` ; lister :
+> `GET …/1.0.0.0/annuaire/personne?cursor=…` ; créer :
+> `POST …/1.0.0.0/annuaire/personne` avec
+> `{ "nom": "…", "prenom": "…", "age": 0, "fonction": "…" }` — les
+> valeurs d'exemple, aucun `placeholder:` déclaré, celles des types
+> (D1307) ; modifier : `PUT …/{nom}/{prenom}` ; supprimer :
+> `DELETE …/{nom}/{prenom}` ; un lot : deux transactions, une création
+> et une modification, la remontée par transaction (D101). *Chaque
+> exemple se lance depuis la console sur `home` ; une écriture demande
+> confirmation.*
+>
+> **Les écarts** : aucune version précédente, aucun « à venir ».
+>
+> ## 2. Étendre
+>
+> *Aucune extension* : aucun hook, aucun type ni composant
+> personnalisé. **La référence de Syncytium-1.0** — écrire un hook, les
+> six familles — est embarquée entière (D1411).
+>
+> ## 3. Enrichir
+>
+> La référence de Syncytium-1.0 ; le lien vers la documentation du
+> produit, épinglé à la version du core. La skill : celle du core ;
+> aucun complément, `skill:` absent.
+>
+> ## 4. Échanger
+>
+> **Le gabarit** `personne` par les noms : `nom ; prenom ; age ;
+> fonction` — l'import accepte aussi l'en-tête par libellés, ici les
+> gabarits du socle `${name}` (D1181) ; la clé de rapprochement `nom` +
+> `prenom` ; la ligne d'exemple par les placeholders des types ; en CSV,
+> Excel ou ODS, un onglet `personne`. **Les webhooks** : aucun, entrant
+> ni sortant.
+
+---
+
+*Ce que le tiny ne montre pas : le filtre de D1394 (un seul compte,
+qui peut tout), le « pour le compte de », les écarts, les hooks — la
+banque les porte.*

@@ -508,6 +508,14 @@ lecture** — la page des versions, le dépôt, le texte du support et
 de `manager` (D1347, D1377) ; un ticket se lit par son auteur et par le
 groupe, une question close par tous, dans sa langue (D1373, D1381).
 
+**Les groupes et les droits, dans la documentation du développeur** (la
+colonne 3 — le rang 5) : **le filtre du contrat** — un compte technique
+ne voit que ce que ses groupes et l'exposition lui permettent, rien en
+négatif, l'astérisque excepté (D1394–D1395) ; **« pour le compte de »**,
+l'intersection des droits (D1396) ; l'édition produite pour un compte
+(D1400) ; le concepteur voit tout l'inventaire (D1404) ; un projet
+`private` montre la référence (D1411).
+
 **Les autres colonnes** — à leur rang : ; le guide d'exploitation (les groupes et leur gestion, les
 affectations D341) ; la promotionnelle (le mode public, `visibility:`
 D1151).

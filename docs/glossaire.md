@@ -191,6 +191,24 @@ vers une analyse claire de l'information ; ouvert par les deux
 glossaires ; une annexe de la fonctionnelle. *(documentation.md §15,
 D1179–D1180, D1212–D1216)*
 
+**Contrat d'API** — Ce que la documentation du développeur donne au
+technicien pour chaque version publiée : une console interactive dans
+l'application, qui s'authentifie, prend ses paramètres (la version,
+« pour le compte de », la langue, l'environnement) et n'affiche que ce
+que le compte technique a le droit d'appeler — le chapitre commun en
+tête, une section par entité permise, les exemples d'appel lancés
+depuis la console, les écarts entre versions ; la même description en
+édition pour un compte, ou au format machine. *(D1393–D1402, D1425)*
+
+**Skill (les consignes pour l'IA)** — Le paquet qu'une IA charge pour
+écrire ou améliorer une configuration Syncytium : la couche du core —
+la grammaire des clés, les règles d'ingestion, les recommandations, les
+exemples du socle —, versionnée avec lui ; le complément de la version,
+généré depuis la configuration — ses hooks, ses types, son glossaire,
+ses conventions — et le texte libre `skill:` du projet, un complément,
+jamais un remplacement. Générée, déterministe ; lue au concepteur,
+exportée en édition machine. *(D1224, D1226, D1409–D1410)*
+
 **Documentation (la facette)** — Chaque composant porte sa
 documentation, comme il porte son affichage ou son stockage ; chaque
 type de composant la décline dans chacune des neuf documentations ;

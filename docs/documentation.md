@@ -563,7 +563,8 @@ décisions, D1170–D1238.)*
      — par environnement, les silhouettes par le moteur, le réseau en
      texte porté par la description de l'environnement ;
   2. les environnements et leur rôle (D339, D112–D114), les flux et
-     les ports ;
+     les ports : **acquis le 24/10/2026 (D1427)** — la table, les
+     relations calculées, les flux et les ports, `listen:` par le `.env` ;
   3. le paramétrage externe : les variables `${…}` que la
      configuration référence (calculables), les comptes chez les
      tiers, les certificats (D919), le DNS, le pare-feu (écrits) ;
@@ -3555,7 +3556,7 @@ description d'API, avec le reste du contrat ; la forme au domaine 7
 de l'entrée du webhook et de l'opération, le `placeholder:` pour
 l'exemple ; la complétude (§20) relève une entrée sans description.
 
-## 28. Le D.A.T. — l'architecture technique *(le rang 6, étape 1 — en cours : le schéma des connexions, D1426)*
+## 28. Le D.A.T. — l'architecture technique *(le rang 6 — en cours ; l'étape 1, le schéma, D1426 ; l'étape 2, les environnements, D1427)*
 
 **La quatrième documentation** (D1134) : « une description des
 inter-connexions entre l'application et son environnement + l'ensemble
@@ -3592,8 +3593,40 @@ flux, qui tient le pare-feu et le DNS ; le D.A.T. la place sous le
 schéma. **Le rendu** : Mermaid, aux contraintes notées (D1278) ; la
 forme au domaine 7.
 
-*Les étapes 2 à 4 — les environnements et leur rôle, le paramétrage
-externe, le dimensionnement et les dépendances — à venir.*
+### 2. Les environnements et leur rôle, les flux et les ports (D1427)
+
+**La table des environnements déclarés** : le nom, la nature — le
+staging, la production active, la production passive (D339), la sandbox
+et sa référence (D907) —, le rôle, la version et le statut servis, beta
+sur le staging, production sur la production (D340) ; pour le passif,
+l'actif qu'il double ; sous chaque ligne, le texte du réseau porté par
+la `description:` de l'environnement (D1426). **Les relations entre
+environnements**, calculées : la copie de la production vers le staging
+et son mode de synchronisation (D112–D113), l'actif vers le passif
+(D114), la référence vers la sandbox (D907) ; un trait par relation sur
+le schéma, avec ce qu'elle emporte — les données, `_migration`,
+`_assistance`, les fichiers de détail avec `--with-storage` (D1080,
+D1387). **Les flux et les ports**, par environnement et par
+connecteur : le protocole et le port de la classe, le sens, ce qui
+circule ; pour l'instance, l'adresse et le port qu'elle sert en HTTPS
+(D919), les routes de l'API et des webhooks ; une table que l'équipe
+réseau lit pour ouvrir ce qu'il faut, sans que Syncytium décide des
+règles (D1426). **L'adresse et le port de l'instance entrent dans la
+configuration par des variables d'environnement** (D1427 : « le
+listen:url + port est à mettre à la configuration mais via des
+variables d'environnement (.env). En fait, cela relève du déploiement
+et cela n'est pas porté par Syncytium et il ne doit pas être nécessaire
+de changer de version si une configuration réseau change. ») — *ma
+lecture* : `listen: { url: ${SYNCYTIUM_URL}, port: ${SYNCYTIUM_PORT} }`
+dans `environments/<env>.yml`, en proposition, les valeurs dans le
+`.env`, hors des versions (D325, D342) ; le D.A.T. les montre résolues.
+**Les journaux** : le niveau par environnement (D343), l'emplacement, le
+puits, sans valeur confidentielle ; la lecture au guide d'exploitation.
+**Ce qui s'écrit** : la `description:` de l'environnement ; un
+environnement sans description est relevé par la complétude (§20).
+
+*Les étapes 3 et 4 — le paramétrage externe, le dimensionnement et les
+dépendances — à venir.*
 
 ## 29. Les points ouverts *(rafraîchis à la clôture du rang 5, le 24/10/2026)*
 

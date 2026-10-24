@@ -417,6 +417,15 @@ qu'aucune clé ne cite est un orphelin.
 
 ### 3.2 `environments/` — la configuration technique commune (D325/D342)
 
+**`listen:` — l'adresse et le port servis, par le `.env`** (D1427, en
+proposition) : « le listen:url + port est à mettre à la configuration mais
+via des variables d'environnement (.env). En fait, cela relève du
+déploiement et cela n'est pas porté par Syncytium et il ne doit pas être
+nécessaire de changer de version si une configuration réseau change. » —
+`listen: { url: ${SYNCYTIUM_URL}, port: ${SYNCYTIUM_PORT} }` dans
+`environments/<env>.yml`, les valeurs dans le `.env` de l'environnement,
+hors des versions ; le D.A.T. (documentation.md §28) les montre résolues.
+
 **Un dossier par environnement** : ce qui est commun à toutes les
 versions mais propre à chaque environnement — les connecteurs, les
 journaux, les settings techniques, la documentation. Les environnements

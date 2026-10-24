@@ -49,15 +49,17 @@ droits à [rights.md](rights.md).*
 | la propriété | la nature | D |
 |---|---|---|
 | `name:` | le nom de l'entité — **l'invariant, quelle que soit la langue** ; la référence `<module>.<entité>` en découle | D124, D394, D765, D1120 |
-| `title:` | **le nom d'usage** — le texte montré : l'entrée de menu par défaut, la vue d'ensemble du modèle, les titres de la documentation ; par langue (texte simple à une langue — D1101) ; sans lui, le `name:` ; au singulier (ma lecture) | D1120 |
+| `title:` | **le nom d'usage** — le texte montré : l'entrée de menu par défaut, la vue d'ensemble du modèle, les titres de la documentation ; par langue (texte simple à une langue — D1101) ; sans lui, le `name:` ; au singulier (ma lecture) ; au singulier, confirmé — le `label:` de l'entrée de menu dit le pluriel ; le même mot que le `title:` des surfaces, un formulaire sans `title:` prend celui de l'entité | D1120, D1277 |
 | `hint:` | **la description courte** — la précision d'un mot (l'alignement D258, le nom D840) | D124, D258, D840 |
 | `description:` | **la description longue** — l'aide détaillée : le masque d'explication de la surface (D209), la matière du tutoriel | D209, D258 |
 | `label:` | **le visage texte** — un gabarit `{champ}` (« `{nom}` », « `{libelle}` ») ; le champ `image` de l'entité est le visage image (D386) | D397, D803 |
-| `identity:` | **la clé fonctionnelle** — la liste des champs (`[nom]`, `[numero]`) ; **toute entité en porte une**, la sienne ou celle de sa racine, que les dérivés conservent (D1035/D1039) ; l'identité interne reste l'UUID (D142), hors déclaration ; pour une composition, la clé vaut au sein du possesseur — elle ouvre l'accès `collection[<clé>]` (D841) ; **la clé composée s'énumère** (`[v1, v2]` — une valeur par identifiant), **l'étendue globale passe par l'entité** (`transport.consommation[…]` — la clé du/des parents en tête, D842) ; **ses champs sont obligatoires sans `required:`** — cela découle de la définition (D1170) | D141–D142, D357, D841–D842, D1170 |
+| `identity:` | **la clé fonctionnelle** — la liste des champs (`[nom]`, `[numero]`) ; **toute entité en porte une**, la sienne ou celle de sa racine, que les dérivés conservent (D1035/D1039) ; l'identité interne reste l'UUID (D142), hors déclaration ; pour une composition, la clé vaut au sein du possesseur — elle ouvre l'accès `collection[<clé>]` (D841) ; **la clé composée s'énumère** (`[v1, v2]` — une valeur par identifiant), **l'étendue globale passe par l'entité** (`transport.consommation[…]` — la clé du/des parents en tête, D842) ; **ses champs sont obligatoires sans `required:`** — cela découle de la définition (D1170) ; écrite `identity:`, l'identité se nomme « identity » par défaut (D1304) | D141–D142, D357, D841–D842, D1170 |
 | `identities:` | **plusieurs identités, nommées** — une carte ordonnée, un nom par identité et la liste de ses champs (`identities: { mensuelle: [client, mois], numero: [numero] }`, en bloc) ; exclusive de `identity:` (les deux = une erreur d'ingestion) ; **la première déclarée est l'identité de naissance** : ses champs obligatoires (D1170) ; **les suivantes sont acquises** : leurs champs non obligatoires, le `counter` attribué à la validation y a sa place ; une identité dont un champ est nul ne vaut pas pour l'enregistrement, chacune est une clé parmi les actifs (D141) ; l'accès par la clé vise la première, une autre se nomme — `factures[numero: v]` *(ma forme)* ; la racine porte les identités, les dérivés les conservent (D1039) ; la documentation les nomme | D1170–D1171 |
 | `states:` | **le porteur du cycle de vie** — le champ énuméré désigné (`states: statut`) ; l'entité à hiérarchie a son statut dans ses positions (D353), jamais les deux | D424 |
 | `inheritance:` | l'enfant référence son parent — la hiérarchie se lit chez le parent (le bloc `states:` D353) | D353 |
 | `fields:` | les champs — le bloc ou la référence (`fields: fields.yml`) | D767 |
+| les groupes de champs, dans `fields:` | **un groupe est une clé de la carte des champs qui porte `fields:` et `title:`, sans `type:`** (D1279 — amende D1273 ; le critère validé, D1289) : `classification: { title: La classification, fields: ~{classification.yml} }` ou le bloc en place ; les champs hors groupe forment **le groupe implicite** ; les noms de champs restent uniques dans l'entité et s'adressent sans le groupe ; un groupe ne s'emboîte pas ; l'ordre est celui du fichier ; le `title:` texte simple à une langue, par langue à plusieurs (D1101). Le diagramme fait un compartiment par groupe, la table du dictionnaire une section, **le formulaire par défaut un onglet par groupe, l'implicite en en-tête au-dessus des onglets** (D1273). Un champ à `type:` et `fields:` est une liste de valeurs composées (D115), pas un groupe | D1273, D1275, D1279 |
+| `partition:` | **le découpage physique de la table** — le ou les champs dont les valeurs la partitionnent (`partition: date_comptable[year]`, `partition: [site, statut]`), par période pour une date ; sans déclaration, pas de partition ; le storage décide la forme, le `describe(model)` la rend (connectors.md) | D1293, D1300 |
 | `operations:` | les opérations — le bloc ou la référence ; le mapping ordonné, l'ordre = les boutons | D432 |
 | `gui:` | la présentation — le bloc ou la référence | D767 |
 | `validation:` | les règles inter-champs — la liste d'expressions booléennes (D90), le `if` suffixé (« `date_operation = owner.ouverture if budget = "OUVERTURE"` ») ; l'évaluation **au scellé** de la transaction | D156, D594, D824 |
@@ -111,6 +113,17 @@ km_initial:
   hint:
     fr: Le compteur au retrait du véhicule — la première ligne de consommation en part.
 ```
+
+**Les groupes de champs** (D1273, D1279–D1280). Dans la même carte, une
+clé qui porte `fields:` sans `type:` est un groupe : son `title:` par
+langue, ses champs en place ou dans un fichier référencé — un fichier
+par groupe dans le cas 5 (`prix: { title: Les prix, fields: ~{prix.yml}
+}`). Les champs hors groupe forment le groupe implicite ; les noms
+restent uniques dans l'entité et s'adressent sans le groupe ; un groupe
+ne s'emboîte pas ; l'ordre est celui du fichier. Le groupe est une vue :
+un compartiment du diagramme, une section de la table du dictionnaire,
+un onglet du formulaire par défaut — l'implicite en en-tête de l'écran,
+au-dessus des onglets.
 
 **Les propriétés du champ.**
 
@@ -186,24 +199,25 @@ l'entité y devient *(en proposition)* :
 
 *(Amendé par D1213 : « uniquement le nom du module, de l'entité et du
 champ », des effets de style, les listes en liens — ma correspondance
-UML stricte est retirée.)*
+UML stricte est retirée. Acquise ligne à ligne par les blocs de §5,
+D1266–D1278.)*
 
-| la configuration | le diagramme (D1213) |
+| la configuration | le diagramme (D1213 ; la table acquise, D1278) |
 |---|---|
-| le module | le paquetage ; dans la vue des modules (D1214), une boîte par module, un lien par référence ou association entre deux modules |
-| l'entité (`name:`) | la classe, par son nom ; le parent abstrait (D1035 — `tiers`) en italique |
-| `inheritance:` | la généralisation — le triangle vers le parent (D143–D145) |
-| le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit |
-| `identity:` / `identities:` | **souligné** |
+| le module | le paquetage ; dans la vue des modules (D1214, D1266), une boîte par module, la flèche dans le sens de la dépendance, un seul trait par sens, sans poids ; les associations dérivées font flèche aussi — les liens bidirectionnels |
+| l'entité (`name:`) | la classe, par son nom ; le parent abstrait (D1035 — `tiers`) en italique — `<<abstract>>` en attendant l'outil (D1268) |
+| `inheritance:` | la généralisation — le triangle vers le parent (D143–D145, D1278) |
+| le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit ; seuls les champs de valeur sont des lignes : tout champ qui pointe vers une entité est un lien (D1270) ; **un compartiment par groupe** (les groupes dans `fields:`, D1273/D1279), l'implicite en tête |
+| `identity:` / `identities:` | **souligné** ; l'identité écrite `identity:` se nomme par défaut « identity » (D1304) |
 | `formula:` | *italique* |
 | `confidentiality:` au-dessus de `public` (D25), ou `rgpd:` (D695) | **« * »** — le champ sécurisé |
-| le champ cible d'une référence (D396) ou d'une association (D405) dans une autre entité | **gras** |
-| `type: <entité>` — la référence | un lien vers la cible (le champ en gras chez la cible) |
-| `type: list of <entité>` — la composition (D115) | un lien — « les listes apparaissent comme des liens » ; trait plein (ma convention, l'outil au domaine 7) |
-| `type: association with <entité> if …` — l'association dérivée (D405) | un lien en pointillé (ma convention) — à la vue sélective du module et à la vue d'ensemble des entités |
-| `type: list of [ … ]` — la liste de valeurs composées | le nom du champ ; pas une classe |
-| `states:` | un diagramme d'états à part : les valeurs du champ-statut, les passages permis (D422) |
-| `operations:`, `required:`, `history:`, `hint:`, `description:`, `placeholder:` | rien au diagramme — la table du dictionnaire (D1215) et le registre (D698) |
+| le champ cible d'une référence (D396) ou d'une association (D405) dans une autre entité | **gras** — chez la cible, sur le champ d'identité visé (D1278) |
+| `type: <entité>` — la référence | un lien fléché vers la cible, **le nom du champ en étiquette, un lien par champ ; pas de ligne dans l'entité** (D1270) ; **la cardinalité par l'obligation** — « 1 » si `required:`, « 0..1 » sinon, « 0..* » pour une liste (D1278) ; le champ en gras chez la cible |
+| `type: list of <entité>` — la composition (D115) | un lien — « les listes apparaissent comme des liens » ; le losange plein et le trait plein, la cardinalité (D1268) |
+| `type: association with <entité> if …` — l'association dérivée (D405) | **le losange vide et le pointillé** (D1268), du côté de l'entité qui la porte, la cardinalité ; dans la vue d'ensemble comme dans la vue sélective ; une dépendance comme la référence (D1267) |
+| `type: list of [ … ]` — la liste de valeurs composées | **une structure interne** (D1271) : une classe **nommée par son entité — `article.tarifs`** (D1274), dans le paquetage de l'entité, ses colonnes en champs, composée par l'entité ; ses références en liens |
+| `states:` | un diagramme d'états à part (D1276) : les valeurs du champ-statut, les passages permis (D422) — le trait porte la cible et la condition `when:` telle qu'écrite, le nom de l'opération qui déclenche le passage s'il y en a une ; les actes `allow:` en note, la table des états en détail ; un par entité qui déclare `states:`, le dérivé hérite |
+| `operations:`, `history:`, `hint:`, `description:`, `placeholder:` | rien au diagramme — la table du dictionnaire (D1215) et le registre (D698) ; `required:` y est par la cardinalité (D1278) |
 
 **La table du dictionnaire** (D1215, ma forme) : une table par entité,
 une ligne par champ — le libellé avec les marques du diagramme, le type
@@ -279,9 +293,67 @@ le champ sans `label:` (D1182), sans `hint:` ni `description:` (D1199),
 l'énuméré sans libellé, l'entité sans aucun marquage `rgpd:` (D1177 —
 signalée, jamais qualifiée) ; ni `history:` tu, ni les droits tus (D1173).
 
-**Les autres colonnes** — à leur rang : l'information (le rang 2 — la
-fiche complète, les formules, le graphe des emplois et l'impact d'une
-modification, D1198) ; le développeur (ses points d'API) ; la
-réglementation (ses données `rgpd:`, sa rétention) ; la promotionnelle
+**L'entité et le champ, dans le dictionnaire de la donnée** (la colonne
+2 — le rang 2, D1241–D1302) : **l'entité** a sa sous-section au chapitre
+2.2, dans la section de son module (D1252) — sa description, ses
+identités nommées, son visage, son historisation et comment lire ses
+instantanés, son `rgpd:` ; **la table des champs par groupe** (D1273,
+D1279) — le nom, le type en clair tel qu'appliqué (D1253), le libellé en
+complément, l'aide, l'obligation, le défaut, le niveau de confidentialité
+(D1247), les exceptions d'écriture (D1311), « depuis la version x »
+(D1282, D1310) ; **ses
+règles** (D1254) — les validations, les calculés et leurs formules, les
+états avec leur graphe et leurs transitions (D1276), les automatismes ;
+toutes les entités, tous les champs (D1246). Elle figure dans les trois
+vues (D1213–D1214, D1266–D1269), sa table au chapitre 3 avec ses index
+— ceux de ses identités, de ses références, de ses `searchable:` et des
+critères de ses listes — et ses partitions (`partition:`, D1292–D1293), qui la référence à l'index 5.1
+(D1263), ses droits à la matrice 5.2 (D1264), ses données au 5.3 — le
+volume, les créations, les modifications, les suppressions, la
+répartition par état (D1287). **Le champ** a sa ligne dans la table et
+**sa section** après elle (D1283) : la description détaillée,
+l'historique et les évolutions à venir (D1285), les opérations qui
+l'écrivent et les règles qui le lisent (D1198), la télémétrie (D1216,
+D1287) — aux droits du lecteur (D1249). Un champ qui pointe vers une
+entité est un lien du diagramme, non une ligne (D1270) ; une liste de
+valeurs composées, une structure interne nommée `entité.champ` (D1271,
+D1274).
+
+**L'entité et le champ, dans la réglementation** (la colonne 5 — le rang
+3, D1317–D1344) : **le champ marqué `rgpd:`** — `personal`, `sensitive`,
+`consent`, `identity` (D695, D1332), par lui-même ou par son type
+(D1178) — fait du module un module soumis et de l'entité le stockage de
+la donnée (D1317) ; l'entité porte, dans ses settings, le bloc `rgpd:`
+du niveau entité (D1325) ; ses quatre actes du socle sont des
+traitements du registre, ses opérations déclarées aussi quand elles
+touchent un champ marqué, son wizard est une suite (D1318, D1329) ; son
+état peut servir la limitation (D1172, D1331) ; ses champs `identity`
+sont le point de départ de `rgpd.extract` ; sa rétention vient de
+l'anonymisation déclarée sur elle (`rgpd.anonymize` avec `every:`,
+D1334) ; sa table de stockage et ses colonnes protégées, par renvoi au
+dictionnaire (D1321).
+
+**L'entité et le champ, dans le projet et le support** (la colonne 8 —
+le rang 4) : **ce qui change** — par module, les champs ajoutés,
+renommés, retypés, supprimés, dépréciés d'une version à la suivante, en
+résumé sur la page des versions (D1347, §9 de documentation.md),
+l'« à venir » sur la production (D1285) ; **l'enregistrement cité par un
+ticket** — l'entité et son identifiant montrés au moment de la demande
+(D1364) ; rien d'écrit par l'entité.
+
+**L'entité et le champ, dans la documentation du développeur** (la
+colonne 3 — le rang 5) : **sa section du contrat d'API** (§10) pour le
+compte qui peut l'atteindre (D1394) — les champs `public` par leur nom,
+le type en clair tel qu'appliqué et le format de la valeur dans l'appel,
+l'obligation, le défaut, les énumérés par leur code, la `description:` ;
+les actes permis et les opérations avec leur contrat ; les lectures, la
+liste, le curseur, les critères admis (D1292) ; les écritures, le lot ;
+les liens vers les entités exposées ; les exemples d'appel lancés
+depuis la console (D1398) ; **ses écarts** filtrés par l'exposition et
+les droits, en tête et en annotation (D1401) ; **son gabarit technique**
+par les noms (D1414) ; le `hint:` et le `title:` n'y paraissent pas
+(D1402).
+
+**Les autres colonnes** — à leur rang : la promotionnelle
 (son titre dans la vue d'ensemble) ; la maintenance (ses usages, ses
 anomalies).

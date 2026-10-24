@@ -16,7 +16,7 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   D1148, a été demandé par lui).
 - **Une décision = un commit, poussé.** Message en français, ligne de titre
   `Dnnnn — ce qui est décidé`, puis le trailer d'attribution du modèle
-  courant. Branche de travail `feature/meta-schema` ; `develop` reçoit les PR
+  courant. Branche de travail `feature/documentation` ; `develop` reçoit les PR
   en squash, `main` les publications. Le reset --hard et le push --force sont
   refusés : les laisser à l'auteur.
 

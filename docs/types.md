@@ -184,7 +184,19 @@ Tout type ajouté suit le contrat de la famille (voir
 opérateurs, les comparateurs, les fonctions dédiées, le tri) et **la
 représentation obligatoire** — « aucun type sans visage » (D459).
 L'exemple fondateur : le type `progression` (`integer[0..100]` +
-`component: fuel`), le champ `avancement: progression`.
+`component: fuel`), le champ `avancement: progression`. **Le storage
+influe sur le hook de type** (D1297) : « le storage influe le hook des
+types pour définir les propriétés ou les éléments à couvrir » — la
+forme native, les gestes, l'identification, les index, la partition ;
+le type les fournit, le storage « fait le nécessaire pour exploiter au
+mieux ces données ». **La déclinaison en types élémentaires** (D1298,
+D1300 — le format pivot) : tout type Syncytium se décline **en un type
+élémentaire** — booléen, entier, long, décimal, texte… — avec ses
+propriétés génériques (`text[..40]` : la longueur maximale), **ou en
+une liste nommée d'élémentaires** — `measure` → `{ valeur: decimal,
+unite: enum }`, `amount` → `{ valeur: decimal, devise: text[3] }` (D1300) ; l'énuméré se décline en entier (l'indice) ou en texte (le
+code) ; le storage ne convertit que des élémentaires. Le contrat à
+l'étape 9 du rang 2.
 
 ## La documentation — la facette du type (D1158–D1159)
 
@@ -215,8 +227,50 @@ pour `rgpd:` (D1213). **Le hook de type** livre la même facette — le
 type en clair, ses contraintes, son exemple, dans chaque langue du
 moteur (D1162) — : « les hooks de type devront être adaptés pour que
 cela s'intègre parfaitement » (D1215) ; le contrat au rang 2, dans
-[hooks.md](hooks.md).
+[hooks.md](hooks.md). **Dans le dictionnaire de la donnée, le type en
+clair est le type tel qu'appliqué** (D1253) : « les settings deviennent
+invisibles car intégrés au type » — la facette résout les trois niveaux
+de réglages (D1239) avant de livrer sa forme (« une date, écrite
+AAAAMMJJ » — sans dire d'où vient le masque) ; il n'y a pas de chapitre
+des types ni des réglages, le type vit dans la table des champs. **Le
+hook de type livre aussi ses indicateurs de télémétrie** (D1288 — la
+liste par famille dans [telemetry.md](telemetry.md), D1287) : un type
+personnalisé dit ce qu'il mesure ; la clause entre au contrat du hook
+de type, à l'étape 9 du rang 2.
 
-**Les autres colonnes** — à leur rang : l'information (la facette
-stockage et les conversions, D119/D982), le développeur (la forme à
-l'API, D20), la réglementation (le marquage porté par le type, D1178).
+**La facette documentation du hook de type — les cinq livraisons**
+(D1301, le rang 2) : la forme en clair par langue, les réglages fondus
+(D1253) ; la déclinaison en élémentaires (D1298) — la colonne
+« stockage » du catalogue ; **les modes de recherche qu'il admet**
+(`strict`, `normalized`, `similarity`, `range` — D367/D371), origines
+des index du chapitre 3 (D1292), et s'il peut porter une partition
+(D1293 — une date par période, un énuméré) ; les indicateurs (D1288) ; l'exemple —
+le `placeholder` du type, que celui du champ surcharge (D1211,
+D1307) ; le marquage `rgpd:` (D1178). Le
+moteur résout, le type formule ; les mots au catalogue (D1160) ; un type
+dérivé hérite de la facette de son socle ; l'annexe B du dictionnaire,
+le glossaire des types, s'en construit ; sans sa facette, un type est
+complet pour tourner, incomplet pour documenter (D1221).
+
+**Le type, dans la réglementation** (la colonne 5 — le rang 3) : **le
+marquage porté par le type** (D1178) — `rgpd: personal | sensitive |
+consent | identity` sur un type personnalisé, hérité par tout champ qui
+l'emploie — ; le registre se lit alors par type, puis par champ ; le
+`sensitive` audité d'office (D703) ; la forme en clair du type dit le
+marquage (D1301).
+
+**Le type, dans le projet et le support** (la colonne 8 — le rang 4) :
+un champ retypé est un écart de « ce qui change » sur la page des
+versions (D1281, D1347) ; rien d'autre.
+
+**Le type, dans la documentation du développeur** (la colonne 3 — le
+rang 5) : **la forme de ses valeurs** dans un appel et dans une cellule
+du gabarit — fixée par le type, non par la langue (D1414) — et le type
+en clair à côté de chaque champ du contrat ; **un type personnalisé** a
+sa fiche à l'inventaire (D1406–D1407) — la forme en clair, la
+déclinaison, les contraintes, l'exemple, les indicateurs, les modes de
+recherche, le glossaire, les champs qui le portent — et l'entrée de la
+référence pour en écrire un (D1408) ; son md par langue (D1403, D1405).
+
+**Les autres colonnes** — à leur rang : la maintenance (le rang 8 —
+les valeurs inemployées d'un type, D46/D48). 

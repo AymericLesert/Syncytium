@@ -1,0 +1,88 @@
+# Les liens — les champs du groupe de l'article, référencés depuis fields.yml.
+
+fournisseur_defaut:
+  type: tiers.fournisseur
+  label: Fournisseur par défaut
+  description: >-
+    Chez l'article acheté, son fournisseur ; le produit fabriqué porte, lui, son client de référence. Absent chez
+    l'inactif.
+
+tarifs:
+  type: 'list of [tiers.tiers, tranche: text[1], date_application: date]'
+  label: Grille tarifaire
+  description: >-
+    L'hypercube de la grille tarifaire : le prix unitaire dépend du tiers, d'une tranche et d'une date d'application —
+    une cellule par combinaison. La grille se lit à toute date, le planifié se voit, et ses évolutions dans le temps se
+    visualisent. La tranche est une lettre de tarif ; son seuil de quantité est une valeur de la cellule, et sa plage
+    court jusqu'au seuil de la tranche suivante.
+  fields:
+    seuil:
+      type: decimal
+      required: true
+      label: Seuil
+      hint: La quantité à partir de laquelle le prix vaut.
+    plage:
+      type: range of decimal
+      formula: >-
+        range(seuil, owner.tarifs.min(seuil if tiers = me.tiers and date_application = me.date_application
+        and seuil > me.seuil))
+      label: Plage de quantités
+      description: >-
+        Du seuil au seuil de la tranche suivante, pour le même tiers et la même date d'application ; la dernière
+        tranche est ouverte.
+    prix:
+      type: amount
+      required: true
+      label: Prix unitaire
+    forfait:
+      type: amount
+      label: Forfait
+    valide:
+      type: boolean
+      required: true
+      default: true
+      label: Valide
+      hint: Faux archive le tarif.
+    commentaire:
+      type: text[..20]
+      label: Commentaire
+
+commandes_vente:
+  type: association with commande.ligne_vente if article = me
+  sort: [owner.date, owner.numero]
+  label: Lignes de commande de vente
+  description: >-
+    L'association dérivée des lignes qui portent l'article ; la vérité reste la référence de la ligne. Le tri, par la
+    date puis le numéro de la commande, met la plus ancienne en tête : last() rend la plus récente.
+
+commandes_achat:
+  type: association with commande.ligne_achat if article = me
+  sort: [owner.date, owner.numero]
+  label: Lignes de commande d'achat
+
+dernier_fournisseur:
+  type: tiers.fournisseur
+  formula: commandes_achat.last().fournisseur
+  label: Dernier fournisseur
+  description: Se calcule, ne se stocke pas — le fournisseur de la dernière ligne d'achat.
+
+mouvements:
+  type: association with stock.mouvement if article = me
+  label: Mouvements de stock
+  description: L'accès retour aux mouvements de l'article ; les agrégats des calculés s'appliquent à cette collection.
+
+mouvements_par_emplacement:
+  type: association with stock.mouvement if article = me
+  group: [emplacement]
+  label: Mouvements par emplacement
+  description: >-
+    La même association, groupée : une cellule par emplacement, les mouvements de la cellule dedans ; l'accès à plat
+    reste pour la dernière sortie.
+
+stock_par_emplacement:
+  type: 'list of [emplacement: stock.emplacement]'
+  formula: 'mouvements_par_emplacement.sum(sens.select(entree: quantite, sortie: -quantite))'
+  label: Stock par emplacement
+  description: >-
+    La somme s'évalue par cellule de l'association groupée, le résultat est aux dimensions du groupe ; la quantité est
+    signée par le sens, dans l'unité de stock de l'article.

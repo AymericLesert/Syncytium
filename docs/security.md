@@ -390,6 +390,11 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   **`trace: limited`** en exclusion totale (le mot de passe, la clé —
   D463/D603) ; l'entité d'audit au module d'administration, ses
   surfaces au degré `administrator`.
+- **La documentation 5** (D1336) : par module soumis, le chapitre des
+  mentions — `rgpd.notice` générée depuis le registre, ancrée par le
+  concepteur, le manque notifié sinon (D1335) — et le chapitre de la
+  journalisation des accès — l'audité, le journalisé, qui consulte, la
+  rétention de l'audit, les comptes à l'instance.
 - **La finalité sécurité de la télémétrie** (D43) : **journaliser les
   refus d'autorisation** — le carburant du canal — et les échecs
   d'authentification (D720). **Le modèle de risque** (D47) : la pente
@@ -432,7 +437,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   techniques — la surveillance des salariés est évitée par
   construction ; **la sécurité du SI reste une finalité légitime**
   pour tracer les tentatives nominatives (§6.4).
-- **Le marquage** (D695) : `rgpd: personal | sensitive | consent` — le
+- **Le marquage** (D695) : `rgpd: personal | sensitive | consent` — et
+  `identity` en proposition (D1332 — l'identité civile, le point de
+  départ de l'extraction `rgpd.extract(identity)`, D1331/D1333) — le
   modèle sait ce qui est personnel ; le `sensitive` (l'article 9)
   audité d'office (D703).
 - **L'effacement = l'anonymisation** (D137, D139, D696) : jamais une
@@ -443,14 +450,33 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   survit. `anonymize` = la dix-neuvième opération, plancher
   `administrator` (D697) ; le fichier anonymisé = le contenu détruit,
   les mots-clés cohérents (Q39).
-- **La rétention** (D698, D411) : la donnée marquée dont la rétention
-  échoit **s'anonymise d'office** ; les traces de journal à
+- **La rétention** (D698, D411, D1328, D1334) : le nettoyage
+  (`cleanup.yml`) reste aux fichiers et aux traces ; l'anonymisation
+  des enregistrements porte sa règle et sa fréquence (`rgpd.anonymize`
+  avec `every:`) ; la rétention d'une donnée est la plus longue période
+  parmi ses traitements, le registre fait la somme ; l'échéance de
+  validité est portée par l'anonymisation — la donnée marquée dont la rétention
+  échoit **s'anonymise d'office** ; les pays du stockage, `countries:` dans
+  la section `rgpd:` du connecteur (D1345) ; les traces de journal à
   rétention paramétrable et anonymisation optionnelle (D41).
 - **Le registre des traitements auto-documenté** (D698) : généré du
-  modèle — les champs `rgpd:`, leur confidentialité, leur rétention,
-  leurs connecteurs sortants ; une entité sans aucun marquage est
-  signalée à la relecture par la complétude de la documentation, jamais
-  qualifiée par le moteur — il compte, il ne devine pas (D1177) ; le
+  modèle — **une ligne par traitement, c'est-à-dire par opération qui
+  implique un champ `rgpd:`** (D1317 : les actes du socle, les
+  opérations déclarées, les règles de reprise, l'import et l'export, les
+  notifications et les webhooks, le LLM ; l'anonymisation et le
+  nettoyage comme traitements d'appui, avec leur fréquence et leur
+  règle) ; l'entité marquée décrit le stockage, le module marqué est le
+  périmètre soumis ; les champs `rgpd:`, leur confidentialité, leur
+  rétention, leurs connecteurs sortants ; **le responsable du traitement,
+  un groupe d'utilisateurs, propriété du traitement** (D1320) — dans
+  **le bloc `rgpd:` du traitement** (D1322 : `controller`, `legal` — la base
+  légale à valeurs fermées, un paragraphe par valeur au catalogue,
+  D1326 —, `purpose`… ; le même bloc dans les settings du projet, du
+  module et de l'entité, D1323–D1325 — quatre niveaux, le plus proche
+  l'emporte), « non précisé » au registre quand il
+  manque ; **un projet sans aucun champ `rgpd:` n'est pas une anomalie :
+  Syncytium ne décide pas de ce qui est réglementaire** (D1319 — amende
+  D1177 : la complétude ne relève plus l'absence de marquage) ; le
   marquage se généralise par le type personnalisé qui le porte
   (`nom: { type: text[..40], rgpd: personal }`, D1178) — le registre se
   lit alors par type, puis par champ.
@@ -673,3 +699,57 @@ décisions) : « dans cette session, je clos le point sécurité.
 Peut-être ajouterons-nous d'autres points, si nécessaire. » Ce
 document reste la vue vivante : toute décision nouvelle qui touche
 la sécurité s'y reporte, comme au §1.2 de la conception.
+
+## La documentation — la facette de la sécurité (D1158–D1159)
+
+*(La rubrique de la matrice de [documentation.md](documentation.md)
+§13 ; la colonne 5 — la réglementation — remplie au rang 3, D1317–D1344 ;
+les autres à leur rang.)*
+
+**La sécurité, dans la réglementation** (la documentation 5, §18) :
+**le registre des traitements** — une ligne par traitement, une
+opération ou une suite impliquant un champ `rgpd:` (D1317–D1318,
+D1329), groupé par module soumis (D1321), avec le bloc `rgpd:` résolu à
+quatre niveaux — `controller`, `legal`, `purpose`, `contact`, `dpo`
+(D1322–D1327), « non précisé » quand une propriété manque — ; l'entité
+dit le stockage, la rétention vient du nettoyage et de l'anonymisation
+(D1328, D1334), les lieux des `countries:` du connecteur (D1345) ; **les droits des
+personnes** — `rgpd.extract(identity)` depuis les champs `identity`,
+`rgpd.anonymize`, la limitation par l'état (D1330–D1333) ; **les
+mentions** — `rgpd.notice` générée, ancrée par le concepteur, le manque
+notifié sinon (D1335) ; **la journalisation des accès** — l'audité, le
+journalisé, qui consulte, la rétention de l'audit (D1336) ; **le
+chapitre de la sécurité** — les douze principes de ce document, une
+section chacun en trois paragraphes, le socle, la configuration,
+l'instance, un sommaire d'état en tête (D1337–D1338) : les dépendances
+(D924), le code tiers (D918), les secrets par leur nom (D944) ; aucun
+verdict (D1319) ; **l'accessibilité** — les critères du RGAA testés à
+l'ingestion, par critère et par composant, `accessibility:` au projet
+(D1339–D1341) ; **les obligations du secteur** — `regulation:` à
+l'entité ou au module (D1342).
+
+**La sécurité, dans le projet et le support** (la colonne 8 — le rang
+4) : **l'adresse du dépôt** ne se montre que si elle est publique
+(D1359) ; **les tickets ne quittent pas l'application** (D1378) —
+l'auteur, le gestionnaire, les messages restent dedans, la F.A.Q. ne
+porte que la paire ; **la documentation entière est portée par
+l'application** (D1348), sous ses droits.
+
+**La sécurité, dans la documentation du développeur** (la colonne 3 —
+le rang 5) : **le porteur seul**, jamais le cookie (D917) ; la clé
+rotative, le « pour le compte de », OAuth2 en déclinaison (D107) ;
+aucune valeur de secret dans le contrat, la console saisit la clé et ne
+la stocke pas (D1398) ; le code d'un hook par son existence et son
+emplacement, jamais son contenu (D1406) ; l'appel lancé depuis la
+console est réel, journalisé, confirmé en écriture (D1398) ; les
+webhooks entrants authentifiés d'office (D642) ; les origines et HTTPS
+au D.A.T. (D918, D919).
+
+**Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
+sécurité n'est pas ce que l'utilisateur fait ; le masque dit ce qui est
+protégé) ; l'information (le niveau de confidentialité affiché à chaque
+champ, D1247 ; les colonnes protégées du chapitre 3, D1300 ; la matrice
+des droits 5.2) ; le D.A.T. (le rang 6 — l'authentification, les
+origines, le chiffrement en transit) ; le guide d'exploitation (le rang
+7 — les secrets, le wizard, la sauvegarde, le passif) ; la maintenance
+(le rang 8 — les refus, les alertes, les seuils).

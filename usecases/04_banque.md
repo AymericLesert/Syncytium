@@ -639,3 +639,127 @@ soldés (D1229–D1230) ; la réécriture en ajoute deux :
    cible et renvoie à sa section ; les formes en clair sont miennes, à
    fixer au rang 2 (D1160) ; les champs libres d'un formulaire d'appel
    disent aussi leur type, dans la colonne du déclenchement.
+
+
+## La réglementation — la déclinaison de la banque (le rang 3)
+
+*(La déclinaison du rang 3, écrite le 19/10/2026 sur §18 de
+documentation.md — D1317–D1343. La banque est le mono-poste d'un foyer :
+aucun champ `rgpd:` — les tiers des écritures, les titulaires des
+comptes ne sont pas marqués ; ce n'est pas une anomalie (D1319). Le cas
+montre ce que la documentation 5 donne à une application sans
+traitement déclaré, et ce qu'elle donnerait si le concepteur marquait
+un champ. **En proposition.**)*
+
+---
+
+> # banque — La réglementation et la sécurité
+>
+> ## Le registre des traitements
+>
+> Aucun traitement : aucun champ ne porte le marquage `rgpd:`.
+>
+> ## Les droits des personnes, les mentions d'information
+>
+> *Aucun module soumis.*
+>
+> ## La journalisation des accès
+>
+> Les refus d'autorisation sont journalisés ; aucun champ audité.
+>
+> ## La sécurité de l'instance
+>
+> *Les douze principes, une section chacun (D1338) — l'audience : le
+> groupe `foyer` (D1208), tous ses membres voient tout ; les secrets :
+> aucune clé `*`, le sqlite natif ; la disponibilité : la sauvegarde du
+> fichier ; le chat : absent.*
+>
+> ## L'accessibilité
+>
+> Les critères du RGAA testés à l'ingestion sur les composants employés
+> — dont le graphique `chart[ecriture.evolution_budget]` et le tableau de
+> bord d'accueil (D1237) — : par critère, passe, ne passe pas, non
+> testé. *Aucune déclaration : `accessibility:` absent.*
+>
+> ## Les obligations du secteur
+>
+> *Aucun texte : `regulation:` absent.*
+
+---
+
+**Ce que donnerait un marquage.** Si le concepteur écrivait
+`tiers: { type: text[..40], rgpd: identity }` sur l'écriture, la banque
+aurait un traitement par acte du socle sur `ecriture`, `foyer` pour
+responsable à déclarer, et `rgpd.extract("Dupont")` réunirait les
+écritures du tiers Dupont ; le registre le dirait, « non précisé » tant
+que le bloc `rgpd:` manquerait. Le cas reste sans marquage : c'est le
+foyer qui tient ses propres comptes.
+
+## Le développeur — la déclinaison de la banque (le rang 5)
+
+*(La déclinaison du rang 5, écrite le 24/10/2026 sur §27 de
+documentation.md — D1403–D1423. La banque porte quatre hooks
+d'opération — `creer_releve`, `dupliquer`, `propager`, `virer` —, trois
+langues (`fr`, `en`, `es`), un groupe `foyer`, l'authentification
+`none` du mono-poste (D759) ; aucun type ni composant personnalisé,
+aucun webhook. Elle montre le chapitre « Étendre » et ce que D1403 et
+D1405 lui demandent. **Confirmée, et les md par langue écrits dans la
+configuration le 24/10/2026 — D1424.**)*
+
+---
+
+> # banque — Le développeur, chapitre 2 : Étendre
+>
+> ## L'inventaire — ce que la version 1.0.0.0 ajoute au socle
+>
+> **Les hooks d'opération** (quatre) ; aucun type, composant, fonction,
+> connecteur ni style personnalisé.
+>
+> | le hook | ce qu'il fait (son md) | les langues | les références |
+> |---|---|---|---|
+> | `creer_releve` | la tâche d'impression — déclenchée par l'événement `generated`, pose la date d'impression `imprimee` sur chaque écriture générée | fr | 1 — `ecriture`, le déclencheur `when: generated` |
+> | `dupliquer` | la duplication d'une écriture entre deux dates, au pas choisi (jour, semaine, mois, trimestre) ; les paramètres `pas`, `du`, `au` ; `nb_creations` avant le scellé | fr | 1 — `ecriture`, le bouton de la fiche |
+> | `propager` | la modification des similaires — même libellé et même montant, à la date d'opération ≥ ; la liste, la sélection, la modification en masse validée avant le scellé | fr | 1 — `ecriture`, le bouton de la fiche |
+> | `virer` | les deux écritures d'un virement entre comptes, liées par `liee:` des deux côtés, dans la même transaction ; les paramètres : le compte cible, le montant | fr | 1 — `ecriture`, le bouton de la fiche |
+>
+> *Chaque fiche : le nom, la famille, la description dans la langue du
+> lecteur, les propriétés (`properties: { }` — le degré `user` par
+> défaut, l'exécution normale, non déterministe), les connecteurs
+> touchés (aucun ; `creer_releve` écrit un document), la version
+> d'apparition (1.0.0.0), le code par son existence et son emplacement
+> — `hooks/operations/<nom>/source.txt` —, jamais son contenu (D1406).*
+>
+> **Les langues — un manque** (D1403, D1405) : la version parle `fr`,
+> `en`, `es` ; chaque hook n'a qu'un md, en français. **L'ingestion le
+> refuse** : « un hook porté par un projet doit forcément contenir les
+> langues utilisées par le projet ». *La complétude le relève ; le
+> concepteur écrit `documentation.en.md` et `documentation.es.md` et la
+> fiche devient `description: { fr: …, en: …, es: … }`.*
+>
+> **Pour le technicien** : le même inventaire filtré par D1394 — le
+> compte unique du mono-poste voit les quatre.
+>
+> ## La référence de Syncytium-1.0
+>
+> Embarquée entière (D1411) : les six familles, le contrat de chacune,
+> ce que le moteur fournit, la maison, essayer en sandbox, la forme du
+> code au domaine 7.
+
+---
+
+**Ce que le concepteur ajouterait** — **écrit dans la configuration le
+24/10/2026** (D1424, comme les clés du rang 4, D1382) : pour chacun des
+quatre hooks, `documentation.fr.md`, `documentation.en.md`,
+`documentation.es.md`, et la fiche en forme longue ; le traceur : 68
+fichiers atteints, aucun orphelin :
+
+```yaml
+# hooks/operations/dupliquer/dupliquer.yml — la description par langue (D1403, D1405)
+description:
+  fr: ~{documentation.fr.md}
+  en: ~{documentation.en.md}
+  es: ~{documentation.es.md}
+```
+
+*Le véhicule ne parle qu'une langue, `fr` : ses hooks gardent la forme
+simple (D1105).*

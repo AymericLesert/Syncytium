@@ -38,11 +38,13 @@ décisions citées renvoient à la [conception](conception.md).
   documentation générée (D333/D645).
 - **Le dépôt du client est distinct du projet** (D336) ; le projet
   embarque `template/`, un « Hello world ! » clonable (D337).
-- **La version du format en tête** (D322) : la description déclare la
-  version du méta-schéma qu'elle parle — **`from: Syncytium-1.0`, la
-  première clé de `syncytium.yml`** (D1083) ; un format plus récent que le
-  moteur est refusé sur la seule lecture de l'en-tête (D330), un format
-  antérieur est converti à l'ingestion (D331).
+- **Le core en tête** (D322, D1361) : la description déclare le core de
+  Syncytium qui l'interprète et génère sa documentation — **`from:
+  Syncytium-1.0`, la première clé de `syncytium.yml`** (D1083) ;
+  `syncytium init` récupère ce core (D1358, D1360) ; un core plus récent
+  tient l'évolution du précédent — la conversion à l'ingestion (D331) ;
+  un format plus récent que le moteur est refusé sur la seule lecture de
+  l'en-tête (D330).
 
 **Les règles d'écriture face à YAML (D892)** — la grammaire des
 expressions vit dans des scalaires YAML, deux règles la protègent :
@@ -200,6 +202,11 @@ parameters:
 
 C'est la seule forme du secret : il n'existe pas de liste `secrets:`.
 
+**Dans la documentation** (D1247) : la clé `*` est la seule chose
+que le dictionnaire de la donnée et sa configuration dépliée en annexe
+ne montrent pas ; tout le reste y est, avec son niveau de
+confidentialité.
+
 ### 2.6 L'adressage logique — le point (D363)
 
 `<module>.<entité>.<champ>` — **le point, jamais la barre oblique** :
@@ -241,6 +248,23 @@ fields:
     required: true
     label: { fr: Code article }
   date_creation: date_pmi            # un type dérivé (D992), la forme courte
+```
+
+**Les groupes de champs** (D1273, D1279–D1280) : dans la même carte,
+**une clé qui porte `fields:` sans `type:` est un groupe** (D1289) — son
+`title:` par langue, ses champs en place ou dans un fichier référencé,
+un fichier par groupe dans le cas 5 ; les champs hors groupe forment le
+groupe implicite ; les noms de champs restent uniques dans l'entité et
+s'adressent sans le groupe ; un groupe ne s'emboîte pas. Un champ qui
+porte `type:` et `fields:` est une liste de valeurs composées (D115),
+pas un groupe.
+
+```yaml
+fields:
+  code: text[..18]                   # hors groupe — le groupe implicite, l'en-tête de l'écran
+  prix:                              # un groupe : title: et fields:, sans type:
+    title: Les prix
+    fields: ~{prix.yml}              # ou le bloc en place
 ```
 
 ### 2.9 Les deux formes d'une collection — la liste et la substitution (D1113)
@@ -334,7 +358,8 @@ versions/
 │       │   ├── <module>.yml         # name, description, allow:, entities:, menu:, dashboards
 │       │   └── <entité>/
 │       │       ├── <entité>.yml     # l'en-tête : name, identity, inheritance, history, fields:, validation:, gui:
-│       │       ├── fields.yml       # les champs
+│       │       ├── fields.yml       # les champs ; les groupes (title:, fields:) — D1279
+│       │       ├── <groupe>.yml     # les champs d'un groupe, référencés par fields: ~{<groupe>.yml} (D1280)
 │       │       └── gui.yml          # les surfaces (lists, forms, summary, widgets…)
 │       ├── hooks/                   # hooks.yml → les familles → les fiches (hooks.md)
 │       └── reprise/                 # la migration : reprise.yml, source/, mapping/ (mapping.md)
@@ -344,10 +369,13 @@ versions/
 ### 3.1 `syncytium.yml` — le projet
 
 ```yaml
-from: Syncytium-1.0                  # le format, la première clé (D1083)
+from: Syncytium-1.0                  # le core de Syncytium, la première clé (D1083, D1361)
 name: entrepot
 description: L'entrepôt de données de l'entreprise — …
 visibility: promotional              # public | private | promotional — ce qui se lit sans aucun droit (D1151, en proposition)
+author: Aymeric Lesert               # celui qui a conçu l'application (D1153)
+contact: evolutions@example.org      # le contact des demandes d'évolution (D1153)
+copyright: © 2026 L'entrepôt SAS     # le titulaire des droits d'auteur de l'application (D1355)
 environments: ~{environments/environments.yml}
 versions: ~{versions/versions.yml}
 ```
@@ -358,6 +386,23 @@ défaut et mise à disposition (D1150) ; `public` — la documentation en
 mode public, sans donnée ni rien de confidentiel. *Mes lectures* : la
 clé au projet, le défaut `promotional`, la place dans `syncytium.yml` —
 à confirmer avec la promotionnelle (documentation.md, le rang 9).
+
+**`author:`, `contact:`, `copyright:` — le projet nommé** (D1153,
+D1355) : le concepteur, celui qui a conçu l'application et reçoit les
+demandes d'évolution ; le titulaire des droits d'auteur de la
+configuration. La page des versions (documentation.md §26) les
+reprend, avec les auteurs de chaque version et les droits de chaque
+ressource.
+
+**`from:` — la clé de l'amorçage, `syncytium init`** (D1358, D1360) : « La version du format
+est utilisée par un utilitaire pour récupérer le core, ingérer la
+configuration, créer l'instance et mettre à disposition la suite
+d'outils qui facilitera l'exploitation du projet. » — `from:` porte la
+version du core de Syncytium (D1361), chaque core ayant son moteur
+d'interprétation et sa conversion en documentation ; `syncytium init`,
+hors du moteur, lit la première clé et récupère ce core ; la
+documentation générée est la sienne ; le détail au guide
+d'exploitation (documentation.md §17).
 
 **`from:` — l'origine, partout** (D1086) : un seul sens pour trois
 places — **le projet** (`syncytium.yml`) : le modèle Syncytium dont la
@@ -462,6 +507,8 @@ version: 1.0.0.0
 languages: [fr, en]                  # les langues de la version, la première par défaut (D217/D1101)
 release-notes: |                     # les évolutions de la version (D808/D1096) — l'historique par concaténation
   La première version de l'entrepôt de données — …
+authors: [Aymeric Lesert]            # les personnes qui ont écrit la version (D1355)
+documentation: ~{documentation.yml}  # la documentation de la version — les pages, les scénarios, les gabarits (D1219)
 settings: ~{settings.yml}
 groups: ~{groups.yml}
 migrations: ~{reprise/reprise.yml}   # les migrations déclarées (D662)
@@ -469,7 +516,7 @@ modules:                             # la liste explicite (D415/D766)
   - ~{technique/technique.yml}
   - ~{tiers/tiers.yml}
 hooks: ~{hooks/hooks.yml}            # les hooks de la version (D777)
-resources: ~{resources/resources.yml}   # les ressources déclarées (D346)
+resources: ~{resources/resources.yml}   # les ressources déclarées (D803) — chacune avec son credit: (D1384)
 from: <statut>/<version>             # en sandbox seulement : la version d'origine (D907), supprimé à la promotion (D928)
 ```
 
@@ -581,6 +628,7 @@ field:
   mode: editable                   # (D364)
   label: "${name}"                 # (D1181)
   confidentiality: public          # (D25)
+  searchable: none                 # sans searchable:, rien n'est cherchable (D1308)
   default: <nul>                   # (D941)
   unchanged: false                 # (D941)
   text:
@@ -625,7 +673,18 @@ application:
     retention: 7d                  # dynamique (D912)
   logging:
     throttle: 1min                 # dynamique (D926)
+  telemetry:
+    values: pareto[80/20]          # dynamique — les valeurs et leur fréquence au dictionnaire (D1290–D1291)
 ```
+
+**Le bloc `rgpd:` des settings** (D1323) : à la racine, comme les
+profils de confidentialité — `rgpd: { controller: <groupe>,
+legal: …, purpose: …, contact: …, dpo: { name, email, phone } }`
+(le contact et le DPO au projet, D1330) — les défauts réglementaires de tout
+traitement du projet, surchargés par les settings du module, de
+l'entité, puis par le traitement, propriété par propriété (D1322,
+D1324–D1325 — quatre niveaux) ; sans
+défaut du socle — absent, le registre écrit « non précisé ».
 
 *Hors de l'inventaire* : le seuil de complétude n'a pas de défaut, le
 moteur mesure et ne refuse pas (D1221) ; le statut `production` seul

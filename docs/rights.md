@@ -243,7 +243,12 @@ settings:
 
 - **le marquage** (D695) : la facette **`rgpd:`** aux trois valeurs —
   `personal` (la donnée personnelle), `sensitive` (l'article 9 — le
-  régime renforcé), `consent` (le traitement au consentement) :
+  régime renforcé), `consent` (le traitement au consentement) — et une
+  quatrième en proposition, **`identity`** (D1332 : l'identité civile
+  de la personne — le nom, le prénom —, non un identifiant unique ;
+  depuis ces champs, l'arbre de la donnée dit tout ce qui est lié à une
+  personne ; l'opération `rgpd.extract(identity)` du socle, D1331/D1333, part
+  d'eux) :
 
 ```yaml
 fields:
@@ -268,8 +273,12 @@ fields:
   échoit (l'écriture de l'historisation — D411) **s'anonymise
   d'office** ;
 - **le registre des traitements auto-documenté** (D698 —
-  D333/D645) : les champs `rgpd:`, leur confidentialité, leur
-  rétention, leurs connecteurs sortants — généré, jamais rédigé.
+  D333/D645) : une ligne par traitement — une opération ou une suite
+  impliquant un champ `rgpd:` (D1317–D1318) —, **son responsable, un
+  groupe d'utilisateurs** (D1320, `controller:` en proposition), les
+  champs `rgpd:`, leur confidentialité, leur rétention, leurs
+  connecteurs sortants — généré, jamais rédigé ; un projet sans champ
+  marqué n'est pas une anomalie (D1319).
 
 ## Le degré intrinsèque d'autorisation (D697, D699–D700)
 
@@ -442,7 +451,10 @@ rang.)*
 **Le principe** : on ne lit que ce qu'on voit (D1141, D334) — la
 confidentialité et les droits filtrent la documentation comme ils
 filtrent l'écran ; une entité invisible n'a ni section ni ligne ; un
-champ invisible n'est pas au dictionnaire du lecteur.
+champ invisible n'est pas au dictionnaire du lecteur — dans la
+fonctionnelle ; **au dictionnaire de la donnée, le modèle est intégral et
+le niveau de confidentialité affiché** (D1247), seules les données de
+l'instance suivent les droits du lecteur (D1249).
 
 **Le groupe, dans la fonctionnelle** — **son persona** (D1200, D1208 :
 le mono-poste déclare son groupe pour le porter) ouvre le chapitre des
@@ -465,8 +477,45 @@ décident de la diffuser (D1142). **Les lecteurs** de chaque
 documentation : la table de [documentation.md](documentation.md) §3
 (D1154).
 
-**Les autres colonnes** — à leur rang : la réglementation (le rang 3 —
-la matrice des droits, l'extraction demandée par l'usager D1149, le
-registre) ; le guide d'exploitation (les groupes et leur gestion, les
+**Les groupes et les droits, dans le dictionnaire de la donnée** (la
+colonne 2 — le rang 2) : **le chapitre 5.2, la matrice des droits**
+(D1264 — « la visibilité est simple et rapide ») — les entités en
+lignes, les groupes en colonnes, les quatre actes et les opérations
+permises dans la case, la condition d'état quand il y en a une
+(D1172) ; la composition des groupes (D1099), le degré (D699) ; les
+profils de confidentialité lus comme « qui voit » chaque niveau. **Le
+modèle est intégral pour tous, le niveau de confidentialité affiché à
+chaque champ** (D1247) ; **les données de l'instance suivent les droits
+du lecteur** (D1249). Les personas n'y sont pas — le dictionnaire est centré sur la donnée
+(D1241).
+
+**Les groupes et les droits, dans la réglementation** (la colonne 5 — le
+rang 3) : **le responsable du traitement est un groupe** —
+`controller:` dans le bloc `rgpd:` (D1320) — ; **qui peut déclencher**
+chaque traitement reste l'`allow:` et le degré, que le registre montre à
+côté du responsable (D1327) ; **les destinataires internes**, les
+groupes qui lisent, par la confidentialité ; **`rgpd.extract`** au
+plancher `manager`, **`rgpd.anonymize`** au plancher `administrator`
+(D1331, D1333) ; la limitation par l'`allow:` d'un état (D1172).
+
+**Les groupes et les droits, dans le projet et le support** (la colonne
+8 — le rang 4) : **les trois groupes du bloc `assistance:`** — qui
+traite une anomalie, qui répond à une question, qui enregistre une
+évolution (D1372) ; le gestionnaire se prend dans le groupe (D1369) ;
+sans bloc, le `manager` et l'`administrator` (D1377) ; **les degrés de
+lecture** — la page des versions, le dépôt, le texte du support et
+« qui répond à quoi » à tous, `reader` compris, les indicateurs à partir
+de `manager` (D1347, D1377) ; un ticket se lit par son auteur et par le
+groupe, une question close par tous, dans sa langue (D1373, D1381).
+
+**Les groupes et les droits, dans la documentation du développeur** (la
+colonne 3 — le rang 5) : **le filtre du contrat** — un compte technique
+ne voit que ce que ses groupes et l'exposition lui permettent, rien en
+négatif, l'astérisque excepté (D1394–D1395) ; **« pour le compte de »**,
+l'intersection des droits (D1396) ; l'édition produite pour un compte
+(D1400) ; le concepteur voit tout l'inventaire (D1404) ; un projet
+`private` montre la référence (D1411).
+
+**Les autres colonnes** — à leur rang : ; le guide d'exploitation (les groupes et leur gestion, les
 affectations D341) ; la promotionnelle (le mode public, `visibility:`
 D1151).

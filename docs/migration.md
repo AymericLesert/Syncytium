@@ -530,7 +530,7 @@ d'administration (D711) :
   jamais pendant la bascule ; un redémarrage du serveur vaut
   interruption, la relance est manuelle ;
 - **la copie d'un environnement** (D1078–D1080) — `syncytium copy
-  <source> <cible>` emporte les données et `_migration` ;
+  <source> <cible>` emporte les données, `_migration` et `_assistance` (D1387) ;
   `--with-storage` emporte aussi les fichiers de détail, re-chiffrés
   sous les clés de la cible ;
 - **la sandbox** (D921–D922) — `reload` rejoue l'ingestion et la
@@ -614,10 +614,57 @@ passe par les entités de l'application : les champs « repris de
 l'ERP » (D1198), les opérations à `when: migrated` (D1227), les
 anomalies dans la zone d'analyse d'un champ (D1216).
 
-**Les autres colonnes** — à leur rang : le guide d'exploitation (le
-rang 7 — les passages, les trois taux D862, les rejets et leurs
-rapports D929, `migrate` et `reset_coverage`, le rythme) ; l'information
-(le rang 2 — la table des clés d'origine D1047, la base miroir D1044,
-le graphe source → cible) ; la maintenance (le rang 8 — la couverture
-et les compteurs) ; la réglementation (les données personnelles reprises
-et leur provenance D178).
+**Le module `_migration`, dans le dictionnaire de la donnée** (D1302 —
+le rang 2, le chapitre 4.1 « Reprise des données », D1259/D1262) : six
+sections, en deux parts — **le déclaré**, calculable au dépôt : la
+migration déclarée (`reprise.yml` — la base d'origine, la base miroir,
+le mode, le rythme des passages pour la fraîcheur) ; **les sources**
+(`source/*.yml` — par table d'origine sa description, son périmètre, son
+identité et sa partition, ses colonnes lues avec le type lu et le type
+décrit, ses colonnes écartées avec leur motif, les colonnes non citées
+relevées) ; **les règles** (`mapping/*.yml` — par règle, dans l'ordre :
+la source, la cible, le périmètre, les champs mappés et leurs
+transformations, le rapport et ses destinataires) ; **le graphe source →
+cible dans les deux sens** (D1186 — par colonne d'origine les champs
+qu'elle alimente, par champ cible « repris de … par la règle … », l'écho
+de la ligne du champ en partie 2, D1198 ; le même objet que l'index 5.1
+lu depuis l'autre bout, un seul calcul) ; **l'observé**, à l'instance
+seulement, aux droits du lecteur (D1249) : **le modèle lu et ses
+versions** (D1053 — la version courante du modèle de la source, ses
+écarts, les anomalies de complétude et de description) ; **les
+passages** (le dernier passage, la couverture et la complétude D862, la
+table des clés d'origine par statut D1047, le refusé non enregistré et
+ses motifs D1032). **Quand les modules sont fermés à l'écriture**, la
+description de la reprise le met en clair : les données n'entrent que
+par elle, et le chapitre des imports (4.2) y renvoie (D1312). **La
+frontière** : le dictionnaire dit d'où vient la donnée et où en est la
+correspondance ; le guide d'exploitation (D1206)
+dit comment lancer `migrate` et `reset_coverage`, lire les rapports,
+régler la rétention — les rapports ne sont pas dans le dictionnaire,
+leurs comptes par statut si. Les entités du module (migration, passage,
+clé, anomalie…) sont des tables de Syncytium : leur structure au
+chapitre 3 (D1292), leurs données ici. Une version sans reprise n'a pas
+de chapitre 4.1 ; une version à plusieurs migrations, une section par
+migration.
+
+**Le module `_migration`, dans la réglementation** (la colonne 5 — le
+rang 3) : **la reprise est un traitement d'origine** du registre, par
+règle, quand elle écrit un champ marqué (D1317, D1344) ; **le rapport
+des anomalies par mail est un destinataire externe**, même anonymisé
+(D1065, D1344) ; les fichiers de détail à rétention par le nettoyage
+(D1334) ; la provenance de chaque champ marqué par le graphe source →
+cible, dans la mention et dans la documentation (D1335).
+
+**Le module `_migration`, dans le projet et le support** (la colonne 8
+— le rang 4) : rien — `_assistance` est son pendant pour les tickets
+(D1363, D1368) : un module interne, ses tables au storage, ses données
+à l'instance (D1157).
+
+**Le module `_migration`, dans la documentation du développeur** (la
+colonne 3 — le rang 5) : rien — ses entités ne sont pas exposées à
+l'API du technicien ; `migrate` et `reset_coverage` sont des commandes
+du guide d'exploitation.
+
+**Les autres colonnes** — à leur rang : le guide d'exploitation (le rang 7 — les passages, les trois taux D862, les rejets et leurs
+rapports D929, `migrate` et `reset_coverage`, le rythme) ; la
+maintenance (le rang 8 — la couverture et les compteurs).

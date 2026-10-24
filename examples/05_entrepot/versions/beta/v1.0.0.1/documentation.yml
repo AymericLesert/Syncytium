@@ -1,0 +1,9 @@
+# La documentation de la version : ce que le concepteur ajoute à la documentation générée — ici, le texte du support.
+
+# Les pages ajoutées
+# Un fichier Markdown par page, dans la langue de la version.
+pages:
+
+  # Le support
+  # Qui répond aux tickets et comment joindre l'entreprise hors de l'application.
+  support: ~{documentation/support.md}

@@ -70,14 +70,19 @@ operations:
 
 # hooks/operations/dupliquer/dupliquer.yml — la fiche du hook (D809)
 name: dupliquer
-description: documentation.md        # → le md du fonctionnement (D645/D778)
+description: documentation.md        # → le md du fonctionnement (D778) — un md par langue, comme les autres textes
+                                     #   (D1403, D1405) : description: { fr: ~{documentation.fr.md}, en: ~{documentation.en.md} }
 code: source.txt                     # → le code — le langage du domaine 7 (D570)
 properties: { }                      # les propriétés du hook
 ```
 
-**Chaque hook s'accompagne d'un fichier md** (D778 — la fiche le
-référence par `description:`, D809) décrivant son fonctionnement —
-la brique humaine de la documentation auto-générée (D645). Un
+**Chaque hook s'accompagne d'un fichier md par langue qu'il supporte**
+(D778 — la fiche le référence par `description:`, D809 ; D1403 — un md
+par langue, avec les gabarits de D562 qui y insèrent les `properties` et
+la déclaration du hook) décrivant son fonctionnement — la brique humaine
+de la documentation générée ; Syncytium décrit ses propres hooks de
+même, dans sa section `hook:`, une sous-section par famille, une par
+implémentation (D1403). Un
 dossier par hook ou tout dans un même fichier : l'éclatement est
 libre (D767/D807/D809). **La documentation fonctionnelle reprend ce md
 comme la description de l'opération** — « ce qu'elle fait », dans la
@@ -129,8 +134,29 @@ graphe de conversion).
   valeur** (D683) : `create`/`update`/`read` d'une valeur (la forme
   native écrite et relue) — et **l'identification** (D684) : le type
   sait **se reconnaître** dans une structure native à l'introspection
-  (`read_instance` compose les identifications) ; un type-hook sans
-  ses règles de conversion ne se stocke pas — l'ingestion le refuse.
+  (`get_instance` compose les identifications) ; un type-hook sans
+  ses règles de conversion ne se stocke pas — l'ingestion le refuse ;
+  **depuis D1298, la règle de conversion est la déclinaison** : un
+  élémentaire avec ses propriétés génériques, ou une liste nommée
+  d'élémentaires, le storage ne transcrivant que ceux-là ;
+- **la facette documentation** (D1301 — le rang 2) : le type livre
+  **cinq choses**, le moteur assemble — **la forme en clair**, par
+  langue du moteur, les réglages fondus (« une date, écrite AAAAMMJJ »,
+  « un texte de 40 caractères au plus » — D1160, D1253) ; **la
+  déclinaison** en élémentaires (D1298) ; **les indicateurs** qu'il
+  mesure (D1288) ; **l'exemple** — le `placeholder` du type (D1307), quand le champ n'a
+  pas le sien (D1211) ; **le marquage** qu'il porte, `rgpd:` (D1178) ;
+  et, pour le chapitre du stockage, **les modes de recherche qu'il
+  admet** — les index que le storage en tire (D1292) — et **s'il peut
+  porter une partition** (D1293).
+  Le moteur résout les trois niveaux de réglages (D1239) avant l'appel,
+  le type reçoit ses facettes appliquées et formule ; les mots viennent
+  du catalogue par langue (D1160/D1163), un type ajouté apporte ses
+  items ; un type dérivé hérite de la facette de son socle et peut
+  reformuler ; le glossaire des types (l'annexe B du dictionnaire) se
+  construit de ces livraisons ; un type sans sa facette est complet
+  pour tourner, incomplet pour documenter — la complétude le relève
+  (D1221), l'ingestion ne le refuse pas.
 
 **La collection est un type — et porte les agrégats** (D580) : les
 fonctions de la collection (`list of`, `association with`) sont ses
@@ -172,6 +198,17 @@ settings:
 fields:
   avancement: progression
 ```
+
+**Le pivot avec le storage** (D1297 — le 15/10/2026) : « Le storage
+influe le hook des types pour définir les propriétés ou les éléments à
+couvrir. Au storage de faire le nécessaire pour exploiter au mieux ces
+données. » — le storage énonce la liste de ce qu'il attend d'un type ;
+le type la couvre par sa déclinaison en types élémentaires — un
+élémentaire ou une liste nommée d'élémentaires, le format pivot
+(D1298) — et ses règles de transcription (D1296) ; la forme en
+clair, les indicateurs (D1288) et la règle de stockage sont les trois
+facettes que le contrat du hook de type livre à la documentation — à
+écrire à l'étape 9 du rang 2.
 
 ### 2. Le hook de composant (D64–D68, D452, D566)
 
@@ -409,7 +446,7 @@ error/initialized/disconnected/connected/closed, la fréquence à
 `every:`), `onerror` (le mock ou la page de maintenance — D627) et
 `describe()` (la documentation markdown/html de l'instance — D630).
 Les contrats détaillés — storage (la transaction, l'instance —
-`read_instance`/`duplicate_instance`/`rename_instance` —, les
+`get_instance`/`duplicate_instance`/`rename_instance` —, les
 entités et les enregistrements composés des types-visiteurs
 (D680–D689 : l'écriture en lots, la lecture au curseur), la
 migration à chaud orchestrée par le moteur), smtp (`send`), file
@@ -499,12 +536,14 @@ l'utilisateur le choisit à son profil, les droits s'y appliquent
 3. **La signature d'abord** : chaque famille déclare ce que le typage
    statique (D581) et l'ingestion (D330/D344) vérifient — l'erreur ne
    passe jamais l'ingestion.
-4. **describe partout** (D645 — généralise D630) : **tout hook porte
-   une méthode `describe`** qui écrit la documentation de son
-   fonctionnement — la documentation technique de l'application
-   (celle de Syncytium + les hooks ajoutés automatiquement) se
-   construit **dynamiquement, version par version** : la version
-   documentée est exactement la version servie.
+4. **La documentation du hook est déclarée** (D1403 — amende D645/D630
+   pour les textes) : **le md par langue**, avec ses gabarits, décrit le
+   fonctionnement ; `describe` ne rédige plus — ce qui n'est pas un
+   texte reste calculé depuis les déclarations du hook (la
+   correspondance logique-physique du storage D1255/D1299, la forme en
+   clair d'un type D1160) ; la documentation de l'application (celle de
+   Syncytium + les hooks ajoutés) se construit **version par version** :
+   la version documentée est exactement la version servie.
 
 ## La documentation — la facette du hook (D1158–D1159)
 
@@ -534,13 +573,51 @@ clair, ses contraintes, son exemple, dans chaque langue du moteur
 être adaptés ») ; le contrat s'écrit au rang 2.
 
 **Les langues** : chaque hook porte ses textes dans les langues
-attendues (D1162–D1163) ; un hook ajouté à Syncytium pour Syncytium les
-porte toutes ; un hook du concepteur, celles de sa version ; une langue
-manquante est une erreur d'ingestion.
+attendues (D1162–D1163, D1403 — un md par langue) ; un hook ajouté à
+Syncytium pour Syncytium les porte toutes ; un hook du concepteur,
+celles de sa version ; une langue manquante est une erreur d'ingestion.
 
-**Les autres colonnes** — à leur rang : le développeur (le contrat du
-hook, ses propriétés — `degree`, `execution`, `deterministic`,
-`connectors` —, le `describe` D645 ; **la skill** des consignes du
-moteur pour l'IA, D1224) ; le D.A.T. (le hook d'interface, le seul
+**Les hooks, dans le dictionnaire de la donnée** (la colonne 2 — le rang
+2) : **la notion de hook n'y apparaît pas** (D1244 — « les hooks
+s'intégreront au document sans que la notion de hook apparaisse ») ; le
+lecteur voit ce que chaque hook livre par sa facette : **le hook de
+type**, la forme en clair, la déclinaison, les indicateurs, l'exemple, le
+marquage (D1301) ; **le hook d'opération**, la description de
+l'opération (D1227) et son contrat au chapitre 4.3 — ce qu'elle lit, ce
+qu'elle écrit, ses effets (D1262) ; **le hook de fonction**, le texte des
+formules dans les règles de l'entité (D1254) ; **le hook de connecteur
+storage**, le chapitre 3 par `describe(model)` (D1299) ; les hooks de
+composant et de style, rien. L'inventaire des hooks câblés et comment en
+écrire un vont à la documentation du développeur (D1244).
+
+**Les hooks, dans la réglementation** (la colonne 5 — le rang 3) : **le
+hook d'opération** est un traitement quand il implique un champ `rgpd:`
+(D1317) — la déclaration porte le bloc `rgpd:` du traitement
+(`controller`, `legal`, `purpose`, D1322) et, pour une suite, `operations:
+[ … ]` fait une ligne du registre (D1318, D1329) ; **la famille `rgpd`**
+des opérations du socle — `rgpd.extract(identity)`, `rgpd.anonymize`
+(D1333) — ; **le hook d'interface**, seul code tiers au navigateur, est
+nommé au chapitre de la sécurité (D918, D1337) ; **le hook de
+composant** passe les tests du RGAA comme les composants du socle
+(D1340) ; **le hook de connecteur** porte `rgpd: { countries: [ … ] }`
+(D1328).
+
+**Les hooks, dans le projet et le support** (la colonne 8 — le rang 4) :
+rien de propre — les opérations ne sont pas des écarts (D1281) ; les
+notifications des tickets et l'alerte du profil passent par le
+mécanisme des notifications du socle (D1366, D108/D397).
+
+**Les hooks, dans la documentation du développeur** (la colonne 3 — le
+rang 5) : **l'inventaire** par famille (D1404, D1406) — la fiche, la
+description par son md dans la langue du lecteur (D1403, D1405), les
+propriétés `degree`, `execution`, `deterministic`, les connecteurs, les
+références comptées et localisées, le code par son existence et son
+emplacement ; **le hook d'opération** au contrat d'API, son md montré au
+technicien (D1402), ses paramètres dont le changement est un écart
+(D1401) ; **la référence** pour en écrire un, six chapitres par
+famille, celle du core nommé par `from:` (D1408) ; **la skill**, la
+couche du core et le complément de la version (D1409–D1410).
+
+**Les autres colonnes** — à leur rang : le D.A.T. (le hook d'interface, le seul
 code tiers au navigateur, D918) ; la maintenance (la fréquence
 d'emploi de chaque opération, D1168).

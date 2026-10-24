@@ -1,0 +1,91 @@
+# La classification — les champs du groupe de l'article, référencés depuis fields.yml.
+
+type:
+  type: enum
+  required: true
+  label: Type d'article
+  hint: >-
+    Ce que l'article est — un accessoire, un consommable, un libellé, un outillage, un produit fini, une plaque, un
+    semi-fini, de la main d'œuvre, de la sous-traitance.
+  description: >-
+    Les listes closes de l'ERP sont des énumérés aux clés de l'entrepôt ; la reprise y traduit les codes, et un code
+    inconnu met la fiche en anomalie. La main d'œuvre et la sous-traitance sont des articles : les composants des
+    nomenclatures les référencent.
+  values:
+    accessoire:   { label: Accessoire }
+    consommable:  { label: Consommable }
+    libelle:
+      label: Libellé
+      description: Une ligne de texte sans existence en stock, référencée par les nomenclatures.
+    outillage:    { label: Outillage }
+    produit_fini: { label: Produit fini }
+    plaque:       { label: Plaque }
+    semi_fini:    { label: Produit semi-fini }
+    main_oeuvre:    { label: Main d'œuvre }
+    sous_traitance: { label: Sous-traitance }
+
+famille:
+  type: enum
+  required: true
+  label: Famille
+  hint: La famille de l'article — les valeurs de la liste close de l'ERP.
+  values:
+    matiere:      { label: Matière première }
+    composant:    { label: Composant }
+    produit_fini: { label: Produit fini }
+    consommable:  { label: Consommable }
+
+sous_famille:
+  type: enum
+  label: Sous-famille
+  hint: Le second niveau de classification.
+  values:
+    acier:     { label: Acier }
+    aluminium: { label: Aluminium }
+    plastique: { label: Plastique }
+    visserie:  { label: Visserie }
+    autre:     { label: Autre }
+
+perissable:
+  type: boolean
+  required: true
+  default: false
+  label: Périssable
+  hint: Un article dont chaque lot en stock doit porter une date de péremption.
+  description: >-
+    La reprise le déduit d'une convention de codage de la famille ; l'entrepôt garde le sens. La règle qui l'exploite
+    vit au niveau de stock, où la date de péremption est.
+
+gestion:
+  type: enum
+  label: Code de gestion
+  hint: >-
+    La façon dont l'ERP gère l'article — fabriqué, acheté, sous-traité, fantôme, libellé, quantité supérieure, inactif,
+    résultant, procédure, et un code en attente de libellé.
+  description: >-
+    Le code de gestion assure l'héritage : le produit fabriqué, le semi-fini et le fantôme sont les dérivés de
+    l'article. Le semi-fini et le fantôme sont des hypothèses de l'exemple, à vérifier à l'analyse ; cg03 garde son
+    code en attendant son libellé.
+  values:
+    fabrique:    { label: Produit fabriqué }
+    achete:      { label: Produit acheté }
+    sous_traite: { label: Sous-traité }
+    fantome:
+      label: Fantôme
+      description: Un niveau de nomenclature sans existence en stock — l'hypothèse de l'exemple.
+    semi_fini:
+      label: Produit semi-fini
+      description: Un produit fabriqué pour entrer dans d'autres produits — l'hypothèse de l'exemple.
+    libelle:             { label: Libellé }
+    quantite_superieure: { label: Quantité supérieure }
+    inactif:             { label: Inactif }
+    resultant:           { label: Résultant }
+    procedure:           { label: Procédure }
+    cg03:
+      label: CG03
+      description: Le code de gestion 03 de l'ERP — le libellé n'existe pas encore.
+
+matieres:
+  type: list of text[..6]
+  label: Codes matière
+  hint: Les matières de l'article — jusqu'à neuf chez l'ERP.

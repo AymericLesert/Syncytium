@@ -1491,7 +1491,9 @@ page:                              # la section seule, directement (D490)
    informations légales de l'entreprise » ;
 2. **Rôle** — le texte venu de la configuration, affiché tel quel —
    **aucun champ derrière** : la mention, l'explication,
-   l'avertissement ; **et le gabarit** — « le paragraph peut être un
+   l'avertissement — dont **la mention d'information RGPD**, le texte
+   du socle `rgpd.notice` généré depuis le registre, que le concepteur
+   ancre à son choix (D1335) ; **et le gabarit** — « le paragraph peut être un
    gabarit, utilisable dans le cas d'une lettre » (D559,
    l'étoffement Q55) : les variables de l'enregistrement dans le
    texte (« Cher {customer}, votre commande {number}… ») — le
@@ -2476,7 +2478,11 @@ lists:
 ## `form`
 
 1. **Nom et famille** — `form`, une surface — `gui: forms: <nom>:` ;
-   **la première déclarée est le formulaire par défaut** (D438) ;
+   **la première déclarée est le formulaire par défaut** (D438) ; sans
+   déclaration, **le formulaire du socle suit les groupes de champs de
+   l'entité** (D1273, D1279 — les groupes dans `fields:`, entity.md) : un onglet par groupe, les
+   champs hors groupe en en-tête au-dessus de tous les onglets ; sans
+   `groups:`, pas d'onglet ;
    adressé par le menu (`[+form]` — D439), appelé par la liste
    (`add:`/`update:`/`delete:` — D530), par une opération (la
    relecture `commit: confirm` — D431/D596) ;
@@ -2964,6 +2970,24 @@ assistant:
     api_key*: ${LLM_API_KEY}       # la marque * — le secret chiffré (D944/D902)
 ```
 
+## L'assistance — les trois groupes d'une surface (D1372)
+
+Une surface — un écran, un wizard, un tableau de bord — porte trois
+propriétés, chacune un groupe d'utilisateurs : qui traite une anomalie,
+qui répond à une question fonctionnelle, qui enregistre une demande
+d'évolution. À la création d'un ticket depuis le « ? » de la surface
+(documentation.md §26, chapitre 3), le groupe destinataire est connu et
+transmis automatiquement ; le gestionnaire du ticket se prend dans ce
+groupe. Le bloc `assistance:` aux clés anglaises (D335), héritable par
+la cascade du module et des settings (D359) — acquis, D1374 :
+
+```yaml
+assistance:
+  anomaly: support_technique      # qui traite une anomalie
+  question: responsables_metier   # qui répond à une question fonctionnelle
+  evolution: direction            # qui enregistre une demande d'évolution
+```
+
 ## La documentation — la facette des composants graphiques et des surfaces (D1158–D1159)
 
 *(La rubrique de la matrice de [documentation.md](documentation.md)
@@ -3009,6 +3033,44 @@ surface, puis, pour chaque composant qui en a, sa description ; le
 « ? » le montre, mène à la page de l'écran et porte l'assistance
 (D1192) ; le glossaire s'y lit au survol (D1184).
 
+**Les surfaces et les composants graphiques, dans le dictionnaire de la
+donnée** (la colonne 2 — le rang 2) : presque rien d'eux-mêmes — le
+dictionnaire décrit la donnée, non l'écran (D1241, D1246). Ce qui passe :
+**à l'index 5.1**, les écrans, les listes et les rapports qui lisent un
+champ (D1198, D1263) ; **au chapitre 3**, les `searchable:`, `sort:` et
+`filter:` des listes, origines des index (D1292) ; **au chapitre 4.3**,
+les opérations qu'un écran déclenche, par leur contrat (D1262) ; **le
+formulaire du socle** suit les groupes de champs (D1273). La forme en
+clair d'un type (D1301) nomme son composant par défaut sans le décrire.
+
+**Les surfaces et les composants, dans la réglementation** (la colonne 5
+— le rang 3) : **le `paragraph` ancre la mention** `rgpd.notice`
+(D1335) — sur un formulaire, la page d'accueil, une édition ; sans
+ancrage, le manque est notifié ; **le wizard est une suite
+d'opérations**, un traitement du registre quand une étape touche un
+champ marqué (D1318, D1329) ; **chaque composant, du socle ou ajouté,
+passe les tests du RGAA à l'ingestion** (D1339–D1340) — le chapitre de
+l'accessibilité en montre le résultat par critère et par composant.
+
+**Les surfaces et les composants, dans le projet et le support** (la
+colonne 8 — le rang 4) : **la surface porte le bloc `assistance:`** —
+les trois groupes, les anomalies, les questions, les évolutions,
+héritable par la cascade (D1372, D1374) ; **son « ? »** ouvre la
+documentation de l'écran, un ticket, une question, la recherche
+générale (D1366, D1371) ; le ticket porte l'ancre de la surface et
+l'enregistrement montré (D1364) ; les questions closes de la surface
+rejoignent la F.A.Q. de la fonctionnelle (D1367, D1373) ; les
+composants graphiques, rien.
+
+**Les surfaces et les composants, dans la documentation du
+développeur** (la colonne 3 — le rang 5) : **un composant personnalisé**
+a sa fiche à l'inventaire — le visage, les modes, les types rendus, le
+RGAA critère par critère avec le md qui explique un échec, les surfaces
+qui l'emploient (D1406–D1407) ; **le hook d'interface** listé à part,
+avec les pages où il est chargé (D918, D1407) ; **le wizard** exposé à
+l'API est une suite d'opérations, son contrat d'appel au chapitre de
+l'entité ; les surfaces du socle, rien de propre — la référence de
+Syncytium (D1411).
+
 **Les autres colonnes** — à leur rang : la maintenance (la fréquence
-d'emploi de chaque écran, D1168), le développeur (le hook d'interface
-listé, D918).
+d'emploi de chaque écran, D1168).

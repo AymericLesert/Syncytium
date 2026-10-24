@@ -156,7 +156,26 @@ contient : le plus proche l'emporte. *(D348/D360)*
 
 **Valeur de démonstration** (`placeholder`) — Description visuelle permet de capter l'attention d'un utilisateur sur la validité de la donnée. L'exemple affiché dans un champ vide ; pour une image, l'icône de fond. *(D364/D390)*
 
+**Extraction** (`rgpd.extract(identity)`) — L'opération du socle qui réunit tout ce
+qui concerne une personne : depuis les champs qui portent son identité
+civile (`rgpd: identity`), les enregistrements trouvés et confirmés,
+puis ce que l'arbre de la donnée y relie — les références, les
+compositions, l'historique, le journal des accès, les traitements qui
+l'ont touchée. Au plancher `manager`, à la demande de l'usager ; le
+résultat, une édition à cartouche, journalisée ; la famille `rgpd` des
+opérations réglementaires, où `anonymize` entre comme `rgpd.anonymize`.
+*(D1149, D1331–D1333)*
+
 **Exécution à blanc** (Dry-run) — La répétition générale afin de valider la conformité d'une nouvelle version du modèle. Cela ouvre droit à un rapport sur les non-repects ou les impossibilités liés à la migration. Le but est de garantir la stabilité du système et sa continuité de service. *(D120)*
+
+**Dictionnaire de la donnée** — Le titre de la documentation de
+l'information : la donnée du projet par sa structure, ses évolutions,
+son origine et son usage ; le dictionnaire des données en est le cœur,
+la configuration dépliée son annexe. Il décrit l'exhaustivité de la
+donnée là où la fonctionnelle décrit ce qui est accessible à un
+utilisateur : la fonctionnelle en est un extrait. Il montre tout, avec
+le niveau de confidentialité de chaque information ; seules les clés
+`*` (les secrets) n'y sont pas. *(D1243–D1247)*
 
 **Dictionnaire des données** — L'inventaire exhaustif des données de
 l'application, lisible, en tableaux — une table par entité, une ligne
@@ -172,10 +191,52 @@ vers une analyse claire de l'information ; ouvert par les deux
 glossaires ; une annexe de la fonctionnelle. *(documentation.md §15,
 D1179–D1180, D1212–D1216)*
 
+**Contrat d'API** — Ce que la documentation du développeur donne au
+technicien pour chaque version publiée : une console interactive dans
+l'application, qui s'authentifie, prend ses paramètres (la version,
+« pour le compte de », la langue, l'environnement) et n'affiche que ce
+que le compte technique a le droit d'appeler — le chapitre commun en
+tête, une section par entité permise, les exemples d'appel lancés
+depuis la console, les écarts entre versions ; la même description en
+édition pour un compte, ou au format machine. *(D1393–D1402, D1425)*
+
+**Skill (les consignes pour l'IA)** — Le paquet qu'une IA charge pour
+écrire ou améliorer une configuration Syncytium : la couche du core —
+la grammaire des clés, les règles d'ingestion, les recommandations, les
+exemples du socle —, versionnée avec lui ; le complément de la version,
+généré depuis la configuration — ses hooks, ses types, son glossaire,
+ses conventions — et le texte libre `skill:` du projet, un complément,
+jamais un remplacement. Générée, déterministe ; lue au concepteur,
+exportée en édition machine. *(D1224, D1226, D1409–D1410)*
+
 **Documentation (la facette)** — Chaque composant porte sa
 documentation, comme il porte son affichage ou son stockage ; chaque
 type de composant la décline dans chacune des neuf documentations ;
 Syncytium assemble. *(D1158–D1159)*
+
+**Documentation de l'information** — La deuxième documentation, pour
+la BI, l'IA et le décideur : centrée sur la donnée et la configuration
+du projet — ce que l'application sait à une version donnée (le modèle,
+les règles, les droits, les réglages, le stockage, les données de
+l'instance) et ce que le concepteur a écrit pour le dire. Elle
+s'intitule « Le dictionnaire de la donnée » ; son plan est le §4 de
+documentation.md. *(D1131, D1241, D1243)*
+
+**Documentation du projet et du support** — La huitième
+documentation : le cycle de vie des versions et leur page (le numéro,
+le statut, les notes écrites, les écarts calculés — l'état, jamais
+l'échéance —, les dates lues à l'instance, les ressources, les droits
+d'auteur, les auteurs), le dépôt du
+client (aucune clé : l'adresse lue depuis le dossier si elle est
+publique, le versionnement calculé, `syncytium init` lit `from:`, la version du core, et récupère
+ce core — la documentation est la sienne, D1360–D1361), signaler, demander et questionner — le
+support dans l'application : les tickets (anomalie, évolution,
+question) du module interne `_assistance`, leurs messages, leur
+statut, le groupe gestionnaire désigné par la surface, D1363–D1373 ; la
+question répondue va à la F.A.Q. de la fonctionnelle, la paire seule),
+le support (un texte écrit sans engagement, les indicateurs statiques et
+dynamiques, D1375–D1380).
+*(D1133, D1347–D1391)*
 
 **Édition** — Un extrait figé de la documentation pour qui n'a pas de
 compte, préparé par un `manager` ou un `administrator` dans la limite de
@@ -185,7 +246,9 @@ au gabarit des rapports (`template`) ; une beta s'édite sous filigrane.
 
 **Édition machine** — Le YAML ou le JSON des informations internes et
 des items de configuration, sans facette, pour l'analyste et
-l'assistant ; le Markdown est le rendu humain. *(D1165)*
+l'assistant ; le Markdown est le rendu humain. *(D1165)* Depuis D1245, l'annexe du
+dictionnaire de la donnée : la configuration entière et dépliée, sans
+les clés confidentielles.
 
 **Entité** (`entity`) — Un objet du métier ou une table dans un modèle relationnel : le
 client, la commande, le produit. Chaque entité a ses
@@ -232,6 +295,13 @@ combinaison, l'agrégat qui suit s'évalue par cellule et le résultat est
 un hypercube aux dimensions des champs. En méthode dans une formule, ou
 en propriété d'une association dérivée, à côté du tri (`sort:`).
 *Ex. : `mouvements.group(emplacement, article).sum(…)`.* *(D1015–D1017)*
+
+**Groupe de champs** (dans `fields:`) — Une clé de la carte des champs
+qui porte `title:` et `fields:` sans `type:` — ses champs en place ou
+dans un fichier référencé ; nommée, titrée par langue, ordonnée : le
+modèle reste plat, les noms de champs s'adressent sans le groupe. Le diagramme en fait un compartiment, le dictionnaire une
+section, le formulaire par défaut un onglet ; les champs hors groupe
+forment le groupe implicite, en en-tête de l'écran. *(D1273, D1279)*
 
 **Groupe d'utilisateurs** (`group`, `groups.yml`) — Un ensemble nommé de personnes,
 brique des droits : la confidentialité, la visibilité d'un historique,
@@ -322,9 +392,13 @@ par des données : la règle de contrôle du stock, emplacement × article
 modules, entités, champs — **et la grammaire utilisée** pour les
 écrire. Chaque version porte un méta-schéma. *(D322)*
 
-**Migration** — Le passage d'une version de configuration à la suivante,
-sans arrêter l'application : la base, les écrans et les API suivent.
-*(D3)*
+**Migration** — Deux sens voisins. Le passage d'une version de
+configuration à la suivante, sans arrêter l'application : la base, les
+écrans et les API suivent *(D3)*. Et le nom du module interne
+`_migration` et de l'artefact migration.md, qui portent la **reprise
+des données** : la configuration dit « reprise » pour le geste, le
+module s'appelle « migration » parce qu'il vaut pour toute migration
+d'un système à Syncytium *(D1031, D1259)*.
 
 **Mode d'un champ** (`mode`) — Son mode d'écriture : modifiable
 (`editable`), lecture seule (`read-only`), écrit une fois pour toutes
@@ -343,7 +417,8 @@ entités, son menu, sa page d'accueil — la donnée et l'expérience
 ensemble. Un module décrit une partie fonctionnelle d'une application (aussi appelée module fonctionnel) comme pour un ERP : la gestion ADV, le référentiel des produits, la gestion et la planification de la production, ...
 *(D347/D416)*
 
-**Module interne** (`_migration`, `_administration`, `_chat`) — Un
+**Module interne** (`_syncytium`, `_migration`, `_administration`,
+`_assistance`, `_chat`) — Un
 module servi par Syncytium, jamais déclaré par l'application ; son nom
 commence par `_`, le préfixe des modules internes, et Syncytium refuse
 ce premier caractère aux modules d'application. *(D1029)*
@@ -436,6 +511,14 @@ complet s'assemble par concaténation des release-notes des versions
 antérieures jusqu'à la courante — pas de fichier unique à maintenir.
 *(D808)*
 
+**Reprise des données** — Le chargement, dans Syncytium, des données
+d'un système précédent : les sources lues ou ignorées, leurs colonnes,
+les règles et leurs destinataires, le refusé non enregistré, la table
+des associations ; décrite dans `reprise.yml`, portée par le module
+interne `_migration` — d'où la proximité avec **migration**. Le
+chapitre 4 du dictionnaire de la donnée en porte le nom.
+*(D1030–D1080, D1259)*
+
 **Ressources** (`resources/`) — Le dossier des images de la
 description : logos, icônes, fonds. Une ressource peut être également un fichier binaire, word, excel, ... En fait, cela représente tout fichier complémentaire utile au bon fonctionnement du projet (Ex : cas de fichiers modèles pour PDF, Word, Excel, ...).
 Le dossier est **versionné** — il vit dans la version, déclaré par
@@ -444,6 +527,17 @@ dépendent de la version d'exécution »). La fiche d'une ressource :
 `name`, `description`, `file`, `credit:` — le crédit des éléments
 tiers, par courtoisie.
 *(D346, amendé par D803)*
+
+**Storage** (`storage`, une famille de connecteurs) — Le lien entre
+les données manipulées par Syncytium, leur manipulation, son
+optimisation et le stockage physique. Il traite l'unitaire et la masse ;
+son traitement est bijectif, standardisé, harmonisé, extensible par le
+format pivot — les types élémentaires, dans lesquels tout type
+Syncytium se décline (D1298). Il s'auto-décrit : ses règles de transcription des types vers la base ou
+la zone de stockage, rendues par son `describe(model)` — les tables,
+les colonnes, les clés, les index, les partitions ; `get_instance()`
+lit la base et rend un modèle à l'image du méta-modèle (D1299). Il influe sur le hook de
+type, à qui il dit ce qu'il attend. *(D629, D680–D684, D1294–D1297)*
 
 **Style** — Le cadre technique du rendu, fourni par Syncytium (« au
 même titre que les composants graphiques, Syncytium propose un ou
@@ -469,6 +563,18 @@ concepteur.)*
 
 **Télémétrie** — Tous compteurs, journaux ou rapports visant à assurer la stabilité du projet (fonctionnement, migration, sécurité, ...) et à apporter des conseils sur des optimisations à apporter tant en termes de développement interne qu'en usage pour les applications tierces. *(D38)*
 
+**Traitement (RGPD)** — Une opération ou une suite d'opérations —
+un wizard, une action, un déclencheur — impliquant au moins un champ
+`rgpd:`. L'entité qui porte le champ décrit le stockage de la donnée ;
+le module qui porte une telle entité est soumis au RGPD ;
+l'anonymisation et le nettoyage sont des traitements d'appui, tenus
+par leur fréquence et leur règle. Le registre des traitements en fait
+une ligne par traitement, avec son bloc `rgpd:` — le responsable
+(`controller`, un groupe d'utilisateurs), la base légale (`legal`, à
+valeurs fermées), la finalité (`purpose`) —, « non précisé » quand une propriété manque ; un projet sans champ
+`rgpd:` n'est pas une anomalie, Syncytium ne décide pas de ce qui est
+réglementaire. *(D1317–D1322)*
+
 **Tri** (`sort`) — L'ordre naturel d'un type — alphabétique, numérique,
 chronologique — réglable là où plusieurs ordres se défendent.
 *Ex. : `sort: natural` — item2 avant item10.* *(D125/D380)*
@@ -486,6 +592,13 @@ premier déclaré est le défaut.
 il se stocke, s'affiche et se cherche. Le nom suffit — un type du
 catalogue (simple, référence ou composé - hook inclus) ou un type personnalisé (ensemble de propriétés communes à plusieurs champs).
 *(D408)*
+
+**Type élémentaire** (le format pivot) — Un des composants
+élémentaires du stockage : booléen, entier, long, décimal, texte… avec
+ses propriétés génériques (la longueur d'un texte, les bornes d'un
+entier). Tout type Syncytium se décline en un type élémentaire ou en
+une liste nommée de types élémentaires ; le storage ne convertit que
+ceux-là, ce qui fait l'extensibilité du modèle. *(D1298)*
 
 **Type personnalisé** — Description commune d'un type et de ses propriétés tel qu'il puisse être réutilisable sur plusieurs champs de l'application.
 Il porte aussi les facettes de sens — `rgpd:`, la confidentialité — dont

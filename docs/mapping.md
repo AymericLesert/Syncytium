@@ -177,8 +177,8 @@ décrite par le méta-modèle également. » À la racine de la version :
 - **`source/`** — la description du modèle d'origine, **table par
   table et colonne par colonne, dans la grammaire de description** ;
   **Syncytium s'assure de la complétude du modèle** : la description
-  confrontée au schéma réel (`read_instance` — D629/D680), l'écart
-  signalé ; `read_instance` peut engendrer l'ossature, le concepteur
+  confrontée au schéma réel (`get_instance` — D629/D680), l'écart
+  signalé ; `get_instance` peut engendrer l'ossature, le concepteur
   la raffine ;
 - **`mapping/`** — les règles de conversion, **table par table, aux
   origines multiples possibles**.
@@ -914,10 +914,39 @@ des opérations de l'entité parce qu'elles transforment ce que
 l'utilisateur voit (D1209, D1227) ; les champs `unchanged:` se disent
 « saisis ici, jamais repris » (D941).
 
-**Les autres colonnes** — à leur rang : l'information (le rang 2 — les
-sources décrites, les règles, les trois taux D862, le graphe source →
-cible et l'impact d'une évolution de la source, D1198) ; le guide
+**La migration déclarée, dans le dictionnaire de la donnée** (la colonne
+2 — le rang 2, D1302) : le chapitre 4.1 « Reprise des données »
+(D1259) — la migration déclarée, **les sources** (par table d'origine,
+le périmètre, l'identité et la clé de partition de la couverture
+(D879/D1050 — comment la source se lit, à distinguer de la partition
+de stockage de D1293), les colonnes lues avec le type lu et le type
+décrit, les colonnes écartées et leur motif), **les
+règles** (dans l'ordre : la source, la cible, le périmètre, les champs
+mappés et leurs transformations, les destinataires), **le graphe source
+→ cible dans les deux sens** — l'index 5.1 lu depuis l'autre bout
+(D1198, D1186) ; à l'instance, le modèle lu et ses versions, les
+passages ; le détail dans [migration.md](migration.md).
+
+**La migration déclarée, dans la réglementation** (la colonne 5 — le
+rang 3) : **les règles de reprise qui écrivent un champ marqué sont des
+traitements** du registre (D1317), par leur source, leur cible, leur
+rapport et ses destinataires ; **la provenance** (D178) entre dans la
+mention d'information — « reprises de PMI » — et dans la documentation,
+pour le contexte (D1335) ; la rétention des fichiers de détail au
+nettoyage (D1065, D1334).
+
+**La migration déclarée, dans le projet et le support** (la colonne 8
+— le rang 4) : rien — les règles de reprise ne sont pas des écarts
+(D1281) ; les notes de version disent, en clair, ce que la reprise
+apporte (D1096).
+
+**La migration déclarée, dans la documentation du développeur** (la
+colonne 3 — le rang 5) : rien de propre — la reprise n'est pas un
+appel ; le gabarit technique de l'import (D1414) est la porte du
+programme qui voudrait alimenter l'entrepôt sans reprise ; les règles
+de reprise ne sont pas des écarts du contrat (D1281).
+
+**Les autres colonnes** — à leur rang : le guide
 d'exploitation (le rang 7 — `migrate`, `reset_coverage`, le rythme, les
-rapports de rejets D929, les anomalies D1032) ; la réglementation (la
-provenance D178, les données personnelles reprises) ; la maintenance
+rapports de rejets D929, les anomalies D1032) ; la maintenance
 (la couverture et les compteurs, [migration.md](migration.md)).

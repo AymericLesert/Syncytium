@@ -153,7 +153,7 @@ La lecture au registre :
   entier**, table par table et champ par champ (D176/D648) — le
   hors-périmètre (D859) déclaré `ignored` (D657 : « on peut
   ignorer, jamais oublier ») ; l'ossature engendrée par
-  `read_instance` (D653) rend la chose tenable sur des centaines de
+  `get_instance` (D653) rend la chose tenable sur des centaines de
   tables ;
 - **l'anomalie** : toute table ou tout champ du schéma réel absent
   de la description = une anomalie remontée — la complétude
@@ -251,7 +251,7 @@ cadrage :
   rejets = **un rapport, jamais une quarantaine** — la correction à
   la source, la relance sur les manquants ;
 - **le mapping** (D646–D672) : `source/` dans la grammaire —
-  l'ossature engendrée par `read_instance` (D653), `ignored` à
+  l'ossature engendrée par `get_instance` (D653), `ignored` à
   l'entité ou au champ (D657), la normalisation (D660), le
   `filter:` du périmètre (D663) ; `mapping/` aux clés
   fonctionnelles (D654) ; **le mode `relative`** (D649/D671 — les
@@ -281,7 +281,7 @@ cadrage :
   `hooks/types/`, D644/D777) ;
 - **le premier storage lu par connexion**, pas par fichier — la
   classe `sqlserver` consignée (D613/D619), un schéma d'une
-  instance SQL Server (D860) : `read_instance` pour de vrai
+  instance SQL Server (D860) : `get_instance` pour de vrai
   (D653/D829), la lecture au curseur (D689) ;
 - **le premier storage cible `postgresql`** (D860 — le domestique
   portait le sqlite natif D729) : l'entrepôt = un schéma, l'instance
@@ -461,7 +461,7 @@ Deux classeurs fournis le 05/09/2026, **hors du dépôt**
   `reprise.yml` liste ses fichiers **un par un**, sans regex (le
   pattern D806 reste licite ailleurs, l'auteur le refuse ici) ;
   l'ossature engendrée depuis le schéma réel (D653 — le rôle de
-  `read_instance`), le concepteur la raffine ; **la taxonomie de la
+  `get_instance`), le concepteur la raffine ; **la taxonomie de la
   couverture s'ajuste** (D861–D862) : la complétude = décrit /
   absent, la couverture = migré / décrit sans règle — *l'état
   « ignoré » : conservé pour une exclusion explicite, ou l'exclusion
@@ -524,7 +524,7 @@ mot :
 La lecture — ce qui se corrige et ce qui se précise :
 
 - **la description est un acte du concepteur, jamais une
-  génération** : `read_instance` (D653) sert la comparaison, pas
+  génération** : `get_instance` (D653) sert la comparaison, pas
   l'écriture — l'ossature engendrée que je proposais (D866) est
   retirée ; chaque table et chaque colonne décrite l'est parce
   qu'elle a été comprise ;
@@ -2325,3 +2325,544 @@ utiles et pertinents pour présenter cette part de la documentation. »
 (D1207). Les personas se déclinent sur le véhicule et la banque ; ce que
 l'entrepôt donne à voir de la documentation reste la migration et
 l'alimentation.)*
+
+## Les groupes de champs de l'article (D1273, D1279)
+
+L'article déclare ses groupes dans `fields.yml`, au plus près des
+champs — une clé à `title:` et `fields:` (D1279), **un fichier par
+groupe** (D1280 : `classification.yml`, `unites.yml`, `prix.yml`…) —,
+repris de ses commentaires : la classification, les unités et les dimensions, les
+codes-barres, le stock de référence, les prix, la vie de l'article, le
+stockage et les quatre lieux, les liens, les champs calculés. Le code,
+son complément et les deux libellés restent hors groupe : le groupe
+implicite, en en-tête de l'écran au-dessus des onglets. Le formulaire
+par défaut de l'article a donc neuf onglets ; le diagramme du module
+`technique` neuf compartiments ; ses structures internes se nomment
+`article.tarifs` et `article.stock_par_emplacement` (D1274). La beta
+1.0.0.1 porte les mêmes groupes, son `commentaire` hors groupe. *(Le
+découpage est le mien, en proposition — les commentaires de
+`fields.yml` le portaient déjà ; le contenu vérifié identique une fois
+aplati, l'ordre des champs conservé.)*
+
+## Le dictionnaire de la donnée — la déclinaison de l'entrepôt
+
+*(La déclinaison du rang 2 sur le cas 5, écrite le 15/10/2026 après
+celle du tiny (usecases/01_tiny.md) ; le plan de documentation.md §4,
+D1241–D1308. L'entrepôt est le cas qui met le plan à l'épreuve : deux
+versions, quatre modules, dix-huit entités, une hiérarchie, une reprise,
+des groupes et des profils de confidentialité, des associations
+dérivées, des structures internes. On ne réécrit pas ici les trois vues
+(§5 les montre déjà sur ce cas) ni la configuration dépliée (plus de
+deux cents fichiers) : on montre ce que le tiny ne pouvait pas montrer,
+et on mesure **la lisibilité de l'index 5.1** (D1263). Ce qui est de moi
+est marqué. **En proposition.**)*
+
+---
+
+> # entrepôt — Le dictionnaire de la donnée
+>
+> *La version 1.0.0.0 — production ; le français ; généré au dépôt.*
+>
+> ## 2. La structure, avec ses évolutions
+>
+> ### 2.1 La version
+>
+> **La version 1.0.0.0.** Production, le français. Notes de version : « La
+> première version de l'entrepôt de données : les données de Cegid PMI
+> standardisées, harmonisées… ». **L'historique** : première version.
+> **À venir — 1.0.0.1, beta** (D1285) : `tiers.nom_court` renommé depuis
+> `abrege` ; `tiers.langue` retypé, texte de trois caractères devenu
+> énuméré à quatre valeurs ; `technique.article.commentaire` ajouté. *(La
+> documentation de la 1.0.0.1, elle, dit son état et ces trois écarts en
+> historique, et n'a pas d'à venir — D1286.)*
+>
+> ### 2.2 Le modèle
+>
+> *(Les trois vues : la vue des modules à quatre boîtes et quatre traits
+> à deux têtes, la vue d'ensemble à dix-huit classes, la vue sélective de
+> chaque module — documentation.md §5 les donne pour `technique`.)*
+>
+> #### L'entité technique.article
+>
+> Un article de l'entreprise — son identité, sa famille, ses unités, ses
+> prix de revient et ses tarifs ; le parent des produits fabriqués,
+> semi-finis et fantômes. **Le parent abstrait** d'une hiérarchie :
+> `fabrique`, `semi_fini`, `fantome` en héritent. **L'identité** `code`,
+> `complement` — « identity », l'identité de naissance. **Le visage**
+> `{code}[{complement}] — {libelle}`. **Historisée.** **Le rgpd** : aucun
+> champ.
+>
+> **Les champs**, par groupe (D1273, D1279) — l'implicite en tête :
+> `code`, `complement`, `libelle`, `libelle_secondaire` ; puis neuf
+> groupes, un onglet chacun dans le formulaire du socle. L'extrait du
+> groupe **Les prix** :
+>
+> | Nom | Type | Libellé | Aide | Obligatoire | Défaut | Confidentialité | Exceptions d'écriture | Depuis |
+> |---|---|---|---|---|---|---|---|---|
+> | `prix_revient` | un montant, en euros par défaut | Prix de revient | Le prix de revient standard — … | non | — | **protégé** — achats, direction | — | 1.0.0.0 |
+> | `prix_moyen_pondere` | un montant, en euros par défaut | Prix moyen pondéré | … | non | — | protégé — achats, direction | — | 1.0.0.0 |
+> | `prix_achat` | un montant, en euros par défaut | Prix d'achat | … | non | — | protégé — achats, direction | — | 1.0.0.0 |
+>
+> *(« un montant, en euros par défaut » : le type `amount` avec le réglage
+> `currency: EUR` de `settings.yml` fondu dans la forme en clair (D1253) ;
+> « protégé — achats, direction » : le profil `financier` résolu (D1247) ;
+> la colonne des exceptions d'écriture (D1311) est vide — les champs
+> suivent leur entité, et le module ferme `create`, `update`, `delete` :
+> seule la reprise écrit.)*
+>
+> **Les règles** (D1254). Deux validations : « le stock maximum
+> {stock_maximum} est sous le stock minimum {stock_minimum} » ; « l'article
+> est modifié le {date_modification}, avant sa création le
+> {date_creation} » — les messages par leurs gabarits (D1227). Cinq
+> calculés et leurs formules — `dormant` :
+> `context.now - derniere_sortie > 180d if derniere_sortie != null` ;
+> `derniere_sortie` : `mouvements.max(date if sens = "sortie")` ;
+> `dernier_fournisseur`, `nature`, `stock_par_emplacement`. Aucun état.
+>
+> **Les sections des champs** (D1283) — l'exemple de `prix_revient` :
+>
+> > **prix_revient.** Les prix sont des montants à devise … la direction.
+> > *(la description détaillée)* — **Historique** : depuis 1.0.0.0. **À
+> > venir** : rien. **Où il sert** : aucune formule, aucune validation ;
+> > la règle de reprise `01_articles` l'écrit depuis `ARTICLE.ARCNPRS`,
+> > par `amount(ARCNPRS)`. **Télémétrie** : *avec l'instance — le
+> > renseigné, le minimum, le maximum, la moyenne, la plage occupée ;
+> > rien pour qui n'est ni achats ni direction (D1249).*
+>
+> #### L'entité tiers.tiers — dans la documentation de la 1.0.0.1
+>
+> *(Pour montrer l'historique à l'élément.)* La section de `nom_court` :
+> **Historique** : 1.0.0.1 (beta) — renommé depuis `abrege` ; depuis
+> 1.0.0.0 sous son ancien nom. La section de `langue` : 1.0.0.1 (beta)
+> — retypé, `text[..3]` devenu énuméré (fr, en, de, es). La ligne de
+> `note_interne` : l'exception d'écriture « commercial, achats » (D1311)
+> — le droit du champ l'emporte sur le module fermé (D1172).
+>
+> ## 3. Le stockage
+>
+> *Deux familles déclarées : `sqlite` (`home`) et le SQL Server de
+> `production` — deux `describe(model)` ; l'extrait ci-dessous pour SQL
+> Server, les noms physiques selon sa classe (ma lecture).*
+>
+> **La table `technique_article`** — 47 champs, 51 colonnes : chaque
+> `amount` fait deux colonnes (le montant, la devise), chaque `measure`
+> deux (la valeur, l'unité) — la déclinaison (D1298) ; `plans` une table
+> de liaison vers les fichiers ; **les structures internes**
+> `technique_article_tarifs` (tiers, tranche, date_application, seuil,
+> plage…) et `technique_article_stock_par_emplacement` (D1271, D1274) ;
+> **les colonnes protégées** `prix_revient`, `prix_moyen_pondere`,
+> `prix_achat` marquées « protégé — achats, direction » (D1247, D1300) ;
+> la table d'instantanés `technique_article_history` (D169). **La
+> hiérarchie** : la classe du storage décline chaque type de composant
+> en stockage, l'héritage compris — une table par dérivé ou une seule
+> avec une colonne de type, à préciser à l'implémentation (D1309) ; le
+> `describe(model)` dit ce qu'elle fait.
+>
+> **Les index** (D1292), avec leur origine : la clé primaire ; la clé
+> unique (`code`, `complement`) sur les actifs — l'identité ; les clés
+> étrangères — `fournisseur_defaut`, les quatre dépôts, les quatre
+> emplacements ; et dans `tiers_tiers` l'index plein texte de
+> `mutualizable[qui]` sur `nom` et, chez `contact`, sur ses champs
+> branchés (D780) — le seul `searchable:` du cas. **Les partitions** :
+> aucune déclarée (D1293) ; *le froid des seize entités historisées par
+> période, par défaut*.
+>
+> **Les tables de Syncytium** : la version, `user`, la télémétrie, et
+> celles de la reprise — `migration`, `passage`, `passage_source`,
+> `passage_cible`, `passage_regle`, `cle`, `modele`, `anomalie_modele`,
+> `anomalie` (migration.md, D1292).
+>
+> ## 4. L'origine
+>
+> ### 4.1 Reprise des données
+>
+> **Les modules sont fermés à l'écriture : les données n'entrent que par
+> la reprise** (D1312). **La migration déclarée** `cegid` : la base
+> d'origine `cegid`, la base miroir `temporaire`, le mode relatif, le rythme — le delta nocturne à
+> deux heures, la relecture complète le samedi soir (D943). **Les
+> sources** : vingt-trois tables de PMI par module
+> (`source/technique/ARTICLE.yml`…) — pour
+> `ARTICLE` : le périmètre `ARKTSOC = "100"`, l'identité
+> `[ARKTCODART, ARKTCOMART]`, les colonnes lues avec leur type lu
+> (`ARCTTYPART : enum {AC, CO, …}`) et leur description, les colonnes
+> écartées avec leur motif, les colonnes non citées relevées. **Les
+> règles** : trente-trois, dans l'ordre des cinq lots (`1_lieux` …
+> `5_stock`) — pour `01_articles` : la source `ARTICLE`, la cible
+> `technique.article`, le périmètre `ARCTFATN not in ["01", "09",
+> "12"]`, les champs mappés et leurs transformations (`type` par un
+> `select` des codes PMI, `perissable` par `mid(ARCTCODFAM, 4, 1) = "1"`),
+> le rapport au bureau d'études. **Le graphe source → cible** : par
+> colonne, `ARKTCODART` → `technique.article.code`, `fabrique.code`,
+> `semi_fini.code`, `fantome.code` (les quatre règles de l'article) ; par
+> champ, `article.code` ← « repris de `ARTICLE.ARKTCODART` par
+> `01_articles` ». **À l'instance** : le modèle lu de PMI et ses versions,
+> le dernier passage, la couverture et la complétude, les clés d'origine
+> par statut, le refusé et ses motifs.
+>
+> ### 4.2 Les imports
+>
+> Aucune entité importable par fichier : les modules sont fermés à
+> l'écriture, la reprise seule écrit — la description de la reprise
+> (4.1) le met en clair (D1312).
+>
+> ### 4.3 Les opérations
+>
+> Aucune opération déclarée par les entités ; les opérations de la
+> reprise — `migrate`, `reset_coverage` — relèvent du guide
+> d'exploitation (D1302) ; ici, ce qu'elles écrivent : tout, par leur
+> privilège.
+>
+> ## 5. L'usage
+>
+> ### 5.1 Où sert chaque champ — l'épreuve de la lisibilité (D1263)
+>
+> **La synthèse par entité**, en tête — une ligne par entité :
+>
+> | L'entité | Référencée par | Référence | Champs lus par une formule, une validation, une règle | Champs orphelins |
+> |---|---|---|---|---|
+> | `technique.article` | `nomenclature.composant`, `ligne_vente.article`, `ligne_achat.article`, `niveau.article`, `mouvement.article`, `fournisseur.articles` | `fournisseur` (2), `depot` (4), `emplacement` (4), `ligne_vente`, `ligne_achat`, `mouvement`, `client` (via `fabrique`) | 11 sur 47 | 0 — tous affichés par la liste ou le formulaire |
+>
+> **Le détail par champ, replié** — *dans la documentation servie, la
+> zone du champ l'ouvre (D1216) ; dans l'édition, une table par entité,
+> les usages triviaux — la seule saisie, le seul affichage en liste —
+> omis ; la pertinence par le poids : une formule, une validation, une
+> règle de reprise ou un rapport pèsent plus qu'un affichage* :
+>
+> | Le champ | Les formules | Les validations | La reprise | Les rapports et les écrans |
+> |---|---|---|---|---|
+> | `stock_minimum` | — | `stock_maximum >= stock_minimum …` | `01_articles` ← `ARCNSTOMIN` | la liste des articles |
+> | `derniere_sortie` | `dormant` la lit | — | — | le tableau de bord des dormants |
+> | `mouvements` | `derniere_sortie`, `stock_par_emplacement` la lisent | — | — | — |
+> | `prix_revient` | — | — | `01_articles` ← `amount(ARCNPRS)` | le formulaire, l'onglet Les prix |
+>
+> *(Le mesurage : l'article a 47 champs ; 11 entrent dans une formule,
+> une validation ou une règle ; 36 n'ont que la reprise et l'affichage.
+> La table repliée tient en onze lignes utiles ; la table complète en
+> quarante-sept. C'est là que « l'organisation, la synthèse et sa
+> pertinence » (D1263) se jouent : la synthèse en une ligne, le détail à
+> onze, l'exhaustif sur demande — acquis, D1313.)*
+>
+> ### 5.2 Les droits
+>
+> **La matrice** (D1264) — les entités en lignes, les six groupes en
+> colonnes ; l'extrait :
+>
+> | | commercial | achats | bureau_etudes | logistique | direction | administration |
+> |---|---|---|---|---|---|---|
+> | `technique.article` | lire | lire | lire | lire | lire | lire |
+> | `tiers.tiers` | lire ; **`note_interne` : modifier** | lire ; `note_interne` : modifier | lire | lire | lire | lire |
+> | `technique.article.prix_*` | — | voir | — | — | voir | voir |
+>
+> *(La direction est composée des quatre groupes métier (D1099) : elle
+> voit ce qu'ils voient ; l'administration a le degré `administrator`
+> (D699). « voir » sur une ligne de champ : le profil `financier` — le
+> niveau protégé lu comme « qui voit » (D1247).)*
+>
+> ### 5.3 Les données
+>
+> *(Avec l'instance seulement — pour `prix_revient`, le minimum, le
+> maximum, la moyenne et la plage, à qui peut le lire ; pour `type`,
+> l'énuméré, la répartition par valeur et les valeurs jamais employées ;
+> pour `article`, le volume, les créations, les modifications, les
+> suppressions par passage de reprise, la part d'historisés — D1287 ;
+> les valeurs par fréquence si Pareto 80/20 — D1290.)*
+>
+> ## Annexes
+>
+> **A. La configuration dépliée** — un seul arbre, les 215 fichiers
+> résolus, les défauts du socle écrits, le catalogue en français, les
+> clés `*` des connecteurs retirées (`password*`, `client_secret*` —
+> D1247) ; *de l'ordre de cinq mille lignes en YAML (ma lecture), pour
+> l'IA et la BI — non reproduite ici.* **B. Le glossaire des types** :
+> les types du catalogue employés (`text`, `enum`, `boolean`, `integer`,
+> `decimal`, `date`, `amount`, `measure`, `percentage`, `duration`,
+> `period`, `file`…) et les trois types dérivés de `settings.yml` —
+> `date_pmi` : « une date, écrite AAAAMMJJ » ; `time_pmi` : « une heure,
+> écrite HHMMSS » ; `amount` réglé : « un montant, en euros par
+> défaut » — chacun par sa forme, ses contraintes, son `placeholder`
+> (D1301, D1307).
+
+---
+
+**Ce que la déclinaison relève.** *(1)* La table des champs porte la
+colonne des exceptions d'écriture (D1311) : vide quand le champ suit
+son entité, « commercial, achats » pour `note_interne`. *(2)* La
+hiérarchie au stockage — une table par dérivé ou une seule — est une
+déclinaison de la classe du storage, à préciser à l'implémentation
+(D1309) ; le `describe(model)` la dit.
+*(3)* Des modules fermés à l'écriture n'ont pas de gabarit d'import :
+le chapitre 4.2 le dit et la description de la reprise le met en clair
+(D1312). *(4)* L'index 5.1 tient
+par le pli (D1313) : la synthèse en une ligne par entité, le détail aux
+seuls champs qui pèsent, l'exhaustif sur demande — mesuré ici à 11
+sur 47. *(5)* « Depuis la version x » vaut la
+première version partout dans la première version — ici 1.0.0.0, mais
+une première version peut être 0.0.0.1 (D1310) ; la colonne ne prend
+son sens qu'à la suivante, où trois champs se distinguent.
+
+
+## La réglementation — la déclinaison de l'entrepôt (le rang 3)
+
+*(La déclinaison du rang 3, écrite le 19/10/2026 sur §18 de
+documentation.md — D1317–D1343. L'entrepôt est le seul cas marqué :
+`tiers.contact` porte six champs `rgpd: personal` — le nom, le prénom,
+le téléphone, le portable, l'email, l'anniversaire — et
+`stock.mouvement.utilisateur`, « l'opérateur qui a saisi — un nom de
+personne ». Les modules sont fermés à l'écriture, la reprise seule
+écrit (D1312) ; aucun bloc `rgpd:` n'est déclaré. On montre le registre
+tel qu'il sortirait aujourd'hui, puis ce que le concepteur ajouterait.
+**En proposition.**)*
+
+---
+
+> # entrepôt — La réglementation et la sécurité
+>
+> ## Le registre des traitements
+>
+> **Les modules soumis** : `tiers` (l'entité `contact`), `stock`
+> (l'entité `mouvement`). `technique` et `commande` ne portent aucun
+> champ marqué.
+>
+> **Le responsable, la base légale, la finalité** : *non précisés* —
+> aucun bloc `rgpd:` au projet, aux modules, aux entités ni aux
+> traitements (D1327). **Le DPO** : *non précisé*.
+>
+> ### Le module tiers
+>
+> **Les données.** `contact` — Une personne chez un tiers, son rôle et
+> ses coordonnées ; stockée dans la table `tiers_contact` (le
+> dictionnaire, chapitre 3), historisée ; six champs `personal` :
+> `nom`, `prenom`, `telephone`, `portable`, `email`, `anniversaire` ;
+> aucun `identity` *(à marquer : `nom` et `prenom` — voir ci-dessous)*.
+>
+> **Les traitements.**
+>
+> | Le traitement | La forme | Qui le déclenche | Les données | Les destinataires | La fréquence |
+> |---|---|---|---|---|---|
+> | lire un contact | l'acte du socle | tous les groupes | les six champs | — | à la demande |
+> | créer, modifier, supprimer un contact | les actes du socle | personne — le module est fermé | — | — | — |
+> | la reprise des contacts | les règles `05_contacts_clients`, `06_contacts_fournisseurs` (la source `CONTACT`) | la reprise, par son privilège ; `migrate` par `delta_nocturne` | les six champs, depuis `cegid` | — | chaque nuit à deux heures |
+> | le rapport des anomalies de la reprise | le `report:` de la source et de la règle | la reprise | les valeurs anonymisées (D1065) | le groupe destinataire, par `smtp` — hors du système | à chaque passage |
+> | l'anonymisation | `rgpd.anonymize` | `administration` | les six champs | — | *non déclarée* |
+> | le nettoyage | `cleanup.yml` | l'environnement | les fichiers de détail de la reprise | — | chaque jour, 90 jours de rétention |
+>
+> **La rétention** : les fichiers de détail, 90 jours ; les
+> enregistrements, *non précisée* — aucune règle d'anonymisation
+> déclarée (D1334). **Le lieu** : *non précisé* — aucun `countries:` sur
+> `entrepot` ni sur `smtp`.
+>
+> ### Le module stock
+>
+> **Les données.** `mouvement.utilisateur` — « Saisi par », un nom de
+> personne ; stocké dans `stock_mouvement`, historisé.
+>
+> **Les traitements.** Lire un mouvement, tous les groupes ; la reprise
+> des mouvements, depuis `MVTSTO`, chaque nuit et la relecture complète
+> du samedi ; le rapport des anomalies ; l'anonymisation, *non
+> déclarée*.
+>
+> ## Les droits des personnes
+>
+> Par module soumis : l'accès et la portabilité par
+> `rgpd.extract(identity)`, au plancher `manager` — *sans champ
+> `identity`, pas de point de départ* ; la rectification : les modules
+> sont fermés, la correction se fait à la source, PMI, et la reprise la
+> rapporte ; l'effacement par `rgpd.anonymize`, `administration` ; la
+> limitation : aucun état déclaré.
+>
+> ## Les mentions d'information
+>
+> `rgpd.notice` — *non ancrée* : aucun `paragraph` ne la porte ; **un
+> manque** (D1335). La provenance entrerait dans la mention : « reprises
+> de PMI ».
+>
+> ## La journalisation des accès
+>
+> Aucun champ `sensitive` ; aucun `trace: audit` ; les refus journalisés.
+> *À l'instance : les comptes.*
+>
+> ## La sécurité de l'instance
+>
+> *Les douze principes, une section chacun (D1338)* — les secrets :
+> quatre clés `*` (`entrepot.password`, `cegid.password`,
+> `authentication.client_secret`, `smtp.password`), chiffrées ; aucun
+> `unencrypted:` ; l'audience : six groupes, la direction composée ;
+> les frontières d'extension : aucun hook d'interface ; la
+> disponibilité : les délais de la reprise, `on_running: wait` ; le
+> chat : absent ; les dépendances, à l'instance.
+>
+> ## L'accessibilité, les obligations du secteur
+>
+> Les critères du RGAA testés à l'ingestion sur les composants employés ;
+> *aucune déclaration, aucun texte de secteur.*
+
+---
+
+**Ce que le concepteur a ajouté** (D1344 — écrit le 19/10/2026 dans la
+configuration, les deux versions et les deux environnements), pour que
+le registre cesse de dire « non précisé » :
+
+- `settings.yml` : le bloc `rgpd:` global — `controller: direction`,
+  `legal: legitimate_interest`, `purpose`, `contact`, `dpo` (D1323) ;
+- `tiers/contact/contact.yml` : `nom` et `prenom` en `rgpd: identity`
+  (D1332) ; l'opération `anonymiser` — `every: monthly[1 at 03:00]`,
+  `rgpd.anonymize(owner.actif = false and owner.date_modification <
+  context.now - 3y)`, avec son `purpose` (D1334) ;
+- `environments/production/connectors.yml` et `staging` : `rgpd:
+  { countries: [FR] }` sur `entrepot`, `cegid`, `smtp` (D1328, D1345) ;
+- `syncytium.yml` : `home: ~{documentation/home.md}`, la page d'accueil
+  qui ancre `${rgpd.notice}` (D1335).
+
+Le registre dit alors le responsable, la base légale, la finalité, le
+contact et le DPO ; la rétention des contacts, trois ans après la sortie
+du tiers ; le lieu, la France ; la mention, ancrée sur la page
+d'accueil ; `rgpd.extract("Martin")` a son point de départ.
+
+**Ce que la déclinaison relève.** *(1)* Un module fermé à l'écriture
+n'a que des traitements de lecture, de reprise et d'appui : le registre
+le dit sans ligne vide. *(2)* Le rapport des anomalies par mail est un
+destinataire externe, même anonymisé — il figure. *(3)* Sans `identity`,
+`rgpd.extract` n'a pas de point de départ : le marquage `personal` seul
+ne suffit pas à répondre à « toutes les données de Mme Martin ». *(4)*
+`rgpd.anonymize` prend un périmètre — une condition sur l'entité qui
+la déclare (D1344).
+
+## Le projet et le support — la déclinaison de l'entrepôt (le rang 4)
+
+*(La déclinaison du rang 4, écrite le 22/10/2026 sur §26 de
+documentation.md — D1347–D1379. L'entrepôt a deux versions actives : la
+1.0.0.0 en production, la 1.0.0.1 en beta (D1081) ; `syncytium.yml` ne
+porte ni `author:`, ni `contact:`, ni `copyright:` ; aucune version ne
+porte `authors:` ; aucune ressource déclarée ; aucun bloc `assistance:`
+sur les surfaces ; aucun texte de support. On montre la documentation
+telle qu'elle sortirait aujourd'hui, puis ce que le concepteur
+ajouterait. **Confirmée, et les clés écrites dans la configuration le
+22/10/2026 — D1382.**)*
+
+---
+
+> # entrepôt — Le projet et le support
+>
+> ## 1. Les versions
+>
+> | La version | Le statut | L'environnement | Ingérée le | Promue le |
+> |---|---|---|---|---|
+> | **1.0.0.1** | beta | staging | *(l'instance)* | — |
+> | **1.0.0.0** | production | production | *(l'instance)* | *(l'instance)* |
+>
+> *Les dates viennent du registre des versions de l'instance (D1350) ;
+> aucune version dépréciée ni interdite ; aucun essai refusé.*
+>
+> ### 1.0.0.1 — beta
+>
+> **Les notes de version.** La seconde version de l'entrepôt, en essai
+> sur le staging : trois évolutions du modèle. *Le modèle* — le tiers :
+> le nom abrégé devient le nom court ; la langue se choisit dans une
+> liste — français, anglais, allemand, espagnol. L'article : un
+> commentaire du bureau d'études, que l'entrepôt possède — la reprise
+> ne le touche pas.
+>
+> **Ce qui change, depuis la 1.0.0.0** (calculé, §9) : le module
+> `tiers` — un champ renommé (`abrege` → `nom_court`), un champ retypé
+> (`langue`, un texte de trois caractères devenu une liste de quatre
+> valeurs) ; le module `technique` — un champ ajouté
+> (`article.commentaire`). Le détail au dictionnaire de la donnée.
+>
+> **Les auteurs** : *non précisés*. **Les droits d'auteur** : *non
+> précisés*. **Les ressources** : aucune. **La documentation** : la
+> fonctionnelle, le dictionnaire de la donnée, la réglementation… de
+> cette version.
+>
+> ### 1.0.0.0 — production
+>
+> **Les notes de version.** La première version de l'entrepôt de
+> données : les données de Cegid PMI standardisées, harmonisées et
+> fiabilisées, de l'opérateur aux dirigeants. *Le modèle* — quatre
+> modules : technique, tiers, commande, stock ; l'entrepôt en lecture
+> seule ; l'historique partout sauf sur les niveaux et les mouvements ;
+> les champs financiers réservés aux achats et à la direction. *La
+> reprise* — la base PMI lue chaque nuit, la relecture complète le
+> dimanche ; les anomalies adressées chaque matin. *Le pilotage* — le
+> tableau de bord des stocks.
+>
+> **À venir** (D1285) : la 1.0.0.1 (beta) renomme `tiers.abrege` en
+> `nom_court`, retype `tiers.langue`, ajoute `technique.article.commentaire`.
+>
+> **Les auteurs**, **les droits d'auteur** : *non précisés*. **Les
+> ressources** : aucune.
+>
+> ## 2. Le dépôt et le core
+>
+> **Le core** : `Syncytium-1.0` — `syncytium init` l'a récupéré, a
+> ingéré la configuration et créé l'instance ; la documentation est
+> celle de ce core (D1361).
+>
+> **Le dépôt** : la configuration vit dans un dépôt distinct de
+> Syncytium (D336). *L'origine, lue depuis le dossier* : montrée si
+> elle répond sans droit, sinon rien (D1359) — ici, le dépôt des
+> exemples de Syncytium, public.
+>
+> **Le versionnement** : le dossier `versions/` — `beta/` (la
+> 1.0.0.1), `production/` (la 1.0.0.0) ; par version, les fichiers que
+> l'ingestion a lus : `version.yml`, `settings.yml`, `groups.yml`, la
+> reprise, les quatre modules — soit 109 fichiers atteints depuis
+> `syncytium.yml` (D1081). Les fichiers sont inertes après ingestion :
+> ce qui est servi est la version ingérée ; une modification n'a d'effet
+> qu'au dépôt d'une nouvelle version.
+>
+> ## 3. Signaler, demander, questionner
+>
+> Depuis le « ? » de chaque écran : une anomalie, une évolution, une
+> question. Le ticket porte l'écran, l'enregistrement montré, votre
+> langue ; il paraît dans votre profil et chez ceux qui le traitent.
+>
+> **Qui répond à quoi** (calculé depuis les blocs `assistance:`) :
+> *aucun bloc déclaré* — les tickets vont au `manager` et à
+> l'`administrator` ; l'entrepôt n'a qu'un groupe au degré
+> `administrator`, `administration`, et aucun `manager` : **tous les
+> tickets vont à l'administration**.
+>
+> **Les indicateurs** *(l'instance)* : en cours, par statut ; ouverts
+> par jour, par semaine ou par mois selon l'ancienneté de l'application
+> (D1380) — vide au dépôt.
+>
+> **La F.A.Q.** : les questions closes, leur question et leur réponse —
+> dans la fonctionnelle, chapitre 5 ; aucune au dépôt.
+>
+> ## 4. Le support
+>
+> *Aucun texte de support* — relevé par la complétude (D1377).
+
+---
+
+**Ce que le concepteur ajouterait** — **écrit dans la configuration le
+22/10/2026** (D1382, comme les blocs `rgpd:` du rang 3, D1344) ; le
+traceur d'orphelins : 220 fichiers atteints, aucun orphelin :
+
+```yaml
+# syncytium.yml — le projet nommé (D1153, D1355)
+author: Aymeric Lesert
+contact: entrepot@entreprise.example
+copyright: © 2026 L'entreprise
+
+# versions/production/v1.0.0.0/version.yml — les auteurs et la documentation de la version (D1355, D1219)
+authors: [Aymeric Lesert]
+documentation: ~{documentation.yml}
+
+# versions/production/v1.0.0.0/documentation.yml — le texte du support (D1375)
+pages:
+  support: ~{documentation/support.md}   # qui répond, comment le joindre — sans engagement (D1376)
+
+# versions/production/v1.0.0.0/settings.yml — les trois groupes, hérités par toutes les surfaces (D1372)
+assistance:
+  anomaly: administration     # l'administration traite les anomalies
+  question: logistique        # la logistique répond aux questions sur les stocks
+  evolution: direction        # la direction enregistre les demandes d'évolution
+```
+
+*Avec ces lignes : la page des versions nomme le concepteur, le
+contact et le titulaire des droits ; le chapitre 4 porte le texte du
+support ; les tickets du tableau de bord `stock[pilotage]` vont à
+l'administration, à la logistique ou à la direction selon leur type.
+Le bloc `assistance:` au `settings.yml` vaut pour toutes les surfaces
+par la cascade (D359) ; une surface peut le surcharger.*

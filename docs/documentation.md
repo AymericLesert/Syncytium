@@ -1744,9 +1744,9 @@ version** — l'épinglée, l'en-tête de surcharge, les versions publiées
 qu'il peut viser, celles qu'il ne peut pas et pourquoi (D98, D99) ;
 **les réponses d'erreur**, en table — 401 et 403, le porteur et les
 droits ; 404 ; 422, la validation, avec le message des règles tel que
-la configuration le rédige (D1105, D1106) ; **la version visée** (D1417) — 404 non
-déclarée, 426 hors des actives avec la version à employer (D94), 410
-disparue ; 429 et `Retry-After`, le débit (D105) ; 202 et la ressource
+la configuration le rédige (D1105, D1106) ; **la version visée** (D1417–D1418) — 404 non
+déclarée, 426 avec la version à employer quand elle n'est pas la
+dernière production ni une beta (D94), 410 disparue ; 429 et `Retry-After`, le débit (D105) ; 202 et la ressource
 de suivi (D24) ; **les limites** — le débit du compte, la pagination, la taille
 d'un lot, telles qu'elles valent pour le compte qui lit ; **la
 dépréciation** — l'intention, l'acte, le retrait (D650), portés par la
@@ -3270,7 +3270,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411 ; l'étape 4, échanger, en cours : D1412–D1417)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5 — en cours ; l'étape 2, étendre, acquise : D1403–D1409 ; l'étape 3, enrichir, acquise : D1410–D1411 ; l'étape 4, échanger, en cours : D1412–D1418)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3453,7 +3453,7 @@ chapitre. **La complétude** (§20) ne mesure rien ici. **Un projet
 techniciens : « Cela montre l'éventail des éléments techniques à
 disposition du concepteur. »
 
-### 3. Échanger — les formats d'échange (D1412–D1417, en cours)
+### 3. Échanger — les formats d'échange (D1412–D1418, en cours)
 
 **Les formats de l'import** (D1412 : « l'import CSV, l'import EXCEL,
 l'import ODS ... le format pivot est du CSV. Le fichier EXCEL ou l'ODS
@@ -3485,8 +3485,9 @@ d'entrée de la version : **la route et le mode** — `api/<version>/webhook/<no
 get, put, post ou delete (D624, D640) ; **la route porte la version,
 sans en-tête de surcharge** (D1415 : « La route porte la version. pas
 de surcharge, c'est inutile. ») — une beta s'appelle par sa route ;
-**les versions atteignables sont celles de production et les beta**
-(D1416 : « Le n° de la version permet de cibler la version disponible.
+**les versions atteignables sont la dernière production et les beta**
+(D1416, D1418 : « La dernière version active est la dernière version en
+production, ou une des versions beta. » ; « Le n° de la version permet de cibler la version disponible.
 si la version n'est pas disponible, une erreur 303 (obsolete) ou 404
 sera à retourner ») — corrigé par D1417 : **404** sur une version non
 déclarée, **426 avec la version à employer** si la version n'est pas

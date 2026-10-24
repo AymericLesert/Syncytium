@@ -577,8 +577,8 @@ documentation.md — D1393–D1423. Le tiny a une version, la 1.0.0.0 en
 production (D1115), une entité à quatre champs, aucun hook, aucun
 webhook, aucun groupe déclaré : il montre le contrat d'API dans sa
 forme la plus nue. La forme des adresses et des exemples est au
-domaine 7 ; les exemples ci-dessous sont des silhouettes. **En
-proposition.**)*
+domaine 7 ; les exemples ci-dessous sont des silhouettes. **Confirmée
+le 24/10/2026 — D1424.**)*
 
 ---
 
@@ -595,7 +595,7 @@ proposition.**)*
 > L'environnement `home` ne déclare pas d'authentification : les
 > défauts du poste (D1114) — *ma lecture* : `none` (D759), l'utilisateur
 > par défaut au degré `administrator`, aucun défi ; le contrat le dit et
-> les exemples ne portent aucun porteur. *À confirmer.*
+> les exemples ne portent aucun porteur (confirmé, D1424).
 >
 > ### Choisir sa version
 >

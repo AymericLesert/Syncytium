@@ -703,7 +703,8 @@ d'opération — `creer_releve`, `dupliquer`, `propager`, `virer` —, trois
 langues (`fr`, `en`, `es`), un groupe `foyer`, l'authentification
 `none` du mono-poste (D759) ; aucun type ni composant personnalisé,
 aucun webhook. Elle montre le chapitre « Étendre » et ce que D1403 et
-D1405 lui demandent. **En proposition.**)*
+D1405 lui demandent. **Confirmée, et les md par langue écrits dans la
+configuration le 24/10/2026 — D1424.**)*
 
 ---
 
@@ -746,10 +747,11 @@ D1405 lui demandent. **En proposition.**)*
 
 ---
 
-**Ce que le concepteur ajouterait** — en proposition, à écrire dans la
-configuration si l'auteur le demande (comme les clés du rang 4,
-D1382) : pour chacun des quatre hooks, les md `en` et `es`, et la fiche
-en forme longue :
+**Ce que le concepteur ajouterait** — **écrit dans la configuration le
+24/10/2026** (D1424, comme les clés du rang 4, D1382) : pour chacun des
+quatre hooks, `documentation.fr.md`, `documentation.en.md`,
+`documentation.es.md`, et la fiche en forme longue ; le traceur : 68
+fichiers atteints, aucun orphelin :
 
 ```yaml
 # hooks/operations/dupliquer/dupliquer.yml — la description par langue (D1403, D1405)
@@ -759,5 +761,5 @@ description:
   es: ~{documentation.es.md}
 ```
 
-*Le même geste vaut pour le véhicule, qui parle deux langues et dont
-les hooks n'ont qu'un md.*
+*Le véhicule ne parle qu'une langue, `fr` : ses hooks gardent la forme
+simple (D1105).*

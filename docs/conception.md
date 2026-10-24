@@ -24699,6 +24699,20 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-24 (suite 3) — LA PAUSE : LE RANG 6 CLOS, LE RANG 7 OUVERT
+  (1435 décisions).** « je marque une pause ». Le rang 6 clos (D1435), la
+  PR #50 ouverte vers `develop` ; la PR vers `main` à ouvrir après sa
+  fusion. Le rang 7, le guide d'exploitation : l'étape 1 présentée en
+  six lectures — trois matières (la référence du core, le généré, ce
+  qui demande l'instance), le généré depuis la configuration, les états
+  de l'instance, l'écrit par l'administrateur (`pages: operations:` à
+  l'environnement, en proposition), le partage avec le D.A.T. et la
+  maintenance, la complétude — et la question du chapitre « installer »,
+  la référence de Syncytium lisible avant l'instance. À la reprise : ses
+  arbitrages ; puis les étapes 2 (les procédures — la promotion, la
+  copie, la rotation, la relecture, la restauration, la sauvegarde), 3
+  (la supervision quotidienne), 4 (le dépannage) ; la déclinaison sur
+  l'entrepôt ; la colonne 9 de la matrice ; la clôture.
 - **2026-10-24 (suite 2) — LES PR FUSIONNÉES, LE RANG 6 OUVERT (D1426,
   1426 décisions).** « je fais les merges » — les PR #48 et #49
   fusionnées, la branche sans écart avec `develop`, `main` à la sixième

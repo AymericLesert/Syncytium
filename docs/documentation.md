@@ -3260,7 +3260,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5, étape 2 — en cours : la description des hooks, D1403 ; l'inventaire du concepteur, D1404)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5, étape 2 — en cours : la description des hooks, D1403–D1405 ; l'inventaire du concepteur, D1404)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3296,13 +3296,16 @@ obligatoirement disposer des descriptions pour chacune des langues. Un
 projet qui gère juste [fr, en]. Les propres hooks doivent
 obligatoirement disposer des descriptions pour fr et en seulement. Pas
 besoin de traiter es et de. Sinon, c'est une erreur d'ingestion. »
-*Mes lectures, à confirmer* : la fiche écrit la description par langue
-comme les autres textes — `description: { fr: ~{documentation.fr.md},
-en: ~{documentation.en.md} }` ; ce qui n'est pas un texte reste
+**La fiche écrit la description par langue comme les autres textes**
+(D1405) — `description: { fr: ~{documentation.fr.md}, en:
+~{documentation.en.md} }`, la forme simple quand la version n'a qu'une
+langue (D1101) ; ce qui n'est pas un texte reste
 calculé depuis les déclarations du hook — la correspondance
 logique-physique du storage (D1255, D1299), la forme en clair d'un type
 (D1160) ; le `describe()` de D645 n'écrit plus de texte. Les md des
-hooks du véhicule et de la banque, monolingues, sont à compléter.
+hooks du véhicule et de la banque, monolingues, sont à compléter à la
+déclinaison de ce rang (D1405). Une version sans hook, le tiny : le
+chapitre paraît, « aucune extension », et la référence.
 
 **L'inventaire, pour le concepteur** (D1404 : « Pour le concepteur, il
 voit tous les hooks présents dans le projet. Syncytium lui indique le

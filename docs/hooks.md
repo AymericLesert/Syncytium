@@ -70,8 +70,8 @@ operations:
 
 # hooks/operations/dupliquer/dupliquer.yml — la fiche du hook (D809)
 name: dupliquer
-description: documentation.md        # → le md du fonctionnement (D778) — un md par langue (D1403, en proposition :
-                                     #   description: { fr: ~{documentation.fr.md}, en: ~{documentation.en.md} })
+description: documentation.md        # → le md du fonctionnement (D778) — un md par langue, comme les autres textes
+                                     #   (D1403, D1405) : description: { fr: ~{documentation.fr.md}, en: ~{documentation.en.md} }
 code: source.txt                     # → le code — le langage du domaine 7 (D570)
 properties: { }                      # les propriétés du hook
 ```

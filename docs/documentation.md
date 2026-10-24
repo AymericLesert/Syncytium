@@ -3260,7 +3260,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5, étape 2 — en cours : la description des hooks, D1403–D1405 ; l'inventaire du concepteur, D1404)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5, étape 2 — en cours : la description des hooks, D1403–D1405 ; l'inventaire, D1404, D1406)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3320,6 +3320,36 @@ référence, un hook inemployé, signalé. **Pour le technicien**, le même
 inventaire filtré par D1394 : les hooks d'opération qu'il peut appeler ;
 les types, les composants et les connecteurs, qui ne sont pas des
 actes, paraissent.
+
+**L'entrée d'un hook, par famille** (D1406) — **le tronc commun** : le
+nom, la famille, la description dans la langue du lecteur, les langues
+portées, la version d'apparition (D1283), les références comptées et
+localisées (D1404), **le code par son existence et son emplacement
+seuls, jamais son contenu**, dans aucune documentation (D1406, D918) ;
+**le type** : la forme en clair, l'élémentaire ou la liste de sa
+déclinaison, ses contraintes et son exemple, ses indicateurs, les modes
+de recherche admis (D1160, D1297–D1301, D1292), son entrée au glossaire
+des types (D1179), les champs qui le portent ; **le composant** : son
+visage, ses modes, les types qu'il rend, le résultat des tests du RGAA
+critère par critère (D1340), les surfaces qui l'emploient ; **le hook
+d'interface** listé à part, en tête de la famille, « code tiers au
+navigateur, sous la responsabilité du concepteur » (D918) ;
+**l'opération** : son contrat, ce qu'elle lit et écrit, ses paramètres
+et leur formulaire d'appel, `degree`, `execution`, `deterministic` et sa
+fenêtre (D697, D57, D59, D904), les connecteurs touchés, synchrone ou
+asynchrone, et ce qui l'appelle — les entités, les boutons, les
+déclencheurs, les suites ; **la fonction** : sa signature, ses types
+d'entrée et de sortie, son déterminisme, simple ou complexe pour le
+garde-fou (D104), les formules et les règles qui l'appellent ; **le
+connecteur** : sa famille et sa classe, ses paramètres sans les valeurs
+confidentielles (D944), ses `countries:` (D1345), ce qu'il déclare au
+registre, les environnements qui le déclarent, pour un storage le
+renvoi au chapitre 3 du dictionnaire ; **le style** : ce qu'il
+surcharge du thème (D752–D755), les surfaces qui l'emploient. **Ce qui
+demeure calculé** : la phrase par champ d'un type (« une mesure en
+kilogrammes, un nombre décimal et son unité »), la correspondance
+logique-physique d'un storage — des résultats de l'application du hook
+au modèle, que personne n'écrit.
 
 ## 28. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 

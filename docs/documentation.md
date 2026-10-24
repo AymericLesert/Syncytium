@@ -1674,7 +1674,7 @@ prépare : le préavis de la dépréciation en trois temps (D650), le 426
 sous la version minimale (D94) ; elle sert la documentation du
 développeur, à son rang.
 
-## 10. La documentation de l'API *(en proposition)*
+## 10. La documentation de l'API *(le rang 5, étape 1 — en cours : le périmètre acquis, D1393)*
 
 D334 : « les techniciens de parties tierces — les consommateurs des
 API, dont la documentation générée s'enrichit ». Pour chaque version
@@ -1686,6 +1686,18 @@ l'épinglage de version (D98). **La forme** (un format standard de
 description d'API, les exemples en `curl`) relève de l'architecture
 technique (D1025) ; le principe — l'API documentée depuis le modèle,
 version par version — est acquis.
+
+**Le périmètre** (D1393) : le contrat de **chaque version publiée**,
+une par une — la production, et la beta, version active au sens de
+D1124, dont le contrat porte le filigrane Beta (D1145) et dit comment la
+solliciter, l'en-tête de surcharge appel par appel (D98, D103) ; une
+dépréciée ou une interdite n'a que l'avis de D1124. Par défaut, le
+technicien lit le contrat de **la version épinglée à son compte**
+(D98), avec la liste des autres versions publiées et, pour chacune, le
+lien vers son contrat et ses écarts. Le lecteur premier est le
+technicien, un compte technique (D28) ; le concepteur lit aussi, pour
+vérifier ce que sa configuration expose ; l'analyste (D1152) y trouve
+l'édition machine.
 
 ## 11. Les formats et le support *(le rang 0, étape 7 — acquis, D1165–D1166)*
 

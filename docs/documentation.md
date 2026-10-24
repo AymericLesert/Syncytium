@@ -3260,7 +3260,7 @@ chapitre 5) ne porte que la paire.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 4 est clos (D1383).*
 
-## 27. Le développeur — étendre, enrichir, échanger *(le rang 5, étape 2 — en cours : la description des hooks, D1403–D1405 ; l'inventaire, D1404, D1406 ; les types et composants personnalisés, D1407)*
+## 27. Le développeur — étendre, enrichir, échanger *(le rang 5, étape 2 — en cours : la description des hooks, D1403–D1405 ; l'inventaire, D1404, D1406 ; les types et composants personnalisés, D1407 ; la référence, D1408)*
 
 **La troisième documentation**, celle du technicien et du concepteur
 (§3, D1152) : le contrat d'API (§10, l'étape 1), **étendre** — ce que
@@ -3368,6 +3368,27 @@ liste les pages où il est chargé (D918) ; le D.A.T. et le guide
 d'exploitation le reprennent. **La complétude** (§20) relève le md
 manquant d'un type ou d'un composant ; pas l'exemple générique absent,
 le `placeholder:` du champ y supplée.
+
+**Écrire un hook — la référence** (D1408), la documentation de
+Syncytium lui-même, six chapitres, un par famille, sur le même plan :
+**ce que la famille fait** et quand on en écrit un, les exemples du
+socle décrits comme ceux du concepteur dans la section `hook:` (D1403) ;
+**le contrat** — la signature, ce que le hook reçoit et rend, les
+propriétés de la fiche et leurs valeurs, ce que l'ingestion vérifie et
+ses erreurs en clair (D581) ; **ce que le moteur fournit** — la
+librairie d'exploration, les noms logiques, la transaction, les droits
+et la validation qu'on ne contourne pas (D572, D599), le catalogue des
+textes par langue (D1160, D1163), le storage qui fait le nécessaire
+pour un type (D1297), les tests du RGAA pour un composant (D1340) ;
+**la maison** — la fiche, le md par langue, le code, la chaîne à deux
+étages, l'éclatement libre (D644, D777, D809), les langues attendues
+(D1162–D1163) ; **essayer** — la sandbox (D907), l'ingestion, la
+complétude ; **la forme du code**, le langage, les outils — au domaine
+7. **La référence est celle du core nommé par `from:`** (D1361) :
+« uniquement ce qui est inclus, pas les versions postérieures depuis
+une version donnée » — la référence de Syncytium-1.0 pour un projet en
+Syncytium-1.0, rien de ce qu'un core ultérieur ajoute. Son emplacement,
+embarquée ou liée : l'étape 3.
 
 ## 28. Les points ouverts *(rafraîchis à la clôture du rang 4, le 22/10/2026)*
 

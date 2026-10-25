@@ -523,6 +523,14 @@ schéma, le fournisseur d'identité et le compte qu'il attend (D1426,
 D1428) ; rien des droits d'accès, qui sont à la documentation des
 droits.
 
-**Les autres colonnes** — à leur rang : ; le guide d'exploitation (les groupes et leur gestion, les
-affectations D341) ; la promotionnelle (le mode public, `visibility:`
+**Les groupes et les droits, dans le guide d'exploitation** (la colonne
+9 — le rang 7) : **le lecteur** — l'administrateur, l'hébergeur sans
+les secrets, l'équipe technique, le concepteur ou une société tierce
+(D1154, D1456) ; **le degré requis par chaque fiche**, `administrator`
+sauf la promotion, le geste du concepteur ; les comptes et les
+affectations (D341) ; **le mode safe** et son compte principal, le mot
+de passe fixé à l'installation, inaccessible dès qu'un administrateur
+existe (D718, D1459).
+
+**Les autres colonnes** — à leur rang : la promotionnelle (le mode public, `visibility:`
 D1151).

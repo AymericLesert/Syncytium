@@ -625,8 +625,17 @@ chez les tiers** que sa classe attend, complétés à l'écrit ; **ses
 classes et leurs pilotes** aux dépendances (D1430) ; le storage renvoie
 au chapitre 3 du dictionnaire.
 
-**Les autres colonnes** — à leur rang : le guide d'exploitation (le rang 7 — le
-paramétrage, les secrets `*` D944, `unencrypted:` D901, le mock D627) ;
+**Les connecteurs, dans le guide d'exploitation** (la colonne 9 — le
+rang 7), le cœur du guide : par environnement, les connecteurs sans
+leurs secrets ; **le `ping()` et le feu tricolore** (D621, D731), la
+page de maintenance et le mock (D626–D627) ; **la description de chaque
+variable** depuis la classe du connecteur (D1442) ; **les fiches** — la
+copie d'un environnement, la synchronisation par `replication:` (D724),
+les secrets et la rotation, connecter les journaux au puits, brancher
+la supervision externe sur l'API de la santé (D1454) ; le connecteur de
+reprise et ses passages (D1077, D1079).
+
+**Les autres colonnes** — à leur rang :
 l'information — **le chapitre du stockage du dictionnaire de la donnée**
 (D1260) : « le connecteur storage matérialise le stockage des types dans
 la base de données » ; le chapitre représente les données telles

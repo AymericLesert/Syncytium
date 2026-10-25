@@ -41,8 +41,9 @@ chaîne à deux étages** (D644/D777 — le patron des modules
 D765/D766) : `hooks.yml` référence **les fichiers de famille**,
 chaque fichier de famille **liste ses fiches** (l'énumération ou le
 pattern regex — D806), **la fiche du hook** (D809) portant `name`,
-`description`, `code`, `properties` et, quand il embarque des
-bibliothèques, `dependencies` (D1432) — les chemins relatifs au
+`description`, `code`, `properties`, quand il embarque des
+bibliothèques `dependencies` (D1432), et quand il émet des erreurs
+propres `errors`, codifiées par langue (D1458, D1461) — les chemins relatifs au
 fichier courant (D768). Les hooks du socle vivent dans
 l'arborescence de Syncytium — la même porte (D52), deux maisons.
 
@@ -54,7 +55,8 @@ versions/<statut>/<version>/
 │   ├── operations/operations.yml   # → les fiches (le pattern — D806)
 │   │   └── <verbe>/                #   la fiche, le md, le source (D809)
 │   ├── types/ · components/ · functions/ · connectors/
-│   └── styles/                     # la sixième famille (D755)
+│   ├── styles/                     # la sixième famille (D755)
+│   └── languages/                  # la septième famille — une langue apportée (D1467)
 └── <modules>/
 ```
 
@@ -76,6 +78,7 @@ description: documentation.md        # → le md du fonctionnement (D778) — un
 code: source.txt                     # → le code — le langage du domaine 7 (D570)
 properties: { }                      # les propriétés du hook
 dependencies: [ ]                    # les bibliothèques embarquées — le nom, la version, la licence (D1432) ; absente = aucune
+errors: ~{errors.yml}                # les traces codifiées du hook (D1461, D1463) — le niveau, le message à gabarit, et selon le niveau = aucune
 ```
 
 **Chaque hook s'accompagne d'un fichier md par langue qu'il supporte**
@@ -93,6 +96,37 @@ plusieurs se décrit par la liste de ses étapes, chacune avec sa
 description (D1227). Le md est une configuration : il ne cite ni
 décision ni histoire du cas (D1085) — les md des hooks du véhicule et
 de la banque sont à nettoyer sur ce point.
+
+**Les traces codifiées** (D1461–D1463 ; la forme en proposition — le
+gabarit sur le message, la description et chaque nœud ; l'arbre en
+nœuds, une analyse et des branches, acyclique par construction ; **le
+raccourci selon le niveau** : une trace `debug` n'a que son code et son
+message, une `error` le détail entier, l'arbre compris) :
+
+```yaml
+# hooks/operations/virer/errors.yml — les traces du hook, par code ; le détail croît avec le niveau (D1463)
+D001:
+  level: debug                           # une trace — le code et le message suffisent
+  message: { fr: "Virement de {montant} vers {compte} : les deux écritures créées" }
+E001:
+  level: error                           # une erreur — le détail entier (D1464) ; le niveau du journal (D737)
+  family: connector                      # la famille du dépannage (D1456) — le démarrage, un connecteur, la reprise, une version…
+  safety: cancel                         # la position de sécurité — l'annulation, la page de maintenance, le mode safe
+  retry: true                            # rejouable telle quelle, ou à corriger avant
+  resolver: administrator                # qui résout — l'administrateur, le concepteur, l'intégrateur — et son canal
+  parameters: { compte: text, date: date, montant: amount }   # les paramètres typés du gabarit
+  procedure: restaurer_enregistrement    # le renvoi à une fiche du guide, s'il y en a une
+  message:                               # le gabarit du journal (D562), par langue
+    fr: "Le compte cible {compte} est clos depuis le {date}"
+    en: "Target account {compte} has been closed since {date}"
+  description:                           # facultative, par langue
+    fr: Le virement vise un compte que son titulaire a fermé.
+  resolution:                            # l'arbre de résolution — des nœuds, acyclique ; schématisé, exploitable par l'IA
+    check: { fr: "Le compte {compte} est-il réellement clos ?" }   # un nœud : une analyse, le gabarit résolu
+    branches:                                                    # les cas ; une feuille porte une action
+      oui: { action: { fr: "Choisir un autre compte cible et relancer le virement de {montant}." } }
+      non: { action: { fr: "Rouvrir le compte {compte} depuis sa fiche, puis relancer." } }
+```
 
 ## Les familles
 
@@ -506,6 +540,36 @@ forcément** — pas de schéma unique imposé.
 l'utilisateur le choisit à son profil, les droits s'y appliquent
 (un objet comme les autres).
 
+### 7. Le hook de langue (D1465–D1467)
+
+« Une langue a un hook aussi » (D1467). **Une langue que le core ne
+porte pas est un hook** — `hooks/languages/<code>/` : la fiche porte
+`name` (le code de la langue), `description`, `properties` — **ce qui
+est propre à la langue** (D1471) : le fuseau et les formats que D217
+attache à une langue, le sens d'écriture pour l'arabe ou l'hébreu
+(`direction: rtl`, en proposition) —, **le catalogue des
+messages du core** traduit (D1160 — tous les items, codifiés ;
+incomplet, une erreur d'ingestion — le niveau « pour Syncytium » de
+D1162 ; **strict**, D1468 : la commande donne la complétude, la
+traduction est entre les mains du concepteur, au fur et à mesure), `dependencies` et `errors` s'il y a lieu. **`syncytium language
+fr pt` construit le hook** — sa fiche et son catalogue à traduire, `fr`
+la langue de référence — et le concepteur le traduit item par item
+(D1465). **Sur un hook existant, la commande apporte les compléments**
+— les items nouveaux du core, avec leur texte de référence, à traduire
+— **et prévient des clés devenues obsolètes** (D1470), qu'elle ne
+supprime pas ; les traductions faites restent ; une clé obsolète à
+l'ingestion vaut une alerte (ma lecture). Le catalogue est celui du core seul (D1466) : les textes du
+projet portent la langue comme toute langue de la version (D1101) ;
+un hook du core sans elle suit D1163 : **le catalogue inclut les items
+des hooks du core** — leurs textes, leurs traces codifiées — et le
+hook de langue est la couche où l'application les complète (D1469). `languages:` de la version (D1101) nomme une langue du core ou
+d'un hook de langue. Les langues du core sont des hooks de langue dans
+l'arborescence de Syncytium — la même porte (D52) : un hook complet
+est prêt à y entrer, et le hook du projet devient alors une surcharge
+(D1163). La langue d'un hook peut être la langue technique de
+l'instance — `language:` de l'environnement, écrit par `syncytium init`
+(D1460, D1465, D1473).
+
 ### Les autres points d'extension consignés
 
 - **les écrans et les formats CSV/Excel** (D418 — le glossaire les
@@ -535,7 +599,14 @@ l'utilisateur le choisit à son profil, les droits s'y appliquent
 2. **Le renvoi historique « domaine 6 »** (D408/D452/D459) se relit
    (D602) : le contrat des hooks est couvert par Q60 (D570–D601) ; le
    reliquat — la sandbox, le langage du code — relève du domaine 7 ;
-3. **La signature d'abord** : chaque famille déclare ce que le typage
+3. **Rien hors de la configuration** (D1440) : « les éléments de
+   configuration nécessaires au fonctionnement doivent être présents
+   dans le fichier de configuration et nulle part ailleurs » — un hook
+   ne lit ni variable d'environnement ni fichier que sa déclaration
+   (`properties`) et la configuration ne référencent ; toutes les
+   variables sont présentes par construction, le fichier de
+   l'amorçage les porte toutes (D1429).
+3 bis. **La signature d'abord** : chaque famille déclare ce que le typage
    statique (D581) et l'ingestion (D330/D344) vérifient — l'erreur ne
    passe jamais l'ingestion.
 4. **La documentation du hook est déclarée** (D1403 — amende D645/D630
@@ -626,6 +697,14 @@ dépendances à côté de celles du core, comparées par la veille des CVE
 (D1431) ; **le hook de connecteur** personnalisé, un nœud du schéma
 comme les connecteurs du socle (D1426) ; **le hook d'interface** sur le
 poste de l'utilisateur (D918).
+
+**Les hooks, dans le guide d'exploitation** (la colonne 9 — le rang 7) :
+**les erreurs codifiées** du hook, `errors:` (D1461) — le code, le
+message à gabarit du journal, la description, l'arbre de résolution
+schématisé, par langue (D1460) —, reprises au catalogue du dépannage ; le hook de connecteur dans les fiches de sa
+famille ; une opération périodique au calendrier des opérations
+(D943) ; les hooks du projet ne tournent qu'avec leurs `dependencies:`
+installées (D1432).
 
 **Les autres colonnes** — à leur rang : la maintenance (la fréquence
 d'emploi de chaque opération, D1168).

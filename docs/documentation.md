@@ -636,7 +636,8 @@ décisions, D1170–D1238.)*
 - **Étapes** :
   1. §20 — la complétude : le rapport, le seuil, l'avertissement à
      l'ingestion — **calculable dès maintenant** sur les quatre
-     exemples ;
+     exemples — *en cours* : l'inventaire (D1478), le rapport (D1479),
+     l'ingestion (D1480–D1481) arbitrés ; reste la mesure ;
   2. §23 — la supervision des usages : les indicateurs retenus (les
      plus fréquents, les moins utilisés, les non utilisés), les canaux
      (D44), la part de chaque lecteur, la périodicité ;
@@ -2811,7 +2812,7 @@ les écrans que ses droits lui ouvrent, qui peut apporter plus
 d'éléments que le scénario d'un persona ; joué dans l'application (ma
 lecture : le texte seul n'a plus d'objet, le scénario le porte).
 
-## 20. La complétude de la documentation *(le rang 1 — acquis, D1173/D1177/D1182/D1199/D1221 ; le rang 8, étape 1 — en cours : l'inventaire, le rapport, la mesure)*
+## 20. La complétude de la documentation *(le rang 1 — acquis, D1173/D1177/D1182/D1199/D1221)* *(le rang 8, étape 1 — en cours : l'inventaire D1478, le rapport D1479, l'ingestion D1480–D1481 ; reste la mesure)*
 
 Le rapport du concepteur, à la façon de la couverture (D861/D1060) :
 **ce qui n'est pas décrit** — les entités sans `description:`, les

@@ -2912,7 +2912,15 @@ fournisse une qualité de service suffisante et que la version sera
 pleinement exploitable »** (D1480) — rien à la santé (D1452), rien aux
 faits marquants ; la liste des manques ne va qu'où le concepteur lit :
 la commande, la notification aux groupes qu'il choisit, la
-documentation technique. Jamais un refus (D1221).
+documentation technique. Jamais un refus (D1221). **Si une erreur se
+glisse à l'ingestion** (D1482) : un message d'erreur au journal, au
+niveau `error`, **avec les manques bloquants** — ceux de configuration.md
+§5 : une langue manquante, un texte sans une langue de la version, un
+hook sans sa langue, un catalogue incomplet… — ; **cela n'enlève rien à
+la mise à disposition du rapport** de complétude ; dans les autres cas,
+**le rapport d'ingestion est disponible pour chaque version** — deux
+rapports, l'ingestion qui dit si la version est servie, la complétude
+qui ne bloque jamais, tous deux au registre des versions essayées.
 
 ## 21. La diffusion *(le rang 0, étape 6 — acquis, D1167–D1168)*
 

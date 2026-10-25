@@ -666,21 +666,40 @@ décisions, D1170–D1238.)*
   artefacts et la matrice d'ensemble (validée le 25/10/2026, D1496).
 - **Dépendances** : la télémétrie et l'instance, sauf §20.
 
-#### Rang 9 — la promotionnelle (documentation 6)
+#### Rang 9 — la promotionnelle (documentation 6) — *clos le 25/10/2026, D1514*
 
-- **Périmètre** : la plaquette, la démonstration, l'argumentaire du
-  socle ; **le module de présentation de l'outil**, servi par l'instance
-  de Syncytium seul, qui est son propre site vitrine (D1447–D1448).
-- **Sections** : aucune ; une section à créer.
+- **Périmètre** : **deux niveaux** (D1497) — la promotionnelle de
+  l'application, pour faire adhérer la direction, les responsables
+  métier et les collaborateurs : la plaquette, la démonstration ; la
+  promotionnelle de Syncytium — les avantages, la facilité, les
+  inconvénients, le choix de la plateforme et l'ouverture vers d'autres
+  usages : l'argumentaire du socle, **le module de présentation de
+  l'outil**, servi par l'instance de Syncytium seul, qui est son propre
+  site vitrine (D1447–D1448).
+- **Sections** : §30, créée le 25/10/2026.
 - **Étapes** :
   1. la plaquette : la structure générée (le nom, la description, les
      modules, le modèle d'ensemble, les écrans rendus, les personas et
-     leurs scénarios, « quoi de neuf »), les textes écrits ;
-  2. la démonstration : l'instance d'essai, le jeu de données (D869) ;
+     leurs scénarios, « quoi de neuf »), les textes écrits : **acquis le
+     25/10/2026 (D1497–D1498)** — l'adhésion à l'intérieur, « pour vous »
+     par persona, `visibility:` tranchée, trois canaux ;
+  2. la démonstration : l'instance d'essai, le jeu de données (D869) :
+     **acquis le 25/10/2026 (D1503–D1505)** — une sandbox aux connecteurs
+     mockés sur un sqlite, `dataset:` en CSV par entité, le parcours par
+     les personas, la recharge ;
   3. l'argumentaire du socle : l'open source (D19), une instance par
-     client, les API, l'auto-documentation — la part de Syncytium.
-- **Déclinaison** : l'entrepôt ; le cas 8 le jour venu.
-- **Livrables** : une section « La promotionnelle ».
+     client, les API, l'auto-documentation — la part de Syncytium :
+     **acquis le 25/10/2026 (D1506–D1509)** — la plaquette de Syncytium,
+     le module de présentation, la démonstration par l'IA sur un
+     storage `memory`, quatre parties écrites dont les inconvénients.
+- **Déclinaison** : **l'entrepôt déclare `promotional: false`**
+  (D1514) — un miroir interne de l'ERP, sans promotionnelle ; la
+  plaquette esquissée n'a plus d'intérêt
+  ([usecases/05_entrepot.md](../usecases/05_entrepot.md)) ; le cas 8 le
+  jour venu.
+- **Livrables** : §30, les trois étapes acquises ; la colonne 6 de la
+  matrice dans les onze artefacts et la matrice d'ensemble (écrite le
+  25/10/2026, validée — D1514).
 - **Dépendances** : les huit autres ; le jeu de données (D869).
 
 #### Rang 10 — Syncytium lui-même, et `docs/` consultable sur GitHub (D1316) *(en proposition)*
@@ -1996,7 +2015,20 @@ templates:                       # les gabarits des éditions (D1143) — le for
 pages:                           # les pages ajoutées — Markdown, par langue (§2 b)
   presentation: ~{documentation/presentation.md}   # l'entreprise, l'application, le schéma directeur
   support: ~{documentation/support.md}             # qui répond, dans quels délais (8)
+  promotional:                     # le plan de la promotionnelle (D1499) — absent, la structure par défaut (D1498)
+    - { title: Pourquoi, text: ~{documentation/promotional/pourquoi.md} }   # un texte, un md par langue
+    - { title: Le stock en un coup d'œil, screen: stock[tableau_de_bord] }  # un écran — une vue mise en promotionnelle
+    - { title: Pour la logistique, persona: logistique }                   # un persona et ses scénarios
 ```
+
+**Une vue en promotionnelle** (D1499) : une surface marquée
+`promotional: true` (*en proposition*) **peut faire partie de la
+promotion** — elle entre dans la structure par défaut, sous le persona
+de son groupe — ; la marque **ne dit ni son ordre ni la composition**,
+qui viennent du plan `pages: promotional:` quand le concepteur en
+propose un ; **un plan qui cite une vue non marquée est une erreur
+d'ingestion** (D1500) — la marque offre, le plan ordonne parmi
+l'offert.
 
 *(Un bloc `sections:` — retenir ou écarter des chapitres par
 documentation — a été proposé puis retiré (D1164) : les droits et
@@ -2136,10 +2168,10 @@ rubrique qui la spécifie. Trois lignes, pour la forme :
 
 | Le composant | 1 Fonctionnelle | 2 Information | 3 Développeur | 4 D.A.T. | 5 Réglementation | 6 Promotionnelle | 7 Maintenance | 8 Projet | 9 Exploitation |
 |---|---|---|---|---|---|---|---|---|---|
-| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 avec ses index et ses partitions (D1292–D1293) ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | sa section du contrat si le compte peut l'atteindre (D1394) : les champs `public`, les actes permis, les lectures et les écritures, les liens, les exemples ; ses écarts filtrés (D1401) | rien de propre ; ses champs `rgpd:` marquent le flux qui les emporte (D1426) ; ses volumes au dimensionnement (D1430) | le stockage de ses champs `rgpd:`, son module soumis ; ses actes du socle et ses opérations comme traitements, son wizard comme suite (D1317–D1318) ; son bloc `rgpd:` (D1325) ; son état pour la limitation ; sa rétention par `rgpd.anonymize` (D1334) | son titre dans la vue d'ensemble | ses lectures et ses écritures, ses lignes, ses validations en échec, ses volumes (D1489–D1490) | ses écarts dans « ce qui change » de la page des versions (§9) ; l'enregistrement cité par un ticket (D1364) | rien de propre ; la restauration d'un enregistrement (D171) est une fiche ; ses volumes pèsent sur la charge (D1453) |
-| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3, l'index que son `searchable:` ou son identité lui vaut (D1292), la partition qu'il porte (D1293) | exposé s'il est `public` (D20), par son nom, le type en clair, le format de la valeur ; un écart du contrat quand il change | `rgpd:` signalé sur le flux ; rien d'autre | son marquage `rgpd:` — `personal`, `sensitive`, `consent`, `identity` (D695, D1332) —, par lui-même ou par son type ; son niveau de confidentialité, son audit (D703), sa rétention calculée, les traitements qui le touchent ; `identity`, le point de départ de `rgpd.extract` | — | sa diversité, ses valeurs inemployées ; « candidat au retrait », pour l'administrateur (D1489, D1492) | ajouté, renommé, retypé, supprimé — « ce qui change » (D1347) | rien |
+| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 avec ses index et ses partitions (D1292–D1293) ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | sa section du contrat si le compte peut l'atteindre (D1394) : les champs `public`, les actes permis, les lectures et les écritures, les liens, les exemples ; ses écarts filtrés (D1401) | rien de propre ; ses champs `rgpd:` marquent le flux qui les emporte (D1426) ; ses volumes au dimensionnement (D1430) | le stockage de ses champs `rgpd:`, son module soumis ; ses actes du socle et ses opérations comme traitements, son wizard comme suite (D1317–D1318) ; son bloc `rgpd:` (D1325) ; son état pour la limitation ; sa rétention par `rgpd.anonymize` (D1334) | son titre dans le modèle d'ensemble en image (D1498) | ses lectures et ses écritures, ses lignes, ses validations en échec, ses volumes (D1489–D1490) | ses écarts dans « ce qui change » de la page des versions (§9) ; l'enregistrement cité par un ticket (D1364) | rien de propre ; la restauration d'un enregistrement (D171) est une fiche ; ses volumes pèsent sur la charge (D1453) |
+| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3, l'index que son `searchable:` ou son identité lui vaut (D1292), la partition qu'il porte (D1293) | exposé s'il est `public` (D20), par son nom, le type en clair, le format de la valeur ; un écart du contrat quand il change | `rgpd:` signalé sur le flux ; rien d'autre | son marquage `rgpd:` — `personal`, `sensitive`, `consent`, `identity` (D695, D1332) —, par lui-même ou par son type ; son niveau de confidentialité, son audit (D703), sa rétention calculée, les traitements qui le touchent ; `identity`, le point de départ de `rgpd.extract` | son `placeholder:` peuple les écrans rendus sans donnée (D1498) | sa diversité, ses valeurs inemployées ; « candidat au retrait », pour l'administrateur (D1489, D1492) | ajouté, renommé, retypé, supprimé — « ce qui change » (D1347) | rien |
 | le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa forme en clair tel qu'appliqué, sa déclinaison, ses indicateurs, son exemple (D1301) ; les modes de recherche qu'il admet, origines des index (D1292) ; son entrée à l'annexe B | sa fiche à l'inventaire (D1406) et l'entrée de la référence pour en écrire un (D1408) ; la forme de ses valeurs dans les appels et le gabarit | rien — sa forme native au dictionnaire | le marquage qu'il porte (D1178) — `personal`, `sensitive`, `consent`, `identity` —, hérité par tout champ qui l'emploie ; le registre se lit par type puis par champ | — | ses valeurs inemployées, le domaine à resserrer (D48) | un champ retypé — « ce qui change » | rien ; les chiffrants à la rotation des clés (D730) |
-| le wizard | le scénario, la planche, le parcours guidé | — | une suite d'opérations : son contrat d'appel quand il est exposé ; à l'inventaire, les hooks qu'il enchaîne | rien | une suite d'opérations — un traitement du registre quand une étape touche un champ marqué (D1318, D1329) | un cas d'usage | sa fréquence d'emploi, jamais ouvert (D1489) | son bloc `assistance:` (D1372) ; le « ? » — la documentation, un ticket, une question, la recherche (D1366, D1371) | rien |
+| le wizard | le scénario, la planche, le parcours guidé | — | une suite d'opérations : son contrat d'appel quand il est exposé ; à l'inventaire, les hooks qu'il enchaîne | rien | une suite d'opérations — un traitement du registre quand une étape touche un champ marqué (D1318, D1329) | un cas d'usage, par le scénario de son persona ; une vue marquée promotionnelle, le point clé (D1498–D1501) | sa fréquence d'emploi, jamais ouvert (D1489) | son bloc `assistance:` (D1372) ; le « ? » — la documentation, un ticket, une question, la recherche (D1366, D1371) | rien |
 
 **La matrice se remplit rang par rang** (D1159) : chaque rang du plan
 (le contexte, partie 5) spécifie la colonne de sa documentation pour
@@ -2939,8 +2971,10 @@ la commande, la notification aux groupes qu'il choisit, la
 documentation technique. Jamais un refus (D1221). **Si une erreur se
 glisse à l'ingestion** (D1482) : un message d'erreur au journal, au
 niveau `error`, **avec les manques bloquants** — ceux de configuration.md
-§5 : une langue manquante, un texte sans une langue de la version, un
-hook sans sa langue, un catalogue incomplet… — ; **cela n'enlève rien à
+§5, la liste canonique : une langue manquante, un texte sans une langue
+de la version (D1474–D1475), un hook sans sa langue (D1163), un
+catalogue incomplet (D1468), un plan de promotionnelle qui cite une vue
+non marquée (D1500)… — ; **cela n'enlève rien à
 la mise à disposition du rapport** de complétude ; dans les autres cas,
 **le rapport d'ingestion est disponible pour chaque version** — deux
 rapports, l'ingestion qui dit si la version est servie, la complétude
@@ -2955,7 +2989,10 @@ n'est pas un élément non décrit. **La mesure au dépôt** (la lecture 4) :
 `tools/completeness.py`, à l'image du traceur d'orphelins (D1240), lit
 la configuration d'un exemple et produit ce rapport — l'inventaire, le
 taux par documentation et par module, la liste des manques avec la clé
-et le fichier, les orphelins ; les cinq cas mesurés le 25/10/2026.
+et le fichier, **les défauts d'ingestion visibles au dépôt** (D1502 —
+hors du taux : un texte sans une langue de la version, un hook sans sa
+langue, un plan de promotionnelle citant une vue non marquée), les
+orphelins ; les cinq cas mesurés le 25/10/2026.
 
 ## 21. La diffusion *(le rang 0, étape 6 — acquis, D1167–D1168)*
 
@@ -4251,7 +4288,7 @@ core ; rien d'autre n'est requis. **La complétude** ne mesure rien ici.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 6 est clos (D1435).*
 
-## 29. Les points ouverts *(rafraîchis à la clôture du rang 8, le 25/10/2026)*
+## 29. Les points ouverts *(rafraîchis à la clôture du rang 9, le 25/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -4263,7 +4300,8 @@ comme chapitre (§19 → §22, D1187) ; le guide d'exploitation (§17, le
 rang 7, D1447–D1477) ; la langue apportée par un projet, un hook de
 langue, et la même règle des langues partout (D1465–D1475) ; la
 maintenance, les risques et les améliorations (§23, le rang 8,
-D1478–D1496) ; la complétude et son inventaire (§20, D1478–D1488).*
+D1478–D1496) ; la complétude et son inventaire (§20, D1478–D1488) ; la
+promotionnelle (§30, le rang 9, D1497–D1514) — née, à deux niveaux.*
 
 1. *(clos le 11/10 — D1171, D1184, D1186 confirmés, D1197–D1199)* ;
 2. *(clos le 11/10 — le rang 1 entier, D1238 : les sept sections, les
@@ -4301,3 +4339,199 @@ D1478–D1496) ; la complétude et son inventaire (§20, D1478–D1488).*
 12. *(clos le 11/10 — l'IA, D1222–D1226 : elle assiste le concepteur par
     une skill de la documentation du développeur, le moteur génère sans
     elle ; la skill s'écrit au rang 5.)*
+
+## 30. La promotionnelle *(le rang 9 — acquis, D1497–D1514 : deux niveaux, la plaquette de l'application, la démonstration, l'argumentaire du socle ; `promotional:` au projet)*
+
+**« une documentation promotionnelle pour exposer et vendre une
+application »** (l'auteur, D1131) — la sixième documentation, **la seule
+à faire naître** (le contexte, 6) : ses lecteurs sont le prospect et le
+dirigeant (§3, D1152), **le mode public** (D1150, `visibility:` — D1151)
+la diffuse sans aucun droit — rien de confidentiel, aucune donnée. Trois
+matières (le plan, le rang 9) : **la plaquette** — la structure générée
+et les textes écrits —, **la démonstration** — l'instance d'essai et son
+jeu de données (D869) —, **l'argumentaire du socle** — l'open source
+(D19), une instance par client, les API, l'auto-documentation, la part
+de Syncytium ; et **le module de présentation de l'outil**, servi par
+l'instance de Syncytium seul, qui est son propre site vitrine
+(D1447–D1448).
+
+**Deux niveaux** (D1497 : « il existe 2 niveaux de promotionnelle ») :
+**celle de Syncytium** — « les avantages, sa facilité d'utilisation et
+les inconvénients => Expliquer et démontrer le choix de la plateforme et
+l'ouverture vers d'autres usages » — le module de présentation de
+l'outil (D1447), servi par Syncytium seul, la matière de l'étape 3 ; ses
+lecteurs, qui choisit la plateforme ; **celle de l'application** — « pour
+faire adhérer la direction, les managers et les collaborateurs à
+l'application et à son usage » — la plaquette et la démonstration, les
+étapes 1 et 2 ; ses lecteurs d'abord à l'intérieur, par persona ; le
+mode public (D1150) reste sa déclinaison vers l'extérieur, le prospect
+et le partenaire, sans aucun droit.
+
+### 1. La plaquette de l'application (D1497–D1498 — acquis)
+
+1. **Son but et ses lecteurs** : l'adhésion — elle s'adresse d'abord à
+   l'intérieur, la direction, les responsables métier, les
+   collaborateurs, et dit ce que l'application change pour chacun ; elle
+   se lit avec un compte, à tout degré, `reader` compris, et c'est **la
+   première page de la documentation dans l'application** ; le mode
+   public (D1150) reste sa déclinaison vers l'extérieur, le prospect et
+   le partenaire, sans aucun droit et sans donnée.
+2. **La structure générée**, dans l'ordre d'une plaquette : **le
+   projet** — le nom, la description, le concepteur, le contact, les
+   droits d'auteur (D1153, D1355), les langues ; **les modules** — leur
+   `title:` et leur `description:` (D1120), ce que chacun permet ; **le
+   modèle d'ensemble en image** — le diagramme de §5 réduit aux entités
+   et à leurs liens, les titres sans les champs ; **« pour vous »** — par
+   persona (§22, D1200), ce que l'application change pour son groupe,
+   ses scénarios comme cas d'usage, les écrans de ses scénarios rendus
+   par Syncytium lui-même (D1129), peuplés des `placeholder:` et jamais
+   de données ; **« quoi de neuf »** — les notes de la version en
+   production la plus élevée (D1112, D1123).
+3. **Les textes écrits** : le ton et la promesse sont au concepteur
+   (D1122) ; le texte vient de **`pages: presentation:`** du
+   `documentation.yml` de la version (§12), par langue selon la règle
+   des langues (D1474) — le besoin, ce que l'application change, ce qui
+   ne change pas ; **un texte par persona, facultatif**, dans la fiche du
+   persona ; Syncytium n'invente aucune promesse — sans texte, la
+   plaquette montre la structure seule et la complétude (§20) relève le
+   manque. **Le plan** (D1499 : « ajoute une section promotional: qui
+   permet de structurer la documentation promotionnelle si le
+   concepteur souhaite proposer un plan et une succesion d'écrans ») :
+   `pages: promotional:`, une liste ordonnée — un texte, un écran, un
+   persona et ses scénarios —, qui remplace la structure par défaut
+   quand elle est écrite ; **une vue mise en promotionnelle** dit qu'elle
+   peut faire partie de la promotion, « mais ne dit pas son ordre, ni
+   la composition » — elle entre dans la structure par défaut sous le
+   persona de son groupe, le plan dit le reste ; un plan qui cite une
+   vue non marquée est une erreur d'ingestion (D1500). **La marque dans
+   l'application** (D1501 : « Une vue marquée comme promotionnelle peut
+   être identifiée par une marque sur la vue dans l'application
+   elle-même … cela fait partie des points clés du projet pour son
+   adhésion ») : un signe du socle sur la surface — un pictogramme et
+   son texte du catalogue (D1160), « un point clé du projet » —, qui
+   ouvre la plaquette à l'item de cette vue ; il ne se configure pas, la
+   marque `promotional: true` suffit.
+4. **`visibility:` tranchée** (D1151 attendait ce rang) : `promotional`,
+   le défaut — la plaquette seule, sans compte ; `public` — la plaquette
+   et toute la documentation en mode public, sans donnée ni rien de
+   confidentiel ; `private` — rien sans compte. Dedans, la plaquette se
+   lit toujours. **Sans promotionnelle** (D1511 : « Une clé de la
+   configuration pourrait indiquer que l'application ne dispose pas de
+   promotions et qu'elle n'en aura pas ») — la clé validée (D1513) :
+   `promotional: false` au projet, le défaut `true` ; à `false`, la
+   documentation 6 n'existe pas — ni générée, ni servie, ni au dépôt,
+   ni en mode public, où seule la page d'accueil reste (D1156) — ; la
+   complétude (§20) ne compte plus le texte de présentation ni le plan,
+   le persona restant à la fonctionnelle (§22) ; un plan ou une vue
+   marquée avec `promotional: false` est **une alerte d'ingestion, non
+   une erreur** (D1512 : « cette option peut être utilisée
+   temporairement ») — le plan et les marques dorment, la clé se pose
+   et se retire sans toucher au reste.
+5. **Trois canaux**, le même contenu : dans l'application, à tout
+   degré ; en édition imprimable, la plaquette en PDF par un gabarit
+   (D1143) — la réunion de direction, le papier sur le bureau ; au dépôt,
+   `syncytium document <env> promotional` (D1167) ; le mode public en est
+   l'extrait sans compte.
+
+### 2. La démonstration (D1503–D1505 — acquis)
+
+1. **L'instance d'essai est une sandbox** (D907–D912) **dont tous les
+   connecteurs sont mockés et dont le storage est remplacé par un
+   sqlite** (D1503) : elle ne duplique aucun environnement de référence,
+   elle part du jeu de données ; les connecteurs mockés rendent ce que
+   le concepteur leur fait rendre (D627), aucun service réel n'est
+   touché ; le sqlite rend l'instance portable — l'application qui
+   démarre seule (D729) ; **ou un storage de classe `memory`** (D1045 ;
+   D1507–D1508 : « un storage … qui ne fonctionne qu'en mémoire avec un
+   ratio d'espace … n'occupe aucune place sur le disque et se supprime
+   facilement » — « utilise "memory" ») — rien à nettoyer, l'arrêt
+   efface tout.
+2. **Le jeu de données** (D1504 : « porté par un jeu de fichiers CSV dont
+   les noms de fichiers sont liés à la clé "dataset:" (clé facultative)
+   … un fichier CSV par entité. Ces fichiers peuvent être issus de
+   données inventées, réelles ou générées par l'IA. Cela est de la
+   responsabilité du concepteur et des outils qu'il utilise ») :
+   `dataset:` sur l'environnement sandbox de démonstration (*la forme en
+   proposition* : `dataset: ~{demo/}`, un fichier par entité) ; les
+   fichiers dans le gabarit de l'import (D1211, D1412), chargés par son
+   dry-run tout-ou-rien (D234) à l'initialisation et à la recharge ; des
+   données réelles engagent le concepteur — le RGPD, la confidentialité
+   du dépôt ; sans `dataset:`, la démonstration part vide.
+3. **Le parcours** : « Le parcours écrit via les personas reflète la
+   démonstration » (D1505) — les scénarios des personas (§22) sont le
+   script ; un compte de démonstration par persona, dans son groupe,
+   créé à l'initialisation de la sandbox, les mots de passe dans le
+   fichier des variables (D1429), aucun utilisateur réel ; les planches
+   (D1129) sont le guide papier de celui qui démontre ; la complétude
+   (§20) relève un scénario que le jeu de données ne nourrit pas.
+4. **La remise à zéro** : la recharge de la sandbox (D922) ramène la
+   démonstration à son jeu de données — un geste d'administration
+   (D921), avant chaque séance ou chaque nuit par une opération
+   périodique.
+5. **Où elle paraît** : à l'instance seulement ; au dépôt, la plaquette
+   dit qu'une démonstration existe et renvoie au contact (D1153) ;
+   dedans, la plaquette y mène par un lien quand la sandbox de
+   démonstration est déclarée ; le mode public n'y mène pas, la
+   démonstration demande un compte.
+
+### 3. L'argumentaire du socle — la promotionnelle de Syncytium (D1506–D1509 — acquis)
+
+1. **Ce qu'elle est et qui la lit** : la plaquette de Syncytium
+   lui-même, le second niveau de D1497, construite par le même
+   mécanisme que celle d'une application (D1498–D1501) sur l'instance
+   de Syncytium seul, qui est son propre site vitrine (D1448), en mode
+   public ; ses lecteurs, ceux qui choisissent la plateforme — le
+   décideur, le concepteur, le prestataire ; portée par le dépôt de
+   Syncytium (D1348), comme toute documentation de Syncytium lui-même.
+2. **Le module de présentation de l'outil** (D1447) porte le plan
+   `pages: promotional:` de cette plaquette — des textes écrits par
+   l'auteur, par langue du core, et des écrans de Syncytium marqués
+   promotionnels : la documentation servie, le tableau de bord de la
+   santé, l'assistance, la console d'API. **Sa démonstration** (D1506 :
+   « à partir d'une phrase ou d'un besoin assez simple, Syncytium génère
+   un fichier de configuration unique, puis le charge et montre le bon
+   fonctionnement de l'application avec un seul connecteur "le storage"
+   … Passé la démo, la base se supprime ») : sur le site vitrine, une
+   page « essayer » — le visiteur écrit son besoin ; l'IA, armée de la
+   skill du core (D1224–D1226) **par un connecteur `llm`** (D1510, D957 —
+   le seul connecteur réel de la démonstration, tout échange tracé, aucune
+   donnée de l'instance), écrit un `syncytium.yml` unique dans la
+   forme du tiny (D1114) — c'est l'IA qui écrit la configuration, le
+   moteur génère sans elle ; Syncytium l'ingère en sandbox de
+   démonstration (D1503) sur **un storage de classe `memory`** (D1045,
+   D1507–D1508 — en mémoire seule, avec un ratio d'espace, rien sur le
+   disque, la base se supprime à la fin) ; un compte de démonstration
+   éphémère, aucun autre connecteur, aucun mail ; **la configuration
+   générée est montrée au visiteur à côté de l'application** — c'est
+   l'argument lui-même, la configuration est l'application. Les cas
+   d'usage du dépôt sont des exemples, qui porteront potentiellement
+   une application (D1506) ; ils ne sont pas la démonstration.
+3. **La matière**, quatre parties écrites : **le choix de la
+   plateforme** — la configuration est l'application, la documentation
+   en est la partie visible (D1137) ; une instance par client, le dépôt
+   du client distinct (D336) ; les API sous contrat par version (§10) ;
+   l'open source AGPL, le moteur retourne au commun (D19) ; **la
+   facilité** — `syncytium init` en une ligne (D1447), des petits
+   fichiers YAML, la skill qui arme l'IA du concepteur (D1224–D1226), la
+   complétude qui dit ce qui manque (§20) ; **les inconvénients, dits**
+   (D1497 : « les avantages, sa facilité d'utilisation et les
+   inconvénients ») — la discipline, tout dans la configuration et rien
+   à côté (D1440), toutes les langues ou l'erreur (D1474), un moteur qui
+   pose ses contraintes (D1439) ; le périmètre, la TPE, une à trois
+   langues (D217) ; la jeunesse du projet et sa dépendance à son
+   auteur ; **l'ouverture vers d'autres usages** — les huit cas, les sept
+   familles de hooks (D52, D1467), les familles de connecteurs.
+4. **Ce que Syncytium génère de lui-même** : l'inventaire du core — les
+   familles de hooks, les types du catalogue, les connecteurs, les
+   commandes, les neuf documentations — ; les plaquettes des cas comme
+   exemples ; le « quoi de neuf » du core, ses notes de version. Les
+   textes de l'argumentaire, les inconvénients compris, sont écrits par
+   l'auteur, jamais générés.
+5. **Trois canaux** : le site vitrine, en mode public ; le dépôt de
+   Syncytium, `docs/` consultable sur GitHub — le rang 10 (D1316) ; le
+   PDF par gabarit (D1143).
+
+*(L'entrepôt déclare `promotional: false` — sa déclinaison n'a plus
+d'intérêt ; la colonne 6 de la matrice est écrite dans les onze
+artefacts et la matrice d'ensemble, validée ; le rang 9 est clos,
+D1514.)*

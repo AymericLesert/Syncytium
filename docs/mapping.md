@@ -965,4 +965,10 @@ passages, leur tendance, la couverture ([migration.md](migration.md)) ;
 une anomalie qui dit une règle absente ou une source qui a changé est
 une lecture métier, servie à partir de `manager` (D1493).
 
+**La migration déclarée, dans la promotionnelle** (la colonne 6 — le
+rang 9) : rien — la reprise n'est pas un argument pour l'adhésion ;
+dans la démonstration, le connecteur de reprise est mocké comme les
+autres (D1503) et le jeu de données vient de `dataset:` (D1504), non
+d'une reprise.
+
 **Les neuf colonnes sont écrites.**

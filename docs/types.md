@@ -285,4 +285,9 @@ domaine surdimensionné à resserrer (D48 — resserrer, non retirer), le
 type dérivé que plus aucun champ n'emploie ; une proposition datée pour
 l'administrateur (D1491–D1495).
 
+**Le type, dans la promotionnelle** (la colonne 6 — le rang 9) : rien —
+le type n'est pas un argument pour l'adhésion ; le jeu de données de
+démonstration (D1504) doit respecter ses règles, le dry-run de l'import
+les applique (D234).
+
 **Les neuf colonnes sont écrites.**

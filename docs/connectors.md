@@ -134,7 +134,7 @@ contrat** (D620), la conformité d'une classe vérifiée au chargement :
 
 | le type (la famille) | le rôle | les classes consignées | l'acquis |
 |---|---|---|---|
-| `storage` | les bases de données — le stockage du modèle et les échanges ; **les formats structurés pour les exports et les imports** (D636) | postgresql, sqlserver, mysql, oracle… — **et csv, xml, json…** ; **memory** (D1045 — le modèle tenu en mémoire, la base miroir d'une reprise, `buffer:`) | D604/D606/D613/D636 |
+| `storage` | les bases de données — le stockage du modèle et les échanges ; **les formats structurés pour les exports et les imports** (D636) | postgresql, sqlserver, mysql, oracle… — **et csv, xml, json…** ; **memory** (D1045 — le modèle tenu en mémoire, la base miroir d'une reprise, `buffer:` ; **et le stockage de l'application en mémoire seule, avec un ratio d'espace, aucune place sur le disque, une suppression facile : la démonstration de Syncytium et le mode démo d'une application** — D1507–D1508) | D604/D606/D613/D636, D1508 |
 | `smtp` | le mail sortant | smtp_std, **none** (D763 — le mock : send toujours vrai, aucun envoi — la condition indispensable D626 satisfaite, le silence assumé du domestique) | D564/D574/D763 |
 | `file` | les fichiers — le dépôt, le guetteur, l'acquittement (le format se lit par un storage — D636) | file_std | D604/D634–D635 |
 | `directory` | l'annuaire — l'authentification, les comptes | l'AD Azure | D418/D604 |
@@ -142,7 +142,7 @@ contrat** (D620), la conformité d'une classe vérifiée au chargement :
 | `webhook` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete (D609) | — | D623–D624 |
 | `siren` | la vérification des identifiants | — | D611/D623 |
 | `authentication` | l'identité — l'utilisateur et l'API (D692) | local, azure_ad, sso, keycloak (D716), **none** (D759 — le domestique : l'utilisateur par défaut au degré administrator) | D418/D692/D716/D759 |
-| `llm` | le modèle de langage du module `chat` (D957) — la question de l'utilisateur, la connaissance de l'instance sous ses droits | — *(les classes à consigner : un service en ligne, un modèle local)* | D957 |
+| `llm` | le modèle de langage du module `chat` (D957) — la question de l'utilisateur, la connaissance de l'instance sous ses droits ; **et l'IA de la démonstration de Syncytium** (D1510) — d'une phrase, une configuration unique | — *(les classes à consigner : un service en ligne, un modèle local)* | D957 |
 
 *(La reprise n'est pas une famille : le connecteur de reprise
 (D175–D179) s'appuie sur les familles existantes — le storage en
@@ -643,6 +643,15 @@ reprise par connecteur et leur tendance, le retard du passif (D731), la
 dernière sauvegarde et sa vérification, ou « non disponible » (D1476,
 D1490) ; **les améliorations** — les conseils au consommateur de l'API,
 le cache et la lecture par lot (D45).
+
+**Les connecteurs, dans la promotionnelle** (la colonne 6 — le rang 9) :
+**la démonstration** — une sandbox dont tous les connecteurs sont
+mockés et dont le storage est un sqlite ou un `memory` (D1503,
+D1507–D1508), `dataset:` pour son jeu de données (D1504) ; **la
+démonstration de Syncytium** — le seul connecteur réel est le `llm` qui
+écrit la configuration (D1510), le storage `memory` se supprime à la
+fin (D1506) ; dans la promotionnelle de Syncytium, les familles de
+connecteurs sont un argument de l'ouverture (D1509).
 
 **Les autres colonnes** — à leur rang :
 l'information — **le chapitre du stockage du dictionnaire de la donnée**

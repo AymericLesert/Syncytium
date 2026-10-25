@@ -8,8 +8,10 @@ Usage : python tools/completeness.py examples/<cas>   (PyYAML requis)
   concepteur n'a pas décrit ; jamais un défaut du socle, jamais une langue manquante (une erreur d'ingestion, D1474).
 - Imprime le rapport dans la forme de D1479 : par version, le taux par documentation et par module, puis les manques —
   une table par nature, sa première ligne la nature du manque, puis le fichier et la clé d'accès complète
-  (D1485–D1486) — ; puis les orphelins — un fichier du dossier
-  qu'aucune clé ne cite, peut-être un oubli (D1483) —, hors du taux. Le code de retour porte le taux global arrondi.
+  (D1485–D1486) — ; puis les défauts d'ingestion visibles au dépôt — un texte sans une langue de la version, un hook
+  sans sa langue, un plan de promotionnelle qui cite une vue non marquée (D1474, D1163, D1500 ; D1482, D1502) — et les
+  orphelins — un fichier du dossier qu'aucune clé ne cite, peut-être un oubli (D1483) —, tous deux hors du taux. Le
+  code de retour porte le taux global arrondi.
 """
 import os
 import re
@@ -32,6 +34,8 @@ ENTITY_KEYS = {"name", "description", "title", "label", "identity", "history", "
 origin = {}  # id(nœud) → fichier d'origine, pour dire « où »
 reached = set()  # les fichiers atteints depuis syncytium.yml, pour les orphelins (D1483)
 texts = []  # les textes complémentaires (md) chargés, pour y chercher la mention d'information
+defauts = []  # les défauts d'ingestion visibles au dépôt (D1474, D1163, D1500) : (nature, fichier, clé)
+TEXT_KEYS = {"label", "hint", "description", "title", "message", "role", "purpose"}  # les textes par langue (D1101)
 
 
 def resolve(base_dir, ref):
@@ -313,6 +317,96 @@ def walk_version(r, ver, label):
                 "${rgpd.notice} — les entités marquées : " + ", ".join(sorted(set(rgpd_fields))), fallback)
 
 
+def check_ingestion(ver, version_label, fallback):
+    """Les défauts d'ingestion que le dépôt seul laisse voir — hors du taux (D1482) :
+    un texte sans une langue de la version (D1474–D1475, D1101), un hook sans sa langue (D1163),
+    un plan de promotionnelle qui cite une vue non marquée (D1500)."""
+    languages = ver.get("languages")
+    multi = isinstance(languages, list) and len(languages) > 1
+    wanted = set(map(str, languages)) if multi else set()
+
+    def text_defect(value, key, node):
+        if isinstance(value, str):
+            defauts.append((f"un texte simple dans une version à plusieurs langues ({', '.join(languages)}) — D1101",
+                            where(node, fallback), key))
+        elif isinstance(value, dict):
+            missing = sorted(wanted - set(map(str, value.keys())))
+            if missing:
+                defauts.append((f"un texte sans une langue de la version — manque {', '.join(missing)} (D1474)",
+                                where(node, fallback), key))
+
+    def walk(node, path, in_entity=False):
+        if isinstance(node, dict):
+            is_entity = "fields" in node and isinstance(node.get("fields"), (dict, str))
+            for k, v in node.items():
+                key = f"{path}.{k}" if path else str(k)
+                if k in TEXT_KEYS and multi and not (is_entity and k == "label"):  # le visage texte n'est pas un texte
+                    text_defect(v, key, node)
+                if k == "release-notes":
+                    continue
+                walk(v, key, is_entity)
+        elif isinstance(node, list):
+            for n, v in enumerate(node):
+                walk(v, f"{path}[{n}]", in_entity)
+
+    if multi:
+        walk(ver, version_label)
+        # le glossaire des termes (D1475) : un terme en texte simple, ou des mots sans langue
+        doc = ver.get("documentation") if isinstance(ver.get("documentation"), dict) else {}
+        for tname, tspec in (doc.get("glossary") or {}).items() if isinstance(doc.get("glossary"), dict) else []:
+            key = f"{version_label}.documentation.glossary.{tname}"
+            if isinstance(tspec, str):
+                defauts.append(("un terme du glossaire en texte simple dans une version à plusieurs langues (D1475)",
+                                where(doc, fallback), key))
+            elif isinstance(tspec, dict) and isinstance(tspec.get("words"), list):
+                defauts.append(("les mots d'un terme sans déclinaison par langue (D1475)", where(tspec, fallback),
+                                f"{key}.words"))
+    # le plan de la promotionnelle (D1499–D1500) : un écran cité doit être une vue marquée promotional: true
+    doc = ver.get("documentation") if isinstance(ver.get("documentation"), dict) else {}
+    pages = doc.get("pages") if isinstance(doc.get("pages"), dict) else {}
+    plan = pages.get("promotional")
+    if isinstance(plan, list):
+        marked = set()
+        for mod in (ver.get("modules") if isinstance(ver.get("modules"), list) else []):
+            if not isinstance(mod, dict):
+                continue
+            mname = mod.get("name", "?")
+            owners = [(mname, mod)] + [(f"{mname}.{e.get('name', '?')}", e) for e in
+                                       (mod.get("entities") if isinstance(mod.get("entities"), list) else [])
+                                       if isinstance(e, dict)]
+            for oname, owner in owners:
+                gui = owner.get("gui") if isinstance(owner.get("gui"), dict) else {}
+                for section in gui.values():
+                    if isinstance(section, dict):
+                        for sname, sspec in section.items():
+                            if isinstance(sspec, dict) and sspec.get("promotional") is True:
+                                marked.add(f"{oname}[{sname}]")
+        for n, item in enumerate(plan):
+            if isinstance(item, dict) and "screen" in item and str(item["screen"]) not in marked:
+                defauts.append(("le plan de la promotionnelle cite une vue non marquée promotional (D1500)",
+                                where(item, fallback), f"{version_label}.documentation.pages.promotional[{n}].screen"))
+
+
+def print_defauts():
+    print("## Les défauts d'ingestion visibles au dépôt\n")
+    print("*Hors du taux (D1482) : ce qui bloquerait l'ingestion et que la configuration seule laisse voir — un texte "
+          "sans une langue de la version (D1474–D1475), un hook sans sa langue (D1163), un plan de promotionnelle qui "
+          "cite une vue non marquée (D1500). La liste canonique des refus est configuration.md §5.*\n")
+    if not defauts:
+        print("Aucun défaut visible au dépôt.\n")
+        return
+    by_nature = defaultdict(list)
+    for nature, o, k in defauts:
+        by_nature[nature].append((o, k))
+    for nature, items in by_nature.items():
+        print(f"| **{nature}** | |")
+        print("|---|---|")
+        print("| **Le fichier** | **La clé** |")
+        for o, k in sorted(items):
+            print(f"| `{o}` | `{k}` |")
+        print()
+
+
 def versions_of(status_block):
     """Les versions d'un statut : la liste `versions:` (les fichiers) ou les clés x.y.z.w (la forme en ligne)."""
     out = []
@@ -355,7 +449,9 @@ def main():
                     r.attendus[d][mod] = n
             r.manques.extend(r_env.manques)
             walk_version(r, ver, f"{status}/{vlabel}")
+            check_ingestion(ver, vlabel, f"versions/{status}/{vlabel}")
             rates.append(print_version(r, f"{vlabel} ({status})"))
+    print_defauts()
     print_orphans()
     taux = round(sum(rates) / len(rates)) if rates else 100
     print(f"\n**Le taux global : {taux} %** — le code de retour.")

@@ -779,6 +779,14 @@ protégé) ; l'information (le niveau de confidentialité affiché à chaque
 champ, D1247 ; les colonnes protégées du chapitre 3, D1300 ; la matrice
 des droits 5.2).
 
+**La sécurité, dans la promotionnelle** (la colonne 6 — le rang 9) :
+**rien de confidentiel, aucune donnée** dans la plaquette ni dans le
+mode public (D1150) — les écrans rendus sont peuplés des `placeholder:`
+(D1498) ; la démonstration n'a aucun connecteur réel hors le `llm`
+(D1503, D1510), ses comptes sont éphémères (D1505), son storage
+`memory` se supprime (D1506–D1508) ; `visibility: private` ferme tout
+sans compte (D1498).
+
 **La sécurité, dans la maintenance, les risques et les améliorations**
 (la colonne 7 — le rang 8) : la famille « la sécurité » des risques
 (D1490) — les refus de droits et les pics (D43, D47, D97), les

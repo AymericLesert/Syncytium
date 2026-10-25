@@ -540,5 +540,13 @@ partir de `manager`, la vision métier ; les améliorations à
 `administrator`, la configuration — et, dans la page d'un composant,
 chacun voit l'usage de ce qu'il voit (D1489).
 
-**Les autres colonnes** — à leur rang : la promotionnelle (le mode public, `visibility:`
-D1151).
+**Les droits, dans la promotionnelle** (la colonne 6 — le rang 9) : **le
+mode public** — `visibility:` tranchée (D1151, D1498) : `promotional`
+la plaquette seule sans compte, `public` toute la documentation en mode
+public sans donnée ni rien de confidentiel, `private` rien sans
+compte ; dedans, la plaquette se lit à tout degré, `reader` compris, la
+première page de la documentation (D1498) ; les comptes de
+démonstration, un par persona dans son groupe, éphémères (D1505) ; le
+compte éphémère de la démonstration de Syncytium (D1509).
+
+**Les neuf colonnes sont écrites.**

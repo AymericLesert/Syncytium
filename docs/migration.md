@@ -683,4 +683,8 @@ les rejets des passages et leur tendance — et, dans la famille « la
 version », le rapport du dernier dry-run de migration (D7–D9) ; servie à
 partir de `manager` (D1493).
 
+**Le module `_migration`, dans la promotionnelle** (la colonne 6 — le
+rang 9) : rien — absent de la plaquette ; dans la démonstration, le jeu
+de données entre par l'import (D1504), non par `_migration`.
+
 **Les neuf colonnes sont écrites.**

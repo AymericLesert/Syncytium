@@ -3082,6 +3082,16 @@ colonne 9 — le rang 7) : rien de propre — le tableau de bord de la
 santé est une surface du socle, l'accueil de l'administrateur (D1452),
 et le « ? » de chaque surface renvoie au guide.
 
+**Le composant, dans la promotionnelle** (la colonne 6 — le rang 9) : une
+surface marquée `promotional: true` est offerte à la plaquette (D1499) —
+elle y entre sous le persona de son groupe, ou à sa place dans le plan
+`pages: promotional:` — et **porte dans l'application la marque du
+socle « un point clé du projet »** (D1501), qui ouvre la plaquette à son
+item ; un plan qui cite une vue non marquée est une erreur d'ingestion
+(D1500) ; l'écran se rend lui-même, peuplé des `placeholder:` (D1129,
+D1498) ; le wizard est un cas d'usage, par le scénario de son persona
+(§22, D1498).
+
 **Le composant, dans la maintenance, les risques et les améliorations**
 (la colonne 7 — le rang 8) : **les usages** — les ouvertures de chaque
 surface, l'écran jamais ouvert, sur sa page (D1168, D1489) ; **les

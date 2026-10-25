@@ -21,6 +21,10 @@ contact: entrepot@entreprise.example
 # Le titulaire des droits sur la configuration de l'entrepôt.
 copyright: © 2026 L'entreprise
 
+# La promotionnelle
+# L'entrepôt est un miroir interne de l'ERP : il n'a pas de documentation promotionnelle et n'en aura pas.
+promotional: false
+
 # La page d'accueil
 # Globale, hors des versions : la présentation de l'entrepôt et la mention d'information du RGPD, ancrée là.
 home: ~{documentation/home.md}

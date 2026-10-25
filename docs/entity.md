@@ -377,5 +377,11 @@ améliorations** (D1491–D1495) — le champ constant « candidat au
 retrait » (D46), le domaine à resserrer (D48), l'entité jamais écrite ;
 la proposition datée, sur la page du champ pour l'administrateur seul.
 
-**Les autres colonnes** — à leur rang : la promotionnelle
-(son titre dans la vue d'ensemble).
+**L'entité et le champ, dans la promotionnelle** (la colonne 6 — le rang
+9) : **l'entité** par son titre dans le modèle d'ensemble en image, les
+entités et leurs liens sans les champs (D1498) ; **le champ** par son
+`placeholder:`, qui peuple les écrans rendus sans donnée (D1498, D1129)
+et la ligne d'exemple du jeu de données de démonstration (D1504) ;
+aucune donnée réelle dans la plaquette ni dans le mode public (D1150).
+
+**Les neuf colonnes sont écrites.**

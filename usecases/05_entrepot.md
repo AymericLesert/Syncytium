@@ -3274,3 +3274,85 @@ risques — la migration de la 1.0.0.1 et l'absence de sauvegarde — sans
 aucune mesure ; à l'instance, une proposition disparaît d'elle-même
 quand le fait disparaît (D1494) — le jour où un article `plaque` est
 créé, la seconde ligne s'efface.*
+
+## La promotionnelle — la déclinaison de l'entrepôt (le rang 9)
+
+*(La déclinaison du rang 9, écrite le 25/10/2026 sur §30 de
+documentation.md — D1497–D1510. L'entrepôt n'a ni persona, ni texte de
+présentation, ni plan `pages: promotional:`, ni vue marquée, ni sandbox
+de démonstration : on montre la plaquette telle qu'elle sortirait
+aujourd'hui de la structure seule, puis ce que le concepteur ajouterait.
+**En proposition.**)*
+
+---
+
+> # entrepôt — l'entrepôt de données
+>
+> *Pour la direction, les responsables métier et les collaborateurs de
+> l'entreprise — pourquoi cet entrepôt, et ce qu'il change pour vous.*
+>
+> **L'entrepôt de données de l'entreprise — les données de Cegid PMI
+> standardisées, harmonisées et fiabilisées.** Conçu par Aymeric
+> Lesert ; le contact des demandes : entrepot@entreprise.example ;
+> © 2026 L'entreprise ; en français.
+>
+> ## Quatre modules
+>
+> - **technique** — les données techniques : les articles, leurs
+>   nomenclatures et gammes, leurs tarifs ;
+> - **tiers** — les tiers de l'entreprise : les clients et les
+>   fournisseurs, leurs adresses et leurs contacts ;
+> - **commande** — les commandes, de vente aux clients, d'achat aux
+>   fournisseurs, et leurs lignes ;
+> - **stock** — les stocks : les niveaux par dépôt, emplacement et lot,
+>   et les mouvements.
+>
+> ## Le modèle d'ensemble
+>
+> *(l'image : dix-huit entités et leurs liens, les titres seuls — le
+> diagramme de §5 réduit ; ici, faute de `title:`, les noms)*
+>
+> ## Pour vous
+>
+> *Non disponible : aucun groupe ne porte de persona* (D1207 — la
+> déclinaison des personas se fait sur le véhicule et la banque). Les
+> six groupes — Commercial, Achats, Bureau d'études, Logistique,
+> Direction, Administration — paraissent par leur libellé et leur
+> description, sans scénario ni écran.
+>
+> ## Quoi de neuf — la 1.0.0.0
+>
+> La première version de l'entrepôt de données : les données de Cegid
+> PMI standardisées, harmonisées et fiabilisées, de l'opérateur aux
+> dirigeants. Quatre modules ; l'entrepôt en lecture seule ;
+> l'historique des changements partout, sauf sur les niveaux et les
+> mouvements ; la base PMI lue en direct chaque nuit ; le tableau de bord
+> du stock.
+>
+> ## Essayer
+>
+> *Non disponible : aucune sandbox de démonstration déclarée.* Pour une
+> démonstration, écrire à entrepot@entreprise.example.
+
+---
+
+**Ce que le concepteur ajouterait** — à titre d'illustration, non écrit
+dans l'entrepôt : un persona par groupe, avec un scénario — « Lucie, de
+la logistique, contrôle les stocks par les mouvements du mois » — et
+l'écran `stock.mouvement[controle]` marqué `promotional: true` ; un
+texte `pages: presentation:` — le besoin, un seul miroir fiable de
+l'ERP ; ce qui change, les dirigeants lisent les prix de revient sans
+ouvrir PMI ; ce qui ne change pas, l'ERP reste la source ; un plan
+`pages: promotional:` qui ouvre sur le tableau de bord du stock ; une
+sandbox `demo` sur un storage `memory` avec un `dataset:` inventé de
+quelques articles, tiers et mouvements.
+
+*La complétude (§20) relève déjà ce qui manque à cette plaquette : les
+six groupes sans persona, les dix-huit entités sans `title:` ; elle
+relèvera le texte de présentation absent quand la clé sera au rang de
+l'inventaire.*
+
+*Ce que la déclinaison montre : la plaquette existe dès la structure —
+quatre modules décrits, un modèle, des notes de version — ; elle ne
+parle à personne tant qu'aucun persona n'est écrit : « pour vous » est
+le chapitre que le concepteur doit écrire pour l'adhésion (D1497).*

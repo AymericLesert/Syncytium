@@ -644,6 +644,15 @@ dernière sauvegarde et sa vérification, ou « non disponible » (D1476,
 D1490) ; **les améliorations** — les conseils au consommateur de l'API,
 le cache et la lecture par lot (D45).
 
+**Les connecteurs, dans la promotionnelle** (la colonne 6 — le rang 9) :
+**la démonstration** — une sandbox dont tous les connecteurs sont
+mockés et dont le storage est un sqlite ou un `memory` (D1503,
+D1507–D1508), `dataset:` pour son jeu de données (D1504) ; **la
+démonstration de Syncytium** — le seul connecteur réel est le `llm` qui
+écrit la configuration (D1510), le storage `memory` se supprime à la
+fin (D1506) ; dans la promotionnelle de Syncytium, les familles de
+connecteurs sont un argument de l'ouverture (D1509).
+
 **Les autres colonnes** — à leur rang :
 l'information — **le chapitre du stockage du dictionnaire de la donnée**
 (D1260) : « le connecteur storage matérialise le stockage des types dans

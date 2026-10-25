@@ -289,5 +289,10 @@ restent où ils sont — aucun seuil absolu pour les listes, le classement
 suffit ; la période au choix du lecteur, trente jours par défaut, les
 compteurs au jour (D39).
 
+**La télémétrie, dans la promotionnelle** (la colonne 6 — le rang 9) :
+rien — la plaquette ne montre aucune mesure, aucun usage (D1150 — rien
+de confidentiel, aucune donnée) ; la démonstration de Syncytium est
+tracée comme tout échange d'un connecteur `llm` (D957, D1510).
+
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 télémétrie n'est pas ce que l'utilisateur fait).

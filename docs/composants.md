@@ -3089,7 +3089,8 @@ elle y entre sous le persona de son groupe, ou à sa place dans le plan
 socle « un point clé du projet »** (D1501), qui ouvre la plaquette à son
 item ; un plan qui cite une vue non marquée est une erreur d'ingestion
 (D1500) ; l'écran se rend lui-même, peuplé des `placeholder:` (D1129,
-D1498).
+D1498) ; le wizard est un cas d'usage, par le scénario de son persona
+(§22, D1498).
 
 **Le composant, dans la maintenance, les risques et les améliorations**
 (la colonne 7 — le rang 8) : **les usages** — les ouvertures de chaque

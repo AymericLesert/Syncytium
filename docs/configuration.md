@@ -442,6 +442,18 @@ les variables référencées, nommées exactement, à renseigner — pas de
 gabarit (D1429) ; le D.A.T. (documentation.md §28) expose la liste des
 variables, dans la limite des confidentialités.
 
+**`security_advisories:` — la veille des CVE** (D1431, D1444) : à
+l'environnement, « plus parlant » — `url:` l'adresse du fichier d'avis
+de sécurité publié par le projet pour le core, par une variable du
+déploiement, `every:` le rythme de lecture ; le bloc absent, la veille
+n'est pas reliée ; présent, l'administrateur l'a autorisée :
+
+```yaml
+security_advisories:
+  url: ${SYNCYTIUM_ADVISORIES_URL}    # le fichier du projet, ou un miroir interne
+  every: 1d
+```
+
 **Un dossier par environnement** : ce qui est commun à toutes les
 versions mais propre à chaque environnement — les connecteurs, les
 journaux, les settings techniques, la documentation. Les environnements

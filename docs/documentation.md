@@ -3736,7 +3736,10 @@ acquise** (D1431 : « je valide la voie b ») : la veille se fait **au
 dépôt du source**, par son outillage, et le projet publie **par core un
 fichier d'avis de sécurité signé** — l'avis de sécurité, sa gravité, le core qui corrige ;
 **l'instance le lit sur autorisation de l'administrateur**, désactivée
-par défaut, vérifie la signature, compare à son core et aux
+par défaut — **le bloc `security_advisories:` de l'environnement**
+(D1444) : `url:` l'adresse du fichier par une variable du déploiement,
+`every:` le rythme, `1d` par défaut ; absent, « la veille n'est pas
+reliée » —, vérifie la signature, compare à son core et aux
 bibliothèques déclarées par ses hooks, et montre ce qui la concerne
 ici et à la maintenance (§23), avec une notification à
 l'administrateur ; **hors connexion**, le D.A.T. dit « la veille n'est

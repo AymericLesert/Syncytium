@@ -687,8 +687,11 @@ décisions, D1170–D1238.)*
      **acquis le 25/10/2026 (D1503–D1505)** — une sandbox aux connecteurs
      mockés sur un sqlite, `dataset:` en CSV par entité, le parcours par
      les personas, la recharge ;
-  3. — *en cours* — l'argumentaire du socle : l'open source (D19), une instance par
-     client, les API, l'auto-documentation — la part de Syncytium.
+  3. l'argumentaire du socle : l'open source (D19), une instance par
+     client, les API, l'auto-documentation — la part de Syncytium :
+     **acquis le 25/10/2026 (D1506–D1509)** — la plaquette de Syncytium,
+     le module de présentation, la démonstration par l'IA sur un
+     storage `memory`, quatre parties écrites dont les inconvénients.
 - **Déclinaison** : l'entrepôt ; le cas 8 le jour venu.
 - **Livrables** : une section « La promotionnelle ».
 - **Dépendances** : les huit autres ; le jeu de données (D869).
@@ -4330,7 +4333,7 @@ D1478–D1496) ; la complétude et son inventaire (§20, D1478–D1488).*
     une skill de la documentation du développeur, le moteur génère sans
     elle ; la skill s'écrit au rang 5.)*
 
-## 30. La promotionnelle *(le rang 9 — en cours ; le rang 9, étape 1 — acquis, D1497–D1498 : la plaquette)* *(le rang 9, étape 2 — acquis, D1503–D1505 : la démonstration)* *(le rang 9, étape 3 — en cours : l'argumentaire du socle)*
+## 30. La promotionnelle *(le rang 9 — en cours ; le rang 9, étape 1 — acquis, D1497–D1498 : la plaquette)* *(le rang 9, étape 2 — acquis, D1503–D1505 : la démonstration)* *(le rang 9, étape 3 — acquis, D1506–D1509 : l'argumentaire du socle)*
 
 **« une documentation promotionnelle pour exposer et vendre une
 application »** (l'auteur, D1131) — la sixième documentation, **la seule
@@ -4453,4 +4456,59 @@ et le partenaire, sans aucun droit.
    démonstration est déclarée ; le mode public n'y mène pas, la
    démonstration demande un compte.
 
-*(L'étape 3 ci-dessous, en proposition jusqu'à l'arbitrage.)*
+### 3. L'argumentaire du socle — la promotionnelle de Syncytium (D1506–D1509 — acquis)
+
+1. **Ce qu'elle est et qui la lit** : la plaquette de Syncytium
+   lui-même, le second niveau de D1497, construite par le même
+   mécanisme que celle d'une application (D1498–D1501) sur l'instance
+   de Syncytium seul, qui est son propre site vitrine (D1448), en mode
+   public ; ses lecteurs, ceux qui choisissent la plateforme — le
+   décideur, le concepteur, le prestataire ; portée par le dépôt de
+   Syncytium (D1348), comme toute documentation de Syncytium lui-même.
+2. **Le module de présentation de l'outil** (D1447) porte le plan
+   `pages: promotional:` de cette plaquette — des textes écrits par
+   l'auteur, par langue du core, et des écrans de Syncytium marqués
+   promotionnels : la documentation servie, le tableau de bord de la
+   santé, l'assistance, la console d'API. **Sa démonstration** (D1506 :
+   « à partir d'une phrase ou d'un besoin assez simple, Syncytium génère
+   un fichier de configuration unique, puis le charge et montre le bon
+   fonctionnement de l'application avec un seul connecteur "le storage"
+   … Passé la démo, la base se supprime ») : sur le site vitrine, une
+   page « essayer » — le visiteur écrit son besoin ; l'IA, armée de la
+   skill du core (D1224–D1226), écrit un `syncytium.yml` unique dans la
+   forme du tiny (D1114) — c'est l'IA qui écrit la configuration, le
+   moteur génère sans elle ; Syncytium l'ingère en sandbox de
+   démonstration (D1503) sur **un storage de classe `memory`** (D1045,
+   D1507–D1508 — en mémoire seule, avec un ratio d'espace, rien sur le
+   disque, la base se supprime à la fin) ; un compte de démonstration
+   éphémère, aucun autre connecteur, aucun mail ; **la configuration
+   générée est montrée au visiteur à côté de l'application** — c'est
+   l'argument lui-même, la configuration est l'application. Les cas
+   d'usage du dépôt sont des exemples, qui porteront potentiellement
+   une application (D1506) ; ils ne sont pas la démonstration.
+3. **La matière**, quatre parties écrites : **le choix de la
+   plateforme** — la configuration est l'application, la documentation
+   en est la partie visible (D1137) ; une instance par client, le dépôt
+   du client distinct (D336) ; les API sous contrat par version (§10) ;
+   l'open source AGPL, le moteur retourne au commun (D19) ; **la
+   facilité** — `syncytium init` en une ligne (D1447), des petits
+   fichiers YAML, la skill qui arme l'IA du concepteur (D1224–D1226), la
+   complétude qui dit ce qui manque (§20) ; **les inconvénients, dits**
+   (D1497 : « les avantages, sa facilité d'utilisation et les
+   inconvénients ») — la discipline, tout dans la configuration et rien
+   à côté (D1440), toutes les langues ou l'erreur (D1474), un moteur qui
+   pose ses contraintes (D1439) ; le périmètre, la TPE, une à trois
+   langues (D217) ; la jeunesse du projet et sa dépendance à son
+   auteur ; **l'ouverture vers d'autres usages** — les huit cas, les sept
+   familles de hooks (D52, D1467), les familles de connecteurs.
+4. **Ce que Syncytium génère de lui-même** : l'inventaire du core — les
+   familles de hooks, les types du catalogue, les connecteurs, les
+   commandes, les neuf documentations — ; les plaquettes des cas comme
+   exemples ; le « quoi de neuf » du core, ses notes de version. Les
+   textes de l'argumentaire, les inconvénients compris, sont écrits par
+   l'auteur, jamais générés.
+5. **Trois canaux** : le site vitrine, en mode public ; le dépôt de
+   Syncytium, `docs/` consultable sur GitHub — le rang 10 (D1316) ; le
+   PDF par gabarit (D1143).
+
+*(La déclinaison sur l'entrepôt et la colonne 6, à écrire.)*

@@ -2865,9 +2865,10 @@ de `output.formats` ; **`--check` mesure la complétude sans produire**
 
 **La commande des langues** (D1465) : `syncytium language fr pt` —
 `fr` la langue de référence, `pt` la langue souhaitée — construit le
-catalogue à traduire d'une langue que le core ne porte pas, tous les
-items du core avec leurs textes de référence ; le concepteur le
-traduit item par item (configuration.md §3.4).
+hook de langue (D1467) d'une langue que le core ne porte pas — sa
+fiche et son catalogue à traduire, tous les items du core avec leurs
+textes de référence, et eux seuls (D1466) ; le concepteur le traduit
+item par item (hooks.md, configuration.md §3.4).
 
 ## 22. Les scénarios d'utilisation par des personas (D1127) *(le rang 1, étape 5 — acquis, D1200–D1210)*
 
@@ -3548,9 +3549,10 @@ consignes pour l'IA (D1224).
 **Deux faces** : **l'inventaire**, ce que cette version a ajouté au
 socle, calculé depuis la configuration ; **la référence**, comment
 écrire un hook, un type, un composant — la documentation de Syncytium,
-que l'étape 3 placera, embarquée ou liée. Les six familles de
+que l'étape 3 placera, embarquée ou liée. Les sept familles de
 [hooks.md](hooks.md) — le type, le composant, l'opération, la fonction,
-le connecteur, le style — et les autres points d'extension.
+le connecteur, le style, et la septième, la langue (D1467) — et les
+autres points d'extension.
 
 **La description d'un hook est déclarée, non générée** (D1403 : « la
 méthode describe() du hook est probablement décorrellée par rapport à

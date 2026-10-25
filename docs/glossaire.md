@@ -348,7 +348,7 @@ tout (`perpetual`), une période (`temporal[365]`), les dernières
 modifications (`update[10]`), rien (`false`). *(D168/D411)*
 
 **Hook** — Le prolongement par code : un type, un composant graphique ou une
-fonction sur mesure, écrits contre le contrat de Syncytium. Le hook rend transparent l'usage de développements spécifiques à un projet. De façon homogène, Syncytium fournit un cadre d'exécution et pour ne pas à avoir à tout recréer, Syncytium fournit déjà un ensemble de Hooks.Les types de champ, les composants graphiques, les écrans de saisie, les formats CSV ou Excel fournis avec Syncytium sont des hooks. *(D52/D408)*
+fonction sur mesure, écrits contre le contrat de Syncytium. Le hook rend transparent l'usage de développements spécifiques à un projet. De façon homogène, Syncytium fournit un cadre d'exécution et pour ne pas à avoir à tout recréer, Syncytium fournit déjà un ensemble de Hooks.Les types de champ, les composants graphiques, les écrans de saisie, les formats CSV ou Excel fournis avec Syncytium sont des hooks. Sept familles : le type, le composant, l'opération, la fonction, le connecteur, le style, la langue. *(D52/D408, D755, D1467)*
 
 **Horodatage** (`datetime[timestamp]`) — Un instant absolu, stocké en
 temps universel et affiché à l'heure de chacun. S'oppose à la valeur
@@ -378,9 +378,9 @@ validations, filtres, gabarits.
 projet apporte : son catalogue, complet, construit par `syncytium
 language` depuis une langue de référence et traduit item par item —
 le catalogue du core seul, les textes du projet la portent comme toute
-langue de la version (D1101) ; dans la configuration, sous la version ;
-incomplet, une erreur d'ingestion ; elle peut être la langue
-technique. *(D1465–D1466)*
+langue de la version (D1101) ; **un hook de langue**, la septième
+famille, `hooks/languages/<code>/` ; incomplet, une erreur
+d'ingestion ; elle peut être la langue technique. *(D1465–D1467)*
 
 **Langue technique** — La langue des journaux, des traces et du
 catalogue des erreurs techniques d'une instance : définie à la

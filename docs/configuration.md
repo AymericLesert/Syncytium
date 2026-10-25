@@ -579,10 +579,11 @@ core, codifiés (D1160), avec leurs textes de référence, **et lui
 seul** (D1466) — et **le concepteur le traduit item par item**. Les
 textes du projet suivent la règle ci-dessus : `pt` dans `languages:`,
 chaque `label:`, `hint:`, `description:` la porte comme toute langue
-de la version (D1101), le repli et la complétude s'appliquent. Le catalogue vit dans la
-configuration (D1440), référencé sous la version à côté de
-`languages:` — *en proposition* : `locales: { pt: ~{locales/pt.yml} }` —,
-avec le fuseau et les formats que D217 attache à une langue. **Il doit
+de la version (D1101), le repli et la complétude s'appliquent. **La langue est un hook** —
+la septième famille (D1467 : « une langue a un hook aussi ») :
+`hooks/languages/pt/`, sa fiche, son catalogue, le fuseau et les
+formats que D217 attache à une langue ([hooks.md](hooks.md)) ;
+`languages:` nomme alors une langue du core ou d'un hook de langue. **Il doit
 être complet** — le niveau « pour Syncytium » de D1162 : un item
 manquant est une erreur d'ingestion (le repli de D219 vaut pour les
 libellés du modèle, pas pour les textes du moteur). Un hook du core

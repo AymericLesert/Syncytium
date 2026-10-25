@@ -55,7 +55,8 @@ versions/<statut>/<version>/
 │   ├── operations/operations.yml   # → les fiches (le pattern — D806)
 │   │   └── <verbe>/                #   la fiche, le md, le source (D809)
 │   ├── types/ · components/ · functions/ · connectors/
-│   └── styles/                     # la sixième famille (D755)
+│   ├── styles/                     # la sixième famille (D755)
+│   └── languages/                  # la septième famille — une langue apportée (D1467)
 └── <modules>/
 ```
 
@@ -538,6 +539,27 @@ forcément** — pas de schéma unique imposé.
 (D755) — déclaré dans `themes/` (D753), il assemble et surcharge ;
 l'utilisateur le choisit à son profil, les droits s'y appliquent
 (un objet comme les autres).
+
+### 7. Le hook de langue (D1465–D1467)
+
+« Une langue a un hook aussi » (D1467). **Une langue que le core ne
+porte pas est un hook** — `hooks/languages/<code>/` : la fiche porte
+`name` (le code de la langue), `description`, `properties` — le fuseau
+et les formats que D217 attache à une langue —, **le catalogue des
+messages du core** traduit (D1160 — tous les items, codifiés ;
+incomplet, une erreur d'ingestion — le niveau « pour Syncytium » de
+D1162), `dependencies` et `errors` s'il y a lieu. **`syncytium language
+fr pt` construit le hook** — sa fiche et son catalogue à traduire, `fr`
+la langue de référence — et le concepteur le traduit item par item
+(D1465). Le catalogue est celui du core seul (D1466) : les textes du
+projet portent la langue comme toute langue de la version (D1101) ;
+un hook du core sans elle suit D1163, l'application complète dans sa
+couche. `languages:` de la version (D1101) nomme une langue du core ou
+d'un hook de langue. Les langues du core sont des hooks de langue dans
+l'arborescence de Syncytium — la même porte (D52) : un hook complet
+est prêt à y entrer, et le hook du projet devient alors une surcharge
+(D1163). La langue d'un hook peut être la langue technique de
+l'instance (D1460, D1465).
 
 ### Les autres points d'extension consignés
 

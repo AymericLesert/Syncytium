@@ -604,7 +604,8 @@ décisions, D1170–D1238.)*
      sur un plan unique, la synchronisation entre instances et la
      vérification d'une sauvegarde comprises ;
   3. la supervision quotidienne : le journal, le tableau de bord, les
-     alertes (D44), les passages de la reprise ;
+     alertes (D44), les passages de la reprise — *en cours (D1451 : les
+     CVE au mail des faits marquants et à la santé)* ;
   4. le dépannage : les erreurs connues et leur remède.
 - **Déclinaison** : **l'entrepôt**.
 - **Livrables** : §17 validé ;
@@ -2385,7 +2386,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451 ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2473,6 +2474,20 @@ fiches sont la référence du core, instanciées ; le texte du site s'y
 ajoute. **Le chapitre « installer »** (D1450) : la ligne unique est
 `syncytium init` (D1360), avec ses prérequis, puis le fichier des
 variables à renseigner (D1429).
+
+### 3. La supervision quotidienne (D1451, en cours)
+
+**Les CVE dans la supervision** (D1451 : « Le mail des faits marquants
+doit inclure les CVE aussi quand cela est actif. Le nombre de CVE a
+traité doit être présent sur le tableau de bord de la santé. ») — la
+veille active (`security_advisories:`, D1444) : le tableau de bord de
+la santé (D731) porte **le nombre de CVE à traiter** — les avis de
+sécurité qui concernent le core ou les hooks et dont le core correctif
+n'est pas installé —, le mail des faits marquants (D733) **les CVE
+nouvelles de la période et le total restant** ; la veille inactive, ni
+l'un ni l'autre. *La routine quotidienne, le mail, les alertes, le
+journal, les passages de la reprise, ce qui s'écrit — en cours
+d'arbitrage.*
 
 ## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 

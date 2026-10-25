@@ -289,7 +289,9 @@ pour son core ; **le module d'administration porte une entrée** (D1445)
 qui montre le fichier lu tel quel, la date de la dernière lecture, les
 avis de sécurité qui concernent le core et les bibliothèques déclarées
 par les hooks, et **un bouton qui exécute la lecture hors de la
-fréquence**, un acte d'administration tracé. La veille elle-même reste
+fréquence**, un acte d'administration tracé ; **la santé porte le
+nombre de CVE à traiter, le mail des faits marquants les CVE de la
+période**, quand la veille est active (D1451). La veille elle-même reste
 au dépôt du source (D924) ; la mise à jour du core, une migration
 technique sur sollicitation (D17).
 

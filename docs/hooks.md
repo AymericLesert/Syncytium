@@ -567,7 +567,8 @@ d'un hook de langue. Les langues du core sont des hooks de langue dans
 l'arborescence de Syncytium — la même porte (D52) : un hook complet
 est prêt à y entrer, et le hook du projet devient alors une surcharge
 (D1163). La langue d'un hook peut être la langue technique de
-l'instance (D1460, D1465).
+l'instance — `language:` de l'environnement, écrit par `syncytium init`
+(D1460, D1465, D1473).
 
 ### Les autres points d'extension consignés
 

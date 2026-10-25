@@ -2557,9 +2557,10 @@ moteur peut émettre à l'exploitation, par son code et son texte — **dans la
 langue technique de l'instance** (D1460, qui amende D1455 : « Le
 catalogue doit pouvoir se décliner dans les différentes langues
 supportées par Syncytium. Par contre, la langue est définie à la
-configuration et n'est pas modifiable ») — *ma lecture* : choisie à
+configuration et n'est pas modifiable ») — choisie à
 l'installation parmi les langues du core **ou une langue apportée par
-le projet** (D1465), écrite à l'environnement, immuable —, la cause probable et le remède, le renvoi à la fiche de procédure ; la référence de Syncytium
+le projet** (D1465), écrite à l'environnement par `syncytium init`,
+`language:`, immuable (acquis, D1473) —, la cause probable et le remède, le renvoi à la fiche de procédure ; la référence de Syncytium
 (D1411), instanciée ; les erreurs des utilisateurs, la validation, les
 droits, sont à la fonctionnelle et au contrat d'API. **Les familles**,
 dans l'ordre où on les rencontre : l'application ne démarre pas, le

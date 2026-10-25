@@ -442,6 +442,14 @@ les variables référencées, nommées exactement, à renseigner — pas de
 gabarit (D1429) ; le D.A.T. (documentation.md §28) expose la liste des
 variables, dans la limite des confidentialités.
 
+**`language:` — la langue technique de l'instance** (D1460, D1473) :
+la langue des journaux, des traces et du catalogue des erreurs
+techniques — `language: fr` dans `environments/<env>.yml`, **écrite par
+`syncytium init`** parmi les langues du core et des hooks de langue du
+projet (D1467), **non modifiable ensuite** ; « l'anglais ou le français
+selon le mode d'installation de Syncytium » (D1460), ou une langue
+apportée (D1465).
+
 **`security_advisories:` — la veille des CVE** (D1431, D1444) : à
 l'environnement, « plus parlant » — `url:` l'adresse du fichier d'avis
 de sécurité publié par le projet pour le core, par une variable du

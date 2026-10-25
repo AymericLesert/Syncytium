@@ -535,7 +535,14 @@ l'utilisateur le choisit à son profil, les droits s'y appliquent
 2. **Le renvoi historique « domaine 6 »** (D408/D452/D459) se relit
    (D602) : le contrat des hooks est couvert par Q60 (D570–D601) ; le
    reliquat — la sandbox, le langage du code — relève du domaine 7 ;
-3. **La signature d'abord** : chaque famille déclare ce que le typage
+3. **Rien hors de la configuration** (D1440) : « les éléments de
+   configuration nécessaires au fonctionnement doivent être présents
+   dans le fichier de configuration et nulle part ailleurs » — un hook
+   ne lit ni variable d'environnement ni fichier que sa déclaration
+   (`properties`) et la configuration ne référencent ; toutes les
+   variables sont présentes par construction, le fichier de
+   l'amorçage les porte toutes (D1429).
+3 bis. **La signature d'abord** : chaque famille déclare ce que le typage
    statique (D581) et l'ingestion (D330/D344) vérifient — l'erreur ne
    passe jamais l'ingestion.
 4. **La documentation du hook est déclarée** (D1403 — amende D645/D630

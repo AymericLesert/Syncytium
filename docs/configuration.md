@@ -187,6 +187,18 @@ capacité de la configuration ») : `confidentiality:
 ${settings.confidentiality.financier}` référence un profil nommé une
 fois dans `settings.yml`.
 
+### 2.4 bis Rien hors de la configuration (D1440)
+
+« Toutes les variables d'environnement sont présentes par construction
+dans la configuration. Une règle à porter dans le développement d'un
+hook ou dans le développement de Syncytium consiste à dire que les
+éléments de configuration nécessaires au fonctionnement doivent être
+présents dans le fichier de configuration et nulle part ailleurs. » — le
+core et les hooks ne lisent que ce que la configuration référence ; le
+fichier des variables créé par `syncytium init` (D1429) est donc complet
+par construction, et le D.A.T. (documentation.md §28) en expose la
+liste entière.
+
 ### 2.5 La marque `*` — la clé confidentielle (D944)
 
 Une clé suffixée `*` porte une information confidentielle : **sa valeur

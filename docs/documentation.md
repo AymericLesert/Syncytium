@@ -3676,9 +3676,14 @@ qui les tient relève du déploiement, non de Syncytium (D1427) ; **il
 est créé automatiquement par `syncytium init`**, toutes les variables
 référencées, nommées exactement, les valeurs à renseigner — « Pas de
 gabarit template (risque d'oubli ou d'erreurs de nom de variable) »
-(D1429) ; *ma lecture* : les confidentielles marquées pour le wizard
-qui les chiffre (D902), une variable qu'une version ultérieure ajoute
-signalée manquante au démarrage et complétée par la commande. **Les
+(D1429) ; **toutes les variables sont présentes par construction dans
+la configuration** (D1440 : « les éléments de configuration nécessaires
+au fonctionnement doivent être présents dans le fichier de configuration
+et nulle part ailleurs » — la règle du core et de tout hook) : le
+fichier créé à l'amorçage est complet, les confidentielles se
+reconnaissent à la marque `*` (D944) et le wizard les chiffre (D902) ;
+une version qui ajoute une variable l'ajoute à la configuration, le
+fichier se complète. **Les
 comptes chez les tiers**, calculés depuis les connecteurs — ce que
 chacun attend : un compte du fournisseur d'identité avec son `tenant`,
 son `client_id` et son secret, un compte SMTP, un accès à la base

@@ -217,8 +217,10 @@ la grammaire des clés, les règles d'ingestion, les recommandations, les
 exemples du socle —, versionnée avec lui ; le complément de la version,
 généré depuis la configuration — ses hooks, ses types, son glossaire,
 ses conventions — et le texte libre `skill:` du projet, un complément,
-jamais un remplacement. Générée, déterministe ; lue au concepteur,
-exportée en édition machine. *(D1224, D1226, D1409–D1410)*
+jamais un remplacement, décliné par langue — une seule suffit, au
+choix du concepteur (en proposition). Générée, déterministe ; lue au
+concepteur, exportée en édition machine. *(D1224, D1226, D1409–D1410,
+D1472)*
 
 **CVE** (Common Vulnerabilities and Exposures) — L'entrée du
 référentiel public des vulnérabilités : un identifiant

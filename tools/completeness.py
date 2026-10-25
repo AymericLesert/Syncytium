@@ -1,14 +1,14 @@
 """La complétude de la documentation d'un exemple Syncytium — un outil de relecture du dépôt, pas du code du moteur
-(D313 ; D1240 pour le traceur, D1478–D1481 pour la complétude).
+(D313 ; D1240 pour le traceur, D1478–D1485 pour la complétude).
 
 Usage : python tools/completeness.py examples/<cas>   (PyYAML requis)
 
 - Charge la configuration depuis syncytium.yml en suivant toute référence ~{...} (un chemin, ou un motif regex).
-- Relève les manques de l'inventaire de documentation.md §20 (D1478) visibles au dépôt — ce que le concepteur n'a pas
-  décrit ; jamais un défaut du socle, jamais une langue manquante (une erreur d'ingestion, D1474).
-- Imprime le rapport dans la forme de D1479 : par version, le taux par documentation et par module, puis la liste des
-  manques avec la clé à écrire et où ; puis les orphelins — un fichier du dossier qu'aucune clé ne cite, peut-être un
-  oubli (D1483) —, hors du taux. Le code de retour porte le taux global arrondi (0–100), pour un script.
+- Relève les manques de l'inventaire de documentation.md §20 (D1478, D1484–D1485) visibles au dépôt — ce que le
+  concepteur n'a pas décrit ; jamais un défaut du socle, jamais une langue manquante (une erreur d'ingestion, D1474).
+- Imprime le rapport dans la forme de D1479 : par version, le taux par documentation et par module, puis les manques —
+  une table par nature, le fichier et la clé d'accès complète (D1485) — ; puis les orphelins — un fichier du dossier
+  qu'aucune clé ne cite, peut-être un oubli (D1483) —, hors du taux. Le code de retour porte le taux global arrondi.
 """
 import os
 import re
@@ -121,12 +121,13 @@ def present(value):
     return True
 
 
-# ---- l'inventaire (D1478) : un code, le libellé du manque, la clé à écrire, les documentations affaiblies
+# ---- l'inventaire (D1478, D1484–D1485) : un code → le libellé du manque, la clé à écrire, les documentations
 INVENTAIRE = {
+    "module.description": ("le module sans description", "description: du module", ["fonctionnelle"]),
     "entite.description": ("l'entité sans description", "description:", ["fonctionnelle", "dictionnaire"]),
+    "entite.title": ("l'entité sans nom d'usage", "title:", ["fonctionnelle"]),
     "champ.aide": ("le champ sans aide ni description", "hint: ou description:", ["fonctionnelle", "dictionnaire"]),
     "libelle": ("le libellé du champ absent — le nom nu s'affiche", "label:", ["fonctionnelle"]),
-    "entite.title": ("l'entité sans nom d'usage (D1120 ; à valider)", "title:", ["fonctionnelle"]),
     "enum.libelle": ("l'énuméré sans libellé", "label: de la valeur", ["fonctionnelle", "dictionnaire"]),
     "type.description": ("le type personnalisé sans description", "description: du type", ["dictionnaire"]),
     "hook.md": ("le hook sans md", "description: de la fiche", ["développeur"]),
@@ -142,8 +143,6 @@ INVENTAIRE = {
     "projet.support": ("le projet sans texte de support", "pages: support:", ["projet"]),
     "env.description": ("l'environnement sans description", "description: de l'environnement", ["D.A.T."]),
     "env.operations": ("l'environnement sans texte d'exploitation", "pages: operations:", ["guide"]),
-    "module.description": ("le module sans description (hors inventaire, à valider)", "description: du module",
-                           ["fonctionnelle"]),
 }
 DOCS = ["fonctionnelle", "dictionnaire", "réglementaire", "développeur", "D.A.T.", "guide", "projet"]
 
@@ -151,96 +150,95 @@ DOCS = ["fonctionnelle", "dictionnaire", "réglementaire", "développeur", "D.A.
 class Rapport:
     def __init__(self):
         self.attendus = defaultdict(lambda: defaultdict(int))  # (documentation) → module → n
-        self.manques = []  # (code, module, où, élément)
+        self.manques = []  # (code, module, le fichier, la clé d'accès complète)
 
-    def check(self, ok, code, module, node, element, fallback):
+    def check(self, ok, code, module, node, key, fallback):
         for doc in INVENTAIRE[code][2]:
             self.attendus[doc][module] += 1
         if not ok:
-            self.manques.append((code, module, where(node, fallback), element))
+            self.manques.append((code, module, where(node, fallback), key))
 
 
-def walk_fields(r, module, ent_name, fields, fallback):
+def walk_fields(r, module, prefix, fields, fallback):
+    """`prefix` = la clé d'accès du bloc fields (ex. technique.article.fields)."""
     if not isinstance(fields, dict):
         return
     for fname, spec in fields.items():
-        el = f"{ent_name}.{fname}"
+        key = f"{prefix}.{fname}"
         spec_d = spec if isinstance(spec, dict) else {}
         if isinstance(spec_d.get("fields"), dict) and "type" not in spec_d:  # un groupe de champs (D1279)
-            walk_fields(r, module, ent_name, spec_d["fields"], fallback)
+            walk_fields(r, module, f"{key}.fields", spec_d["fields"], fallback)
             continue
-        r.check(present(spec_d.get("label")), "libelle", module, spec_d or fields, el, fallback)
-        r.check(present(spec_d.get("hint")) or present(spec_d.get("description")), "champ.aide", module,
-                spec_d or fields, el, fallback)
+        node = spec_d or fields
+        r.check(present(spec_d.get("label")), "libelle", module, node, f"{key}.label", fallback)
+        r.check(present(spec_d.get("hint")) or present(spec_d.get("description")), "champ.aide", module, node,
+                f"{key}.hint", fallback)
         values = spec_d.get("values")
         if isinstance(values, dict):
             for vname, vspec in values.items():
                 ok = isinstance(vspec, dict) and present(vspec.get("label"))
-                r.check(ok, "enum.libelle", module, values, f"{el} = {vname}", fallback)
+                r.check(ok, "enum.libelle", module, values, f"{key}.values.{vname}.label", fallback)
         elif isinstance(values, list):
             for v in values:
                 r.check(isinstance(v, dict) and present(v.get("label")), "enum.libelle", module, values,
-                        f"{el} = {v}", fallback)
+                        f"{key}.values.{v}.label", fallback)
 
 
-def walk_gui(r, module, owner, gui, fallback):
-    """Une surface sans description n'est pas un manque : son masque par défaut se construit de l'entité (D1484)."""
-    return
-
-
-def walk_operations(r, module, owner, ops, hooks_md, settings_rgpd, fallback):
+def walk_operations(r, module, prefix, ops, hooks_md, settings_rgpd, fallback):
     if not isinstance(ops, dict):
         return
     for oname, ospec in ops.items():
         ospec = ospec if isinstance(ospec, dict) else {}
+        key = f"{prefix}.operations.{oname}"
         ok = present(ospec.get("description")) or oname in hooks_md
-        r.check(ok, "operation.description", module, ospec or ops, f"{owner}.{oname}", fallback)
+        r.check(ok, "operation.description", module, ospec or ops, f"{key}.description", fallback)
         if isinstance(ospec.get("rgpd"), dict):
             for prop in ("purpose",):
                 ok = present(ospec["rgpd"].get(prop)) or present((settings_rgpd or {}).get(prop))
-                r.check(ok, "rgpd.propriete", module, ospec["rgpd"], f"{owner}.{oname} rgpd.{prop}", fallback)
+                r.check(ok, "rgpd.propriete", module, ospec["rgpd"], f"{key}.rgpd.{prop}", fallback)
 
 
-def walk_entity(r, module, ent, name, hooks_md, settings_rgpd, fallback, rgpd_fields):
+def walk_entity(r, module, prefix, ent, name, hooks_md, settings_rgpd, fallback, rgpd_fields):
     if not isinstance(ent, dict):
         return
     ent_name = ent.get("name", name)
-    r.check(present(ent.get("description")), "entite.description", module, ent, ent_name, fallback)
-    r.check(present(ent.get("title")), "entite.title", module, ent, ent_name, fallback)
+    key = f"{prefix}.{ent_name}"
+    r.check(present(ent.get("description")), "entite.description", module, ent, f"{key}.description", fallback)
+    r.check(present(ent.get("title")), "entite.title", module, ent, f"{key}.title", fallback)
     fields = ent.get("fields")
-    walk_fields(r, module, ent_name, fields, fallback)
+    walk_fields(r, module, f"{key}.fields", fields, fallback)
     if isinstance(fields, dict):
         for spec in fields.values():
             if isinstance(spec, dict) and spec.get("rgpd"):
                 rgpd_fields.append(f"{ent_name}")
-    walk_gui(r, module, ent_name, ent.get("gui"), fallback)
-    walk_operations(r, module, ent_name, ent.get("operations"), hooks_md, settings_rgpd, fallback)
-    for sub_name, sub in (ent.get("entities") or {}).items() if isinstance(ent.get("entities"), dict) else []:
-        walk_entity(r, module, sub, sub_name, hooks_md, settings_rgpd, fallback, rgpd_fields)
+    walk_operations(r, module, key, ent.get("operations"), hooks_md, settings_rgpd, fallback)
+    subs = ent.get("entities")
+    if isinstance(subs, dict):
+        for sub_name, sub in subs.items():
+            walk_entity(r, module, f"{key}.entities", sub, sub_name, hooks_md, settings_rgpd, fallback, rgpd_fields)
 
 
 def walk_module(r, mod, name, hooks_md, settings_rgpd, fallback, rgpd_fields):
     if not isinstance(mod, dict):
         return
     module = mod.get("name", name)
-    r.check(present(mod.get("description")), "module.description", module, mod, module, fallback)
+    r.check(present(mod.get("description")), "module.description", module, mod, f"{module}.description", fallback)
     entities = mod.get("entities")
     if isinstance(entities, list):
         for ent in entities:
-            walk_entity(r, module, ent, "?", hooks_md, settings_rgpd, fallback, rgpd_fields)
+            walk_entity(r, module, module, ent, "?", hooks_md, settings_rgpd, fallback, rgpd_fields)
     elif isinstance(entities, dict):
         for ename, ent in entities.items():
-            walk_entity(r, module, ent, ename, hooks_md, settings_rgpd, fallback, rgpd_fields)
+            walk_entity(r, module, module, ent, ename, hooks_md, settings_rgpd, fallback, rgpd_fields)
     else:  # la forme en ligne du tiny : les entités sont les clés qui ne sont pas des propriétés du module
         for ename, ent in mod.items():
             if ename not in ENTITY_KEYS and isinstance(ent, dict) and "fields" in ent:
-                walk_entity(r, module, ent, ename, hooks_md, settings_rgpd, fallback, rgpd_fields)
-    walk_gui(r, module, module, mod.get("gui"), fallback)
+                walk_entity(r, module, module, ent, ename, hooks_md, settings_rgpd, fallback, rgpd_fields)
     walk_operations(r, module, module, mod.get("operations"), hooks_md, settings_rgpd, fallback)
 
 
 def hooks_with_md(hooks):
-    """Les fiches de hooks qui portent une description (md) ; et les manques des fiches."""
+    """Les fiches de hooks qui portent une description (md) ; et les fiches elles-mêmes."""
     found, fiches = set(), []
     if not isinstance(hooks, dict):
         return found, fiches
@@ -256,31 +254,32 @@ def hooks_with_md(hooks):
             elif isinstance(x, dict):
                 stack.extend(x.values())
         for fiche in items:
-            if isinstance(fiche, dict) and "name" in fiche:
-                fiches.append((family, fiche))
-                if present(fiche.get("description")):
-                    found.add(fiche["name"])
+            fiches.append((family, fiche))
+            if present(fiche.get("description")):
+                found.add(fiche["name"])
     return found, fiches
 
 
-def walk_version(r, ver, label, env_names):
+def walk_version(r, ver, label):
     fallback = f"versions/{label}"
     settings = ver.get("settings") if isinstance(ver.get("settings"), dict) else {}
     settings_rgpd = settings.get("rgpd") if isinstance(settings.get("rgpd"), dict) else None
     hooks_md, fiches = hooks_with_md(ver.get("hooks"))
     for family, fiche in fiches:
         code = "hook.md" if family in ("operations", "functions", "connectors", "styles") else "type.description"
-        r.check(fiche["name"] in hooks_md, code, "(hooks)", fiche, f"{family}.{fiche['name']}", fallback)
+        key = f"hooks.{family}.{fiche['name']}"
+        r.check(fiche["name"] in hooks_md, code, "(hooks)", fiche, f"{key}.description", fallback)
         errors = fiche.get("errors")
         if isinstance(errors, dict):
             for ecode, espec in errors.items():
                 if isinstance(espec, dict) and espec.get("level") in ("error", "exception"):
                     r.check(present(espec.get("resolution")), "erreur.arbre", "(hooks)", espec,
-                            f"{fiche['name']}.{ecode}", fallback)
+                            f"{key}.errors.{ecode}.resolution", fallback)
     # les types personnalisés : les entrées de settings.field qui déclarent un type (un dérivé, D1239)
     for tname, tspec in (settings.get("field") or {}).items() if isinstance(settings.get("field"), dict) else []:
         if isinstance(tspec, dict) and "type" in tspec:
-            r.check(present(tspec.get("description")), "type.description", "(settings)", tspec, tname, fallback)
+            r.check(present(tspec.get("description")), "type.description", "(settings)", tspec,
+                    f"settings.field.{tname}.description", fallback)
     rgpd_fields = []
     modules = ver.get("modules")
     if isinstance(modules, list):
@@ -294,19 +293,21 @@ def walk_version(r, ver, label, env_names):
     if isinstance(groups, dict):
         for gname, gspec in groups.items():
             ok = isinstance(gspec, dict) and present(gspec.get("persona"))
-            r.check(ok, "groupe.persona", "(groups)", gspec if isinstance(gspec, dict) else groups, gname, fallback)
+            r.check(ok, "groupe.persona", "(groups)", gspec if isinstance(gspec, dict) else groups,
+                    f"groups.{gname}.persona", fallback)
     doc = ver.get("documentation") if isinstance(ver.get("documentation"), dict) else {}
     pages = doc.get("pages") if isinstance(doc.get("pages"), dict) else {}
-    r.check(present(pages.get("support")), "projet.support", "(projet)", doc or ver, "documentation.yml", fallback)
+    r.check(present(pages.get("support")), "projet.support", "(projet)", doc or ver, "documentation.pages.support",
+            fallback)
     if rgpd_fields:
         r.check(settings_rgpd is not None and present(settings_rgpd.get("controller")), "rgpd.controller",
-                "(settings)", settings_rgpd or settings or ver, "rgpd.controller", fallback)
+                "(settings)", settings_rgpd or settings or ver, "settings.rgpd.controller", fallback)
         for prop in ("purpose", "legal"):
             r.check(settings_rgpd is not None and present(settings_rgpd.get(prop)), "rgpd.propriete", "(settings)",
-                    settings_rgpd or settings or ver, f"rgpd.{prop}", fallback)
+                    settings_rgpd or settings or ver, f"settings.rgpd.{prop}", fallback)
         anchored = any("rgpd.notice" in t for t in texts) or "rgpd.notice" in yaml.safe_dump(ver, allow_unicode=True)
-        r.check(anchored, "rgpd.mention", "(projet)", ver, "la mention d'information — " + ", ".join(
-            sorted(set(rgpd_fields))), fallback)
+        r.check(anchored, "rgpd.mention", "(projet)", ver,
+                "${rgpd.notice} — les entités marquées : " + ", ".join(sorted(set(rgpd_fields))), fallback)
 
 
 def versions_of(status_block):
@@ -327,29 +328,30 @@ def main():
     project = load(os.path.join(ROOT, "syncytium.yml"))
     name = project.get("name", os.path.basename(ROOT))
     print(f"# La complétude de la documentation — {name}\n")
-    print("*Rapport calculé au dépôt par `tools/completeness.py` (D1478–D1481) : les manques visibles dans la "
+    print("*Rapport calculé au dépôt par `tools/completeness.py` (D1478–D1485) : les manques visibles dans la "
           "configuration seule ; la variable sans valeur se mesure à l'instance.*\n")
     envs = project.get("environments") if isinstance(project.get("environments"), dict) else {}
     r_env = Rapport()
     for ename, espec in envs.items():
         espec = espec if isinstance(espec, dict) else {}
-        r_env.check(present(espec.get("description")), "env.description", "(environnements)", espec or envs, ename,
-                    "environments")
+        key = f"environments.{ename}"
+        r_env.check(present(espec.get("description")), "env.description", "(environnements)", espec or envs,
+                    f"{key}.description", "environments")
         pages = (espec.get("documentation") or {}).get("pages") if isinstance(espec.get("documentation"), dict) \
             else espec.get("pages")
         ok = isinstance(pages, dict) and present(pages.get("operations"))
-        r_env.check(ok, "env.operations", "(environnements)", espec or envs, ename, "environments")
+        r_env.check(ok, "env.operations", "(environnements)", espec or envs, f"{key}.pages.operations",
+                    "environments")
     rates = []
     versions = project.get("versions") if isinstance(project.get("versions"), dict) else {}
     for status, block in versions.items():
         for vlabel, ver in versions_of(block):
             r = Rapport()
-            r.attendus.update({d: dict(m) for d, m in r_env.attendus.items()})
             for d, m in r_env.attendus.items():
                 for mod, n in m.items():
                     r.attendus[d][mod] = n
             r.manques.extend(r_env.manques)
-            walk_version(r, ver, f"{status}/{vlabel}", set(envs))
+            walk_version(r, ver, f"{status}/{vlabel}")
             rates.append(print_version(r, f"{vlabel} ({status})"))
     print_orphans()
     taux = round(sum(rates) / len(rates)) if rates else 100
@@ -411,17 +413,16 @@ def print_version(r, label):
     for code, (lib, cle, docs) in INVENTAIRE.items():
         if counts[code]:
             print(f"| {lib} | {counts[code]} | `{cle}` | {', '.join(docs)} |")
-    print("\n### La liste des manques — la clé à écrire et où\n")
+    print("\n### La liste des manques — le fichier et la clé d'accès complète\n")
     for code, (lib, cle, docs) in INVENTAIRE.items():
-        items = [(m, o, e) for c, m, o, e in r.manques if c == code]
+        items = sorted((o, k) for c, m, o, k in r.manques if c == code)
         if not items:
             continue
-        print(f"**{lib}** — `{cle}` :")
-        by_file = defaultdict(list)
-        for m, o, e in items:
-            by_file[o].append(e)
-        for o in sorted(by_file):
-            print(f"- `{o}` : " + ", ".join(by_file[o]))
+        print(f"#### {lib} — `{cle}`\n")
+        print("| Le fichier | La clé |")
+        print("|---|---|")
+        for o, k in items:
+            print(f"| `{o}` | `{k}` |")
         print()
     return taux
 

@@ -2846,9 +2846,10 @@ et la documentation qu'il affaiblit.
 | Le manque | La clé à écrire | La documentation affaiblie | Où c'est dit |
 |---|---|---|---|
 | **Le modèle** | | | |
+| le module sans description | `description:` du module | la fonctionnelle | D1485 |
 | l'entité sans description | `description:` de l'entité | la fonctionnelle, le dictionnaire | §20, D1177 |
 | le champ sans aide ni description | `hint:` ou `description:` du champ | la fonctionnelle, le dictionnaire | D1191, D1199 |
-| le libellé absent — le nom nu `${name}` s'affiche | `label:` | toutes — un texte pour le lecteur manque | D1181–D1182 |
+| le libellé absent — le nom nu `${name}` s'affiche | `label:` du champ ; `title:` de l'entité, son nom d'usage (D1120) | toutes — un texte pour le lecteur manque | D1181–D1182, D1485 |
 | l'énuméré sans libellé | le `label:` de la valeur | la fonctionnelle, le dictionnaire | §20 (le rang 1) |
 | le type personnalisé sans description | `description:` du type | le dictionnaire (§15), l'information | §15 (le rang 2) |
 | le md manquant d'un type ou d'un composant ajouté | `description:` de la fiche, un md par langue | le développeur | D1403, §27 |
@@ -2900,7 +2901,8 @@ l'inventaire appartient à une documentation (la colonne « la
 documentation affaiblie » ci-dessus), un manque qui en affaiblit deux
 compte dans chacune ; **un taux par module et par documentation, sans
 pondération** — les éléments décrits sur les éléments attendus — ; **la
-liste des manques, avec la clé à écrire et où**. Le rapport se lit du
+liste des manques, une table par nature du manque — son titre —, avec
+le fichier et la clé d'accès complète** (D1485 : `technique.article.fields.code.hint`). Le rapport se lit du
 général au particulier : la version, chaque documentation et son taux,
 chaque module ; `--check` et `notify:` produisent le même rapport.
 

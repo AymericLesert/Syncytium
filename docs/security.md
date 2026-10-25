@@ -745,11 +745,28 @@ console est réel, journalisé, confirmé en écriture (D1398) ; les
 webhooks entrants authentifiés d'office (D642) ; les origines et HTTPS
 au D.A.T. (D918, D919).
 
+**La veille des vulnérabilités** (D924, D1431) : hors du moteur — au
+dépôt du source, par son outillage ; le projet publie par core un
+fichier d'avis signé, que l'instance lit sur autorisation de
+l'administrateur, désactivée par défaut, et compare à son core et aux
+bibliothèques déclarées par ses hooks ; la nomenclature logicielle en
+édition machine ; la mise à jour reste la migration technique sur
+sollicitation (D17). Le D.A.T. (documentation.md §28) et la maintenance
+(§23) en portent l'affichage.
+
+**La sécurité, dans le D.A.T.** (la colonne 4 — le rang 6) : **les
+secrets** par leur nom, jamais leur valeur (D944), chiffrés par le
+wizard (D902) ; **HTTPS et le certificat** par environnement (D919) ;
+**`cors:`** à l'environnement (D918) ; **les `countries:`** et les flux
+de données personnelles (D1345, §18) ; **la veille des CVE**, la voie b,
+le fichier d'avis signé et la nomenclature logicielle (D1431) ; **ce
+que Syncytium ne décrit pas** — le pare-feu, le DNS, les
+authentifications du réseau, aux équipes d'intégration (D1426).
+
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 sécurité n'est pas ce que l'utilisateur fait ; le masque dit ce qui est
 protégé) ; l'information (le niveau de confidentialité affiché à chaque
 champ, D1247 ; les colonnes protégées du chapitre 3, D1300 ; la matrice
-des droits 5.2) ; le D.A.T. (le rang 6 — l'authentification, les
-origines, le chiffrement en transit) ; le guide d'exploitation (le rang
+des droits 5.2) ; le guide d'exploitation (le rang
 7 — les secrets, le wizard, la sauvegarde, le passif) ; la maintenance
 (le rang 8 — les refus, les alertes, les seuils).

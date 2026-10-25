@@ -3072,5 +3072,10 @@ l'API est une suite d'opérations, son contrat d'appel au chapitre de
 l'entité ; les surfaces du socle, rien de propre — la référence de
 Syncytium (D1411).
 
+**Les surfaces et les composants, dans le D.A.T.** (la colonne 4 — le
+rang 6) : **les postes des utilisateurs** — les navigateurs supportés
+par le core et leur version minimale (D1430) ; **le hook d'interface**,
+le seul code tiers au navigateur, nommé (D918, D1407) ; rien d'autre.
+
 **Les autres colonnes** — à leur rang : la maintenance (la fréquence
 d'emploi de chaque écran, D1168).

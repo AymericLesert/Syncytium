@@ -946,6 +946,11 @@ appel ; le gabarit technique de l'import (D1414) est la porte du
 programme qui voudrait alimenter l'entrepôt sans reprise ; les règles
 de reprise ne sont pas des écarts du contrat (D1281).
 
+**La migration déclarée, dans le D.A.T.** (la colonne 4 — le rang 6) :
+**le connecteur de reprise** sur le schéma, distinct, avec le rythme de
+la migration et son état à l'instance (D1433) ; le flux marqué par les
+champs `rgpd:` qu'il emporte (D1426) ; rien d'écrit.
+
 **Les autres colonnes** — à leur rang : le guide
 d'exploitation (le rang 7 — `migrate`, `reset_coverage`, le rythme, les
 rapports de rejets D929, les anomalies D1032) ; la maintenance

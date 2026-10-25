@@ -359,6 +359,12 @@ rien de propre — une entité n'est pas une connexion ; ses champs
 `rgpd:` marquent sur le schéma le flux qui les emporte (D1426, §18) ;
 ses volumes entrent au dimensionnement de l'instance (D1430).
 
+**L'entité et le champ, dans le guide d'exploitation** (la colonne 9 —
+le rang 7) : rien de propre — l'exploitation ne voit pas les entités ;
+la restauration d'un enregistrement (D171) est une fiche du guide,
+l'entité y est nommée ; les volumes par entité pèsent sur la charge
+(D1453).
+
 **Les autres colonnes** — à leur rang : la promotionnelle
 (son titre dans la vue d'ensemble) ; la maintenance (ses usages, ses
 anomalies).

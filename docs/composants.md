@@ -3077,5 +3077,10 @@ rang 6) : **les postes des utilisateurs** — les navigateurs supportés
 par le core et leur version minimale (D1430) ; **le hook d'interface**,
 le seul code tiers au navigateur, nommé (D918, D1407) ; rien d'autre.
 
+**Les surfaces et les composants, dans le guide d'exploitation** (la
+colonne 9 — le rang 7) : rien de propre — le tableau de bord de la
+santé est une surface du socle, l'accueil de l'administrateur (D1452),
+et le « ? » de chaque surface renvoie au guide.
+
 **Les autres colonnes** — à leur rang : la maintenance (la fréquence
 d'emploi de chaque écran, D1168).

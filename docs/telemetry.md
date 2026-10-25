@@ -269,8 +269,14 @@ la base, les comptes et les groupes, le poids des fichiers, le rythme
 des tâches (D1430), lus par la télémétrie (D1155, D1265), à côté de la
 référence ; les journaux et leur rotation (D343).
 
+**La télémétrie, dans le guide d'exploitation** (la colonne 9 — le rang
+7) : **la disponibilité et la charge** — le processeur, le disque, la
+congestion, les files, les sessions, les 429 — mesurées par le moteur,
+la priorité 1 du tableau de bord (D1453) ; **le journal**, sixième
+canal (D737), ses niveaux, sa rotation, son puits (D343, D1454) ; les
+alertes et leurs seuils (D626, D738).
+
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 télémétrie n'est pas ce que l'utilisateur fait) ; la maintenance et la
 supervision (§23 — le tableau de bord, la synthèse périodique, les
-alertes) ; le guide d'exploitation (le journal, ses niveaux, sa
-rétention).
+alertes).

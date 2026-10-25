@@ -652,7 +652,15 @@ journaux** par niveau (D343) ; **la veille des CVE** sur autorisation
 de l'administrateur (D1431) ; **la mise à jour du core** sur
 sollicitation (D17).
 
-**Les autres colonnes** — à leur rang : le guide d'exploitation (le
-rang 7 — l'installation, la configuration, la supervision, les
-opérations de maintenance, D1134) ; la maintenance (le rang 8 — les
+**L'administration, dans le guide d'exploitation** (la colonne 9 — le
+rang 7), l'écho d'administration.md pour une instance : **le chapitre
+« installer »** et `syncytium init` (D1447, D1450) ; **le fichier des
+variables** et leur description (D1429, D1442) ; **les treize fiches de
+procédure** sur un plan unique (D1450) ; **la santé en accueil** et sa
+priorité — la disponibilité et la charge d'abord (D1452–D1453) ; **le
+mail des faits marquants**, les CVE comprises quand la veille est
+active (D733, D1451) ; les commandes instanciées avec les noms de
+l'instance ; **le mode safe**, le dernier recours (D1459).
+
+**Les autres colonnes** — à leur rang : la maintenance (le rang 8 — les
 usages, les contrôles, les optimisations, D1128).

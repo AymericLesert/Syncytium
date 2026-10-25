@@ -763,10 +763,18 @@ le fichier d'avis de sécurité signé et la nomenclature logicielle (D1431) ; *
 que Syncytium ne décrit pas** — le pare-feu, le DNS, les
 authentifications du réseau, aux équipes d'intégration (D1426).
 
+**La sécurité, dans le guide d'exploitation** (la colonne 9 — le rang
+7) : **les secrets** — `encrypt`, le clair refusé au démarrage (D902), la
+rotation (D730), le certificat (D919) ; **les événements de sécurité**
+du journal, à leur niveau, jamais un secret (D343) ; **les CVE à
+traiter** à la santé et au mail (D1451), le fichier d'avis de sécurité
+consulté et lu à la main (D1445) ; **le mode safe**, le dernier recours,
+son mot de passe en clair au guide puis inaccessible (D1459) ; **les
+erreurs techniques en anglais**, sans traduction (D1455).
+
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 sécurité n'est pas ce que l'utilisateur fait ; le masque dit ce qui est
 protégé) ; l'information (le niveau de confidentialité affiché à chaque
 champ, D1247 ; les colonnes protégées du chapitre 3, D1300 ; la matrice
-des droits 5.2) ; le guide d'exploitation (le rang
-7 — les secrets, le wizard, la sauvegarde, le passif) ; la maintenance
+des droits 5.2) ; la maintenance
 (le rang 8 — les refus, les alertes, les seuils).

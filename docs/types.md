@@ -276,5 +276,8 @@ référence pour en écrire un (D1408) ; son md par langue (D1403, D1405).
 n'a pas de connexion ; sa forme native par storage est au chapitre 3 du
 dictionnaire (D1297).
 
+**Le type, dans le guide d'exploitation** (la colonne 9 — le rang 7) :
+rien — les types chiffrants à la fiche de la rotation des clés (D730).
+
 **Les autres colonnes** — à leur rang : la maintenance (le rang 8 —
 les valeurs inemployées d'un type, D46/D48). 

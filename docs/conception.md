@@ -24768,7 +24768,9 @@ avant la synthèse Q16).
   variables décrites, les trois opérations périodiques, treize fiches
   dont la sauvegarde et la synchronisation sans objet, la supervision
   sans veille, le mode safe inaccessible ; `backup:`,
-  `security_advisories:` et le texte d'exploitation à écrire.
+  `security_advisories:` et le texte d'exploitation à écrire. La
+  colonne 9 de la matrice écrite dans les onze artefacts et la matrice
+  d'ensemble — à valider, puis la clôture du rang 7.
 - **2026-10-25 — REPRISE : LA PR #50 FUSIONNÉE, LA PR #51 OUVERTE VERS
   `main`.** « reprenons et fermons les sujets à clarifier » — la #50
   fusionnée dans `develop` le 24/10 au soir ; la septième publication

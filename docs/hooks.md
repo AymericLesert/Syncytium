@@ -636,5 +636,12 @@ dépendances à côté de celles du core, comparées par la veille des CVE
 comme les connecteurs du socle (D1426) ; **le hook d'interface** sur le
 poste de l'utilisateur (D918).
 
+**Les hooks, dans le guide d'exploitation** (la colonne 9 — le rang 7) :
+**le md des erreurs** du hook, `errors:`, en anglais (D1458), repris au
+catalogue du dépannage ; le hook de connecteur dans les fiches de sa
+famille ; une opération périodique au calendrier des opérations
+(D943) ; les hooks du projet ne tournent qu'avec leurs `dependencies:`
+installées (D1432).
+
 **Les autres colonnes** — à leur rang : la maintenance (la fréquence
 d'emploi de chaque opération, D1168).

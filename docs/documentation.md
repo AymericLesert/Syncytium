@@ -4386,7 +4386,14 @@ et le partenaire, sans aucun droit.
    peut faire partie de la promotion, « mais ne dit pas son ordre, ni
    la composition » — elle entre dans la structure par défaut sous le
    persona de son groupe, le plan dit le reste ; un plan qui cite une
-   vue non marquée est une erreur d'ingestion (D1500).
+   vue non marquée est une erreur d'ingestion (D1500). **La marque dans
+   l'application** (D1501 : « Une vue marquée comme promotionnelle peut
+   être identifiée par une marque sur la vue dans l'application
+   elle-même … cela fait partie des points clés du projet pour son
+   adhésion ») : un signe du socle sur la surface — un pictogramme et
+   son texte du catalogue (D1160), « un point clé du projet » —, qui
+   ouvre la plaquette à l'item de cette vue ; il ne se configure pas, la
+   marque `promotional: true` suffit.
 4. **`visibility:` tranchée** (D1151 attendait ce rang) : `promotional`,
    le défaut — la plaquette seule, sans compte ; `public` — la plaquette
    et toute la documentation en mode public, sans donnée ni rien de

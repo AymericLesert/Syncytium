@@ -2400,7 +2400,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1454 ; l'étape 4, le dépannage, D1455–D1462 ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1454 ; l'étape 4, le dépannage, D1455–D1463 ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2546,7 +2546,7 @@ technique, le réglage de l'outil, l'essai — et **connecter les
 journaux** — le puits déclaré au `logging.yml`, les niveaux envoyés, le
 réglage de l'outil, l'essai.
 
-### 4. Le dépannage (D1455–D1462)
+### 4. Le dépannage (D1455–D1463)
 
 **Le catalogue des erreurs du core**, calculé : chaque erreur que le
 moteur peut émettre à l'exploitation, par son code et son texte — **dans la
@@ -2587,7 +2587,13 @@ des branches pour les cas — acyclique par construction** (D1462) ;
 **les erreurs se transcrivent dans le guide** : sur la console, l'erreur
 lue au journal s'ouvre sur son arbre résolu avec ses valeurs ; dans
 l'édition, toutes les erreurs possibles ; une équipe tierce reçoit des
-éléments clairs ; *mes ajouts, en proposition* : le
+éléments clairs ; **le raccourci selon le niveau** (D1463 : « Une trace
+en debug n'est pas une erreur et ne nécessite pas d'arbre de résolution.
+Par contre, une erreur nécessite un maximum de détail ») — le code et le
+message pour `verbose`, `debug`, `info` ; la description dès `warning` ;
+le détail entier, l'arbre compris, pour `error` et `exception` ; la
+complétude relève une erreur sans arbre, jamais une trace ; *mes autres
+ajouts, en proposition* : le
 niveau du journal, la famille du dépannage, la position de sécurité,
 le rejouable, qui résout et par quel canal, les paramètres typés du
 gabarit, le renvoi à la fiche ; les erreurs du core codifiées de même

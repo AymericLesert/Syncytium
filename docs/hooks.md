@@ -77,7 +77,7 @@ description: documentation.md        # → le md du fonctionnement (D778) — un
 code: source.txt                     # → le code — le langage du domaine 7 (D570)
 properties: { }                      # les propriétés du hook
 dependencies: [ ]                    # les bibliothèques embarquées — le nom, la version, la licence (D1432) ; absente = aucune
-errors: ~{errors.yml}                # les erreurs codifiées du hook (D1461) — le message à gabarit, la description, l'arbre ; absente = aucune
+errors: ~{errors.yml}                # les traces codifiées du hook (D1461, D1463) — le niveau, le message à gabarit, et selon le niveau = aucune
 ```
 
 **Chaque hook s'accompagne d'un fichier md par langue qu'il supporte**
@@ -96,14 +96,19 @@ description (D1227). Le md est une configuration : il ne cite ni
 décision ni histoire du cas (D1085) — les md des hooks du véhicule et
 de la banque sont à nettoyer sur ce point.
 
-**Les erreurs codifiées** (D1461–D1462 ; la forme en proposition — le
+**Les traces codifiées** (D1461–D1463 ; la forme en proposition — le
 gabarit sur le message, la description et chaque nœud ; l'arbre en
-nœuds, une analyse et des branches, acyclique par construction) :
+nœuds, une analyse et des branches, acyclique par construction ; **le
+raccourci selon le niveau** : une trace `debug` n'a que son code et son
+message, une `error` le détail entier, l'arbre compris) :
 
 ```yaml
-# hooks/operations/virer/errors.yml — les erreurs du hook, par code
+# hooks/operations/virer/errors.yml — les traces du hook, par code ; le détail croît avec le niveau (D1463)
+D001:
+  level: debug                           # une trace — le code et le message suffisent
+  message: { fr: "Virement de {montant} vers {compte} : les deux écritures créées" }
 E001:
-  level: error                           # le niveau du journal (D737) — la trace, l'alerte
+  level: error                           # une erreur — le détail entier                           # le niveau du journal (D737) — la trace, l'alerte
   message:                               # le gabarit du journal (D562), par langue
     fr: "Le compte cible {compte} est clos depuis le {date}"
     en: "Target account {compte} has been closed since {date}"

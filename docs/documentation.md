@@ -653,7 +653,9 @@ décisions, D1170–D1238.)*
      et l'instance, les lecteurs ;
   4. la recherche d'améliorations : les conseils (D45), le retrait et
      le resserrement (D46/D48), les écrans jamais ouverts, les
-     demandes, les questions sans réponse (§25).
+     demandes, les questions sans réponse (§25) : **acquis le
+     25/10/2026 (D1491–D1495)** — une proposition datée qui vit avec le
+     fait, quatre familles, trois lieux, servie à `administrator`.
 - **Déclinaison** : la complétude des quatre exemples (au dépôt) ;
   l'entrepôt pour le reste, à l'instance.
 - **Livrables** : §8, §20, §23 validés ;
@@ -3284,6 +3286,59 @@ confirme les cinq lectures ») :
    y voit ce que ses droits lui montrent ; l'infrastructure, la sécurité et la continuité
    sont la part de l'administrateur, les données et la version celle du
    concepteur et du décideur.
+
+**La recherche d'améliorations — acquis** (D1491–D1495, le rang 8,
+l'étape 4) :
+
+1. **Le principe** : une amélioration est **une proposition, jamais un
+   acte** — le chapitre dit ce que les mesures suggèrent de changer dans
+   la configuration, le concepteur décide au dépôt, hors de
+   l'application (D45, D739). Chaque proposition dit quatre choses : le
+   fait qui la fonde, la suggestion avec la clé qu'elle touche, le gain
+   attendu, le composant concerné.
+2. **Quatre sources, quatre familles** : **alléger** — depuis les usages
+   (§23, l'étape 2) : le champ constant, candidat au retrait (D46 — le
+   ratio de cardinalité, pondéré par D38, le signalement opt-in de
+   D49) ; le domaine surdimensionné, à resserrer (D48) ; la valeur
+   d'énuméré jamais choisie ; l'écran jamais ouvert, l'opération jamais
+   déclenchée, le rapport jamais produit ; **enrichir** — depuis le volet
+   conseil de la télémétrie, tel qu'elle le produit (D45, D315–D319,
+   D739) : l'entrée composite, l'agrégat, le champ calculé que les
+   séquences d'appels font émerger, les conseils au consommateur de
+   l'API ; **les demandes** — depuis `_assistance` (D1363–D1374) : les
+   demandes d'évolution par statut, celles qui reviennent le plus, par
+   écran ; **les questions sans réponse** — depuis l'assistance aussi :
+   les questions ouvertes, et l'écran qui en suscite le plus, l'écran à
+   améliorer (§25).
+3. **Une vue calculée, datée** (D1491, D1494 : « La proposition porte
+   une date de début qui accompagne la proposition. Les propositions
+   sont aussi classées par date d'antériorité » ; « Une proposition peut
+   apparaître et disparaître sans intervention de la configuration … Si
+   après une certaines périodes, le comportement réapparaît, la
+   proposition peut à nouveau réapparaître aussi ») : la proposition
+   vit avec le fait — le champ retiré, le statut qui se remet à
+   bouger, la demande livrée la font disparaître ; sa date de début est
+   celle de l'apparition courante, une réapparition porte une nouvelle
+   date ; la plus ancienne en tête ; aucun autre état, rien n'est gardé
+   d'une proposition disparue ; le concepteur ne marque rien dans
+   l'application, son geste est au dépôt.
+4. **Trois lieux, aucune notification nouvelle** : la proposition sur
+   la page du composant qu'elle concerne — le champ dit « candidat au
+   retrait » comme il dit sa diversité (D1168) — ; le chapitre
+   d'ensemble de la documentation 7, par famille et par module ; la
+   synthèse périodique de la télémétrie (D738) inchangée.
+5. **Les lecteurs** (D1492–D1493 : « La recherche d'amélioration est à
+   porter au niveau de l'administrateur, pas du manager … le concepteur
+   est plus à même de définir la priorité ou le risque ») : le chapitre
+   se sert au degré **`administrator`** ; le concepteur le lit au dépôt
+   par `syncytium document`, dans sa sandbox (D1353) ou par un compte
+   administrateur ; l'administrateur et le concepteur voient avec les
+   responsables métier pour apporter les améliorations recommandées ;
+   sur la page d'un composant, la proposition ne paraît qu'à
+   l'administrateur, la diversité elle-même restant visible (D1155).
+   **Trois chapitres, trois lecteurs** (D1493) : les usages et les
+   risques à partir de `manager` — la vision métier —, les améliorations
+   à `administrator` — la configuration.
 
 *Mes propositions d'origine* — la pièce où la documentation cesse de décrire pour
 **mesurer et conseiller** ; ses opérations de maintenance s'expliquent

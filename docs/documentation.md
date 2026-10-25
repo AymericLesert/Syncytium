@@ -2885,6 +2885,16 @@ ce qui manque, un code de retour qui porte le taux pour le script d'un
 concepteur qui voudrait son propre seuil ; le rapport de `notify:`
 (D1167) est ce même résultat.
 
+**La forme du rapport** (D1479 — le rang 8, l'étape 1) : **trois axes —
+la version, le module, la documentation** ; chaque manque de
+l'inventaire appartient à une documentation (la colonne « la
+documentation affaiblie » ci-dessus), un manque qui en affaiblit deux
+compte dans chacune ; **un taux par module et par documentation, sans
+pondération** — les éléments décrits sur les éléments attendus — ; **la
+liste des manques, avec la clé à écrire et où**. Le rapport se lit du
+général au particulier : la version, chaque documentation et son taux,
+chaque module ; `--check` et `notify:` produisent le même rapport.
+
 ## 21. La diffusion *(le rang 0, étape 6 — acquis, D1167–D1168)*
 
 Comment la documentation parvient à ses lecteurs — **sept canaux**,

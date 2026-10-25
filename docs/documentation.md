@@ -2015,7 +2015,9 @@ pages:                           # les pages ajoutées — Markdown, par langue 
 promotion** — elle entre dans la structure par défaut, sous le persona
 de son groupe — ; la marque **ne dit ni son ordre ni la composition**,
 qui viennent du plan `pages: promotional:` quand le concepteur en
-propose un.
+propose un ; **un plan qui cite une vue non marquée est une erreur
+d'ingestion** (D1500) — la marque offre, le plan ordonne parmi
+l'offert.
 
 *(Un bloc `sections:` — retenir ou écarter des chapitres par
 documentation — a été proposé puis retiré (D1164) : les droits et
@@ -4383,7 +4385,8 @@ et le partenaire, sans aucun droit.
    quand elle est écrite ; **une vue mise en promotionnelle** dit qu'elle
    peut faire partie de la promotion, « mais ne dit pas son ordre, ni
    la composition » — elle entre dans la structure par défaut sous le
-   persona de son groupe, le plan dit le reste.
+   persona de son groupe, le plan dit le reste ; un plan qui cite une
+   vue non marquée est une erreur d'ingestion (D1500).
 4. **`visibility:` tranchée** (D1151 attendait ce rang) : `promotional`,
    le défaut — la plaquette seule, sans compte ; `public` — la plaquette
    et toute la documentation en mode public, sans donnée ni rien de

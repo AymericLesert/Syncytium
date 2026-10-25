@@ -875,6 +875,8 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - une référence de fichier non marquée `~{…}` (D956), un fichier
   absent ; une clé de configuration inconnue ;
 - un secret en clair dans le `.env` (D902) ;
+- le plan de la promotionnelle qui cite une vue non marquée
+  `promotional` (D1500) ;
 - un texte sans une langue de la version — libellé, md, gabarit, skill,
   terme du glossaire (D1101, D1474, D1475) ; une langue attendue qui manque à un hook (D1163) ;
   le catalogue d'une langue apportée par le projet incomplet (D1465) ;

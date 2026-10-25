@@ -24727,6 +24727,21 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-25 (suite 2) — LA PAUSE : LE RANG 7 PRESQUE CLOS (D1447–D1459,
+  1459 décisions).** « je marque une pause ». Les quatre étapes du guide
+  d'exploitation acquises : ce qui se génère et ce qui s'écrit, le
+  chapitre « installer » et `syncytium init` (D1447–D1448, D1450) ; les
+  treize fiches de procédure (D1449–D1450) ; la supervision quotidienne,
+  le tableau de bord en accueil, la disponibilité et la charge en
+  priorité 1, les CVE, la supervision externe et les journaux connectés
+  (D1451–D1454) ; le dépannage, les erreurs en anglais, l'arbre
+  schématique, le md des erreurs du hook, le mode safe (D1455–D1459).
+  La déclinaison écrite sur l'entrepôt et la colonne 9 dans les onze
+  artefacts — à valider. À la reprise : la validation des deux, les clés
+  à écrire dans l'entrepôt si l'auteur le demande (`backup:`,
+  `security_advisories:`, `pages: operations:`), la clôture du rang 7 ;
+  puis le rang 8, la maintenance, les risques, les améliorations ; la
+  PR vers `develop` (D1436– sans PR).
 - **2026-10-25 (suite) — LE RANG 7 OUVERT : LE GUIDE D'EXPLOITATION
   (D1447, 1447 décisions).** « Passons au rang 7 » — l'étape 1
   représentée en six lectures et sa question ; « Le chapitre "installer"

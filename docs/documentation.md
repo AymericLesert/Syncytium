@@ -2978,7 +2978,10 @@ n'est pas un élément non décrit. **La mesure au dépôt** (la lecture 4) :
 `tools/completeness.py`, à l'image du traceur d'orphelins (D1240), lit
 la configuration d'un exemple et produit ce rapport — l'inventaire, le
 taux par documentation et par module, la liste des manques avec la clé
-et le fichier, les orphelins ; les cinq cas mesurés le 25/10/2026.
+et le fichier, **les défauts d'ingestion visibles au dépôt** (D1502 —
+hors du taux : un texte sans une langue de la version, un hook sans sa
+langue, un plan de promotionnelle citant une vue non marquée), les
+orphelins ; les cinq cas mesurés le 25/10/2026.
 
 ## 21. La diffusion *(le rang 0, étape 6 — acquis, D1167–D1168)*
 

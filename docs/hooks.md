@@ -554,8 +554,9 @@ fr pt` construit le hook** — sa fiche et son catalogue à traduire, `fr`
 la langue de référence — et le concepteur le traduit item par item
 (D1465). Le catalogue est celui du core seul (D1466) : les textes du
 projet portent la langue comme toute langue de la version (D1101) ;
-un hook du core sans elle suit D1163, l'application complète dans sa
-couche. `languages:` de la version (D1101) nomme une langue du core ou
+un hook du core sans elle suit D1163 : **le catalogue inclut les items
+des hooks du core** — leurs textes, leurs traces codifiées — et le
+hook de langue est la couche où l'application les complète (D1469). `languages:` de la version (D1101) nomme une langue du core ou
 d'un hook de langue. Les langues du core sont des hooks de langue dans
 l'arborescence de Syncytium — la même porte (D52) : un hook complet
 est prêt à y entrer, et le hook du projet devient alors une surcharge

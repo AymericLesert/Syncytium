@@ -552,7 +552,11 @@ D1162 ; **strict**, D1468 : la commande donne la complétude, la
 traduction est entre les mains du concepteur, au fur et à mesure), `dependencies` et `errors` s'il y a lieu. **`syncytium language
 fr pt` construit le hook** — sa fiche et son catalogue à traduire, `fr`
 la langue de référence — et le concepteur le traduit item par item
-(D1465). Le catalogue est celui du core seul (D1466) : les textes du
+(D1465). **Sur un hook existant, la commande apporte les compléments**
+— les items nouveaux du core, avec leur texte de référence, à traduire
+— **et prévient des clés devenues obsolètes** (D1470), qu'elle ne
+supprime pas ; les traductions faites restent ; une clé obsolète à
+l'ingestion vaut une alerte (ma lecture). Le catalogue est celui du core seul (D1466) : les textes du
 projet portent la langue comme toute langue de la version (D1101) ;
 un hook du core sans elle suit D1163 : **le catalogue inclut les items
 des hooks du core** — leurs textes, leurs traces codifiées — et le

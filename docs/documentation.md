@@ -2869,7 +2869,8 @@ de `output.formats` ; **`--check` mesure la complétude sans produire**
 hook de langue (D1467) d'une langue que le core ne porte pas — sa
 fiche et son catalogue à traduire, tous les items du core avec leurs
 textes de référence, et eux seuls (D1466) ; le concepteur le traduit
-item par item (hooks.md, configuration.md §3.4).
+item par item ; sur un hook existant, les compléments et l'avis des
+clés obsolètes (D1470) (hooks.md, configuration.md §3.4).
 
 ## 22. Les scénarios d'utilisation par des personas (D1127) *(le rang 1, étape 5 — acquis, D1200–D1210)*
 

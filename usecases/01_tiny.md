@@ -668,3 +668,34 @@ le 24/10/2026 — D1424.**)*
 *Ce que le tiny ne montre pas : le filtre de D1394 (un seul compte,
 qui peut tout), le « pour le compte de », les écarts, les hooks — la
 banque les porte.*
+
+## La complétude de la documentation — la déclinaison de le tiny (le rang 8, étape 1)
+*(La mesure au dépôt, `python tools/completeness.py examples/01_tiny`, le 25/10/2026 — D1478–D1488 :
+l'inventaire de documentation.md §20, le taux par documentation et par module, les manques par nature ;
+la liste complète, le fichier et la clé d'accès, sort de l'outil. Les manques sont ceux du cas tel qu'il
+est écrit : ils disent ce que le concepteur n'a pas décrit, jamais un défaut du socle.)*
+
+### La version 1.0.0.0 (production) — 16 %
+
+| La documentation | (environnements) | (projet) | annuaire | **la version** |
+|---|---|---|---|---|
+| fonctionnelle | — | — | 9 % (1/11) | **9 %** |
+| dictionnaire | — | — | 20 % (1/5) | **20 %** |
+| D.A.T. | 100 % (1/1) | — | — | **100 %** |
+| guide | 0 % (0/1) | — | — | **0 %** |
+| projet | — | 0 % (0/1) | — | **0 %** |
+
+**16 %** — 3 éléments décrits sur 19 attendus, 12 manques.
+
+| Le manque | Combien | La clé à écrire | La documentation |
+|---|---|---|---|
+| le module sans description | 1 | `description: du module` | fonctionnelle |
+| l'entité sans nom d'usage | 1 | `title:` | fonctionnelle |
+| le champ sans aide ni description | 4 | `hint: ou description:` | fonctionnelle, dictionnaire |
+| le libellé du champ absent — le nom nu s'affiche | 4 | `label:` | fonctionnelle |
+| le projet sans texte de support | 1 | `pages: support:` | projet |
+| l'environnement sans texte d'exploitation | 1 | `pages: operations:` | guide |
+
+**Les orphelins** — 1 fichiers atteints depuis `syncytium.yml`, 1 fichiers dans le dossier ; un orphelin n'entre pas dans le taux : c'est peut-être un oubli — un texte écrit, jamais référencé.
+
+Aucun orphelin.

@@ -636,11 +636,12 @@ décisions, D1170–D1238.)*
 - **Étapes** :
   1. §20 — la complétude : le rapport, le seuil, l'avertissement à
      l'ingestion — **calculable dès maintenant** sur les quatre
-     exemples — *en cours* : l'inventaire (D1478), le rapport (D1479),
-     l'ingestion (D1480–D1481) arbitrés ; reste la mesure ;
+     exemples : **acquis le 25/10/2026 (D1478–D1488)** — l'inventaire
+     consolidé, la forme du rapport, l'ingestion, `tools/completeness.py`
+     et les cinq cas mesurés ;
   2. §23 — la supervision des usages : les indicateurs retenus (les
      plus fréquents, les moins utilisés, les non utilisés), les canaux
-     (D44), la part de chaque lecteur, la périodicité ;
+     (D44), la part de chaque lecteur, la périodicité — *en cours* ;
   3. l'analyse des risques : le dry-run (D737), les anomalies de la
      reprise, les validations en échec, les refus et les pics (D43),
      les dépréciées appelées (D742), les dépendances (D924), le PRA,
@@ -2816,7 +2817,7 @@ les écrans que ses droits lui ouvrent, qui peut apporter plus
 d'éléments que le scénario d'un persona ; joué dans l'application (ma
 lecture : le texte seul n'a plus d'objet, le scénario le porte).
 
-## 20. La complétude de la documentation *(le rang 1 — acquis, D1173/D1177/D1182/D1199/D1221)* *(le rang 8, étape 1 — en cours : l'inventaire D1478, le rapport D1479, l'ingestion D1480–D1481 ; reste la mesure)*
+## 20. La complétude de la documentation *(le rang 1 — acquis, D1173/D1177/D1182/D1199/D1221)* *(le rang 8, étape 1 — acquis, D1478–D1488 : l'inventaire, le rapport, l'ingestion, la mesure des cinq cas)*
 
 Le rapport du concepteur, à la façon de la couverture (D861/D1060) :
 **ce qui n'est pas décrit** — les entités sans `description:`, les

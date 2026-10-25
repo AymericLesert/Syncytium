@@ -3130,3 +3130,57 @@ security_advisories:
 pages:
   operations: ~{documentation/operations.md}   # qui surveille, quand, l'astreinte, les contacts
 ```
+
+## La complétude de la documentation — la déclinaison de l'entrepôt (le rang 8, étape 1)
+*(La mesure au dépôt, `python tools/completeness.py examples/05_entrepot`, le 25/10/2026 — D1478–D1488 :
+l'inventaire de documentation.md §20, le taux par documentation et par module, les manques par nature ;
+la liste complète, le fichier et la clé d'accès, sort de l'outil. Les manques sont ceux du cas tel qu'il
+est écrit : ils disent ce que le concepteur n'a pas décrit, jamais un défaut du socle.)*
+
+### La version 1.0.0.1 (beta) — 79 %
+
+| La documentation | (environnements) | (groups) | (projet) | (settings) | commande | stock | technique | tiers | **la version** |
+|---|---|---|---|---|---|---|---|---|---|
+| fonctionnelle | — | 0 % (0/6) | 100 % (1/1) | — | 80 % (136/169) | 82 % (98/119) | 87 % (174/200) | 80 % (106/132) | **82 %** |
+| dictionnaire | — | — | — | 0 % (0/2) | 68 % (63/92) | 73 % (46/63) | 82 % (94/115) | 70 % (50/71) | **74 %** |
+| réglementaire | — | — | 100 % (1/1) | 100 % (3/3) | — | — | — | 100 % (1/1) | **100 %** |
+| développeur | — | — | — | — | — | — | — | 100 % (1/1) | **100 %** |
+| D.A.T. | 100 % (2/2) | — | — | — | — | — | — | — | **100 %** |
+| guide | 0 % (0/2) | — | — | — | — | — | — | — | **0 %** |
+| projet | — | — | 100 % (1/1) | — | — | — | — | — | **100 %** |
+
+**79 %** — 777 éléments décrits sur 981 attendus, 116 manques.
+
+| Le manque | Combien | La clé à écrire | La documentation |
+|---|---|---|---|
+| l'entité sans nom d'usage | 18 | `title:` | fonctionnelle |
+| le champ sans aide ni description | 88 | `hint: ou description:` | fonctionnelle, dictionnaire |
+| le type personnalisé sans description | 2 | `description: du type` | dictionnaire |
+| le groupe sans persona | 6 | `persona: du groupe` | fonctionnelle |
+| l'environnement sans texte d'exploitation | 2 | `pages: operations:` | guide |
+
+### La version 1.0.0.0 (production) — 79 %
+
+| La documentation | (environnements) | (groups) | (projet) | (settings) | commande | stock | technique | tiers | **la version** |
+|---|---|---|---|---|---|---|---|---|---|
+| fonctionnelle | — | 0 % (0/6) | 100 % (1/1) | — | 80 % (136/169) | 82 % (98/119) | 87 % (172/198) | 79 % (101/128) | **82 %** |
+| dictionnaire | — | — | — | 0 % (0/2) | 68 % (63/92) | 73 % (46/63) | 82 % (93/114) | 67 % (45/67) | **73 %** |
+| réglementaire | — | — | 100 % (1/1) | 100 % (3/3) | — | — | — | 100 % (1/1) | **100 %** |
+| développeur | — | — | — | — | — | — | — | 100 % (1/1) | **100 %** |
+| D.A.T. | 100 % (2/2) | — | — | — | — | — | — | — | **100 %** |
+| guide | 0 % (0/2) | — | — | — | — | — | — | — | **0 %** |
+| projet | — | — | 100 % (1/1) | — | — | — | — | — | **100 %** |
+
+**79 %** — 764 éléments décrits sur 970 attendus, 117 manques.
+
+| Le manque | Combien | La clé à écrire | La documentation |
+|---|---|---|---|
+| l'entité sans nom d'usage | 18 | `title:` | fonctionnelle |
+| le champ sans aide ni description | 89 | `hint: ou description:` | fonctionnelle, dictionnaire |
+| le type personnalisé sans description | 2 | `description: du type` | dictionnaire |
+| le groupe sans persona | 6 | `persona: du groupe` | fonctionnelle |
+| l'environnement sans texte d'exploitation | 2 | `pages: operations:` | guide |
+
+**Les orphelins** — 222 fichiers atteints depuis `syncytium.yml`, 222 fichiers dans le dossier ; un orphelin n'entre pas dans le taux : c'est peut-être un oubli — un texte écrit, jamais référencé.
+
+Aucun orphelin.

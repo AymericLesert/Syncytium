@@ -763,3 +763,33 @@ description:
 
 *Le véhicule ne parle qu'une langue, `fr` : ses hooks gardent la forme
 simple (D1105).*
+
+## La complétude de la documentation — la déclinaison de la banque (le rang 8, étape 1)
+*(La mesure au dépôt, `python tools/completeness.py examples/04_banque`, le 25/10/2026 — D1478–D1488 :
+l'inventaire de documentation.md §20, le taux par documentation et par module, les manques par nature ;
+la liste complète, le fichier et la clé d'accès, sort de l'outil. Les manques sont ceux du cas tel qu'il
+est écrit : ils disent ce que le concepteur n'a pas décrit, jamais un défaut du socle.)*
+
+### La version 1.0.0.0 (beta) — 74 %
+
+| La documentation | (environnements) | (groups) | (hooks) | (projet) | banque | **la version** |
+|---|---|---|---|---|---|---|
+| fonctionnelle | — | 100 % (1/1) | — | — | 77 % (50/65) | **77 %** |
+| dictionnaire | — | — | — | — | 66 % (21/32) | **66 %** |
+| développeur | — | — | 100 % (4/4) | — | 100 % (4/4) | **100 %** |
+| D.A.T. | 100 % (1/1) | — | — | — | — | **100 %** |
+| guide | 0 % (0/1) | — | — | — | — | **0 %** |
+| projet | — | — | — | 0 % (0/1) | — | **0 %** |
+
+**74 %** — 81 éléments décrits sur 109 attendus, 17 manques.
+
+| Le manque | Combien | La clé à écrire | La documentation |
+|---|---|---|---|
+| l'entité sans nom d'usage | 4 | `title:` | fonctionnelle |
+| le champ sans aide ni description | 11 | `hint: ou description:` | fonctionnelle, dictionnaire |
+| le projet sans texte de support | 1 | `pages: support:` | projet |
+| l'environnement sans texte d'exploitation | 1 | `pages: operations:` | guide |
+
+**Les orphelins** — 68 fichiers atteints depuis `syncytium.yml`, 68 fichiers dans le dossier ; un orphelin n'entre pas dans le taux : c'est peut-être un oubli — un texte écrit, jamais référencé.
+
+Aucun orphelin.

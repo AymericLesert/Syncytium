@@ -2386,7 +2386,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1452 ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1453 ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2475,7 +2475,7 @@ ajoute. **Le chapitre « installer »** (D1450) : la ligne unique est
 `syncytium init` (D1360), avec ses prérequis, puis le fichier des
 variables à renseigner (D1429).
 
-### 3. La supervision quotidienne (D1451–D1452, en cours)
+### 3. La supervision quotidienne (D1451–D1453, en cours)
 
 **Les CVE dans la supervision** (D1451 : « Le mail des faits marquants
 doit inclure les CVE aussi quand cela est actif. Le nombre de CVE a
@@ -2495,7 +2495,12 @@ représentent et présente la priorité des éléments à observer et
 vérifier quotidiennement ») — **le tableau de bord**, la santé (D731),
 accueil de l'administrateur, ses indicateurs et derrière chacun le
 détail à valider ; **le mail ou la notification**, le rappel des mêmes
-indicateurs et faits (D733, D748) ; *ma lecture de l'ordre* : la santé
+indicateurs et faits (D733, D748) ; **la priorité** (D1453 : « La
+priorité 1 qui manque est la disponibilité du projet et sa charge (CPU
+et disque) / congestion ») — **1. la disponibilité et la charge** :
+l'application répond, le processeur, le disque, la congestion — les
+files d'attente (D686), les 429, les tâches en attente —, rapportés au
+dimensionnement de référence (D1430) pour dire la marge ; puis la santé
 des connecteurs et du passif, les passages de la nuit, les erreurs et
 les avertissements, les CVE à traiter, les sauvegardes, les tickets
 ouverts — le guide décrit chaque indicateur, son détail, ce qui est

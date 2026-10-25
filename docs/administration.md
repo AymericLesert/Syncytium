@@ -474,7 +474,10 @@ en silence à la vérification d'un mot de passe.
 
 ### La santé (D731)
 
-La vue d'office du module d'administration : **les statuts, les
+La vue d'office du module d'administration — **l'accueil de
+l'administrateur** (D1452), **la disponibilité et la charge en
+priorité 1** : le processeur, le disque, la congestion (D1453) — puis
+**les statuts, les
 files d'attente (D686), les sessions actives, les connecteurs** (le
 `ping()` D621 — le feu tricolore) — disponible **en dashboard et en
 API** (la supervision externe interroge l'API) ; **l'état de santé

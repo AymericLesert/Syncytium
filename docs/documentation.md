@@ -604,8 +604,11 @@ décisions, D1170–D1238.)*
      sur un plan unique, la synchronisation entre instances et la
      vérification d'une sauvegarde comprises ;
   3. la supervision quotidienne : le journal, le tableau de bord, les
-     alertes (D44), les passages de la reprise — *en cours (D1451 : les
-     CVE au mail des faits marquants et à la santé)* ;
+     alertes (D44), les passages de la reprise : **acquis le 25/10/2026
+     (D1451–D1454)** — le tableau de bord en accueil et son rappel, la
+     disponibilité et la charge en priorité 1, les CVE, les alertes, le
+     journal, les passages, la supervision externe et les journaux
+     connectés ;
   4. le dépannage : les erreurs connues et leur remède.
 - **Déclinaison** : **l'entrepôt**.
 - **Livrables** : §17 validé ;
@@ -2386,7 +2389,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1453 ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1454 ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2475,7 +2478,7 @@ ajoute. **Le chapitre « installer »** (D1450) : la ligne unique est
 `syncytium init` (D1360), avec ses prérequis, puis le fichier des
 variables à renseigner (D1429).
 
-### 3. La supervision quotidienne (D1451–D1453, en cours)
+### 3. La supervision quotidienne (D1451–D1454)
 
 **Les CVE dans la supervision** (D1451 : « Le mail des faits marquants
 doit inclure les CVE aussi quand cela est actif. Le nombre de CVE a
@@ -2504,8 +2507,33 @@ dimensionnement de référence (D1430) pour dire la marge ; puis la santé
 des connecteurs et du passif, les passages de la nuit, les erreurs et
 les avertissements, les CVE à traiter, les sauvegardes, les tickets
 ouverts — le guide décrit chaque indicateur, son détail, ce qui est
-normal, et cette priorité. *Les alertes, le journal, les passages de la
-reprise, ce qui s'écrit — en cours d'arbitrage.*
+normal, et cette priorité (D1454). **Les alertes de l'instance**,
+calculées (D1454) : ce qui alerte et à quel seuil — la charge au-dessus
+de la marge, le connecteur muet et sa page de maintenance (D626,
+D627), le retard du passif, la version dépréciée encore appelée (D742),
+l'avis de sécurité nouveau (D1451), le ticket sans mise à jour
+(D1366) —, par quel canal, vers qui. **Le journal** : où il est, par
+environnement, son niveau, sa rotation, sa rétention au nettoyage
+(D343, D1073, D1091) ; comment le lire — les niveaux, les événements
+de sécurité, l'agrégation (D926) ; qui le lit — le concepteur, et
+l'administrateur par le puits de logs. **Les passages de la reprise** :
+les cinq états et les rapports (D1077, D1079, D1302), le sens d'un
+rejet, ce qu'on fait quand un passage échoue, la relance et le renvoi à
+la fiche de la relecture. **Ce qui s'écrit** : qui surveille ici et
+quand, l'astreinte, dans le texte du site. **Les ouvertures vers
+l'extérieur** (D1454 : « La supervision externe à décrire aussi dans le
+DAT comme étant une ouverture vers l'extérieur. Il y a aussi la
+connection des journaux vers un outil externe (comme par exemple
+Sentry). Dans le guide d'exploitation décrit comment y accéder et les
+règlages à faire pour vérifier le bon fonctionnement de l'application
+et la connexion des journaux. ») — au D.A.T. (§28), deux nœuds de plus
+sur le schéma quand l'environnement les déclare, l'outil de supervision
+qui interroge l'API de la santé (D731) et le puits des journaux ; au
+guide, deux fiches : **brancher la supervision externe** — l'adresse de
+l'API de la santé, son format, son authentification par compte
+technique, le réglage de l'outil, l'essai — et **connecter les
+journaux** — le puits déclaré au `logging.yml`, les niveaux envoyés, le
+réglage de l'outil, l'essai.
 
 ## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 
@@ -3727,7 +3755,10 @@ il reste dessiné et grisé ; il disparaît s'il est supprimé de la
 configuration (D1446). **Les silhouettes des postes sont dessinées par le
 moteur** (D1426) — les utilisateurs et leur navigateur, les techniciens
 et leurs systèmes, l'administrateur et le concepteur avec les
-commandes du moteur — avec les flux qui en partent. **Le réseau est un
+commandes du moteur — avec les flux qui en partent ; **deux ouvertures
+vers l'extérieur** quand l'environnement les déclare (D1454) : l'outil
+de supervision qui interroge l'API de la santé (D731), le puits des
+journaux — Sentry par exemple — que le `logging.yml` nomme. **Le réseau est un
 texte écrit, porté par la description de l'environnement** (D1426 :
 « La capacité de Syncytium à décrire son environnement se limite à ce
 qu'il peut gérer ou à ce qu'il a besoin. Les parefeux, les dns, les

@@ -2004,7 +2004,18 @@ templates:                       # les gabarits des éditions (D1143) — le for
 pages:                           # les pages ajoutées — Markdown, par langue (§2 b)
   presentation: ~{documentation/presentation.md}   # l'entreprise, l'application, le schéma directeur
   support: ~{documentation/support.md}             # qui répond, dans quels délais (8)
+  promotional:                     # le plan de la promotionnelle (D1499) — absent, la structure par défaut (D1498)
+    - { title: Pourquoi, text: ~{documentation/promotional/pourquoi.md} }   # un texte, un md par langue
+    - { title: Le stock en un coup d'œil, screen: stock[tableau_de_bord] }  # un écran — une vue mise en promotionnelle
+    - { title: Pour la logistique, persona: logistique }                   # un persona et ses scénarios
 ```
+
+**Une vue en promotionnelle** (D1499) : une surface marquée
+`promotional: true` (*en proposition*) **peut faire partie de la
+promotion** — elle entre dans la structure par défaut, sous le persona
+de son groupe — ; la marque **ne dit ni son ordre ni la composition**,
+qui viennent du plan `pages: promotional:` quand le concepteur en
+propose un.
 
 *(Un bloc `sections:` — retenir ou écarter des chapitres par
 documentation — a été proposé puis retiré (D1164) : les droits et
@@ -4364,7 +4375,15 @@ et le partenaire, sans aucun droit.
    ne change pas ; **un texte par persona, facultatif**, dans la fiche du
    persona ; Syncytium n'invente aucune promesse — sans texte, la
    plaquette montre la structure seule et la complétude (§20) relève le
-   manque.
+   manque. **Le plan** (D1499 : « ajoute une section promotional: qui
+   permet de structurer la documentation promotionnelle si le
+   concepteur souhaite proposer un plan et une succesion d'écrans ») :
+   `pages: promotional:`, une liste ordonnée — un texte, un écran, un
+   persona et ses scénarios —, qui remplace la structure par défaut
+   quand elle est écrite ; **une vue mise en promotionnelle** dit qu'elle
+   peut faire partie de la promotion, « mais ne dit pas son ordre, ni
+   la composition » — elle entre dans la structure par défaut sous le
+   persona de son groupe, le plan dit le reste.
 4. **`visibility:` tranchée** (D1151 attendait ce rang) : `promotional`,
    le défaut — la plaquette seule, sans compte ; `public` — la plaquette
    et toute la documentation en mode public, sans donnée ni rien de

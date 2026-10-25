@@ -958,5 +958,11 @@ fiche de la relecture** — `reset_coverage`, `on_running`, l'interruption
 et la relance manuelle (D1077, D1079) ; le rythme au calendrier des
 opérations (D943).
 
-**Les autres colonnes** — à leur rang : la maintenance
-(la couverture et les compteurs, [migration.md](migration.md)).
+**La migration déclarée, dans la maintenance, les risques et les
+améliorations** (la colonne 7 — le rang 8) : **les risques** de la
+famille « la reprise » (D1490) — les anomalies et les rejets des
+passages, leur tendance, la couverture ([migration.md](migration.md)) ;
+une anomalie qui dit une règle absente ou une source qui a changé est
+une lecture métier, servie à partir de `manager` (D1493).
+
+**Les neuf colonnes sont écrites.**

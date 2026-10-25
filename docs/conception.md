@@ -13111,6 +13111,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Le rang 8, l'étape 4 — la recherche d'améliorations (D1491).** Cinq lectures — le principe, quatre sources et quatre familles, pas d'état porté par Syncytium, trois lieux, les lecteurs et le dépôt. « La proposition porte une date de début qui accompagne la proposition. Les propositions sont aussi classées par date d'antériorité. Comment avions-nous qualifié le candidat au retrait ? » (D1491) — la date de début gardée, le classement par antériorité ; le candidat au retrait rappelé : D46 pondéré par D38, le signalement opt-in de D49. « La recherche d'amélioration est à porter au niveau de l'administrateur, pas du manager. Le manager ne suivra pas ces éléments. L'administrateur et/ou le concepteur seront intéressés et verront éventuellement avec les managers pour apporter les améliorations recommandées. » (D1492) — le chapitre au degré `administrator`, ma lecture 5 amendée. « les usages et les risques restent servis à partir du manager. Les usages touchent à la donnée. Cela peut être dû à un processus ou un mode opérateur (hors syncytium) qui n'est pas respecté - par exemple, une tâche dont le statut n'évolue jamais. Les anomalies de la reprise concernent la gestion des données et éventuellement l'absence d'une règle ou le changement du comportement de la source ... le concepteur ou l'administrateur n'a pas toujours la vision métier. Par contre, les améliorations avec les candidats au retrait, par exemple, le concepteur est plus à même de définir la priorité ou le risque. » (D1493) — la vision métier au responsable métier, la configuration au concepteur. « Une proposition peut apparaître et disparaître sans intervention de la configuration ... par exemple, un statut non mis à jour qui finalement se met à jour est une proposition qui disparaît. Si après une certaines périodes, le comportement réapparaît, la proposition peut à nouveau réapparaître aussi. » (D1494) — une vue calculée, jamais un enregistrement ; la réapparition porte une nouvelle date. « Je confirme les trois lectures, clôturons l'étape 4 » (D1495) — l'étape 4 acquise ; les quatre étapes du rang 8 le sont.
 
+**La déclinaison et la colonne 7 du rang 8.** La déclinaison sur l'entrepôt écrite en proposition — au dépôt, le cadre et les risques que la configuration seule permet (la migration de la 1.0.0.1, l'absence de sauvegarde, la veille non disponible) ; à l'instance, une image après quelques mois, les trois listes, les risques mesurés, les propositions par antériorité ; la colonne 7 dans les onze artefacts et la matrice d'ensemble ; le tout remis à l'auteur.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -24832,6 +24834,9 @@ avant la synthèse Q16).
   la configuration … la proposition peut à nouveau réapparaître aussi »
   (D1494) ; « Je confirme les trois lectures, clôturons l'étape 4 »
   (D1495 — **L'ÉTAPE 4 ACQUISE** ; restent la déclinaison et la colonne 7).
+  La déclinaison du rang 8 sur l'entrepôt écrite, en proposition — le
+  cadre et les risques au dépôt, l'image à l'instance — ; la colonne 7
+  écrite dans les onze artefacts et la matrice, à valider.
 - **2026-10-25 (suite 3) — REPRISE : LA LANGUE TECHNIQUE, LES TRACES CODIFIÉES, LA LANGUE APPORTÉE, LE RANG 7 CLOS (D1460–D1477, 1477 décisions).**
   « reprenons » — la déclinaison et la colonne 9 remises à l'auteur ;
   « je reviens sur une décision concernant le catalogue en anglais. Pour

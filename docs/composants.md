@@ -3082,5 +3082,11 @@ colonne 9 — le rang 7) : rien de propre — le tableau de bord de la
 santé est une surface du socle, l'accueil de l'administrateur (D1452),
 et le « ? » de chaque surface renvoie au guide.
 
-**Les autres colonnes** — à leur rang : la maintenance (la fréquence
-d'emploi de chaque écran, D1168).
+**Le composant, dans la maintenance, les risques et les améliorations**
+(la colonne 7 — le rang 8) : **les usages** — les ouvertures de chaque
+surface, l'écran jamais ouvert, sur sa page (D1168, D1489) ; **les
+améliorations** — l'écran jamais ouvert candidat au retrait ou au
+regroupement, l'écran qui suscite le plus de questions et de demandes
+(D1495, §25) ; la proposition datée, pour l'administrateur.
+
+**Les neuf colonnes sont écrites.**

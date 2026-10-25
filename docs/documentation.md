@@ -2901,8 +2901,10 @@ l'inventaire appartient à une documentation (la colonne « la
 documentation affaiblie » ci-dessus), un manque qui en affaiblit deux
 compte dans chacune ; **un taux par module et par documentation, sans
 pondération** — les éléments décrits sur les éléments attendus — ; **la
-liste des manques, une table par nature du manque — son titre —, avec
-le fichier et la clé d'accès complète** (D1485 : `technique.article.fields.code.hint`). Le rapport se lit du
+liste des manques, une seule table par nature du manque — sa première
+ligne la nature, la deuxième les deux colonnes, le fichier et la clé
+d'accès complète, puis le détail** (D1485–D1486 :
+`technique.article.fields.code.hint`). Le rapport se lit du
 général au particulier : la version, chaque documentation et son taux,
 chaque module ; `--check` et `notify:` produisent le même rapport.
 

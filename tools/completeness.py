@@ -7,7 +7,8 @@ Usage : python tools/completeness.py examples/<cas>   (PyYAML requis)
 - Relève les manques de l'inventaire de documentation.md §20 (D1478, D1484–D1485) visibles au dépôt — ce que le
   concepteur n'a pas décrit ; jamais un défaut du socle, jamais une langue manquante (une erreur d'ingestion, D1474).
 - Imprime le rapport dans la forme de D1479 : par version, le taux par documentation et par module, puis les manques —
-  une table par nature, le fichier et la clé d'accès complète (D1485) — ; puis les orphelins — un fichier du dossier
+  une table par nature, sa première ligne la nature du manque, puis le fichier et la clé d'accès complète
+  (D1485–D1486) — ; puis les orphelins — un fichier du dossier
   qu'aucune clé ne cite, peut-être un oubli (D1483) —, hors du taux. Le code de retour porte le taux global arrondi.
 """
 import os
@@ -418,9 +419,10 @@ def print_version(r, label):
         items = sorted((o, k) for c, m, o, k in r.manques if c == code)
         if not items:
             continue
-        print(f"#### {lib} — `{cle}`\n")
-        print("| Le fichier | La clé |")
+        # une seule table par nature (D1486) : la 1re ligne, la nature du manque ; la 2e, les deux colonnes
+        print(f"| **{lib}** — `{cle}` | |")
         print("|---|---|")
+        print("| **Le fichier** | **La clé** |")
         for o, k in items:
             print(f"| `{o}` | `{k}` |")
         print()

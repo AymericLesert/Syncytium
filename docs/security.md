@@ -770,7 +770,8 @@ du journal, à leur niveau, jamais un secret (D343) ; **les CVE à
 traiter** à la santé et au mail (D1451), le fichier d'avis de sécurité
 consulté et lu à la main (D1445) ; **le mode safe**, le dernier recours,
 son mot de passe en clair au guide puis inaccessible (D1459) ; **les
-erreurs techniques en anglais**, sans traduction (D1455).
+erreurs techniques dans la langue technique de l'instance** (D1460,
+D1473), les traces codifiées des hooks et leur arbre (D1461–D1464).
 
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 sécurité n'est pas ce que l'utilisateur fait ; le masque dit ce qui est

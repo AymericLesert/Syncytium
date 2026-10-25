@@ -2873,7 +2873,7 @@ par la cascade (D359) ; une surface peut le surcharger.*
 documentation.md — D1426–D1431. L'entrepôt a deux environnements,
 `production` et `staging`, ni passif ni sandbox ; sept connecteurs,
 déclarés à l'identique dans les deux, les valeurs par les variables ;
-dix-sept variables, dont quatre confidentielles ; aucun hook ; aucun
+dix-neuf variables, dont quatre confidentielles ; aucun hook ; aucun
 `listen:`, aucun texte du réseau. On montre le D.A.T. tel qu'il
 sortirait aujourd'hui, puis ce que le concepteur ajouterait.
 **Confirmée, et les textes écrits dans la configuration le 24/10/2026 —
@@ -2932,7 +2932,7 @@ D1434.**)*
 >
 > ## 3. Le paramétrage externe
 >
-> **Les variables**, par environnement — dix-sept, dont quatre
+> **Les variables**, par environnement — dix-neuf, dont quatre
 > confidentielles ; renseignées : *(l'instance)* :
 >
 > | la variable | l'emploi | confidentielle |
@@ -2994,7 +2994,8 @@ listen:                              # l'adresse et le port servis — par les v
 ## Le guide d'exploitation — la déclinaison de l'entrepôt (le rang 7)
 
 *(La déclinaison du rang 7, écrite le 25/10/2026 sur §17 de
-documentation.md — D1447–D1459. L'entrepôt a deux environnements, sept
+documentation.md — D1447–D1459 ; alignée le soir même sur D1460–D1475,
+la langue technique et les traces codifiées. L'entrepôt a deux environnements, sept
 connecteurs, deux opérations périodiques de reprise et une
 d'anonymisation ; ni `backup:`, ni `replication:`, ni
 `security_advisories:`, ni texte d'exploitation ; un seul groupe
@@ -3014,7 +3015,7 @@ concepteur ajouterait. **En proposition.**)*
 > **Installer** : une seule ligne, `syncytium init`, qui lit
 > `from: Syncytium-1.0`, récupère le core, ingère la configuration et
 > crée l'instance (D1447, D1450) ; elle crée le fichier des variables —
-> dix-sept, dont quatre confidentielles, à renseigner (D1429).
+> dix-neuf, dont quatre confidentielles, à renseigner (D1429).
 >
 > **Les variables, décrites** (D1442) — *la description vient de la
 > classe du connecteur ; l'extrait* :
@@ -3031,7 +3032,8 @@ concepteur ajouterait. **En proposition.**)*
 > | `SYNCYTIUM_LOG_DIRECTORY`, `SYNCYTIUM_MIGRATION_DIRECTORY` | le dossier du journal, celui des fichiers de la reprise | le déploiement |
 >
 > **Les environnements** : `production` (1.0.0.0) et `staging`
-> (1.0.0.1), la table du D.A.T. ; **les connecteurs** sans secrets, les
+> (1.0.0.1), la table du D.A.T. ; **la langue technique** `fr`, écrite
+> par `syncytium init` (D1460, D1473) ; **les connecteurs** sans secrets, les
 > sept ; **le journal** : `info` en production, `debug` au staging, un
 > fichier par jour dans `${SYNCYTIUM_LOG_DIRECTORY}`, 128 Mo, dix
 > sauvegardes ; **le nettoyage** : le journal 30 jours, les fichiers de
@@ -3094,11 +3096,13 @@ concepteur ajouterait. **En proposition.**)*
 >
 > ## 4. Le dépannage
 >
-> Le catalogue des erreurs du core, en anglais (D1455), les familles,
+> Le catalogue des erreurs du core **en français** — la langue technique
+> de l'instance, `language: fr` (D1460, D1473) —, les familles,
 > l'arbre de décision schématique (D1456) ; **les contacts** : *non
 > écrits* — le prestataire informatique, l'intégrateur de l'ERP, le
 > concepteur sont au texte du réseau du D.A.T., pas encore au crédit de
-> l'application (D1457) ; **aucun hook**, aucun md d'erreurs ; **le mode
+> l'application (D1457) ; **aucun hook**, donc aucune trace codifiée
+> propre (D1461–D1464) — le catalogue du core seul ; **le mode
 > safe** : l'authentification `azure_ad` configurée et le groupe
 > `administration` présent — le mot de passe fixé à l'installation n'est
 > plus accessible (D1459) ; le guide dit comment lancer le mode safe.

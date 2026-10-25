@@ -609,7 +609,10 @@ décisions, D1170–D1238.)*
      disponibilité et la charge en priorité 1, les CVE, les alertes, le
      journal, les passages, la supervision externe et les journaux
      connectés ;
-  4. le dépannage : les erreurs connues et leur remède.
+  4. le dépannage : les erreurs connues et leur remède : **acquis le
+     25/10/2026 (D1455–D1459)** — le catalogue en anglais, les familles,
+     l'arbre de décision schématique, les contacts au crédit, le md des
+     erreurs du hook, le mode safe en dernier recours.
 - **Déclinaison** : **l'entrepôt**.
 - **Livrables** : §17 validé ;
   [administration.md](administration.md).
@@ -2389,7 +2392,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1454 ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1454 ; l'étape 4, le dépannage, D1455–D1459 ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2534,6 +2537,50 @@ l'API de la santé, son format, son authentification par compte
 technique, le réglage de l'outil, l'essai — et **connecter les
 journaux** — le puits déclaré au `logging.yml`, les niveaux envoyés, le
 réglage de l'outil, l'essai.
+
+### 4. Le dépannage (D1455–D1459)
+
+**Le catalogue des erreurs du core**, calculé : chaque erreur que le
+moteur peut émettre à l'exploitation, par son code et son texte — **en
+anglais, sans traduction** (D1455 : « Les erreurs techniques ne feront
+pas l'objet d'une traduction. Elles sont techniques et purement
+techniques ») —, la cause probable et le remède dans la langue du
+lecteur, le renvoi à la fiche de procédure ; la référence de Syncytium
+(D1411), instanciée ; les erreurs des utilisateurs, la validation, les
+droits, sont à la fonctionnelle et au contrat d'API. **Les familles**,
+dans l'ordre où on les rencontre : l'application ne démarre pas, le
+diagnostic de non-démarrage (D745, D902, D919, D330) ; un connecteur ne
+répond plus (D626–D627) ; la reprise échoue ou s'interrompt (D1077,
+D1079) ; une version refusée à l'ingestion (D326, D928) ; la charge,
+les 429, les files qui débordent (D105, D686) ; la synchronisation en
+retard (D724) ; l'authentification en panne et le mode safe (D718).
+**Ce qui demande l'instance** : les erreurs des derniers jours, lues au
+journal, le remède en face ; vide au dépôt (D1157). **L'arbre de
+décision, schématique** (D1456 : « y inclure une représentation
+schématique pour une lisibilité. Le guide d'exploitation est dédié à
+une équipe technique le concepteur ou une société tierce. La TPE mettra
+rarement les mains dans ce document ») — où regarder d'abord, la santé,
+le journal, la fiche ; à qui s'adresser, l'administrateur, le
+concepteur pour la configuration, l'intégrateur pour le réseau, la base,
+le fournisseur d'identité (D1426) ; en Mermaid, la forme au domaine 7.
+**Ce qui s'écrit** : les contacts à appeler ici, dans le texte du site,
+« cela viendra compléter éventuellement la configuration du crédit de
+l'application » (D1457 — `author:`, `contact:`, D1153/D1355) ; **les
+erreurs d'un hook, dans un md dédié** (D1458 : « le hook doit contenir
+un fichier md dédié pour le traitement des erreurs ») — `errors:` sur
+la fiche, en anglais, repris au catalogue. **Le mode safe, le dernier
+recours** (D1459 : « Le mode safe utilise un mot de passe fixé à
+l'installation … Ce mot de passe est présent dans le guide
+d'exploitation en clair. Dès que l'authentification est configurée et
+validée et qu'il y a la présence d'un administrateur, ce mot de passe ne
+sera plus accessible quoiqu'il en soit. Le mode safe est le dernier
+recours quand toutes les autres actions auront échoué ») — le guide le
+montre tant que l'authentification n'est pas validée ; ensuite il dit
+que le mode safe existe, comment le lancer, et que le mot de passe
+n'est plus accessible.
+
+*Restent la déclinaison sur l'entrepôt et la colonne 9 de la matrice
+dans les artefacts.*
 
 ## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 

@@ -600,7 +600,8 @@ décisions, D1170–D1238.)*
      mes lectures à confirmer)* ;
   2. les procédures : la promotion (D340), la copie (D1080), la
      rotation (D1079), la relecture (D943), la restauration (D171), la
-     sauvegarde ;
+     sauvegarde — *en cours (D1449 : la synchronisation entre instances
+     ajoutée aux fiches)* ;
   3. la supervision quotidienne : le journal, le tableau de bord, les
      alertes (D44), les passages de la reprise ;
   4. le dépannage : les erreurs connues et leur remède.
@@ -2383,7 +2384,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(le rang 7, étape 1 — en cours : ce qui se génère et ce qui s'écrit, D1447 ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449 ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2448,6 +2449,26 @@ projet, tenue par l'auteur, qui sert au public sa propre documentation
 et le module de présentation de l'outil (le rang 9 pour le module, le
 rang 10 pour Syncytium seul) ; **« Syncytium seul est une application
 vide avec la documentation incluse »** (D1447).
+
+### 2. Les procédures (D1449, en cours)
+
+**Une fiche par procédure**, sur le même plan — quand et qui, le geste
+ou la commande instancié avec les noms de l'instance, ce qui se passe,
+ce qui est tracé (D62), ce qui peut mal tourner et la position de
+sécurité (D745) — ; les fiches : la promotion d'une version (D340,
+D344), la sandbox (D921–D922), la copie d'un environnement (D1080),
+la sauvegarde et sa rétention (D727), la restauration d'une instance
+(D728–D729), la restauration d'un enregistrement (D171), la rotation
+des clés (D730), les secrets (D902), la relecture de la reprise (D1077,
+D1079), l'arrêt et le redémarrage, le mode safe (D718), la mise à jour
+du core (D17) ; **et la synchronisation entre instances** (D1449 : « La
+synchronisation entre instance est à décrire et présenter ») — le lien
+actif-passif et ses trois modes, `replication:` brut, différentiel,
+synchrone (D724), la copie de la production vers le staging (D112–D113),
+la bascule manuelle et son retour (D114), l'état du passif et son
+retard à la santé (D731), la resynchronisation après une coupure. *Les
+fiches sont la référence du core, instanciées ; le texte du site s'y
+ajoute. En cours d'arbitrage.*
 
 ## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 

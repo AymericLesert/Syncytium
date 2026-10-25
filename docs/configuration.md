@@ -453,8 +453,8 @@ apportée (D1465).
 **`dataset:` — le jeu de données d'une sandbox de démonstration**
 (D1503–D1505, le rang 9) : la sandbox de démonstration a **tous ses
 connecteurs mockés et son storage remplacé par un sqlite** (D1503) **ou
-par le storage `volatile`** (D1507 — en mémoire seule, avec un ratio
-d'espace, rien sur le disque) ;
+par un storage de classe `memory`** (D1045, D1507–D1508 — en mémoire
+seule, avec un ratio d'espace, rien sur le disque) ;
 **`dataset:`, facultative**, lie les fichiers CSV du jeu de données —
 un par entité, dans le gabarit de l'import (D1211, D1412), chargés par
 son dry-run tout-ou-rien (D234) à l'initialisation et à la recharge

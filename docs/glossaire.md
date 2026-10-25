@@ -585,9 +585,10 @@ Syncytium se décline (D1298). Il s'auto-décrit : ses règles de transcription 
 la zone de stockage, rendues par son `describe(model)` — les tables,
 les colonnes, les clés, les index, les partitions ; `get_instance()`
 lit la base et rend un modèle à l'image du méta-modèle (D1299). Il influe sur le hook de
-type, à qui il dit ce qu'il attend. La classe `volatile` ne fonctionne qu'en mémoire, avec un ratio
-d'espace — rien sur le disque : la démonstration de Syncytium, le mode
-démo d'une application. *(D629, D680–D684, D1294–D1297, D1507)*
+type, à qui il dit ce qu'il attend. La classe `memory` tient la base en mémoire seule — la base miroir
+d'une reprise, ou l'application de démonstration, avec un ratio
+d'espace, rien sur le disque. *(D629, D680–D684, D1045, D1294–D1297,
+D1507–D1508)*
 
 **Style** — Le cadre technique du rendu, fourni par Syncytium (« au
 même titre que les composants graphiques, Syncytium propose un ou

@@ -544,8 +544,10 @@ l'utilisateur le choisit à son profil, les droits s'y appliquent
 
 « Une langue a un hook aussi » (D1467). **Une langue que le core ne
 porte pas est un hook** — `hooks/languages/<code>/` : la fiche porte
-`name` (le code de la langue), `description`, `properties` — le fuseau
-et les formats que D217 attache à une langue —, **le catalogue des
+`name` (le code de la langue), `description`, `properties` — **ce qui
+est propre à la langue** (D1471) : le fuseau et les formats que D217
+attache à une langue, le sens d'écriture pour l'arabe ou l'hébreu
+(`direction: rtl`, en proposition) —, **le catalogue des
 messages du core** traduit (D1160 — tous les items, codifiés ;
 incomplet, une erreur d'ingestion — le niveau « pour Syncytium » de
 D1162 ; **strict**, D1468 : la commande donne la complétude, la

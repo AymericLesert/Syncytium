@@ -581,8 +581,9 @@ textes du projet suivent la règle ci-dessus : `pt` dans `languages:`,
 chaque `label:`, `hint:`, `description:` la porte comme toute langue
 de la version (D1101), le repli et la complétude s'appliquent. **La langue est un hook** —
 la septième famille (D1467 : « une langue a un hook aussi ») :
-`hooks/languages/pt/`, sa fiche, son catalogue, le fuseau et les
-formats que D217 attache à une langue ([hooks.md](hooks.md)) ;
+`hooks/languages/pt/`, sa fiche, son catalogue, et ce qui est propre
+à la langue — le fuseau et les formats de D217, le sens d'écriture
+(D1471) — ([hooks.md](hooks.md)) ;
 `languages:` nomme alors une langue du core ou d'un hook de langue. **Il doit
 être complet** — le niveau « pour Syncytium » de D1162 : un item
 manquant est une erreur d'ingestion, strict (D1468 : « En utilisant la

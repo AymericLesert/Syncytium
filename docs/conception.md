@@ -24819,7 +24819,15 @@ avant la synthèse Q16).
   `description:` de la reprise de la banque en français seul dans une
   version à trois langues (D1502) ; « La description de la reprise est
   un texte par langue » (D1517 — le rapport juste tel quel, neuf
-  traductions à écrire à la relecture de la banque).
+  traductions à écrire à la relecture de la banque) ; « marquons la
+  pause ». **La pause** : les rangs 0 à 9 clos, dix publications sur
+  `main` ; la branche porte D1515–D1517 sans PR — la nature du rang 10,
+  les familles des ADR, la description de la reprise par langue. **À la
+  reprise** : le rang 10 — l'arborescence de `docs/` à proposer (la
+  partie 1), puis l'ordre des parties ; mes trois questions de
+  l'inventaire ; la lecture des familles (D1516) à confirmer. Hors rang,
+  rien d'ouvert, sauf la calibration des seuils de la télémétrie, à
+  l'ouverture de l'auteur. Tout est committé et poussé.
 - **2026-10-25 (suite 7) — LA PAUSE : LE RANG 10 OUVERT, SA NATURE
   PRÉCISÉE (D1515, 1515 décisions).** « avant de marquer une pause » —
   la nature du rang 10 consignée (D1515), le plan du rang réécrit à ses

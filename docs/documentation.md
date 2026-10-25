@@ -595,7 +595,9 @@ décisions, D1170–D1238.)*
   1. ce que la configuration et [administration.md](administration.md)
      génèrent (les environnements, les connecteurs, le journal, le
      nettoyage, les opérations périodiques, les commandes) et ce qui
-     s'écrit ;
+     s'écrit — *en cours (D1447 : les six lectures acquises, le chapitre
+     « installer » porté par l'instance, la ligne de commande unique ;
+     mes lectures à confirmer)* ;
   2. les procédures : la promotion (D340), la copie (D1080), la
      rotation (D1079), la relecture (D943), la restauration (D171), la
      sauvegarde ;
@@ -636,7 +638,8 @@ décisions, D1170–D1238.)*
 #### Rang 9 — la promotionnelle (documentation 6)
 
 - **Périmètre** : la plaquette, la démonstration, l'argumentaire du
-  socle.
+  socle ; **le site vitrine de Syncytium, une application Syncytium, et
+  le module de présentation de l'outil** (D1447).
 - **Sections** : aucune ; une section à créer.
 - **Étapes** :
   1. la plaquette : la structure générée (le nom, la description, les
@@ -658,7 +661,8 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
 - **Périmètre** : Syncytium comme produit — le moteur, ses règles, son
   catalogue, ce que les seize artefacts décrivent — et le dépôt comme
   lieu de lecture : `docs/`, le registre, les cas d'usage, les
-  exemples.
+  exemples ; **« Syncytium seul est une application vide avec la
+  documentation incluse »** (D1447).
 - **Sections** : aucune ; documentation.md et le [glossaire](glossaire.md)
   en pivots.
 - **Étapes** *(mes lectures)* :
@@ -2378,7 +2382,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(en proposition ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7, étape 1 — en cours : ce qui se génère et ce qui s'écrit, D1447 ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2402,6 +2406,45 @@ l'application de savoir ce qu'il faut faire ») — le D.A.T. les liste
 description vient de la classe du connecteur qui l'emploie, dans la
 référence du core, et le texte de l'environnement ajoute le particulier
 du site ; la nature, confidentielle ou non, et où obtenir la valeur.
+
+### 1. Ce qui se génère et ce qui s'écrit (D1447)
+
+**Trois matières** : la référence du core, ce que Syncytium écrit une
+fois pour toutes ; le généré depuis la configuration de l'instance ; ce
+qui demande l'instance, montré vide au dépôt (D1157). **Le généré** :
+les environnements et leur nature (§28) ; par environnement, les
+connecteurs sans secrets (D944), le journal et sa rotation (D343,
+D1091), les règles de nettoyage et leurs rétentions (D1073), les
+opérations périodiques et leur calendrier (D943) ; les commandes
+instanciées avec les noms de l'instance — `syncytium copy production
+staging` ; la description de chaque variable d'environnement (D1442),
+venue de la classe du connecteur qui l'emploie. **Ce qui demande
+l'instance** : la santé (D731), les derniers passages de la reprise et
+leurs rapports, le registre des versions essayées (D326), les sandboxes
+vivantes, la dernière sauvegarde, la dernière rotation, la dernière
+lecture des avis de sécurité (D1445). **Ce qui s'écrit** : les
+sauvegardes et leur politique si `backup:` ne le dit pas, qui fait
+quoi, l'astreinte, les procédures du site — `pages: operations:` dans
+le `documentation.yml` de l'environnement, *en proposition*. **Le
+partage** : le guide explique comment ; le D.A.T. dit ce qui est
+connecté, la maintenance (§23) analyse, le réglementaire (§18) porte le
+registre ; le guide renvoie, il ne répète pas. **La complétude** (§20)
+relève un environnement sans texte d'exploitation.
+
+**Le chapitre « installer »** (D1447 : « Le chapitre "installer" est à
+mettre dans la documentation et il est porté par l'instance.
+L'installation doit pouvoir se faire par une seule ligne de commande la
+même pour toutes les instances et toutes les versions de Syncytium.
+Cette ligne de commande est décrite sur le site vitrine de Syncytium
+que nous mettrons en oeuvre avec Syncytium ») — *mes lectures, à
+confirmer* : la ligne unique est `syncytium init` (D1360), qui lit
+`from:` et récupère le core ; le chapitre la donne pour cette
+instance, avec ses prérequis, puis ce que l'amorçage a produit — le
+fichier des variables à renseigner (D1429) ; **le site vitrine est une
+application Syncytium**, la promotionnelle du produit (le rang 9), et
+**« Syncytium seul est une application vide avec la documentation
+incluse »**, plus « un module que nous ajouterons dans la
+promotionnelle pour présenter l'outil » (le rang 10).
 
 ## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 

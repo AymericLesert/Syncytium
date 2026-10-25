@@ -666,7 +666,7 @@ décisions, D1170–D1238.)*
   artefacts et la matrice d'ensemble (validée le 25/10/2026, D1496).
 - **Dépendances** : la télémétrie et l'instance, sauf §20.
 
-#### Rang 9 — la promotionnelle (documentation 6) — *en cours depuis le 25/10/2026*
+#### Rang 9 — la promotionnelle (documentation 6) — *clos le 25/10/2026, D1514*
 
 - **Périmètre** : **deux niveaux** (D1497) — la promotionnelle de
   l'application, pour faire adhérer la direction, les responsables
@@ -692,13 +692,14 @@ décisions, D1170–D1238.)*
      **acquis le 25/10/2026 (D1506–D1509)** — la plaquette de Syncytium,
      le module de présentation, la démonstration par l'IA sur un
      storage `memory`, quatre parties écrites dont les inconvénients.
-- **Déclinaison** : **l'entrepôt — écrite le 25/10/2026, en
-  proposition** ([usecases/05_entrepot.md](../usecases/05_entrepot.md)) :
-  la plaquette telle qu'elle sortirait, sans persona ni texte, la
-  démonstration non disponible ; le cas 8 le jour venu.
+- **Déclinaison** : **l'entrepôt déclare `promotional: false`**
+  (D1514) — un miroir interne de l'ERP, sans promotionnelle ; la
+  plaquette esquissée n'a plus d'intérêt
+  ([usecases/05_entrepot.md](../usecases/05_entrepot.md)) ; le cas 8 le
+  jour venu.
 - **Livrables** : §30, les trois étapes acquises ; la colonne 6 de la
   matrice dans les onze artefacts et la matrice d'ensemble (écrite le
-  25/10/2026, à valider).
+  25/10/2026, validée — D1514).
 - **Dépendances** : les huit autres ; le jeu de données (D869).
 
 #### Rang 10 — Syncytium lui-même, et `docs/` consultable sur GitHub (D1316) *(en proposition)*
@@ -4287,7 +4288,7 @@ core ; rien d'autre n'est requis. **La complétude** ne mesure rien ici.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 6 est clos (D1435).*
 
-## 29. Les points ouverts *(rafraîchis à la clôture du rang 8, le 25/10/2026)*
+## 29. Les points ouverts *(rafraîchis à la clôture du rang 9, le 25/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -4299,7 +4300,8 @@ comme chapitre (§19 → §22, D1187) ; le guide d'exploitation (§17, le
 rang 7, D1447–D1477) ; la langue apportée par un projet, un hook de
 langue, et la même règle des langues partout (D1465–D1475) ; la
 maintenance, les risques et les améliorations (§23, le rang 8,
-D1478–D1496) ; la complétude et son inventaire (§20, D1478–D1488).*
+D1478–D1496) ; la complétude et son inventaire (§20, D1478–D1488) ; la
+promotionnelle (§30, le rang 9, D1497–D1514) — née, à deux niveaux.*
 
 1. *(clos le 11/10 — D1171, D1184, D1186 confirmés, D1197–D1199)* ;
 2. *(clos le 11/10 — le rang 1 entier, D1238 : les sept sections, les
@@ -4338,7 +4340,7 @@ D1478–D1496) ; la complétude et son inventaire (§20, D1478–D1488).*
     une skill de la documentation du développeur, le moteur génère sans
     elle ; la skill s'écrit au rang 5.)*
 
-## 30. La promotionnelle *(le rang 9 — en cours ; le rang 9, étape 1 — acquis, D1497–D1498 : la plaquette)* *(le rang 9, étape 2 — acquis, D1503–D1505 : la démonstration)* *(le rang 9, étape 3 — acquis, D1506–D1509 : l'argumentaire du socle)*
+## 30. La promotionnelle *(le rang 9 — acquis, D1497–D1514 : deux niveaux, la plaquette de l'application, la démonstration, l'argumentaire du socle ; `promotional:` au projet)*
 
 **« une documentation promotionnelle pour exposer et vendre une
 application »** (l'auteur, D1131) — la sixième documentation, **la seule
@@ -4529,6 +4531,7 @@ et le partenaire, sans aucun droit.
    Syncytium, `docs/` consultable sur GitHub — le rang 10 (D1316) ; le
    PDF par gabarit (D1143).
 
-*(La déclinaison sur l'entrepôt est écrite, en proposition ; la colonne
-6 de la matrice écrite le 25/10/2026 dans les onze artefacts et la
-matrice d'ensemble — à valider.)*
+*(L'entrepôt déclare `promotional: false` — sa déclinaison n'a plus
+d'intérêt ; la colonne 6 de la matrice est écrite dans les onze
+artefacts et la matrice d'ensemble, validée ; le rang 9 est clos,
+D1514.)*

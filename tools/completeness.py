@@ -130,8 +130,6 @@ INVENTAIRE = {
     "enum.libelle": ("l'énuméré sans libellé", "label: de la valeur", ["fonctionnelle", "dictionnaire"]),
     "type.description": ("le type personnalisé sans description", "description: du type", ["dictionnaire"]),
     "hook.md": ("le hook sans md", "description: de la fiche", ["développeur"]),
-    "surface.description": ("la surface sans description — le masque vide", "description: de la surface",
-                            ["fonctionnelle"]),
     "operation.description": ("l'opération sans description ni md", "description: ou le md du hook",
                               ["fonctionnelle", "développeur"]),
     "erreur.arbre": ("l'erreur codifiée sans arbre", "resolution: dans errors:", ["guide"]),
@@ -186,15 +184,8 @@ def walk_fields(r, module, ent_name, fields, fallback):
 
 
 def walk_gui(r, module, owner, gui, fallback):
-    if not isinstance(gui, dict):
-        return
-    for section, surfaces in gui.items():
-        if not isinstance(surfaces, dict):
-            continue
-        for sname, sspec in surfaces.items():
-            if isinstance(sspec, dict):
-                r.check(present(sspec.get("description")), "surface.description", module, sspec,
-                        f"{owner} gui.{section}.{sname}", fallback)
+    """Une surface sans description n'est pas un manque : son masque par défaut se construit de l'entité (D1484)."""
+    return
 
 
 def walk_operations(r, module, owner, ops, hooks_md, settings_rgpd, fallback):

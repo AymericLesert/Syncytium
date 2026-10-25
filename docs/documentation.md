@@ -1593,10 +1593,14 @@ l'aide courte, au « (?) » du champ, sur les trois écrans (D262).
   au détail** ; un champ sans l'un ni l'autre **n'y est pas — son nom
   suffit à lui-même** ; **et la `description:` de tout composant
   graphique entre au masque** (D1193) — le kpi, le graphique, le
-  widget, la section, le bouton d'une opération, comme le champ ; une surface sans description dont aucun champ
-  ne porte d'aide n'a pas de masque (ma conséquence) ; la complétude
-  (§20) continue de compter le champ sans aucune aide — « il reste »
-  (D1199) ;
+  widget, la section, le bouton d'une opération, comme le champ ; **une
+  surface sans description a son masque par défaut, construit de la
+  définition de l'entité** — la description de l'entité et celles de ses
+  champs — et le concepteur le surcharge « si la mise en forme doit être
+  adaptée ou personnalisée selon les usages » (D1484, qui amende ma
+  conséquence « pas de masque ») ; la complétude (§20) ne compte pas la
+  surface sans description, elle continue de compter le champ sans
+  aucune aide — « il reste » (D1199) ;
 - **le « ? » de l'écran** fait trois choses (D1192) : il montre le
   masque, il mène à la page de l'écran dans la documentation (D1121),
   il porte l'assistance — les questions répondues de l'écran et « poser
@@ -2817,8 +2821,9 @@ lecture : le texte seul n'a plus d'objet, le scénario le porte).
 Le rapport du concepteur, à la façon de la couverture (D861/D1060) :
 **ce qui n'est pas décrit** — les entités sans `description:`, les
 champs sans `hint:` ni `description:`, les énumérés sans libellé, les
-opérations et les hooks sans description ni md, les surfaces sans
-`description:` (le masque vide), **le traitement sans responsable**
+opérations et les hooks sans description ni md, ~~les surfaces sans
+`description:`~~ (retirées, D1484 : le masque par défaut se construit
+de l'entité), **le traitement sans responsable**
 (D1320 — « non précisé ») et **la mention d'information non ancrée**
 quand `rgpd:` est présent (D1335) ; non l'entité sans marquage `rgpd:` — un
 projet sans champ marqué n'est pas une anomalie, Syncytium ne décide
@@ -2848,7 +2853,6 @@ et la documentation qu'il affaiblit.
 | le type personnalisé sans description | `description:` du type | le dictionnaire (§15), l'information | §15 (le rang 2) |
 | le md manquant d'un type ou d'un composant ajouté | `description:` de la fiche, un md par langue | le développeur | D1403, §27 |
 | **Les surfaces et les traitements** | | | |
-| la surface sans description — le masque vide | `description:` de la surface | la fonctionnelle (§7) | D1191, §7 |
 | l'opération ou le hook sans description ni md | `description:` ; le md du hook | la fonctionnelle, le développeur | D1196, D1227, D1403 |
 | l'entrée de webhook sans description | `description:` de l'entrée | le contrat d'API (§10) | §27, étape 4 |
 | l'erreur codifiée sans arbre de résolution — jamais une trace | `resolution:` dans `errors:` | le guide d'exploitation (§17) | D1463–D1464 |
@@ -2864,7 +2868,11 @@ et la documentation qu'il affaiblit.
 | la variable référencée sans valeur — à l'instance seulement | la valeur dans le fichier des variables | le D.A.T., le guide | §28, chapitre 3 |
 
 **Ce qu'elle ne compte pas**, dit en clair (D1478) : un défaut du
-socle — `history:` tu, les droits tus (D1173) ; l'entité sans aucun
+socle — `history:` tu, les droits tus (D1173) ; **la surface sans
+`description:`** — « Les surfaces sans masque ne sont pas une anomalie.
+La définition d'une entité doit permettre de construire un masque par
+défaut sans avoir besoin d'en définir un » (D1484), la description de
+la surface est une surcharge pour un usage particulier ; l'entité sans aucun
 `rgpd:` (D1319) ; le `placeholder:` absent, la cellule d'exemple reste
 vide (§14) ; une langue de la version manquante — une erreur
 d'ingestion, non un manque (D1474) ; la référence du core et la skill

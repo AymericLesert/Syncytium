@@ -3277,9 +3277,11 @@ confirme les cinq lectures ») :
    volumes déclarés, les écarts entre versions, la continuité déclarée
    ou non ; à l'instance, les mesures s'ajoutent, datées, sur la
    période de l'étape 2.
-5. **Les lecteurs** : la même règle que les usages (D1489) — le
-   chapitre se sert à partir de `manager`, chacun y voit ce que ses
-   droits lui montrent ; l'infrastructure, la sécurité et la continuité
+5. **Les lecteurs** : la même règle que les usages (D1489, confirmée
+   D1493 — « les usages et les risques restent servis à partir du
+   manager … le concepteur ou l'administrateur n'a pas toujours la
+   vision métier ») — le chapitre se sert à partir de `manager`, chacun
+   y voit ce que ses droits lui montrent ; l'infrastructure, la sécurité et la continuité
    sont la part de l'administrateur, les données et la version celle du
    concepteur et du décideur.
 

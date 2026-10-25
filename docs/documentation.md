@@ -702,7 +702,7 @@ décisions, D1170–D1238.)*
   25/10/2026, validée — D1514).
 - **Dépendances** : les huit autres ; le jeu de données (D869).
 
-#### Rang 10 — Syncytium lui-même, et `docs/` consultable sur GitHub (D1316) *(en proposition)*
+#### Rang 10 — Syncytium lui-même, et `docs/` consultable sur GitHub (D1316) — *en cours depuis le 25/10/2026 ; les étapes en proposition*
 
 « Prévois un rang dans le plan de la documentation pour documenter
 Syncytium et reprendre toute la documentation docs/ rédigée en la

@@ -24806,6 +24806,15 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-25 (suite 6) — LA 10e PUBLICATION, LE RANG 10 OUVERT (1514
+  décisions).** « crée la PR sur develop et main » — la PR #56
+  (feature/documentation → develop, D1497–D1514, vingt-trois commits)
+  ouverte puis fusionnée par l'auteur ; la PR #57 (develop → main, la
+  10e publication) ouverte après la fusion, puis fusionnée : « J'ai
+  fusionné la PR, passons au rang 10 ». Le rang 10 — Syncytium lui-même,
+  et `docs/` consultable sur GitHub (D1316) —, le dernier du plan,
+  s'ouvre : ses cinq étapes, écrites en proposition au plan, sont
+  soumises à l'auteur avec l'inventaire des artefacts (l'étape 1).
 - **2026-10-25 (suite 5) — LA 9e PUBLICATION, LE RANG 9 OUVERT ET CLOS
   (D1497–D1514, 1514 décisions).** « crée la PR sur develop et main » — la PR #54
   (feature/documentation → develop, D1478–D1496, vingt-trois commits)

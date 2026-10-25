@@ -7,7 +7,8 @@ Usage : python tools/completeness.py examples/<cas>   (PyYAML requis)
 - Relève les manques de l'inventaire de documentation.md §20 (D1478) visibles au dépôt — ce que le concepteur n'a pas
   décrit ; jamais un défaut du socle, jamais une langue manquante (une erreur d'ingestion, D1474).
 - Imprime le rapport dans la forme de D1479 : par version, le taux par documentation et par module, puis la liste des
-  manques avec la clé à écrire et où. Le code de retour porte le taux global arrondi (0–100), pour un script.
+  manques avec la clé à écrire et où ; puis les orphelins — un fichier du dossier qu'aucune clé ne cite, peut-être un
+  oubli (D1483) —, hors du taux. Le code de retour porte le taux global arrondi (0–100), pour un script.
 """
 import os
 import re
@@ -28,6 +29,7 @@ ENTITY_KEYS = {"name", "description", "title", "label", "identity", "history", "
                "validation", "allow", "confidentiality", "rgpd", "menu", "entities", "parent", "type", "unique",
                "searchable", "mode", "root", "extends", "indexes", "export", "import", "watch", "when", "every"}
 origin = {}  # id(nœud) → fichier d'origine, pour dire « où »
+reached = set()  # les fichiers atteints depuis syncytium.yml, pour les orphelins (D1483)
 texts = []  # les textes complémentaires (md) chargés, pour y chercher la mention d'information
 
 
@@ -66,6 +68,7 @@ def mark(node, path):
 
 
 def load(path):
+    reached.add(os.path.normpath(path))
     rel = os.path.relpath(path, ROOT).replace("\\", "/")
     if not path.endswith(".yml"):
         try:
@@ -357,9 +360,28 @@ def main():
             r.manques.extend(r_env.manques)
             walk_version(r, ver, f"{status}/{vlabel}", set(envs))
             rates.append(print_version(r, f"{vlabel} ({status})"))
+    print_orphans()
     taux = round(sum(rates) / len(rates)) if rates else 100
     print(f"\n**Le taux global : {taux} %** — le code de retour.")
     sys.exit(taux)
+
+
+def print_orphans():
+    """Les fichiers du dossier qu'aucune clé ne cite (D1483) : peut-être un oubli — un texte écrit, jamais référencé."""
+    all_files = []
+    for dirpath, _, files in os.walk(ROOT):
+        for f in files:
+            if f.endswith((".yml", ".md", ".txt", ".png", ".jpg", ".svg", ".csv")) and not f.startswith("."):
+                all_files.append(os.path.normpath(os.path.join(dirpath, f)))
+    orphans = sorted(os.path.relpath(p, ROOT).replace("\\", "/") for p in set(all_files) - reached)
+    print("## Les orphelins — un fichier qu'aucune clé ne cite\n")
+    print(f"*{len(reached)} fichiers atteints depuis `syncytium.yml`, {len(all_files)} fichiers dans le dossier ; un "
+          "orphelin n'entre pas dans le taux : c'est peut-être un oubli — un texte écrit, jamais référencé.*\n")
+    if not orphans:
+        print("Aucun orphelin.")
+    for o in orphans:
+        print(f"- `{o}`")
+    print()
 
 
 def print_version(r, label):

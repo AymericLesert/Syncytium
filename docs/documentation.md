@@ -725,7 +725,13 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      ADR sont à structurer » (D1392 — la voie b : un fichier par
      décision, canonique, l'index généré, la conversion scriptée et
      vérifiée, les mots et la numérotation à l'identique ; CLAUDE.md et
-     le tableau de bord adaptés) ;
+     le tableau de bord adaptés) ; **les décisions catégorisées par
+     famille** (D1516 : « Vu le nombre de décisions, peut-être serait-il
+     intéressant de les catégoriser par famille ? » — *ma lecture* : la
+     famille, un champ de l'ADR et un sous-dossier ; les thèmes des
+     artefacts comme familles ; une famille principale par décision ;
+     la classification scriptée puis relue ; le résumé famille par
+     famille) ;
   3. **le projet Syncytium** — « nous décrivons ce qui est, pas ce qui a
      été » ; « L'organisation recommandée de la configuration » ; « les
      artefacts de Syncytium appuyés par des exemples » ; « didactique,

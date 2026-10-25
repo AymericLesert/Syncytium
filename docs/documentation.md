@@ -680,8 +680,11 @@ décisions, D1170–D1238.)*
 - **Étapes** :
   1. la plaquette : la structure générée (le nom, la description, les
      modules, le modèle d'ensemble, les écrans rendus, les personas et
-     leurs scénarios, « quoi de neuf »), les textes écrits — *en cours* ;
-  2. la démonstration : l'instance d'essai, le jeu de données (D869) ;
+     leurs scénarios, « quoi de neuf »), les textes écrits : **acquis le
+     25/10/2026 (D1497–D1498)** — l'adhésion à l'intérieur, « pour vous »
+     par persona, `visibility:` tranchée, trois canaux ;
+  2. la démonstration : l'instance d'essai, le jeu de données (D869) —
+     *en cours* ;
   3. l'argumentaire du socle : l'open source (D19), une instance par
      client, les API, l'auto-documentation — la part de Syncytium.
 - **Déclinaison** : l'entrepôt ; le cas 8 le jour venu.
@@ -4307,7 +4310,7 @@ D1478–D1496) ; la complétude et son inventaire (§20, D1478–D1488).*
     une skill de la documentation du développeur, le moteur génère sans
     elle ; la skill s'écrit au rang 5.)*
 
-## 30. La promotionnelle *(le rang 9 — en cours ; le rang 9, étape 1 — en cours : la plaquette)*
+## 30. La promotionnelle *(le rang 9 — en cours ; le rang 9, étape 1 — acquis, D1497–D1498 : la plaquette)* *(le rang 9, étape 2 — en cours : la démonstration)*
 
 **« une documentation promotionnelle pour exposer et vendre une
 application »** (l'auteur, D1131) — la sixième documentation, **la seule
@@ -4334,5 +4337,43 @@ l'application et à son usage » — la plaquette et la démonstration, les
 mode public (D1150) reste sa déclinaison vers l'extérieur, le prospect
 et le partenaire, sans aucun droit.
 
-*(La section s'écrit au fil du rang 9 ; les étapes 1 à 3 ci-dessous, en
-proposition jusqu'à l'arbitrage.)*
+### 1. La plaquette de l'application (D1497–D1498 — acquis)
+
+1. **Son but et ses lecteurs** : l'adhésion — elle s'adresse d'abord à
+   l'intérieur, la direction, les responsables métier, les
+   collaborateurs, et dit ce que l'application change pour chacun ; elle
+   se lit avec un compte, à tout degré, `reader` compris, et c'est **la
+   première page de la documentation dans l'application** ; le mode
+   public (D1150) reste sa déclinaison vers l'extérieur, le prospect et
+   le partenaire, sans aucun droit et sans donnée.
+2. **La structure générée**, dans l'ordre d'une plaquette : **le
+   projet** — le nom, la description, le concepteur, le contact, les
+   droits d'auteur (D1153, D1355), les langues ; **les modules** — leur
+   `title:` et leur `description:` (D1120), ce que chacun permet ; **le
+   modèle d'ensemble en image** — le diagramme de §5 réduit aux entités
+   et à leurs liens, les titres sans les champs ; **« pour vous »** — par
+   persona (§22, D1200), ce que l'application change pour son groupe,
+   ses scénarios comme cas d'usage, les écrans de ses scénarios rendus
+   par Syncytium lui-même (D1129), peuplés des `placeholder:` et jamais
+   de données ; **« quoi de neuf »** — les notes de la version en
+   production la plus élevée (D1112, D1123).
+3. **Les textes écrits** : le ton et la promesse sont au concepteur
+   (D1122) ; le texte vient de **`pages: presentation:`** du
+   `documentation.yml` de la version (§12), par langue selon la règle
+   des langues (D1474) — le besoin, ce que l'application change, ce qui
+   ne change pas ; **un texte par persona, facultatif**, dans la fiche du
+   persona ; Syncytium n'invente aucune promesse — sans texte, la
+   plaquette montre la structure seule et la complétude (§20) relève le
+   manque.
+4. **`visibility:` tranchée** (D1151 attendait ce rang) : `promotional`,
+   le défaut — la plaquette seule, sans compte ; `public` — la plaquette
+   et toute la documentation en mode public, sans donnée ni rien de
+   confidentiel ; `private` — rien sans compte. Dedans, la plaquette se
+   lit toujours.
+5. **Trois canaux**, le même contenu : dans l'application, à tout
+   degré ; en édition imprimable, la plaquette en PDF par un gabarit
+   (D1143) — la réunion de direction, le papier sur le bureau ; au dépôt,
+   `syncytium document <env> promotional` (D1167) ; le mode public en est
+   l'extrait sans compte.
+
+*(Les étapes 2 et 3 ci-dessous, en proposition jusqu'à l'arbitrage.)*

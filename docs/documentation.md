@@ -2854,7 +2854,7 @@ et la documentation qu'il affaiblit.
 | le type personnalisé sans description | `description:` du type | le dictionnaire (§15), l'information | §15 (le rang 2) |
 | le md manquant d'un type ou d'un composant ajouté | `description:` de la fiche, un md par langue | le développeur | D1403, §27 |
 | **Les surfaces et les traitements** | | | |
-| l'opération ou le hook sans description ni md | `description:` ; le md du hook | la fonctionnelle, le développeur | D1196, D1227, D1403 |
+| l'opération ou le hook sans description ni md — la finalité RGPD de l'opération, `rgpd.purpose:`, compte comme sa description (D1487) | `description:` ; le md du hook ; `purpose:` | la fonctionnelle, le développeur | D1196, D1227, D1403, D1487 |
 | l'entrée de webhook sans description | `description:` de l'entrée | le contrat d'API (§10) | §27, étape 4 |
 | l'erreur codifiée sans arbre de résolution — jamais une trace | `resolution:` dans `errors:` | le guide d'exploitation (§17) | D1463–D1464 |
 | le groupe sans persona — un persona généré, nommé par le groupe | `persona:` du groupe | la fonctionnelle (§22) | §22, D1182 |

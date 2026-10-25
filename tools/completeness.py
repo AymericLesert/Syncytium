@@ -132,8 +132,8 @@ INVENTAIRE = {
     "enum.libelle": ("l'énuméré sans libellé", "label: de la valeur", ["fonctionnelle", "dictionnaire"]),
     "type.description": ("le type personnalisé sans description", "description: du type", ["dictionnaire"]),
     "hook.md": ("le hook sans md", "description: de la fiche", ["développeur"]),
-    "operation.description": ("l'opération sans description ni md", "description: ou le md du hook",
-                              ["fonctionnelle", "développeur"]),
+    "operation.description": ("l'opération sans description, ni md, ni finalité", "description:, le md du hook ou "
+                              "rgpd.purpose:", ["fonctionnelle", "développeur"]),
     "erreur.arbre": ("l'erreur codifiée sans arbre", "resolution: dans errors:", ["guide"]),
     "groupe.persona": ("le groupe sans persona", "persona: du groupe", ["fonctionnelle"]),
     "rgpd.controller": ("le traitement sans responsable", "controller:", ["réglementaire"]),
@@ -191,7 +191,9 @@ def walk_operations(r, module, prefix, ops, hooks_md, settings_rgpd, fallback):
     for oname, ospec in ops.items():
         ospec = ospec if isinstance(ospec, dict) else {}
         key = f"{prefix}.operations.{oname}"
-        ok = present(ospec.get("description")) or oname in hooks_md
+        rgpd = ospec.get("rgpd") if isinstance(ospec.get("rgpd"), dict) else {}
+        # la finalité RGPD de l'opération compte comme sa description (D1487)
+        ok = present(ospec.get("description")) or oname in hooks_md or present(rgpd.get("purpose"))
         r.check(ok, "operation.description", module, ospec or ops, f"{key}.description", fallback)
         if isinstance(ospec.get("rgpd"), dict):
             for prop in ("purpose",):

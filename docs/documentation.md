@@ -2832,6 +2832,47 @@ complétude ne relève que ce qui devrait être écrit et ne l'est pas —
 tel quel, et la complétude le compte (D1182) ; le champ sans `hint:` ni
 `description:` n'est pas au masque — « son nom suffit » (D1191) — mais
 reste dans le rapport (D1199).
+
+**L'inventaire consolidé** (D1478 — le rang 8, l'étape 1) : ce que les
+rangs 1 à 7 ont posé, rassemblé ; chaque manque nomme la clé à écrire
+et la documentation qu'il affaiblit.
+
+| Le manque | La clé à écrire | La documentation affaiblie | Où c'est dit |
+|---|---|---|---|
+| **Le modèle** | | | |
+| l'entité sans description | `description:` de l'entité | la fonctionnelle, le dictionnaire | §20, D1177 |
+| le champ sans aide ni description | `hint:` ou `description:` du champ | la fonctionnelle, le dictionnaire | D1191, D1199 |
+| le libellé absent — le nom nu `${name}` s'affiche | `label:` | toutes — un texte pour le lecteur manque | D1181–D1182 |
+| l'énuméré sans libellé | le `label:` de la valeur | la fonctionnelle, le dictionnaire | §20 (le rang 1) |
+| le type personnalisé sans description | `description:` du type | le dictionnaire (§15), l'information | §15 (le rang 2) |
+| le md manquant d'un type ou d'un composant ajouté | `description:` de la fiche, un md par langue | le développeur | D1403, §27 |
+| **Les surfaces et les traitements** | | | |
+| la surface sans description — le masque vide | `description:` de la surface | la fonctionnelle (§7) | D1191, §7 |
+| l'opération ou le hook sans description ni md | `description:` ; le md du hook | la fonctionnelle, le développeur | D1196, D1227, D1403 |
+| l'entrée de webhook sans description | `description:` de l'entrée | le contrat d'API (§10) | §27, étape 4 |
+| l'erreur codifiée sans arbre de résolution — jamais une trace | `resolution:` dans `errors:` | le guide d'exploitation (§17) | D1463–D1464 |
+| le groupe sans persona — un persona généré, nommé par le groupe | `persona:` du groupe | la fonctionnelle (§22) | §22, D1182 |
+| **Le réglementaire** | | | |
+| le traitement sans responsable — « non précisé » au registre | `controller:` | la réglementation (§18) | D1320 |
+| la propriété du traitement absente à tous les niveaux | `purpose:`, la rétention… | la réglementation | D1320–D1327 |
+| la mention d'information non ancrée quand `rgpd:` est présent | le `paragraph` de la mention | la réglementation, la fonctionnelle | D1335 |
+| **Le projet et l'instance** | | | |
+| le projet sans texte de support | `pages: support:` | le projet et le support (§26) | D1377 |
+| l'environnement sans description | `description:` de l'environnement | le D.A.T. (§28) | D1426, §28 |
+| l'environnement sans texte d'exploitation | `pages: operations:` | le guide d'exploitation (§17) | §17, chapitre 3 |
+| la variable référencée sans valeur — à l'instance seulement | la valeur dans le fichier des variables | le D.A.T., le guide | §28, chapitre 3 |
+
+**Ce qu'elle ne compte pas**, dit en clair (D1478) : un défaut du
+socle — `history:` tu, les droits tus (D1173) ; l'entité sans aucun
+`rgpd:` (D1319) ; le `placeholder:` absent, la cellule d'exemple reste
+vide (§14) ; une langue de la version manquante — une erreur
+d'ingestion, non un manque (D1474) ; la référence du core et la skill
+(§27) ; les postes et les navigateurs du D.A.T. (§28) ; un texte écrit
+par une IA — pour Syncytium, un texte du concepteur, passé par le dépôt
+et sa relecture (D1226, qui clôt D1169). Les questions sans réponse de
+l'assistance ne sont pas un manque de description : elles vont à la
+supervision (§23).
+
 **Le seuil** (D1221) : **une ligne de commande mesure la complétude,
 avec le même moteur que celle qui génère la documentation** ; **le
 seuil est à la discrétion du concepteur** — « s'il souhaite diffuser
@@ -3261,9 +3302,9 @@ d'abord ; les notifications (D108) — aux répondants à chaque question,
 chaque écran, générée des questions répondues (la troisième source
 s'élargit, D334 : les données de l'instance comprennent ce que les
 utilisateurs demandent) ; le chat (D957) — les questions et les
-réponses entrent dans sa connaissance, sous les droits ; la complétude
-(§20) et la supervision (§23) — les questions sans réponse, les écrans
-qui en suscitent le plus : l'écran qui pose question est l'écran à
+réponses entrent dans sa connaissance, sous les droits ; la
+supervision (§23) — non la complétude, D1478 — les questions sans
+réponse, les écrans qui en suscitent le plus : l'écran qui pose question est l'écran à
 mieux documenter ; les scénarios et les planches (§22, §24) — une
 question fréquente appelle une planche.
 

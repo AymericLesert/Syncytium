@@ -648,7 +648,9 @@ décisions, D1170–D1238.)*
   3. l'analyse des risques : le dry-run (D737), les anomalies de la
      reprise, les validations en échec, les refus et les pics (D43),
      les dépréciées appelées (D742), les dépendances (D924), le PRA,
-     les volumes (D985/D1012) ;
+     les volumes (D985/D1012) : **acquis le 25/10/2026 (D1490)** — un
+     fait mesuré en regard d'un choix, six familles, le renvoi, le dépôt
+     et l'instance, les lecteurs ;
   4. la recherche d'améliorations : les conseils (D45), le retrait et
      le resserrement (D46/D48), les écrans jamais ouverts, les
      demandes, les questions sans réponse (§25).
@@ -3238,6 +3240,48 @@ reflète ce que nous avons déjà partagé ») :
    classement, le dernier dixième ; « non utilisés », zéro sur la
    période ; le classement suffit à l'analyse. Les seuils de la
    télémétrie restent où ils sont.
+
+**L'analyse des risques — acquis** (D1490, le rang 8, l'étape 3 : « Je
+confirme les cinq lectures ») :
+
+1. **Le principe** : un risque est **un fait mesuré par l'instance, mis
+   en regard d'un choix du concepteur**. Le chapitre ne découvre rien
+   que la télémétrie, le journal et la reprise ne mesurent déjà : il
+   rassemble et il place. Chaque risque dit quatre choses — **la mesure,
+   sa lecture, où il se traite, le conseil**. Il ne décide jamais de ce
+   qui est un risque pour le métier (comme D1319 pour le réglementaire)
+   et n'agit jamais, le conseil reste consultatif (D45).
+2. **Six familles**, dans l'ordre où elles pèsent sur une version :
+   **la version** — le rapport du dernier dry-run de migration (D7–D9),
+   les écarts de la version suivante qui touchent la structure (§9),
+   les versions dépréciées encore appelées et par quel compte technique
+   (D742, D40) ; **la reprise** — les anomalies et les rejets des
+   passages, leur tendance, la couverture (migration.md) ; **les
+   données** — les validations qui échouent le plus, par règle et par
+   champ, les volumes par entité et leur croissance, les calculés sur
+   les volumes et les listes lentes (D985, D1012) ; **la sécurité** —
+   les refus de droits et les pics (D43), les tentatives refusées, les
+   CVE à traiter (D1451) ; **l'infrastructure** — les dépendances du
+   core et des hooks, leur version et leur licence (D924, D1432), la
+   disponibilité et la charge (D1453) ; **la continuité** — l'état du
+   passif et son retard (D731), la dernière sauvegarde et sa dernière
+   vérification (D1450), ou « non disponible » quand rien n'est déclaré
+   (D1476) : l'absence de sauvegarde est alors un risque nommé.
+3. **Le chapitre renvoie, il ne répète pas** : la fiche du guide pour
+   le geste (§17), le D.A.T. pour ce qui est connecté (§28), le registre
+   réglementaire pour les traitements (§18), la complétude (§20) pour la
+   documentation elle-même — son manque est un risque d'exploitabilité
+   (D1480).
+4. **Au dépôt et à l'instance** : au dépôt, le cadre et ce que la
+   configuration seule permet — les dépendances et leurs licences, les
+   volumes déclarés, les écarts entre versions, la continuité déclarée
+   ou non ; à l'instance, les mesures s'ajoutent, datées, sur la
+   période de l'étape 2.
+5. **Les lecteurs** : la même règle que les usages (D1489) — le
+   chapitre se sert à partir de `manager`, chacun y voit ce que ses
+   droits lui montrent ; l'infrastructure, la sécurité et la continuité
+   sont la part de l'administrateur, les données et la version celle du
+   concepteur et du décideur.
 
 *Mes propositions d'origine* — la pièce où la documentation cesse de décrire pour
 **mesurer et conseiller** ; ses opérations de maintenance s'expliquent

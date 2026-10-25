@@ -2400,7 +2400,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1454 ; l'étape 4, le dépannage, D1455–D1461 ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1454 ; l'étape 4, le dépannage, D1455–D1462 ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2546,7 +2546,7 @@ technique, le réglage de l'outil, l'essai — et **connecter les
 journaux** — le puits déclaré au `logging.yml`, les niveaux envoyés, le
 réglage de l'outil, l'essai.
 
-### 4. Le dépannage (D1455–D1461)
+### 4. Le dépannage (D1455–D1462)
 
 **Le catalogue des erreurs du core**, calculé : chaque erreur que le
 moteur peut émettre à l'exploitation, par son code et son texte — **dans la
@@ -2580,7 +2580,14 @@ erreurs d'un hook, codifiées** dans sa section `errors:` (D1461, qui
 amende le md dédié de D1458) — par code : le message à gabarit du
 journal, la description facultative, l'arbre de résolution que le guide
 schématise et qu'une IA peut exploiter pour trouver et corriger ;
-chaque élément par langue (D1460) ; *mes ajouts, en proposition* : le
+chaque élément par langue (D1460) ; **le gabarit porte sur le
+message, la description et l'arbre**, pour personnaliser la résolution
+de l'incident identifié, et **l'arbre est fait de nœuds — une analyse,
+des branches pour les cas — acyclique par construction** (D1462) ;
+**les erreurs se transcrivent dans le guide** : sur la console, l'erreur
+lue au journal s'ouvre sur son arbre résolu avec ses valeurs ; dans
+l'édition, toutes les erreurs possibles ; une équipe tierce reçoit des
+éléments clairs ; *mes ajouts, en proposition* : le
 niveau du journal, la famille du dépannage, la position de sécurité,
 le rejouable, qui résout et par quel canal, les paramètres typés du
 gabarit, le renvoi à la fiche ; les erreurs du core codifiées de même

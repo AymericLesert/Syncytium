@@ -96,7 +96,9 @@ description (D1227). Le md est une configuration : il ne cite ni
 décision ni histoire du cas (D1085) — les md des hooks du véhicule et
 de la banque sont à nettoyer sur ce point.
 
-**Les erreurs codifiées** (D1461, en proposition pour la forme) :
+**Les erreurs codifiées** (D1461–D1462 ; la forme en proposition — le
+gabarit sur le message, la description et chaque nœud ; l'arbre en
+nœuds, une analyse et des branches, acyclique par construction) :
 
 ```yaml
 # hooks/operations/virer/errors.yml — les erreurs du hook, par code
@@ -107,10 +109,11 @@ E001:
     en: "Target account {compte} has been closed since {date}"
   description:                           # facultative, par langue
     fr: Le virement vise un compte que son titulaire a fermé.
-  resolution:                            # l'arbre de résolution — schématisé, exploitable par l'IA
-    - check: { fr: Le compte est-il réellement clos ? }
-      yes: { fr: Choisir un autre compte cible et relancer. }
-      no: { fr: Rouvrir le compte depuis sa fiche, puis relancer. }
+  resolution:                            # l'arbre de résolution — des nœuds, acyclique ; schématisé, exploitable par l'IA
+    check: { fr: "Le compte {compte} est-il réellement clos ?" }   # un nœud : une analyse, le gabarit résolu
+    branches:                                                    # les cas ; une feuille porte une action
+      oui: { action: { fr: "Choisir un autre compte cible et relancer le virement de {montant}." } }
+      non: { action: { fr: "Rouvrir le compte {compte} depuis sa fiche, puis relancer." } }
 ```
 
 ## Les familles

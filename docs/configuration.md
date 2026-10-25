@@ -575,8 +575,11 @@ D1101) : le projet l'apporte — le cas « ajoute » du catalogue en
 couches (D1163), appliqué au catalogue du moteur. La commande
 **`syncytium language fr pt`** construit le catalogue à traduire — `fr`
 la langue de référence, `pt` la langue souhaitée : tous les items du
-core, codifiés (D1160), avec leurs textes de référence — et **le
-concepteur le traduit item par item**. Le catalogue vit dans la
+core, codifiés (D1160), avec leurs textes de référence, **et lui
+seul** (D1466) — et **le concepteur le traduit item par item**. Les
+textes du projet suivent la règle ci-dessus : `pt` dans `languages:`,
+chaque `label:`, `hint:`, `description:` la porte comme toute langue
+de la version (D1101), le repli et la complétude s'appliquent. Le catalogue vit dans la
 configuration (D1440), référencé sous la version à côté de
 `languages:` — *en proposition* : `locales: { pt: ~{locales/pt.yml} }` —,
 avec le fuseau et les formats que D217 attache à une langue. **Il doit

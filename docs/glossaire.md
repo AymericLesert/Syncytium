@@ -376,9 +376,11 @@ validations, filtres, gabarits.
 
 **Langue apportée** — Une langue que le core ne porte pas et qu'un
 projet apporte : son catalogue, complet, construit par `syncytium
-language` depuis une langue de référence et traduit item par item ;
-dans la configuration, sous la version ; incomplet, une erreur
-d'ingestion ; elle peut être la langue technique. *(D1465)*
+language` depuis une langue de référence et traduit item par item —
+le catalogue du core seul, les textes du projet la portent comme toute
+langue de la version (D1101) ; dans la configuration, sous la version ;
+incomplet, une erreur d'ingestion ; elle peut être la langue
+technique. *(D1465–D1466)*
 
 **Langue technique** — La langue des journaux, des traces et du
 catalogue des erreurs techniques d'une instance : définie à la

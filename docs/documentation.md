@@ -627,7 +627,7 @@ décisions, D1170–D1238.)*
   d'ensemble (validée le 25/10/2026, D1477).
 - **Dépendances** : les choix techniques (D1025), le D.A.T.
 
-#### Rang 8 — la maintenance, les risques, les améliorations (documentation 7) — *en cours depuis le 25/10/2026*
+#### Rang 8 — la maintenance, les risques, les améliorations (documentation 7) — *clos le 25/10/2026, D1496*
 
 - **Périmètre** : l'analyse — la supervision des usages, les
   contrôles, les optimisations, les risques, la recherche
@@ -658,12 +658,12 @@ décisions, D1170–D1238.)*
      fait, quatre familles, trois lieux, servie à `administrator`.
 - **Déclinaison** : **la complétude des cinq cas, faite le 25/10/2026**
   (D1488 — dans la maison de chaque cas) ; **l'entrepôt pour le reste,
-  écrit le 25/10/2026, en proposition**
+  validé le 25/10/2026 (D1496)**
   ([usecases/05_entrepot.md](../usecases/05_entrepot.md)) : les risques
   visibles au dépôt, et l'image à l'instance.
 - **Livrables** : §20 et §23 validés (D1478–D1495) ; §8 inchangé ;
   [telemetry.md](telemetry.md) ; la colonne 7 de la matrice dans les onze
-  artefacts et la matrice d'ensemble (écrite le 25/10/2026, à valider).
+  artefacts et la matrice d'ensemble (validée le 25/10/2026, D1496).
 - **Dépendances** : la télémétrie et l'instance, sauf §20.
 
 #### Rang 9 — la promotionnelle (documentation 6)
@@ -3200,7 +3200,7 @@ arbitrer point par point)* :
    mes lectures : le groupe `foyer`, l'utilisateur par défaut y
    appartient, le degré `administrator`).
 
-## 23. La maintenance, les contrôles et la supervision (D1128) *(en proposition)*
+## 23. La maintenance, les contrôles et la supervision (D1128) *(le rang 8 — acquis, D1489–D1496 : les usages, les risques, les améliorations ; la complétude en §20)*
 
 **« Cette documentation est à compléter avec des opérations de
 maintenance, de contrôles ou de supervision incluant quelques aspects
@@ -4251,7 +4251,7 @@ core ; rien d'autre n'est requis. **La complétude** ne mesure rien ici.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 6 est clos (D1435).*
 
-## 29. Les points ouverts *(rafraîchis à la clôture du rang 7, le 25/10/2026)*
+## 29. Les points ouverts *(rafraîchis à la clôture du rang 8, le 25/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -4261,7 +4261,9 @@ dans celle de l'application (D645 → le chapitre 2 de §6, D1189), les
 modes opératoires comme chapitre (§24 → §22, D1188), le parcours guidé
 comme chapitre (§19 → §22, D1187) ; le guide d'exploitation (§17, le
 rang 7, D1447–D1477) ; la langue apportée par un projet, un hook de
-langue, et la même règle des langues partout (D1465–D1475).*
+langue, et la même règle des langues partout (D1465–D1475) ; la
+maintenance, les risques et les améliorations (§23, le rang 8,
+D1478–D1496) ; la complétude et son inventaire (§20, D1478–D1488).*
 
 1. *(clos le 11/10 — D1171, D1184, D1186 confirmés, D1197–D1199)* ;
 2. *(clos le 11/10 — le rang 1 entier, D1238 : les sept sections, les
@@ -4285,10 +4287,11 @@ langue, et la même règle des langues partout (D1465–D1475).*
    domaine 7)* ;
 10. les pièces encore en proposition, à arbitrer à leur rang : — le
     guide d'exploitation (§17) acquis au rang 7 (D1447–D1477) ; §18, la
-    conformité, acquise au rang 3 (D1317–D1344) — la complétude et son
-    seuil (§20), la maintenance (§23 — la part de chaque lecteur,
-    la périodicité, les seuils) ; l'assistance (§25) acquise au rang 4 — fondue
-    dans §26, chapitre 3 (D1363–D1374) ;
+    conformité, acquise au rang 3 (D1317–D1344) ; la complétude et son
+    seuil (§20) acquis au rang 8 (D1478–D1488) ; la maintenance (§23)
+    acquise au rang 8 (D1489–D1496) — restent les seuils de la
+    télémétrie, à leur calibration ; l'assistance (§25) acquise au rang 4
+    — fondue dans §26, chapitre 3 (D1363–D1374) ;
 11. le contexte (D1131, D1133–D1135) : la formation comme usage ; la
     réglementation élargie à la sécurité ; les compléments par
     documentation ;

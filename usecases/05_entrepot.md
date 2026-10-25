@@ -3192,7 +3192,7 @@ documentation.md — D1489–D1495. La complétude est faite, ci-dessus
 (D1488). Le reste de la documentation 7 n'existe qu'avec l'instance :
 on montre d'abord ce que le dépôt seul permet, puis l'image que
 donnerait l'instance après quelques mois, à titre d'illustration.
-**En proposition.**)*
+**Validée le 25/10/2026, D1496.**)*
 
 ### Au dépôt — le cadre et les risques que la configuration seule permet
 

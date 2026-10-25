@@ -4421,7 +4421,10 @@ et le partenaire, sans aucun droit.
    ni en mode public, où seule la page d'accueil reste (D1156) — ; la
    complétude (§20) ne compte plus le texte de présentation ni le plan,
    le persona restant à la fonctionnelle (§22) ; un plan ou une vue
-   marquée avec `promotional: false` est une erreur d'ingestion.
+   marquée avec `promotional: false` est **une alerte d'ingestion, non
+   une erreur** (D1512 : « cette option peut être utilisée
+   temporairement ») — le plan et les marques dorment, la clé se pose
+   et se retire sans toucher au reste.
 5. **Trois canaux**, le même contenu : dans l'application, à tout
    degré ; en édition imprimable, la plaquette en PDF par un gabarit
    (D1143) — la réunion de direction, le papier sur le bureau ; au dépôt,

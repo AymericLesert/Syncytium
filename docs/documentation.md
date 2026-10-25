@@ -1768,8 +1768,15 @@ rel="successor-version"`, sans `Sunset` (D742) — l'intention et l'acte
 de D650 ; **426** avec la version à employer quand on cesse de servir,
 sous la version minimale (D94) ; **410** quand la version a été
 rejetée — interdite, retirée (D345) — ; **404** jamais déclarée ; 429 et `Retry-After`, le débit (D105) ; 202 et la ressource
-de suivi (D24) ; **les limites** — le débit du compte, la pagination, la taille
-d'un lot, telles qu'elles valent pour le compte qui lit ; **la
+de suivi (D24) ; **les limites** — le débit du compte et le périmètre de son
+« pour le compte de », tels qu'ils valent pour le compte qui lit
+(D1437) ; **la taille des lots et la pagination ne sont pas de la
+responsabilité de l'appelant** (D1437 : « Syncytium va gérer cette
+contrainte ») — un lot d'écriture dont la quantité est inférieure à la
+taille du lot est traité ; au-delà, l'appel retourne un code qui dit
+qu'une partie seulement a été traitée et la taille du lot à prendre en
+compte par le client, qui reprend au suivant ; la règle écrite ici, en
+tête ; le code de la réponse partielle au domaine 7 ; **la
 dépréciation** — l'intention, l'acte, le retrait (D650), portés par la
 version et jamais par une date (D742), et où lire l'« à venir » ; les
 origines autorisées (D918) et HTTPS (D919) relèvent de l'environnement,

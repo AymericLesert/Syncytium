@@ -2288,7 +2288,11 @@ qui mène à quoi**.
 - **Le cycle de vie se décrit dans la section de l'entrée de menu**
   (D1195) : pour l'entité que l'entrée atteint, et ses enfants (les
   compositions de l'agrégat, D101), le diagramme d'états (§5) et la
-  table des passages permis ; **les permis** — l'`allow` par état
+  table des passages permis — **et chaque opération en graphe
+  d'état, schématique** (D1436 : « des représentations schématiques via
+  des graphes d'état afin de rendre la consultation très visuelle ») :
+  ses étapes pour une suite, les états qu'elle fait franchir, ce qui la
+  déclenche, calculé ; **les permis** — l'`allow` par état
   (D422), l'`allow` d'un champ (D886) — se lisent dans la section comme
   une propriété de l'entité ou du champ, avec les groupes qui les
   franchissent ; **une entité que le menu n'atteint pas n'est pas
@@ -2421,7 +2425,9 @@ le degré ; **la forme** (D1321) : « la réglementation présente la
 documentation des traitements groupée par module. La référence aux
 données exploitées par les traitements viennent compléter la section du
 traitement » — *ma lecture* : une section par module soumis, une
-sous-section par traitement (son nom, sa forme, son responsable, qui
+sous-section par traitement — **avec son graphe d'état, schématique**
+(D1436) : la donnée d'origine, les étapes, les destinataires, la
+rétention et l'anonymisation au bout — (son nom, sa forme, son responsable, qui
 peut le déclencher, sa fréquence, sa règle), puis les données qu'il
 exploite — les champs `rgpd:` par entité, leur niveau, leur stockage
 (le renvoi au dictionnaire), leur rétention, les connecteurs sortants. **Le bloc `rgpd:` du

@@ -142,7 +142,7 @@ contrat** (D620), la conformité d'une classe vérifiée au chargement :
 | `webhook` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete (D609) | — | D623–D624 |
 | `siren` | la vérification des identifiants | — | D611/D623 |
 | `authentication` | l'identité — l'utilisateur et l'API (D692) | local, azure_ad, sso, keycloak (D716), **none** (D759 — le domestique : l'utilisateur par défaut au degré administrator) | D418/D692/D716/D759 |
-| `llm` | le modèle de langage du module `chat` (D957) — la question de l'utilisateur, la connaissance de l'instance sous ses droits | — *(les classes à consigner : un service en ligne, un modèle local)* | D957 |
+| `llm` | le modèle de langage du module `chat` (D957) — la question de l'utilisateur, la connaissance de l'instance sous ses droits ; **et l'IA de la démonstration de Syncytium** (D1510) — d'une phrase, une configuration unique | — *(les classes à consigner : un service en ligne, un modèle local)* | D957 |
 
 *(La reprise n'est pas une famille : le connecteur de reprise
 (D175–D179) s'appuie sur les familles existantes — le storage en

@@ -4475,7 +4475,9 @@ et le partenaire, sans aucun droit.
    fonctionnement de l'application avec un seul connecteur "le storage"
    … Passé la démo, la base se supprime ») : sur le site vitrine, une
    page « essayer » — le visiteur écrit son besoin ; l'IA, armée de la
-   skill du core (D1224–D1226), écrit un `syncytium.yml` unique dans la
+   skill du core (D1224–D1226) **par un connecteur `llm`** (D1510, D957 —
+   le seul connecteur réel de la démonstration, tout échange tracé, aucune
+   donnée de l'instance), écrit un `syncytium.yml` unique dans la
    forme du tiny (D1114) — c'est l'IA qui écrit la configuration, le
    moteur génère sans elle ; Syncytium l'ingère en sandbox de
    démonstration (D1503) sur **un storage de classe `memory`** (D1045,

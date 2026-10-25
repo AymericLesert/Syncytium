@@ -595,13 +595,14 @@ décisions, D1170–D1238.)*
   1. ce que la configuration et [administration.md](administration.md)
      génèrent (les environnements, les connecteurs, le journal, le
      nettoyage, les opérations périodiques, les commandes) et ce qui
-     s'écrit — *en cours (D1447 : les six lectures acquises, le chapitre
-     « installer » porté par l'instance, la ligne de commande unique ;
-     mes lectures à confirmer)* ;
+     s'écrit : **acquis le 25/10/2026 (D1447–D1448, D1450)** — les trois
+     matières, le chapitre « installer » porté par l'instance,
+     `syncytium init` la ligne unique ;
   2. les procédures : la promotion (D340), la copie (D1080), la
      rotation (D1079), la relecture (D943), la restauration (D171), la
-     sauvegarde — *en cours (D1449 : la synchronisation entre instances
-     ajoutée aux fiches)* ;
+     sauvegarde : **acquis le 25/10/2026 (D1449–D1450)** — treize fiches
+     sur un plan unique, la synchronisation entre instances et la
+     vérification d'une sauvegarde comprises ;
   3. la supervision quotidienne : le journal, le tableau de bord, les
      alertes (D44), les passages de la reprise ;
   4. le dépannage : les erreurs connues et leur remède.
@@ -2384,7 +2385,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449 ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2438,8 +2439,7 @@ mettre dans la documentation et il est porté par l'instance.
 L'installation doit pouvoir se faire par une seule ligne de commande la
 même pour toutes les instances et toutes les versions de Syncytium.
 Cette ligne de commande est décrite sur le site vitrine de Syncytium
-que nous mettrons en oeuvre avec Syncytium ») — *mes lectures, à
-confirmer* : la ligne unique est `syncytium init` (D1360), qui lit
+que nous mettrons en oeuvre avec Syncytium ») — la ligne unique est `syncytium init` (D1360, confirmé D1450), qui lit
 `from:` et récupère le core ; le chapitre la donne pour cette
 instance, avec ses prérequis, puis ce que l'amorçage a produit — le
 fichier des variables à renseigner (D1429) ; **le site vitrine est Syncytium
@@ -2450,7 +2450,7 @@ et le module de présentation de l'outil (le rang 9 pour le module, le
 rang 10 pour Syncytium seul) ; **« Syncytium seul est une application
 vide avec la documentation incluse »** (D1447).
 
-### 2. Les procédures (D1449, en cours)
+### 2. Les procédures (D1449–D1450)
 
 **Une fiche par procédure**, sur le même plan — quand et qui, le geste
 ou la commande instancié avec les noms de l'instance, ce qui se passe,
@@ -2466,9 +2466,13 @@ synchronisation entre instance est à décrire et présenter ») — le lien
 actif-passif et ses trois modes, `replication:` brut, différentiel,
 synchrone (D724), la copie de la production vers le staging (D112–D113),
 la bascule manuelle et son retour (D114), l'état du passif et son
-retard à la santé (D731), la resynchronisation après une coupure. *Les
+retard à la santé (D731), la resynchronisation après une coupure ; **et la vérification d'une
+sauvegarde** (D1450) — la restauration d'essai dans une sandbox depuis
+une archive, la fiche qui prouve que les sauvegardes servent. Les
 fiches sont la référence du core, instanciées ; le texte du site s'y
-ajoute. En cours d'arbitrage.*
+ajoute. **Le chapitre « installer »** (D1450) : la ligne unique est
+`syncytium init` (D1360), avec ses prérequis, puis le fichier des
+variables à renseigner (D1429).
 
 ## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 

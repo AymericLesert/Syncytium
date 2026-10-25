@@ -610,8 +610,8 @@ décisions, D1170–D1238.)*
      journal, les passages, la supervision externe et les journaux
      connectés ;
   4. le dépannage : les erreurs connues et leur remède : **acquis le
-     25/10/2026 (D1455–D1460)** — le catalogue dans la langue technique
-     de l'instance, les familles,
+     25/10/2026 (D1455–D1464)** — le catalogue dans la langue technique
+     de l'instance, les traces codifiées et leur arbre, les familles,
      l'arbre de décision schématique, les contacts au crédit, le md des
      erreurs du hook, le mode safe en dernier recours.
 - **Déclinaison** : **l'entrepôt** — **écrite le 25/10/2026, en
@@ -2400,7 +2400,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1454 ; l'étape 4, le dépannage, D1455–D1463 ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1454 ; l'étape 4, le dépannage, D1455–D1464 ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2546,7 +2546,7 @@ technique, le réglage de l'outil, l'essai — et **connecter les
 journaux** — le puits déclaré au `logging.yml`, les niveaux envoyés, le
 réglage de l'outil, l'essai.
 
-### 4. Le dépannage (D1455–D1463)
+### 4. Le dépannage (D1455–D1464)
 
 **Le catalogue des erreurs du core**, calculé : chaque erreur que le
 moteur peut émettre à l'exploitation, par son code et son texte — **dans la
@@ -2592,12 +2592,12 @@ en debug n'est pas une erreur et ne nécessite pas d'arbre de résolution.
 Par contre, une erreur nécessite un maximum de détail ») — le code et le
 message pour `verbose`, `debug`, `info` ; la description dès `warning` ;
 le détail entier, l'arbre compris, pour `error` et `exception` ; la
-complétude relève une erreur sans arbre, jamais une trace ; *mes autres
-ajouts, en proposition* : le
+complétude relève une erreur sans arbre, jamais une trace ; **pour une
+erreur, acquis** (D1464) : le
 niveau du journal, la famille du dépannage, la position de sécurité,
 le rejouable, qui résout et par quel canal, les paramètres typés du
 gabarit, le renvoi à la fiche ; les erreurs du core codifiées de même
-(D1403), le catalogue fond les deux. **Le mode safe, le dernier
+(D1403), le catalogue fond les deux — acquis (D1464). **Le mode safe, le dernier
 recours** (D1459 : « Le mode safe utilise un mot de passe fixé à
 l'installation … Ce mot de passe est présent dans le guide
 d'exploitation en clair. Dès que l'authentification est configurée et

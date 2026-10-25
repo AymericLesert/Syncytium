@@ -108,7 +108,13 @@ D001:
   level: debug                           # une trace — le code et le message suffisent
   message: { fr: "Virement de {montant} vers {compte} : les deux écritures créées" }
 E001:
-  level: error                           # une erreur — le détail entier                           # le niveau du journal (D737) — la trace, l'alerte
+  level: error                           # une erreur — le détail entier (D1464) ; le niveau du journal (D737)
+  family: connector                      # la famille du dépannage (D1456) — le démarrage, un connecteur, la reprise, une version…
+  safety: cancel                         # la position de sécurité — l'annulation, la page de maintenance, le mode safe
+  retry: true                            # rejouable telle quelle, ou à corriger avant
+  resolver: administrator                # qui résout — l'administrateur, le concepteur, l'intégrateur — et son canal
+  parameters: { compte: text, date: date, montant: amount }   # les paramètres typés du gabarit
+  procedure: restaurer_enregistrement    # le renvoi à une fiche du guide, s'il y en a une
   message:                               # le gabarit du journal (D562), par langue
     fr: "Le compte cible {compte} est clos depuis le {date}"
     en: "Target account {compte} has been closed since {date}"

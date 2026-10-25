@@ -1947,7 +1947,8 @@ contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
 accessibility: ~{documentation/accessibility.md}   # la déclaration d'accessibilité, un texte du concepteur par langue (D1341)
 skill: ~{documentation/skill.md}   # le complément de la skill du core, par langue — jamais un remplacement (D1409, D1410) ;
                                    #   toutes les langues de la version, sinon l'erreur d'ingestion (D1472, D1474)
-glossary:                        # le glossaire des termes du métier (D1180 ; la clé validée, D1219)
+glossary:                        # le glossaire des termes du métier (D1180 ; la clé validée, D1219) ; à plusieurs langues,
+                                 #   chaque terme — ses mots, sa définition — dans toutes les langues de la version (D1475)
   tiers: Toute personne ou société en relation avec l'entreprise — client, fournisseur, prospect.
   article:                       # un terme = une liste de mots, singulier et pluriel (D1197 ; `words:` validé, D1219)
     words: [article, articles]
@@ -2227,7 +2228,9 @@ et leur définition, dans `documentation.yml` du projet (pour toute
 l'application) ou du module (pour les siens) : la clé `glossary:` (§12
 — mes lectures : un terme = une clé, sa définition par langue en
 Markdown ; le module ajoute aux termes du projet, le même terme deux
-fois = une surcharge signalée) ; **un terme est une liste de mots, le
+fois = une surcharge signalée ; **la même règle que tout texte** : à
+plusieurs langues, chaque terme porte toutes les langues de la
+version, sinon l'erreur d'ingestion — D1475) ; **un terme est une liste de mots, le
 singulier et le pluriel** (D1197 — `words:` en proposition :
 `lot: { words: [lot, lots], description: … }`), et le survol reconnaît
 chacune de ses formes ; **le glossaire des types**, calculé

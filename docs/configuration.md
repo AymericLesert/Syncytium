@@ -575,7 +575,7 @@ chaque texte précise ses langues (`label: { fr: Prix, en: Price }`) —
 un texte simple est une erreur d'ingestion ; **une langue de la liste
 absente d'un texte est une erreur d'ingestion** (D1474 — la même règle
 partout : les libellés, les aides, les descriptions, les md, les
-gabarits PDF et mails, la skill ; le repli « sur la langue par défaut
+gabarits PDF et mails, la skill, le glossaire des termes — D1475 ; le repli « sur la langue par défaut
 (D219) » écrit ici le 29/09 était un report fautif de ma main) ; une
 langue du texte qui n'est plus dans la liste n'est pas une erreur :
 la langue par défaut est employée (D1101). Le cas 5 parle le français seul ;
@@ -875,8 +875,8 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - une référence de fichier non marquée `~{…}` (D956), un fichier
   absent ; une clé de configuration inconnue ;
 - un secret en clair dans le `.env` (D902) ;
-- un texte sans une langue de la version — libellé, md, gabarit, skill
-  (D1101, D1474) ; une langue attendue qui manque à un hook (D1163) ;
+- un texte sans une langue de la version — libellé, md, gabarit, skill,
+  terme du glossaire (D1101, D1474, D1475) ; une langue attendue qui manque à un hook (D1163) ;
   le catalogue d'une langue apportée par le projet incomplet (D1465) ;
 - une conversion de type avec perte non écrite (D581 — le typage
   statique des expressions) ; une unité sans chemin vers une unité

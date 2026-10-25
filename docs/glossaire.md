@@ -317,9 +317,10 @@ dictionnaire des données : **celui des termes**, écrit par le concepteur
 termes du métier et leur définition) ; **celui des types**, calculé
 depuis les types personnalisés ; tous deux servent le traitement
 sémantique. Une annexe de la documentation ; un terme est une liste de
-mots, le singulier et le pluriel ; dans l'application, la définition
+mots, le singulier et le pluriel, dans toutes les langues de la
+version sinon l'erreur d'ingestion ; dans l'application, la définition
 s'affiche au survol de la première occurrence du terme dans la page.
-*(D1179–D1180, D1183–D1184, D1197)*
+*(D1179–D1180, D1183–D1184, D1197, D1475)*
 
 **Group by** (`group(champ, …)`, `group:`) — Le regroupement d'une
 liste par les valeurs d'un ou plusieurs champs : une cellule par

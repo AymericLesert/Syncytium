@@ -191,6 +191,14 @@ vers une analyse claire de l'information ; ouvert par les deux
 glossaires ; une annexe de la fonctionnelle. *(documentation.md §15,
 D1179–D1180, D1212–D1216)*
 
+**Avis de sécurité** — Ce que le projet Syncytium publie, par core,
+sur son dépôt : la qualification d'une ou plusieurs CVE pour ce core —
+la dépendance touchée, si le moteur emploie la partie vulnérable, la
+gravité pour Syncytium, le core qui corrige —, dans un fichier signé
+que l'instance lit sur autorisation de l'administrateur. Un avis de
+sécurité n'est pas une CVE : il la cite et la qualifie. *(D1431,
+D1443)*
+
 **Contrat d'API** — Ce que la documentation du développeur donne au
 technicien pour chaque version publiée : une console interactive dans
 l'application, qui s'authentifie, prend ses paramètres (la version,
@@ -209,6 +217,13 @@ ses conventions — et le texte libre `skill:` du projet, un complément,
 jamais un remplacement. Générée, déterministe ; lue au concepteur,
 exportée en édition machine. *(D1224, D1226, D1409–D1410)*
 
+**CVE** (Common Vulnerabilities and Exposures) — L'entrée du
+référentiel public des vulnérabilités : un identifiant
+(`CVE-AAAA-NNNNN`), une description, une gravité, les versions touchées
+d'un composant logiciel. Écrite par le composant ou par le référentiel,
+jamais par Syncytium ; la veille la cherche au dépôt du source, l'avis
+de sécurité la qualifie pour un core. *(D924, D1431, D1443)*
+
 **D.A.T. (le dossier d'architecture technique)** — La quatrième
 documentation : les inter-connexions de l'application avec son
 environnement et le paramétrage externe indispensable — le schéma des
@@ -217,7 +232,7 @@ réseau en texte porté par la description de l'environnement ; les
 environnements, leurs relations, les flux et les ports ; la liste des
 variables d'environnement, les comptes chez les tiers, les certificats ;
 le dimensionnement et les dépendances, du core et des hooks, la veille
-des CVE par le fichier d'avis du dépôt. *(D1134, D1426–D1435)*
+des CVE par le fichier d'avis de sécurité du dépôt. *(D1134, D1426–D1435)*
 
 **Documentation (la facette)** — Chaque composant porte sa
 documentation, comme il porte son affichage ou son stockage ; chaque

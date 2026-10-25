@@ -747,7 +747,7 @@ au D.A.T. (D918, D919).
 
 **La veille des vulnérabilités** (D924, D1431) : hors du moteur — au
 dépôt du source, par son outillage ; le projet publie par core un
-fichier d'avis signé, que l'instance lit sur autorisation de
+fichier d'avis de sécurité signé, que l'instance lit sur autorisation de
 l'administrateur, désactivée par défaut, et compare à son core et aux
 bibliothèques déclarées par ses hooks ; la nomenclature logicielle en
 édition machine ; la mise à jour reste la migration technique sur
@@ -759,7 +759,7 @@ secrets** par leur nom, jamais leur valeur (D944), chiffrés par le
 wizard (D902) ; **HTTPS et le certificat** par environnement (D919) ;
 **`cors:`** à l'environnement (D918) ; **les `countries:`** et les flux
 de données personnelles (D1345, §18) ; **la veille des CVE**, la voie b,
-le fichier d'avis signé et la nomenclature logicielle (D1431) ; **ce
+le fichier d'avis de sécurité signé et la nomenclature logicielle (D1431) ; **ce
 que Syncytium ne décrit pas** — le pare-feu, le DNS, les
 authentifications du réseau, aux équipes d'intégration (D1426).
 

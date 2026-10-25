@@ -3734,7 +3734,7 @@ jour du core est une migration technique sur sollicitation (D17),
 détaillée au guide d'exploitation. **La veille des CVE — la voie b,
 acquise** (D1431 : « je valide la voie b ») : la veille se fait **au
 dépôt du source**, par son outillage, et le projet publie **par core un
-fichier d'avis signé** — l'avis, sa gravité, le core qui corrige ;
+fichier d'avis de sécurité signé** — l'avis de sécurité, sa gravité, le core qui corrige ;
 **l'instance le lit sur autorisation de l'administrateur**, désactivée
 par défaut, vérifie la signature, compare à son core et aux
 bibliothèques déclarées par ses hooks, et montre ce qui la concerne

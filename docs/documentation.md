@@ -4413,7 +4413,15 @@ et le partenaire, sans aucun droit.
    le défaut — la plaquette seule, sans compte ; `public` — la plaquette
    et toute la documentation en mode public, sans donnée ni rien de
    confidentiel ; `private` — rien sans compte. Dedans, la plaquette se
-   lit toujours.
+   lit toujours. **Sans promotionnelle** (D1511 : « Une clé de la
+   configuration pourrait indiquer que l'application ne dispose pas de
+   promotions et qu'elle n'en aura pas ») — *ma lecture* :
+   `promotional: false` au projet, le défaut `true` ; à `false`, la
+   documentation 6 n'existe pas — ni générée, ni servie, ni au dépôt,
+   ni en mode public, où seule la page d'accueil reste (D1156) — ; la
+   complétude (§20) ne compte plus le texte de présentation ni le plan,
+   le persona restant à la fonctionnelle (§22) ; un plan ou une vue
+   marquée avec `promotional: false` est une erreur d'ingestion.
 5. **Trois canaux**, le même contenu : dans l'application, à tout
    degré ; en édition imprimable, la plaquette en PDF par un gabarit
    (D1143) — la réunion de direction, le papier sur le bureau ; au dépôt,

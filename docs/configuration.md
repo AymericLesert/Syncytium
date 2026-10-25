@@ -385,6 +385,7 @@ from: Syncytium-1.0                  # le core de Syncytium, la première clé (
 name: entrepot
 description: L'entrepôt de données de l'entreprise — …
 visibility: promotional              # public | private | promotional — ce qui se lit sans aucun droit (D1151 ; tranchée D1498 — promotional : la plaquette seule)
+promotional: true                    # false : l'application n'a pas de promotionnelle et n'en aura pas (D1511, en proposition)
 author: Aymeric Lesert               # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org      # le contact des demandes d'évolution (D1153)
 copyright: © 2026 L'entrepôt SAS     # le titulaire des droits d'auteur de l'application (D1355)
@@ -888,7 +889,8 @@ La description se vérifie en entier à l'ingestion, avant de servir
   absent ; une clé de configuration inconnue ;
 - un secret en clair dans le `.env` (D902) ;
 - le plan de la promotionnelle qui cite une vue non marquée
-  `promotional` (D1500) ;
+  `promotional` (D1500) ; un plan ou une vue marquée dans un projet
+  `promotional: false` (D1511, ma lecture) ;
 - un texte sans une langue de la version — libellé, md, gabarit, skill,
   terme du glossaire (D1101, D1474, D1475) ; une langue attendue qui manque à un hook (D1163) ;
   le catalogue d'une langue apportée par le projet incomplet (D1465) ;

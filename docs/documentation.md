@@ -638,8 +638,8 @@ décisions, D1170–D1238.)*
 #### Rang 9 — la promotionnelle (documentation 6)
 
 - **Périmètre** : la plaquette, la démonstration, l'argumentaire du
-  socle ; **le site vitrine de Syncytium, une application Syncytium, et
-  le module de présentation de l'outil** (D1447).
+  socle ; **le module de présentation de l'outil**, servi par l'instance
+  de Syncytium seul, qui est son propre site vitrine (D1447–D1448).
 - **Sections** : aucune ; une section à créer.
 - **Étapes** :
   1. la plaquette : la structure générée (le nom, la description, les
@@ -662,7 +662,8 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
   catalogue, ce que les seize artefacts décrivent — et le dépôt comme
   lieu de lecture : `docs/`, le registre, les cas d'usage, les
   exemples ; **« Syncytium seul est une application vide avec la
-  documentation incluse »** (D1447).
+  documentation incluse »**, exploitée par l'auteur, le site vitrine de
+  lui-même (D1447–D1448).
 - **Sections** : aucune ; documentation.md et le [glossaire](glossaire.md)
   en pivots.
 - **Étapes** *(mes lectures)* :
@@ -2440,11 +2441,13 @@ que nous mettrons en oeuvre avec Syncytium ») — *mes lectures, à
 confirmer* : la ligne unique est `syncytium init` (D1360), qui lit
 `from:` et récupère le core ; le chapitre la donne pour cette
 instance, avec ses prérequis, puis ce que l'amorçage a produit — le
-fichier des variables à renseigner (D1429) ; **le site vitrine est une
-application Syncytium**, la promotionnelle du produit (le rang 9), et
-**« Syncytium seul est une application vide avec la documentation
-incluse »**, plus « un module que nous ajouterons dans la
-promotionnelle pour présenter l'outil » (le rang 10).
+fichier des variables à renseigner (D1429) ; **le site vitrine est Syncytium
+lui-même** (D1448 : « Syncytium lui-même seul est exploité par mes
+soins. Il est le site vitrine de lui-même ») — une instance sans
+projet, tenue par l'auteur, qui sert au public sa propre documentation
+et le module de présentation de l'outil (le rang 9 pour le module, le
+rang 10 pour Syncytium seul) ; **« Syncytium seul est une application
+vide avec la documentation incluse »** (D1447).
 
 ## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 

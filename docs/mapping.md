@@ -190,7 +190,10 @@ langage.
 ### La description de la source (`source/`)
 
 `source/` parle **toute** la grammaire (D652), avec trois mots
-propres :
+propres ; **ses `description:` — celles des sources comme celles des
+règles de mapping — sont des textes par langue** comme tout texte de
+la version (D1474, D1517) : à plusieurs langues, toutes ou l'erreur
+d'ingestion ; la banque en porte neuf à traduire (D1502).
 
 - **`ignored`** (D657) — l'élément **attendu** dans la source mais
   non développé : sur une entité (`audit_log: ignored`) ou sur un

@@ -588,7 +588,8 @@ chaque texte précise ses langues (`label: { fr: Prix, en: Price }`) —
 un texte simple est une erreur d'ingestion ; **une langue de la liste
 absente d'un texte est une erreur d'ingestion** (D1474 — la même règle
 partout : les libellés, les aides, les descriptions, les md, les
-gabarits PDF et mails, la skill, le glossaire des termes — D1475 ; le repli « sur la langue par défaut
+gabarits PDF et mails, la skill, le glossaire des termes — D1475 —, les
+descriptions de la reprise, règles et sources — D1517 ; le repli « sur la langue par défaut
 (D219) » écrit ici le 29/09 était un report fautif de ma main) ; une
 langue du texte qui n'est plus dans la liste n'est pas une erreur :
 la langue par défaut est employée (D1101). Le cas 5 parle le français seul ;

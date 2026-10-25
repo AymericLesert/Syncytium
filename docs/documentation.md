@@ -1778,8 +1778,11 @@ qu'une partie seulement a été traitée et la taille du lot à prendre en
 compte par le client, qui reprend au suivant ; la règle écrite ici, en
 tête ; le code de la réponse partielle au domaine 7 ; **l'esprit**
 (D1438 : « Ici, je veux juste fournir les éléments qui peuvent aider un
-développeur à gérer les lots indépendamment de ses choix ») — la règle
-n'oblige pas le client à se limiter, elle lui dit où il en est ; **la
+développeur à gérer les lots indépendamment de ses choix » ; D1439 :
+« Syncytium pose les contraintes et ce n'est pas le technicien qui
+impose ses contraintes … une approche API qui prend bien en compte les
+différents status ») — la contrainte est celle de Syncytium, le
+technicien fait avec et traite les statuts de réponse ; **la
 dépréciation** — l'intention, l'acte, le retrait (D650), portés par la
 version et jamais par une date (D742), et où lire l'« à venir » ; les
 origines autorisées (D918) et HTTPS (D919) relèvent de l'environnement,

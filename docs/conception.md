@@ -24809,6 +24809,20 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-25 (suite 7) — LA PAUSE : LE RANG 10 OUVERT, SA NATURE
+  PRÉCISÉE (D1515, 1515 décisions).** « avant de marquer une pause » —
+  la nature du rang 10 consignée (D1515), le plan du rang réécrit à ses
+  cinq parties, les étapes en proposition pour la reprise. L'état : les
+  rangs 0 à 9 clos — neuf documentations, le socle de la génération —,
+  dix publications sur `main` (la 10e le 25/10, D1497–D1514) ; la
+  branche `feature/documentation` porte D1515 et l'ouverture du rang 10
+  sans PR. **À la reprise** : l'arborescence de `docs/` à proposer (la
+  partie 1) — un dossier par chapitre, des sous-dossiers par
+  sous-chapitre —, puis l'ordre des parties ; mes trois questions de
+  l'inventaire en attente ; à côté, deux questions ouvertes hors rang —
+  les neuf descriptions de la reprise de la banque, un texte par langue
+  ou un texte technique exempt (D1502) ; la calibration des seuils de la
+  télémétrie, à l'ouverture de l'auteur. Tout est committé et poussé.
 - **2026-10-25 (suite 6) — LA 10e PUBLICATION, LE RANG 10 OUVERT (1514
   décisions).** « crée la PR sur develop et main » — la PR #56
   (feature/documentation → develop, D1497–D1514, vingt-trois commits)

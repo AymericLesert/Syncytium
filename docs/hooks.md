@@ -43,7 +43,7 @@ chaque fichier de famille **liste ses fiches** (l'énumération ou le
 pattern regex — D806), **la fiche du hook** (D809) portant `name`,
 `description`, `code`, `properties`, quand il embarque des
 bibliothèques `dependencies` (D1432), et quand il émet des erreurs
-propres `errors`, un md dédié en anglais (D1458) — les chemins relatifs au
+propres `errors`, un md dédié par langue (D1458, D1460) — les chemins relatifs au
 fichier courant (D768). Les hooks du socle vivent dans
 l'arborescence de Syncytium — la même porte (D52), deux maisons.
 
@@ -77,7 +77,7 @@ description: documentation.md        # → le md du fonctionnement (D778) — un
 code: source.txt                     # → le code — le langage du domaine 7 (D570)
 properties: { }                      # les propriétés du hook
 dependencies: [ ]                    # les bibliothèques embarquées — le nom, la version, la licence (D1432) ; absente = aucune
-errors: ~{errors.md}                 # le traitement des erreurs du hook — en anglais, technique (D1455, D1458) ; absente = aucune
+errors: ~{errors.md}                 # le traitement des erreurs du hook — technique, par langue (D1458, D1460) ; absente = aucune
 ```
 
 **Chaque hook s'accompagne d'un fichier md par langue qu'il supporte**
@@ -637,7 +637,7 @@ comme les connecteurs du socle (D1426) ; **le hook d'interface** sur le
 poste de l'utilisateur (D918).
 
 **Les hooks, dans le guide d'exploitation** (la colonne 9 — le rang 7) :
-**le md des erreurs** du hook, `errors:`, en anglais (D1458), repris au
+**le md des erreurs** du hook, `errors:`, par langue (D1458, D1460), repris au
 catalogue du dépannage ; le hook de connecteur dans les fiches de sa
 famille ; une opération périodique au calendrier des opérations
 (D943) ; les hooks du projet ne tournent qu'avec leurs `dependencies:`

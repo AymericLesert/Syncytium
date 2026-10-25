@@ -503,7 +503,9 @@ surchargeable en configuration, l'envoi par le smtp (D628).
 Par environnement : le staging en **debug/verbose**, la production
 active en **info + puits de logs éventuel**, la passive en
 **warning** — les formats et les emplacements différents ; les
-journaux en anglais (D217–D225). **Le journal est le sixième canal
+journaux **dans la langue technique de l'instance**, définie à la
+configuration et non modifiable, l'anglais ou le français selon le mode
+d'installation (D1460, qui amende D217–D225). **Le journal est le sixième canal
 de la télémétrie** (D737) : les six niveaux
 (`verbose`/`debug`/`info`/`warning`/`error`/`exception`) dans la
 configuration en dur (**`logging.yml`** — le nom harmonisé D750, renommé D830), la

@@ -610,7 +610,8 @@ décisions, D1170–D1238.)*
      journal, les passages, la supervision externe et les journaux
      connectés ;
   4. le dépannage : les erreurs connues et leur remède : **acquis le
-     25/10/2026 (D1455–D1459)** — le catalogue en anglais, les familles,
+     25/10/2026 (D1455–D1460)** — le catalogue dans la langue technique
+     de l'instance, les familles,
      l'arbre de décision schématique, les contacts au crédit, le md des
      erreurs du hook, le mode safe en dernier recours.
 - **Déclinaison** : **l'entrepôt** — **écrite le 25/10/2026, en
@@ -2399,7 +2400,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1454 ; l'étape 4, le dépannage, D1455–D1459 ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1454 ; l'étape 4, le dépannage, D1455–D1460 ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2545,14 +2546,16 @@ technique, le réglage de l'outil, l'essai — et **connecter les
 journaux** — le puits déclaré au `logging.yml`, les niveaux envoyés, le
 réglage de l'outil, l'essai.
 
-### 4. Le dépannage (D1455–D1459)
+### 4. Le dépannage (D1455–D1460)
 
 **Le catalogue des erreurs du core**, calculé : chaque erreur que le
-moteur peut émettre à l'exploitation, par son code et son texte — **en
-anglais, sans traduction** (D1455 : « Les erreurs techniques ne feront
-pas l'objet d'une traduction. Elles sont techniques et purement
-techniques ») —, la cause probable et le remède dans la langue du
-lecteur, le renvoi à la fiche de procédure ; la référence de Syncytium
+moteur peut émettre à l'exploitation, par son code et son texte — **dans la
+langue technique de l'instance** (D1460, qui amende D1455 : « Le
+catalogue doit pouvoir se décliner dans les différentes langues
+supportées par Syncytium. Par contre, la langue est définie à la
+configuration et n'est pas modifiable ») — *ma lecture* : choisie à
+l'installation parmi les langues du core, écrite à l'environnement,
+immuable —, la cause probable et le remède, le renvoi à la fiche de procédure ; la référence de Syncytium
 (D1411), instanciée ; les erreurs des utilisateurs, la validation, les
 droits, sont à la fonctionnelle et au contrat d'API. **Les familles**,
 dans l'ordre où on les rencontre : l'application ne démarre pas, le
@@ -2575,7 +2578,8 @@ le fournisseur d'identité (D1426) ; en Mermaid, la forme au domaine 7.
 l'application » (D1457 — `author:`, `contact:`, D1153/D1355) ; **les
 erreurs d'un hook, dans un md dédié** (D1458 : « le hook doit contenir
 un fichier md dédié pour le traitement des erreurs ») — `errors:` sur
-la fiche, en anglais, repris au catalogue. **Le mode safe, le dernier
+la fiche, un md par langue comme la description (D1460), repris au
+catalogue. **Le mode safe, le dernier
 recours** (D1459 : « Le mode safe utilise un mot de passe fixé à
 l'installation … Ce mot de passe est présent dans le guide
 d'exploitation en clair. Dès que l'authentification est configurée et

@@ -4415,7 +4415,7 @@ et le partenaire, sans aucun droit.
    confidentiel ; `private` — rien sans compte. Dedans, la plaquette se
    lit toujours. **Sans promotionnelle** (D1511 : « Une clé de la
    configuration pourrait indiquer que l'application ne dispose pas de
-   promotions et qu'elle n'en aura pas ») — *ma lecture* :
+   promotions et qu'elle n'en aura pas ») — la clé validée (D1513) :
    `promotional: false` au projet, le défaut `true` ; à `false`, la
    documentation 6 n'existe pas — ni générée, ni servie, ni au dépôt,
    ni en mode public, où seule la page d'accueil reste (D1156) — ; la

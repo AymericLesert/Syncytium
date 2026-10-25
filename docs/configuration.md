@@ -385,7 +385,7 @@ from: Syncytium-1.0                  # le core de Syncytium, la première clé (
 name: entrepot
 description: L'entrepôt de données de l'entreprise — …
 visibility: promotional              # public | private | promotional — ce qui se lit sans aucun droit (D1151 ; tranchée D1498 — promotional : la plaquette seule)
-promotional: true                    # false : l'application n'a pas de promotionnelle et n'en aura pas (D1511, en proposition)
+promotional: true                    # false : l'application n'a pas de promotionnelle et n'en aura pas (D1511, D1513)
 author: Aymeric Lesert               # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org      # le contact des demandes d'évolution (D1153)
 copyright: © 2026 L'entrepôt SAS     # le titulaire des droits d'auteur de l'application (D1355)

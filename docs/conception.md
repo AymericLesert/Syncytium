@@ -24699,6 +24699,11 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-25 — REPRISE : LA PR #50 FUSIONNÉE, LA PR #51 OUVERTE VERS
+  `main`.** « reprenons et fermons les sujets à clarifier » — la #50
+  fusionnée dans `develop` le 24/10 au soir ; la septième publication
+  ouverte, `develop` → `main`, 14 commits, D1426–D1435 ; les quatre
+  lectures non confirmées et l'étape 1 du rang 7 remises à l'auteur.
 - **2026-10-24 (suite 3) — LA PAUSE : LE RANG 6 CLOS, LE RANG 7 OUVERT
   (1435 décisions).** « je marque une pause ». Le rang 6 clos (D1435), la
   PR #50 ouverte vers `develop` ; la PR vers `main` à ouvrir après sa

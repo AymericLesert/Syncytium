@@ -4420,7 +4420,10 @@ et le partenaire, sans aucun droit.
    elle part du jeu de données ; les connecteurs mockés rendent ce que
    le concepteur leur fait rendre (D627), aucun service réel n'est
    touché ; le sqlite rend l'instance portable — l'application qui
-   démarre seule (D729).
+   démarre seule (D729) ; **ou le storage `volatile`** (D1507 : « un
+   storage "volatile" qui ne fonctionne qu'en mémoire avec un ratio
+   d'espace … n'occupe aucune place sur le disque et se supprime
+   facilement ») — rien à nettoyer, l'arrêt efface tout.
 2. **Le jeu de données** (D1504 : « porté par un jeu de fichiers CSV dont
    les noms de fichiers sont liés à la clé "dataset:" (clé facultative)
    … un fichier CSV par entité. Ces fichiers peuvent être issus de

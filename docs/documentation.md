@@ -1541,8 +1541,9 @@ lecture qu'il sert (D1138) :
   reste une annexe.
 - **L'édition par langue** : dedans, la langue du profil (D1144) ; en
   édition, celle de l'émetteur — une édition par langue ; un texte
-  complémentaire absent dans une langue tombe sur la langue par défaut
-  de la version (D1101) et la complétude le signale ; **le catalogue
+  complémentaire sans une langue de la version est une erreur
+  d'ingestion (D1474 — la même règle partout), la complétude ne compte
+  que ce qui n'est décrit dans aucune langue ; **le catalogue
   d'une langue apportée** par le projet (D1465) ne relève pas de la
   complétude mais de l'ingestion : incomplet, la langue est refusée —
   strict, la commande donne la complétude (D1468).
@@ -1945,7 +1946,7 @@ author: Aymeric Lesert           # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
 accessibility: ~{documentation/accessibility.md}   # la déclaration d'accessibilité, un texte du concepteur par langue (D1341)
 skill: ~{documentation/skill.md}   # le complément de la skill du core, par langue — jamais un remplacement (D1409, D1410) ;
-                                   #   une seule langue suffit, au choix du concepteur (D1472, en proposition)
+                                   #   toutes les langues de la version, sinon l'erreur d'ingestion (D1472, D1474)
 glossary:                        # le glossaire des termes du métier (D1180 ; la clé validée, D1219)
   tiers: Toute personne ou société en relation avec l'entreprise — client, fournisseur, prospect.
   article:                       # un terme = une liste de mots, singulier et pluriel (D1197 ; `words:` validé, D1219)
@@ -3682,10 +3683,10 @@ projet avec leur fiche et leur md, le glossaire des termes du métier
 (D1180), les conventions du projet — et un texte libre, « ce que l'IA
 doit savoir de cette application », `skill:` dans le `documentation.yml`
 du projet, par langue (§12) — **« La skill du projet est déclinée par
-langue »** (D1472) ; *ma proposition* : le concepteur choisit la ou les
-langues de sa skill, une seule suffit, son lecteur est une IA ; le repli
-sur la langue par défaut sans manque de complétude ; la couche du core
-reste dans les langues du core. L'IA charge les deux. **Le core porte sa
+langue »** (D1472) — **toutes les langues de la version, sinon
+l'erreur d'ingestion** (D1474, la même règle partout ; mon « une seule
+langue suffit » écarté) ; la couche du core reste dans les langues du
+core. L'IA charge les deux. **Le core porte sa
 skill ; le projet peut y ajouter un complément, jamais un remplacement
 ni une substitution** (D1410) — à la différence du catalogue des
 langues (D1163), rien ne se surcharge. La skill se génère

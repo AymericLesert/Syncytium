@@ -79,8 +79,10 @@ défaut du socle n'est pas un manque, sauf quand il tient lieu d'un
 texte pour le lecteur (le `label:` absent) ; elle compte, elle ne
 devine pas ; une ligne de commande la mesure avec le moteur de la
 génération, le seuil reste à la discrétion du concepteur — Syncytium ne
-refuse jamais une version. *(documentation.md §20, D1173/D1177/D1182,
-D1221)*
+refuse jamais une version. Elle compte ce qui n'est décrit dans
+aucune langue : un texte sans une langue de la version n'est pas un
+manque mais une erreur d'ingestion (D1474). *(documentation.md §20,
+D1173/D1177/D1182, D1221, D1474)*
 
 **Composant graphique** (`component`) — La représentation graphique d'un champ à l'écran ou sur un document (PDF, Excel, ...) : la jauge d'un pourcentage, le calendrier d'une date, le toggle d'un booléen. *(D64)*
 
@@ -217,10 +219,10 @@ la grammaire des clés, les règles d'ingestion, les recommandations, les
 exemples du socle —, versionnée avec lui ; le complément de la version,
 généré depuis la configuration — ses hooks, ses types, son glossaire,
 ses conventions — et le texte libre `skill:` du projet, un complément,
-jamais un remplacement, décliné par langue — une seule suffit, au
-choix du concepteur (en proposition). Générée, déterministe ; lue au
+jamais un remplacement, décliné par langue — toutes celles de la
+version, sinon l'erreur d'ingestion. Générée, déterministe ; lue au
 concepteur, exportée en édition machine. *(D1224, D1226, D1409–D1410,
-D1472)*
+D1472, D1474)*
 
 **CVE** (Common Vulnerabilities and Exposures) — L'entrée du
 référentiel public des vulnérabilités : un identifiant

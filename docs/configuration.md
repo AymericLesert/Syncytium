@@ -572,10 +572,13 @@ fait une nouvelle version. **Une seule langue** : `label:`, `hint:` et
 `description:` s'écrivent en texte simple (`description: Le prix
 d'achat.`), la forme par langue reste admise. **Plusieurs langues** :
 chaque texte précise ses langues (`label: { fr: Prix, en: Price }`) —
-un texte simple est une erreur d'ingestion ; une langue de la liste
-absente d'un texte se replie sur la langue par défaut (D219) ; une
+un texte simple est une erreur d'ingestion ; **une langue de la liste
+absente d'un texte est une erreur d'ingestion** (D1474 — la même règle
+partout : les libellés, les aides, les descriptions, les md, les
+gabarits PDF et mails, la skill ; le repli « sur la langue par défaut
+(D219) » écrit ici le 29/09 était un report fautif de ma main) ; une
 langue du texte qui n'est plus dans la liste n'est pas une erreur :
-la langue par défaut est employée. Le cas 5 parle le français seul ;
+la langue par défaut est employée (D1101). Le cas 5 parle le français seul ;
 la banque (le cas 4) parlera le français, l'anglais et l'espagnol.
 
 **Une langue que le core ne porte pas** (D1465 — précise D1160–D1163,
@@ -595,8 +598,8 @@ la septième famille (D1467 : « une langue a un hook aussi ») :
 `languages:` nomme alors une langue du core ou d'un hook de langue. **Il doit
 être complet** — le niveau « pour Syncytium » de D1162 : un item
 manquant est une erreur d'ingestion, strict (D1468 : « En utilisant la
-commande, il a la complétude. La traduction est entre ses mains ») (le repli de D219 vaut pour les
-libellés du modèle, pas pour les textes du moteur). Un hook du core
+commande, il a la complétude. La traduction est entre ses mains ») — la
+même règle que pour les textes du projet (D1474). Un hook du core
 sans cette langue suit D1163 : l'application complète ses items dans
 sa couche. La référence du développeur (D1411) et la skill du core
 (D1410) restent au core, lues dans sa langue par défaut. **Cette
@@ -872,8 +875,9 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - une référence de fichier non marquée `~{…}` (D956), un fichier
   absent ; une clé de configuration inconnue ;
 - un secret en clair dans le `.env` (D902) ;
-- une langue attendue qui manque à un hook (D1163) ; le catalogue
-  d'une langue apportée par le projet incomplet (D1465) ;
+- un texte sans une langue de la version — libellé, md, gabarit, skill
+  (D1101, D1474) ; une langue attendue qui manque à un hook (D1163) ;
+  le catalogue d'une langue apportée par le projet incomplet (D1465) ;
 - une conversion de type avec perte non écrite (D581 — le typage
   statique des expressions) ; une unité sans chemin vers une unité
   connue du champ (D979/D983) ;

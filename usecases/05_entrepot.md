@@ -3001,7 +3001,8 @@ d'anonymisation ; ni `backup:`, ni `replication:`, ni
 `security_advisories:`, ni texte d'exploitation ; un seul groupe
 `administrator`, `administration` ; l'authentification `azure_ad`. On
 montre le guide tel qu'il sortirait aujourd'hui, puis ce que le
-concepteur ajouterait. **En proposition.**)*
+concepteur pourrait ajouter. **Validée le 25/10/2026, D1476** — « non
+disponible » plutôt que « sans objet », rien à compléter.)*
 
 ---
 
@@ -3065,11 +3066,12 @@ concepteur ajouterait. **En proposition.**)*
 > - **relire la reprise** — `relecture_complete` attend le delta
 >   (`on_running: wait`) ; un passage s'interrompt depuis le suivi, sauf
 >   pendant la bascule (D1077) ; la relance est manuelle ;
-> - **sauvegarder** — *aucun `backup:` déclaré* : la fiche dit ce qui
->   manque et renvoie au concepteur ; **vérifier une sauvegarde** — sans
->   objet tant qu'il n'y a pas de sauvegarde ;
-> - **synchroniser** — *aucun passif, aucune `replication:`* : la fiche
->   dit « sans objet » ; la copie vers le staging la remplace ;
+> - **sauvegarder** — *procédure non disponible* : aucun `backup:`
+>   déclaré ; la fiche nomme la clé qui la rendrait disponible (D1476) ;
+>   **vérifier une sauvegarde** — *non disponible* tant qu'il n'y a pas
+>   de sauvegarde ;
+> - **synchroniser** — *procédure non disponible* : aucun passif, aucune
+>   `replication:` ; la copie vers le staging la remplace ;
 > - **les secrets** — quatre, `syncytium encrypt` ; **la rotation** —
 >   `syncytium rotate` ; **la sandbox** — aucune déclarée ; **la mise à
 >   jour du core** — sur sollicitation (D17) ; **l'arrêt, le
@@ -3085,7 +3087,7 @@ concepteur ajouterait. **En proposition.**)*
 > **3.** le passage de la nuit, `delta_nocturne`, son état, ses rejets,
 > le samedi `relecture_complete` ; **4.** les erreurs et les
 > avertissements du jour ; **5.** les CVE à traiter — *veille non
-> reliée, `security_advisories:` absent* ; **6.** la dernière sauvegarde
+> disponible* : `security_advisories:` absent (D1476) ; **6.** la dernière sauvegarde
 > — *aucune* ; **7.** les tickets ouverts adressés à l'administration.
 > **Le mail des faits marquants** : aux membres d'`administration`, au
 > rythme de leur profil (D748) ; les CVE n'y paraissent pas, la veille
@@ -3109,9 +3111,10 @@ concepteur ajouterait. **En proposition.**)*
 
 ---
 
-**Ce que le concepteur ajouterait** — en proposition, à écrire dans la
-configuration si l'auteur le demande : `backup:` à chaque environnement,
-`security_advisories:` à la production, le texte d'exploitation du site.
+**Ce que le concepteur pourrait ajouter** — à titre d'illustration,
+**non écrit dans l'entrepôt** (D1476 : « Il n'est pas nécessaire de les
+compléter ») : `backup:` à chaque environnement, `security_advisories:`
+à la production, le texte d'exploitation du site.
 
 ```yaml
 # environments/production/production.yml

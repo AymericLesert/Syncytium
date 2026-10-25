@@ -614,12 +614,13 @@ décisions, D1170–D1238.)*
      de l'instance, les traces codifiées et leur arbre, les familles,
      l'arbre de décision schématique, les contacts au crédit, le md des
      erreurs du hook, le mode safe en dernier recours.
-- **Déclinaison** : **l'entrepôt** — **écrite le 25/10/2026, en
-  proposition** ([usecases/05_entrepot.md](../usecases/05_entrepot.md)) :
-  les variables décrites, les opérations périodiques, treize fiches
-  dont trois sans objet, la supervision sans veille ni sauvegarde, le
-  mode safe inaccessible ; `backup:`, `security_advisories:` et le texte
-  d'exploitation à écrire.
+- **Déclinaison** : **l'entrepôt** — **validée le 25/10/2026 (D1476)**
+  ([usecases/05_entrepot.md](../usecases/05_entrepot.md)) : les
+  dix-neuf variables décrites, les opérations périodiques, treize fiches
+  dont trois « non disponibles », la veille des CVE « non disponible »,
+  le dépannage en français, le mode safe inaccessible ; `backup:`,
+  `security_advisories:` et le texte d'exploitation non écrits — « Il
+  n'est pas nécessaire de les compléter ».
 - **Livrables** : §17 validé (les quatre chapitres acquis) ;
   [administration.md](administration.md), [hooks.md](hooks.md) ; la
   colonne 9 de la matrice dans les onze artefacts et la matrice
@@ -2493,7 +2494,11 @@ retard à la santé (D731), la resynchronisation après une coupure ; **et la v�
 sauvegarde** (D1450) — la restauration d'essai dans une sandbox depuis
 une archive, la fiche qui prouve que les sauvegardes servent. Les
 fiches sont la référence du core, instanciées ; le texte du site s'y
-ajoute. **Le chapitre « installer »** (D1450) : la ligne unique est
+ajoute. **Une fiche dont la configuration manque** — pas de `backup:`,
+pas de `replication:` — **dit que la procédure n'est pas disponible**
+(D1476 : « précise que les procédures ne sont pas disponibles »), jamais
+« sans objet », et nomme la clé qui la rendrait disponible. **Le
+chapitre « installer »** (D1450) : la ligne unique est
 `syncytium init` (D1360), avec ses prérequis, puis le fichier des
 variables à renseigner (D1429).
 
@@ -2506,8 +2511,9 @@ veille active (`security_advisories:`, D1444) : le tableau de bord de
 la santé (D731) porte **le nombre de CVE à traiter** — les avis de
 sécurité qui concernent le core ou les hooks et dont le core correctif
 n'est pas installé —, le mail des faits marquants (D733) **les CVE
-nouvelles de la période et le total restant** ; la veille inactive, ni
-l'un ni l'autre. **La routine quotidienne porte deux éléments**
+nouvelles de la période et le total restant** ; la veille inactive, le
+tableau de bord et le mail disent qu'elle **n'est pas disponible**
+(D1476). **La routine quotidienne porte deux éléments**
 (D1452 : « Un tableau de bord - accueil de l'administrateur sur
 l'application avec les principaux indicateurs. Puis, derrière chaque
 indicateur le détail des points à valider. Un mail ou une notification

@@ -2895,6 +2895,22 @@ liste des manques, avec la clé à écrire et où**. Le rapport se lit du
 général au particulier : la version, chaque documentation et son taux,
 chaque module ; `--check` et `notify:` produisent le même rapport.
 
+**À l'ingestion** (D1480 — le rang 8, l'étape 1 ; *ma lecture, à
+confirmer*) : l'ingestion d'une version, beta ou production, calcule le
+rapport avec le même moteur que `--check` — **un seul rapport**, produit
+au dépôt par la commande, à l'ingestion, et par `notify: beta →
+completeness` (D1167) — et **le garde avec la version** au registre des
+versions essayées (D326) : la documentation technique montre la
+complétude de chaque version active sans recalcul. **Au journal, une
+seule ligne `info`** par ingestion — la version et son taux —, jamais
+un `warning` : **« l'administrateur n'a pas besoin de l'utilité de la
+complétude. Seul le concepteur s'en sert pour garantir que sa version
+fournisse une qualité de service suffisante et que la version sera
+pleinement exploitable »** (D1480) — rien à la santé (D1452), rien aux
+faits marquants ; la liste des manques ne va qu'où le concepteur lit :
+la commande, la notification aux groupes qu'il choisit, la
+documentation technique. Jamais un refus (D1221).
+
 ## 21. La diffusion *(le rang 0, étape 6 — acquis, D1167–D1168)*
 
 Comment la documentation parvient à ses lecteurs — **sept canaux**,
@@ -3166,7 +3182,8 @@ qu'avec l'instance — au dépôt, elle se montre vide, avec son cadre.
   la documentation même, l'usage de chaque composant là où il est
   décrit** — le module, l'écran, le rapport, l'opération (D1168,
   comme D1155 pour les données).
-- **Les contrôles.** La complétude de la documentation (§20) ; la
+- **Les contrôles.** La complétude de la documentation (§20) — la part
+  du concepteur, non de l'administrateur (D1480) ; la
   couverture et les compteurs de la reprise
   ([migration.md](migration.md)) ; les validations qui échouent le plus
   ; les versions servies, leur épinglage (D98/D99) et l'appel d'une

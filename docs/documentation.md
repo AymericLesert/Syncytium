@@ -2394,7 +2394,14 @@ la reprise, ses passages et ses rapports (migration.md) ; les comptes, les group
 les commandes du moteur (`syncytium copy …`, `encrypt`, `rotate` —
 D1080) ; les dépendances (D924). *À trancher* : ce qui vient de la
 configuration seule et ce qui demande l'instance (les états, les
-derniers passages).
+derniers passages). **Les variables d'environnement décrites** (D1442 :
+« Dans le guide d'exploitation, une description pourrait être utile pour
+compléter la documentation et guider l'équipe en charge de déployer
+l'application de savoir ce qu'il faut faire ») — le D.A.T. les liste
+(D1428), le guide les décrit une à une ; *ma lecture, au rang 7* : la
+description vient de la classe du connecteur qui l'emploie, dans la
+référence du core, et le texte de l'environnement ajoute le particulier
+du site ; la nature, confidentielle ou non, et où obtenir la valeur.
 
 ## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 

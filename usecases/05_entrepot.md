@@ -3130,3 +3130,147 @@ security_advisories:
 pages:
   operations: ~{documentation/operations.md}   # qui surveille, quand, l'astreinte, les contacts
 ```
+
+## La complétude de la documentation — la déclinaison de l'entrepôt (le rang 8, étape 1)
+*(La mesure au dépôt, `python tools/completeness.py examples/05_entrepot`, le 25/10/2026 — D1478–D1488 :
+l'inventaire de documentation.md §20, le taux par documentation et par module, les manques par nature ;
+la liste complète, le fichier et la clé d'accès, sort de l'outil. Les manques sont ceux du cas tel qu'il
+est écrit : ils disent ce que le concepteur n'a pas décrit, jamais un défaut du socle.)*
+
+### La version 1.0.0.1 (beta) — 79 %
+
+| La documentation | (environnements) | (groups) | (projet) | (settings) | commande | stock | technique | tiers | **la version** |
+|---|---|---|---|---|---|---|---|---|---|
+| fonctionnelle | — | 0 % (0/6) | 100 % (1/1) | — | 80 % (136/169) | 82 % (98/119) | 87 % (174/200) | 80 % (106/132) | **82 %** |
+| dictionnaire | — | — | — | 0 % (0/2) | 68 % (63/92) | 73 % (46/63) | 82 % (94/115) | 70 % (50/71) | **74 %** |
+| réglementaire | — | — | 100 % (1/1) | 100 % (3/3) | — | — | — | 100 % (1/1) | **100 %** |
+| développeur | — | — | — | — | — | — | — | 100 % (1/1) | **100 %** |
+| D.A.T. | 100 % (2/2) | — | — | — | — | — | — | — | **100 %** |
+| guide | 0 % (0/2) | — | — | — | — | — | — | — | **0 %** |
+| projet | — | — | 100 % (1/1) | — | — | — | — | — | **100 %** |
+
+**79 %** — 777 éléments décrits sur 981 attendus, 116 manques.
+
+| Le manque | Combien | La clé à écrire | La documentation |
+|---|---|---|---|
+| l'entité sans nom d'usage | 18 | `title:` | fonctionnelle |
+| le champ sans aide ni description | 88 | `hint: ou description:` | fonctionnelle, dictionnaire |
+| le type personnalisé sans description | 2 | `description: du type` | dictionnaire |
+| le groupe sans persona | 6 | `persona: du groupe` | fonctionnelle |
+| l'environnement sans texte d'exploitation | 2 | `pages: operations:` | guide |
+
+### La version 1.0.0.0 (production) — 79 %
+
+| La documentation | (environnements) | (groups) | (projet) | (settings) | commande | stock | technique | tiers | **la version** |
+|---|---|---|---|---|---|---|---|---|---|
+| fonctionnelle | — | 0 % (0/6) | 100 % (1/1) | — | 80 % (136/169) | 82 % (98/119) | 87 % (172/198) | 79 % (101/128) | **82 %** |
+| dictionnaire | — | — | — | 0 % (0/2) | 68 % (63/92) | 73 % (46/63) | 82 % (93/114) | 67 % (45/67) | **73 %** |
+| réglementaire | — | — | 100 % (1/1) | 100 % (3/3) | — | — | — | 100 % (1/1) | **100 %** |
+| développeur | — | — | — | — | — | — | — | 100 % (1/1) | **100 %** |
+| D.A.T. | 100 % (2/2) | — | — | — | — | — | — | — | **100 %** |
+| guide | 0 % (0/2) | — | — | — | — | — | — | — | **0 %** |
+| projet | — | — | 100 % (1/1) | — | — | — | — | — | **100 %** |
+
+**79 %** — 764 éléments décrits sur 970 attendus, 117 manques.
+
+| Le manque | Combien | La clé à écrire | La documentation |
+|---|---|---|---|
+| l'entité sans nom d'usage | 18 | `title:` | fonctionnelle |
+| le champ sans aide ni description | 89 | `hint: ou description:` | fonctionnelle, dictionnaire |
+| le type personnalisé sans description | 2 | `description: du type` | dictionnaire |
+| le groupe sans persona | 6 | `persona: du groupe` | fonctionnelle |
+| l'environnement sans texte d'exploitation | 2 | `pages: operations:` | guide |
+
+**Les orphelins** — 222 fichiers atteints depuis `syncytium.yml`, 222 fichiers dans le dossier ; un orphelin n'entre pas dans le taux : c'est peut-être un oubli — un texte écrit, jamais référencé.
+
+Aucun orphelin.
+
+## La maintenance, les risques, les améliorations — la déclinaison de l'entrepôt (le rang 8)
+
+*(La déclinaison du rang 8, écrite le 25/10/2026 sur §23 de
+documentation.md — D1489–D1495. La complétude est faite, ci-dessus
+(D1488). Le reste de la documentation 7 n'existe qu'avec l'instance :
+on montre d'abord ce que le dépôt seul permet, puis l'image que
+donnerait l'instance après quelques mois, à titre d'illustration.
+**Validée le 25/10/2026, D1496.**)*
+
+### Au dépôt — le cadre et les risques que la configuration seule permet
+
+> # entrepôt — La maintenance, les risques, les améliorations
+>
+> *Les usages et les risques pour les responsables métier et au-delà ;
+> les améliorations pour l'administrateur et le concepteur (D1493).*
+>
+> ## 1. Les usages
+>
+> *Non disponible au dépôt : les usages se mesurent à l'instance.* Le
+> cadre : par module — technique, tiers, commande, stock —, les trois
+> listes, les plus fréquents, les moins utilisés, les non utilisés, sur
+> la période choisie, trente jours par défaut.
+>
+> ## 2. Les risques
+>
+> **La version** : la 1.0.0.1 en beta porte trois évolutions du modèle
+> (le nom court du tiers, la langue en liste, le commentaire de l'article
+> que la reprise ne touche pas) — des écarts de structure, une migration
+> à dry-run avant promotion ; aucune version dépréciée. **La reprise** :
+> sept connecteurs, `cegid` marqué reprise, le delta nocturne et la
+> relecture du samedi — les anomalies et les rejets se mesurent à
+> l'instance. **Les données** : les calculés sur les volumes des
+> mouvements de stock (D985, D1012) sont le point à surveiller ; les
+> validations déclarées — le stock maximum sous le minimum, la
+> modification avant la création. **La sécurité** : l'authentification
+> `azure_ad`, quatre secrets ; la veille des CVE *non disponible*,
+> `security_advisories:` absent. **L'infrastructure** : aucun hook, donc
+> aucune dépendance de projet ; les dépendances du core seules.
+> **La continuité** : *non disponible* — aucun `backup:`, aucune
+> `replication:` : l'absence de sauvegarde est un risque nommé.
+>
+> ## 3. Les améliorations
+>
+> *Non disponible au dépôt.* Le cadre : alléger, enrichir, les demandes,
+> les questions sans réponse ; chaque proposition datée, la plus
+> ancienne en tête.
+
+### À l'instance — l'image après quelques mois (une illustration)
+
+> ## 1. Les usages — les trente derniers jours
+>
+> **Les plus fréquents** : le tableau de bord du stock (`stock`, 412
+> ouvertures), la liste des articles (287), la fiche article (231).
+> **Les moins utilisés** : la liste des fournisseurs (6), le pivot du
+> contrôle des stocks (4). **Les non utilisés** : la liste des
+> adresses ; les champs `tiers.fax` et `tiers.bic`, jamais renseignés ;
+> la valeur `plaque` du type d'article, jamais choisie.
+>
+> ## 2. Les risques
+>
+> **La reprise** : le delta nocturne a rejeté 3 lignes en moyenne par
+> passage sur le mois, toutes sur `ARTICLE` — un code de type inconnu ;
+> la tendance monte depuis le 12/10 : une liste close de l'ERP a reçu
+> une valeur que la règle ne traduit pas (D1493 — une règle absente ou
+> la source qui change). **Les données** : la validation « stock maximum
+> sous le minimum » échoue 41 fois sur le mois, toutes sur des articles
+> fantômes. **La continuité** : aucune sauvegarde depuis l'installation,
+> le 04/10.
+>
+> ## 3. Les améliorations — par antériorité
+>
+> | depuis le | la proposition | le fait | la clé |
+> |---|---|---|---|
+> | 04/10 | **alléger** — `tiers.fax`, candidat au retrait | constant depuis la première ingestion (D46) | `tiers.tiers.fields.fax` |
+> | 04/10 | **alléger** — la valeur `plaque` du type d'article | jamais choisie | `technique.article.fields.classification.fields.type.values.plaque` |
+> | 11/10 | **les demandes** — « le prix de revient sur la liste des articles » | 3 demandes d'évolution, nouvelles, par le groupe achats | `technique.article.gui.lists` |
+> | 19/10 | **les questions** — l'écran des mouvements | 5 questions ouvertes, la plus ancienne du 19/10 | `stock.mouvement` |
+>
+> *La liste des fournisseurs, peu ouverte, n'est pas proposée au
+> retrait : six ouvertures ne sont pas zéro, et c'est au responsable
+> métier de dire si les achats s'en servent.*
+
+---
+
+*Ce que la déclinaison montre : au dépôt, le chapitre nomme déjà deux
+risques — la migration de la 1.0.0.1 et l'absence de sauvegarde — sans
+aucune mesure ; à l'instance, une proposition disparaît d'elle-même
+quand le fait disparaît (D1494) — le jour où un article `plaque` est
+créé, la seconde ligne s'efface.*

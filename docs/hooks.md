@@ -706,5 +706,13 @@ famille ; une opération périodique au calendrier des opérations
 (D943) ; les hooks du projet ne tournent qu'avec leurs `dependencies:`
 installées (D1432).
 
-**Les autres colonnes** — à leur rang : la maintenance (la fréquence
-d'emploi de chaque opération, D1168).
+**Les hooks, dans la maintenance, les risques et les améliorations** (la
+colonne 7 — le rang 8) : **les usages** — les déclenchements de chaque
+opération, la part de refus de validation, l'opération jamais
+déclenchée (D1489) ; **les risques** — les dépendances des hooks, leur
+version et leur licence (D924, D1432), les erreurs codifiées les plus
+fréquentes au journal ; **les améliorations** — l'entrée composite,
+l'agrégat, le champ calculé que les séquences d'appels font émerger
+(D45, le volet conseil), l'opération jamais déclenchée (D1495).
+
+**Les neuf colonnes sont écrites.**

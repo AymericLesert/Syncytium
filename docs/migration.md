@@ -676,5 +676,11 @@ et leur rétention au nettoyage.
 passage au tableau de bord (D1452) ; emporté par la copie d'un
 environnement (D1078).
 
-**Les autres colonnes** — à leur rang : la
-maintenance (le rang 8 — la couverture et les compteurs).
+**Le module `_migration`, dans la maintenance, les risques et les
+améliorations** (la colonne 7 — le rang 8) : la famille « la reprise »
+des risques (D1490) — la couverture et les compteurs, les anomalies et
+les rejets des passages et leur tendance — et, dans la famille « la
+version », le rapport du dernier dry-run de migration (D7–D9) ; servie à
+partir de `manager` (D1493).
+
+**Les neuf colonnes sont écrites.**

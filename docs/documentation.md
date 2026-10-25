@@ -627,7 +627,7 @@ décisions, D1170–D1238.)*
   d'ensemble (validée le 25/10/2026, D1477).
 - **Dépendances** : les choix techniques (D1025), le D.A.T.
 
-#### Rang 8 — la maintenance, les risques, les améliorations (documentation 7)
+#### Rang 8 — la maintenance, les risques, les améliorations (documentation 7) — *clos le 25/10/2026, D1496*
 
 - **Périmètre** : l'analyse — la supervision des usages, les
   contrôles, les optimisations, les risques, la recherche
@@ -636,21 +636,34 @@ décisions, D1170–D1238.)*
 - **Étapes** :
   1. §20 — la complétude : le rapport, le seuil, l'avertissement à
      l'ingestion — **calculable dès maintenant** sur les quatre
-     exemples ;
+     exemples : **acquis le 25/10/2026 (D1478–D1488)** — l'inventaire
+     consolidé, la forme du rapport, l'ingestion, `tools/completeness.py`
+     et les cinq cas mesurés ;
   2. §23 — la supervision des usages : les indicateurs retenus (les
      plus fréquents, les moins utilisés, les non utilisés), les canaux
-     (D44), la part de chaque lecteur, la périodicité ;
+     (D44), la part de chaque lecteur, la périodicité : **acquis le
+     25/10/2026 (D1489)** — un indicateur par type de composant, trois
+     lieux sans notification nouvelle, l'usage de ce qu'on voit, la
+     période au choix, aucun seuil absolu ;
   3. l'analyse des risques : le dry-run (D737), les anomalies de la
      reprise, les validations en échec, les refus et les pics (D43),
      les dépréciées appelées (D742), les dépendances (D924), le PRA,
-     les volumes (D985/D1012) ;
+     les volumes (D985/D1012) : **acquis le 25/10/2026 (D1490)** — un
+     fait mesuré en regard d'un choix, six familles, le renvoi, le dépôt
+     et l'instance, les lecteurs ;
   4. la recherche d'améliorations : les conseils (D45), le retrait et
      le resserrement (D46/D48), les écrans jamais ouverts, les
-     demandes, les questions sans réponse (§25).
-- **Déclinaison** : la complétude des quatre exemples (au dépôt) ;
-  l'entrepôt pour le reste, à l'instance.
-- **Livrables** : §8, §20, §23 validés ;
-  [telemetry.md](telemetry.md).
+     demandes, les questions sans réponse (§25) : **acquis le
+     25/10/2026 (D1491–D1495)** — une proposition datée qui vit avec le
+     fait, quatre familles, trois lieux, servie à `administrator`.
+- **Déclinaison** : **la complétude des cinq cas, faite le 25/10/2026**
+  (D1488 — dans la maison de chaque cas) ; **l'entrepôt pour le reste,
+  validé le 25/10/2026 (D1496)**
+  ([usecases/05_entrepot.md](../usecases/05_entrepot.md)) : les risques
+  visibles au dépôt, et l'image à l'instance.
+- **Livrables** : §20 et §23 validés (D1478–D1495) ; §8 inchangé ;
+  [telemetry.md](telemetry.md) ; la colonne 7 de la matrice dans les onze
+  artefacts et la matrice d'ensemble (validée le 25/10/2026, D1496).
 - **Dépendances** : la télémétrie et l'instance, sauf §20.
 
 #### Rang 9 — la promotionnelle (documentation 6)
@@ -1592,10 +1605,14 @@ l'aide courte, au « (?) » du champ, sur les trois écrans (D262).
   au détail** ; un champ sans l'un ni l'autre **n'y est pas — son nom
   suffit à lui-même** ; **et la `description:` de tout composant
   graphique entre au masque** (D1193) — le kpi, le graphique, le
-  widget, la section, le bouton d'une opération, comme le champ ; une surface sans description dont aucun champ
-  ne porte d'aide n'a pas de masque (ma conséquence) ; la complétude
-  (§20) continue de compter le champ sans aucune aide — « il reste »
-  (D1199) ;
+  widget, la section, le bouton d'une opération, comme le champ ; **une
+  surface sans description a son masque par défaut, construit de la
+  définition de l'entité** — la description de l'entité et celles de ses
+  champs — et le concepteur le surcharge « si la mise en forme doit être
+  adaptée ou personnalisée selon les usages » (D1484, qui amende ma
+  conséquence « pas de masque ») ; la complétude (§20) ne compte pas la
+  surface sans description, elle continue de compter le champ sans
+  aucune aide — « il reste » (D1199) ;
 - **le « ? » de l'écran** fait trois choses (D1192) : il montre le
   masque, il mène à la page de l'écran dans la documentation (D1121),
   il porte l'assistance — les questions répondues de l'écran et « poser
@@ -2119,10 +2136,10 @@ rubrique qui la spécifie. Trois lignes, pour la forme :
 
 | Le composant | 1 Fonctionnelle | 2 Information | 3 Développeur | 4 D.A.T. | 5 Réglementation | 6 Promotionnelle | 7 Maintenance | 8 Projet | 9 Exploitation |
 |---|---|---|---|---|---|---|---|---|---|
-| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 avec ses index et ses partitions (D1292–D1293) ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | sa section du contrat si le compte peut l'atteindre (D1394) : les champs `public`, les actes permis, les lectures et les écritures, les liens, les exemples ; ses écarts filtrés (D1401) | rien de propre ; ses champs `rgpd:` marquent le flux qui les emporte (D1426) ; ses volumes au dimensionnement (D1430) | le stockage de ses champs `rgpd:`, son module soumis ; ses actes du socle et ses opérations comme traitements, son wizard comme suite (D1317–D1318) ; son bloc `rgpd:` (D1325) ; son état pour la limitation ; sa rétention par `rgpd.anonymize` (D1334) | son titre dans la vue d'ensemble | ses usages, ses anomalies | ses écarts dans « ce qui change » de la page des versions (§9) ; l'enregistrement cité par un ticket (D1364) | rien de propre ; la restauration d'un enregistrement (D171) est une fiche ; ses volumes pèsent sur la charge (D1453) |
-| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3, l'index que son `searchable:` ou son identité lui vaut (D1292), la partition qu'il porte (D1293) | exposé s'il est `public` (D20), par son nom, le type en clair, le format de la valeur ; un écart du contrat quand il change | `rgpd:` signalé sur le flux ; rien d'autre | son marquage `rgpd:` — `personal`, `sensitive`, `consent`, `identity` (D695, D1332) —, par lui-même ou par son type ; son niveau de confidentialité, son audit (D703), sa rétention calculée, les traitements qui le touchent ; `identity`, le point de départ de `rgpd.extract` | — | sa diversité, ses valeurs inemployées | ajouté, renommé, retypé, supprimé — « ce qui change » (D1347) | rien |
-| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa forme en clair tel qu'appliqué, sa déclinaison, ses indicateurs, son exemple (D1301) ; les modes de recherche qu'il admet, origines des index (D1292) ; son entrée à l'annexe B | sa fiche à l'inventaire (D1406) et l'entrée de la référence pour en écrire un (D1408) ; la forme de ses valeurs dans les appels et le gabarit | rien — sa forme native au dictionnaire | le marquage qu'il porte (D1178) — `personal`, `sensitive`, `consent`, `identity` —, hérité par tout champ qui l'emploie ; le registre se lit par type puis par champ | — | — | un champ retypé — « ce qui change » | rien ; les chiffrants à la rotation des clés (D730) |
-| le wizard | le scénario, la planche, le parcours guidé | — | une suite d'opérations : son contrat d'appel quand il est exposé ; à l'inventaire, les hooks qu'il enchaîne | rien | une suite d'opérations — un traitement du registre quand une étape touche un champ marqué (D1318, D1329) | un cas d'usage | sa fréquence d'emploi | son bloc `assistance:` (D1372) ; le « ? » — la documentation, un ticket, une question, la recherche (D1366, D1371) | rien |
+| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 avec ses index et ses partitions (D1292–D1293) ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | sa section du contrat si le compte peut l'atteindre (D1394) : les champs `public`, les actes permis, les lectures et les écritures, les liens, les exemples ; ses écarts filtrés (D1401) | rien de propre ; ses champs `rgpd:` marquent le flux qui les emporte (D1426) ; ses volumes au dimensionnement (D1430) | le stockage de ses champs `rgpd:`, son module soumis ; ses actes du socle et ses opérations comme traitements, son wizard comme suite (D1317–D1318) ; son bloc `rgpd:` (D1325) ; son état pour la limitation ; sa rétention par `rgpd.anonymize` (D1334) | son titre dans la vue d'ensemble | ses lectures et ses écritures, ses lignes, ses validations en échec, ses volumes (D1489–D1490) | ses écarts dans « ce qui change » de la page des versions (§9) ; l'enregistrement cité par un ticket (D1364) | rien de propre ; la restauration d'un enregistrement (D171) est une fiche ; ses volumes pèsent sur la charge (D1453) |
+| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3, l'index que son `searchable:` ou son identité lui vaut (D1292), la partition qu'il porte (D1293) | exposé s'il est `public` (D20), par son nom, le type en clair, le format de la valeur ; un écart du contrat quand il change | `rgpd:` signalé sur le flux ; rien d'autre | son marquage `rgpd:` — `personal`, `sensitive`, `consent`, `identity` (D695, D1332) —, par lui-même ou par son type ; son niveau de confidentialité, son audit (D703), sa rétention calculée, les traitements qui le touchent ; `identity`, le point de départ de `rgpd.extract` | — | sa diversité, ses valeurs inemployées ; « candidat au retrait », pour l'administrateur (D1489, D1492) | ajouté, renommé, retypé, supprimé — « ce qui change » (D1347) | rien |
+| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa forme en clair tel qu'appliqué, sa déclinaison, ses indicateurs, son exemple (D1301) ; les modes de recherche qu'il admet, origines des index (D1292) ; son entrée à l'annexe B | sa fiche à l'inventaire (D1406) et l'entrée de la référence pour en écrire un (D1408) ; la forme de ses valeurs dans les appels et le gabarit | rien — sa forme native au dictionnaire | le marquage qu'il porte (D1178) — `personal`, `sensitive`, `consent`, `identity` —, hérité par tout champ qui l'emploie ; le registre se lit par type puis par champ | — | ses valeurs inemployées, le domaine à resserrer (D48) | un champ retypé — « ce qui change » | rien ; les chiffrants à la rotation des clés (D730) |
+| le wizard | le scénario, la planche, le parcours guidé | — | une suite d'opérations : son contrat d'appel quand il est exposé ; à l'inventaire, les hooks qu'il enchaîne | rien | une suite d'opérations — un traitement du registre quand une étape touche un champ marqué (D1318, D1329) | un cas d'usage | sa fréquence d'emploi, jamais ouvert (D1489) | son bloc `assistance:` (D1372) ; le « ? » — la documentation, un ticket, une question, la recherche (D1366, D1371) | rien |
 
 **La matrice se remplit rang par rang** (D1159) : chaque rang du plan
 (le contexte, partie 5) spécifie la colonne de sa documentation pour
@@ -2811,13 +2828,14 @@ les écrans que ses droits lui ouvrent, qui peut apporter plus
 d'éléments que le scénario d'un persona ; joué dans l'application (ma
 lecture : le texte seul n'a plus d'objet, le scénario le porte).
 
-## 20. La complétude de la documentation *(le rang 1 — acquis, D1173/D1177/D1182/D1199/D1221)*
+## 20. La complétude de la documentation *(le rang 1 — acquis, D1173/D1177/D1182/D1199/D1221)* *(le rang 8, étape 1 — acquis, D1478–D1488 : l'inventaire, le rapport, l'ingestion, la mesure des cinq cas)*
 
 Le rapport du concepteur, à la façon de la couverture (D861/D1060) :
 **ce qui n'est pas décrit** — les entités sans `description:`, les
 champs sans `hint:` ni `description:`, les énumérés sans libellé, les
-opérations et les hooks sans description ni md, les surfaces sans
-`description:` (le masque vide), **le traitement sans responsable**
+opérations et les hooks sans description ni md, ~~les surfaces sans
+`description:`~~ (retirées, D1484 : le masque par défaut se construit
+de l'entité), **le traitement sans responsable**
 (D1320 — « non précisé ») et **la mention d'information non ancrée**
 quand `rgpd:` est présent (D1335) ; non l'entité sans marquage `rgpd:` — un
 projet sans champ marqué n'est pas une anomalie, Syncytium ne décide
@@ -2832,6 +2850,51 @@ complétude ne relève que ce qui devrait être écrit et ne l'est pas —
 tel quel, et la complétude le compte (D1182) ; le champ sans `hint:` ni
 `description:` n'est pas au masque — « son nom suffit » (D1191) — mais
 reste dans le rapport (D1199).
+
+**L'inventaire consolidé** (D1478 — le rang 8, l'étape 1) : ce que les
+rangs 1 à 7 ont posé, rassemblé ; chaque manque nomme la clé à écrire
+et la documentation qu'il affaiblit.
+
+| Le manque | La clé à écrire | La documentation affaiblie | Où c'est dit |
+|---|---|---|---|
+| **Le modèle** | | | |
+| le module sans description | `description:` du module | la fonctionnelle | D1485 |
+| l'entité sans description | `description:` de l'entité | la fonctionnelle, le dictionnaire | §20, D1177 |
+| le champ sans aide ni description | `hint:` ou `description:` du champ | la fonctionnelle, le dictionnaire | D1191, D1199 |
+| le libellé absent — le nom nu `${name}` s'affiche | `label:` du champ ; `title:` de l'entité, son nom d'usage (D1120) | toutes — un texte pour le lecteur manque | D1181–D1182, D1485 |
+| l'énuméré sans libellé | le `label:` de la valeur | la fonctionnelle, le dictionnaire | §20 (le rang 1) |
+| le type personnalisé sans description | `description:` du type | le dictionnaire (§15), l'information | §15 (le rang 2) |
+| le md manquant d'un type ou d'un composant ajouté | `description:` de la fiche, un md par langue | le développeur | D1403, §27 |
+| **Les surfaces et les traitements** | | | |
+| l'opération ou le hook sans description ni md — la finalité RGPD de l'opération, `rgpd.purpose:`, compte comme sa description (D1487) | `description:` ; le md du hook ; `purpose:` | la fonctionnelle, le développeur | D1196, D1227, D1403, D1487 |
+| l'entrée de webhook sans description | `description:` de l'entrée | le contrat d'API (§10) | §27, étape 4 |
+| l'erreur codifiée sans arbre de résolution — jamais une trace | `resolution:` dans `errors:` | le guide d'exploitation (§17) | D1463–D1464 |
+| le groupe sans persona — un persona généré, nommé par le groupe | `persona:` du groupe | la fonctionnelle (§22) | §22, D1182 |
+| **Le réglementaire** | | | |
+| le traitement sans responsable — « non précisé » au registre | `controller:` | la réglementation (§18) | D1320 |
+| la propriété du traitement absente à tous les niveaux | `purpose:`, la rétention… | la réglementation | D1320–D1327 |
+| la mention d'information non ancrée quand `rgpd:` est présent | le `paragraph` de la mention | la réglementation, la fonctionnelle | D1335 |
+| **Le projet et l'instance** | | | |
+| le projet sans texte de support | `pages: support:` | le projet et le support (§26) | D1377 |
+| l'environnement sans description | `description:` de l'environnement | le D.A.T. (§28) | D1426, §28 |
+| l'environnement sans texte d'exploitation | `pages: operations:` | le guide d'exploitation (§17) | §17, chapitre 3 |
+| la variable référencée sans valeur — à l'instance seulement | la valeur dans le fichier des variables | le D.A.T., le guide | §28, chapitre 3 |
+
+**Ce qu'elle ne compte pas**, dit en clair (D1478) : un défaut du
+socle — `history:` tu, les droits tus (D1173) ; **la surface sans
+`description:`** — « Les surfaces sans masque ne sont pas une anomalie.
+La définition d'une entité doit permettre de construire un masque par
+défaut sans avoir besoin d'en définir un » (D1484), la description de
+la surface est une surcharge pour un usage particulier ; l'entité sans aucun
+`rgpd:` (D1319) ; le `placeholder:` absent, la cellule d'exemple reste
+vide (§14) ; une langue de la version manquante — une erreur
+d'ingestion, non un manque (D1474) ; la référence du core et la skill
+(§27) ; les postes et les navigateurs du D.A.T. (§28) ; un texte écrit
+par une IA — pour Syncytium, un texte du concepteur, passé par le dépôt
+et sa relecture (D1226, qui clôt D1169). Les questions sans réponse de
+l'assistance ne sont pas un manque de description : elles vont à la
+supervision (§23).
+
 **Le seuil** (D1221) : **une ligne de commande mesure la complétude,
 avec le même moteur que celle qui génère la documentation** ; **le
 seuil est à la discrétion du concepteur** — « s'il souhaite diffuser
@@ -2843,6 +2906,56 @@ mesure sans produire : le taux par module et par version, la liste de
 ce qui manque, un code de retour qui porte le taux pour le script d'un
 concepteur qui voudrait son propre seuil ; le rapport de `notify:`
 (D1167) est ce même résultat.
+
+**La forme du rapport** (D1479 — le rang 8, l'étape 1) : **trois axes —
+la version, le module, la documentation** ; chaque manque de
+l'inventaire appartient à une documentation (la colonne « la
+documentation affaiblie » ci-dessus), un manque qui en affaiblit deux
+compte dans chacune ; **un taux par module et par documentation, sans
+pondération** — les éléments décrits sur les éléments attendus — ; **la
+liste des manques, une seule table par nature du manque — sa première
+ligne la nature, la deuxième les deux colonnes, le fichier et la clé
+d'accès complète, puis le détail** (D1485–D1486 :
+`technique.article.fields.code.hint`). Le rapport se lit du
+général au particulier : la version, chaque documentation et son taux,
+chaque module ; `--check` et `notify:` produisent le même rapport.
+
+**À l'ingestion** (D1480–D1481 — le rang 8, l'étape 1) : l'ingestion
+d'une version, beta ou production, calcule le rapport avec le même
+moteur que `--check` — **un seul calcul pour tous les usages** (D1481 :
+« Le même calcul pour les différents usages colle avec la philosophie du
+projet. On évite de dédupliquer les contrôles »), **un seul rapport**, produit
+au dépôt par la commande, à l'ingestion, et par `notify: beta →
+completeness` (D1167) — et **le garde avec la version** au registre des
+versions essayées (D326) : la documentation technique montre la
+complétude de chaque version active sans recalcul. **Au journal, une
+seule ligne `info`** par ingestion — la version et son taux —, jamais
+un `warning` : **« l'administrateur n'a pas besoin de l'utilité de la
+complétude. Seul le concepteur s'en sert pour garantir que sa version
+fournisse une qualité de service suffisante et que la version sera
+pleinement exploitable »** (D1480) — rien à la santé (D1452), rien aux
+faits marquants ; la liste des manques ne va qu'où le concepteur lit :
+la commande, la notification aux groupes qu'il choisit, la
+documentation technique. Jamais un refus (D1221). **Si une erreur se
+glisse à l'ingestion** (D1482) : un message d'erreur au journal, au
+niveau `error`, **avec les manques bloquants** — ceux de configuration.md
+§5 : une langue manquante, un texte sans une langue de la version, un
+hook sans sa langue, un catalogue incomplet… — ; **cela n'enlève rien à
+la mise à disposition du rapport** de complétude ; dans les autres cas,
+**le rapport d'ingestion est disponible pour chaque version** — deux
+rapports, l'ingestion qui dit si la version est servie, la complétude
+qui ne bloque jamais, tous deux au registre des versions essayées.
+
+**Les orphelins dans le rapport** (D1483 : « ajoute l'analyse des
+orphelins dans le rapport de complétude (ça peut être lié à un oubli
+d'un fichier) ») : après la liste des manques, **les fichiers du projet
+qu'aucune clé ne cite** (D956 — toute référence s'écrit `~{…}`) — un
+texte écrit, jamais référencé, peut-être un oubli ; hors du taux, ce
+n'est pas un élément non décrit. **La mesure au dépôt** (la lecture 4) :
+`tools/completeness.py`, à l'image du traceur d'orphelins (D1240), lit
+la configuration d'un exemple et produit ce rapport — l'inventaire, le
+taux par documentation et par module, la liste des manques avec la clé
+et le fichier, les orphelins ; les cinq cas mesurés le 25/10/2026.
 
 ## 21. La diffusion *(le rang 0, étape 6 — acquis, D1167–D1168)*
 
@@ -3087,7 +3200,7 @@ arbitrer point par point)* :
    mes lectures : le groupe `foyer`, l'utilisateur par défaut y
    appartient, le degré `administrator`).
 
-## 23. La maintenance, les contrôles et la supervision (D1128) *(en proposition)*
+## 23. La maintenance, les contrôles et la supervision (D1128) *(le rang 8 — acquis, D1489–D1496 : les usages, les risques, les améliorations ; la complétude en §20)*
 
 **« Cette documentation est à compléter avec des opérations de
 maintenance, de contrôles ou de supervision incluant quelques aspects
@@ -3096,7 +3209,142 @@ plus fréquents, les moins utilisés ou les non utilisés. »** (l'auteur,
 le 05/10/2026 — la dixième pièce ; il garde la possibilité d'en
 ajouter d'autres.)
 
-*Mes propositions* — la pièce où la documentation cesse de décrire pour
+**La supervision des usages — acquis** (D1489, le rang 8, l'étape 2 :
+« sur les différentes lectures, je ne vois rien d'autres à ajouter. Cela
+reflète ce que nous avons déjà partagé ») :
+
+1. **Un indicateur par type de composant**, tiré de la télémétrie, rien
+   de nouveau à collecter (la méthode de D1158) : **l'entité** — les
+   lectures et les écritures (D39), le nombre de lignes ; **le champ** —
+   la diversité des valeurs (D38, D46, D48), le champ jamais renseigné ;
+   **l'énuméré** — le compteur de chaque valeur (D1155), la valeur jamais
+   choisie ; **la surface** — les ouvertures, l'écran jamais ouvert ;
+   **l'opération** — les déclenchements, la part de refus de validation,
+   l'opération jamais déclenchée ; **l'édition et l'export** — les
+   documents produits ; **l'API** — les appels par entrée et par compte
+   technique (D40). D'où **les trois listes**, sur une période : les plus
+   fréquents, les moins utilisés, les non utilisés.
+2. **Trois lieux, aucune notification nouvelle** : l'usage de chaque
+   composant dans sa page de documentation, comme les données dans celle
+   des champs (D1155, D1168) ; **le chapitre d'ensemble** de la
+   documentation 7, les trois listes par module ; le tableau de bord des
+   usages (D38) et la synthèse périodique (D738) de la télémétrie,
+   inchangés. La documentation 7 est une lecture, elle ne pousse rien.
+3. **La part de chaque lecteur** : dans la page d'un composant, l'usage
+   suit les droits du lecteur (D1139–D1147) — chacun voit l'usage de ce
+   qu'il voit ; le chapitre d'ensemble se sert **à partir de `manager`**
+   (comme les indicateurs du support, D1377) — le responsable métier y
+   lit ce que son équipe emploie, le décideur ce que l'application rend,
+   le concepteur ce qu'il doit faire évoluer ; l'administrateur y lit la
+   charge, non les usages métier.
+4. **La période** : les compteurs gardés au jour (D39) ; le lecteur
+   choisit — sept jours, trente jours, douze mois —, **trente jours par
+   défaut** ; « non utilisé » se mesure depuis la première ingestion de
+   la version (D326) quand elle a moins d'un an, sinon sur douze mois —
+   un écran saisonnier n'est pas un écran mort.
+5. **Aucun seuil absolu** : « les moins utilisés » sont le bas du
+   classement, le dernier dixième ; « non utilisés », zéro sur la
+   période ; le classement suffit à l'analyse. Les seuils de la
+   télémétrie restent où ils sont.
+
+**L'analyse des risques — acquis** (D1490, le rang 8, l'étape 3 : « Je
+confirme les cinq lectures ») :
+
+1. **Le principe** : un risque est **un fait mesuré par l'instance, mis
+   en regard d'un choix du concepteur**. Le chapitre ne découvre rien
+   que la télémétrie, le journal et la reprise ne mesurent déjà : il
+   rassemble et il place. Chaque risque dit quatre choses — **la mesure,
+   sa lecture, où il se traite, le conseil**. Il ne décide jamais de ce
+   qui est un risque pour le métier (comme D1319 pour le réglementaire)
+   et n'agit jamais, le conseil reste consultatif (D45).
+2. **Six familles**, dans l'ordre où elles pèsent sur une version :
+   **la version** — le rapport du dernier dry-run de migration (D7–D9),
+   les écarts de la version suivante qui touchent la structure (§9),
+   les versions dépréciées encore appelées et par quel compte technique
+   (D742, D40) ; **la reprise** — les anomalies et les rejets des
+   passages, leur tendance, la couverture (migration.md) ; **les
+   données** — les validations qui échouent le plus, par règle et par
+   champ, les volumes par entité et leur croissance, les calculés sur
+   les volumes et les listes lentes (D985, D1012) ; **la sécurité** —
+   les refus de droits et les pics (D43), les tentatives refusées, les
+   CVE à traiter (D1451) ; **l'infrastructure** — les dépendances du
+   core et des hooks, leur version et leur licence (D924, D1432), la
+   disponibilité et la charge (D1453) ; **la continuité** — l'état du
+   passif et son retard (D731), la dernière sauvegarde et sa dernière
+   vérification (D1450), ou « non disponible » quand rien n'est déclaré
+   (D1476) : l'absence de sauvegarde est alors un risque nommé.
+3. **Le chapitre renvoie, il ne répète pas** : la fiche du guide pour
+   le geste (§17), le D.A.T. pour ce qui est connecté (§28), le registre
+   réglementaire pour les traitements (§18), la complétude (§20) pour la
+   documentation elle-même — son manque est un risque d'exploitabilité
+   (D1480).
+4. **Au dépôt et à l'instance** : au dépôt, le cadre et ce que la
+   configuration seule permet — les dépendances et leurs licences, les
+   volumes déclarés, les écarts entre versions, la continuité déclarée
+   ou non ; à l'instance, les mesures s'ajoutent, datées, sur la
+   période de l'étape 2.
+5. **Les lecteurs** : la même règle que les usages (D1489, confirmée
+   D1493 — « les usages et les risques restent servis à partir du
+   manager … le concepteur ou l'administrateur n'a pas toujours la
+   vision métier ») — le chapitre se sert à partir de `manager`, chacun
+   y voit ce que ses droits lui montrent ; l'infrastructure, la sécurité et la continuité
+   sont la part de l'administrateur, les données et la version celle du
+   concepteur et du décideur.
+
+**La recherche d'améliorations — acquis** (D1491–D1495, le rang 8,
+l'étape 4) :
+
+1. **Le principe** : une amélioration est **une proposition, jamais un
+   acte** — le chapitre dit ce que les mesures suggèrent de changer dans
+   la configuration, le concepteur décide au dépôt, hors de
+   l'application (D45, D739). Chaque proposition dit quatre choses : le
+   fait qui la fonde, la suggestion avec la clé qu'elle touche, le gain
+   attendu, le composant concerné.
+2. **Quatre sources, quatre familles** : **alléger** — depuis les usages
+   (§23, l'étape 2) : le champ constant, candidat au retrait (D46 — le
+   ratio de cardinalité, pondéré par D38, le signalement opt-in de
+   D49) ; le domaine surdimensionné, à resserrer (D48) ; la valeur
+   d'énuméré jamais choisie ; l'écran jamais ouvert, l'opération jamais
+   déclenchée, le rapport jamais produit ; **enrichir** — depuis le volet
+   conseil de la télémétrie, tel qu'elle le produit (D45, D315–D319,
+   D739) : l'entrée composite, l'agrégat, le champ calculé que les
+   séquences d'appels font émerger, les conseils au consommateur de
+   l'API ; **les demandes** — depuis `_assistance` (D1363–D1374) : les
+   demandes d'évolution par statut, celles qui reviennent le plus, par
+   écran ; **les questions sans réponse** — depuis l'assistance aussi :
+   les questions ouvertes, et l'écran qui en suscite le plus, l'écran à
+   améliorer (§25).
+3. **Une vue calculée, datée** (D1491, D1494 : « La proposition porte
+   une date de début qui accompagne la proposition. Les propositions
+   sont aussi classées par date d'antériorité » ; « Une proposition peut
+   apparaître et disparaître sans intervention de la configuration … Si
+   après une certaines périodes, le comportement réapparaît, la
+   proposition peut à nouveau réapparaître aussi ») : la proposition
+   vit avec le fait — le champ retiré, le statut qui se remet à
+   bouger, la demande livrée la font disparaître ; sa date de début est
+   celle de l'apparition courante, une réapparition porte une nouvelle
+   date ; la plus ancienne en tête ; aucun autre état, rien n'est gardé
+   d'une proposition disparue ; le concepteur ne marque rien dans
+   l'application, son geste est au dépôt.
+4. **Trois lieux, aucune notification nouvelle** : la proposition sur
+   la page du composant qu'elle concerne — le champ dit « candidat au
+   retrait » comme il dit sa diversité (D1168) — ; le chapitre
+   d'ensemble de la documentation 7, par famille et par module ; la
+   synthèse périodique de la télémétrie (D738) inchangée.
+5. **Les lecteurs** (D1492–D1493 : « La recherche d'amélioration est à
+   porter au niveau de l'administrateur, pas du manager … le concepteur
+   est plus à même de définir la priorité ou le risque ») : le chapitre
+   se sert au degré **`administrator`** ; le concepteur le lit au dépôt
+   par `syncytium document`, dans sa sandbox (D1353) ou par un compte
+   administrateur ; l'administrateur et le concepteur voient avec les
+   responsables métier pour apporter les améliorations recommandées ;
+   sur la page d'un composant, la proposition ne paraît qu'à
+   l'administrateur, la diversité elle-même restant visible (D1155).
+   **Trois chapitres, trois lecteurs** (D1493) : les usages et les
+   risques à partir de `manager` — la vision métier —, les améliorations
+   à `administrator` — la configuration.
+
+*Mes propositions d'origine* — la pièce où la documentation cesse de décrire pour
 **mesurer et conseiller** ; ses opérations de maintenance s'expliquent
 au guide d'exploitation (§17, D1134), elle en garde l'analyse — nourrie
 par la troisième source (§8, D334)
@@ -3115,7 +3363,8 @@ qu'avec l'instance — au dépôt, elle se montre vide, avec son cadre.
   la documentation même, l'usage de chaque composant là où il est
   décrit** — le module, l'écran, le rapport, l'opération (D1168,
   comme D1155 pour les données).
-- **Les contrôles.** La complétude de la documentation (§20) ; la
+- **Les contrôles.** La complétude de la documentation (§20) — la part
+  du concepteur, non de l'administrateur (D1480) ; la
   couverture et les compteurs de la reprise
   ([migration.md](migration.md)) ; les validations qui échouent le plus
   ; les versions servies, leur épinglage (D98/D99) et l'appel d'une
@@ -3133,9 +3382,8 @@ qu'avec l'instance — au dépôt, elle se montre vide, avec son cadre.
   (`reset_coverage` — D943), la restauration d'un enregistrement (D171)
   ; pour chacune : quand, qui, comment, la trace.
 
-*À trancher* : la part servie à l'administrateur et au concepteur ; la
-périodicité de la synthèse ; les seuils (la calibration de
-telemetry.md).
+*À trancher* : les seuils (la calibration de telemetry.md) — la part de
+chaque lecteur et la périodicité sont tranchées (D1489).
 
 ## 24. Les modes opératoires imprimables (D1129) *(fondus dans §22 — D1188 ; la planche elle-même, en proposition)*
 
@@ -3261,9 +3509,9 @@ d'abord ; les notifications (D108) — aux répondants à chaque question,
 chaque écran, générée des questions répondues (la troisième source
 s'élargit, D334 : les données de l'instance comprennent ce que les
 utilisateurs demandent) ; le chat (D957) — les questions et les
-réponses entrent dans sa connaissance, sous les droits ; la complétude
-(§20) et la supervision (§23) — les questions sans réponse, les écrans
-qui en suscitent le plus : l'écran qui pose question est l'écran à
+réponses entrent dans sa connaissance, sous les droits ; la
+supervision (§23) — non la complétude, D1478 — les questions sans
+réponse, les écrans qui en suscitent le plus : l'écran qui pose question est l'écran à
 mieux documenter ; les scénarios et les planches (§22, §24) — une
 question fréquente appelle une planche.
 
@@ -4003,7 +4251,7 @@ core ; rien d'autre n'est requis. **La complétude** ne mesure rien ici.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 6 est clos (D1435).*
 
-## 29. Les points ouverts *(rafraîchis à la clôture du rang 7, le 25/10/2026)*
+## 29. Les points ouverts *(rafraîchis à la clôture du rang 8, le 25/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -4013,7 +4261,9 @@ dans celle de l'application (D645 → le chapitre 2 de §6, D1189), les
 modes opératoires comme chapitre (§24 → §22, D1188), le parcours guidé
 comme chapitre (§19 → §22, D1187) ; le guide d'exploitation (§17, le
 rang 7, D1447–D1477) ; la langue apportée par un projet, un hook de
-langue, et la même règle des langues partout (D1465–D1475).*
+langue, et la même règle des langues partout (D1465–D1475) ; la
+maintenance, les risques et les améliorations (§23, le rang 8,
+D1478–D1496) ; la complétude et son inventaire (§20, D1478–D1488).*
 
 1. *(clos le 11/10 — D1171, D1184, D1186 confirmés, D1197–D1199)* ;
 2. *(clos le 11/10 — le rang 1 entier, D1238 : les sept sections, les
@@ -4037,10 +4287,11 @@ langue, et la même règle des langues partout (D1465–D1475).*
    domaine 7)* ;
 10. les pièces encore en proposition, à arbitrer à leur rang : — le
     guide d'exploitation (§17) acquis au rang 7 (D1447–D1477) ; §18, la
-    conformité, acquise au rang 3 (D1317–D1344) — la complétude et son
-    seuil (§20), la maintenance (§23 — la part de chaque lecteur,
-    la périodicité, les seuils) ; l'assistance (§25) acquise au rang 4 — fondue
-    dans §26, chapitre 3 (D1363–D1374) ;
+    conformité, acquise au rang 3 (D1317–D1344) ; la complétude et son
+    seuil (§20) acquis au rang 8 (D1478–D1488) ; la maintenance (§23)
+    acquise au rang 8 (D1489–D1496) — restent les seuils de la
+    télémétrie, à leur calibration ; l'assistance (§25) acquise au rang 4
+    — fondue dans §26, chapitre 3 (D1363–D1374) ;
 11. le contexte (D1131, D1133–D1135) : la formation comme usage ; la
     réglementation élargie à la sécurité ; les compléments par
     documentation ;

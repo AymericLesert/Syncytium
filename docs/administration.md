@@ -665,5 +665,13 @@ mail des faits marquants**, les CVE comprises quand la veille est
 active (D733, D1451) ; les commandes instanciées avec les noms de
 l'instance ; **le mode safe**, le dernier recours (D1459).
 
-**Les autres colonnes** — à leur rang : la maintenance (le rang 8 — les
-usages, les contrôles, les optimisations, D1128).
+**L'administration, dans la maintenance, les risques et les
+améliorations** (la colonne 7 — le rang 8) : l'administrateur lit **les
+améliorations** (D1492 — à `administrator` ; le concepteur et lui voient
+avec les responsables métier) et la part infrastructure, sécurité et
+continuité **des risques** (D1490) — la disponibilité et la charge, les
+CVE à traiter, le passif, la sauvegarde ; les demandes d'évolution de
+`_assistance` par statut (D1370, D1495) ; les seuils de la télémétrie en
+paramètres dynamiques (D740) ; aucune notification nouvelle (D1168).
+
+**Les neuf colonnes sont écrites.**

@@ -532,5 +532,13 @@ affectations (D341) ; **le mode safe** et son compte principal, le mot
 de passe fixé à l'installation, inaccessible dès qu'un administrateur
 existe (D718, D1459).
 
+**Les droits, dans la maintenance, les risques et les améliorations** (la
+colonne 7 — le rang 8) : **les risques** — les refus de droits
+journalisés et les pics (D43), les tentatives refusées ; **les
+lecteurs** des trois chapitres (D1493) — les usages et les risques à
+partir de `manager`, la vision métier ; les améliorations à
+`administrator`, la configuration — et, dans la page d'un composant,
+chacun voit l'usage de ce qu'il voit (D1489).
+
 **Les autres colonnes** — à leur rang : la promotionnelle (le mode public, `visibility:`
 D1151).

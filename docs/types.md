@@ -279,5 +279,10 @@ dictionnaire (D1297).
 **Le type, dans le guide d'exploitation** (la colonne 9 — le rang 7) :
 rien — les types chiffrants à la fiche de la rotation des clés (D730).
 
-**Les autres colonnes** — à leur rang : la maintenance (le rang 8 —
-les valeurs inemployées d'un type, D46/D48). 
+**Le type, dans la maintenance, les risques et les améliorations** (la
+colonne 7 — le rang 8) : les valeurs inemployées d'un type borné, le
+domaine surdimensionné à resserrer (D48 — resserrer, non retirer), le
+type dérivé que plus aucun champ n'emploie ; une proposition datée pour
+l'administrateur (D1491–D1495).
+
+**Les neuf colonnes sont écrites.**

@@ -49,3 +49,32 @@ deux entités. **Seize fichiers en tout, zéro surface.**
 *(chaque frottement deviendrait une décision — aucun relevé : les
 défauts du socle couvrent le cas de bout en bout, c'est sa raison
 d'être)*
+
+## La complétude de la documentation — la déclinaison de l'enquête (le rang 8, étape 1)
+*(La mesure au dépôt, `python tools/completeness.py examples/02_enquete`, le 25/10/2026 — D1478–D1488 :
+l'inventaire de documentation.md §20, le taux par documentation et par module, les manques par nature ;
+la liste complète, le fichier et la clé d'accès, sort de l'outil. Les manques sont ceux du cas tel qu'il
+est écrit : ils disent ce que le concepteur n'a pas décrit, jamais un défaut du socle.)*
+
+### La version 1.0.0.0 (beta) — 71 %
+
+| La documentation | (environnements) | (projet) | satisfaction | **la version** |
+|---|---|---|---|---|
+| fonctionnelle | — | — | 76 % (16/21) | **76 %** |
+| dictionnaire | — | — | 70 % (7/10) | **70 %** |
+| D.A.T. | 100 % (1/1) | — | — | **100 %** |
+| guide | 0 % (0/1) | — | — | **0 %** |
+| projet | — | 0 % (0/1) | — | **0 %** |
+
+**71 %** — 24 éléments décrits sur 34 attendus, 7 manques.
+
+| Le manque | Combien | La clé à écrire | La documentation |
+|---|---|---|---|
+| l'entité sans nom d'usage | 2 | `title:` | fonctionnelle |
+| le champ sans aide ni description | 3 | `hint: ou description:` | fonctionnelle, dictionnaire |
+| le projet sans texte de support | 1 | `pages: support:` | projet |
+| l'environnement sans texte d'exploitation | 1 | `pages: operations:` | guide |
+
+**Les orphelins** — 15 fichiers atteints depuis `syncytium.yml`, 15 fichiers dans le dossier ; un orphelin n'entre pas dans le taux : c'est peut-être un oubli — un texte écrit, jamais référencé.
+
+Aucun orphelin.

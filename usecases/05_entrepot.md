@@ -2894,7 +2894,7 @@ D1434.**)*
 > | **les utilisateurs** — les six groupes, leur navigateur | l'instance | — | HTTPS, le port de `listen:` *(non déclaré)* | l'interface |
 > | **l'administrateur, le concepteur** — le poste | l'instance | — | les commandes du moteur | `init`, `copy`, `document` |
 > | l'instance | `entrepot` | storage, postgresql | TCP 5432 | tout le modèle — le chapitre 3 du dictionnaire |
-> | l'instance | `cegid` — **reprise** (D1433) | storage, sqlserver | TCP 1433 | la reprise, en lecture, chaque nuit, la relecture le dimanche — des champs `rgpd:` (§18) ; l'état à l'instance |
+> | l'instance | `cegid` — **reprise** (D1433, D1446) | storage, sqlserver | TCP 1433 | en lecture ; la mise à jour chaque nuit, la reprise totale le dimanche — des champs `rgpd:` (§18) ; l'état à l'instance |
 > | l'instance | `temporaire` | storage, memory | — | les tables de travail de la reprise |
 > | l'instance | `plans` | file, file_std | le système de fichiers | les plans des articles |
 > | l'instance | `location` | location, ban | HTTPS 443, `api-adresse.data.gouv.fr` | les adresses des tiers |

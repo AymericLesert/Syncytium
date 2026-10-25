@@ -3618,8 +3618,9 @@ peut être temporaire ou désactiver après un certain temps ») — *ma
 lecture* : celui qu'une migration nomme en `from:`, dessiné à part avec
 la mention « reprise », le rythme déclaré, une fois ou périodique, et, à
 l'instance, son état — actif, le dernier passage, désactivé depuis ;
-désactivé, il reste sur le schéma, grisé, tant que la configuration le
-déclare. **Les silhouettes des postes sont dessinées par le
+**la nature de la reprise, totale ou mise à jour** (D1446) ; désactivé,
+il reste dessiné et grisé ; il disparaît s'il est supprimé de la
+configuration (D1446). **Les silhouettes des postes sont dessinées par le
 moteur** (D1426) — les utilisateurs et leur navigateur, les techniciens
 et leurs systèmes, l'administrateur et le concepteur avec les
 commandes du moteur — avec les flux qui en partent. **Le réseau est un

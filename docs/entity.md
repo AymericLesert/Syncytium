@@ -365,6 +365,17 @@ la restauration d'un enregistrement (D171) est une fiche du guide,
 l'entité y est nommée ; les volumes par entité pèsent sur la charge
 (D1453).
 
+**L'entité et le champ, dans la maintenance, les risques et les
+améliorations** (la colonne 7 — le rang 8) : **les usages** (D1489) —
+les lectures et les écritures de l'entité (D39), son nombre de lignes,
+la diversité de chaque champ (D38, D46, D48), le champ jamais renseigné,
+la valeur d'énuméré jamais choisie, sur la page de l'entité et dans les
+trois listes du chapitre d'ensemble ; **les risques** (D1490) — les
+volumes et leur croissance, les calculés sur les volumes (D985, D1012),
+les validations qui échouent le plus, par règle et par champ ; **les
+améliorations** (D1491–D1495) — le champ constant « candidat au
+retrait » (D46), le domaine à resserrer (D48), l'entité jamais écrite ;
+la proposition datée, sur la page du champ pour l'administrateur seul.
+
 **Les autres colonnes** — à leur rang : la promotionnelle
-(son titre dans la vue d'ensemble) ; la maintenance (ses usages, ses
-anomalies).
+(son titre dans la vue d'ensemble).

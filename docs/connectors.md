@@ -635,6 +635,15 @@ les secrets et la rotation, connecter les journaux au puits, brancher
 la supervision externe sur l'API de la santé (D1454) ; le connecteur de
 reprise et ses passages (D1077, D1079).
 
+**Les connecteurs, dans la maintenance, les risques et les améliorations**
+(la colonne 7 — le rang 8) : **les usages** — les appels de l'API par
+entrée et par compte technique (D40) ; **les risques** — le connecteur
+muet et sa page de maintenance, les anomalies et les rejets de la
+reprise par connecteur et leur tendance, le retard du passif (D731), la
+dernière sauvegarde et sa vérification, ou « non disponible » (D1476,
+D1490) ; **les améliorations** — les conseils au consommateur de l'API,
+le cache et la lecture par lot (D45).
+
 **Les autres colonnes** — à leur rang :
 l'information — **le chapitre du stockage du dictionnaire de la donnée**
 (D1260) : « le connecteur storage matérialise le stockage des types dans

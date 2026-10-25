@@ -81,8 +81,9 @@ devine pas ; une ligne de commande la mesure avec le moteur de la
 génération, le seuil reste à la discrétion du concepteur — Syncytium ne
 refuse jamais une version. Elle compte ce qui n'est décrit dans
 aucune langue : un texte sans une langue de la version n'est pas un
-manque mais une erreur d'ingestion (D1474). *(documentation.md §20,
-D1173/D1177/D1182, D1221, D1474)*
+manque mais une erreur d'ingestion (D1474). L'inventaire consolidé —
+dix-neuf manques en quatre familles — est la table de §20. *(documentation.md §20,
+D1173/D1177/D1182, D1221, D1474, D1478)*
 
 **Composant graphique** (`component`) — La représentation graphique d'un champ à l'écran ou sur un document (PDF, Excel, ...) : la jauge d'un pourcentage, le calendrier d'une date, le toggle d'un booléen. *(D64)*
 

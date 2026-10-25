@@ -777,5 +777,12 @@ D1473), les traces codifiées des hooks et leur arbre (D1461–D1464).
 sécurité n'est pas ce que l'utilisateur fait ; le masque dit ce qui est
 protégé) ; l'information (le niveau de confidentialité affiché à chaque
 champ, D1247 ; les colonnes protégées du chapitre 3, D1300 ; la matrice
-des droits 5.2) ; la maintenance
-(le rang 8 — les refus, les alertes, les seuils).
+des droits 5.2).
+
+**La sécurité, dans la maintenance, les risques et les améliorations**
+(la colonne 7 — le rang 8) : la famille « la sécurité » des risques
+(D1490) — les refus de droits et les pics (D43, D47, D97), les
+tentatives refusées, les CVE à traiter (D1451) — et la famille
+« l'infrastructure » — les dépendances et leurs failles identifiées hors
+du moteur (D924) ; la part de l'administrateur (D1493) ; les seuils du
+modèle de risque (D50–D51, D740) inchangés.

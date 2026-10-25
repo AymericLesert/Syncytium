@@ -798,3 +798,35 @@ soldés (D1227–D1228) ; la réécriture en ajoute deux :
    Thermique, Électrique », « une date, calculée » — ; la forme en
    clair de chaque type est sa facette documentation, à fixer au rang 2
    (D1160) : celles d'ici sont miennes.
+
+## La complétude de la documentation — la déclinaison de le véhicule (le rang 8, étape 1)
+*(La mesure au dépôt, `python tools/completeness.py examples/03_vehicule`, le 25/10/2026 — D1478–D1488 :
+l'inventaire de documentation.md §20, le taux par documentation et par module, les manques par nature ;
+la liste complète, le fichier et la clé d'accès, sort de l'outil. Les manques sont ceux du cas tel qu'il
+est écrit : ils disent ce que le concepteur n'a pas décrit, jamais un défaut du socle.)*
+
+### La version 1.0.0.0 (beta) — 82 %
+
+| La documentation | (environnements) | (groups) | (hooks) | (projet) | transport | **la version** |
+|---|---|---|---|---|---|---|
+| fonctionnelle | — | 100 % (1/1) | — | — | 85 % (144/170) | **85 %** |
+| dictionnaire | — | — | — | — | 78 % (68/87) | **78 %** |
+| développeur | — | — | 100 % (4/4) | — | 80 % (4/5) | **89 %** |
+| D.A.T. | 100 % (1/1) | — | — | — | — | **100 %** |
+| guide | 0 % (0/1) | — | — | — | — | **0 %** |
+| projet | — | — | — | 0 % (0/1) | — | **0 %** |
+
+**82 %** — 222 éléments décrits sur 270 attendus, 28 manques.
+
+| Le manque | Combien | La clé à écrire | La documentation |
+|---|---|---|---|
+| l'entité sans nom d'usage | 5 | `title:` | fonctionnelle |
+| le champ sans aide ni description | 19 | `hint: ou description:` | fonctionnelle, dictionnaire |
+| le libellé du champ absent — le nom nu s'affiche | 1 | `label:` | fonctionnelle |
+| l'opération sans description, ni md, ni finalité | 1 | `description:, le md du hook ou rgpd.purpose:` | fonctionnelle, développeur |
+| le projet sans texte de support | 1 | `pages: support:` | projet |
+| l'environnement sans texte d'exploitation | 1 | `pages: operations:` | guide |
+
+**Les orphelins** — 65 fichiers atteints depuis `syncytium.yml`, 65 fichiers dans le dossier ; un orphelin n'entre pas dans le taux : c'est peut-être un oubli — un texte écrit, jamais référencé.
+
+Aucun orphelin.

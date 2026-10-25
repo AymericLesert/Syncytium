@@ -276,7 +276,18 @@ la priorité 1 du tableau de bord (D1453) ; **le journal**, sixième
 canal (D737), ses niveaux, sa rotation, son puits (D343, D1454) ; les
 alertes et leurs seuils (D626, D738).
 
+**La télémétrie, dans la maintenance, les risques et les améliorations**
+(la colonne 7 — le rang 8), la source de tout : **la collecte**
+(D38–D40, D46, D48) fournit les usages — un indicateur par type de
+composant, rien de nouveau à collecter (D1489) —, les mesures des
+risques (D1490) et les faits des propositions (D1495) ; **le tableau de
+bord** (D38) et **la synthèse périodique** (D738) restent les canaux de
+la télémétrie, la documentation 7 est une lecture qui ne pousse rien
+(D1168) ; **le volet conseil** (D45, D315–D319, D739) alimente la
+famille « enrichir » des améliorations ; **les seuils** (D49, D740)
+restent où ils sont — aucun seuil absolu pour les listes, le classement
+suffit ; la période au choix du lecteur, trente jours par défaut, les
+compteurs au jour (D39).
+
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
-télémétrie n'est pas ce que l'utilisateur fait) ; la maintenance et la
-supervision (§23 — le tableau de bord, la synthèse périodique, les
-alertes).
+télémétrie n'est pas ce que l'utilisateur fait).

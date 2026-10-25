@@ -24782,6 +24782,16 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-25 (suite 5) — LA 9e PUBLICATION, LE RANG 9 OUVERT (1496
+  décisions).** « crée la PR sur develop et main » — la PR #54
+  (feature/documentation → develop, D1478–D1496, vingt-trois commits)
+  ouverte puis fusionnée par l'auteur ; la PR #55 (develop → main, la 9e
+  publication) ouverte après la fusion, puis fusionnée : « J'ai fusionné
+  la PR, passons au rang 9 ». Le rang 9 — la promotionnelle (la
+  documentation 6), la seule à faire naître — s'ouvre : la section §30
+  créée, vide, avec ses trois étapes — la plaquette, la démonstration,
+  l'argumentaire du socle — et le module de présentation de l'outil
+  (D1447–D1448) ; les lectures de l'étape 1 présentées, en attente.
 - **2026-10-25 (suite 4) — LA 8e PUBLICATION, LE RANG 8 OUVERT ET CLOS
   (D1478–D1496, 1496 décisions).** « crée la PR sur develop et main » — la PR #52
   (feature/documentation → develop, D1436–D1477, cinquante commits)

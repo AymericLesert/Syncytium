@@ -666,16 +666,16 @@ décisions, D1170–D1238.)*
   artefacts et la matrice d'ensemble (validée le 25/10/2026, D1496).
 - **Dépendances** : la télémétrie et l'instance, sauf §20.
 
-#### Rang 9 — la promotionnelle (documentation 6)
+#### Rang 9 — la promotionnelle (documentation 6) — *en cours depuis le 25/10/2026*
 
 - **Périmètre** : la plaquette, la démonstration, l'argumentaire du
   socle ; **le module de présentation de l'outil**, servi par l'instance
   de Syncytium seul, qui est son propre site vitrine (D1447–D1448).
-- **Sections** : aucune ; une section à créer.
+- **Sections** : §30, créée le 25/10/2026.
 - **Étapes** :
   1. la plaquette : la structure générée (le nom, la description, les
      modules, le modèle d'ensemble, les écrans rendus, les personas et
-     leurs scénarios, « quoi de neuf »), les textes écrits ;
+     leurs scénarios, « quoi de neuf »), les textes écrits — *en cours* ;
   2. la démonstration : l'instance d'essai, le jeu de données (D869) ;
   3. l'argumentaire du socle : l'open source (D19), une instance par
      client, les API, l'auto-documentation — la part de Syncytium.
@@ -4301,3 +4301,21 @@ D1478–D1496) ; la complétude et son inventaire (§20, D1478–D1488).*
 12. *(clos le 11/10 — l'IA, D1222–D1226 : elle assiste le concepteur par
     une skill de la documentation du développeur, le moteur génère sans
     elle ; la skill s'écrit au rang 5.)*
+
+## 30. La promotionnelle *(le rang 9 — en cours ; le rang 9, étape 1 — en cours : la plaquette)*
+
+**« une documentation promotionnelle pour exposer et vendre une
+application »** (l'auteur, D1131) — la sixième documentation, **la seule
+à faire naître** (le contexte, 6) : ses lecteurs sont le prospect et le
+dirigeant (§3, D1152), **le mode public** (D1150, `visibility:` — D1151)
+la diffuse sans aucun droit — rien de confidentiel, aucune donnée. Trois
+matières (le plan, le rang 9) : **la plaquette** — la structure générée
+et les textes écrits —, **la démonstration** — l'instance d'essai et son
+jeu de données (D869) —, **l'argumentaire du socle** — l'open source
+(D19), une instance par client, les API, l'auto-documentation, la part
+de Syncytium ; et **le module de présentation de l'outil**, servi par
+l'instance de Syncytium seul, qui est son propre site vitrine
+(D1447–D1448).
+
+*(La section s'écrit au fil du rang 9 ; les étapes 1 à 3 ci-dessous, en
+proposition jusqu'à l'arbitrage.)*

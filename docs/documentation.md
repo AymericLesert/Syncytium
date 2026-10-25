@@ -2895,9 +2895,11 @@ liste des manques, avec la clé à écrire et où**. Le rapport se lit du
 général au particulier : la version, chaque documentation et son taux,
 chaque module ; `--check` et `notify:` produisent le même rapport.
 
-**À l'ingestion** (D1480 — le rang 8, l'étape 1 ; *ma lecture, à
-confirmer*) : l'ingestion d'une version, beta ou production, calcule le
-rapport avec le même moteur que `--check` — **un seul rapport**, produit
+**À l'ingestion** (D1480–D1481 — le rang 8, l'étape 1) : l'ingestion
+d'une version, beta ou production, calcule le rapport avec le même
+moteur que `--check` — **un seul calcul pour tous les usages** (D1481 :
+« Le même calcul pour les différents usages colle avec la philosophie du
+projet. On évite de dédupliquer les contrôles »), **un seul rapport**, produit
 au dépôt par la commande, à l'ingestion, et par `notify: beta →
 completeness` (D1167) — et **le garde avec la version** au registre des
 versions essayées (D326) : la documentation technique montre la

@@ -570,6 +570,28 @@ langue du texte qui n'est plus dans la liste n'est pas une erreur :
 la langue par défaut est employée. Le cas 5 parle le français seul ;
 la banque (le cas 4) parlera le français, l'anglais et l'espagnol.
 
+**Une langue que le core ne porte pas** (D1465 — précise D1160–D1163,
+D1101) : le projet l'apporte — le cas « ajoute » du catalogue en
+couches (D1163), appliqué au catalogue du moteur. La commande
+**`syncytium language fr pt`** construit le catalogue à traduire — `fr`
+la langue de référence, `pt` la langue souhaitée : tous les items du
+core, codifiés (D1160), avec leurs textes de référence — et **le
+concepteur le traduit item par item**. Le catalogue vit dans la
+configuration (D1440), référencé sous la version à côté de
+`languages:` — *en proposition* : `locales: { pt: ~{locales/pt.yml} }` —,
+avec le fuseau et les formats que D217 attache à une langue. **Il doit
+être complet** — le niveau « pour Syncytium » de D1162 : un item
+manquant est une erreur d'ingestion (le repli de D219 vaut pour les
+libellés du modèle, pas pour les textes du moteur). Un hook du core
+sans cette langue suit D1163 : l'application complète ses items dans
+sa couche. La référence du développeur (D1411) et la skill du core
+(D1410) restent au core, lues dans sa langue par défaut. **Cette
+langue peut devenir la langue technique** de l'instance (D1460) : la
+commande construit aussi les erreurs, les journaux et les traces du
+core. Un catalogue complet est prêt à entrer dans le core ; quand un
+core le porte, le fichier du projet devient une surcharge (D1163, le
+plus proche l'emporte).
+
 ### 3.5 `settings.yml` — la maison des types et des réglages (D359/D360, D991–D993)
 
 **La structure des settings** (D1239 — amende la forme à plat de
@@ -816,6 +838,7 @@ expressions.
 | la confidentialité | le niveau (D25) × les groupes (D26), le profil nommé aux settings, référencé au champ | D885 |
 | `normalize:` | le défaut du type aux settings → le champ | D870/D872, D991 |
 | `history:` | `settings.yml` de la version → le module → l'entité ; l'opt-out par `history: false` ; le défaut du socle = inactif | D168, D1174 |
+| le catalogue des textes du moteur | le core → le hook → l'application, qui reprend, surcharge ou ajoute — une langue entière, au besoin | D1160–D1163, D1465 |
 | tout défaut du socle | la règle : la valeur de Syncytium → `settings.yml` de la version → le module → l'entité → le champ ; dans les settings, le type de composant → le composant → la propriété | D1175, D1239 |
 | le report des anomalies | l'entité source (ses phases) ou la règle de migration (les siennes) → le défaut de D407 | D929, D1058 |
 
@@ -835,6 +858,8 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - une référence de fichier non marquée `~{…}` (D956), un fichier
   absent ; une clé de configuration inconnue ;
 - un secret en clair dans le `.env` (D902) ;
+- une langue attendue qui manque à un hook (D1163) ; le catalogue
+  d'une langue apportée par le projet incomplet (D1465) ;
 - une conversion de type avec perte non écrite (D581 — le typage
   statique des expressions) ; une unité sans chemin vers une unité
   connue du champ (D979/D983) ;

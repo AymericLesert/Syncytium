@@ -1542,7 +1542,9 @@ lecture qu'il sert (D1138) :
 - **L'édition par langue** : dedans, la langue du profil (D1144) ; en
   édition, celle de l'émetteur — une édition par langue ; un texte
   complémentaire absent dans une langue tombe sur la langue par défaut
-  de la version (D1101) et la complétude le signale.
+  de la version (D1101) et la complétude le signale ; **le catalogue
+  d'une langue apportée** par le projet (D1465) ne relève pas de la
+  complétude mais de l'ingestion : incomplet, la langue est refusée.
 - **Pas de chapitre des enchaînements entre modules** (D1185) : un lien
   qui traverse les modules — la promotion déclenchée d'ailleurs (D145),
   l'automatisme sur les données d'un autre module (D54), la
@@ -2554,8 +2556,8 @@ langue technique de l'instance** (D1460, qui amende D1455 : « Le
 catalogue doit pouvoir se décliner dans les différentes langues
 supportées par Syncytium. Par contre, la langue est définie à la
 configuration et n'est pas modifiable ») — *ma lecture* : choisie à
-l'installation parmi les langues du core, écrite à l'environnement,
-immuable —, la cause probable et le remède, le renvoi à la fiche de procédure ; la référence de Syncytium
+l'installation parmi les langues du core **ou une langue apportée par
+le projet** (D1465), écrite à l'environnement, immuable —, la cause probable et le remède, le renvoi à la fiche de procédure ; la référence de Syncytium
 (D1411), instanciée ; les erreurs des utilisateurs, la validation, les
 droits, sont à la fonctionnelle et au contrat d'API. **Les familles**,
 dans l'ordre où on les rencontre : l'application ne démarre pas, le
@@ -2860,6 +2862,12 @@ par sa clé anglaise (D335) : `functional`, `information`, `developer`,
 celle du poste (D1114) ; le résultat dans `output.directory`, au format
 de `output.formats` ; **`--check` mesure la complétude sans produire**
 (D1221 — le même moteur ; ma forme).
+
+**La commande des langues** (D1465) : `syncytium language fr pt` —
+`fr` la langue de référence, `pt` la langue souhaitée — construit le
+catalogue à traduire d'une langue que le core ne porte pas, tous les
+items du core avec leurs textes de référence ; le concepteur le
+traduit item par item (configuration.md §3.4).
 
 ## 22. Les scénarios d'utilisation par des personas (D1127) *(le rang 1, étape 5 — acquis, D1200–D1210)*
 

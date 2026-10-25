@@ -37,7 +37,10 @@ numéro de version, la date, l'auteur de l'édition. *(D1142)*
 gabarits génériques de Syncytium, codifiés et uniques, un catalogue par
 langue portée ; en couches — le moteur, le hook, l'application — le
 plus proche l'emporte ; une langue attendue qui manque est une erreur
-d'ingestion. *(D1160–D1163)*
+d'ingestion. Une langue que le core ne porte pas est apportée par le
+projet : `syncytium language <référence> <souhaitée>` construit le
+catalogue, le concepteur le traduit item par item. *(D1160–D1163,
+D1465)*
 
 **Champ** (`field`, le bloc `fields:`) — La plus petite donnée d'une
 entité. Elle se caractérise par : un nom, un type, des propriétés.
@@ -370,6 +373,17 @@ rangée dans l'historique. On la consulte, on ne la modifie pas.
 **Langage d'expression** — La langue unique des formules : calculs,
 validations, filtres, gabarits.
 *Ex. : `sum(lines.amount if quantity > 0)`.* *(D90/D301)*
+
+**Langue apportée** — Une langue que le core ne porte pas et qu'un
+projet apporte : son catalogue, complet, construit par `syncytium
+language` depuis une langue de référence et traduit item par item ;
+dans la configuration, sous la version ; incomplet, une erreur
+d'ingestion ; elle peut être la langue technique. *(D1465)*
+
+**Langue technique** — La langue des journaux, des traces et du
+catalogue des erreurs techniques d'une instance : définie à la
+configuration, à l'amorçage, non modifiable ; l'une des langues du
+core ou une langue apportée par le projet. *(D1460, D1465)*
 
 **Lecteur (de la documentation)** — Un rôle, non une personne : douze
 rôles lisent la documentation, chacun sous ses droits (D1139–D1147).

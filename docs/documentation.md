@@ -585,7 +585,7 @@ décisions, D1170–D1238.)*
   les onze artefacts et la matrice d'ensemble (D1435).
 - **Dépendances** : les choix techniques (D1025).
 
-#### Rang 7 — le guide d'exploitation (documentation 9)
+#### Rang 7 — le guide d'exploitation (documentation 9) — *clos le 25/10/2026, D1477*
 
 - **Périmètre** : installer, configurer, démarrer et arrêter,
   sauvegarder et restaurer, superviser, les opérations de maintenance,
@@ -595,16 +595,36 @@ décisions, D1170–D1238.)*
   1. ce que la configuration et [administration.md](administration.md)
      génèrent (les environnements, les connecteurs, le journal, le
      nettoyage, les opérations périodiques, les commandes) et ce qui
-     s'écrit ;
+     s'écrit : **acquis le 25/10/2026 (D1447–D1448, D1450)** — les trois
+     matières, le chapitre « installer » porté par l'instance,
+     `syncytium init` la ligne unique ;
   2. les procédures : la promotion (D340), la copie (D1080), la
      rotation (D1079), la relecture (D943), la restauration (D171), la
-     sauvegarde ;
+     sauvegarde : **acquis le 25/10/2026 (D1449–D1450)** — treize fiches
+     sur un plan unique, la synchronisation entre instances et la
+     vérification d'une sauvegarde comprises ;
   3. la supervision quotidienne : le journal, le tableau de bord, les
-     alertes (D44), les passages de la reprise ;
-  4. le dépannage : les erreurs connues et leur remède.
-- **Déclinaison** : **l'entrepôt**.
-- **Livrables** : §17 validé ;
-  [administration.md](administration.md).
+     alertes (D44), les passages de la reprise : **acquis le 25/10/2026
+     (D1451–D1454)** — le tableau de bord en accueil et son rappel, la
+     disponibilité et la charge en priorité 1, les CVE, les alertes, le
+     journal, les passages, la supervision externe et les journaux
+     connectés ;
+  4. le dépannage : les erreurs connues et leur remède : **acquis le
+     25/10/2026 (D1455–D1464)** — le catalogue dans la langue technique
+     de l'instance, les traces codifiées et leur arbre, les familles,
+     l'arbre de décision schématique, les contacts au crédit, le md des
+     erreurs du hook, le mode safe en dernier recours.
+- **Déclinaison** : **l'entrepôt** — **validée le 25/10/2026 (D1476)**
+  ([usecases/05_entrepot.md](../usecases/05_entrepot.md)) : les
+  dix-neuf variables décrites, les opérations périodiques, treize fiches
+  dont trois « non disponibles », la veille des CVE « non disponible »,
+  le dépannage en français, le mode safe inaccessible ; `backup:`,
+  `security_advisories:` et le texte d'exploitation non écrits — « Il
+  n'est pas nécessaire de les compléter ».
+- **Livrables** : §17 validé (les quatre chapitres acquis) ;
+  [administration.md](administration.md), [hooks.md](hooks.md) ; la
+  colonne 9 de la matrice dans les onze artefacts et la matrice
+  d'ensemble (validée le 25/10/2026, D1477).
 - **Dépendances** : les choix techniques (D1025), le D.A.T.
 
 #### Rang 8 — la maintenance, les risques, les améliorations (documentation 7)
@@ -636,7 +656,8 @@ décisions, D1170–D1238.)*
 #### Rang 9 — la promotionnelle (documentation 6)
 
 - **Périmètre** : la plaquette, la démonstration, l'argumentaire du
-  socle.
+  socle ; **le module de présentation de l'outil**, servi par l'instance
+  de Syncytium seul, qui est son propre site vitrine (D1447–D1448).
 - **Sections** : aucune ; une section à créer.
 - **Étapes** :
   1. la plaquette : la structure générée (le nom, la description, les
@@ -658,7 +679,9 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
 - **Périmètre** : Syncytium comme produit — le moteur, ses règles, son
   catalogue, ce que les seize artefacts décrivent — et le dépôt comme
   lieu de lecture : `docs/`, le registre, les cas d'usage, les
-  exemples.
+  exemples ; **« Syncytium seul est une application vide avec la
+  documentation incluse »**, exploitée par l'auteur, le site vitrine de
+  lui-même (D1447–D1448).
 - **Sections** : aucune ; documentation.md et le [glossaire](glossaire.md)
   en pivots.
 - **Étapes** *(mes lectures)* :
@@ -1519,8 +1542,12 @@ lecture qu'il sert (D1138) :
   reste une annexe.
 - **L'édition par langue** : dedans, la langue du profil (D1144) ; en
   édition, celle de l'émetteur — une édition par langue ; un texte
-  complémentaire absent dans une langue tombe sur la langue par défaut
-  de la version (D1101) et la complétude le signale.
+  complémentaire sans une langue de la version est une erreur
+  d'ingestion (D1474 — la même règle partout), la complétude ne compte
+  que ce qui n'est décrit dans aucune langue ; **le catalogue
+  d'une langue apportée** par le projet (D1465) ne relève pas de la
+  complétude mais de l'ingestion : incomplet, la langue est refusée —
+  strict, la commande donne la complétude (D1468).
 - **Pas de chapitre des enchaînements entre modules** (D1185) : un lien
   qui traverse les modules — la promotion déclenchée d'ailleurs (D145),
   l'automatisme sur les données d'un autre module (D54), la
@@ -1768,8 +1795,21 @@ rel="successor-version"`, sans `Sunset` (D742) — l'intention et l'acte
 de D650 ; **426** avec la version à employer quand on cesse de servir,
 sous la version minimale (D94) ; **410** quand la version a été
 rejetée — interdite, retirée (D345) — ; **404** jamais déclarée ; 429 et `Retry-After`, le débit (D105) ; 202 et la ressource
-de suivi (D24) ; **les limites** — le débit du compte, la pagination, la taille
-d'un lot, telles qu'elles valent pour le compte qui lit ; **la
+de suivi (D24) ; **les limites** — le débit du compte et le périmètre de son
+« pour le compte de », tels qu'ils valent pour le compte qui lit
+(D1437) ; **la taille des lots et la pagination ne sont pas de la
+responsabilité de l'appelant** (D1437 : « Syncytium va gérer cette
+contrainte ») — un lot d'écriture dont la quantité est inférieure à la
+taille du lot est traité ; au-delà, l'appel retourne un code qui dit
+qu'une partie seulement a été traitée et la taille du lot à prendre en
+compte par le client, qui reprend au suivant ; la règle écrite ici, en
+tête ; le code de la réponse partielle au domaine 7 ; **l'esprit**
+(D1438 : « Ici, je veux juste fournir les éléments qui peuvent aider un
+développeur à gérer les lots indépendamment de ses choix » ; D1439 :
+« Syncytium pose les contraintes et ce n'est pas le technicien qui
+impose ses contraintes … une approche API qui prend bien en compte les
+différents status ») — la contrainte est celle de Syncytium, le
+technicien fait avec et traite les statuts de réponse ; **la
 dépréciation** — l'intention, l'acte, le retrait (D650), portés par la
 version et jamais par une date (D742), et où lire l'« à venir » ; les
 origines autorisées (D918) et HTTPS (D919) relèvent de l'environnement,
@@ -1906,8 +1946,10 @@ home: ~{home.md}                 # la page d'accueil, globale — hors des versi
 author: Aymeric Lesert           # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org  # le contact des demandes d'évolution (D1153)
 accessibility: ~{documentation/accessibility.md}   # la déclaration d'accessibilité, un texte du concepteur par langue (D1341)
-skill: ~{documentation/skill.md}   # le complément de la skill du core, par langue — jamais un remplacement (D1409, D1410)
-glossary:                        # le glossaire des termes du métier (D1180 ; la clé validée, D1219)
+skill: ~{documentation/skill.md}   # le complément de la skill du core, par langue — jamais un remplacement (D1409, D1410) ;
+                                   #   toutes les langues de la version, sinon l'erreur d'ingestion (D1472, D1474)
+glossary:                        # le glossaire des termes du métier (D1180 ; la clé validée, D1219) ; à plusieurs langues,
+                                 #   chaque terme — ses mots, sa définition — dans toutes les langues de la version (D1475)
   tiers: Toute personne ou société en relation avec l'entreprise — client, fournisseur, prospect.
   article:                       # un terme = une liste de mots, singulier et pluriel (D1197 ; `words:` validé, D1219)
     words: [article, articles]
@@ -2077,10 +2119,10 @@ rubrique qui la spécifie. Trois lignes, pour la forme :
 
 | Le composant | 1 Fonctionnelle | 2 Information | 3 Développeur | 4 D.A.T. | 5 Réglementation | 6 Promotionnelle | 7 Maintenance | 8 Projet | 9 Exploitation |
 |---|---|---|---|---|---|---|---|---|---|
-| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 avec ses index et ses partitions (D1292–D1293) ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | sa section du contrat si le compte peut l'atteindre (D1394) : les champs `public`, les actes permis, les lectures et les écritures, les liens, les exemples ; ses écarts filtrés (D1401) | rien de propre ; ses champs `rgpd:` marquent le flux qui les emporte (D1426) ; ses volumes au dimensionnement (D1430) | le stockage de ses champs `rgpd:`, son module soumis ; ses actes du socle et ses opérations comme traitements, son wizard comme suite (D1317–D1318) ; son bloc `rgpd:` (D1325) ; son état pour la limitation ; sa rétention par `rgpd.anonymize` (D1334) | son titre dans la vue d'ensemble | ses usages, ses anomalies | ses écarts dans « ce qui change » de la page des versions (§9) ; l'enregistrement cité par un ticket (D1364) | — |
-| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3, l'index que son `searchable:` ou son identité lui vaut (D1292), la partition qu'il porte (D1293) | exposé s'il est `public` (D20), par son nom, le type en clair, le format de la valeur ; un écart du contrat quand il change | `rgpd:` signalé sur le flux ; rien d'autre | son marquage `rgpd:` — `personal`, `sensitive`, `consent`, `identity` (D695, D1332) —, par lui-même ou par son type ; son niveau de confidentialité, son audit (D703), sa rétention calculée, les traitements qui le touchent ; `identity`, le point de départ de `rgpd.extract` | — | sa diversité, ses valeurs inemployées | ajouté, renommé, retypé, supprimé — « ce qui change » (D1347) | — |
-| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa forme en clair tel qu'appliqué, sa déclinaison, ses indicateurs, son exemple (D1301) ; les modes de recherche qu'il admet, origines des index (D1292) ; son entrée à l'annexe B | sa fiche à l'inventaire (D1406) et l'entrée de la référence pour en écrire un (D1408) ; la forme de ses valeurs dans les appels et le gabarit | rien — sa forme native au dictionnaire | le marquage qu'il porte (D1178) — `personal`, `sensitive`, `consent`, `identity` —, hérité par tout champ qui l'emploie ; le registre se lit par type puis par champ | — | — | un champ retypé — « ce qui change » | — |
-| le wizard | le scénario, la planche, le parcours guidé | — | une suite d'opérations : son contrat d'appel quand il est exposé ; à l'inventaire, les hooks qu'il enchaîne | rien | une suite d'opérations — un traitement du registre quand une étape touche un champ marqué (D1318, D1329) | un cas d'usage | sa fréquence d'emploi | son bloc `assistance:` (D1372) ; le « ? » — la documentation, un ticket, une question, la recherche (D1366, D1371) | — |
+| l'entité | la section de son entrée de menu : son titre, sa description, son écran, son cycle de vie et ses permis, ses opérations (D1194–D1196) ; hors du menu, rien ici | sa sous-section au chapitre 2.2 (D1252) : la description, les identités, le visage, l'historisation, le `rgpd:`, la table des champs par groupe, les règles, les évolutions ; les trois vues ; sa table au chapitre 3 avec ses index et ses partitions (D1292–D1293) ; qui la référence à l'index 5.1 ; ses droits à la matrice 5.2 ; ses données au 5.3 (D1287) | sa section du contrat si le compte peut l'atteindre (D1394) : les champs `public`, les actes permis, les lectures et les écritures, les liens, les exemples ; ses écarts filtrés (D1401) | rien de propre ; ses champs `rgpd:` marquent le flux qui les emporte (D1426) ; ses volumes au dimensionnement (D1430) | le stockage de ses champs `rgpd:`, son module soumis ; ses actes du socle et ses opérations comme traitements, son wizard comme suite (D1317–D1318) ; son bloc `rgpd:` (D1325) ; son état pour la limitation ; sa rétention par `rgpd.anonymize` (D1334) | son titre dans la vue d'ensemble | ses usages, ses anomalies | ses écarts dans « ce qui change » de la page des versions (§9) ; l'enregistrement cité par un ticket (D1364) | rien de propre ; la restauration d'un enregistrement (D171) est une fiche ; ses volumes pèsent sur la charge (D1453) |
+| le champ | son libellé, son aide ; le masque ; **à quoi il sert** — ses emplois en langage d'usager (D1198) | sa ligne par groupe : le type en clair tel qu'appliqué, le libellé, l'obligation, le défaut, le niveau de confidentialité, « depuis la version x » ; **sa section** (D1283) : la description, l'historique et l'à venir (D1285), les opérations et les règles qui le touchent (D1198), la télémétrie (D1287) ; sa colonne au chapitre 3, l'index que son `searchable:` ou son identité lui vaut (D1292), la partition qu'il porte (D1293) | exposé s'il est `public` (D20), par son nom, le type en clair, le format de la valeur ; un écart du contrat quand il change | `rgpd:` signalé sur le flux ; rien d'autre | son marquage `rgpd:` — `personal`, `sensitive`, `consent`, `identity` (D695, D1332) —, par lui-même ou par son type ; son niveau de confidentialité, son audit (D703), sa rétention calculée, les traitements qui le touchent ; `identity`, le point de départ de `rgpd.extract` | — | sa diversité, ses valeurs inemployées | ajouté, renommé, retypé, supprimé — « ce qui change » (D1347) | rien |
+| le type personnalisé (D1179) | son entrée au glossaire : titre, sens, contraintes en clair | sa forme en clair tel qu'appliqué, sa déclinaison, ses indicateurs, son exemple (D1301) ; les modes de recherche qu'il admet, origines des index (D1292) ; son entrée à l'annexe B | sa fiche à l'inventaire (D1406) et l'entrée de la référence pour en écrire un (D1408) ; la forme de ses valeurs dans les appels et le gabarit | rien — sa forme native au dictionnaire | le marquage qu'il porte (D1178) — `personal`, `sensitive`, `consent`, `identity` —, hérité par tout champ qui l'emploie ; le registre se lit par type puis par champ | — | — | un champ retypé — « ce qui change » | rien ; les chiffrants à la rotation des clés (D730) |
+| le wizard | le scénario, la planche, le parcours guidé | — | une suite d'opérations : son contrat d'appel quand il est exposé ; à l'inventaire, les hooks qu'il enchaîne | rien | une suite d'opérations — un traitement du registre quand une étape touche un champ marqué (D1318, D1329) | un cas d'usage | sa fréquence d'emploi | son bloc `assistance:` (D1372) ; le « ? » — la documentation, un ticket, une question, la recherche (D1366, D1371) | rien |
 
 **La matrice se remplit rang par rang** (D1159) : chaque rang du plan
 (le contexte, partie 5) spécifie la colonne de sa documentation pour
@@ -2187,7 +2229,9 @@ et leur définition, dans `documentation.yml` du projet (pour toute
 l'application) ou du module (pour les siens) : la clé `glossary:` (§12
 — mes lectures : un terme = une clé, sa définition par langue en
 Markdown ; le module ajoute aux termes du projet, le même terme deux
-fois = une surcharge signalée) ; **un terme est une liste de mots, le
+fois = une surcharge signalée ; **la même règle que tout texte** : à
+plusieurs langues, chaque terme porte toutes les langues de la
+version, sinon l'erreur d'ingestion — D1475) ; **un terme est une liste de mots, le
 singulier et le pluriel** (D1197 — `words:` en proposition :
 `lot: { words: [lot, lots], description: … }`), et le survol reconnaît
 chacune de ses formes ; **le glossaire des types**, calculé
@@ -2288,7 +2332,11 @@ qui mène à quoi**.
 - **Le cycle de vie se décrit dans la section de l'entrée de menu**
   (D1195) : pour l'entité que l'entrée atteint, et ses enfants (les
   compositions de l'agrégat, D101), le diagramme d'états (§5) et la
-  table des passages permis ; **les permis** — l'`allow` par état
+  table des passages permis — **et chaque opération en graphe
+  d'état, schématique** (D1436 : « des représentations schématiques via
+  des graphes d'état afin de rendre la consultation très visuelle ») :
+  ses étapes pour une suite, les états qu'elle fait franchir, ce qui la
+  déclenche, calculé ; **les permis** — l'`allow` par état
   (D422), l'`allow` d'un champ (D886) — se lisent dans la section comme
   une propriété de l'entité ou du champ, avec les groupes qui les
   franchissent ; **une entité que le menu n'atteint pas n'est pas
@@ -2361,7 +2409,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(en proposition ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7 — acquis, D1447–D1477 : installer et configurer, les treize fiches, la supervision quotidienne, le dépannage ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2377,7 +2425,207 @@ la reprise, ses passages et ses rapports (migration.md) ; les comptes, les group
 les commandes du moteur (`syncytium copy …`, `encrypt`, `rotate` —
 D1080) ; les dépendances (D924). *À trancher* : ce qui vient de la
 configuration seule et ce qui demande l'instance (les états, les
-derniers passages).
+derniers passages). **Les variables d'environnement décrites** (D1442 :
+« Dans le guide d'exploitation, une description pourrait être utile pour
+compléter la documentation et guider l'équipe en charge de déployer
+l'application de savoir ce qu'il faut faire ») — le D.A.T. les liste
+(D1428), le guide les décrit une à une ; *ma lecture, au rang 7* : la
+description vient de la classe du connecteur qui l'emploie, dans la
+référence du core, et le texte de l'environnement ajoute le particulier
+du site ; la nature, confidentielle ou non, et où obtenir la valeur.
+
+### 1. Ce qui se génère et ce qui s'écrit (D1447)
+
+**Trois matières** : la référence du core, ce que Syncytium écrit une
+fois pour toutes ; le généré depuis la configuration de l'instance ; ce
+qui demande l'instance, montré vide au dépôt (D1157). **Le généré** :
+les environnements et leur nature (§28) ; par environnement, les
+connecteurs sans secrets (D944), le journal et sa rotation (D343,
+D1091), les règles de nettoyage et leurs rétentions (D1073), les
+opérations périodiques et leur calendrier (D943) ; les commandes
+instanciées avec les noms de l'instance — `syncytium copy production
+staging` ; la description de chaque variable d'environnement (D1442),
+venue de la classe du connecteur qui l'emploie. **Ce qui demande
+l'instance** : la santé (D731), les derniers passages de la reprise et
+leurs rapports, le registre des versions essayées (D326), les sandboxes
+vivantes, la dernière sauvegarde, la dernière rotation, la dernière
+lecture des avis de sécurité (D1445). **Ce qui s'écrit** : les
+sauvegardes et leur politique si `backup:` ne le dit pas, qui fait
+quoi, l'astreinte, les procédures du site — `pages: operations:` dans
+le `documentation.yml` de l'environnement, *en proposition*. **Le
+partage** : le guide explique comment ; le D.A.T. dit ce qui est
+connecté, la maintenance (§23) analyse, le réglementaire (§18) porte le
+registre ; le guide renvoie, il ne répète pas. **La complétude** (§20)
+relève un environnement sans texte d'exploitation.
+
+**Le chapitre « installer »** (D1447 : « Le chapitre "installer" est à
+mettre dans la documentation et il est porté par l'instance.
+L'installation doit pouvoir se faire par une seule ligne de commande la
+même pour toutes les instances et toutes les versions de Syncytium.
+Cette ligne de commande est décrite sur le site vitrine de Syncytium
+que nous mettrons en oeuvre avec Syncytium ») — la ligne unique est `syncytium init` (D1360, confirmé D1450), qui lit
+`from:` et récupère le core ; le chapitre la donne pour cette
+instance, avec ses prérequis, puis ce que l'amorçage a produit — le
+fichier des variables à renseigner (D1429) ; **le site vitrine est Syncytium
+lui-même** (D1448 : « Syncytium lui-même seul est exploité par mes
+soins. Il est le site vitrine de lui-même ») — une instance sans
+projet, tenue par l'auteur, qui sert au public sa propre documentation
+et le module de présentation de l'outil (le rang 9 pour le module, le
+rang 10 pour Syncytium seul) ; **« Syncytium seul est une application
+vide avec la documentation incluse »** (D1447).
+
+### 2. Les procédures (D1449–D1450)
+
+**Une fiche par procédure**, sur le même plan — quand et qui, le geste
+ou la commande instancié avec les noms de l'instance, ce qui se passe,
+ce qui est tracé (D62), ce qui peut mal tourner et la position de
+sécurité (D745) — ; les fiches : la promotion d'une version (D340,
+D344), la sandbox (D921–D922), la copie d'un environnement (D1080),
+la sauvegarde et sa rétention (D727), la restauration d'une instance
+(D728–D729), la restauration d'un enregistrement (D171), la rotation
+des clés (D730), les secrets (D902), la relecture de la reprise (D1077,
+D1079), l'arrêt et le redémarrage, le mode safe (D718), la mise à jour
+du core (D17) ; **et la synchronisation entre instances** (D1449 : « La
+synchronisation entre instance est à décrire et présenter ») — le lien
+actif-passif et ses trois modes, `replication:` brut, différentiel,
+synchrone (D724), la copie de la production vers le staging (D112–D113),
+la bascule manuelle et son retour (D114), l'état du passif et son
+retard à la santé (D731), la resynchronisation après une coupure ; **et la vérification d'une
+sauvegarde** (D1450) — la restauration d'essai dans une sandbox depuis
+une archive, la fiche qui prouve que les sauvegardes servent. Les
+fiches sont la référence du core, instanciées ; le texte du site s'y
+ajoute. **Une fiche dont la configuration manque** — pas de `backup:`,
+pas de `replication:` — **dit que la procédure n'est pas disponible**
+(D1476 : « précise que les procédures ne sont pas disponibles »), jamais
+« sans objet », et nomme la clé qui la rendrait disponible. **Le
+chapitre « installer »** (D1450) : la ligne unique est
+`syncytium init` (D1360), avec ses prérequis, puis le fichier des
+variables à renseigner (D1429).
+
+### 3. La supervision quotidienne (D1451–D1454)
+
+**Les CVE dans la supervision** (D1451 : « Le mail des faits marquants
+doit inclure les CVE aussi quand cela est actif. Le nombre de CVE a
+traité doit être présent sur le tableau de bord de la santé. ») — la
+veille active (`security_advisories:`, D1444) : le tableau de bord de
+la santé (D731) porte **le nombre de CVE à traiter** — les avis de
+sécurité qui concernent le core ou les hooks et dont le core correctif
+n'est pas installé —, le mail des faits marquants (D733) **les CVE
+nouvelles de la période et le total restant** ; la veille inactive, le
+tableau de bord et le mail disent qu'elle **n'est pas disponible**
+(D1476). **La routine quotidienne porte deux éléments**
+(D1452 : « Un tableau de bord - accueil de l'administrateur sur
+l'application avec les principaux indicateurs. Puis, derrière chaque
+indicateur le détail des points à valider. Un mail ou une notification
+- qui rappelle les indicateurs et faits présents dans le tableau de
+bord. Le document décrit ce tableau de bord et les éléments qui
+représentent et présente la priorité des éléments à observer et
+vérifier quotidiennement ») — **le tableau de bord**, la santé (D731),
+accueil de l'administrateur, ses indicateurs et derrière chacun le
+détail à valider ; **le mail ou la notification**, le rappel des mêmes
+indicateurs et faits (D733, D748) ; **la priorité** (D1453 : « La
+priorité 1 qui manque est la disponibilité du projet et sa charge (CPU
+et disque) / congestion ») — **1. la disponibilité et la charge** :
+l'application répond, le processeur, le disque, la congestion — les
+files d'attente (D686), les 429, les tâches en attente —, rapportés au
+dimensionnement de référence (D1430) pour dire la marge ; puis la santé
+des connecteurs et du passif, les passages de la nuit, les erreurs et
+les avertissements, les CVE à traiter, les sauvegardes, les tickets
+ouverts — le guide décrit chaque indicateur, son détail, ce qui est
+normal, et cette priorité (D1454). **Les alertes de l'instance**,
+calculées (D1454) : ce qui alerte et à quel seuil — la charge au-dessus
+de la marge, le connecteur muet et sa page de maintenance (D626,
+D627), le retard du passif, la version dépréciée encore appelée (D742),
+l'avis de sécurité nouveau (D1451), le ticket sans mise à jour
+(D1366) —, par quel canal, vers qui. **Le journal** : où il est, par
+environnement, son niveau, sa rotation, sa rétention au nettoyage
+(D343, D1073, D1091) ; comment le lire — les niveaux, les événements
+de sécurité, l'agrégation (D926) ; qui le lit — le concepteur, et
+l'administrateur par le puits de logs. **Les passages de la reprise** :
+les cinq états et les rapports (D1077, D1079, D1302), le sens d'un
+rejet, ce qu'on fait quand un passage échoue, la relance et le renvoi à
+la fiche de la relecture. **Ce qui s'écrit** : qui surveille ici et
+quand, l'astreinte, dans le texte du site. **Les ouvertures vers
+l'extérieur** (D1454 : « La supervision externe à décrire aussi dans le
+DAT comme étant une ouverture vers l'extérieur. Il y a aussi la
+connection des journaux vers un outil externe (comme par exemple
+Sentry). Dans le guide d'exploitation décrit comment y accéder et les
+règlages à faire pour vérifier le bon fonctionnement de l'application
+et la connexion des journaux. ») — au D.A.T. (§28), deux nœuds de plus
+sur le schéma quand l'environnement les déclare, l'outil de supervision
+qui interroge l'API de la santé (D731) et le puits des journaux ; au
+guide, deux fiches : **brancher la supervision externe** — l'adresse de
+l'API de la santé, son format, son authentification par compte
+technique, le réglage de l'outil, l'essai — et **connecter les
+journaux** — le puits déclaré au `logging.yml`, les niveaux envoyés, le
+réglage de l'outil, l'essai.
+
+### 4. Le dépannage (D1455–D1464)
+
+**Le catalogue des erreurs du core**, calculé : chaque erreur que le
+moteur peut émettre à l'exploitation, par son code et son texte — **dans la
+langue technique de l'instance** (D1460, qui amende D1455 : « Le
+catalogue doit pouvoir se décliner dans les différentes langues
+supportées par Syncytium. Par contre, la langue est définie à la
+configuration et n'est pas modifiable ») — choisie à
+l'installation parmi les langues du core **ou une langue apportée par
+le projet** (D1465), écrite à l'environnement par `syncytium init`,
+`language:`, immuable (acquis, D1473) —, la cause probable et le remède, le renvoi à la fiche de procédure ; la référence de Syncytium
+(D1411), instanciée ; les erreurs des utilisateurs, la validation, les
+droits, sont à la fonctionnelle et au contrat d'API. **Les familles**,
+dans l'ordre où on les rencontre : l'application ne démarre pas, le
+diagnostic de non-démarrage (D745, D902, D919, D330) ; un connecteur ne
+répond plus (D626–D627) ; la reprise échoue ou s'interrompt (D1077,
+D1079) ; une version refusée à l'ingestion (D326, D928) ; la charge,
+les 429, les files qui débordent (D105, D686) ; la synchronisation en
+retard (D724) ; l'authentification en panne et le mode safe (D718).
+**Ce qui demande l'instance** : les erreurs des derniers jours, lues au
+journal, le remède en face ; vide au dépôt (D1157). **L'arbre de
+décision, schématique** (D1456 : « y inclure une représentation
+schématique pour une lisibilité. Le guide d'exploitation est dédié à
+une équipe technique le concepteur ou une société tierce. La TPE mettra
+rarement les mains dans ce document ») — où regarder d'abord, la santé,
+le journal, la fiche ; à qui s'adresser, l'administrateur, le
+concepteur pour la configuration, l'intégrateur pour le réseau, la base,
+le fournisseur d'identité (D1426) ; en Mermaid, la forme au domaine 7.
+**Ce qui s'écrit** : les contacts à appeler ici, dans le texte du site,
+« cela viendra compléter éventuellement la configuration du crédit de
+l'application » (D1457 — `author:`, `contact:`, D1153/D1355) ; **les
+erreurs d'un hook, codifiées** dans sa section `errors:` (D1461, qui
+amende le md dédié de D1458) — par code : le message à gabarit du
+journal, la description facultative, l'arbre de résolution que le guide
+schématise et qu'une IA peut exploiter pour trouver et corriger ;
+chaque élément par langue (D1460) ; **le gabarit porte sur le
+message, la description et l'arbre**, pour personnaliser la résolution
+de l'incident identifié, et **l'arbre est fait de nœuds — une analyse,
+des branches pour les cas — acyclique par construction** (D1462) ;
+**les erreurs se transcrivent dans le guide** : sur la console, l'erreur
+lue au journal s'ouvre sur son arbre résolu avec ses valeurs ; dans
+l'édition, toutes les erreurs possibles ; une équipe tierce reçoit des
+éléments clairs ; **le raccourci selon le niveau** (D1463 : « Une trace
+en debug n'est pas une erreur et ne nécessite pas d'arbre de résolution.
+Par contre, une erreur nécessite un maximum de détail ») — le code et le
+message pour `verbose`, `debug`, `info` ; la description dès `warning` ;
+le détail entier, l'arbre compris, pour `error` et `exception` ; la
+complétude relève une erreur sans arbre, jamais une trace ; **pour une
+erreur, acquis** (D1464) : le
+niveau du journal, la famille du dépannage, la position de sécurité,
+le rejouable, qui résout et par quel canal, les paramètres typés du
+gabarit, le renvoi à la fiche ; les erreurs du core codifiées de même
+(D1403), le catalogue fond les deux — acquis (D1464). **Le mode safe, le dernier
+recours** (D1459 : « Le mode safe utilise un mot de passe fixé à
+l'installation … Ce mot de passe est présent dans le guide
+d'exploitation en clair. Dès que l'authentification est configurée et
+validée et qu'il y a la présence d'un administrateur, ce mot de passe ne
+sera plus accessible quoiqu'il en soit. Le mode safe est le dernier
+recours quand toutes les autres actions auront échoué ») — le guide le
+montre tant que l'authentification n'est pas validée ; ensuite il dit
+que le mode safe existe, comment le lancer, et que le mot de passe
+n'est plus accessible.
+
+*La déclinaison sur l'entrepôt est validée (D1476) ; la colonne 9 de
+la matrice est écrite dans les onze artefacts et la matrice d'ensemble,
+validée ; le rang 7 est clos (D1477).*
 
 ## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 
@@ -2421,7 +2669,9 @@ le degré ; **la forme** (D1321) : « la réglementation présente la
 documentation des traitements groupée par module. La référence aux
 données exploitées par les traitements viennent compléter la section du
 traitement » — *ma lecture* : une section par module soumis, une
-sous-section par traitement (son nom, sa forme, son responsable, qui
+sous-section par traitement — **avec son graphe d'état, schématique**
+(D1436) : la donnée d'origine, les étapes, les destinataires, la
+rétention et l'anonymisation au bout — (son nom, sa forme, son responsable, qui
 peut le déclencher, sa fréquence, sa règle), puis les données qu'il
 exploite — les champs `rgpd:` par entité, leur niveau, leur stockage
 (le renvoi au dictionnaire), leur rétention, les connecteurs sortants. **Le bloc `rgpd:` du
@@ -2625,6 +2875,14 @@ par sa clé anglaise (D335) : `functional`, `information`, `developer`,
 celle du poste (D1114) ; le résultat dans `output.directory`, au format
 de `output.formats` ; **`--check` mesure la complétude sans produire**
 (D1221 — le même moteur ; ma forme).
+
+**La commande des langues** (D1465) : `syncytium language fr pt` —
+`fr` la langue de référence, `pt` la langue souhaitée — construit le
+hook de langue (D1467) d'une langue que le core ne porte pas — sa
+fiche et son catalogue à traduire, tous les items du core avec leurs
+textes de référence, et eux seuls (D1466) ; le concepteur le traduit
+item par item ; sur un hook existant, les compléments et l'avis des
+clés obsolètes (D1470) (hooks.md, configuration.md §3.4).
 
 ## 22. Les scénarios d'utilisation par des personas (D1127) *(le rang 1, étape 5 — acquis, D1200–D1210)*
 
@@ -3305,9 +3563,10 @@ consignes pour l'IA (D1224).
 **Deux faces** : **l'inventaire**, ce que cette version a ajouté au
 socle, calculé depuis la configuration ; **la référence**, comment
 écrire un hook, un type, un composant — la documentation de Syncytium,
-que l'étape 3 placera, embarquée ou liée. Les six familles de
+que l'étape 3 placera, embarquée ou liée. Les sept familles de
 [hooks.md](hooks.md) — le type, le composant, l'opération, la fonction,
-le connecteur, le style — et les autres points d'extension.
+le connecteur, le style, et la septième, la langue (D1467) — et les
+autres points d'extension.
 
 **La description d'un hook est déclarée, non générée** (D1403 : « la
 méthode describe() du hook est probablement décorrellée par rapport à
@@ -3432,7 +3691,11 @@ version**, généré depuis la configuration — les hooks et les types du
 projet avec leur fiche et leur md, le glossaire des termes du métier
 (D1180), les conventions du projet — et un texte libre, « ce que l'IA
 doit savoir de cette application », `skill:` dans le `documentation.yml`
-du projet, par langue (§12). L'IA charge les deux. **Le core porte sa
+du projet, par langue (§12) — **« La skill du projet est déclinée par
+langue »** (D1472) — **toutes les langues de la version, sinon
+l'erreur d'ingestion** (D1474, la même règle partout ; mon « une seule
+langue suffit » écarté) ; la couche du core reste dans les langues du
+core. L'IA charge les deux. **Le core porte sa
 skill ; le projet peut y ajouter un complément, jamais un remplacement
 ni une substitution** (D1410) — à la différence du catalogue des
 langues (D1163), rien ne se surcharge. La skill se génère
@@ -3592,11 +3855,15 @@ peut être temporaire ou désactiver après un certain temps ») — *ma
 lecture* : celui qu'une migration nomme en `from:`, dessiné à part avec
 la mention « reprise », le rythme déclaré, une fois ou périodique, et, à
 l'instance, son état — actif, le dernier passage, désactivé depuis ;
-désactivé, il reste sur le schéma, grisé, tant que la configuration le
-déclare. **Les silhouettes des postes sont dessinées par le
+**la nature de la reprise, totale ou mise à jour** (D1446) ; désactivé,
+il reste dessiné et grisé ; il disparaît s'il est supprimé de la
+configuration (D1446). **Les silhouettes des postes sont dessinées par le
 moteur** (D1426) — les utilisateurs et leur navigateur, les techniciens
 et leurs systèmes, l'administrateur et le concepteur avec les
-commandes du moteur — avec les flux qui en partent. **Le réseau est un
+commandes du moteur — avec les flux qui en partent ; **deux ouvertures
+vers l'extérieur** quand l'environnement les déclare (D1454) : l'outil
+de supervision qui interroge l'API de la santé (D731), le puits des
+journaux — Sentry par exemple — que le `logging.yml` nomme. **Le réseau est un
 texte écrit, porté par la description de l'environnement** (D1426 :
 « La capacité de Syncytium à décrire son environnement se limite à ce
 qu'il peut gérer ou à ce qu'il a besoin. Les parefeux, les dns, les
@@ -3657,9 +3924,14 @@ qui les tient relève du déploiement, non de Syncytium (D1427) ; **il
 est créé automatiquement par `syncytium init`**, toutes les variables
 référencées, nommées exactement, les valeurs à renseigner — « Pas de
 gabarit template (risque d'oubli ou d'erreurs de nom de variable) »
-(D1429) ; *ma lecture* : les confidentielles marquées pour le wizard
-qui les chiffre (D902), une variable qu'une version ultérieure ajoute
-signalée manquante au démarrage et complétée par la commande. **Les
+(D1429) ; **toutes les variables sont présentes par construction dans
+la configuration** (D1440 : « les éléments de configuration nécessaires
+au fonctionnement doivent être présents dans le fichier de configuration
+et nulle part ailleurs » — la règle du core et de tout hook) : le
+fichier créé à l'amorçage est complet, les confidentielles se
+reconnaissent à la marque `*` (D944) et le wizard les chiffre (D902) ;
+une version qui ajoute une variable l'ajoute à la configuration, le
+fichier se complète. **Les
 comptes chez les tiers**, calculés depuis les connecteurs — ce que
 chacun attend : un compte du fournisseur d'identité avec son `tenant`,
 son `client_id` et son secret, un compte SMTP, un accès à la base
@@ -3703,9 +3975,14 @@ jour du core est une migration technique sur sollicitation (D17),
 détaillée au guide d'exploitation. **La veille des CVE — la voie b,
 acquise** (D1431 : « je valide la voie b ») : la veille se fait **au
 dépôt du source**, par son outillage, et le projet publie **par core un
-fichier d'avis signé** — l'avis, sa gravité, le core qui corrige ;
+fichier d'avis de sécurité signé** — l'avis de sécurité, sa gravité, le core qui corrige ;
 **l'instance le lit sur autorisation de l'administrateur**, désactivée
-par défaut, vérifie la signature, compare à son core et aux
+par défaut — **le bloc `security_advisories:` de l'environnement**
+(D1444) : `url:` l'adresse du fichier par une variable du déploiement,
+`every:` le rythme, `1d` par défaut ; absent, « la veille n'est pas
+reliée » ; le module d'administration montre le fichier et laisse
+l'administrateur lancer la lecture hors de la fréquence (D1445) —,
+vérifie la signature, compare à son core et aux
 bibliothèques déclarées par ses hooks, et montre ce qui la concerne
 ici et à la maintenance (§23), avec une notification à
 l'administrateur ; **hors connexion**, le D.A.T. dit « la veille n'est
@@ -3726,7 +4003,7 @@ core ; rien d'autre n'est requis. **La complétude** ne mesure rien ici.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 6 est clos (D1435).*
 
-## 29. Les points ouverts *(rafraîchis à la clôture du rang 6, le 24/10/2026)*
+## 29. Les points ouverts *(rafraîchis à la clôture du rang 7, le 25/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -3734,7 +4011,9 @@ les formats et la commande (§11, D1165–D1168), `documentation.yml`
 (§12, D1164), la méthode (§13, D1158–D1159), la documentation du socle
 dans celle de l'application (D645 → le chapitre 2 de §6, D1189), les
 modes opératoires comme chapitre (§24 → §22, D1188), le parcours guidé
-comme chapitre (§19 → §22, D1187).*
+comme chapitre (§19 → §22, D1187) ; le guide d'exploitation (§17, le
+rang 7, D1447–D1477) ; la langue apportée par un projet, un hook de
+langue, et la même règle des langues partout (D1465–D1475).*
 
 1. *(clos le 11/10 — D1171, D1184, D1186 confirmés, D1197–D1199)* ;
 2. *(clos le 11/10 — le rang 1 entier, D1238 : les sept sections, les
@@ -3756,9 +4035,10 @@ comme chapitre (§19 → §22, D1187).*
 9. *(clos le 24/10 — le rang 5 entier, D1393–D1425 : la console
    interactive aux droits du compte, les écarts filtrés, la forme au
    domaine 7)* ;
-10. les pièces encore en proposition, à arbitrer à leur rang : le
-    guide d'exploitation (§17) — §18, la conformité, acquise au rang 3
-    (D1317–D1344) —, la complétude et son seuil (§20), la maintenance (§23 — la part de chaque lecteur,
+10. les pièces encore en proposition, à arbitrer à leur rang : — le
+    guide d'exploitation (§17) acquis au rang 7 (D1447–D1477) ; §18, la
+    conformité, acquise au rang 3 (D1317–D1344) — la complétude et son
+    seuil (§20), la maintenance (§23 — la part de chaque lecteur,
     la périodicité, les seuils) ; l'assistance (§25) acquise au rang 4 — fondue
     dans §26, chapitre 3 (D1363–D1374) ;
 11. le contexte (D1131, D1133–D1135) : la formation comme usage ; la

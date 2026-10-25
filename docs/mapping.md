@@ -951,7 +951,12 @@ de reprise ne sont pas des écarts du contrat (D1281).
 la migration et son état à l'instance (D1433) ; le flux marqué par les
 champs `rgpd:` qu'il emporte (D1426) ; rien d'écrit.
 
-**Les autres colonnes** — à leur rang : le guide
-d'exploitation (le rang 7 — `migrate`, `reset_coverage`, le rythme, les
-rapports de rejets D929, les anomalies D1032) ; la maintenance
+**La migration déclarée, dans le guide d'exploitation** (la colonne 9 —
+le rang 7) : **les passages de la reprise** dans la supervision
+quotidienne (D1454) — les cinq états, les rapports, les rejets ; **la
+fiche de la relecture** — `reset_coverage`, `on_running`, l'interruption
+et la relance manuelle (D1077, D1079) ; le rythme au calendrier des
+opérations (D943).
+
+**Les autres colonnes** — à leur rang : la maintenance
 (la couverture et les compteurs, [migration.md](migration.md)).

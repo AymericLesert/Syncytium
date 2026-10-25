@@ -187,6 +187,18 @@ capacité de la configuration ») : `confidentiality:
 ${settings.confidentiality.financier}` référence un profil nommé une
 fois dans `settings.yml`.
 
+### 2.4 bis Rien hors de la configuration (D1440)
+
+« Toutes les variables d'environnement sont présentes par construction
+dans la configuration. Une règle à porter dans le développement d'un
+hook ou dans le développement de Syncytium consiste à dire que les
+éléments de configuration nécessaires au fonctionnement doivent être
+présents dans le fichier de configuration et nulle part ailleurs. » — le
+core et les hooks ne lisent que ce que la configuration référence ; le
+fichier des variables créé par `syncytium init` (D1429) est donc complet
+par construction, et le D.A.T. (documentation.md §28) en expose la
+liste entière.
+
 ### 2.5 La marque `*` — la clé confidentielle (D944)
 
 Une clé suffixée `*` porte une information confidentielle : **sa valeur
@@ -430,6 +442,26 @@ les variables référencées, nommées exactement, à renseigner — pas de
 gabarit (D1429) ; le D.A.T. (documentation.md §28) expose la liste des
 variables, dans la limite des confidentialités.
 
+**`language:` — la langue technique de l'instance** (D1460, D1473) :
+la langue des journaux, des traces et du catalogue des erreurs
+techniques — `language: fr` dans `environments/<env>.yml`, **écrite par
+`syncytium init`** parmi les langues du core et des hooks de langue du
+projet (D1467), **non modifiable ensuite** ; « l'anglais ou le français
+selon le mode d'installation de Syncytium » (D1460), ou une langue
+apportée (D1465).
+
+**`security_advisories:` — la veille des CVE** (D1431, D1444) : à
+l'environnement, « plus parlant » — `url:` l'adresse du fichier d'avis
+de sécurité publié par le projet pour le core, par une variable du
+déploiement, `every:` le rythme de lecture ; le bloc absent, la veille
+n'est pas reliée ; présent, l'administrateur l'a autorisée :
+
+```yaml
+security_advisories:
+  url: ${SYNCYTIUM_ADVISORIES_URL}    # le fichier du projet, ou un miroir interne
+  every: 1d
+```
+
 **Un dossier par environnement** : ce qui est commun à toutes les
 versions mais propre à chaque environnement — les connecteurs, les
 journaux, les settings techniques, la documentation. Les environnements
@@ -540,11 +572,42 @@ fait une nouvelle version. **Une seule langue** : `label:`, `hint:` et
 `description:` s'écrivent en texte simple (`description: Le prix
 d'achat.`), la forme par langue reste admise. **Plusieurs langues** :
 chaque texte précise ses langues (`label: { fr: Prix, en: Price }`) —
-un texte simple est une erreur d'ingestion ; une langue de la liste
-absente d'un texte se replie sur la langue par défaut (D219) ; une
+un texte simple est une erreur d'ingestion ; **une langue de la liste
+absente d'un texte est une erreur d'ingestion** (D1474 — la même règle
+partout : les libellés, les aides, les descriptions, les md, les
+gabarits PDF et mails, la skill, le glossaire des termes — D1475 ; le repli « sur la langue par défaut
+(D219) » écrit ici le 29/09 était un report fautif de ma main) ; une
 langue du texte qui n'est plus dans la liste n'est pas une erreur :
-la langue par défaut est employée. Le cas 5 parle le français seul ;
+la langue par défaut est employée (D1101). Le cas 5 parle le français seul ;
 la banque (le cas 4) parlera le français, l'anglais et l'espagnol.
+
+**Une langue que le core ne porte pas** (D1465 — précise D1160–D1163,
+D1101) : le projet l'apporte — le cas « ajoute » du catalogue en
+couches (D1163), appliqué au catalogue du moteur. La commande
+**`syncytium language fr pt`** construit le catalogue à traduire — `fr`
+la langue de référence, `pt` la langue souhaitée : tous les items du
+core, codifiés (D1160), avec leurs textes de référence, **et lui
+seul** (D1466) — et **le concepteur le traduit item par item**. Les
+textes du projet suivent la règle ci-dessus : `pt` dans `languages:`,
+chaque `label:`, `hint:`, `description:` la porte comme toute langue
+de la version (D1101), le repli et la complétude s'appliquent. **La langue est un hook** —
+la septième famille (D1467 : « une langue a un hook aussi ») :
+`hooks/languages/pt/`, sa fiche, son catalogue, et ce qui est propre
+à la langue — le fuseau et les formats de D217, le sens d'écriture
+(D1471) — ([hooks.md](hooks.md)) ;
+`languages:` nomme alors une langue du core ou d'un hook de langue. **Il doit
+être complet** — le niveau « pour Syncytium » de D1162 : un item
+manquant est une erreur d'ingestion, strict (D1468 : « En utilisant la
+commande, il a la complétude. La traduction est entre ses mains ») — la
+même règle que pour les textes du projet (D1474). Un hook du core
+sans cette langue suit D1163 : l'application complète ses items dans
+sa couche. La référence du développeur (D1411) et la skill du core
+(D1410) restent au core, lues dans sa langue par défaut. **Cette
+langue peut devenir la langue technique** de l'instance (D1460) : la
+commande construit aussi les erreurs, les journaux et les traces du
+core. Un catalogue complet est prêt à entrer dans le core ; quand un
+core le porte, le fichier du projet devient une surcharge (D1163, le
+plus proche l'emporte).
 
 ### 3.5 `settings.yml` — la maison des types et des réglages (D359/D360, D991–D993)
 
@@ -792,6 +855,7 @@ expressions.
 | la confidentialité | le niveau (D25) × les groupes (D26), le profil nommé aux settings, référencé au champ | D885 |
 | `normalize:` | le défaut du type aux settings → le champ | D870/D872, D991 |
 | `history:` | `settings.yml` de la version → le module → l'entité ; l'opt-out par `history: false` ; le défaut du socle = inactif | D168, D1174 |
+| le catalogue des textes du moteur | le core → le hook → l'application, qui reprend, surcharge ou ajoute — une langue entière, au besoin | D1160–D1163, D1465 |
 | tout défaut du socle | la règle : la valeur de Syncytium → `settings.yml` de la version → le module → l'entité → le champ ; dans les settings, le type de composant → le composant → la propriété | D1175, D1239 |
 | le report des anomalies | l'entité source (ses phases) ou la règle de migration (les siennes) → le défaut de D407 | D929, D1058 |
 
@@ -811,6 +875,9 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - une référence de fichier non marquée `~{…}` (D956), un fichier
   absent ; une clé de configuration inconnue ;
 - un secret en clair dans le `.env` (D902) ;
+- un texte sans une langue de la version — libellé, md, gabarit, skill,
+  terme du glossaire (D1101, D1474, D1475) ; une langue attendue qui manque à un hook (D1163) ;
+  le catalogue d'une langue apportée par le projet incomplet (D1465) ;
 - une conversion de type avec perte non écrite (D581 — le typage
   statique des expressions) ; une unité sans chemin vers une unité
   connue du champ (D979/D983) ;

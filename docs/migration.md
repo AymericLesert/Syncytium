@@ -670,6 +670,11 @@ emporté par la copie d'un environnement (D1078, D1387) — la relation
 production vers staging du chapitre 2 (D1427) ; les fichiers de détail
 et leur rétention au nettoyage.
 
-**Les autres colonnes** — à leur rang : le guide d'exploitation (le rang 7 — les passages, les trois taux D862, les rejets et leurs
-rapports D929, `migrate` et `reset_coverage`, le rythme) ; la
+**Le module `_migration`, dans le guide d'exploitation** (la colonne 9
+— le rang 7) : il donne au guide ses passages et leurs rapports
+(D1302), ses commandes `migrate` et `reset_coverage`, l'état du dernier
+passage au tableau de bord (D1452) ; emporté par la copie d'un
+environnement (D1078).
+
+**Les autres colonnes** — à leur rang : la
 maintenance (le rang 8 — la couverture et les compteurs).

@@ -2873,7 +2873,7 @@ par la cascade (D359) ; une surface peut le surcharger.*
 documentation.md — D1426–D1431. L'entrepôt a deux environnements,
 `production` et `staging`, ni passif ni sandbox ; sept connecteurs,
 déclarés à l'identique dans les deux, les valeurs par les variables ;
-dix-sept variables, dont quatre confidentielles ; aucun hook ; aucun
+dix-neuf variables, dont quatre confidentielles ; aucun hook ; aucun
 `listen:`, aucun texte du réseau. On montre le D.A.T. tel qu'il
 sortirait aujourd'hui, puis ce que le concepteur ajouterait.
 **Confirmée, et les textes écrits dans la configuration le 24/10/2026 —
@@ -2894,7 +2894,7 @@ D1434.**)*
 > | **les utilisateurs** — les six groupes, leur navigateur | l'instance | — | HTTPS, le port de `listen:` *(non déclaré)* | l'interface |
 > | **l'administrateur, le concepteur** — le poste | l'instance | — | les commandes du moteur | `init`, `copy`, `document` |
 > | l'instance | `entrepot` | storage, postgresql | TCP 5432 | tout le modèle — le chapitre 3 du dictionnaire |
-> | l'instance | `cegid` — **reprise** (D1433) | storage, sqlserver | TCP 1433 | la reprise, en lecture, chaque nuit, la relecture le dimanche — des champs `rgpd:` (§18) ; l'état à l'instance |
+> | l'instance | `cegid` — **reprise** (D1433, D1446) | storage, sqlserver | TCP 1433 | en lecture ; la mise à jour chaque nuit, la reprise totale le dimanche — des champs `rgpd:` (§18) ; l'état à l'instance |
 > | l'instance | `temporaire` | storage, memory | — | les tables de travail de la reprise |
 > | l'instance | `plans` | file, file_std | le système de fichiers | les plans des articles |
 > | l'instance | `location` | location, ban | HTTPS 443, `api-adresse.data.gouv.fr` | les adresses des tiers |
@@ -2932,7 +2932,7 @@ D1434.**)*
 >
 > ## 3. Le paramétrage externe
 >
-> **Les variables**, par environnement — dix-sept, dont quatre
+> **Les variables**, par environnement — dix-neuf, dont quatre
 > confidentielles ; renseignées : *(l'instance)* :
 >
 > | la variable | l'emploi | confidentielle |
@@ -2989,4 +2989,144 @@ description: ~{README.md}            # le texte du réseau : où est l'instance,
 listen:                              # l'adresse et le port servis — par les variables du déploiement (D1427)
   url: ${SYNCYTIUM_URL}
   port: ${SYNCYTIUM_PORT}
+```
+
+## Le guide d'exploitation — la déclinaison de l'entrepôt (le rang 7)
+
+*(La déclinaison du rang 7, écrite le 25/10/2026 sur §17 de
+documentation.md — D1447–D1459 ; alignée le soir même sur D1460–D1475,
+la langue technique et les traces codifiées. L'entrepôt a deux environnements, sept
+connecteurs, deux opérations périodiques de reprise et une
+d'anonymisation ; ni `backup:`, ni `replication:`, ni
+`security_advisories:`, ni texte d'exploitation ; un seul groupe
+`administrator`, `administration` ; l'authentification `azure_ad`. On
+montre le guide tel qu'il sortirait aujourd'hui, puis ce que le
+concepteur pourrait ajouter. **Validée le 25/10/2026, D1476** — « non
+disponible » plutôt que « sans objet », rien à compléter.)*
+
+---
+
+> # entrepôt — Le guide d'exploitation
+>
+> *Pour l'équipe technique — le concepteur, le prestataire
+> informatique, l'intégrateur de l'ERP (D1456).*
+>
+> ## 1. Installer, configurer
+>
+> **Installer** : une seule ligne, `syncytium init`, qui lit
+> `from: Syncytium-1.0`, récupère le core, ingère la configuration et
+> crée l'instance (D1447, D1450) ; elle crée le fichier des variables —
+> dix-neuf, dont quatre confidentielles, à renseigner (D1429).
+>
+> **Les variables, décrites** (D1442) — *la description vient de la
+> classe du connecteur ; l'extrait* :
+>
+> | la variable | ce qu'elle est | où l'obtenir |
+> |---|---|---|
+> | `ENTREPOT_HOST` | le serveur PostgreSQL de l'entrepôt | le prestataire informatique |
+> | `ENTREPOT_PASSWORD` *(confidentielle)* | le mot de passe du compte `ENTREPOT_USER` | le prestataire ; chiffrée par le wizard |
+> | `CEGID_SERVER` | le serveur SQL Server de la base PMI | l'intégrateur de l'ERP |
+> | `AZURE_TENANT`, `AZURE_CLIENT_ID` | le tenant et l'application Azure AD | le prestataire |
+> | `AZURE_CLIENT_SECRET` *(confidentielle)* | le secret de l'application | le prestataire ; chiffrée |
+> | `SMTP_HOST`, `SMTP_FROM`, `SMTP_PASSWORD` *(confidentielle)* | le serveur d'envoi, l'expéditeur, le mot de passe | le fournisseur de messagerie |
+> | `SYNCYTIUM_URL`, `SYNCYTIUM_PORT` | l'adresse et le port servis (`listen:`) | le déploiement |
+> | `SYNCYTIUM_LOG_DIRECTORY`, `SYNCYTIUM_MIGRATION_DIRECTORY` | le dossier du journal, celui des fichiers de la reprise | le déploiement |
+>
+> **Les environnements** : `production` (1.0.0.0) et `staging`
+> (1.0.0.1), la table du D.A.T. ; **la langue technique** `fr`, écrite
+> par `syncytium init` (D1460, D1473) ; **les connecteurs** sans secrets, les
+> sept ; **le journal** : `info` en production, `debug` au staging, un
+> fichier par jour dans `${SYNCYTIUM_LOG_DIRECTORY}`, 128 Mo, dix
+> sauvegardes ; **le nettoyage** : le journal 30 jours, les fichiers de
+> la reprise 90 jours, chaque jour ; **les opérations périodiques** :
+>
+> | l'opération | quand | ce qu'elle fait |
+> |---|---|---|
+> | `delta_nocturne` | chaque jour à 02:00 | la mise à jour depuis la base PMI, les plages récentes des tables partitionnées |
+> | `relecture_complete` | le samedi à 23:00 ; si le delta tourne encore, elle attend (`on_running: wait`) | la reprise totale — `reset_coverage` sur cinq tables |
+> | `anonymiser` (`tiers.contact`) | le 1er du mois à 03:00 | `rgpd.anonymize` sur les contacts échus |
+>
+> **Les commandes de cette instance** : `syncytium copy production
+> staging`, `syncytium copy production staging --with-storage`,
+> `syncytium encrypt`, `syncytium rotate`, `syncytium document
+> production <documentation>`, `syncytium init`.
+>
+> ## 2. Les procédures
+>
+> *Treize fiches, le plan unique (D1450) ; les particulières de
+> l'entrepôt :*
+>
+> - **promouvoir la 1.0.0.1** — déplacer le dossier de `versions/beta/`
+>   vers `versions/production/` ; l'ingestion porte le statut (D344) ;
+>   la 1.0.0.0 devient une production dépassée, servie avec les en-têtes
+>   de dépréciation (D1419) ;
+> - **copier la production vers le staging** — les données,
+>   `_migration`, `_assistance` ; `--with-storage` pour les fichiers de
+>   détail de la reprise, re-chiffrés ;
+> - **relire la reprise** — `relecture_complete` attend le delta
+>   (`on_running: wait`) ; un passage s'interrompt depuis le suivi, sauf
+>   pendant la bascule (D1077) ; la relance est manuelle ;
+> - **sauvegarder** — *procédure non disponible* : aucun `backup:`
+>   déclaré ; la fiche nomme la clé qui la rendrait disponible (D1476) ;
+>   **vérifier une sauvegarde** — *non disponible* tant qu'il n'y a pas
+>   de sauvegarde ;
+> - **synchroniser** — *procédure non disponible* : aucun passif, aucune
+>   `replication:` ; la copie vers le staging la remplace ;
+> - **les secrets** — quatre, `syncytium encrypt` ; **la rotation** —
+>   `syncytium rotate` ; **la sandbox** — aucune déclarée ; **la mise à
+>   jour du core** — sur sollicitation (D17) ; **l'arrêt, le
+>   redémarrage, le mode safe** ; **restaurer un enregistrement** —
+>   l'administration seule, tracé (D171).
+>
+> ## 3. La supervision quotidienne
+>
+> **Le tableau de bord**, l'accueil du groupe `administration` (D1452) :
+> **1.** la disponibilité et la charge, le processeur, le disque, la
+> congestion, rapportés à la référence (D1453) ; **2.** les sept
+> connecteurs au feu tricolore, `cegid` marqué reprise, aucun passif ;
+> **3.** le passage de la nuit, `delta_nocturne`, son état, ses rejets,
+> le samedi `relecture_complete` ; **4.** les erreurs et les
+> avertissements du jour ; **5.** les CVE à traiter — *veille non
+> disponible* : `security_advisories:` absent (D1476) ; **6.** la dernière sauvegarde
+> — *aucune* ; **7.** les tickets ouverts adressés à l'administration.
+> **Le mail des faits marquants** : aux membres d'`administration`, au
+> rythme de leur profil (D748) ; les CVE n'y paraissent pas, la veille
+> est inactive (D1451). **Les alertes** : un connecteur muet et sa page
+> de maintenance ; la charge au-dessus de la marge ; le ticket sans
+> mise à jour ; aucun passif, aucune version dépréciée. **Le journal** :
+> `${SYNCYTIUM_LOG_DIRECTORY}`, 30 jours ; aucun puits déclaré.
+>
+> ## 4. Le dépannage
+>
+> Le catalogue des erreurs du core **en français** — la langue technique
+> de l'instance, `language: fr` (D1460, D1473) —, les familles,
+> l'arbre de décision schématique (D1456) ; **les contacts** : *non
+> écrits* — le prestataire informatique, l'intégrateur de l'ERP, le
+> concepteur sont au texte du réseau du D.A.T., pas encore au crédit de
+> l'application (D1457) ; **aucun hook**, donc aucune trace codifiée
+> propre (D1461–D1464) — le catalogue du core seul ; **le mode
+> safe** : l'authentification `azure_ad` configurée et le groupe
+> `administration` présent — le mot de passe fixé à l'installation n'est
+> plus accessible (D1459) ; le guide dit comment lancer le mode safe.
+
+---
+
+**Ce que le concepteur pourrait ajouter** — à titre d'illustration,
+**non écrit dans l'entrepôt** (D1476 : « Il n'est pas nécessaire de les
+compléter ») : `backup:` à chaque environnement, `security_advisories:`
+à la production, le texte d'exploitation du site.
+
+```yaml
+# environments/production/production.yml
+backup:
+  destination: zip:${SYNCYTIUM_BACKUP_DIRECTORY}   # l'archive, chaque nuit après la reprise
+  every: daily[04:00]
+  retention: 30d
+security_advisories:
+  url: ${SYNCYTIUM_ADVISORIES_URL}
+  every: 1d
+
+# environments/production/documentation.yml
+pages:
+  operations: ~{documentation/operations.md}   # qui surveille, quand, l'astreinte, les contacts
 ```

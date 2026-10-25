@@ -281,6 +281,20 @@ relance les passages (D1077). Le module — le déroulé d'un passage,
 ce qu'il garde, son modèle, ses rapports, ses surfaces — est décrit
 dans [migration.md](migration.md) (D1028, D1030–D1080).
 
+### La veille des CVE (D1431, D1444–D1445)
+
+Le bloc `security_advisories:` de l'environnement — `url:`, `every:` —
+relie l'instance au fichier d'avis de sécurité que le projet publie
+pour son core ; **le module d'administration porte une entrée** (D1445)
+qui montre le fichier lu tel quel, la date de la dernière lecture, les
+avis de sécurité qui concernent le core et les bibliothèques déclarées
+par les hooks, et **un bouton qui exécute la lecture hors de la
+fréquence**, un acte d'administration tracé ; **la santé porte le
+nombre de CVE à traiter, le mail des faits marquants les CVE de la
+période**, quand la veille est active (D1451). La veille elle-même reste
+au dépôt du source (D924) ; la mise à jour du core, une migration
+technique sur sollicitation (D17).
+
 ### Les opérations d'administration du socle (D701)
 
 Les planchers `administrator` : **`restore`** (la restauration par
@@ -460,7 +474,10 @@ en silence à la vérification d'un mot de passe.
 
 ### La santé (D731)
 
-La vue d'office du module d'administration : **les statuts, les
+La vue d'office du module d'administration — **l'accueil de
+l'administrateur** (D1452), **la disponibilité et la charge en
+priorité 1** : le processeur, le disque, la congestion (D1453) — puis
+**les statuts, les
 files d'attente (D686), les sessions actives, les connecteurs** (le
 `ping()` D621 — le feu tricolore) — disponible **en dashboard et en
 API** (la supervision externe interroge l'API) ; **l'état de santé
@@ -486,7 +503,10 @@ surchargeable en configuration, l'envoi par le smtp (D628).
 Par environnement : le staging en **debug/verbose**, la production
 active en **info + puits de logs éventuel**, la passive en
 **warning** — les formats et les emplacements différents ; les
-journaux en anglais (D217–D225). **Le journal est le sixième canal
+journaux **dans la langue technique de l'instance**, définie à la
+configuration et non modifiable, l'anglais ou le français selon le mode
+d'installation (D1460, qui amende D217–D225), ou une langue apportée
+par le projet (D1465). **Le journal est le sixième canal
 de la télémétrie** (D737) : les six niveaux
 (`verbose`/`debug`/`info`/`warning`/`error`/`exception`) dans la
 configuration en dur (**`logging.yml`** — le nom harmonisé D750, renommé D830), la
@@ -635,7 +655,15 @@ journaux** par niveau (D343) ; **la veille des CVE** sur autorisation
 de l'administrateur (D1431) ; **la mise à jour du core** sur
 sollicitation (D17).
 
-**Les autres colonnes** — à leur rang : le guide d'exploitation (le
-rang 7 — l'installation, la configuration, la supervision, les
-opérations de maintenance, D1134) ; la maintenance (le rang 8 — les
+**L'administration, dans le guide d'exploitation** (la colonne 9 — le
+rang 7), l'écho d'administration.md pour une instance : **le chapitre
+« installer »** et `syncytium init` (D1447, D1450) ; **le fichier des
+variables** et leur description (D1429, D1442) ; **les treize fiches de
+procédure** sur un plan unique (D1450) ; **la santé en accueil** et sa
+priorité — la disponibilité et la charge d'abord (D1452–D1453) ; **le
+mail des faits marquants**, les CVE comprises quand la veille est
+active (D733, D1451) ; les commandes instanciées avec les noms de
+l'instance ; **le mode safe**, le dernier recours (D1459).
+
+**Les autres colonnes** — à leur rang : la maintenance (le rang 8 — les
 usages, les contrôles, les optimisations, D1128).

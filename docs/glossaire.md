@@ -37,7 +37,10 @@ numéro de version, la date, l'auteur de l'édition. *(D1142)*
 gabarits génériques de Syncytium, codifiés et uniques, un catalogue par
 langue portée ; en couches — le moteur, le hook, l'application — le
 plus proche l'emporte ; une langue attendue qui manque est une erreur
-d'ingestion. *(D1160–D1163)*
+d'ingestion. Une langue que le core ne porte pas est apportée par le
+projet : `syncytium language <référence> <souhaitée>` construit le
+catalogue, le concepteur le traduit item par item. *(D1160–D1163,
+D1465)*
 
 **Champ** (`field`, le bloc `fields:`) — La plus petite donnée d'une
 entité. Elle se caractérise par : un nom, un type, des propriétés.
@@ -76,8 +79,10 @@ défaut du socle n'est pas un manque, sauf quand il tient lieu d'un
 texte pour le lecteur (le `label:` absent) ; elle compte, elle ne
 devine pas ; une ligne de commande la mesure avec le moteur de la
 génération, le seuil reste à la discrétion du concepteur — Syncytium ne
-refuse jamais une version. *(documentation.md §20, D1173/D1177/D1182,
-D1221)*
+refuse jamais une version. Elle compte ce qui n'est décrit dans
+aucune langue : un texte sans une langue de la version n'est pas un
+manque mais une erreur d'ingestion (D1474). *(documentation.md §20,
+D1173/D1177/D1182, D1221, D1474)*
 
 **Composant graphique** (`component`) — La représentation graphique d'un champ à l'écran ou sur un document (PDF, Excel, ...) : la jauge d'un pourcentage, le calendrier d'une date, le toggle d'un booléen. *(D64)*
 
@@ -191,6 +196,14 @@ vers une analyse claire de l'information ; ouvert par les deux
 glossaires ; une annexe de la fonctionnelle. *(documentation.md §15,
 D1179–D1180, D1212–D1216)*
 
+**Avis de sécurité** — Ce que le projet Syncytium publie, par core,
+sur son dépôt : la qualification d'une ou plusieurs CVE pour ce core —
+la dépendance touchée, si le moteur emploie la partie vulnérable, la
+gravité pour Syncytium, le core qui corrige —, dans un fichier signé
+que l'instance lit sur autorisation de l'administrateur. Un avis de
+sécurité n'est pas une CVE : il la cite et la qualifie. *(D1431,
+D1443)*
+
 **Contrat d'API** — Ce que la documentation du développeur donne au
 technicien pour chaque version publiée : une console interactive dans
 l'application, qui s'authentifie, prend ses paramètres (la version,
@@ -206,8 +219,17 @@ la grammaire des clés, les règles d'ingestion, les recommandations, les
 exemples du socle —, versionnée avec lui ; le complément de la version,
 généré depuis la configuration — ses hooks, ses types, son glossaire,
 ses conventions — et le texte libre `skill:` du projet, un complément,
-jamais un remplacement. Générée, déterministe ; lue au concepteur,
-exportée en édition machine. *(D1224, D1226, D1409–D1410)*
+jamais un remplacement, décliné par langue — toutes celles de la
+version, sinon l'erreur d'ingestion. Générée, déterministe ; lue au
+concepteur, exportée en édition machine. *(D1224, D1226, D1409–D1410,
+D1472, D1474)*
+
+**CVE** (Common Vulnerabilities and Exposures) — L'entrée du
+référentiel public des vulnérabilités : un identifiant
+(`CVE-AAAA-NNNNN`), une description, une gravité, les versions touchées
+d'un composant logiciel. Écrite par le composant ou par le référentiel,
+jamais par Syncytium ; la veille la cherche au dépôt du source, l'avis
+de sécurité la qualifie pour un core. *(D924, D1431, D1443)*
 
 **D.A.T. (le dossier d'architecture technique)** — La quatrième
 documentation : les inter-connexions de l'application avec son
@@ -217,7 +239,7 @@ réseau en texte porté par la description de l'environnement ; les
 environnements, leurs relations, les flux et les ports ; la liste des
 variables d'environnement, les comptes chez les tiers, les certificats ;
 le dimensionnement et les dépendances, du core et des hooks, la veille
-des CVE par le fichier d'avis du dépôt. *(D1134, D1426–D1435)*
+des CVE par le fichier d'avis de sécurité du dépôt. *(D1134, D1426–D1435)*
 
 **Documentation (la facette)** — Chaque composant porte sa
 documentation, comme il porte son affichage ou son stockage ; chaque
@@ -295,9 +317,10 @@ dictionnaire des données : **celui des termes**, écrit par le concepteur
 termes du métier et leur définition) ; **celui des types**, calculé
 depuis les types personnalisés ; tous deux servent le traitement
 sémantique. Une annexe de la documentation ; un terme est une liste de
-mots, le singulier et le pluriel ; dans l'application, la définition
+mots, le singulier et le pluriel, dans toutes les langues de la
+version sinon l'erreur d'ingestion ; dans l'application, la définition
 s'affiche au survol de la première occurrence du terme dans la page.
-*(D1179–D1180, D1183–D1184, D1197)*
+*(D1179–D1180, D1183–D1184, D1197, D1475)*
 
 **Group by** (`group(champ, …)`, `group:`) — Le regroupement d'une
 liste par les valeurs d'un ou plusieurs champs : une cellule par
@@ -330,7 +353,7 @@ tout (`perpetual`), une période (`temporal[365]`), les dernières
 modifications (`update[10]`), rien (`false`). *(D168/D411)*
 
 **Hook** — Le prolongement par code : un type, un composant graphique ou une
-fonction sur mesure, écrits contre le contrat de Syncytium. Le hook rend transparent l'usage de développements spécifiques à un projet. De façon homogène, Syncytium fournit un cadre d'exécution et pour ne pas à avoir à tout recréer, Syncytium fournit déjà un ensemble de Hooks.Les types de champ, les composants graphiques, les écrans de saisie, les formats CSV ou Excel fournis avec Syncytium sont des hooks. *(D52/D408)*
+fonction sur mesure, écrits contre le contrat de Syncytium. Le hook rend transparent l'usage de développements spécifiques à un projet. De façon homogène, Syncytium fournit un cadre d'exécution et pour ne pas à avoir à tout recréer, Syncytium fournit déjà un ensemble de Hooks.Les types de champ, les composants graphiques, les écrans de saisie, les formats CSV ou Excel fournis avec Syncytium sont des hooks. Sept familles : le type, le composant, l'opération, la fonction, le connecteur, le style, la langue. *(D52/D408, D755, D1467)*
 
 **Horodatage** (`datetime[timestamp]`) — Un instant absolu, stocké en
 temps universel et affiché à l'heure de chacun. S'oppose à la valeur
@@ -355,6 +378,20 @@ rangée dans l'historique. On la consulte, on ne la modifie pas.
 **Langage d'expression** — La langue unique des formules : calculs,
 validations, filtres, gabarits.
 *Ex. : `sum(lines.amount if quantity > 0)`.* *(D90/D301)*
+
+**Langue apportée** — Une langue que le core ne porte pas et qu'un
+projet apporte : son catalogue, complet, construit par `syncytium
+language` depuis une langue de référence et traduit item par item —
+le catalogue du core seul, les textes du projet la portent comme toute
+langue de la version (D1101) ; **un hook de langue**, la septième
+famille, `hooks/languages/<code>/` ; incomplet, une erreur
+d'ingestion ; elle peut être la langue technique. *(D1465–D1467)*
+
+**Langue technique** — La langue des journaux, des traces et du
+catalogue des erreurs techniques d'une instance : définie à la
+configuration — `language:` de l'environnement, écrit par
+`syncytium init` —, non modifiable ; l'une des langues du core ou une
+langue apportée par le projet. *(D1460, D1465, D1473)*
 
 **Lecteur (de la documentation)** — Un rôle, non une personne : douze
 rôles lisent la documentation, chacun sous ses droits (D1139–D1147).

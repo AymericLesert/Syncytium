@@ -1,6 +1,10 @@
 # La description de l'environnement de développement
 description: ~{README.md}
 
+# La langue technique de l'instance
+# Celle des journaux, des traces et des erreurs techniques ; écrite à l'installation, elle ne change plus.
+language: fr
+
 # L'adresse et le port servis
 # Par les variables du déploiement : un changement du réseau ne fait pas une nouvelle version.
 listen:

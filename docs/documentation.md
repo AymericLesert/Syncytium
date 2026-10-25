@@ -668,9 +668,14 @@ décisions, D1170–D1238.)*
 
 #### Rang 9 — la promotionnelle (documentation 6) — *en cours depuis le 25/10/2026*
 
-- **Périmètre** : la plaquette, la démonstration, l'argumentaire du
-  socle ; **le module de présentation de l'outil**, servi par l'instance
-  de Syncytium seul, qui est son propre site vitrine (D1447–D1448).
+- **Périmètre** : **deux niveaux** (D1497) — la promotionnelle de
+  l'application, pour faire adhérer la direction, les responsables
+  métier et les collaborateurs : la plaquette, la démonstration ; la
+  promotionnelle de Syncytium — les avantages, la facilité, les
+  inconvénients, le choix de la plateforme et l'ouverture vers d'autres
+  usages : l'argumentaire du socle, **le module de présentation de
+  l'outil**, servi par l'instance de Syncytium seul, qui est son propre
+  site vitrine (D1447–D1448).
 - **Sections** : §30, créée le 25/10/2026.
 - **Étapes** :
   1. la plaquette : la structure générée (le nom, la description, les
@@ -4316,6 +4321,18 @@ jeu de données (D869) —, **l'argumentaire du socle** — l'open source
 de Syncytium ; et **le module de présentation de l'outil**, servi par
 l'instance de Syncytium seul, qui est son propre site vitrine
 (D1447–D1448).
+
+**Deux niveaux** (D1497 : « il existe 2 niveaux de promotionnelle ») :
+**celle de Syncytium** — « les avantages, sa facilité d'utilisation et
+les inconvénients => Expliquer et démontrer le choix de la plateforme et
+l'ouverture vers d'autres usages » — le module de présentation de
+l'outil (D1447), servi par Syncytium seul, la matière de l'étape 3 ; ses
+lecteurs, qui choisit la plateforme ; **celle de l'application** — « pour
+faire adhérer la direction, les managers et les collaborateurs à
+l'application et à son usage » — la plaquette et la démonstration, les
+étapes 1 et 2 ; ses lecteurs d'abord à l'intérieur, par persona ; le
+mode public (D1150) reste sa déclinaison vers l'extérieur, le prospect
+et le partenaire, sans aucun droit.
 
 *(La section s'écrit au fil du rang 9 ; les étapes 1 à 3 ci-dessous, en
 proposition jusqu'à l'arbitrage.)*

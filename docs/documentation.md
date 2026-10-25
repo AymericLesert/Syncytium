@@ -585,7 +585,7 @@ décisions, D1170–D1238.)*
   les onze artefacts et la matrice d'ensemble (D1435).
 - **Dépendances** : les choix techniques (D1025).
 
-#### Rang 7 — le guide d'exploitation (documentation 9)
+#### Rang 7 — le guide d'exploitation (documentation 9) — *clos le 25/10/2026, D1477*
 
 - **Périmètre** : installer, configurer, démarrer et arrêter,
   sauvegarder et restaurer, superviser, les opérations de maintenance,
@@ -624,7 +624,7 @@ décisions, D1170–D1238.)*
 - **Livrables** : §17 validé (les quatre chapitres acquis) ;
   [administration.md](administration.md), [hooks.md](hooks.md) ; la
   colonne 9 de la matrice dans les onze artefacts et la matrice
-  d'ensemble (écrite le 25/10/2026, à valider).
+  d'ensemble (validée le 25/10/2026, D1477).
 - **Dépendances** : les choix techniques (D1025), le D.A.T.
 
 #### Rang 8 — la maintenance, les risques, les améliorations (documentation 7)
@@ -2409,7 +2409,7 @@ et leurs effets, les règles de reprise, les rapports, les écrans — et
 et l'analyse d'impact à la documentation de l'information, le rang 2 —
 ma lecture).
 
-## 17. Le guide d'exploitation *(le rang 7 — en cours : l'étape 1, D1447–D1448 ; l'étape 2, les procédures, D1449–D1450 ; l'étape 3, la supervision, D1451–D1454 ; l'étape 4, le dépannage, D1455–D1464 ; reçoit le chapitre 11 du premier §4 — D1242)*
+## 17. Le guide d'exploitation *(le rang 7 — acquis, D1447–D1477 : installer et configurer, les treize fiches, la supervision quotidienne, le dépannage ; reçoit le chapitre 11 du premier §4 — D1242)*
 
 **La neuvième documentation** (D1134) : « l'installation, la
 configuration, la supervision et les opérations de maintenance » —
@@ -2623,9 +2623,9 @@ montre tant que l'authentification n'est pas validée ; ensuite il dit
 que le mode safe existe, comment le lancer, et que le mot de passe
 n'est plus accessible.
 
-*La déclinaison sur l'entrepôt est écrite, en proposition ; la colonne
-9 de la matrice écrite le 25/10/2026 dans les onze artefacts et la
-matrice d'ensemble — à valider.*
+*La déclinaison sur l'entrepôt est validée (D1476) ; la colonne 9 de
+la matrice est écrite dans les onze artefacts et la matrice d'ensemble,
+validée ; le rang 7 est clos (D1477).*
 
 ## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 
@@ -4003,7 +4003,7 @@ core ; rien d'autre n'est requis. **La complétude** ne mesure rien ici.
 matrice est écrite dans les onze artefacts et la matrice d'ensemble ;
 le rang 6 est clos (D1435).*
 
-## 29. Les points ouverts *(rafraîchis à la clôture du rang 6, le 24/10/2026)*
+## 29. Les points ouverts *(rafraîchis à la clôture du rang 7, le 25/10/2026)*
 
 *Tranchés et retirés de la liste : les lecteurs (§3, D1139–D1154), le
 plan de la fonctionnelle (§6, D1189), les masques (§7, D1190–D1193),
@@ -4011,7 +4011,9 @@ les formats et la commande (§11, D1165–D1168), `documentation.yml`
 (§12, D1164), la méthode (§13, D1158–D1159), la documentation du socle
 dans celle de l'application (D645 → le chapitre 2 de §6, D1189), les
 modes opératoires comme chapitre (§24 → §22, D1188), le parcours guidé
-comme chapitre (§19 → §22, D1187).*
+comme chapitre (§19 → §22, D1187) ; le guide d'exploitation (§17, le
+rang 7, D1447–D1477) ; la langue apportée par un projet, un hook de
+langue, et la même règle des langues partout (D1465–D1475).*
 
 1. *(clos le 11/10 — D1171, D1184, D1186 confirmés, D1197–D1199)* ;
 2. *(clos le 11/10 — le rang 1 entier, D1238 : les sept sections, les
@@ -4033,9 +4035,10 @@ comme chapitre (§19 → §22, D1187).*
 9. *(clos le 24/10 — le rang 5 entier, D1393–D1425 : la console
    interactive aux droits du compte, les écarts filtrés, la forme au
    domaine 7)* ;
-10. les pièces encore en proposition, à arbitrer à leur rang : le
-    guide d'exploitation (§17) — §18, la conformité, acquise au rang 3
-    (D1317–D1344) —, la complétude et son seuil (§20), la maintenance (§23 — la part de chaque lecteur,
+10. les pièces encore en proposition, à arbitrer à leur rang : — le
+    guide d'exploitation (§17) acquis au rang 7 (D1447–D1477) ; §18, la
+    conformité, acquise au rang 3 (D1317–D1344) — la complétude et son
+    seuil (§20), la maintenance (§23 — la part de chaque lecteur,
     la périodicité, les seuils) ; l'assistance (§25) acquise au rang 4 — fondue
     dans §26, chapitre 3 (D1363–D1374) ;
 11. le contexte (D1131, D1133–D1135) : la formation comme usage ; la

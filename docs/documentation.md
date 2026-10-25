@@ -2960,8 +2960,10 @@ la commande, la notification aux groupes qu'il choisit, la
 documentation technique. Jamais un refus (D1221). **Si une erreur se
 glisse à l'ingestion** (D1482) : un message d'erreur au journal, au
 niveau `error`, **avec les manques bloquants** — ceux de configuration.md
-§5 : une langue manquante, un texte sans une langue de la version, un
-hook sans sa langue, un catalogue incomplet… — ; **cela n'enlève rien à
+§5, la liste canonique : une langue manquante, un texte sans une langue
+de la version (D1474–D1475), un hook sans sa langue (D1163), un
+catalogue incomplet (D1468), un plan de promotionnelle qui cite une vue
+non marquée (D1500)… — ; **cela n'enlève rien à
 la mise à disposition du rapport** de complétude ; dans les autres cas,
 **le rapport d'ingestion est disponible pour chaque version** — deux
 rapports, l'ingestion qui dit si la version est servie, la complétude

@@ -641,7 +641,10 @@ décisions, D1170–D1238.)*
      et les cinq cas mesurés ;
   2. §23 — la supervision des usages : les indicateurs retenus (les
      plus fréquents, les moins utilisés, les non utilisés), les canaux
-     (D44), la part de chaque lecteur, la périodicité — *en cours* ;
+     (D44), la part de chaque lecteur, la périodicité : **acquis le
+     25/10/2026 (D1489)** — un indicateur par type de composant, trois
+     lieux sans notification nouvelle, l'usage de ce qu'on voit, la
+     période au choix, aucun seuil absolu ;
   3. l'analyse des risques : le dry-run (D737), les anomalies de la
      reprise, les validations en échec, les refus et les pics (D43),
      les dépréciées appelées (D742), les dépendances (D924), le PRA,
@@ -3198,7 +3201,45 @@ plus fréquents, les moins utilisés ou les non utilisés. »** (l'auteur,
 le 05/10/2026 — la dixième pièce ; il garde la possibilité d'en
 ajouter d'autres.)
 
-*Mes propositions* — la pièce où la documentation cesse de décrire pour
+**La supervision des usages — acquis** (D1489, le rang 8, l'étape 2 :
+« sur les différentes lectures, je ne vois rien d'autres à ajouter. Cela
+reflète ce que nous avons déjà partagé ») :
+
+1. **Un indicateur par type de composant**, tiré de la télémétrie, rien
+   de nouveau à collecter (la méthode de D1158) : **l'entité** — les
+   lectures et les écritures (D39), le nombre de lignes ; **le champ** —
+   la diversité des valeurs (D38, D46, D48), le champ jamais renseigné ;
+   **l'énuméré** — le compteur de chaque valeur (D1155), la valeur jamais
+   choisie ; **la surface** — les ouvertures, l'écran jamais ouvert ;
+   **l'opération** — les déclenchements, la part de refus de validation,
+   l'opération jamais déclenchée ; **l'édition et l'export** — les
+   documents produits ; **l'API** — les appels par entrée et par compte
+   technique (D40). D'où **les trois listes**, sur une période : les plus
+   fréquents, les moins utilisés, les non utilisés.
+2. **Trois lieux, aucune notification nouvelle** : l'usage de chaque
+   composant dans sa page de documentation, comme les données dans celle
+   des champs (D1155, D1168) ; **le chapitre d'ensemble** de la
+   documentation 7, les trois listes par module ; le tableau de bord des
+   usages (D38) et la synthèse périodique (D738) de la télémétrie,
+   inchangés. La documentation 7 est une lecture, elle ne pousse rien.
+3. **La part de chaque lecteur** : dans la page d'un composant, l'usage
+   suit les droits du lecteur (D1139–D1147) — chacun voit l'usage de ce
+   qu'il voit ; le chapitre d'ensemble se sert **à partir de `manager`**
+   (comme les indicateurs du support, D1377) — le responsable métier y
+   lit ce que son équipe emploie, le décideur ce que l'application rend,
+   le concepteur ce qu'il doit faire évoluer ; l'administrateur y lit la
+   charge, non les usages métier.
+4. **La période** : les compteurs gardés au jour (D39) ; le lecteur
+   choisit — sept jours, trente jours, douze mois —, **trente jours par
+   défaut** ; « non utilisé » se mesure depuis la première ingestion de
+   la version (D326) quand elle a moins d'un an, sinon sur douze mois —
+   un écran saisonnier n'est pas un écran mort.
+5. **Aucun seuil absolu** : « les moins utilisés » sont le bas du
+   classement, le dernier dixième ; « non utilisés », zéro sur la
+   période ; le classement suffit à l'analyse. Les seuils de la
+   télémétrie restent où ils sont.
+
+*Mes propositions d'origine* — la pièce où la documentation cesse de décrire pour
 **mesurer et conseiller** ; ses opérations de maintenance s'expliquent
 au guide d'exploitation (§17, D1134), elle en garde l'analyse — nourrie
 par la troisième source (§8, D334)
@@ -3236,9 +3277,8 @@ qu'avec l'instance — au dépôt, elle se montre vide, avec son cadre.
   (`reset_coverage` — D943), la restauration d'un enregistrement (D171)
   ; pour chacune : quand, qui, comment, la trace.
 
-*À trancher* : la part servie à l'administrateur et au concepteur ; la
-périodicité de la synthèse ; les seuils (la calibration de
-telemetry.md).
+*À trancher* : les seuils (la calibration de telemetry.md) — la part de
+chaque lecteur et la périodicité sont tranchées (D1489).
 
 ## 24. Les modes opératoires imprimables (D1129) *(fondus dans §22 — D1188 ; la planche elle-même, en proposition)*
 

@@ -24753,6 +24753,16 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-25 (suite 4) — LA 8e PUBLICATION, LE RANG 8 OUVERT (1477
+  décisions).** « crée la PR sur develop et main » — la PR #52
+  (feature/documentation → develop, D1436–D1477, cinquante commits)
+  ouverte puis fusionnée par l'auteur ; la PR #53 (develop → main, la 8e
+  publication) ouverte après la fusion, puis fusionnée : « J'ai fusionné
+  la PR, passons au rang 8 ». Le rang 8 — la maintenance, les risques,
+  les améliorations (la documentation 7) — s'ouvre par son étape 1, §20
+  la complétude : l'inventaire consolidé de ce qu'elle compte, la forme
+  du rapport, l'avertissement à l'ingestion, la mesure sur les quatre
+  exemples ; les lectures présentées, en attente.
 - **2026-10-25 (suite 3) — REPRISE : LA LANGUE TECHNIQUE, LES TRACES CODIFIÉES, LA LANGUE APPORTÉE, LE RANG 7 CLOS (D1460–D1477, 1477 décisions).**
   « reprenons » — la déclinaison et la colonne 9 remises à l'auteur ;
   « je reviens sur une décision concernant le catalogue en anglais. Pour

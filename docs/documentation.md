@@ -627,7 +627,7 @@ décisions, D1170–D1238.)*
   d'ensemble (validée le 25/10/2026, D1477).
 - **Dépendances** : les choix techniques (D1025), le D.A.T.
 
-#### Rang 8 — la maintenance, les risques, les améliorations (documentation 7)
+#### Rang 8 — la maintenance, les risques, les améliorations (documentation 7) — *en cours depuis le 25/10/2026*
 
 - **Périmètre** : l'analyse — la supervision des usages, les
   contrôles, les optimisations, les risques, la recherche
@@ -2811,7 +2811,7 @@ les écrans que ses droits lui ouvrent, qui peut apporter plus
 d'éléments que le scénario d'un persona ; joué dans l'application (ma
 lecture : le texte seul n'a plus d'objet, le scénario le porte).
 
-## 20. La complétude de la documentation *(le rang 1 — acquis, D1173/D1177/D1182/D1199/D1221)*
+## 20. La complétude de la documentation *(le rang 1 — acquis, D1173/D1177/D1182/D1199/D1221 ; le rang 8, étape 1 — en cours : l'inventaire, le rapport, la mesure)*
 
 Le rapport du concepteur, à la façon de la couverture (D861/D1060) :
 **ce qui n'est pas décrit** — les entités sans `description:`, les

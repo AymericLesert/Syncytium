@@ -674,4 +674,11 @@ CVE à traiter, le passif, la sauvegarde ; les demandes d'évolution de
 `_assistance` par statut (D1370, D1495) ; les seuils de la télémétrie en
 paramètres dynamiques (D740) ; aucune notification nouvelle (D1168).
 
+**L'administration, dans la promotionnelle** (la colonne 6 — le rang
+9) : la sandbox de démonstration et sa recharge, un geste
+d'administration (D921–D922, D1505) ; le module de présentation de
+l'outil et le tableau de bord de la santé comme écrans marqués
+promotionnels de Syncytium seul (D1509) ; `visibility:` au projet
+(D1498).
+
 **Les neuf colonnes sont écrites.**

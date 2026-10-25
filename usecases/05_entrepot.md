@@ -3274,3 +3274,16 @@ risques — la migration de la 1.0.0.1 et l'absence de sauvegarde — sans
 aucune mesure ; à l'instance, une proposition disparaît d'elle-même
 quand le fait disparaît (D1494) — le jour où un article `plaque` est
 créé, la seconde ligne s'efface.*
+
+## La promotionnelle — la déclinaison de l'entrepôt (le rang 9)
+
+*(Le 25/10/2026, D1514.)* **L'entrepôt déclare `promotional: false`**
+(D1511–D1513) : un miroir interne de l'ERP, lu par les gens de
+l'entreprise qui n'ont pas à y adhérer autrement que par l'usage — il
+n'a pas de documentation promotionnelle et n'en aura pas. La plaquette
+n'est ni générée, ni servie, ni au dépôt ; le mode public montre la page
+d'accueil seule (D1156) ; la complétude ne compte ni texte de
+présentation ni plan. Une plaquette avait été esquissée sur la
+structure seule — quatre modules, le modèle, « quoi de neuf », et deux
+chapitres non disponibles faute de persona et de sandbox — ; « plus
+d'intérêt » (D1514) : elle n'est pas conservée.

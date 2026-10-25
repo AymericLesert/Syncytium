@@ -384,7 +384,8 @@ versions/
 from: Syncytium-1.0                  # le core de Syncytium, la première clé (D1083, D1361)
 name: entrepot
 description: L'entrepôt de données de l'entreprise — …
-visibility: promotional              # public | private | promotional — ce qui se lit sans aucun droit (D1151, en proposition)
+visibility: promotional              # public | private | promotional — ce qui se lit sans aucun droit (D1151 ; tranchée D1498 — promotional : la plaquette seule)
+promotional: true                    # false : l'application n'a pas de promotionnelle et n'en aura pas (D1511, D1513)
 author: Aymeric Lesert               # celui qui a conçu l'application (D1153)
 contact: evolutions@example.org      # le contact des demandes d'évolution (D1153)
 copyright: © 2026 L'entrepôt SAS     # le titulaire des droits d'auteur de l'application (D1355)
@@ -449,6 +450,18 @@ techniques — `language: fr` dans `environments/<env>.yml`, **écrite par
 projet (D1467), **non modifiable ensuite** ; « l'anglais ou le français
 selon le mode d'installation de Syncytium » (D1460), ou une langue
 apportée (D1465).
+
+**`dataset:` — le jeu de données d'une sandbox de démonstration**
+(D1503–D1505, le rang 9) : la sandbox de démonstration a **tous ses
+connecteurs mockés et son storage remplacé par un sqlite** (D1503) **ou
+par un storage de classe `memory`** (D1045, D1507–D1508 — en mémoire
+seule, avec un ratio d'espace, rien sur le disque) ;
+**`dataset:`, facultative**, lie les fichiers CSV du jeu de données —
+un par entité, dans le gabarit de l'import (D1211, D1412), chargés par
+son dry-run tout-ou-rien (D234) à l'initialisation et à la recharge
+(D922) ; les données « inventées, réelles ou générées par l'IA … la
+responsabilité du concepteur et des outils qu'il utilise » (D1504) ; la
+forme, *en proposition* : `dataset: ~{demo/}`.
 
 **`security_advisories:` — la veille des CVE** (D1431, D1444) : à
 l'environnement, « plus parlant » — `url:` l'adresse du fichier d'avis
@@ -875,6 +888,8 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - une référence de fichier non marquée `~{…}` (D956), un fichier
   absent ; une clé de configuration inconnue ;
 - un secret en clair dans le `.env` (D902) ;
+- le plan de la promotionnelle qui cite une vue non marquée
+  `promotional` (D1500) ;
 - un texte sans une langue de la version — libellé, md, gabarit, skill,
   terme du glossaire (D1101, D1474, D1475) ; une langue attendue qui manque à un hook (D1163) ;
   le catalogue d'une langue apportée par le projet incomplet (D1465) ;
@@ -885,7 +900,9 @@ La description se vérifie en entier à l'ingestion, avant de servir
   (D1035/D1039) : une anomalie de description du modèle.
 
 **L'alerte**, pas l'erreur : la surcharge d'une clé au cumul de
-fichiers (D968).
+fichiers (D968) ; un plan ou une vue marquée dans un projet
+`promotional: false` (D1512 — « cette option peut être utilisée
+temporairement »).
 
 Une version en erreur rejoint le registre des versions essayées (D326)
 avec sa cause ; le retry passe par l'incrément du build (D323).

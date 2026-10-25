@@ -715,4 +715,11 @@ fréquentes au journal ; **les améliorations** — l'entrée composite,
 l'agrégat, le champ calculé que les séquences d'appels font émerger
 (D45, le volet conseil), l'opération jamais déclenchée (D1495).
 
+**Les hooks, dans la promotionnelle** (la colonne 6 — le rang 9) : une
+opération entre dans la plaquette par le scénario du persona qui la
+déclenche (D1498) ; dans la démonstration (D1503), les hooks tournent
+comme ailleurs, leurs connecteurs mockés ; dans la promotionnelle de
+Syncytium, les sept familles de hooks sont l'argument de l'ouverture
+(D1509, D52, D1467).
+
 **Les neuf colonnes sont écrites.**

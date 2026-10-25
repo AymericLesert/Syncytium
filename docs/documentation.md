@@ -702,41 +702,60 @@ décisions, D1170–D1238.)*
   25/10/2026, validée — D1514).
 - **Dépendances** : les huit autres ; le jeu de données (D869).
 
-#### Rang 10 — Syncytium lui-même, et `docs/` consultable sur GitHub (D1316) — *en cours depuis le 25/10/2026 ; les étapes en proposition*
+#### Rang 10 — Syncytium lui-même, et `docs/` consultable sur GitHub (D1316) — *en cours depuis le 25/10/2026 ; la nature précisée, D1515*
 
 « Prévois un rang dans le plan de la documentation pour documenter
 Syncytium et reprendre toute la documentation docs/ rédigée en la
 rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
 
-- **Périmètre** : Syncytium comme produit — le moteur, ses règles, son
-  catalogue, ce que les seize artefacts décrivent — et le dépôt comme
-  lieu de lecture : `docs/`, le registre, les cas d'usage, les
-  exemples ; **« Syncytium seul est une application vide avec la
-  documentation incluse »**, exploitée par l'auteur, le site vitrine de
-  lui-même (D1447–D1448).
-- **Sections** : aucune ; documentation.md et le [glossaire](glossaire.md)
-  en pivots.
-- **Étapes** *(mes lectures)* :
-  1. l'inventaire des artefacts et de leur état — ce qui est acquis, en
-     proposition, périmé ;
-  2. la structure de lecture : un sommaire d'entrée, les renvois entre
-     artefacts et registre, le glossaire en pivot, les cas d'usage comme
-     illustrations ;
-  3. le rendu sur GitHub : le Markdown natif, les diagrammes Mermaid
-     rendus, les pages ou le wiki — la forme au domaine 7 (D1126) ;
-  4. la reprise artefact par artefact — le regroupement physique de
-     documentation.md par documentation (D1021), la mise à jour du
-     glossaire, les points ouverts de §29 soldés un à un ;
-  5. **le registre en ADR** (D1392 — acquis : « La voie b au rang
-     10 ») : un fichier par décision dans `docs/decisions/`, canonique,
-     l'index généré ; la conversion scriptée et vérifiée par
-     comparaison — les mots, la numérotation, les renvois à
-     l'identique ; les seuls ajouts, le statut et les liens « amende /
-     amendée par » ; §3.2c et le journal inchangés ; CLAUDE.md et le
-     tableau de bord adaptés.
+- **La nature du rang** (D1515, le 25/10/2026) : **« réorganiser,
+  classifier et nettoyer la documentation existante dans docs\ »** ;
+  **lisible dans GitHub** — « pas de raw - au besoin découpé la doc en
+  sous-section » — ; **embarquée avec le projet Syncytium déployé**
+  (D1348, D1447 — l'application vide avec la documentation incluse,
+  le site vitrine de lui-même, D1448).
+- **Cinq parties** (D1515) :
+  1. **le plan détaillé**, « avec une arborescence propre et lisible » —
+     « Ne pas mettre tous les fichiers dans le même dossier ; Proposer un
+     dossier par chapitre ; Proposer à l'intérieur d'un dossier des
+     sous-dossiers par sous-chapitre » ;
+  2. **l'histoire du projet** — « les échanges, les décisions, les
+     solutions retenues » ; « un résumé est nécessaire pour marquer le
+     cheminement de la réflexion » ; « Pour appuyer ce cheminement, les
+     ADR sont à structurer » (D1392 — la voie b : un fichier par
+     décision, canonique, l'index généré, la conversion scriptée et
+     vérifiée, les mots et la numérotation à l'identique ; CLAUDE.md et
+     le tableau de bord adaptés) ;
+  3. **le projet Syncytium** — « nous décrivons ce qui est, pas ce qui a
+     été » ; « L'organisation recommandée de la configuration » ; « les
+     artefacts de Syncytium appuyés par des exemples » ; « didactique,
+     lisible et concise autant que possible sans oublier de présenter
+     toutes les options que nous avons vues » ;
+  4. **les cas d'usage** — « Pour chaque cas d'usage, le contenu du
+     fichier yaml et une description de chaque partie appuyée par le
+     besoin que nous avons formulé + les résultats qui en découlent
+     (notamment les documents générés) » ;
+  5. **les études comparatives** — « Pour le moment, nous en avons une ;
+     Tu feras une mise à jour de cette étude à ma demande ».
+- **Les étapes** *(mes lectures, en proposition — à arbitrer à la
+  reprise)* : l'arborescence proposée et validée d'abord (la partie 1),
+  puis les parties 3, 4 et 2 dans l'ordre de la matière la plus stable à
+  la plus lourde — le projet, les cas, l'histoire et les ADR —, la partie
+  5 à la demande ; à chaque partie, le déplacement scripté et vérifié par
+  comparaison, les renvois réécrits, le traceur et la complétude relancés.
+- **L'inventaire du 25/10/2026** (l'ancienne étape 1) : seize
+  artefacts et le registre — le registre à 25 627 lignes, 2,7 Mo, que
+  GitHub ne rend plus en Markdown ; documentation.md 4 537 lignes,
+  composants.md 3 102 ; les marques « en proposition » — 37 dans
+  composants.md, 19 dans documentation.md, quelques-unes ailleurs ;
+  quatre blocs Mermaid, tous dans documentation.md, rendus nativement
+  par GitHub ; l'étude comparative du 18/07, dix-septième fichier.
+  Trois questions posées : solder ou signaler les marques « en
+  proposition » ; l'étude comparative, annexe ou document d'époque ; un
+  sommaire d'entrée qui dit l'état de chaque fichier.
 - **Déclinaison** : le dépôt lui-même.
-- **Livrables** : `docs/` consultable sur GitHub ; `docs/decisions/`
-  et son index (D1392) ; la PR vers `develop`.
+- **Livrables** : `docs/` réorganisé, consultable sur GitHub, embarqué ;
+  `docs/decisions/` et son index (D1392) ; la PR vers `develop`.
 - **Dépendances** : les neuf autres rangs — le rang 10 les clôt.
 
 ## 1. Le principe — trois documentations, trois sources, une seule version

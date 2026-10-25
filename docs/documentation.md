@@ -3739,7 +3739,9 @@ fichier d'avis de sécurité signé** — l'avis de sécurité, sa gravité, le 
 par défaut — **le bloc `security_advisories:` de l'environnement**
 (D1444) : `url:` l'adresse du fichier par une variable du déploiement,
 `every:` le rythme, `1d` par défaut ; absent, « la veille n'est pas
-reliée » —, vérifie la signature, compare à son core et aux
+reliée » ; le module d'administration montre le fichier et laisse
+l'administrateur lancer la lecture hors de la fréquence (D1445) —,
+vérifie la signature, compare à son core et aux
 bibliothèques déclarées par ses hooks, et montre ce qui la concerne
 ici et à la maintenance (§23), avec une notification à
 l'administrateur ; **hors connexion**, le D.A.T. dit « la veille n'est

@@ -281,6 +281,18 @@ relance les passages (D1077). Le module — le déroulé d'un passage,
 ce qu'il garde, son modèle, ses rapports, ses surfaces — est décrit
 dans [migration.md](migration.md) (D1028, D1030–D1080).
 
+### La veille des CVE (D1431, D1444–D1445)
+
+Le bloc `security_advisories:` de l'environnement — `url:`, `every:` —
+relie l'instance au fichier d'avis de sécurité que le projet publie
+pour son core ; **le module d'administration porte une entrée** (D1445)
+qui montre le fichier lu tel quel, la date de la dernière lecture, les
+avis de sécurité qui concernent le core et les bibliothèques déclarées
+par les hooks, et **un bouton qui exécute la lecture hors de la
+fréquence**, un acte d'administration tracé. La veille elle-même reste
+au dépôt du source (D924) ; la mise à jour du core, une migration
+technique sur sollicitation (D17).
+
 ### Les opérations d'administration du socle (D701)
 
 Les planchers `administrator` : **`restore`** (la restauration par

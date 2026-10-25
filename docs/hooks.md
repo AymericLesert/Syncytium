@@ -548,7 +548,8 @@ porte pas est un hook** — `hooks/languages/<code>/` : la fiche porte
 et les formats que D217 attache à une langue —, **le catalogue des
 messages du core** traduit (D1160 — tous les items, codifiés ;
 incomplet, une erreur d'ingestion — le niveau « pour Syncytium » de
-D1162), `dependencies` et `errors` s'il y a lieu. **`syncytium language
+D1162 ; **strict**, D1468 : la commande donne la complétude, la
+traduction est entre les mains du concepteur, au fur et à mesure), `dependencies` et `errors` s'il y a lieu. **`syncytium language
 fr pt` construit le hook** — sa fiche et son catalogue à traduire, `fr`
 la langue de référence — et le concepteur le traduit item par item
 (D1465). Le catalogue est celui du core seul (D1466) : les textes du

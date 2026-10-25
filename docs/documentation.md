@@ -1544,7 +1544,8 @@ lecture qu'il sert (D1138) :
   complémentaire absent dans une langue tombe sur la langue par défaut
   de la version (D1101) et la complétude le signale ; **le catalogue
   d'une langue apportée** par le projet (D1465) ne relève pas de la
-  complétude mais de l'ingestion : incomplet, la langue est refusée.
+  complétude mais de l'ingestion : incomplet, la langue est refusée —
+  strict, la commande donne la complétude (D1468).
 - **Pas de chapitre des enchaînements entre modules** (D1185) : un lien
   qui traverse les modules — la promotion déclenchée d'ailleurs (D145),
   l'automatisme sur les données d'un autre module (D54), la

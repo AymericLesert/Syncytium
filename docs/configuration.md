@@ -585,7 +585,8 @@ la septième famille (D1467 : « une langue a un hook aussi ») :
 formats que D217 attache à une langue ([hooks.md](hooks.md)) ;
 `languages:` nomme alors une langue du core ou d'un hook de langue. **Il doit
 être complet** — le niveau « pour Syncytium » de D1162 : un item
-manquant est une erreur d'ingestion (le repli de D219 vaut pour les
+manquant est une erreur d'ingestion, strict (D1468 : « En utilisant la
+commande, il a la complétude. La traduction est entre ses mains ») (le repli de D219 vaut pour les
 libellés du modèle, pas pour les textes du moteur). Un hook du core
 sans cette langue suit D1163 : l'application complète ses items dans
 sa couche. La référence du développeur (D1411) et la skill du core

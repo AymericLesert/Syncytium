@@ -24717,9 +24717,9 @@ avant la synthèse Q16).
   fusionnée dans `develop` le 24/10 au soir ; la septième publication
   ouverte, `develop` → `main`, 14 commits, D1426–D1435 ; les quatre
   lectures non confirmées et l'étape 1 du rang 7 remises à l'auteur.
-  « J'ai validé la PR » — la #51 fusionnée :  porte la septième
+  « J'ai validé la PR » — la #51 fusionnée : `main` porte la septième
   publication (D1426–D1435) ; la branche garde treize commits en avance
-  de , D1436–D1446, pour la PR suivante.
+  de `develop`, D1436–D1446, pour la PR suivante.
   « As-tu bien consigné … ? » — vérifié par script : la table, le
   narratif, le journal, documentation.md, le glossaire, les onze
   artefacts, les trois cas, les exemples, le traceur. « Je reviens

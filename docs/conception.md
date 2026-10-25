@@ -24764,6 +24764,11 @@ avant la synthèse Q16).
   safe utilise un mot de passe fixé à l'installation … présent dans le
   guide d'exploitation en clair … Le mode safe est le dernier recours »
   (D1459) — **l'étape 4 close, les quatre étapes du rang 7 acquises**.
+  La déclinaison du guide écrite sur l'entrepôt, en proposition : les
+  variables décrites, les trois opérations périodiques, treize fiches
+  dont la sauvegarde et la synchronisation sans objet, la supervision
+  sans veille, le mode safe inaccessible ; `backup:`,
+  `security_advisories:` et le texte d'exploitation à écrire.
 - **2026-10-25 — REPRISE : LA PR #50 FUSIONNÉE, LA PR #51 OUVERTE VERS
   `main`.** « reprenons et fermons les sujets à clarifier » — la #50
   fusionnée dans `develop` le 24/10 au soir ; la septième publication

@@ -613,7 +613,12 @@ décisions, D1170–D1238.)*
      25/10/2026 (D1455–D1459)** — le catalogue en anglais, les familles,
      l'arbre de décision schématique, les contacts au crédit, le md des
      erreurs du hook, le mode safe en dernier recours.
-- **Déclinaison** : **l'entrepôt**.
+- **Déclinaison** : **l'entrepôt** — **écrite le 25/10/2026, en
+  proposition** ([usecases/05_entrepot.md](../usecases/05_entrepot.md)) :
+  les variables décrites, les opérations périodiques, treize fiches
+  dont trois sans objet, la supervision sans veille ni sauvegarde, le
+  mode safe inaccessible ; `backup:`, `security_advisories:` et le texte
+  d'exploitation à écrire.
 - **Livrables** : §17 validé ;
   [administration.md](administration.md).
 - **Dépendances** : les choix techniques (D1025), le D.A.T.
@@ -2579,8 +2584,8 @@ montre tant que l'authentification n'est pas validée ; ensuite il dit
 que le mode safe existe, comment le lancer, et que le mot de passe
 n'est plus accessible.
 
-*Restent la déclinaison sur l'entrepôt et la colonne 9 de la matrice
-dans les artefacts.*
+*La déclinaison sur l'entrepôt est écrite, en proposition ; reste la
+colonne 9 de la matrice dans les artefacts.*
 
 ## 18. La conformité *(le rang 3 — acquis, D1317–D1346)*
 

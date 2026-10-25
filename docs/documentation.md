@@ -683,9 +683,11 @@ décisions, D1170–D1238.)*
      leurs scénarios, « quoi de neuf »), les textes écrits : **acquis le
      25/10/2026 (D1497–D1498)** — l'adhésion à l'intérieur, « pour vous »
      par persona, `visibility:` tranchée, trois canaux ;
-  2. la démonstration : l'instance d'essai, le jeu de données (D869) —
-     *en cours* ;
-  3. l'argumentaire du socle : l'open source (D19), une instance par
+  2. la démonstration : l'instance d'essai, le jeu de données (D869) :
+     **acquis le 25/10/2026 (D1503–D1505)** — une sandbox aux connecteurs
+     mockés sur un sqlite, `dataset:` en CSV par entité, le parcours par
+     les personas, la recharge ;
+  3. — *en cours* — l'argumentaire du socle : l'open source (D19), une instance par
      client, les API, l'auto-documentation — la part de Syncytium.
 - **Déclinaison** : l'entrepôt ; le cas 8 le jour venu.
 - **Livrables** : une section « La promotionnelle ».
@@ -4328,7 +4330,7 @@ D1478–D1496) ; la complétude et son inventaire (§20, D1478–D1488).*
     une skill de la documentation du développeur, le moteur génère sans
     elle ; la skill s'écrit au rang 5.)*
 
-## 30. La promotionnelle *(le rang 9 — en cours ; le rang 9, étape 1 — acquis, D1497–D1498 : la plaquette)* *(le rang 9, étape 2 — en cours : la démonstration)*
+## 30. La promotionnelle *(le rang 9 — en cours ; le rang 9, étape 1 — acquis, D1497–D1498 : la plaquette)* *(le rang 9, étape 2 — acquis, D1503–D1505 : la démonstration)* *(le rang 9, étape 3 — en cours : l'argumentaire du socle)*
 
 **« une documentation promotionnelle pour exposer et vendre une
 application »** (l'auteur, D1131) — la sixième documentation, **la seule
@@ -4410,4 +4412,41 @@ et le partenaire, sans aucun droit.
    `syncytium document <env> promotional` (D1167) ; le mode public en est
    l'extrait sans compte.
 
-*(Les étapes 2 et 3 ci-dessous, en proposition jusqu'à l'arbitrage.)*
+### 2. La démonstration (D1503–D1505 — acquis)
+
+1. **L'instance d'essai est une sandbox** (D907–D912) **dont tous les
+   connecteurs sont mockés et dont le storage est remplacé par un
+   sqlite** (D1503) : elle ne duplique aucun environnement de référence,
+   elle part du jeu de données ; les connecteurs mockés rendent ce que
+   le concepteur leur fait rendre (D627), aucun service réel n'est
+   touché ; le sqlite rend l'instance portable — l'application qui
+   démarre seule (D729).
+2. **Le jeu de données** (D1504 : « porté par un jeu de fichiers CSV dont
+   les noms de fichiers sont liés à la clé "dataset:" (clé facultative)
+   … un fichier CSV par entité. Ces fichiers peuvent être issus de
+   données inventées, réelles ou générées par l'IA. Cela est de la
+   responsabilité du concepteur et des outils qu'il utilise ») :
+   `dataset:` sur l'environnement sandbox de démonstration (*la forme en
+   proposition* : `dataset: ~{demo/}`, un fichier par entité) ; les
+   fichiers dans le gabarit de l'import (D1211, D1412), chargés par son
+   dry-run tout-ou-rien (D234) à l'initialisation et à la recharge ; des
+   données réelles engagent le concepteur — le RGPD, la confidentialité
+   du dépôt ; sans `dataset:`, la démonstration part vide.
+3. **Le parcours** : « Le parcours écrit via les personas reflète la
+   démonstration » (D1505) — les scénarios des personas (§22) sont le
+   script ; un compte de démonstration par persona, dans son groupe,
+   créé à l'initialisation de la sandbox, les mots de passe dans le
+   fichier des variables (D1429), aucun utilisateur réel ; les planches
+   (D1129) sont le guide papier de celui qui démontre ; la complétude
+   (§20) relève un scénario que le jeu de données ne nourrit pas.
+4. **La remise à zéro** : la recharge de la sandbox (D922) ramène la
+   démonstration à son jeu de données — un geste d'administration
+   (D921), avant chaque séance ou chaque nuit par une opération
+   périodique.
+5. **Où elle paraît** : à l'instance seulement ; au dépôt, la plaquette
+   dit qu'une démonstration existe et renvoie au contact (D1153) ;
+   dedans, la plaquette y mène par un lien quand la sandbox de
+   démonstration est déclarée ; le mode public n'y mène pas, la
+   démonstration demande un compte.
+
+*(L'étape 3 ci-dessous, en proposition jusqu'à l'arbitrage.)*

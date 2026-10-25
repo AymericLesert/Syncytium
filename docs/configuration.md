@@ -450,6 +450,16 @@ projet (D1467), **non modifiable ensuite** ; « l'anglais ou le français
 selon le mode d'installation de Syncytium » (D1460), ou une langue
 apportée (D1465).
 
+**`dataset:` — le jeu de données d'une sandbox de démonstration**
+(D1503–D1505, le rang 9) : la sandbox de démonstration a **tous ses
+connecteurs mockés et son storage remplacé par un sqlite** (D1503) ;
+**`dataset:`, facultative**, lie les fichiers CSV du jeu de données —
+un par entité, dans le gabarit de l'import (D1211, D1412), chargés par
+son dry-run tout-ou-rien (D234) à l'initialisation et à la recharge
+(D922) ; les données « inventées, réelles ou générées par l'IA … la
+responsabilité du concepteur et des outils qu'il utilise » (D1504) ; la
+forme, *en proposition* : `dataset: ~{demo/}`.
+
 **`security_advisories:` — la veille des CVE** (D1431, D1444) : à
 l'environnement, « plus parlant » — `url:` l'adresse du fichier d'avis
 de sécurité publié par le projet pour le core, par une variable du

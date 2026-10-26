@@ -551,9 +551,11 @@ proposition)*
    l'utilisateur et le groupe par défaut, le degré administrateur ; la
    documentation écrit « un seul utilisateur, tous les droits », la
    complétude ne relève pas ce défaut du socle (D1173).
-4. **Le socle dans la documentation** (le point ouvert 11) : le
-   chapitre 2 vient de Syncytium, identique pour toute application ;
-   la configuration ne le nourrit pas. À confirmer.
+4. **Le socle dans la documentation** (le point ouvert 11) — *soldé*
+   (D1189, puis D1410–D1411) : le chapitre 2 de la fonctionnelle vient
+   de Syncytium, la référence embarquée, identique pour toute
+   application ; la configuration ne le nourrit pas. *(Ligne tenue à
+   jour le 26/10/2026, D1524.)*
 5. **Le registre vide d'une entité nominative** — *soldé* (D1177, amendé
    D1319) : `nom`, `prenom`, `age`, `fonction` sans `rgpd:` — la
    documentation dit « aucun traitement » ; la complétude ne relève pas
@@ -566,7 +568,9 @@ proposition)*
    documentation sont les textes génériques du moteur, codifiés et
    uniques, dans le catalogue de chaque langue que Syncytium porte ; ils
    suivent la langue du lecteur dedans, celle de l'émetteur en édition.
-7. **Le type dit en clair** — *renvoyé au rang 2* : « un texte de 40
+7. **Le type dit en clair** — *soldé au rang 2* (D1301 : le type livre
+   sa forme en clair par langue, le moteur assemble ; ligne tenue à jour
+   le 26/10/2026, D1524) : « un texte de 40
    caractères au plus », « un entier » — la forme des types en langage
    d'usager appartient à la facette documentation de chaque type
    (D1158), une rubrique de sa fiche dans types.md, avec ce que le

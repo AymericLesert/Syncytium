@@ -21,7 +21,7 @@ les trois taux, les rejets et l'empreinte qu'ils citent ont été refaits
 par les bases du module (D1030–D1080) — le module se lit dans
 [../docs/migration.md](../docs/migration.md), sa déclinaison dans « Le
 morceau 5 » ci-dessous. Restent la relecture complète par l'auteur
-(D1021), le jeu de données construit (D869) et la PR. À la validation
+(D1021), le jeu de données construit (D869 — non abordé, D1524) et la PR. À la validation
 du modèle, la 1.0.0.0 est promue de `beta/` à `production/` — fait le
 03/10/2026, par le déplacement du dossier — et la 1.0.0.1 vit en `beta/`
 avec trois évolutions : le renommage du nom abrégé du tiers (`nom_court`,
@@ -608,7 +608,10 @@ La lecture — ce qui se corrige et ce qui se précise :
   données que nous pourrions publier sans risque » — l'extraction
   anonymisée reste hors dépôt ; **l'exemple portera un jeu de
   données construit, publiable** (à composer au morceau de la
-  source, sur la structure réelle) ;
+  source, sur la structure réelle) — *le 26/10/2026, D1524 : le jeu de
+  données n'est pas abordé dans la documentation ; un jeu de données en
+  CSV par entité reste possible, `dataset:`, comme pour la
+  démonstration (D1503–D1505)* ;
 - **en attente** : les quatre pièces de D864 (« j'ai besoin d'un peu
   plus de réflexion ») ; **la cible** : « nous ne l'avons pas encore
   abordée » — la question 6 s'ouvre ensuite.
@@ -1234,7 +1237,7 @@ avant le suivant ; l'ordre suit la conversion, le cœur du cas)*
    (D1030–D1080) — le morceau 5 est écrit, le cas complet dans ses
    cinq morceaux** ; puis la relecture complète de tous les fichiers
    de configuration par l'auteur, le peaufinage et la documentation
-   structurée (D1021), le jeu de données construit (D869), la PR.*
+   structurée (D1021), le jeu de données construit (D869 — non abordé, D1524), la PR.*
 
 ## La forme — le dépôt
 

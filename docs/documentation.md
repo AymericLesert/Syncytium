@@ -759,6 +759,61 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
   Trois questions posées : solder ou signaler les marques « en
   proposition » ; l'étude comparative, annexe ou document d'époque ; un
   sommaire d'entrée qui dit l'état de chaque fichier.
+- **L'arborescence proposée le 26/10/2026** *(en proposition — amendée
+  par D1518, les cinq cas ; l'ouverture de la première page en débat)* : cinq racines ;
+  un `README.md` dans chaque dossier, l'entrée que GitHub affiche et que
+  l'application embarquée ouvre ; un chapitre par dossier, un
+  sous-chapitre par fichier ou par sous-dossier quand il porte plusieurs
+  fichiers, ce qui est petit reste un fichier ; aucun document au-delà
+  d'un millier de lignes, découpé à ses sous-titres ; les noms en
+  français, minuscules, sans accent, au tiret, numérotés où l'ordre
+  compte ; les renvois relatifs, jamais une adresse brute. `examples/`
+  et `tools/` restent à la racine ; `usecases/` est absorbé.
+
+  ```text
+  docs/
+  ├── README.md              partie 1 : le plan, l'arborescence, l'état de chaque document ;
+  │                          l'ouverture — le tiny ou une présentation — en débat
+  ├── histoire/              partie 2 : ce qui a été
+  │   ├── README.md          le résumé du cheminement, juin → octobre 2026
+  │   ├── decisions/         les ADR (D1392) : <famille>/Dnnnn.md (D1516), l'index généré
+  │   ├── questions.md       Q1–Qnn (conception.md §10)
+  │   ├── journal/           un fichier par mois (conception.md §11)
+  │   ├── conception/        le narratif (conception.md §1.2, §3–§8), découpé
+  │   └── chantier-documentation.md   le contexte et les dix rangs (documentation.md, partie 5)
+  ├── syncytium/             partie 3 : ce qui est
+  │   ├── README.md          Syncytium, les dix piliers, l'organisation recommandée
+  │   ├── glossaire.md
+  │   ├── configuration/     README, mecanismes.md, arbre.md, defauts.md
+  │   ├── modele/            entite.md, types.md
+  │   ├── composants/        README, feuilles.md, actes.md, graphiques.md, surfaces.md
+  │   ├── hooks/             README, familles.md, regles.md
+  │   ├── connecteurs/       README, familles.md, contrats.md, migration.md
+  │   ├── securite/          securite.md, droits.md
+  │   ├── reprise/           mapping.md, migration.md
+  │   ├── administration/    administration.md, telemetrie.md
+  │   ├── documentation/     README (principe, lecteurs, méthode, matrice), un fichier par documentation
+  │   └── outils.md          tools/orphans.py, tools/completeness.py
+  ├── cas-d-usage/           partie 4 : les cinq cas (D1518)
+  │   ├── README.md
+  │   └── 01_tiny/ … 05_entrepot/   README, configuration.md, manques.md, documents/
+  └── etudes/                partie 5
+      ├── README.md
+      └── comparative-2026-07-18.md
+  ```
+
+  Les lectures à confirmer : les piliers (§1.1) dans ce qui est, la
+  démarche, le narratif, les questions et le journal dans l'histoire ;
+  `conception.md` cesse d'exister comme fichier, une décision nouvelle
+  devient un fichier de `decisions/` et une entrée du journal du mois,
+  CLAUDE.md réécrit alors (D1392), la table canonique jusqu'à la partie
+  2 ; les marques « en proposition » soldées au déplacement de chaque
+  chapitre de ce qui est, intactes dans l'histoire ; l'étude, un
+  document d'époque daté, une mise à jour à la demande donne un nouveau
+  fichier daté.
+- **Les cinq cas** (D1518, le 26/10/2026) : « Dans les cas d'usage, nous
+  nous limiterons aux 5 vus. Tu peux supprimer les 3 autres. » — les
+  maisons des cas 6, 7 et 8 supprimées.
 - **Déclinaison** : le dépôt lui-même.
 - **Livrables** : `docs/` réorganisé, consultable sur GitHub, embarqué ;
   `docs/decisions/` et son index (D1392) ; la PR vers `develop`.
@@ -837,7 +892,8 @@ d'autres pièces.
 Ses lecteurs ne sont pas que des humains : les descriptions sont
 **« exploitables par des IA »** (D124) — le module de chat lit les
 données et les descriptions sous les droits de l'utilisateur (D957), le
-cas 7 fait générer la configuration par l'IA (D1023).
+cas 7 devait faire générer la configuration par l'IA (D1023 —
+abandonné, D1518).
 
 ## 2. Le carburant — ce que la configuration apporte *(le rang 0, étape 2 — acquis, D1155–D1157)*
 
@@ -2213,7 +2269,8 @@ d'ensemble, ici, en tient le sommaire.
   recommandations d'écriture, les exemples, en forme lisible par la
   machine, livrés avec le moteur ; **la maison : la documentation du
   développeur, sous la forme d'une skill** (D1224) — le paquet de
-  consignes qu'une IA charge ; le cas 7 (D1023) en sera l'épreuve ;
+  consignes qu'une IA charge ; le cas 7 (D1023) devait en être
+  l'épreuve — abandonné, D1518 ;
 - **générer la documentation** (D1223, D1225) : « la documentation
   générée à chaque sollicitation avec un minimum de consigne » est
   **instable** ; **Syncytium la génère de façon prévisible —

@@ -526,8 +526,8 @@ connectors: ~{connectors.yml}
 - **`settings.yml`** de l'environnement, facultatif (D1095) — les
   réglages techniques qui varient d'un environnement à l'autre et valent
   pour toutes ses versions (D342) ; ce qui est partagé passe par les
-  variables ; aucun des cinq premiers cas n'en a l'usage, le cas 6
-  l'introduira.
+  variables ; aucun des cinq cas n'en a l'usage (le cas 6 qui devait
+  l'introduire est abandonné, D1518).
 
 ### 3.3 `versions/` — le contenu versionné, le cycle de vie en dossiers
 

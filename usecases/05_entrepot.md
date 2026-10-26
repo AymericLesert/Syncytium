@@ -12,7 +12,7 @@ renumérotation D1027 — le registre garde « cas 3 » dans son histoire) — l
 PMI prend le troisième rang de l'échelle sous le nom de l'entrepôt
 qu'elle alimente, le mot de D180/D756 ; la collecte des commandes
 glisse au quatrième — au sixième depuis D1027). Le cas suivant, `06_sales_collection`, est
-devenu la lecture de documents par hooks (D1022).*
+devenu la lecture de documents par hooks (D1022), puis supprimé avec les cas 7 et 8 (D1518).*
 
 *(**Le 28/09/2026, le cas est complet dans ses cinq morceaux** — l'assise,
 le modèle, la source, le mapping, la déclinaison du module `_migration`.
@@ -1002,7 +1002,7 @@ arbitrages, comme les huit de la banque et les neuf du véhicule)*
 2. **Le lien avec le cas suivant** — « la gestion des commandes
    industrielles » : l'entrepôt l'alimente-t-il (les commandes lues
    dans l'entrepôt, pas dans Cegid) ? Le périmètre du cas 6 en
-   dépend.
+   dépend. *(Le cas 6 est supprimé depuis, D1518.)*
 
 **B. La source — le réel**
 

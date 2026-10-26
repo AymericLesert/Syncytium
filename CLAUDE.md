@@ -29,7 +29,7 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   se reporte dans l'artefact de l'élément ; les principes de la génération
   de la documentation vont dans `docs/documentation.md`.
 - `usecases/<n>_<nom>.md` : la maison de chaque cas (1 tiny, 2 enquête,
-  3 véhicule, 4 banque, 5 entrepôt, 6–8 à venir) ; une décision qui touche un
+  3 véhicule, 4 banque, 5 entrepôt — les cinq seuls, D1518) ; une décision qui touche un
   cas s'y reporte (le cas 5 en particulier). `examples/<n>_<nom>/` ne
   contient que la configuration — jamais un fichier libre (D1082).
 - `docs/documentation.md` porte le plan du chantier en cours (le contexte,

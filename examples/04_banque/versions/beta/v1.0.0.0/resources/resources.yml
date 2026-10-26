@@ -13,5 +13,11 @@ icones:
     file: ~{icones/sac-dargent.png}
     credit:
       url: https://www.flaticon.com/fr/icones-gratuites/euro
-      title: euro icônes
-      label: Euro icônes créées par Smashicons - Flaticon
+      title:
+        fr: euro icônes
+        en: euro icons
+        es: euro iconos
+      label:
+        fr: Euro icônes créées par Smashicons - Flaticon
+        en: Euro icons created by Smashicons - Flaticon
+        es: Euro iconos creados por Smashicons - Flaticon

@@ -293,9 +293,8 @@ reprise écrite de bout en bout.**
   texte par langue** (D1517) → **écrites le 26/10/2026 (D1522)** : l'outil
   en listait vingt-six en vrai — les huit règles, l'entité source et ses
   seize colonnes, la description de l'icône —, toutes en anglais et en
-  espagnol, le français inchangé ; restent `credit.title` et
-  `credit.label` de l'icône, l'attribution exigée par Flaticon — une
-  citation, à arbitrer ;
+  espagnol, le français inchangé ; le crédit de l'icône aussi — « le
+  crédit se traduit aussi » (D1523) : plus aucun défaut d'ingestion ;
 
 ## La documentation générée — le chapitre des personas (le rang 1, étape 5 — D1200–D1209)
 

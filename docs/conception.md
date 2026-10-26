@@ -24834,6 +24834,24 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-26 (suite 2) — LA PAUSE : LE DOMAINE 5 CLOS, L'OUTIL DES
+  DÉCISIONS ÉCRIT (1524 décisions).** « A l'issue de ces opérations, je
+  marque une pause. » `tools/decisions.py` écrit (D1521) : 1 524 lignes
+  lues, 1 873 liens, 1 304 acceptées, 202 amendées, 18 remplacées, 409
+  lignes portant une lecture à confirmer ; la classification par famille —
+  348 par l'artefact cité, 775 par les mots du titre, 401 par défaut dans
+  « la méthode » — à relire par l'auteur (D1516) ; le premier audit, la
+  famille `documentation`, 203 lignes à confronter. **L'état** : les rangs
+  0 à 9 clos, dix publications ; le domaine 5 clos (D1524), le domaine 6
+  seul ouvert ; la branche porte D1515–D1524 sans PR — l'arborescence
+  acquise (D1520), l'ordre des parties avec l'audit (D1521), la banque en
+  trois langues (D1522–D1523), l'outil. **À la reprise** : relire la
+  classification par famille (`python tools/decisions.py docs/conception.md
+  --familles`) et les familles elles-mêmes ; puis la partie 3, chapitre
+  par chapitre, chacun audité (`--audit <famille>`) avant d'être déplacé ;
+  le README de `docs/` ouvert. Hors rang, rien d'ouvert, sauf la
+  calibration des seuils de la télémétrie, à l'ouverture de l'auteur.
+  Tout est committé et poussé.
 - **2026-10-26 (suite) — REPRISE : LE RANG 10, L'ARBORESCENCE PROPOSÉE,
   LES CINQ CAS, LA PREMIÈRE PAGE, L'ARBORESCENCE ACQUISE, L'AUDIT, LA
   BANQUE EN TROIS LANGUES, LE DOMAINE 5 CLOS (D1518–D1524, 1524 décisions).**

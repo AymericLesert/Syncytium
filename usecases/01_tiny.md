@@ -19,6 +19,21 @@ d'export/import, la documentation, les aides, les IHM, … Cela devra
 tenir en quelques lignes de configuration. »** (l'auteur, le
 21/09/2026)
 
+## La première page de la documentation de Syncytium (D1519)
+
+Au rang 10, le tiny ouvre la documentation du dépôt : **« Dans le README
+de départ, je mettrai bien la configuration du tiny. Puis, je
+l'utiliserai pour déployer le menu de la documentation. Mon idée est
+d'attirer le chaland dès la première page. »** — puis, sur la forme :
+**« Je retiens ta proposition : le README ouvre sur le tiny en accroche
+courte, et une rubrique présentation l'exploite et déploie le menu. »**
+(l'auteur, le 26/10/2026 — D1519). Le README de la racine du dépôt
+porte les vingt-six lignes de `examples/01_tiny/syncytium.yml` et une
+phrase ; la présentation (`docs/presentation/`, la partie 0) les déplie
+clé par clé — ce que chaque clé fait naître, le renvoi au chapitre qui
+l'explique — et déploie le menu. Le cas ne change pas : sa maison reste
+`cas-d-usage/01_tiny/`.
+
 ## Ce que le cas montre
 
 - **la configuration** — un environnement, un module, une entité,

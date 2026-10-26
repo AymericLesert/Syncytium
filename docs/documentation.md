@@ -760,7 +760,7 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
   proposition » ; l'étude comparative, annexe ou document d'époque ; un
   sommaire d'entrée qui dit l'état de chaque fichier.
 - **L'arborescence proposée le 26/10/2026** *(en proposition — amendée
-  par D1518, les cinq cas ; l'ouverture de la première page en débat)* : cinq racines ;
+  par D1518, les cinq cas, et D1519, la première page)* : six racines ;
   un `README.md` dans chaque dossier, l'entrée que GitHub affiche et que
   l'application embarquée ouvre ; un chapitre par dossier, un
   sous-chapitre par fichier ou par sous-dossier quand il porte plusieurs
@@ -772,8 +772,8 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
 
   ```text
   docs/
-  ├── README.md              partie 1 : le plan, l'arborescence, l'état de chaque document ;
-  │                          l'ouverture — le tiny ou une présentation — en débat
+  ├── README.md              partie 1 : le plan, l'arborescence, l'état de chaque document
+  ├── presentation/          partie 0 : le tiny déplié clé par clé, le menu déployé (D1519)
   ├── histoire/              partie 2 : ce qui a été
   │   ├── README.md          le résumé du cheminement, juin → octobre 2026
   │   ├── decisions/         les ADR (D1392) : <famille>/Dnnnn.md (D1516), l'index généré
@@ -814,8 +814,22 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
 - **Les cinq cas** (D1518, le 26/10/2026) : « Dans les cas d'usage, nous
   nous limiterons aux 5 vus. Tu peux supprimer les 3 autres. » — les
   maisons des cas 6, 7 et 8 supprimées.
+- **La première page** (D1519, le 26/10/2026) : « Dans le README de
+  départ, je mettrai bien la configuration du tiny. Puis, je
+  l'utiliserai pour déployer le menu de la documentation. Mon idée est
+  d'attirer le chaland dès la première page. » — « Serait-il préférable
+  d'ouvrir sur le tiny ou créer une rubrique présentation générale
+  (overview) qui exploite le potentiel du tiny ? » — « Je retiens ta
+  proposition : le README ouvre sur le tiny en accroche courte, et une
+  rubrique présentation l'exploite et déploie le menu. » Le README de la
+  racine du dépôt, la page que GitHub montre d'abord : les vingt-six
+  lignes du tiny, une phrase, le renvoi ; `docs/presentation/`, la
+  partie 0 : le tiny déplié clé par clé, chaque étape renvoyant à son
+  chapitre, ce que le tiny ne montre pas à la suite, l'argumentaire du
+  socle (D1506) dans le dépôt ; `docs/README.md`, le plan.
 - **Déclinaison** : le dépôt lui-même.
 - **Livrables** : `docs/` réorganisé, consultable sur GitHub, embarqué ;
+  le README de la racine réécrit en accroche (D1519) ;
   `docs/decisions/` et son index (D1392) ; la PR vers `develop`.
 - **Dépendances** : les neuf autres rangs — le rang 10 les clôt.
 

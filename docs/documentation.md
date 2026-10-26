@@ -743,18 +743,32 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      (notamment les documents générés) » ;
   5. **les études comparatives** — « Pour le moment, nous en avons une ;
      Tu feras une mise à jour de cette étude à ma demande ».
-- **L'ordre des parties** *(ma lecture, en proposition — proposée le
-  26/10/2026 après D1520)* : la partie 1 d'abord, acquise (D1520), son
-  README écrit avec l'arborescence vide et tenu à jour à chaque partie ;
-  puis la partie 3, Syncytium, la matière la plus stable ; la partie 4,
-  les cinq cas ; la partie 0, la présentation, qui renvoie aux chapitres
-  des parties 3 et 4 et ne peut s'écrire avant eux, avec le README de la
-  racine ; la partie 2, l'histoire, en dernier, parce que la conversion
-  du registre clôt la table et que chaque partie produit des décisions ;
+- **L'ordre des parties** *(ma lecture, proposée le 26/10/2026 après
+  D1520 ; amendée par D1521 — l'audit)* : la partie 1 d'abord, acquise
+  (D1520), son README écrit avec l'arborescence vide et tenu à jour à
+  chaque partie ; **le calcul** — le graphe des amendements et la
+  classification par famille, par script depuis la table (D1521) ; puis
+  la partie 3, Syncytium, la matière la plus stable, **chaque chapitre
+  audité avant d'être déplacé** ; la partie 4, les cinq cas ; la partie
+  0, la présentation, qui renvoie aux chapitres des parties 3 et 4 et ne
+  peut s'écrire avant eux, avec le README de la racine ; la partie 2,
+  l'histoire — les fichiers ADR, le journal, le narratif —, en dernier ;
   la partie 5 à la demande. À chaque partie, le déplacement scripté et
   vérifié par comparaison, les renvois réécrits, le traceur et la
   complétude relancés, le rendu vérifié sur GitHub, une PR vers
   `develop`.
+- **L'audit avant le déplacement** (D1521, le 26/10/2026) : « n'y a-t-il
+  pas un risque que tu embarques dans la documentation des points que
+  nous avions validé, amendé ou annulé ? » — « Je retiens l'audit : le
+  graphe des amendements et la classification par famille calculés dès
+  maintenant depuis la table, chaque chapitre audité avant d'être
+  déplacé, les écarts soumis à mon arbitrage ; les fichiers ADR restent à
+  la fin. » L'outil `tools/decisions.py` : le statut et les liens de
+  chaque décision (D1392), sa famille (D1516), et pour un chapitre la
+  liste à confronter — les décisions de sa famille amendées ou
+  remplacées, celles que l'artefact ne cite pas. Ce que l'audit
+  n'attrape pas — une phrase qui ne fut jamais une décision — reste à
+  la relecture, ciblée par la liste des décisions de chaque README.
 - **L'inventaire du 25/10/2026** (l'ancienne étape 1) : seize
   artefacts et le registre — le registre à 25 627 lignes, 2,7 Mo, que
   GitHub ne rend plus en Markdown ; documentation.md 4 537 lignes,
@@ -835,7 +849,8 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
   socle (D1506) dans le dépôt ; `docs/README.md`, le plan.
 - **Déclinaison** : le dépôt lui-même.
 - **Livrables** : `docs/` réorganisé, consultable sur GitHub, embarqué ;
-  le README de la racine réécrit en accroche (D1519) ;
+  le README de la racine réécrit en accroche (D1519) ; `tools/decisions.py`
+  (D1521) ;
   `docs/decisions/` et son index (D1392) ; la PR vers `develop`.
 - **Dépendances** : les neuf autres rangs — le rang 10 les clôt.
 

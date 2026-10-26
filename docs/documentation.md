@@ -769,6 +769,12 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
   remplacées, celles que l'artefact ne cite pas. Ce que l'audit
   n'attrape pas — une phrase qui ne fut jamais une décision — reste à
   la relecture, ciblée par la liste des décisions de chaque README.
+  *L'outil écrit le 26/10/2026* : la table lue ligne à ligne, la
+  parenthèse de tête donne les liens (amende, précise, remplace, clôt),
+  l'artefact cité donne la famille, à défaut les mots du titre ; le
+  statut en découle. Le premier audit, la famille `documentation` : 267
+  décisions, 23 amendées ou remplacées, 23 que documentation.md ne cite
+  pas, 20 marques « en proposition ».
 - **L'inventaire du 25/10/2026** (l'ancienne étape 1) : seize
   artefacts et le registre — le registre à 25 627 lignes, 2,7 Mo, que
   GitHub ne rend plus en Markdown ; documentation.md 4 537 lignes,
@@ -853,7 +859,10 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      26/10/2026 (D1520 ; D1518 les cinq cas, D1519 la première page)** ;
   2. le calcul — le graphe des amendements et la classification par
      famille depuis la table, `tools/decisions.py` (D1521) : **en cours**
-     depuis le 26/10/2026 ;
+     — l'outil écrit le 26/10/2026 (le résumé, `--familles`, `--audit
+     <famille>`, `--decision Dn`, `--json`) ; 1 524 décisions, 1 873
+     liens, 202 amendées, 18 remplacées ; la classification à relire :
+     348 par l'artefact cité, 775 par les mots du titre, 401 par défaut ;
   3. la partie 3, Syncytium — chaque chapitre audité, ses marques
      soldées, puis déplacé et découpé ; le README de `docs/` ouvert et
      tenu à jour ; une PR ;

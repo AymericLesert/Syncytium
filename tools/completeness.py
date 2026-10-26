@@ -330,7 +330,13 @@ def check_ingestion(ver, version_label, fallback):
             defauts.append((f"un texte simple dans une version à plusieurs langues ({', '.join(languages)}) — D1101",
                             where(node, fallback), key))
         elif isinstance(value, dict):
-            missing = sorted(wanted - set(map(str, value.keys())))
+            keys = set(map(str, value.keys()))
+            if not (keys & wanted) and value and all(isinstance(v, (dict, str)) for v in value.values()):
+                # un texte déclaré par usage — title: { create:, read:, update:, delete: } — : chaque usage est un texte
+                for usage, sub in value.items():
+                    text_defect(sub, f"{key}.{usage}", node)
+                return
+            missing = sorted(wanted - keys)
             if missing:
                 defauts.append((f"un texte sans une langue de la version — manque {', '.join(missing)} (D1474)",
                                 where(node, fallback), key))

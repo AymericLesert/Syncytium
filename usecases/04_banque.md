@@ -290,8 +290,12 @@ reprise écrite de bout en bout.**
   des huit règles de `reprise/mapping/001_comptes.yml` à
   `008_clotures.yml` et de la source `reprise/source/budget.yml`, dans
   une version à trois langues ; **la description de la reprise est un
-  texte par langue** (D1517) → **neuf traductions à écrire** en
-  anglais et en espagnol, à la prochaine relecture de la banque ;
+  texte par langue** (D1517) → **écrites le 26/10/2026 (D1522)** : l'outil
+  en listait vingt-six en vrai — les huit règles, l'entité source et ses
+  seize colonnes, la description de l'icône —, toutes en anglais et en
+  espagnol, le français inchangé ; restent `credit.title` et
+  `credit.label` de l'icône, l'attribution exigée par Flaticon — une
+  citation, à arbitrer ;
 
 ## La documentation générée — le chapitre des personas (le rang 1, étape 5 — D1200–D1209)
 

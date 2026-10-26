@@ -1,8 +1,15 @@
 # Les lieux
 budget:
-  description: >-
-    La phase 2, le préalable : le référentiel des lieux, une valeur distincte par lieu — la valeur devient l'identité ;
-    la valeur vide ne fait pas un lieu.
+  description:
+    fr: >-
+      La phase 2, le préalable : le référentiel des lieux, une valeur distincte par lieu — la valeur devient
+      l'identité ; la valeur vide ne fait pas un lieu.
+    en: >-
+      Phase 2, the prerequisite: the place reference list, one distinct value per place — the value becomes the
+      identity; an empty value does not make a place.
+    es: >-
+      La fase 2, el requisito previo: el referencial de lugares, un valor distinto por lugar — el valor se convierte en
+      la identidad; el valor vacío no hace un lugar.
   to: banque.lieu
   distinct: [Lieu]
   filter: Lieu != null

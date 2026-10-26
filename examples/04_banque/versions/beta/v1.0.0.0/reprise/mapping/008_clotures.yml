@@ -1,9 +1,18 @@
 # Les clôtures
 budget:
-  description: >-
-    La phase 3, le dernier geste : les lignes au marqueur FERMETURE clôturent les comptes, après l'écriture du solde —
-    la clôture ferme un compte déjà soldé. La mise à jour par l'identité : la règle retrouve le compte créé en phase 1
-    et pose la clôture ; le libellé du marqueur n'est pas utile ici.
+  description:
+    fr: >-
+      La phase 3, le dernier geste : les lignes au marqueur FERMETURE clôturent les comptes, après l'écriture du solde —
+      la clôture ferme un compte déjà soldé. La mise à jour par l'identité : la règle retrouve le compte créé en phase 1
+      et pose la clôture ; le libellé du marqueur n'est pas utile ici.
+    en: >-
+      Phase 3, the last move: the lines bearing the FERMETURE marker close the accounts, after the balance entry — the
+      closing shuts an account already balanced. The update goes by the identity: the rule finds the account created in
+      phase 1 and sets the closing; the marker's description is of no use here.
+    es: >-
+      La fase 3, el último gesto: las líneas con el marcador FERMETURE cierran las cuentas, después del apunte del saldo
+      — el cierre cierra una cuenta ya saldada. La actualización por la identidad: la regla reencuentra la cuenta creada
+      en la fase 1 y asienta el cierre; el concepto del marcador no sirve aquí.
   to: banque.compte
   filter: Budget = "FERMETURE"
   fields:

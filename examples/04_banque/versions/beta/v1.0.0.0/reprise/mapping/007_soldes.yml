@@ -1,8 +1,15 @@
 # Les soldes de clôture
 budget:
-  description: >-
-    La phase 3 : le montant du marqueur de fermeture est la dernière écriture du compte, posée avant la clôture — le
-    solde s'enregistre sur le compte encore ouvert. Le libellé est conventionnel, le mode autre.
+  description:
+    fr: >-
+      La phase 3 : le montant du marqueur de fermeture est la dernière écriture du compte, posée avant la clôture — le
+      solde s'enregistre sur le compte encore ouvert. Le libellé est conventionnel, le mode autre.
+    en: >-
+      Phase 3: the amount of the closing marker is the account's last entry, set before the closing — the balance is
+      recorded on the account while it is still open. The description is conventional, the method is autre.
+    es: >-
+      La fase 3: el importe del marcador de cierre es el último apunte de la cuenta, asentado antes del cierre — el
+      saldo se registra en la cuenta aún abierta. El concepto es convencional, el modo es autre.
   to: banque.ecriture
   filter: Budget = "FERMETURE" and montant_signe != 0
   parent: { compte: Numero_Compte }

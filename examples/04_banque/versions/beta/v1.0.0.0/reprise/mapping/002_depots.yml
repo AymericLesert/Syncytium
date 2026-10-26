@@ -1,9 +1,18 @@
 # Les dépôts initiaux
 budget:
-  description: >-
-    La phase 1, suite : le montant du marqueur d'ouverture est la première écriture du compte — douze marqueurs à
-    montant réel dans le legacy, les soldes en dépendent. L'écriture garde le budget du marqueur, dont l'usage est tenu
-    par la validation de l'entité ; le libellé est conventionnel, le mode autre.
+  description:
+    fr: >-
+      La phase 1, suite : le montant du marqueur d'ouverture est la première écriture du compte — douze marqueurs à
+      montant réel dans le legacy, les soldes en dépendent. L'écriture garde le budget du marqueur, dont l'usage est
+      tenu par la validation de l'entité ; le libellé est conventionnel, le mode autre.
+    en: >-
+      Phase 1, continued: the amount of the opening marker is the account's first entry — twelve markers carry a real
+      amount in the legacy, and the balances depend on them. The entry keeps the marker's budget, whose use is governed
+      by the entity's validation; the description is conventional, the method is autre.
+    es: >-
+      La fase 1, continuación: el importe del marcador de apertura es el primer apunte de la cuenta — doce marcadores
+      con importe real en el legacy, los saldos dependen de ellos. El apunte conserva el presupuesto del marcador, cuyo
+      uso lo rige la validación de la entidad; el concepto es convencional, el modo es autre.
   to: banque.ecriture
   filter: Budget = "OUVERTURE" and montant_signe != 0
   parent: { compte: Numero_Compte }

@@ -1,12 +1,27 @@
 # Les écritures liées
 budget:
-  description: >-
-    La seconde phase du rapprochement — rechercher et associer : la règle de complément relit les mêmes lignes et pose
-    liee sur les écritures nées de la règle précédente, la correspondance ligne → enregistrement étant tenue par la
-    migration. Le cache croise en dernier entré, premier sorti : la première ligne relue dépile la seconde empilée, son
-    miroir, jamais elle-même ; la garde sur la taille écarte l'orphelin, qui ne dépile pas et dont liee reste vide.
-    L'affectation au chemin repose la référence sur le miroir : les deux côtés sont portés, comme le fait virer ; sur le
-    vide, le chemin est sans effet.
+  description:
+    fr: >-
+      La seconde phase du rapprochement — rechercher et associer : la règle de complément relit les mêmes lignes et pose
+      liee sur les écritures nées de la règle précédente, la correspondance ligne → enregistrement étant tenue par la
+      migration. Le cache croise en dernier entré, premier sorti : la première ligne relue dépile la seconde empilée,
+      son miroir, jamais elle-même ; la garde sur la taille écarte l'orphelin, qui ne dépile pas et dont liee reste
+      vide. L'affectation au chemin repose la référence sur le miroir : les deux côtés sont portés, comme le fait
+      virer ; sur le vide, le chemin est sans effet.
+    en: >-
+      The second phase of the matching — search and link: the complement rule reads the same lines again and sets liee
+      on the entries born of the previous rule, the line → record correspondence being kept by the migration. The cache
+      crosses last in, first out: the first line read again pops the second one pushed, its mirror, never itself; the
+      guard on the size sets aside the orphan, which pops nothing and whose liee stays empty. The assignment through the
+      path sets the reference back on the mirror: both sides are carried, as virer does; on an empty value, the path has
+      no effect.
+    es: >-
+      La segunda fase de la conciliación — buscar y asociar: la regla de complemento relee las mismas líneas y asienta
+      liee en los apuntes nacidos de la regla anterior, la correspondencia línea → registro la mantiene la migración. La
+      caché cruza en último en entrar, primero en salir: la primera línea releída desapila la segunda apilada, su
+      espejo, nunca ella misma; la guarda sobre el tamaño aparta al huérfano, que no desapila y cuyo liee queda vacío.
+      La asignación por el camino vuelve a poner la referencia en el espejo: ambos lados se llevan, como hace virer;
+      sobre el vacío, el camino no tiene efecto.
   to: banque.ecriture
   filter: Budget != "OUVERTURE" and Budget != "FERMETURE"
   parent: { compte: Numero_Compte }

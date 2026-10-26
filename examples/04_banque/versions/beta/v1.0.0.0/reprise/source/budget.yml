@@ -5,7 +5,10 @@
 name: budget
 
 # La description de l'entité source
-description: Les écritures des comptes du legacy — les fichiers actifs et archivés
+description:
+  fr: Les écritures des comptes du legacy — les fichiers actifs et archivés
+  en: The entries of the legacy accounts — the active and archived files
+  es: Los apuntes de las cuentas del legacy — los ficheros activos y archivados
 
 # Les colonnes
 # Toute colonne du fichier est décrite, et toutes servent ; les calculés de normalisation, en fin de liste, se
@@ -14,62 +17,105 @@ fields:
 
   Numero_Compte:
     type: text[..23]
-    description: Le numéro du compte, l'identité du compte dans l'entrepôt.
+    description:
+      fr: Le numéro du compte, l'identité du compte dans l'entrepôt.
+      en: The account number, the identity of the account in the target.
+      es: El número de la cuenta, la identidad de la cuenta en el destino.
 
   Date_Operation:
     type: date
     mask: "dd/mm/yyyy"
-    description: La date de l'opération ; le masque lit le jj/mm/aaaa du legacy.
+    description:
+      fr: La date de l'opération ; le masque lit le jj/mm/aaaa du legacy.
+      en: The operation date; the mask reads the legacy's dd/mm/yyyy.
+      es: La fecha de la operación; la máscara lee el dd/mm/aaaa del legacy.
 
   Date_Comptable:
     type: date
     mask: "dd/mm/yyyy"
-    description: La date comptable, vide tant que l'écriture n'est pas pointée.
+    description:
+      fr: La date comptable, vide tant que l'écriture n'est pas pointée.
+      en: The accounting date, empty until the entry is reconciled.
+      es: La fecha contable, vacía mientras el apunte no esté punteado.
 
   Designation:
     type: text[..100]
-    description: Le libellé ; le réel monte à 93 caractères.
+    description:
+      fr: Le libellé ; le réel monte à 93 caractères.
+      en: The description; the real data goes up to 93 characters.
+      es: El concepto; el real llega a 93 caracteres.
 
   Budget:
     type: text[..30]
-    description: Le budget de l'écriture, dont les marqueurs OUVERTURE et FERMETURE des comptes.
+    description:
+      fr: Le budget de l'écriture, dont les marqueurs OUVERTURE et FERMETURE des comptes.
+      en: The entry's budget, including the OUVERTURE and FERMETURE markers of the accounts.
+      es: El presupuesto del apunte, incluidos los marcadores OUVERTURE y FERMETURE de las cuentas.
 
   Debit:
     type: decimal
-    description: Le débit ; la notation scientifique du legacy se lit (7.629395E-5).
+    description:
+      fr: Le débit ; la notation scientifique du legacy se lit (7.629395E-5).
+      en: The debit; the legacy's scientific notation is read (7.629395E-5).
+      es: El debe; la notación científica del legacy se lee (7.629395E-5).
 
   Credit:
     type: decimal
-    description: Le crédit.
+    description:
+      fr: Le crédit.
+      en: The credit.
+      es: El haber.
 
   Nature:
     type: text[..40]
-    description: >-
-      Un texte mixte : CB, PRELEVEMENT, VIREMENT ou VIREMENT-<référence>, un numéro de chèque, des espèces… ; les
-      calculés en tirent le mode, le numéro de chèque et la référence du virement.
+    description:
+      fr: >-
+        Un texte mixte : CB, PRELEVEMENT, VIREMENT ou VIREMENT-<référence>, un numéro de chèque, des espèces… ; les
+        calculés en tirent le mode, le numéro de chèque et la référence du virement.
+      en: >-
+        A mixed text: CB, PRELEVEMENT, VIREMENT or VIREMENT-<reference>, a cheque number, cash…; the computed columns
+        derive from it the method, the cheque number and the transfer reference.
+      es: >-
+        Un texto mixto: CB, PRELEVEMENT, VIREMENT o VIREMENT-<referencia>, un número de cheque, efectivo…; los
+        calculados extraen de él el modo, el número de cheque y la referencia de la transferencia.
 
   Devise:
     type: enum { E, F }
-    description: E l'euro, F le franc ; toute autre valeur est une anomalie — le typage en garde.
+    description:
+      fr: E l'euro, F le franc ; toute autre valeur est une anomalie — le typage en garde.
+      en: E the euro, F the franc; any other value is an anomaly — the typing guards against it.
+      es: E el euro, F el franco; cualquier otro valor es una anomalía — el tipado lo impide.
 
   Lieu:
     type: text[..30]
-    description: La ville, vide sur 3 634 lignes.
+    description:
+      fr: La ville, vide sur 3 634 lignes.
+      en: The town, empty on 3 634 lines.
+      es: La ciudad, vacía en 3 634 líneas.
 
   Date_Impression:
     type: date
     mask: "dd/mm/yyyy"
-    description: La date d'impression du relevé.
+    description:
+      fr: La date d'impression du relevé.
+      en: The statement's print date.
+      es: La fecha de impresión del extracto.
 
   # Les calculés de normalisation
 
   montant_signe:
     formula: round((Credit if Credit != null else 0) - (Debit if Debit != null else 0), 2)
-    description: Le montant signé, arrondi au centime — les poussières flottantes du legacy s'éteignent.
+    description:
+      fr: Le montant signé, arrondi au centime — les poussières flottantes du legacy s'éteignent.
+      en: The signed amount, rounded to the cent — the legacy's floating-point dust dies out.
+      es: El importe con signo, redondeado al céntimo — el polvo flotante del legacy se apaga.
 
   devise_iso:
     formula: '"EUR" if Devise = "E" else "FRF"'
-    description: La devise au code ISO du type amount.
+    description:
+      fr: La devise au code ISO du type amount.
+      en: The currency as the ISO code of the amount type.
+      es: La divisa en el código ISO del tipo amount.
 
   mode_norme:
     formula: >-
@@ -77,16 +123,33 @@ fields:
       else "prelevement" if Nature = "PRELEVEMENT"
       else "virement" if Nature = "VIREMENT" or Nature like "^VIREMENT-.*" or Nature = "Guichet"
       else "autre"
-    description: >-
-      La nature mixte ramenée au mode de l'écriture ; les chèques, les espèces, le liquide et le vide vont à autre. like
-      est la comparaison régulière.
+    description:
+      fr: >-
+        La nature mixte ramenée au mode de l'écriture ; les chèques, les espèces, le liquide et le vide vont à autre.
+        like est la comparaison régulière.
+      en: >-
+        The mixed nature brought down to the entry's method; cheques, cash, liquid and empty go to autre. like is the
+        regular-expression comparison.
+      es: >-
+        La naturaleza mixta reducida al modo del apunte; los cheques, el efectivo, el líquido y el vacío van a autre.
+        like es la comparación por expresión regular.
 
   cheque_norme:
     formula: Nature if Nature like "^[0-9]+$"
-    description: Le numéro de chèque, quand la nature n'est qu'un nombre.
+    description:
+      fr: Le numéro de chèque, quand la nature n'est qu'un nombre.
+      en: The cheque number, when the nature is only a number.
+      es: El número de cheque, cuando la naturaleza no es más que un número.
 
   reference_virement:
     formula: extract(Nature, "^VIREMENT-(.*)$")
-    description: >-
-      L'identifiant du miroir d'un virement, nul hors des virements référencés ; extract rend la capture unique, et des
-      groupes nommés décomposeraient plusieurs noms au point.
+    description:
+      fr: >-
+        L'identifiant du miroir d'un virement, nul hors des virements référencés ; extract rend la capture unique, et
+        des groupes nommés décomposeraient plusieurs noms au point.
+      en: >-
+        The identifier of a transfer's mirror, null outside referenced transfers; extract returns the single capture,
+        and named groups would split several names at the dot.
+      es: >-
+        El identificador del espejo de una transferencia, nulo fuera de las transferencias referenciadas; extract
+        devuelve la captura única, y grupos con nombre descompondrían varios nombres en el punto.

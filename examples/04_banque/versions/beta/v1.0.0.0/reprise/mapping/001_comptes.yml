@@ -1,8 +1,15 @@
 # Les comptes
 budget:
-  description: >-
-    La phase 1 : les lignes au marqueur OUVERTURE créent les comptes — chacune porte le numéro, le libellé et la date
-    d'ouverture. L'identité alimentée, la phase 3 la retrouve pour poser la clôture.
+  description:
+    fr: >-
+      La phase 1 : les lignes au marqueur OUVERTURE créent les comptes — chacune porte le numéro, le libellé et la date
+      d'ouverture. L'identité alimentée, la phase 3 la retrouve pour poser la clôture.
+    en: >-
+      Phase 1: the lines bearing the OUVERTURE marker create the accounts — each one carries the number, the name and
+      the opening date. With the identity filled in, phase 3 finds it again to set the closing.
+    es: >-
+      La fase 1: las líneas con el marcador OUVERTURE crean las cuentas — cada una lleva el número, el nombre y la fecha
+      de apertura. Con la identidad alimentada, la fase 3 la reencuentra para asentar el cierre.
   to: banque.compte
   filter: Budget = "OUVERTURE"
   fields:

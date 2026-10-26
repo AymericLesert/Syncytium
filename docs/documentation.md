@@ -847,6 +847,25 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
   partie 0 : le tiny déplié clé par clé, chaque étape renvoyant à son
   chapitre, ce que le tiny ne montre pas à la suite, l'argumentaire du
   socle (D1506) dans le dépôt ; `docs/README.md`, le plan.
+- **Étapes** *(l'ordre de D1520–D1521)* :
+  1. la partie 1, l'arborescence de `docs/` — six racines, un README par
+     dossier, un chapitre par dossier, les cinq lectures : **acquis le
+     26/10/2026 (D1520 ; D1518 les cinq cas, D1519 la première page)** ;
+  2. le calcul — le graphe des amendements et la classification par
+     famille depuis la table, `tools/decisions.py` (D1521) : **en cours**
+     depuis le 26/10/2026 ;
+  3. la partie 3, Syncytium — chaque chapitre audité, ses marques
+     soldées, puis déplacé et découpé ; le README de `docs/` ouvert et
+     tenu à jour ; une PR ;
+  4. la partie 4, les cinq cas d'usage — les maisons, le yaml partie par
+     partie, les documents générés ; une PR ;
+  5. la partie 0, la présentation — le tiny déplié clé par clé, le menu
+     déployé, le README de la racine en accroche (D1519) ; une PR ;
+  6. la partie 2, l'histoire — les fichiers ADR par famille et l'index
+     (D1392, D1516), le journal par mois, le narratif découpé, le résumé
+     du cheminement, CLAUDE.md réécrit ; une PR ;
+  7. la partie 5, les études — le document d'époque daté ; la mise à jour
+     à la demande.
 - **Déclinaison** : le dépôt lui-même.
 - **Livrables** : `docs/` réorganisé, consultable sur GitHub, embarqué ;
   le README de la racine réécrit en accroche (D1519) ; `tools/decisions.py`

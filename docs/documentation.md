@@ -702,7 +702,7 @@ décisions, D1170–D1238.)*
   25/10/2026, validée — D1514).
 - **Dépendances** : les huit autres ; le jeu de données (D869).
 
-#### Rang 10 — Syncytium lui-même, et `docs/` consultable sur GitHub (D1316) — *en cours depuis le 25/10/2026 ; la nature précisée, D1515*
+#### Rang 10 — Syncytium lui-même, et `docs/` consultable sur GitHub (D1316) — *en cours depuis le 25/10/2026 ; la nature précisée, D1515 ; l'arborescence acquise, D1520*
 
 « Prévois un rang dans le plan de la documentation pour documenter
 Syncytium et reprendre toute la documentation docs/ rédigée en la
@@ -743,12 +743,18 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      (notamment les documents générés) » ;
   5. **les études comparatives** — « Pour le moment, nous en avons une ;
      Tu feras une mise à jour de cette étude à ma demande ».
-- **Les étapes** *(mes lectures, en proposition — à arbitrer à la
-  reprise)* : l'arborescence proposée et validée d'abord (la partie 1),
-  puis les parties 3, 4 et 2 dans l'ordre de la matière la plus stable à
-  la plus lourde — le projet, les cas, l'histoire et les ADR —, la partie
-  5 à la demande ; à chaque partie, le déplacement scripté et vérifié par
-  comparaison, les renvois réécrits, le traceur et la complétude relancés.
+- **L'ordre des parties** *(ma lecture, en proposition — proposée le
+  26/10/2026 après D1520)* : la partie 1 d'abord, acquise (D1520), son
+  README écrit avec l'arborescence vide et tenu à jour à chaque partie ;
+  puis la partie 3, Syncytium, la matière la plus stable ; la partie 4,
+  les cinq cas ; la partie 0, la présentation, qui renvoie aux chapitres
+  des parties 3 et 4 et ne peut s'écrire avant eux, avec le README de la
+  racine ; la partie 2, l'histoire, en dernier, parce que la conversion
+  du registre clôt la table et que chaque partie produit des décisions ;
+  la partie 5 à la demande. À chaque partie, le déplacement scripté et
+  vérifié par comparaison, les renvois réécrits, le traceur et la
+  complétude relancés, le rendu vérifié sur GitHub, une PR vers
+  `develop`.
 - **L'inventaire du 25/10/2026** (l'ancienne étape 1) : seize
   artefacts et le registre — le registre à 25 627 lignes, 2,7 Mo, que
   GitHub ne rend plus en Markdown ; documentation.md 4 537 lignes,
@@ -759,8 +765,8 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
   Trois questions posées : solder ou signaler les marques « en
   proposition » ; l'étude comparative, annexe ou document d'époque ; un
   sommaire d'entrée qui dit l'état de chaque fichier.
-- **L'arborescence proposée le 26/10/2026** *(en proposition — amendée
-  par D1518, les cinq cas, et D1519, la première page)* : six racines ;
+- **L'arborescence** *(acquise le 26/10/2026, D1520 — amendée par D1518,
+  les cinq cas, et D1519, la première page)* : six racines ;
   un `README.md` dans chaque dossier, l'entrée que GitHub affiche et que
   l'application embarquée ouvre ; un chapitre par dossier, un
   sous-chapitre par fichier ou par sous-dossier quand il porte plusieurs
@@ -802,7 +808,7 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
       └── comparative-2026-07-18.md
   ```
 
-  Les lectures à confirmer : les piliers (§1.1) dans ce qui est, la
+  Les lectures, confirmées (D1520) : les piliers (§1.1) dans ce qui est, la
   démarche, le narratif, les questions et le journal dans l'histoire ;
   `conception.md` cesse d'exister comme fichier, une décision nouvelle
   devient un fichier de `decisions/` et une entrée du journal du mois,

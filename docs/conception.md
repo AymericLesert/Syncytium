@@ -24843,6 +24843,28 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-28 (suite) — LA PAUSE : LE CHAPITRE 1 AUDITÉ, SES TREIZE ÉCARTS
+  EN ATTENTE (D1527, 1527 décisions).** « Oui, la configuration » (D1527)
+  — la partie 3 s'ouvre par le chapitre 1 ; `docs/README.md` porte la
+  table des treize chapitres, la lecture du chapitre 1 « en cours » ;
+  l'outil corrigé trois fois (les plages dépliées, un verbe par cible,
+  les appuis qui bornent). L'audit fait : configuration.md confronté aux
+  décisions de sa famille — treize points en cinq groupes : (a) quatre
+  marques à solder, tranchées depuis (visibility D1498, listen D1435,
+  les profils à la racine D1239, le chantier clos) ; (b) quatre manques
+  — `resources/` à la racine de l'arbre contre D803, les clés de
+  l'environnement incomplètes et `replication:` (D726) absente,
+  `documentation.yml` dépassé (D1164, D1167, D1219, quatre exemples),
+  la forme courte `marge: 10%` (D590) ; (c) deux lectures jamais
+  tranchées — `dataset: ~{demo/}`, le menu sans `label:` ; (d) deux
+  statuts que le registre ne dit pas — D347 amendée par D807, D224 par
+  D1474 ; (e) quinze décisions à reclasser hors de la famille ; et la
+  règle du déplacement — l'histoire sort du chapitre. Le tableau de bord :
+  la section des treize chapitres écrite dans le mod, validée, quinze
+  tests passés, mais le panneau ne la montre pas encore — à voir ce
+  soir. « je marque une pause ». **À la reprise** : les treize écarts à
+  arbitrer, puis le chapitre 1 corrigé et déplacé dans
+  `syncytium/configuration/`. Tout est committé et poussé.
 - **2026-10-28 — REPRISE : LES TREIZE FAMILLES (D1526, 1526 décisions).**
   « reprenons » — la classification recalculée : l'outil lit l'artefact
   cité, puis la section du registre citée, puis les mots du titre et du

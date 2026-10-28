@@ -19,8 +19,9 @@ Ce que l'outil déduit :
   « une lecture à confirmer » quand la ligne porte « ma lecture », « à confirmer » ou « en proposition » ;
 - les liens : amende → amendée par ; précise/étend/complète/confirme/exécute/généralise → précisée par ;
   clôt → close par ; résout Qn ;
-- la famille (D1516) : celle de l'artefact que la ligne cite le plus souvent ; à défaut, des mots du titre ;
-  à défaut, « methode ». La classification est scriptée puis relue (D1516) : la liste par famille sert la relecture.
+- la famille (D1516) : celle de l'artefact que la ligne cite le plus souvent ; à défaut, la section du registre
+  qu'elle cite (« Voir §8.6 ») ; à défaut, des mots du titre, puis du texte ; à défaut, la plage du domaine
+  (§1.2 : D333–D346, D347–D419, D420–D436, D437–D569, D570–D601) ; à défaut, « methode ». La classification est scriptée puis relue (D1516) : la liste par famille sert la relecture.
 
 L'audit d'une famille (D1521), avant le déplacement de son chapitre : les décisions de la famille amendées ou
 remplacées, à confronter au texte des artefacts ; celles que les artefacts de la famille ne citent pas, à vérifier ;
@@ -48,12 +49,26 @@ FAMILLES = {
     "telemetrie": ("la télémétrie", ["telemetry.md"]),
     "configuration": ("la configuration et son écriture", ["configuration.md"]),
     "documentation": ("la documentation", ["documentation.md"]),
+    "api": ("les API et les échanges", []),  # ma lecture : ajoutée à la liste de D1516 — aucun artefact ne la porte
     "cas": ("les cas d'usage", []),
     "methode": ("la méthode et le projet", []),
 }
+# Les sections du registre que les décisions citent (« Voir §8.6 ») — le second signal, après l'artefact cité.
+SECTIONS = {
+    "3": "modele", "4": "reprise", "5.1": "reprise", "5.2": "reprise", "5.3": "reprise", "5.4": "api",
+    "5.5": "api", "5.6": "securite", "5.7": "securite", "5.8": "api", "6": "telemetrie", "6.6": "securite",
+    "7": "administration", "8.0": "hooks", "8.1": "hooks", "8.2": "hooks", "8.3": "hooks", "8.4": "hooks",
+    "8.5": "connecteurs", "8.6": "surfaces", "8.7": "configuration", "8.8": "surfaces",
+}
+SECTION = re.compile(r"§(\d+(?:\.\d+[a-z]?)?)")
+# Les plages des domaines du §1.2 (D643) — le dernier signal avant le défaut.
+PLAGES = [(333, 346, "configuration"), (347, 419, "modele"), (420, 436, "hooks"), (437, 569, "surfaces"),
+          (570, 601, "hooks")]
 ARTEFACT_FAMILLE = {a: f for f, (_, arts) in FAMILLES.items() for a in arts}
 # Les mots du titre, quand aucun artefact n'est cité — du plus spécifique au plus général.
 MOTS = [
+    ("api", r"\bAPI\b|pagination|curseur|contrat d'API|endpoint|dépréciation|épinglage|consommateur|rate limit|"
+            r"webhook|export|import|CSV|JSON"),
     ("documentation", r"documentation|dictionnaire|plaquette|promotionnel|D\.A\.T\.|guide d'exploitation|persona|"
                       r"complétude|release-notes|glossaire|wizard"),
     ("telemetrie", r"télémétrie|SEQUITUR|seuil|calibration|journalisation|trace"),
@@ -138,10 +153,20 @@ def classer(d):
         comptes[ARTEFACT_FAMILLE.get(a, "cas")] += 1
     if comptes:
         return comptes.most_common(1)[0][0], "artefact"
-    titre = d["titre"]
-    for fam, motif in MOTS:
-        if re.search(motif, titre, re.I):
-            return fam, "mots"
+    # le renvoi « Voir §n » : la sous-section d'abord, puis la section (§3.2c, le narratif, ne dit rien)
+    for sec in SECTION.findall(d["texte"] + " " + d["justification"]):
+        if sec == "3.2c":
+            continue
+        fam = SECTIONS.get(sec) or SECTIONS.get(sec.split(".")[0])
+        if fam:
+            return fam, "section"
+    for champ, source in ((d["titre"], "mots du titre"), (d["texte"], "mots du texte")):
+        for fam, motif in MOTS:
+            if re.search(motif, champ, re.I):
+                return fam, source
+    for a, b, fam in PLAGES:
+        if a <= d["numero"] <= b:
+            return fam, "plage du domaine"
     return "methode", "défaut"
 
 
@@ -170,8 +195,10 @@ def resume(decisions):
     print("## Les familles (D1516)\n\n| La famille | Le titre | Les décisions | Les artefacts |\n|---|---|---|---|")
     for fam, (titre, arts) in FAMILLES.items():
         print(f"| `{fam}` | {titre} | {fams.get(fam, 0)} | {', '.join(arts) or '—'} |")
-    print(f"\nLa classification : {sources['artefact']} par l'artefact cité, {sources['mots']} par les mots du titre, "
-          f"{sources['défaut']} par défaut (la méthode) — à relire (D1516).\n")
+    print(f"\nLa classification : {sources['artefact']} par l'artefact cité, {sources['section']} par la section "
+          f"citée, {sources['mots du titre']} par les mots du titre, {sources['mots du texte']} par les mots du "
+          f"texte, {sources['plage du domaine']} par la plage du domaine (§1.2), {sources['défaut']} par défaut "
+          f"(la méthode) — à relire (D1516).\n")
     print("## Les statuts (D1392)\n")
     for s in ("acceptée", "amendée", "remplacée"):
         print(f"- {s} : {statuts.get(s, 0)}")

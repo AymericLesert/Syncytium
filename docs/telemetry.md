@@ -79,9 +79,8 @@ level: debug
 
 *(La maîtrise du journal (D800) : le niveau, **les dimensions** — la
 taille et la rotation des fichiers, la syntaxe à écrire quand le
-domaine s'ouvrira — et la rétention. Les clés hors grammaire sont
-ignorées : renommer un bloc — le suffixe `-disable` du cas 4 — le
-met en sommeil.)*
+domaine s'ouvrira — et la rétention. Un bloc qui ne doit pas servir se
+retire : le suffixe `-disable` du cas 4 n'existe plus (D1533).)*
 
 *(**La rétention des fichiers est un mécanisme générique** (D1070) : dans
 un dossier, les fichiers qui répondent à un pattern — gardés par nombre

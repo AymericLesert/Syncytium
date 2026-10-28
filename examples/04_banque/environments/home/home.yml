@@ -9,11 +9,6 @@ storage: database
 # Le niveau des traces, leur format et le fichier du journal.
 logging: ~{logging.yml}
 
-# Le nettoyage des fichiers
-# Les règles de rétention de l'environnement, en sommeil : le suffixe -disable met le fichier en sommeil sans le
-# retirer.
-cleanup-disable: ~{cleanup.yml}
-
 # Les connecteurs
 # La base, l'authentification, le mail et le dossier du legacy.
 connectors: ~{connectors.yml}

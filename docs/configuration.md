@@ -542,12 +542,20 @@ connectors: ~{connectors.yml}
   les dimensions `max_size:` et `backups:` ; la rétention est une règle
   de `cleanup.yml` (D1073) ; l'implémentation du journal relève des
   choix techniques ;
-- **`documentation.yml`**, facultatif (D1090) — la génération de la
-  documentation est portée par Syncytium, par défaut, sans configuration
-  (D333) ; le fichier ne vient que pour la personnaliser, et porte alors
-  ses propriétés ; la clé `documentation:` de l'environnement le
-  référence ; aucun exemple n'en a l'usage ; ses propriétés sont
-  proposées dans [documentation.md](documentation.md) §12 (D1118) ;
+- **`documentation.yml`** — la personnalisation de la génération, en
+  **quatre lieux**, selon ce qui varie (D1164) : **à l'environnement**,
+  référencé par `documentation:` de `production.yml` — `output:`, où
+  vont les fichiers et leurs formats, `notify:`, ce qui se notifie et à
+  qui, `publish:`, ce qui se publie (D1167) ; **à la version**, référencé
+  par `documentation:` de `version.yml` — `templates:` les gabarits des
+  éditions, `pages:` les pages ajoutées, `scenarios:` les scénarios des
+  personas (D1219 : le véhicule et la banque y écrivent leurs scénarios,
+  l'entrepôt sa page du support) ; **au module**, par `documentation:` de
+  son fichier — `glossary:`, `regulation:` ; **au projet**, les clés
+  directement dans `syncytium.yml` — `home:`, `author:`, `contact:`,
+  `accessibility:`, `skill:`, `glossary:`. Rien n'est obligatoire : sans
+  ces fichiers, Syncytium génère tout avec ses défauts (D1090) ; le
+  détail de chaque clé dans [documentation.md](documentation.md) §12 ;
 - **`settings.yml`** de l'environnement, facultatif (D1095) — les
   réglages techniques qui varient d'un environnement à l'autre et valent
   pour toutes ses versions (D342) ; ce qui est partagé passe par les

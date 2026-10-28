@@ -349,7 +349,7 @@ de déclaration orpheline). L'exemple du cas 5 (`examples/05_entrepot/`) :
 
 ```text
 syncytium.yml                        # le projet — environments:, versions:
-resources/                           # les logos, icônes, images — partagés (D346)
+resources/                           # les images, logos, documents invariants (D346, D1529)
 environments/
 ├── environments.yml                 # <nom>: ~{…} — la liste des environnements
 ├── production/
@@ -366,6 +366,7 @@ versions/
 │       ├── version.yml              # version, release-notes, settings:, groups:, migrations:, modules:, hooks:
 │       ├── settings.yml             # la maison des types, les profils de confidentialité (D991–D993, D885)
 │       ├── groups.yml               # les groupes (D414)
+│       ├── resources/               # les documents, images, logos versionnables (D803, D1529)
 │       ├── <module>/
 │       │   ├── <module>.yml         # name, description, allow:, entities:, menu:, dashboards
 │       │   └── <entité>/
@@ -391,6 +392,7 @@ contact: evolutions@example.org      # le contact des demandes d'évolution (D11
 copyright: © 2026 L'entrepôt SAS     # le titulaire des droits d'auteur de l'application (D1355)
 environments: ~{environments/environments.yml}
 versions: ~{versions/versions.yml}
+resources: ~{resources/resources.yml}   # les ressources invariantes (D1529 ; la déclaration, ma lecture)
 ```
 
 **`visibility:` — ce qui se lit sans aucun compte** (D1151, tranchée
@@ -425,6 +427,14 @@ places — **le projet** (`syncytium.yml`) : le modèle Syncytium dont la
 configuration parle la langue ; **la migration** : la base d'origine,
 vers la destination qu'elle met à jour ; **la sandbox** (`version.yml`)
 — la version d'origine, avant l'essai.
+
+**`resources:` — les deux dossiers** (D1529) : à la racine, « des images,
+des logos ou des documents invariants » ; dans la version, « des
+documents, images, logos versionnables » (D803). *Ma lecture, en
+proposition* : la racine se déclare ici par la même clé et la même
+fiche — `name`, `description`, `file`, `credit` (D1384) — ; une
+ressource de la version qui porte le nom d'une ressource de la racine
+la surcharge, le plus proche l'emporte.
 
 **La description par fichier** (D810/D1082) : `description:` prend le
 texte en ligne ou un fichier — `description: ~{README.md}` (le cas 4) ;
@@ -577,7 +587,7 @@ modules:                             # la liste explicite (D415/D766)
   - ~{technique/technique.yml}
   - ~{tiers/tiers.yml}
 hooks: ~{hooks/hooks.yml}            # les hooks de la version (D777)
-resources: ~{resources/resources.yml}   # les ressources déclarées (D803) — chacune avec son credit: (D1384)
+resources: ~{resources/resources.yml}   # les ressources versionnables (D803, D1529) — chacune avec son credit: (D1384)
 from: <statut>/<version>             # en sandbox seulement : la version d'origine (D907), supprimé à la promotion (D928)
 ```
 

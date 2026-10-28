@@ -864,7 +864,9 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      liens, 202 amendées, 18 remplacées ; la classification à relire —
      le 28/10 : 348 par l'artefact cité, 305 par la section citée, 849
      par les mots, 13 par la plage du domaine, 10 par défaut ; une
-     famille `api` ajoutée, ma lecture ;
+     famille `api` ajoutée : **acquis le 28/10/2026 (D1526)** — les
+     treize familles, la relecture famille par famille à l'audit de
+     chaque chapitre ;
   3. la partie 3, Syncytium — chaque chapitre audité, ses marques
      soldées, puis déplacé et découpé ; le README de `docs/` ouvert et
      tenu à jour ; une PR ;

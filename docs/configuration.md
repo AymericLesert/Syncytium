@@ -418,8 +418,9 @@ ressource.
 D1531) : la langue des journaux, des traces et du catalogue des erreurs
 techniques — `language: fr` dans `syncytium.yml` (D1531 : « Dans le
 fichier d'environnement yml, language: n'est pas à sa place »), l'une
-des langues du core et des hooks de langue du projet (D1467), **non
-modifiable ensuite** ; « l'anglais ou le français selon le mode
+des langues du core et des hooks de langue du projet (D1467),
+**immuable : hors des versions, à la racine, la clé ne change plus**
+(D1532) ; « l'anglais ou le français selon le mode
 d'installation de Syncytium » (D1460), ou une langue apportée (D1465).
 *Ma lecture* : le concepteur l'écrit, `syncytium init` la vérifie.
 

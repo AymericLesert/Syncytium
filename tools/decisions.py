@@ -101,6 +101,8 @@ VERBES = [
     (r"amende|revoit|solde|corrige|rectifie|renverse", "amende"),
     (r"précise|étend|complète|confirme|exécute|généralise|applique|prolonge|reprend|répare", "précise"),
     (r"clôt|clot|ferme|résout", "clôt"),
+    # les appuis ne posent aucun lien, mais bornent la portée du verbe qui précède
+    (r"s'appuie|appuie|fonde|borne|suit|après|voir", "cite"),
 ]
 VERBE = re.compile("|".join(f"(?P<{lien}>{motif})" for motif, lien in VERBES), re.I)
 
@@ -140,6 +142,8 @@ def lire(chemin):
                 lien = v.lastgroup
                 fin = verbes[i + 1].start() if i + 1 < len(verbes) else len(seg)
                 portee = seg[v.end():fin]
+                if lien == "cite":
+                    continue
                 for cible in deplier(portee):
                     if cible < num:
                         liens.append((lien, cible))

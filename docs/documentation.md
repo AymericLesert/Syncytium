@@ -869,7 +869,9 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      chaque chapitre ;
   3. la partie 3, Syncytium — chaque chapitre audité, ses marques
      soldées, puis déplacé et découpé ; le README de `docs/` ouvert et
-     tenu à jour ; une PR ;
+     tenu à jour ; une PR : **en cours** depuis le 28/10/2026 (D1527 — le
+     chapitre 1, la configuration ; la table des treize chapitres dans
+     `docs/README.md`, lue par le tableau de bord) ;
   4. la partie 4, les cinq cas d'usage — les maisons, le yaml partie par
      partie, les documents générés ; une PR ;
   5. la partie 0, la présentation — le tiny déplié clé par clé, le menu

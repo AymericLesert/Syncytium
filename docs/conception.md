@@ -24864,6 +24864,22 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-28 (suite 3) — LA PAUSE : LE CHAPITRE 1, QUATRE POINTS SUR
+  TREIZE, SEPT DÉCISIONS (D1528–D1534, 1534 décisions).** Le point 1
+  appliqué avec D1528 ; le point 2 devenu D1529 et D1530 — trois
+  `resources/`, la racine, la version, le module — ; en chemin, D1531 et
+  D1532 — `language:` dans `syncytium.yml`, immuable à la racine — ;
+  D1533 — plus de `-disable`, la banque sans `cleanup.yml` — ; D1534 —
+  `differential` ; le point 3 appliqué (les clés de l'environnement,
+  `replication:`), le point 4 appliqué (`documentation.yml` aux quatre
+  lieux) ; le point 5 présenté — la forme courte d'un réglage (D590) —, en
+  attente. La forme des points fixée par l'auteur : la description, des
+  exemples, la situation qui demande l'arbitrage, la question. « je marque
+  une pause ». **À la reprise** : le point 5, puis les points 6 à 13 du
+  chapitre 1 ; ma lecture de D1531 (le concepteur écrit `language:`,
+  `syncytium init` la vérifie) et celle de D1529–D1530 (la déclaration
+  par `resources:` à chaque étage, le plus proche l'emporte) restent à
+  confirmer. Tout est committé et poussé.
 - **2026-10-28 (suite 2) — REPRISE DU SOIR : LE TABLEAU DE BORD, LA
   MATRICE, D1528 (1528 décisions).** « reprenons ... le tableau de bord
   n'affiche pas les chapitres de la partie 3 » — vérifié hors de

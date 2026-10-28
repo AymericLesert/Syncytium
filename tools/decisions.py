@@ -105,6 +105,15 @@ VERBES = [
 VERBE = re.compile("|".join(f"(?P<{lien}>{motif})" for motif, lien in VERBES), re.I)
 
 
+def deplier(texte):
+    """Les numéros de décision d'un texte, les plages « D1109–D1110 » dépliées."""
+    out = set()
+    for a, b in REFS_D.findall(texte):
+        a = int(a)
+        out.update(range(a, int(b) + 1) if b and a <= int(b) <= a + 200 else [a])
+    return out
+
+
 def lire(chemin):
     """Les décisions de la table : numéro, titre, le texte, la justification, les artefacts cités, les liens."""
     with open(chemin, encoding="utf-8") as f:
@@ -124,18 +133,19 @@ def lire(chemin):
         avant = tete.split(" : «")[0].split("« ")[0]
         liens = []
         for seg in re.split(r"\s*[;—]\s*", avant.strip(" ()")):
-            v = VERBE.search(seg)
-            if not v:
-                continue
-            lien = v.lastgroup
-            for a, b in REFS_D.findall(seg[v.end():]):
-                a = int(a)
-                for cible in range(a, int(b) + 1) if b and int(b) >= a else [a]:
+            # plusieurs verbes dans un segment (« amende D619 …, s'appuie sur D408 ») : chaque verbe prend les
+            # cibles qui le suivent, jusqu'au verbe suivant
+            verbes = list(VERBE.finditer(seg))
+            for i, v in enumerate(verbes):
+                lien = v.lastgroup
+                fin = verbes[i + 1].start() if i + 1 < len(verbes) else len(seg)
+                portee = seg[v.end():fin]
+                for cible in deplier(portee):
                     if cible < num:
                         liens.append((lien, cible))
-            for q in REFS_Q.findall(seg[v.end():]):
-                liens.append((lien, f"Q{q}"))
-        cites = sorted({int(a) for a, _ in REFS_D.findall(texte + " " + justification) if int(a) < num})
+                for q in REFS_Q.findall(portee):
+                    liens.append((lien, f"Q{q}"))
+        cites = sorted({c for c in deplier(texte + " " + justification) if c < num})
         decisions[num] = {
             "numero": num, "ligne": n, "titre": titre, "texte": texte, "justification": justification,
             "liens": liens, "cite": cites,
@@ -232,7 +242,7 @@ def audit(decisions, fam, racine):
                 textes[a] = f.read()
     cites = set()
     for t in textes.values():
-        cites |= {int(x) for x, _ in REFS_D.findall(t)}
+        cites |= deplier(t)
     mienne = [d for d in decisions.values() if d["famille"] == fam]
     print(f"# L'audit de la famille `{fam}` — {titre} — avant le déplacement (D1521)\n")
     print(f"Les artefacts : {', '.join(textes) or 'aucun'} ; {len(mienne)} décisions de la famille.\n")

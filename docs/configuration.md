@@ -368,7 +368,8 @@ versions/
 │       ├── groups.yml               # les groupes (D414)
 │       ├── resources/               # les documents, images, logos versionnables (D803, D1529)
 │       ├── <module>/
-│       │   ├── <module>.yml         # name, description, allow:, entities:, menu:, dashboards
+│       │   ├── <module>.yml         # name, description, allow:, entities:, menu:, dashboards, resources:
+│       │   ├── resources/           # les documents, images, logos attachés au module (D1530)
 │       │   └── <entité>/
 │       │       ├── <entité>.yml     # l'en-tête : name, identity, inheritance, history, fields:, validation:, gui:
 │       │       ├── fields.yml       # les champs ; les groupes (title:, fields:) — D1279
@@ -428,13 +429,13 @@ configuration parle la langue ; **la migration** : la base d'origine,
 vers la destination qu'elle met à jour ; **la sandbox** (`version.yml`)
 — la version d'origine, avant l'essai.
 
-**`resources:` — les deux dossiers** (D1529) : à la racine, « des images,
-des logos ou des documents invariants » ; dans la version, « des
-documents, images, logos versionnables » (D803). *Ma lecture, en
-proposition* : la racine se déclare ici par la même clé et la même
-fiche — `name`, `description`, `file`, `credit` (D1384) — ; une
-ressource de la version qui porte le nom d'une ressource de la racine
-la surcharge, le plus proche l'emporte.
+**`resources:` — les trois dossiers** (D1529, D1530) : à la racine, « des
+images, des logos ou des documents invariants » ; dans la version, « des
+documents, images, logos versionnables » (D803) ; dans le module, « des
+documents, images ou logos attachés au module ». *Ma lecture, en
+proposition* : chaque étage se déclare par la même clé et la même
+fiche — `name`, `description`, `file`, `credit` (D1384) — ; par le nom,
+le plus proche l'emporte : le module, puis la version, puis la racine.
 
 **La description par fichier** (D810/D1082) : `description:` prend le
 texte en ligne ou un fichier — `description: ~{README.md}` (le cas 4) ;
@@ -827,6 +828,7 @@ entities:                            # la liste explicite (D765)
   - ~{nomenclature/nomenclature.yml}
 menu: ~{menu.yml}                    # optionnel (D351) — sans lui, le défaut
 settings: ~{settings.yml}            # l'étage module de la cascade (D359)
+resources: ~{resources/resources.yml}   # les ressources attachées au module (D1530 ; la déclaration, ma lecture)
 dashboards: …                        # les tableaux de bord du module (composants.md)
 ```
 

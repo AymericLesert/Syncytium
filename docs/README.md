@@ -56,30 +56,36 @@ docs/
 La configuration des cas vit dans [`../examples/`](../examples/), les outils
 dans [`../tools/`](../tools/).
 
-## L'état des documents
+## L'avancement des treize chapitres
 
-Les documents d'aujourd'hui, leur destination et leur état. Un chapitre est
-*audité* avant d'être déplacé : les décisions de sa famille amendées ou
-remplacées sont confrontées à son texte, et ses marques « en proposition »
-sont soldées (D1521, D1526).
+Un chapitre par famille de décisions (D1526). Avant d'être réorganisé, un
+chapitre est *lu* : la classification de sa famille relue, les décisions
+amendées ou remplacées confrontées à son texte, ses marques « en
+proposition » soldées (D1521) ; puis il est *réorganisé* : déplacé, découpé,
+ses renvois réécrits. Les deux colonnes disent « — », « en cours » ou
+« fait le JJ/MM/AAAA ».
 
-| Le document | Sa destination | L'état |
-|---|---|---|
-| `conception.md` | `histoire/` — les décisions, le journal, le narratif ; `syncytium/README.md` — les piliers | à convertir en dernier (partie 2) |
-| `glossaire.md` | `syncytium/glossaire.md` | à auditer et déplacer |
-| `configuration.md` | `syncytium/configuration/` | à auditer et déplacer |
-| `entity.md`, `types.md` | `syncytium/modele/` | à auditer et déplacer |
-| `composants.md` | `syncytium/composants/` | à auditer, découper et déplacer |
-| `hooks.md` | `syncytium/hooks/` | à auditer et déplacer |
-| `connectors.md` | `syncytium/connecteurs/` | à auditer et déplacer |
-| `rights.md`, `security.md` | `syncytium/securite/` | à auditer et déplacer |
-| `mapping.md`, `migration.md` | `syncytium/reprise/` | à auditer et déplacer |
-| `administration.md`, `telemetry.md` | `syncytium/administration/` | à auditer et déplacer |
-| `documentation.md` | `syncytium/documentation/` ; `histoire/chantier-documentation.md` | à auditer, découper et déplacer |
-| `etude-comparative-20260718.md` | `etudes/comparative-2026-07-18.md` | à déplacer (partie 5) |
-| `../usecases/*.md` | `cas-d-usage/<cas>/` | à déplacer et découper (partie 4) |
-| `../README.md` | la racine : le tiny en accroche | à réécrire (partie 0) |
-| `presentation/` | — | à écrire (partie 0) |
+| # | Le chapitre | Les documents d'aujourd'hui | La destination | La lecture | La réorganisation |
+|---|---|---|---|---|---|
+| 1 | **La configuration et son écriture** | `configuration.md` | `syncytium/configuration/` | — | — |
+| 2 | **Le modèle et les types** | `entity.md`, `types.md` | `syncytium/modele/` | — | — |
+| 3 | **Les surfaces et les composants** | `composants.md` | `syncytium/composants/` | — | — |
+| 4 | **Les hooks** | `hooks.md` | `syncytium/hooks/` | — | — |
+| 5 | **Les connecteurs** | `connectors.md` | `syncytium/connecteurs/` | — | — |
+| 6 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/securite/` | — | — |
+| 7 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/reprise/` | — | — |
+| 8 | **L'administration et l'exploitation** | `administration.md` | `syncytium/administration/` | — | — |
+| 9 | **La télémétrie** | `telemetry.md` | `syncytium/administration/telemetrie.md` | — | — |
+| 10 | **La documentation** | `documentation.md` | `syncytium/documentation/` ; `histoire/chantier-documentation.md` | — | — |
+| 11 | **Les API et les échanges** | `documentation.md` §10 et §27 | `syncytium/documentation/developpeur.md` | — | — |
+| 12 | **Les cas d'usage** | `../usecases/*.md` | `cas-d-usage/` (partie 4) | — | — |
+| 13 | **La méthode et le projet** | `conception.md`, `../README.md` | `syncytium/README.md`, `histoire/` (parties 0 et 2) | — | — |
+
+Hors des familles : `glossaire.md` va à `syncytium/glossaire.md` avec le
+premier chapitre ; `etude-comparative-20260718.md` à
+`etudes/comparative-2026-07-18.md` (partie 5) ; `presentation/` et le README
+de la racine s'écrivent à la partie 0 ; `conception.md` se convertit en
+dernier (partie 2).
 
 *L'ordre des parties : ce plan, puis Syncytium chapitre par chapitre, les
 cas d'usage, la présentation, l'histoire, et les études à la demande

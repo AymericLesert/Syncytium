@@ -393,12 +393,15 @@ environments: ~{environments/environments.yml}
 versions: ~{versions/versions.yml}
 ```
 
-**`visibility:` — ce qui se lit sans aucun droit** (D1151) : `private`
-— rien ; `promotional` — la page de présentation, construite par
-défaut et mise à disposition (D1150) ; `public` — la documentation en
-mode public, sans donnée ni rien de confidentiel. *Mes lectures* : la
-clé au projet, le défaut `promotional`, la place dans `syncytium.yml` —
-à confirmer avec la promotionnelle (documentation.md, le rang 9).
+**`visibility:` — ce qui se lit sans aucun compte** (D1151, tranchée
+D1498) : `private` — rien ; `promotional` — la plaquette seule,
+construite par défaut et mise à disposition (D1150), c'est le défaut ;
+`public` — toute la documentation en mode public, sans donnée ni rien
+de confidentiel. La clé vit au projet, à côté de `promotional:`
+(D1511–D1513), qui dit si la plaquette existe : avec
+`promotional: false`, une visibilité `promotional`, écrite ou laissée à
+son défaut, **passe à `private`**, et l'ingestion le dit par une alerte
+(D1528).
 
 **`author:`, `contact:`, `copyright:` — le projet nommé** (D1153,
 D1355) : le concepteur, celui qui a conçu l'application et reçoit les
@@ -903,7 +906,8 @@ La description se vérifie en entier à l'ingestion, avant de servir
 **L'alerte**, pas l'erreur : la surcharge d'une clé au cumul de
 fichiers (D968) ; un plan ou une vue marquée dans un projet
 `promotional: false` (D1512 — « cette option peut être utilisée
-temporairement »).
+temporairement ») ; `visibility: promotional` dans un projet
+`promotional: false` — la visibilité passée à `private` (D1528).
 
 Une version en erreur rejoint le registre des versions essayées (D326)
 avec sa cause ; le retry passe par l'incrément du build (D323).

@@ -4577,7 +4577,10 @@ et le partenaire, sans aucun droit.
    marquée avec `promotional: false` est **une alerte d'ingestion, non
    une erreur** (D1512 : « cette option peut être utilisée
    temporairement ») — le plan et les marques dorment, la clé se pose
-   et se retire sans toucher au reste.
+   et se retire sans toucher au reste ; et `visibility: promotional`,
+   écrite ou par défaut, **passe à `private`** avec une alerte (D1528 :
+   « mettre une alerte pour indiquer que la visbillité est passée à
+   privée »).
 5. **Trois canaux**, le même contenu : dans l'application, à tout
    degré ; en édition imprimable, la plaquette en PDF par un gabarit
    (D1143) — la réunion de direction, le papier sur le bureau ; au dépôt,

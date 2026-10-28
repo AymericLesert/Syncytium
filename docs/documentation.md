@@ -861,8 +861,10 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      famille depuis la table, `tools/decisions.py` (D1521) : **en cours**
      — l'outil écrit le 26/10/2026 (le résumé, `--familles`, `--audit
      <famille>`, `--decision Dn`, `--json`) ; 1 524 décisions, 1 873
-     liens, 202 amendées, 18 remplacées ; la classification à relire :
-     348 par l'artefact cité, 775 par les mots du titre, 401 par défaut ;
+     liens, 202 amendées, 18 remplacées ; la classification à relire —
+     le 28/10 : 348 par l'artefact cité, 305 par la section citée, 849
+     par les mots, 13 par la plage du domaine, 10 par défaut ; une
+     famille `api` ajoutée, ma lecture ;
   3. la partie 3, Syncytium — chaque chapitre audité, ses marques
      soldées, puis déplacé et découpé ; le README de `docs/` ouvert et
      tenu à jour ; une PR ;

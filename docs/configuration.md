@@ -353,7 +353,8 @@ resources/                           # les images, logos, documents invariants (
 environments/
 ├── environments.yml                 # <nom>: ~{…} — la liste des environnements
 ├── production/
-│   ├── production.yml               # description, storage:, logging:, cleanup:, connectors:
+│   ├── production.yml               # description, listen:, storage:, logging:, cleanup:, connectors:,
+│   │                                # settings:, documentation:, dataset:, security_advisories: ; passive.yml : replication:
 │   ├── connectors.yml               # les connecteurs de l'environnement (D603/D617)
 │   ├── logging.yml                  # la journalisation (D343/D830)
 │   ├── cleanup.yml                  # le nettoyage des fichiers — les règles de rétention (D1073)
@@ -517,6 +518,13 @@ connectors: ~{connectors.yml}
   directory, location, webhook, siren, authentication, llm), `class:`
   l'implémentation, `parameters:` (les secrets marqués `*`) ; le
   détail dans [connectors.md](connectors.md) ;
+- **`replication:`** (D724–D726, D1534) — dans `environments/passive.yml`
+  seulement, le lien actif/passif du PCA-PRA (D114) : la forme courte,
+  `replication: disabled`, le défaut (D725) ; la forme riche, `mode:` —
+  `brut`, `differential`, `synchronous` — et `every:`, le rythme ;
+  `synchronous` sans `every:`, le flux continu ; actif et passif aux
+  mêmes versions et configurations (D744) ; le détail dans
+  [administration.md](administration.md) ;
 - **`cleanup.yml`** (D1073–D1075) — le fichier que la clé `cleanup:` de
   l'environnement désigne : à la racine, les règles de rétention nommées
   (la clé est le nom — `journal:`, `migration_cegid:`) — sans niveau

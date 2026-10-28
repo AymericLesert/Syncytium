@@ -390,9 +390,9 @@ d'ingestion ; elle peut être la langue technique. *(D1465–D1467)*
 
 **Langue technique** — La langue des journaux, des traces et du
 catalogue des erreurs techniques d'une instance : définie à la
-configuration — `language:` de l'environnement, écrit par
-`syncytium init` —, non modifiable ; l'une des langues du core ou une
-langue apportée par le projet. *(D1460, D1465, D1473)*
+configuration — `language:` de `syncytium.yml` —, non modifiable ;
+l'une des langues du core ou une langue apportée par le projet.
+*(D1460, D1465, D1473, D1531)*
 
 **Lecteur (de la documentation)** — Un rôle, non une personne : douze
 rôles lisent la documentation, chacun sous ses droits (D1139–D1147).

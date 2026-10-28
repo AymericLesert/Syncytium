@@ -3102,7 +3102,7 @@ disponible » plutôt que « sans objet », rien à compléter.)*
 > ## 4. Le dépannage
 >
 > Le catalogue des erreurs du core **en français** — la langue technique
-> de l'instance, `language: fr` (D1460, D1473) —, les familles,
+> de l'instance, `language: fr` dans `syncytium.yml` (D1460, D1473, D1531) —, les familles,
 > l'arbre de décision schématique (D1456) ; **les contacts** : *non
 > écrits* — le prestataire informatique, l'intégrateur de l'ERP, le
 > concepteur sont au texte du réseau du D.A.T., pas encore au crédit de

@@ -2770,7 +2770,7 @@ supportées par Syncytium. Par contre, la langue est définie à la
 configuration et n'est pas modifiable ») — choisie à
 l'installation parmi les langues du core **ou une langue apportée par
 le projet** (D1465), écrite à l'environnement par `syncytium init`,
-`language:`, immuable (acquis, D1473) —, la cause probable et le remède, le renvoi à la fiche de procédure ; la référence de Syncytium
+`language:` de `syncytium.yml`, immuable (D1473, D1531) —, la cause probable et le remède, le renvoi à la fiche de procédure ; la référence de Syncytium
 (D1411), instanciée ; les erreurs des utilisateurs, la validation, les
 droits, sont à la fonctionnelle et au contrat d'API. **Les familles**,
 dans l'ordre où on les rencontre : l'application ne démarre pas, le

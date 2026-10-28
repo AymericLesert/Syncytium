@@ -6,6 +6,11 @@ from: Syncytium-1.0
 # Le nom du projet
 name: entrepot
 
+# La langue technique de l'instance
+# Celle des journaux, des traces et des erreurs techniques, parmi les langues du core et des hooks de langue ;
+# elle ne change plus.
+language: fr
+
 # La description du projet
 description: L'entrepôt de données de l'entreprise — les données de Cegid PMI standardisées, harmonisées et fiabilisées
 

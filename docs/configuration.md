@@ -385,6 +385,7 @@ versions/
 ```yaml
 from: Syncytium-1.0                  # le core de Syncytium, la première clé (D1083, D1361)
 name: entrepot
+language: fr                         # la langue technique de l'instance (D1460, D1531)
 description: L'entrepôt de données de l'entreprise — …
 visibility: promotional              # public | private | promotional — ce qui se lit sans aucun droit (D1151 ; tranchée D1498 — promotional : la plaquette seule)
 promotional: true                    # false : l'application n'a pas de promotionnelle et n'en aura pas (D1511, D1513)
@@ -412,6 +413,15 @@ demandes d'évolution ; le titulaire des droits d'auteur de la
 configuration. La page des versions (documentation.md §26) les
 reprend, avec les auteurs de chaque version et les droits de chaque
 ressource.
+
+**`language:` — la langue technique de l'instance** (D1460, D1473,
+D1531) : la langue des journaux, des traces et du catalogue des erreurs
+techniques — `language: fr` dans `syncytium.yml` (D1531 : « Dans le
+fichier d'environnement yml, language: n'est pas à sa place »), l'une
+des langues du core et des hooks de langue du projet (D1467), **non
+modifiable ensuite** ; « l'anglais ou le français selon le mode
+d'installation de Syncytium » (D1460), ou une langue apportée (D1465).
+*Ma lecture* : le concepteur l'écrit, `syncytium init` la vérifie.
 
 **`from:` — la clé de l'amorçage, `syncytium init`** (D1358, D1360) : « La version du format
 est utilisée par un utilitaire pour récupérer le core, ingérer la
@@ -456,14 +466,6 @@ différent » (D1428) —, hors des versions ; **`syncytium init` le crée autom
 les variables référencées, nommées exactement, à renseigner — pas de
 gabarit (D1429) ; le D.A.T. (documentation.md §28) expose la liste des
 variables, dans la limite des confidentialités.
-
-**`language:` — la langue technique de l'instance** (D1460, D1473) :
-la langue des journaux, des traces et du catalogue des erreurs
-techniques — `language: fr` dans `environments/<env>.yml`, **écrite par
-`syncytium init`** parmi les langues du core et des hooks de langue du
-projet (D1467), **non modifiable ensuite** ; « l'anglais ou le français
-selon le mode d'installation de Syncytium » (D1460), ou une langue
-apportée (D1465).
 
 **`dataset:` — le jeu de données d'une sandbox de démonstration**
 (D1503–D1505, le rang 9) : la sandbox de démonstration a **tous ses

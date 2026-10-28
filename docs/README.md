@@ -67,7 +67,7 @@ ses renvois réécrits. Les deux colonnes disent « — », « en cours » ou
 
 | # | Le chapitre | Les documents d'aujourd'hui | La destination | La lecture | La réorganisation |
 |---|---|---|---|---|---|
-| 1 | **La configuration et son écriture** | `configuration.md` | `syncytium/configuration/` | en cours | — |
+| 1 | **La configuration et son écriture** | `configuration.md` | `syncytium/configuration/` | en cours — 2 écarts sur 13 arbitrés (D1528–D1530) | — |
 | 2 | **Le modèle et les types** | `entity.md`, `types.md` | `syncytium/modele/` | — | — |
 | 3 | **Les surfaces et les composants** | `composants.md` | `syncytium/composants/` | — | — |
 | 4 | **Les hooks** | `hooks.md` | `syncytium/hooks/` | — | — |

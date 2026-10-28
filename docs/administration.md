@@ -365,12 +365,12 @@ en proposition, dans `environments/passive.yml`) :
 |---|---|---|
 | `disabled` | **le défaut** — pas de passif, pas de synchronisation (D725) | — |
 | `brut` | **la copie de l'instance à intervalle régulier** — les fichiers des entités, les fichiers de configuration et la base | non |
-| `differentiel` | **la base au natif du moteur ou de l'infrastructure** (Syncytium ne gère pas la base) ; Syncytium synchronise **les fichiers des entités et de configuration** | non |
+| `differential` | **la base au natif du moteur ou de l'infrastructure** (Syncytium ne gère pas la base) ; Syncytium synchronise **les fichiers des entités et de configuration** | non |
 | `synchronous` | **les actions historisées, transmises au passif, l'exécution confirmée supprime l'action en attente** (le patron de la file — D686) ; **une translation** (D744) : la sérialisation des enregistrements (D687) expédiée, **les fichiers répliqués de même** (l'upload suivi) | **oui** — le rejeu s'appuie sur la sérialisation réalisée |
 
 **Une montée de version est couverte par les trois modes** : la
 copie l'emporte (brut), les fichiers de configuration la portent
-(differentiel), l'action de migration s'expédie comme les autres
+(differential), l'action de migration s'expédie comme les autres
 (synchronous). **L'invariant** (D744) : les deux instances
 actif/passif sont **forcément les mêmes versions de schéma, aux
 mêmes configurations** — la réplication ne traduit jamais entre

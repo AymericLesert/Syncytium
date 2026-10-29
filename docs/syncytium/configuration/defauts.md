@@ -1,17 +1,18 @@
 # L'inventaire des défauts du socle
 
-*La suite du [sous-chapitre 3.5](version.md), `settings.yml` : la propriété, sa valeur, son étage, statique ou dynamique (D1175).*
+*La suite du [sous-chapitre 3.5](version.md) : ce que Syncytium décide
+quand la configuration ne dit rien (D1175).*
 
-**L'inventaire des défauts du socle** (D1175 ; *à compléter à chaque
-défaut nouveau*). **Sa structure est
-celle des settings** (D1239 — « la propriété doit être dans un bloc
-représentant le composant, qui lui-même doit être dans un bloc
-représentant le type de composant ») : **le type de composant → le
-composant → la propriété**. L'inventaire s'écrit donc comme un
-`settings.yml` qui redirait les défauts du socle ; une valeur
-*dynamique* (D588) se surcharge aussi par l'administration à chaud, les
-autres sont statiques — elles engagent le stockage ou la structure et
-se changent par une version :
+Chaque défaut du socle a une propriété, une valeur, un étage, et un
+mode, statique ou dynamique. Une valeur dynamique se surchage aussi par
+l'administration, à chaud (D588). Une valeur statique engage le stockage
+ou la structure : elle se change par une version. L'inventaire se
+complète à chaque défaut nouveau.
+
+Sa structure est celle des settings (D1239). Dans vos mots : « la
+propriété doit être dans un bloc représentant le composant, qui lui-même
+doit être dans un bloc représentant le type de composant ». L'inventaire
+s'écrit donc comme un `settings.yml` qui redirait les défauts du socle.
 
 ```yaml
 # L'inventaire des défauts du socle, dans la forme des settings (D1239) — les valeurs sont celles du socle
@@ -92,17 +93,32 @@ application:
     values: pareto[80/20]          # dynamique — les valeurs et leur fréquence au dictionnaire (D1290–D1291)
 ```
 
-**Le bloc `rgpd:` des settings** (D1323) : à la racine des settings —
-`rgpd: { controller: <groupe>,
-legal: …, purpose: …, contact: …, dpo: { name, email, phone } }`
-(le contact et le DPO au projet, D1330) — les défauts réglementaires de tout
-traitement du projet, surchargés par les settings du module, de
-l'entité, puis par le traitement, propriété par propriété (D1322,
-D1324–D1325 — quatre niveaux) ; sans
-défaut du socle — absent, le registre écrit « non précisé ».
+## Le bloc `rgpd:` des settings (D1323)
 
-*Hors de l'inventaire* : le seuil de complétude n'a pas de défaut, le
-moteur mesure et ne refuse pas (D1221) ; le statut `production` seul
-accepté (D1115) est une règle, non un défaut ; les profils de
-confidentialité (D885) ne sont pas des settings : ils vivent à la
-racine du projet, dans `syncytium.yml` (D1536).
+Le bloc `rgpd:` est à la racine des settings. Il porte les défauts
+réglementaires de tout traitement du projet :
+
+```yaml
+rgpd:
+  controller: <groupe>             # qui répond des traitements
+  legal: …                         # la base légale
+  purpose: …                       # la finalité
+  contact: …                       # le contact et le DPO, au projet (D1330)
+  dpo: { name: …, email: …, phone: … }
+```
+
+Ces défauts se surchargent par les settings du module, de l'entité, puis
+par le traitement, propriété par propriété : quatre niveaux (D1322,
+D1324–D1325). Ils n'ont pas de défaut du socle : absent, le registre des
+traitements écrit « non précisé ».
+
+## Hors de l'inventaire
+
+Trois choses ressemblent à des défauts et n'en sont pas :
+
+- le seuil de complétude n'a pas de défaut : le moteur mesure et ne
+  refuse pas (D1221) ;
+- le statut `production` seul accepté (D1115) est une règle, non un
+  défaut ;
+- les profils de confidentialité (D885) ne sont pas des settings : ils
+  vivent à la racine du projet, dans `syncytium.yml` (D1536).

@@ -164,15 +164,18 @@ environments: ~{environments/environments.yml}
 name: entrepot
 ```
 
-Trois règles complètent la forme. **Aucune référence de décision dans la
-configuration** (D1085) : les décisions disent le cheminement, la
-configuration dit la finalité et l'usage. **Une ligne de 120 caractères
-au plus** (D1097) : le commentaire garde sa nature sur sa première ligne,
-son apport se replie sur les suivantes. **Les sous-clés qui se répètent
-à l'identique** d'un frère à l'autre, le `type` et la `class` des
-connecteurs, le `level` et les `groups` des profils, **s'expliquent une
-fois, sur le bloc parent** (D1098), et s'écrivent alors serrées, sans
-ligne vide.
+Trois règles complètent la forme :
+
+- **aucune référence de décision dans la configuration** (D1085) : les
+  décisions disent le cheminement, la configuration dit la finalité et
+  l'usage ;
+- **une ligne de 120 caractères au plus** (D1097) : le commentaire garde
+  sa nature sur sa première ligne, son apport se replie sur les
+  suivantes ;
+- **les sous-clés qui se répètent à l'identique** d'un frère à l'autre,
+  le `type` et la `class` des connecteurs, le `level` et les `groups` des
+  profils, **s'expliquent une fois, sur le bloc parent** (D1098), et
+  s'écrivent alors serrées, sans ligne vide.
 
 ## Les décisions
 

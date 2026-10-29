@@ -35,29 +35,6 @@ field:
     # commandes portent la leur.
     currency: EUR
 
-# Les profils de confidentialité
-# Un niveau et les groupes qui voient le champ, nommés une fois et référencés au champ ; chaque profil porte son
-# niveau (level) et ses groupes (groups) : confidentiality: ${settings.confidentiality.financier}.
-confidentiality:
-
-  # Le profil financier
-  # Les prix de revient, les prix d'achat, les valeurs de stock, le bancaire.
-  financier:
-    level: protected
-    groups: [achats, direction]
-
-  # Le profil de la direction
-  # Les marges, les commissions.
-  direction:
-    level: protected
-    groups: [direction]
-
-  # Le profil commercial
-  # Les conditions commerciales.
-  commercial:
-    level: protected
-    groups: [commercial, direction]
-
 # Le réglementaire
 # Le bloc rgpd: du projet, hérité par les modules, les entités et les traitements : qui répond des traitements, sur
 # quelle base, pour quelle finalité ; le contact et le délégué.

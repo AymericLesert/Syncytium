@@ -88,7 +88,7 @@ quantite:
 
 prix_unitaire:
   type: amount
-  confidentiality: ${settings.confidentiality.financier}
+  confidentiality: ${confidentiality.financier}
   label: Prix unitaire
   description: >-
     La valorisation du mouvement, réservée aux achats et à la direction. Gardé sur le mouvement, à la différence du
@@ -118,7 +118,7 @@ valide:
 valeur:
   type: amount
   formula: prix_unitaire * quantite.value if prix_unitaire != null
-  confidentiality: ${settings.confidentiality.financier}
+  confidentiality: ${confidentiality.financier}
   label: Valeur
   description: >-
     Recalculée ici, la valeur de l'ERP n'est pas reprise : le montant fois le nombre nu de la quantité, signé comme elle

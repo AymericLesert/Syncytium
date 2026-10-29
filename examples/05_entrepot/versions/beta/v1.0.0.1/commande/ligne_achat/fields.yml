@@ -40,13 +40,13 @@ quantite_recue:
 
 prix_brut:
   type: amount
-  confidentiality: ${settings.confidentiality.financier}
+  confidentiality: ${confidentiality.financier}
   label: Prix unitaire brut
 
 prix_net:
   type: amount
   required: true
-  confidentiality: ${settings.confidentiality.financier}
+  confidentiality: ${confidentiality.financier}
   label: Prix unitaire net
   hint: Le prix après remises.
 
@@ -97,7 +97,7 @@ fournisseur:
 montant:
   type: amount
   formula: prix_net * quantite
-  confidentiality: ${settings.confidentiality.financier}
+  confidentiality: ${confidentiality.financier}
   label: Montant
 
 reste_a_recevoir:

@@ -182,10 +182,11 @@ partagent un bloc de trente-huit champs par `fields:
 - **l'imbrication est permise** —
   `${triggers.${environment.name}.filename}`.
 
-**L'interpolation lit aussi les settings** (D885 — « on exploite une
-capacité de la configuration ») : `confidentiality:
-${settings.confidentiality.financier}` référence un profil nommé une
-fois dans `settings.yml`.
+**L'interpolation lit aussi la racine du projet** (D885 — « on exploite
+une capacité de la configuration » ; D1536) : `confidentiality:
+${confidentiality.financier}` référence un profil nommé une fois dans
+`syncytium.yml` (*la forme de la référence, ma lecture* ; l'autre forme
+possible, le nom seul, `confidentiality: financier`).
 
 ### 2.4 bis Rien hors de la configuration (D1440)
 
@@ -348,7 +349,7 @@ déduit de l'arborescence, chaque lien s'écrit** (D765–D767, D805 : pas
 de déclaration orpheline). L'exemple du cas 5 (`examples/05_entrepot/`) :
 
 ```text
-syncytium.yml                        # le projet — environments:, versions:
+syncytium.yml                        # le projet — language:, confidentiality:, environments:, versions:
 resources/                           # les images, logos, documents invariants (D346, D1529)
 environments/
 ├── environments.yml                 # <nom>: ~{…} — la liste des environnements
@@ -365,7 +366,7 @@ versions/
 │   ├── beta.yml                     # environment: staging ; versions: [le pattern]
 │   └── v1.0.0.0/
 │       ├── version.yml              # version, release-notes, settings:, groups:, migrations:, modules:, hooks:
-│       ├── settings.yml             # la maison des types, les profils de confidentialité (D991–D993, D885)
+│       ├── settings.yml             # la maison des types et des réglages (D991–D993, D1535)
 │       ├── groups.yml               # les groupes (D414)
 │       ├── resources/               # les documents, images, logos versionnables (D803, D1529)
 │       ├── <module>/
@@ -387,6 +388,8 @@ versions/
 from: Syncytium-1.0                  # le core de Syncytium, la première clé (D1083, D1361)
 name: entrepot
 language: fr                         # la langue technique de l'instance (D1460, D1531)
+confidentiality:                     # les profils de confidentialité, à la racine (D885, D1536)
+  financier: { level: protected, groups: [achats, direction] }
 description: L'entrepôt de données de l'entreprise — …
 visibility: promotional              # public | private | promotional — ce qui se lit sans aucun droit (D1151 ; tranchée D1498 — promotional : la plaquette seule)
 promotional: true                    # false : l'application n'a pas de promotionnelle et n'en aura pas (D1511, D1513)
@@ -440,6 +443,12 @@ places — **le projet** (`syncytium.yml`) : le modèle Syncytium dont la
 configuration parle la langue ; **la migration** : la base d'origine,
 vers la destination qu'elle met à jour ; **la sandbox** (`version.yml`)
 — la version d'origine, avant l'essai.
+
+**`confidentiality:` — les profils de confidentialité** (D885, D1536 :
+« Cette section est définie à la racine de Syncytium ») : un profil
+nomme une fois le niveau (D25) et les groupes qui voient (D26) ;
+les champs le référencent par l'interpolation (§2.4). Les profils ne
+sont pas des settings : ils vivent ici, hors des versions.
 
 **`resources:` — les trois dossiers** (D1529, D1530) : à la racine, « des
 images, des logos ou des documents invariants » ; dans la version, « des
@@ -681,11 +690,6 @@ field:                               # le type de composant
 
 entity:
   history: true                      # l'historisation par défaut pour toute l'application (D1174)
-
-confidentiality:                     # les profils nommés (D885) — des déclarations, non des défauts : à la racine (D1239)
-  financier:
-    level: protected
-    groups: [achats, direction]
 ```
 
 - la clé est le nom ; sans `type:`, elle règle les défauts d'un type du
@@ -833,8 +837,8 @@ défaut du socle — absent, le registre écrit « non précisé ».
 *Hors de l'inventaire* : le seuil de complétude n'a pas de défaut, le
 moteur mesure et ne refuse pas (D1221) ; le statut `production` seul
 accepté (D1115) est une règle, non un défaut ; les profils de
-confidentialité (D885) sont des déclarations nommées, non des défauts
-— ils restent à la racine des settings (ma lecture).
+confidentialité (D885) ne sont pas des settings : ils vivent à la
+racine du projet, dans `syncytium.yml` (D1536).
 
 ### 3.6 `groups.yml` — les groupes (D414)
 
@@ -921,7 +925,7 @@ expressions.
 |---|---|---|
 | les settings et les types | Syncytium → la version (`settings.yml`) → le module → l'entité → le champ | D359/D360/D588, D991–D993 |
 | `allow:` | l'application → le module → l'entité → le champ | D886 |
-| la confidentialité | le niveau (D25) × les groupes (D26), le profil nommé aux settings, référencé au champ | D885 |
+| la confidentialité | le niveau (D25) × les groupes (D26), le profil nommé à la racine du projet, référencé au champ | D885, D1536 |
 | `normalize:` | le défaut du type aux settings → le champ | D870/D872, D991 |
 | `history:` | `settings.yml` de la version → le module → l'entité ; l'opt-out par `history: false` ; le défaut du socle = inactif | D168, D1174 |
 | le catalogue des textes du moteur | le core → le hook → l'application, qui reprend, surcharge ou ajoute — une langue entière, au besoin | D1160–D1163, D1465 |

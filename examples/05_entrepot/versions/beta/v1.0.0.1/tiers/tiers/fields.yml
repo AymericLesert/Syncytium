@@ -63,13 +63,13 @@ tva:
 
 iban:
   type: iban
-  confidentiality: ${settings.confidentiality.financier}
+  confidentiality: ${confidentiality.financier}
   label: IBAN
   description: Le bancaire est réservé aux achats et à la direction, par le profil financier des réglages.
 
 bic:
   type: bic
-  confidentiality: ${settings.confidentiality.financier}
+  confidentiality: ${confidentiality.financier}
   label: BIC
 
 # Les conditions

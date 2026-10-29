@@ -45,6 +45,6 @@ fields:
   engage:
     type: amount
     formula: commandes.sum(total if statut = "en_cours")
-    confidentiality: ${settings.confidentiality.financier}
+    confidentiality: ${confidentiality.financier}
     label: Engagé
     hint: Le montant engagé en commandes d'achat non soldées — réservé aux achats et à la direction.

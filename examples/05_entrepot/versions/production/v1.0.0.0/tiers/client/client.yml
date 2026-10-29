@@ -25,13 +25,13 @@ fields:
 
   taux_representant:
     type: percentage
-    confidentiality: ${settings.confidentiality.direction}
+    confidentiality: ${confidentiality.direction}
     label: Commission
     hint: Le taux de commission du représentant — réservé à la direction.
 
   encours_maximum:
     type: amount
-    confidentiality: ${settings.confidentiality.commercial}
+    confidentiality: ${confidentiality.commercial}
     label: Encours maximum
     hint: Le plafond d'encours accordé au client.
     description: Le découvert autorisé, à la devise du tiers.

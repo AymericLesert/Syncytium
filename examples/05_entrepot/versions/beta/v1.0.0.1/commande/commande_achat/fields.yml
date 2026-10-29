@@ -87,7 +87,7 @@ statut:
 total:
   type: amount
   formula: lignes.sum(montant)
-  confidentiality: ${settings.confidentiality.financier}
+  confidentiality: ${confidentiality.financier}
   label: Total
   description: La somme des montants des lignes ; les montants d'achat sont réservés aux achats et à la direction.
 

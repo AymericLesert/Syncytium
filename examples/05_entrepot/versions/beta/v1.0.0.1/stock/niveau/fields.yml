@@ -58,7 +58,7 @@ stock_minimum:
 
 prix_unitaire:
   type: amount
-  confidentiality: ${settings.confidentiality.financier}
+  confidentiality: ${confidentiality.financier}
   label: Prix unitaire du lot
   description: À la devise de l'entreprise ; réservé aux achats et à la direction.
 
@@ -91,7 +91,7 @@ disponible:
 valeur:
   type: amount
   formula: prix_unitaire * quantite if prix_unitaire != null
-  confidentiality: ${settings.confidentiality.financier}
+  confidentiality: ${confidentiality.financier}
   label: Valeur
   description: Restreinte comme le prix.
 

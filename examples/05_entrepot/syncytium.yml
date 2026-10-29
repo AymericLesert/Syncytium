@@ -34,6 +34,29 @@ promotional: false
 # Globale, hors des versions : la présentation de l'entrepôt et la mention d'information du RGPD, ancrée là.
 home: ~{documentation/home.md}
 
+# Les profils de confidentialité
+# Un niveau et les groupes qui voient le champ, nommés une fois et référencés au champ ; chaque profil porte son
+# niveau (level) et ses groupes (groups) : confidentiality: ${confidentiality.financier}.
+confidentiality:
+
+  # Le profil financier
+  # Les prix de revient, les prix d'achat, les valeurs de stock, le bancaire.
+  financier:
+    level: protected
+    groups: [achats, direction]
+
+  # Le profil de la direction
+  # Les marges, les commissions.
+  direction:
+    level: protected
+    groups: [direction]
+
+  # Le profil commercial
+  # Les conditions commerciales.
+  commercial:
+    level: protected
+    groups: [commercial, direction]
+
 # Les environnements d'exécution
 # Chaque environnement porte le storage de l'application, ses connecteurs, sa journalisation et son nettoyage ; rien ne
 # se déduit de l'arborescence, la déclaration fait foi.

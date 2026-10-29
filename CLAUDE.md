@@ -68,7 +68,9 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   « didactique, lisible et concise … sans oublier de présenter toutes les
   options que nous avons vues ») : chaque notion s'explique avant de se
   nommer, chaque règle a son exemple — en YAML quand la configuration est
-  en jeu, pris dans un cas du dépôt de préférence —, une idée par phrase.
+  en jeu, pris dans un cas du dépôt de préférence —, une idée par phrase ;
+  **des listes à puces** quand le texte décrit une liste d'actions ou de
+  valeurs (D1544).
 - **Un chapitre se fait en trois temps** (D1521, D1543) : la lecture — l'audit
   par famille, les écarts arbitrés point par point —, la réorganisation —
   le découpage vérifié, l'histoire sortie, les liens —, puis la

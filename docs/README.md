@@ -70,7 +70,7 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 | # | Le chapitre | Les documents d'aujourd'hui | La destination | La lecture | La réorganisation |
 |---|---|---|---|---|---|
 | 1 | **La configuration et son écriture** | `configuration.md` | `syncytium/configuration/` | fait le 29/10/2026 (13 points, D1528–D1540) | fait le 29/10/2026 (six fichiers, D1541) ; réécrite le 29/10/2026 (D1542–D1544) |
-| 2 | **Le modèle et les types** | `entity.md`, `types.md` | `syncytium/modele/` | — | — |
+| 2 | **Le modèle et les types** | `entity.md`, `types.md` | `syncytium/modele/` | en cours | — |
 | 3 | **Les surfaces et les composants** | `composants.md` | `syncytium/composants/` | — | — |
 | 4 | **Les hooks** | `hooks.md` | `syncytium/hooks/` | — | — |
 | 5 | **Les connecteurs** | `connectors.md` | `syncytium/connecteurs/` | — | — |

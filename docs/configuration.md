@@ -878,7 +878,7 @@ allow:                               # la cascade de l'allow (D886) — ici, l'e
 entities:                            # la liste explicite (D765)
   - ~{article/article.yml}
   - ~{nomenclature/nomenclature.yml}
-menu: ~{menu.yml}                    # optionnel (D351) — sans lui, le défaut
+menu: ~{menu.yml}                    # optionnel (D351) — sans lui, le défaut ; la forme ci-dessous (D1237)
 settings: ~{settings.yml}            # l'étage module de la cascade (D359)
 resources: ~{resources/resources.yml}   # les ressources attachées au module (D1530 ; la déclaration, ma lecture)
 dashboards: …                        # les tableaux de bord du module (composants.md)
@@ -886,6 +886,40 @@ dashboards: …                        # les tableaux de bord du module (composa
 
 **Déclarer un module, c'est l'activer** (D350) : présent = actif,
 retiré = désactivé par une nouvelle version.
+
+**`menu.yml` — une carte d'entrées nommées** (D1237 ; D351, D439) : dans
+l'ordre d'affichage, chaque entrée porte son `label:` par langue et
+son `link:`, l'adresse logique de D439 — `<module>.<entité>` la liste par
+défaut, `[<liste>]` une liste nommée, `.<opération>`, `[+<formulaire>]`,
+`[@<wizard>]`, `<module>[<dashboard>]` — ; un sous-menu porte `items:`,
+la carte de ses entrées. **Une entrée sans `label:` prend le titre de la
+surface qu'elle lie** ; un sous-menu sans `label:` prend son nom nu, et
+la complétude le compte ; l'icône vient de la surface visée (D439) ; le
+dictionnaire `label:` du module (D440) ne sert pas au menu. Sans menu
+déclaré, le défaut ne connaît qu'une liste par entité (D351). Le menu
+est filtré par la confidentialité à l'affichage. L'exemple de la banque
+(le cas 4), le premier au dépôt (D1230) :
+
+```yaml
+# banque/menu.yml
+accueil:
+  label: { fr: Tableau de bord, en: Dashboard, es: Panel de control }
+  link: banque[accueil]              # le tableau de bord du module
+comptes:
+  label: { fr: Comptes bancaires, en: Accounts, es: Cuentas bancarias }
+  link: banque.compte                # la liste par défaut de l'entité
+ecritures:                           # un sous-menu : une entrée par liste
+  label: { fr: Écritures, en: Entries, es: Apuntes }
+  items:
+    operations:
+      link: banque.ecriture[par_operation]   # sans label: — le titre de la liste
+    rapprochement:
+      link: banque.ecriture[pointage]
+referential:                         # un sous-menu sans label: — son nom nu
+  items:
+    budgets:
+      link: banque.budget
+```
 
 ### 3.8 L'entité, les champs, les surfaces
 
@@ -975,18 +1009,3 @@ temporairement ») ; `visibility: promotional` dans un projet
 
 Une version en erreur rejoint le registre des versions essayées (D326)
 avec sa cause ; le retry passe par l'incrément du build (D323).
-
-## 6. Les points ouverts
-
-- `menu.yml` — décidé (D351, D439) ; **le premier exemple au dépôt :
-  `banque/menu.yml` du cas 4** (D1230 — l'accueil, les comptes, les
-  écritures en sous-menu avec une entrée par liste, les référentiels) ;
-  **la forme, retouchée par l'auteur (D1237 — amende D439 « pures
-  adresses » et D1236)** : une carte d'entrées nommées — chaque entrée
-  porte `label:` par langue et `link:`, l'adresse ; un sous-menu porte
-  `items:`, la carte de ses entrées ; l'ordre est celui de la carte ;
-  *mes lectures* : sans `label:`, le titre de la surface liée ; le
-  dictionnaire `label:` du module (D440/D1236) ne sert plus au menu ;
-  le bloc
-  `dashboards:` a le sien au cas 5 (`stock[pilotage]`) et au cas 4
-  (`banque[accueil]`).

@@ -4605,8 +4605,8 @@ et le partenaire, sans aucun droit.
    … un fichier CSV par entité. Ces fichiers peuvent être issus de
    données inventées, réelles ou générées par l'IA. Cela est de la
    responsabilité du concepteur et des outils qu'il utilise ») :
-   `dataset:` sur l'environnement sandbox de démonstration (*la forme en
-   proposition* : `dataset: ~{demo/}`, un fichier par entité) ; les
+   `dataset:` sur l'environnement sandbox de démonstration (la forme,
+   D1537 : une carte, chaque entité vers son fichier CSV) ; les
    fichiers dans le gabarit de l'import (D1211, D1412), chargés par son
    dry-run tout-ou-rien (D234) à l'initialisation et à la recharge ; des
    données réelles engagent le concepteur — le RGPD, la confidentialité

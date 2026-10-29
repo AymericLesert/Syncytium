@@ -486,8 +486,17 @@ seule, avec un ratio d'espace, rien sur le disque) ;
 un par entité, dans le gabarit de l'import (D1211, D1412), chargés par
 son dry-run tout-ou-rien (D234) à l'initialisation et à la recharge
 (D922) ; les données « inventées, réelles ou générées par l'IA … la
-responsabilité du concepteur et des outils qu'il utilise » (D1504) ; la
-forme, *en proposition* : `dataset: ~{demo/}`.
+responsabilité du concepteur et des outils qu'il utilise » (D1504) ;
+**la forme est une carte** (D1537) — chaque entité, dans l'adressage
+logique du point (D363), vers son fichier, cité par `~{…}` ; l'ordre de
+la carte est l'ordre de chargement, les référentiels d'abord :
+
+```yaml
+# environments/sandbox/sandbox.yml
+dataset:
+  technique.article: ~{demo/articles.csv}
+  stock.depot: ~{demo/depots.csv}
+```
 
 **`security_advisories:` — la veille des CVE** (D1431, D1444) : à
 l'environnement, « plus parlant » — `url:` l'adresse du fichier d'avis

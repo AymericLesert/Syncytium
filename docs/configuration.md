@@ -978,9 +978,6 @@ avec sa cause ; le retry passe par l'incrément du build (D323).
 
 ## 6. Les points ouverts
 
-- les propriétés de `documentation.yml` — le chantier de la génération
-  de la documentation est ouvert, avant l'architecture technique
-  (D1118) : [documentation.md](documentation.md) §12 ;
 - `menu.yml` — décidé (D351, D439) ; **le premier exemple au dépôt :
   `banque/menu.yml` du cas 4** (D1230 — l'accueil, les comptes, les
   écritures en sous-menu avec une entrée par liste, les référentiels) ;

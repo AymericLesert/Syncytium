@@ -114,7 +114,7 @@ confidentiality: ${confidentiality.financier}
 ### Rien hors de la configuration (D1440)
 
 Tout ce dont le moteur ou un hook a besoin est dans la configuration, et
-nulle part ailleurs. Dans vos mots : « Toutes les variables
+nulle part ailleurs. Le registre le dit : « Toutes les variables
 d'environnement sont présentes par construction dans la configuration.
 Une règle à porter dans le développement d'un hook ou dans le
 développement de Syncytium consiste à dire que les éléments de

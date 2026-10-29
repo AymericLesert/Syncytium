@@ -92,7 +92,7 @@ Le mot `from:` a un seul sens, en trois places (D1086) :
 erreurs techniques (D1460, D1531). Elle est l'une des langues du core,
 ou d'un hook de langue du projet (D1467). Elle vaut pour l'instance
 entière et ne change plus : hors des versions, à la racine, la clé est
-immuable (D1532). Dans vos mots : « l'anglais ou le français selon le
+immuable (D1532). Le registre le dit : « l'anglais ou le français selon le
 mode d'installation de Syncytium », ou une langue apportée (D1465).
 *Ma lecture* : le concepteur l'écrit, `syncytium init` la vérifie.
 
@@ -186,7 +186,7 @@ connectors: ~{connectors.yml}
   fichier ; dans l'entrepôt, `~{README.md}` porte aussi le texte du
   réseau que le D.A.T. reprend (D1427, D1433).
 - **`listen:`** : l'adresse et le port servis, `url:` et `port:`, par des
-  variables du déploiement (D1427, acquise D1435). Dans vos mots :
+  variables du déploiement (D1427, acquise D1435). Le registre le dit :
   « cela relève du déploiement et cela n'est pas porté par Syncytium et
   il ne doit pas être nécessaire de changer de version si une
   configuration réseau change. » Les valeurs sont dans le fichier des

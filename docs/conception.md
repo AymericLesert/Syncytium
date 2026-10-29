@@ -24923,6 +24923,10 @@ avant la synthèse Q16).
   et du 17 août, la planche I redessinée d'après l'original envoyé par
   l'auteur, le tiny, la documentation. Le README du chapitre 1 réécrit en
   échantillon ; « ajoute des bulletpoints » (D1544 — la quatrième règle).
+  **Le chapitre 1 réécrit** : les six fichiers de `syncytium/configuration/`
+  dans la forme des quatre règles, 1 274 lignes, les liens vérifiés ; la
+  table des chapitres dit la lecture, la réorganisation et la réécriture
+  faites le 29/10. Le chapitre 1 est entier ; le chapitre 2 attend.
 - **2026-10-28 (suite 3) — LA PAUSE : LE CHAPITRE 1, QUATRE POINTS SUR
   TREIZE, SEPT DÉCISIONS (D1528–D1534, 1534 décisions).** Le point 1
   appliqué avec D1528 ; le point 2 devenu D1529 et D1530 — trois

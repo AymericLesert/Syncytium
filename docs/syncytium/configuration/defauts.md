@@ -4,12 +4,12 @@
 quand la configuration ne dit rien (D1175).*
 
 Chaque défaut du socle a une propriété, une valeur, un étage, et un
-mode, statique ou dynamique. Une valeur dynamique se surchage aussi par
+mode, statique ou dynamique. Une valeur dynamique se surcharge aussi par
 l'administration, à chaud (D588). Une valeur statique engage le stockage
 ou la structure : elle se change par une version. L'inventaire se
 complète à chaque défaut nouveau.
 
-Sa structure est celle des settings (D1239). Dans vos mots : « la
+Sa structure est celle des settings (D1239). Le registre le dit : « la
 propriété doit être dans un bloc représentant le composant, qui lui-même
 doit être dans un bloc représentant le type de composant ». L'inventaire
 s'écrit donc comme un `settings.yml` qui redirait les défauts du socle.

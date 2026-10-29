@@ -160,8 +160,26 @@ def lire(chemin):
     return decisions
 
 
+# La relecture de la classification par l'auteur, famille par famille, à l'audit de chaque chapitre (D1526) :
+# le numéro → la famille arbitrée, qui l'emporte sur les signaux. Le chapitre 1, la configuration (D1540, le 29/10/2026).
+RELECTURE = {
+    220: "modele", 222: "modele", 389: "modele",
+    223: "api", 225: "api",
+    218: "connecteurs",
+    221: "hooks",
+    224: "documentation", 1222: "documentation",
+    502: "surfaces", 529: "surfaces",
+    730: "securite", 923: "securite",
+    1047: "reprise", 1049: "reprise", 1050: "reprise", 1051: "reprise", 1066: "reprise",
+    1383: "methode", 1516: "methode",
+}
+
+
 def classer(d):
-    """La famille d'une décision : l'artefact le plus cité, sinon les mots du titre, sinon la méthode."""
+    """La famille d'une décision : la relecture de l'auteur, sinon l'artefact le plus cité, sinon la section,
+    les mots du titre puis du texte, la plage du domaine, sinon la méthode."""
+    if d["numero"] in RELECTURE:
+        return RELECTURE[d["numero"]], "relecture"
     comptes = Counter()
     for a in d["artefacts"]:
         comptes[ARTEFACT_FAMILLE.get(a, "cas")] += 1
@@ -209,7 +227,8 @@ def resume(decisions):
     print("## Les familles (D1516)\n\n| La famille | Le titre | Les décisions | Les artefacts |\n|---|---|---|---|")
     for fam, (titre, arts) in FAMILLES.items():
         print(f"| `{fam}` | {titre} | {fams.get(fam, 0)} | {', '.join(arts) or '—'} |")
-    print(f"\nLa classification : {sources['artefact']} par l'artefact cité, {sources['section']} par la section "
+    print(f"\nLa classification : {sources['relecture']} par la relecture de l'auteur (D1526), "
+          f"{sources['artefact']} par l'artefact cité, {sources['section']} par la section "
           f"citée, {sources['mots du titre']} par les mots du titre, {sources['mots du texte']} par les mots du "
           f"texte, {sources['plage du domaine']} par la plage du domaine (§1.2), {sources['défaut']} par défaut "
           f"(la méthode) — à relire (D1516).\n")

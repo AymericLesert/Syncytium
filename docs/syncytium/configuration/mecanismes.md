@@ -307,14 +307,16 @@ niveau est refusé à l'ingestion.
 
 ## 2.10 Les défauts du poste (D1114)
 
-Ce qu'un projet n'écrit pas, le poste le porte. Le tiny (le cas 1) ne
+Ce qu'un projet n'écrit pas, le poste informatique le porte, la machine
+qui fait tourner l'instance. Le tiny (le cas 1) ne
 déclare que son modèle et un environnement ; le reste vient des défauts :
 
 - **la journalisation** : sans `logging:`, les traces vont sur la sortie
   standard, en mode `verbose` ;
 - **le nettoyage** : sans `cleanup:`, rien, la sortie standard ne laisse
   aucun fichier ;
-- **la langue** : sans `languages:`, la langue est celle du poste, et les
+- **la langue** : sans `languages:`, la langue est la localisation du
+  poste informatique, et les
   textes s'écrivent en texte simple (D1101) ;
 - **le connecteur** : sans bloc `connectors:`, `storage: sqlite` désigne
   un connecteur implicite dont le nom, la famille et la classe sont

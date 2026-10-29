@@ -21,7 +21,7 @@ project:
   # Ce qui se lit sans compte : la page de présentation seule
   visibility: promotional
 
-# La version : sans languages: dans version.yml, la version parle une seule langue, celle du poste
+# La version : sans languages: dans version.yml, la version parle une seule langue, celle du poste informatique
 version:
   languages: [<la langue du poste>]
 

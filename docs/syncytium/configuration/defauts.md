@@ -12,105 +12,188 @@ complète à chaque défaut nouveau.
 Sa structure est celle des settings (D1239). Le registre le dit : « la
 propriété doit être dans un bloc représentant le composant, qui lui-même
 doit être dans un bloc représentant le type de composant ». L'inventaire
-s'écrit donc comme un `settings.yml` qui redirait les défauts du socle.
+s'écrit donc comme un `settings.yml` qui redirait les défauts du socle ;
+les valeurs sont celles du socle.
 
 ```yaml
-# L'inventaire des défauts du socle, dans la forme des settings (D1239) — les valeurs sont celles du socle
-
 # Le projet
 project:
-  visibility: promotional          # la page de présentation seule (D1151)
+  # Ce qui se lit sans compte : la page de présentation seule
+  visibility: promotional
 
 # La version
 version:
-  languages: [<la langue du poste>]  # la première = la langue par défaut (D1101, D1114)
+  # Les langues : celle du poste, la première est la langue par défaut
+  languages: [<la langue du poste>]
 
 # Le module
 module:
-  title: "${name}"                 # le nom d'usage = le nom (D1120)
-  history: false                   # l'historisation, en cascade vers l'entité (D168, D1174)
-  menu: <le défaut>                # les entités agrégats, les enfants en sous-menu (D193, D351)
+  # Le nom d'usage : le nom
+  title: "${name}"
+
+  # L'historisation, en cascade vers l'entité
+  history: false
+
+  # Le menu : les entités agrégats, les enfants en sous-menu
+  menu: <le défaut>
 
 # L'entité
 entity:
-  title: "${name}"                 # (D1120)
-  label: "${name}"                 # le visage texte (D1181)
-  history: false                   # (D168)
-  allow: <tout permis>             # absent = tout permis, en cascade jusqu'au champ (D422, D886)
+  # Le nom d'usage et le visage texte : le nom
+  title: "${name}"
+  label: "${name}"
 
-# Le champ — les propriétés communes directement sous field: (D1239), puis par type
+  # L'historisation
+  history: false
+
+  # Les droits : absent, tout est permis, en cascade jusqu'au champ
+  allow: <tout permis>
+
+# Le champ : les propriétés communes directement sous field:, puis par type
 field:
-  required: false                  # implicite sur l'identité (D373, D1170)
-  mode: editable                   # (D364)
-  label: "${name}"                 # (D1181)
-  confidentiality: public          # (D25)
-  searchable: none                 # sans searchable:, rien n'est cherchable (D1308)
-  default: <nul>                   # (D941)
-  unchanged: false                 # (D941)
+  # Obligatoire : non, sauf sur l'identité, où c'est implicite
+  required: false
+
+  # Le mode : modifiable
+  mode: editable
+
+  # Le libellé : le nom
+  label: "${name}"
+
+  # La confidentialité : publique
+  confidentiality: public
+
+  # La recherche : sans searchable:, rien n'est cherchable
+  searchable: none
+
+  # La valeur par défaut : nulle ; la valeur n'est pas figée
+  default: <nul>
+  unchanged: false
+
+  # Le texte : aucune normalisation
   text:
-    normalize: <aucune>            # (D870, D991)
+    normalize: <aucune>
+
+  # Le compteur : jamais remis à zéro
   counter:
-    reset: never                   # (D409–D410)
+    reset: never
+
+  # Le montant : la devise est dans la valeur
   amount:
-    currency: <la devise dans la valeur>   # (D993)
+    currency: <la devise dans la valeur>
 
 # L'opération
 operation:
-  commit: confirm                  # la relecture avant le scellé (D596)
-  cooldown: 1min                   # dynamique — operation.cooldown (D904)
-  retention: 90d                   # dynamique — operation.retention (D906)
+  # Le scellé : une relecture avant
+  commit: confirm
+
+  # Le délai entre deux exécutions et la rétention des exécutions : dynamiques
+  cooldown: 1min
+  retention: 90d
+
+  # La notification : tout le monde, dans la zone des notifications de l'application
   notify:
-    to: <tout le monde>            # dans la zone des notifications de l'application (D1228)
+    to: <tout le monde>
 
 # Le groupe
 group:
-  degree: user                     # (D699, D900)
-  persona: <généré>                # nommé par le groupe (D1200)
+  # Le degré : utilisateur
+  degree: user
+
+  # Le persona : généré, nommé par le groupe
+  persona: <généré>
 
 # Les surfaces et les composants graphiques
 surface:
-  default: <la première déclarée>  # sans déclaration, le défaut du socle (D186, D438)
+  # La surface par défaut : la première déclarée, sinon le défaut du socle
+  default: <la première déclarée>
 wizard:
-  breadcrumb: top                  # (D549)
+  # Le fil d'Ariane : en haut
+  breadcrumb: top
 component:
-  size: <tout l'espace>            # (D533, D549)
+  # La taille : tout l'espace
+  size: <tout l'espace>
 
 # L'environnement
 environment:
-  storage: sqlite                  # implicite au mono-poste (D1114)
-  documentation:
-    output: <sur demande>          # le dépôt, l'édition, l'impression sur demande (D1167)
-    notify: <à la promotion>       # la notification à la promotion d'une version (D1167)
-    publish: <selon visibility>    # (D1167)
+  # Le storage : sqlite, implicite au mono-poste
+  storage: sqlite
 
-# L'application — les réglages dynamiques
+  # La documentation : le dépôt, l'édition et l'impression sur demande ; la notification à la promotion
+  # d'une version ; la publication selon visibility
+  documentation:
+    output: <sur demande>
+    notify: <à la promotion>
+    publish: <selon visibility>
+
+# L'application : les réglages dynamiques
 application:
+  # La sandbox : sa rétention
   sandbox:
-    retention: 7d                  # dynamique (D912)
+    retention: 7d
+
+  # La journalisation : le throttling des traces
   logging:
-    throttle: 1min                 # dynamique (D926)
+    throttle: 1min
+
+  # La télémétrie : les valeurs et leur fréquence au dictionnaire, par la courbe de Pareto
   telemetry:
-    values: pareto[80/20]          # dynamique — les valeurs et leur fréquence au dictionnaire (D1290–D1291)
+    values: pareto[80/20]
 ```
+
+## Les décisions de l'inventaire
+
+- le projet : `visibility` (D1151) ;
+- la version : `languages` (D1101, D1114) ;
+- le module : `title` (D1120), `history` (D168, D1174), `menu` (D193,
+  D351) ;
+- l'entité : `title` (D1120), `label` (D1181), `history` (D168), `allow`
+  (D422, D886) ;
+- le champ : `required` (D373, D1170), `mode` (D364), `label` (D1181),
+  `confidentiality` (D25), `searchable` (D1308), `default` et `unchanged`
+  (D941), `normalize` (D870, D991), `reset` (D409, D410), `currency`
+  (D993) ;
+- l'opération : `commit` (D596), `cooldown` (D904), `retention` (D906),
+  `notify` (D1228) ;
+- le groupe : `degree` (D699, D900), `persona` (D1200) ;
+- les surfaces : `default` (D186, D438), `breadcrumb` (D549), `size`
+  (D533, D549) ;
+- l'environnement : `storage` (D1114), `documentation` (D1167) ;
+- l'application : `sandbox.retention` (D912), `logging.throttle` (D926),
+  `telemetry.values` (D1290, D1291).
+
+Les valeurs dynamiques sont `cooldown`, `retention`, `sandbox.retention`,
+`logging.throttle` et `telemetry.values` ; toutes les autres sont
+statiques.
 
 ## Le bloc `rgpd:` des settings (D1323)
 
 Le bloc `rgpd:` est à la racine des settings. Il porte les défauts
-réglementaires de tout traitement du projet :
+réglementaires de tout traitement du projet.
 
 ```yaml
+# Le réglementaire : les défauts de tout traitement du projet
 rgpd:
-  controller: <groupe>             # qui répond des traitements
-  legal: …                         # la base légale
-  purpose: …                       # la finalité
-  contact: …                       # le contact et le DPO, au projet (D1330)
-  dpo: { name: …, email: …, phone: … }
+  # Qui répond des traitements : un groupe
+  controller: direction
+
+  # La base légale et la finalité
+  legal: L'exécution du contrat
+  purpose: La gestion des commandes
+
+  # Le contact et le délégué à la protection des données, au projet
+  contact: rgpd@entreprise.example
+  dpo:
+    name: …
+    email: …
+    phone: …
 ```
 
 Ces défauts se surchargent par les settings du module, de l'entité, puis
 par le traitement, propriété par propriété : quatre niveaux (D1322,
-D1324–D1325). Ils n'ont pas de défaut du socle : absent, le registre des
-traitements écrit « non précisé ».
+D1324–D1325) ; le contact et le DPO sont au projet (D1330). Ils n'ont pas
+de défaut du socle : absent, le registre des traitements écrit « non
+précisé ».
 
 ## Hors de l'inventaire
 

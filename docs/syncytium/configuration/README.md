@@ -51,12 +51,14 @@ la contient (D320, D767). C'est la clé `~{…}` du chapitre des
 [mécanismes](mecanismes.md).
 
 ```yaml
-# en place : les champs écrits sous l'entité
+# Les champs de l'entité, écrits en place
 fields:
   nom: text[..40]
   prenom: text[..40]
+```
 
-# par référence : les mêmes champs, dans un fichier à côté
+```yaml
+# Les mêmes champs, dans un fichier à côté de l'entité
 fields: ~{fields.yml}
 ```
 
@@ -74,9 +76,11 @@ valeurs du catalogue, les types, `public`, `protected`, `private`,
 des champs, et les libellés, écrits par langue.
 
 ```yaml
-# la structure en anglais, le métier en français
+# L'entité, nommée dans la langue du modèle
 personne:
   description: Les membres de l'entreprise
+
+  # Les champs : le nom dans la langue du modèle, le type et les propriétés en anglais, le libellé par langue
   fields:
     nom:
       type: text[..40]
@@ -100,9 +104,13 @@ plus courte : une entité, quatre champs, une application complète.
 ### Le core en tête
 
 La première clé de `syncytium.yml` nomme le core de Syncytium qui
-interprète la description (D322, D1083, D1361) :
+interprète la description (D322, D1083, D1361). L'entrepôt l'écrit
+ainsi :
 
 ```yaml
+# Le format de la configuration
+# La version de la grammaire que parle ce projet : un moteur qui ne la connaît pas refuse le projet à la lecture de
+# cette seule ligne ; un format plus ancien est converti à l'ingestion.
 from: Syncytium-1.0
 ```
 
@@ -125,9 +133,14 @@ expression, une expression régulière. On emploie alors les guillemets
 simples, qui prennent tout tel quel.
 
 ```yaml
-code: { type: 'text[..100]' }                              # le crochet dans une accolade
-mouvement: 'sens.select(entree: quantite, sortie: -quantite)'   # le « : » dans une expression
-pattern: '^(?<prefix>[A-Z]{2})…$'                          # une expression régulière
+# Un crochet de la grammaire dans une accolade YAML : les guillemets simples
+code: { type: 'text[..100]' }
+
+# Un « : » dans une expression : les guillemets simples
+mouvement: 'sens.select(entree: quantite, sortie: -quantite)'
+
+# Une expression régulière : les guillemets simples, tout est pris tel quel
+pattern: '^(?<prefix>[A-Z]{2})…$'
 ```
 
 **Seconde règle : la forme bloc de préférence.** Quand la forme en flux
@@ -136,8 +149,11 @@ en liste à tirets, la longue formule en scalaire `>-`. En bloc, une
 valeur par ligne, la grammaire s'écrit nue.
 
 ```yaml
+# Les champs en bloc : une valeur par ligne, la grammaire nue
 fields:
-  libelle: text[..30]                # nu, sans guillemets
+  libelle: text[..30]
+
+  # Le total : une formule longue, en scalaire bloc
   total:
     formula: >-
       quantite * prix_unitaire
@@ -151,7 +167,7 @@ Chaque exemple du dépôt passe un analyseur YAML avant validation.
 Un fichier d'exemple se lit comme une page (D1084). Avant chaque clé, une
 courte introduction dit sa nature. Puis, si ce n'est pas trivial, ce que
 la clé apporte. Le commentaire est collé à sa clé ; une ligne vide sépare
-deux clés.
+deux clés. L'entrepôt commence ainsi :
 
 ```yaml
 # Les environnements d'exécution
@@ -176,6 +192,8 @@ Trois règles complètent la forme :
   le `type` et la `class` des connecteurs, le `level` et les `groups` des
   profils, **s'expliquent une fois, sur le bloc parent** (D1098), et
   s'écrivent alors serrées, sans ligne vide.
+
+Les exemples de cette documentation suivent les mêmes règles (D1545).
 
 ## Les décisions
 

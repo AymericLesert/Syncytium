@@ -9,20 +9,29 @@ Les settings règlent les défauts. Ils se structurent en trois niveaux
 (D1239) : le type de composant, puis le composant, puis la propriété.
 
 ```yaml
-field:                               # le type de composant
-  text:                              # le composant : un type du catalogue, ses défauts
-    normalize: trim(me)              # la normalisation à la frontière (D870/D872)
-  date_pmi:                          # un dérivé (D359/D992) : la base et ses défauts
+# Les champs : les défauts des types du catalogue et les types dérivés
+field:
+  # Le texte : la normalisation à la frontière, pour tous les champs de ce type
+  text:
+    normalize: trim(me)
+
+  # Une date au masque de l'ERP : un type dérivé, sa base et ses défauts
+  date_pmi:
     type: date
     mask: "yyyymmdd"
+
+  # Le montant : la devise par défaut
   amount:
-    currency: EUR                    # la devise par défaut — amount(v) à un argument (D993)
-  nom:                               # un dérivé porteur de sens (D1178) : le champ `nom: nom` hérite du marquage
+    currency: EUR
+
+  # Le nom d'une personne : un dérivé qui porte le marquage RGPD ; tout champ de ce type en hérite
+  nom:
     type: text[..40]
     rgpd: personal
 
+# Les entités : l'historisation par défaut pour toute l'application
 entity:
-  history: true                      # l'historisation par défaut pour toute l'application (D1174)
+  history: true
 ```
 
 ### Les types et les dérivés
@@ -31,11 +40,14 @@ Sous `field:`, la clé est le nom d'un type :
 
 - sans `type:`, elle règle les défauts d'un type du catalogue ;
 - avec `type:`, elle définit un dérivé, qui hérite de sa base et
-  surcharge ce qu'il nomme ;
+  surcharge ce qu'il nomme (D359, D992) ;
 - le dérivé d'un dérivé se résout à l'ingestion ; un cycle est une
   erreur ;
 - un dérivé ne redéfinit jamais un type du catalogue (D408) ;
-- un dérivé s'emploie par la forme courte, `date_creation: date_pmi`.
+- un dérivé s'emploie par la forme courte, `date_creation: date_pmi` ;
+- un dérivé porteur de sens transmet son marquage, `nom: nom` hérite du
+  `rgpd: personal` (D1178) ; la normalisation (D870, D872), la devise
+  (D993) et l'historisation (D1174) se règlent de même.
 
 ### La cascade
 
@@ -62,13 +74,18 @@ dans [defauts.md](defauts.md). Trois cas se présentent.
   la valeur par défaut.
 
 ```yaml
-marge: 10%                           # la forme courte, sans paramètre connu : texte, statique (D590)
-taux:                                # la forme longue (D588–D589)
-  mode: dynamic                      # surchargeable à chaud par l'administration
+# La marge : un paramètre libre en forme courte, texte et statique
+marge: 10%
+
+# Le taux : un paramètre libre en forme longue, décimal, surchargeable à chaud par l'administration
+taux:
+  mode: dynamic
   type: decimal
   value: 20
+
+# Le compteur : un paramètre du socle surchargé ; son mode et son type sont connus, seule la valeur s'écrit
 counter:
-  reset: never                       # un paramètre du socle surchargé : son mode et son type sont connus
+  reset: never
 ```
 
 ### La règle des défauts (D1175)
@@ -91,19 +108,26 @@ Un groupe est une clé. Il porte son libellé, sa description, les groupes
 qu'il voit, et son degré.
 
 ```yaml
+# La production : les opérateurs et la préparation
 production:
   label: { fr: Production }
-  description: { fr: Les opérateurs et la préparation — … }
+  description: { fr: Les opérateurs et la préparation des commandes }
+
+# La direction : elle voit ce que voient la production, le commercial et les achats
 direction:
   label: { fr: Direction }
-  groups: [production, commercial, achats]   # un membre de la direction voit ce que voient ces groupes (D414/D1099)
+  groups: [production, commercial, achats]
+
+# L'administration : le degré porté par le groupe
 administration:
-  degree: administrator                      # le degré porté par le groupe (D699/D701)
+  degree: administrator
 ```
 
-La hiérarchie est sans lien parent et acyclique. Les affectations des
-personnes aux groupes vivent en base, pas dans la configuration (D27,
-D341). Le détail dans [rights.md](../../rights.md).
+La hiérarchie est sans lien parent et acyclique ; un membre d'un groupe
+voit ce que voient les groupes qu'il nomme (D414, D1099). Le degré est
+porté par le groupe (D699, D701). Les affectations des personnes aux
+groupes vivent en base, pas dans la configuration (D27, D341). Le détail
+dans [rights.md](../../rights.md).
 
 ## 3.7 Le module — `<module>.yml` (D765, D416)
 
@@ -111,21 +135,41 @@ Un module regroupe des entités. Son fichier les déclare, et porte ses
 droits, son menu, ses réglages, ses ressources et ses tableaux de bord.
 
 ```yaml
-name: technique                      # l'invariant, quelle que soit la langue (D1120)
-title: Technique                     # le nom d'usage, par langue (D1120) — sans lui, le name
-description: Les données techniques — …
-allow:                               # la cascade de l'allow (D886) — ici, l'entrepôt en lecture seule
+# Le nom du module : l'invariant, quelle que soit la langue
+name: technique
+
+# Le nom d'usage, par langue ; sans lui, le nom
+title: Technique
+
+# La description du module
+description: Les données techniques de l'ERP, standardisées
+
+# Les droits du module : l'entrepôt est en lecture seule, les entités en héritent
+allow:
   create: false
   update: false
   delete: false
-entities:                            # la liste explicite (D765)
+
+# Les entités du module, en liste explicite
+entities:
   - ~{article/article.yml}
   - ~{nomenclature/nomenclature.yml}
-menu: ~{menu.yml}                    # optionnel (D351) — sans lui, le défaut ; la forme ci-dessous (D1237)
-settings: ~{settings.yml}            # l'étage module de la cascade (D359)
-resources: ~{resources/resources.yml}   # les ressources attachées au module (D1530 ; la déclaration, ma lecture)
-dashboards: …                        # les tableaux de bord du module (composants.md)
+
+# Le menu du module ; sans lui, le défaut
+menu: ~{menu.yml}
+
+# Les réglages du module : l'étage module de la cascade
+settings: ~{settings.yml}
+
+# Les ressources attachées au module
+resources: ~{resources/resources.yml}
 ```
+
+Les décisions de ces clés : D1120 pour `name:` et `title:`, D886 pour la
+cascade de `allow:`, D765 pour la liste des entités, D351 pour le menu,
+D359 pour les réglages, D1530 pour les ressources (la déclaration, ma
+lecture). Les tableaux de bord du module, `dashboards:`, sont décrits
+dans [composants.md](../../composants.md).
 
 Déclarer un module, c'est l'activer (D350) : présent, il est actif ;
 retiré par une nouvelle version, il est désactivé.
@@ -142,28 +186,52 @@ Le menu est une carte, dans l'ordre d'affichage. Chaque entrée porte son
 - `<module>.<entité>[@<wizard>]`, un wizard ;
 - `<module>[<dashboard>]`, un tableau de bord du module.
 
-Un sous-menu porte `items:`, la carte de ses entrées. L'exemple de la
-banque (le cas 4), le premier au dépôt (D1230) :
+Un sous-menu porte `items:`, la carte de ses entrées. Le menu de la
+banque (le cas 4), le premier au dépôt (D1230), tel qu'il est écrit :
 
 ```yaml
-# banque/menu.yml
+# Le menu du module : une carte d'entrées nommées, dans l'ordre d'affichage. Chaque entrée porte son libellé par langue
+# et son lien, l'adresse ; un sous-menu porte ses entrées. Sans libellé, l'entrée prend le titre de la surface liée.
+# Sans menu déclaré, le défaut ne connaît qu'une liste par entité ; les trois listes de l'écriture ont ici chacune leur
+# entrée, en sous-menu. Une liste absente du menu et d'un écran n'est documentée nulle part.
+
+# L'accueil du module
 accueil:
-  label: { fr: Tableau de bord, en: Dashboard, es: Panel de control }
-  link: banque[accueil]              # le tableau de bord du module
+  label:
+    fr: Tableau de bord
+    en: Dashboard
+    es: Panel de control
+  link: banque[accueil]
+
+# Les comptes
 comptes:
-  label: { fr: Comptes bancaires, en: Accounts, es: Cuentas bancarias }
-  link: banque.compte                # la liste par défaut de l'entité
-ecritures:                           # un sous-menu : une entrée par liste
-  label: { fr: Écritures, en: Entries, es: Apuntes }
+  label:
+    fr: Comptes bancaires
+    en: Accounts
+    es: Cuentas bancarias
+  link: banque.compte
+
+# Les écritures, en sous-menu — une entrée par liste
+ecritures:
+  label:
+    fr: Écritures
+    en: Entries
+    es: Apuntes
   items:
     operations:
-      link: banque.ecriture[par_operation]   # sans label: — le titre de la liste
+      link: banque.ecriture[par_operation]
+    comptable:
+      link: banque.ecriture[par_comptable]
     rapprochement:
       link: banque.ecriture[pointage]
-referential:                         # un sous-menu sans label: — son nom nu
+
+# Les référentiels
+referential:
   items:
     budgets:
       link: banque.budget
+    lieux:
+      link: banque.lieu
 ```
 
 Quatre règles complètent la forme :

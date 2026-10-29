@@ -11,9 +11,12 @@ l'ingestion, la partie de la configuration est remplacée par le contenu
 du fichier. Ce fichier est chargé par la configuration elle-même.
 
 ```yaml
-fields: ~{fields.yml}                # le contenu du fichier remplace la valeur
+# Les champs de l'entité : le contenu du fichier remplace la valeur
+fields: ~{fields.yml}
+
+# Les entités du module : dans une liste, un élément par fichier
 entities:
-  - ~{article/article.yml}           # dans une liste, un élément par fichier
+  - ~{article/article.yml}
   - ~{fabrique/fabrique.yml}
 ```
 
@@ -41,10 +44,13 @@ peut remplacer l'énumération. Le pattern est une déclaration : il dit le
 standard de nommage que le concepteur se fixe.
 
 ```yaml
+# Les versions du statut : toutes celles dont le dossier porte un numéro en quatre nombres
 versions:
-  - ~{v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml}   # toutes les versions du statut
+  - ~{v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml}
+
+# Les règles de migration, dans l'ordre de leur préfixe numérique
 mapping:
-  - ~{mapping/[0-9]+_.*\.yml}        # les règles de migration
+  - ~{mapping/[0-9]+_.*\.yml}
 ```
 
 L'ordre au sein d'un pattern est alphabétique (D665). Un préfixe
@@ -57,10 +63,11 @@ peut recevoir une liste de références en bloc. Les fichiers se fondent en
 une seule carte.
 
 ```yaml
+# Les champs d'une règle de migration : deux fichiers partagés, puis les champs propres à la règle
 fields:
-  - ~{articles/commun.yml}           # un fichier — son contenu
-  - ~{articles/nomenclature.yml}     # un autre, fusionné à la suite
-  - actif: ARCTBLOCAG = ""           # une carte en ligne — les champs propres
+  - ~{articles/commun.yml}
+  - ~{articles/nomenclature.yml}
+  - actif: ARCTBLOCAG = ""
     date_creation: ARCJCRE
 ```
 
@@ -97,7 +104,8 @@ manquer. `KEY` est l'une de quatre choses.
 - **Une imbrication** : `${triggers.${environment.name}.filename}`.
 
 ```yaml
-# logging.yml — le nom du journal remonte au name: de syncytium.yml, cinq niveaux plus haut
+# Le fichier du journal
+# Son nom remonte au nom du projet, cinq niveaux plus haut dans la structure ; la date est celle de l'usage.
 handlers:
   file:
     filename: ${SYNCYTIUM_LOG_DIRECTORY}/${.....name}-${now:yyyy-mm-dd}.log
@@ -108,6 +116,7 @@ confidentialité, nommé une fois dans `syncytium.yml`, se référence depuis
 un champ :
 
 ```yaml
+# La confidentialité du champ : le profil financier, déclaré à la racine du projet
 confidentiality: ${confidentiality.financier}
 ```
 
@@ -131,9 +140,11 @@ fichier de configuration et nulle part ailleurs. » Deux conséquences :
 Une clé suffixée `*` porte une information confidentielle.
 
 ```yaml
+# Les paramètres du connecteur
+# Le mot de passe porte la marque * : sa valeur est confidentielle, sa variable est chiffrée.
 parameters:
   user: ${ENTREPOT_USER}
-  password*: ${ENTREPOT_PASSWORD}    # la marque * : confidentiel, la variable chiffrée
+  password*: ${ENTREPOT_PASSWORD}
 ```
 
 La marque a trois effets :
@@ -187,8 +198,13 @@ D1110). Un jeu de valeurs s'écrit `.select(clé: valeur, "...": défaut)`
 sur le type (D584). Les agrégats acceptent un `if` suffixé (D887).
 
 ```yaml
+# Le montant signé : le conditionnel natif
 montant_signe: credit if credit != null else -debit
+
+# L'état en clair : un jeu de valeurs sur le type, avec son défaut
 etat_lisible: etat.select(brouillon: "En cours", valide: "Validée", "...": "Autre")
+
+# La dernière sortie : un agrégat filtré par un if suffixé
 derniere_sortie: mouvements.max(date if sens = "sortie")
 ```
 
@@ -202,13 +218,19 @@ déclaration est l'ordre d'affichage par défaut. Une valeur chaîne est le
 type, tout le reste au défaut. Le bloc sert dès qu'une facette s'écrit.
 
 ```yaml
+# Les champs de l'entité
 fields:
-  notes: text                        # la forme courte — le type, tout au défaut
-  code:                              # le bloc — le type et ses facettes
+  # Les notes : la forme courte, le type seul, tout au défaut
+  notes: text
+
+  # Le code : le bloc, le type et ses facettes
+  code:
     type: text[..18]
     required: true
     label: { fr: Code article }
-  date_creation: date_pmi            # un type dérivé (D992), la forme courte
+
+  # La date de création : un type dérivé, déclaré aux settings, en forme courte
+  date_creation: date_pmi
 ```
 
 ### Les groupes de champs (D1273, D1279–D1280)
@@ -218,11 +240,15 @@ groupe (D1289). Il a son `title:` par langue, et ses champs en place ou
 dans un fichier référencé.
 
 ```yaml
+# Les champs de l'article
 fields:
-  code: text[..18]                   # hors groupe — le groupe implicite, l'en-tête de l'écran
-  prix:                              # un groupe : title: et fields:, sans type:
+  # Le code, hors groupe : le groupe implicite, l'en-tête de l'écran
+  code: text[..18]
+
+  # Les prix : un groupe, son titre et ses champs dans un fichier
+  prix:
     title: Les prix
-    fields: ~{prix.yml}              # ou le bloc en place
+    fields: ~{prix.yml}
 ```
 
 - les champs hors groupe forment le groupe implicite ;
@@ -242,6 +268,7 @@ identifiant dans une propriété : `version:` pour une version, `name:`
 pour un module ou une entité. C'est la forme des cas 2 à 5.
 
 ```yaml
+# Les versions, en liste : chaque élément porte son identifiant dans une propriété
 versions:
   - version: 1.0.0.0
     modules:
@@ -257,6 +284,7 @@ clé : `1.0.0.0:` remplace `- version: 1.0.0.0`, `annuaire:` remplace
 `- name: annuaire`. C'est la forme du tiny (le cas 1), la plus courte.
 
 ```yaml
+# La même version, en substitution : l'identifiant est la clé, le niveau n'est plus nommé
 1.0.0.0:
   annuaire:
     personne:

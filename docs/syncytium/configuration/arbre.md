@@ -9,15 +9,15 @@ Voici l'arbre de l'entrepôt (le cas 5, `examples/05_entrepot/`) :
 
 ```text
 syncytium.yml                        # le projet — language:, confidentiality:, environments:, versions:
-resources/                           # les images, logos, documents invariants (D346, D1529)
+resources/                           # les images, logos, documents invariants
 environments/
 ├── environments.yml                 # <nom>: ~{…} — la liste des environnements
 ├── production/
 │   ├── production.yml               # description, listen:, storage:, logging:, cleanup:, connectors:,
 │   │                                # settings:, documentation:, dataset:, security_advisories: ; passive.yml : replication:
-│   ├── connectors.yml               # les connecteurs de l'environnement (D603/D617)
-│   ├── logging.yml                  # la journalisation (D343/D830)
-│   ├── cleanup.yml                  # le nettoyage des fichiers — les règles de rétention (D1073)
+│   ├── connectors.yml               # les connecteurs de l'environnement
+│   ├── logging.yml                  # la journalisation
+│   ├── cleanup.yml                  # le nettoyage des fichiers — les règles de rétention
 └── staging/ …
 versions/
 ├── versions.yml                     # <statut>: ~{…} — beta, production, deprecated, forbidden, sandbox
@@ -25,25 +25,29 @@ versions/
 │   ├── beta.yml                     # environment: staging ; versions: [le pattern]
 │   └── v1.0.0.0/
 │       ├── version.yml              # version, release-notes, settings:, groups:, migrations:, modules:, hooks:
-│       ├── settings.yml             # la maison des types et des réglages (D991–D993, D1535)
-│       ├── groups.yml               # les groupes (D414)
-│       ├── resources/               # les documents, images, logos versionnables (D803, D1529)
+│       ├── settings.yml             # la maison des types et des réglages
+│       ├── groups.yml               # les groupes
+│       ├── resources/               # les documents, images, logos versionnables
 │       ├── <module>/
 │       │   ├── <module>.yml         # name, description, allow:, entities:, menu:, dashboards, resources:
-│       │   ├── resources/           # les documents, images, logos attachés au module (D1530)
+│       │   ├── resources/           # les documents, images, logos attachés au module
 │       │   └── <entité>/
 │       │       ├── <entité>.yml     # l'en-tête : name, identity, inheritance, history, fields:, validation:, gui:
-│       │       ├── fields.yml       # les champs ; les groupes (title:, fields:) — D1279
-│       │       ├── <groupe>.yml     # les champs d'un groupe, référencés par fields: ~{<groupe>.yml} (D1280)
+│       │       ├── fields.yml       # les champs ; les groupes (title:, fields:)
+│       │       ├── <groupe>.yml     # les champs d'un groupe, référencés par fields: ~{<groupe>.yml}
 │       │       └── gui.yml          # les surfaces (lists, forms, summary, widgets…)
-│       ├── hooks/                   # hooks.yml → les familles → les fiches (hooks.md)
-│       └── reprise/                 # la migration : reprise.yml, source/, mapping/ (mapping.md)
+│       ├── hooks/                   # hooks.yml → les familles → les fiches
+│       └── reprise/                 # la migration : reprise.yml, source/, mapping/
 └── production/ …
 ```
 
 Ce chapitre descend les quatre premiers étages : le projet, les
 environnements, les versions, l'entrée d'une version. Ce que la version
-contient est dans [version.md](version.md).
+contient est dans [version.md](version.md). Les décisions qui fondent
+l'arbre : D346 et D1529 pour `resources/`, D603 et D617 pour les
+connecteurs, D343 et D830 pour la journalisation, D1073 pour le
+nettoyage, D414 pour les groupes, D803 et D1530 pour les ressources
+versionnées et celles du module, D1279–D1280 pour les groupes de champs.
 
 ## 3.1 `syncytium.yml` — le projet
 
@@ -52,29 +56,66 @@ versions : qui elle est, dans quelle langue elle parle au technicien, ce
 qui se lit sans compte, où sont ses environnements et ses versions.
 
 ```yaml
-from: Syncytium-1.0                  # le core de Syncytium, la première clé (D1083, D1361)
+# Le format de la configuration
+# La version de la grammaire que parle ce projet : un moteur qui ne la connaît pas refuse le projet à la lecture de
+# cette seule ligne ; un format plus ancien est converti à l'ingestion.
+from: Syncytium-1.0
+
+# Le nom du projet
 name: entrepot
-language: fr                         # la langue technique de l'instance (D1460, D1531)
-confidentiality:                     # les profils de confidentialité, à la racine (D885, D1536)
-  financier: { level: protected, groups: [achats, direction] }
-description: L'entrepôt de données de l'entreprise — …
-visibility: promotional              # public | private | promotional — ce qui se lit sans aucun droit (D1151, D1498)
-promotional: true                    # false : l'application n'a pas de promotionnelle et n'en aura pas (D1511, D1513)
-author: Aymeric Lesert               # celui qui a conçu l'application (D1153)
-contact: evolutions@example.org      # le contact des demandes d'évolution (D1153)
-copyright: © 2026 L'entrepôt SAS     # le titulaire des droits d'auteur de l'application (D1355)
+
+# La langue technique de l'instance
+# Celle des journaux, des traces et des erreurs techniques, parmi les langues du core et des hooks de langue ;
+# elle ne change plus.
+language: fr
+
+# Les profils de confidentialité
+# Un niveau et les groupes qui voient le champ, nommés une fois et référencés au champ ; chaque profil porte son
+# niveau (level) et ses groupes (groups) : confidentiality: ${confidentiality.financier}.
+confidentiality:
+  financier:
+    level: protected
+    groups: [achats, direction]
+
+# La description du projet
+description: L'entrepôt de données de l'entreprise — les données de Cegid PMI standardisées
+
+# Ce qui se lit sans aucun compte : public, private ou promotional
+visibility: promotional
+
+# La promotionnelle
+# false : l'application n'a pas de documentation promotionnelle et n'en aura pas.
+promotional: true
+
+# Le concepteur
+# Celui qui a conçu l'application ; la documentation le nomme.
+author: Aymeric Lesert
+
+# Le contact
+# L'adresse des demandes d'évolution et des questions sur l'application, hors de l'application.
+contact: entrepot@entreprise.example
+
+# Les droits d'auteur
+# Le titulaire des droits sur la configuration.
+copyright: © 2026 L'entreprise
+
+# Les environnements d'exécution
 environments: ~{environments/environments.yml}
+
+# Les versions de l'application
 versions: ~{versions/versions.yml}
-resources: ~{resources/resources.yml}   # les ressources invariantes (D1529 ; la déclaration, ma lecture)
+
+# Les ressources invariantes du projet : les images, les logos, les documents
+resources: ~{resources/resources.yml}
 ```
 
 ### `from:` — le core, et l'amorçage
 
 `from:` est la première clé. Elle nomme le core de Syncytium qui
-interprète la description et génère sa documentation (D1361). Dans vos
-mots : « La version du format est utilisée par un utilitaire pour
-récupérer le core, ingérer la configuration, créer l'instance et mettre
-à disposition la suite d'outils qui facilitera l'exploitation du
+interprète la description et génère sa documentation (D1083, D1361). Le
+registre le dit : « La version du format est utilisée par un utilitaire
+pour récupérer le core, ingérer la configuration, créer l'instance et
+mettre à disposition la suite d'outils qui facilitera l'exploitation du
 projet. » (D1358, D1360). `syncytium init`, hors du moteur, lit cette
 clé et récupère le core. Le détail est au guide d'exploitation
 ([documentation.md](../../documentation.md) §17).
@@ -92,8 +133,8 @@ Le mot `from:` a un seul sens, en trois places (D1086) :
 erreurs techniques (D1460, D1531). Elle est l'une des langues du core,
 ou d'un hook de langue du projet (D1467). Elle vaut pour l'instance
 entière et ne change plus : hors des versions, à la racine, la clé est
-immuable (D1532). Le registre le dit : « l'anglais ou le français selon le
-mode d'installation de Syncytium », ou une langue apportée (D1465).
+immuable (D1532). Le registre le dit : « l'anglais ou le français selon
+le mode d'installation de Syncytium », ou une langue apportée (D1465).
 *Ma lecture* : le concepteur l'écrit, `syncytium init` la vérifie.
 
 ### `confidentiality:` — les profils de confidentialité
@@ -168,15 +209,32 @@ Chaque environnement a son dossier. Son nom est la clé qui le référence
 dans `environments.yml` (D1088).
 
 ```yaml
-# environments/environments.yml
+# Les environnements, chacun par son nom et son fichier
 production: ~{production/production.yml}
 staging: ~{staging/staging.yml}
+```
 
-# environments/production/production.yml
-description: L'environnement de production — …
-storage: entrepot                    # le connecteur qui porte le modèle (D1094)
+```yaml
+# La description de l'environnement de production
+description: ~{README.md}
+
+# L'adresse et le port servis
+# Par les variables du déploiement : un changement du réseau ne fait pas une nouvelle version.
+listen:
+  url: ${SYNCYTIUM_URL}
+  port: ${SYNCYTIUM_PORT}
+
+# La base de l'application
+# Le connecteur storage qui porte le modèle et ses données ; les autres storages de l'environnement servent la reprise.
+storage: entrepot
+
+# La journalisation
 logging: ~{logging.yml}
+
+# Le nettoyage des fichiers
 cleanup: ~{cleanup.yml}
+
+# Les connecteurs de l'environnement
 connectors: ~{connectors.yml}
 ```
 
@@ -251,14 +309,19 @@ connectors: ~{connectors.yml}
   l'administrateur l'a autorisée.
 
 ```yaml
-# environments/sandbox/sandbox.yml
+# Le jeu de données de la sandbox de démonstration
+# Une carte, chaque entité vers son fichier CSV ; l'ordre de la carte est l'ordre de chargement, les référentiels
+# d'abord.
 dataset:
   technique.article: ~{demo/articles.csv}
   stock.depot: ~{demo/depots.csv}
+```
 
-# environments/production/production.yml
+```yaml
+# La veille des avis de sécurité
+# L'adresse du fichier d'avis publié pour le core, par une variable du déploiement, et le rythme de lecture.
 security_advisories:
-  url: ${SYNCYTIUM_ADVISORIES_URL}    # le fichier du projet, ou un miroir interne
+  url: ${SYNCYTIUM_ADVISORIES_URL}
   every: 1d
 ```
 
@@ -280,12 +343,16 @@ Aucun n'est obligatoire : `production` peut se déclarer sans `beta`
 pattern (D805, D806).
 
 ```yaml
-# versions/versions.yml
+# Les statuts utilisés, chacun par son fichier
 beta: ~{beta/beta.yml}
 production: ~{production/production.yml}
+```
 
-# versions/beta/beta.yml
+```yaml
+# L'environnement qui sert les versions de ce statut
 environment: staging
+
+# Les versions du statut : tous les dossiers qui portent un numéro en quatre nombres
 versions:
   - ~{v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/version\.yml}
 ```
@@ -310,22 +377,51 @@ notes, ses réglages, ses groupes, ses migrations, ses modules, ses hooks,
 ses ressources.
 
 ```yaml
+# Le numéro de la version
 version: 1.0.0.0
-languages: [fr, en]                  # les langues de la version, la première par défaut (D217/D1101)
-release-notes: |                     # les évolutions de la version (D808/D1096) — l'historique par concaténation
-  La première version de l'entrepôt de données — …
-authors: [Aymeric Lesert]            # les personnes qui ont écrit la version (D1355)
-documentation: ~{documentation.yml}  # la documentation de la version — les pages, les scénarios, les gabarits (D1219)
+
+# Les langues de la version, la première par défaut
+languages: [fr, en]
+
+# Les notes de version
+# Les évolutions de cette version ; l'historique se lit par la concaténation des notes.
+release-notes: |
+  La première version de l'entrepôt de données.
+
+# Les auteurs de la version
+authors: [Aymeric Lesert]
+
+# La documentation de la version : les pages, les scénarios, les gabarits
+documentation: ~{documentation.yml}
+
+# Les réglages de la version : la maison des types et des paramètres
 settings: ~{settings.yml}
+
+# Les groupes
 groups: ~{groups.yml}
-migrations: ~{reprise/reprise.yml}   # les migrations déclarées (D662)
-modules:                             # la liste explicite (D415/D766)
+
+# Les migrations déclarées
+migrations: ~{reprise/reprise.yml}
+
+# Les modules, en liste explicite
+modules:
   - ~{technique/technique.yml}
   - ~{tiers/tiers.yml}
-hooks: ~{hooks/hooks.yml}            # les hooks de la version (D777)
-resources: ~{resources/resources.yml}   # les ressources versionnables (D803, D1529) — chacune avec son credit: (D1384)
-from: <statut>/<version>             # en sandbox seulement : la version d'origine (D907), supprimé à la promotion (D928)
+
+# Les hooks de la version
+hooks: ~{hooks/hooks.yml}
+
+# Les ressources versionnables, chacune avec son crédit
+resources: ~{resources/resources.yml}
 ```
+
+En sandbox seulement, une clé de plus, `from: <statut>/<version>`, nomme
+la version d'origine de l'essai (D907) ; elle est supprimée à la
+promotion (D928). Les décisions de ces clés : D217 et D1101 pour les
+langues, D808 et D1096 pour les notes, D1355 pour les auteurs, D1219
+pour la documentation, D662 pour les migrations, D415 et D766 pour la
+liste des modules, D777 pour les hooks, D803, D1384 et D1529 pour les
+ressources.
 
 ### Les langues de la version
 

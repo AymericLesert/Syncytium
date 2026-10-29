@@ -24888,7 +24888,10 @@ avant la synthèse Q16).
   Syncytium » (D1536 — amende D885 et D1239 ; l'entrepôt déplacé, trente-six
   références réécrites ; la forme de la référence, ma lecture — confirmée
   au point 7). Le point 7 appliqué (`listen:` acquise). Le point 8, la forme
-  de `dataset:` : « La carte » (D1537).
+  de `dataset:` : « La carte » (D1537). Les points 9 et 10 appliqués — le
+  point ouvert dépassé retiré, le menu au §3.7, le §6 disparu. Le point
+  11 : D347 amendée par D765 et D807 (D1538 — une décision de forme pour
+  le statut des ADR).
 - **2026-10-28 (suite 3) — LA PAUSE : LE CHAPITRE 1, QUATRE POINTS SUR
   TREIZE, SEPT DÉCISIONS (D1528–D1534, 1534 décisions).** Le point 1
   appliqué avec D1528 ; le point 2 devenu D1529 et D1530 — trois

@@ -102,9 +102,11 @@ VERBES = [
     (r"précise|étend|complète|confirme|exécute|généralise|applique|prolonge|reprend|répare", "précise"),
     (r"clôt|clot|ferme|résout", "clôt"),
     # les appuis ne posent aucun lien, mais bornent la portée du verbe qui précède
-    (r"s'appuie|appuie|fonde|borne|suit|après|voir", "cite"),
+    (r"s'appuie|appuie|fonde|borne|suit|après|voir|rappelle|garde|compose|exploite|arbitre|ouvre", "cite"),
 ]
-VERBE = re.compile("|".join(f"(?P<{lien}>{motif})" for motif, lien in VERBES), re.I)
+# un verbe est un mot entier : « annuler » dans un titre n'est pas « annule »
+VERBE = re.compile(r"\b(?:" + "|".join(f"(?P<{lien}>{motif})" for motif, lien in VERBES) + r")\b", re.I)
+PARENTHESES = re.compile(r"\(([^()]*(?:\([^()]*\)[^()]*)*)\)")
 
 
 def deplier(texte):
@@ -133,8 +135,10 @@ def lire(chemin):
         tete = texte[t.end():] if t else texte
         # la parenthèse de tête : avant la citation « … » ; chaque segment porte un verbe et des cibles
         avant = tete.split(" : «")[0].split("« ")[0]
+        # seules les parenthèses de la tête posent des liens ; le titre et le texte libre n'en posent pas
+        dedans = " ; ".join(PARENTHESES.findall(avant))
         liens = []
-        for seg in re.split(r"\s*[;—]\s*", avant.strip(" ()")):
+        for seg in re.split(r"\s*[;—]\s*", dedans):
             # plusieurs verbes dans un segment (« amende D619 …, s'appuie sur D408 ») : chaque verbe prend les
             # cibles qui le suivent, jusqu'au verbe suivant
             verbes = list(VERBE.finditer(seg))

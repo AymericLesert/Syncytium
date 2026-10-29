@@ -134,7 +134,8 @@ def lire(chemin):
         titre = t.group(1) if t else texte.split(" : «")[0][:160]
         tete = texte[t.end():] if t else texte
         # la parenthèse de tête : avant la citation « … » ; chaque segment porte un verbe et des cibles
-        avant = tete.split(" : «")[0].split("« ")[0]
+        # la tête s'arrête à la citation « : « … » » ; une citation à l'intérieur d'une parenthèse ne la coupe pas
+        avant = tete.split(" : «")[0]
         # seules les parenthèses de la tête posent des liens ; le titre et le texte libre n'en posent pas
         dedans = " ; ".join(PARENTHESES.findall(avant))
         liens = []

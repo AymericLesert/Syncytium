@@ -1,75 +1,110 @@
 # Syncytium
 
-**Syncytium est un framework, pas une application.** À la manière du tissu
-biologique dont il tire son nom — un *syncytium* est une cellule unique à
-plusieurs noyaux, née de la fusion de cellules qui partagent désormais un même
-corps — il est la matière commune à partir de laquelle des solutions métier se
-forment. Il n'est pas la partie visible : les applications construites sur lui
-exploitent ses capacités de façon **transparente**.
+**Syncytium est un framework, pas une application.** Il lit une description
+de données et fait vivre, sans une ligne de code, la base, les écrans, les
+API et la documentation d'une application métier.
 
-Le framework est piloté par les **métadonnées** : à partir d'une **description
-déclarative des données** (entités, champs, relations, groupes, confidentialité),
-il génère et fait vivre :
+## Le projet, en quelques mots
 
-- le **modèle de données** et ses migrations — y compris **à chaud**, avec des
-  règles de transformation déclaratives (renommage, éclatement, fusion) ;
-- une **interface graphique dynamique**, qui s'organise en fonction de la
-  description et suit toujours sa dernière version ;
-- des **API versionnées**, à compatibilité ascendante et descendante, pour
-  communiquer avec d'autres solutions (consommateurs non maîtrisés, connecteurs
-  vers des systèmes externes, tâches asynchrones suivies).
+Voici comment je l'ai présenté sur LinkedIn, en août 2026, au début de sa
+refonte avec Claude :
 
-## Trois strates
+> Depuis le 12 juin, Claude Fable 5 m'accompagne dans la refonte d'un projet
+> que je porte depuis 2016 : Syncytium. Les concepts sont toujours vivaces
+> dans mon esprit mais la technologie que j'utilise est vieillissante…
+>
+> En biologie, un syncytium est une cellule unique à plusieurs noyaux, née de
+> la fusion de cellules qui partagent désormais un même corps. Le projet
+> tente de regrouper dans un même dessein les différentes composantes d'une
+> application informatique. Le cœur d'une application repose sur la donnée
+> et sa structure. Alors, pourquoi ne pas aller plus loin et générer des
+> applications rien qu'en déclarant un méta-modèle ?
+>
+> — [le 11 août](https://www.linkedin.com/posts/aymeric-lesert-19491277_depuis-le-12-juin-claude-fable-5-maccompagne-activity-7492853400976560128-3Z3X)
+> et [le 17 août 2026](https://www.linkedin.com/posts/aymeric-lesert-19491277_la-semaine-derni%C3%A8re-jai-d%C3%A9but%C3%A9-une-s%C3%A9rie-activity-7495242314890608640-jQA7)
 
-Le nom encode l'architecture : une membrane unique, plusieurs noyaux autonomes.
+Le nom encode l'architecture : une membrane unique, plusieurs noyaux
+autonomes.
 
-1. **Syncytium — le framework.** Le moteur générique open source : le *tissu*.
-   C'est ce dépôt.
-2. **La solution.** Une application métier décrite *sur* le framework ; le
-   concepteur travaille à ce niveau, en écrivant la description.
-3. **L'instance.** La solution déployée chez une TPE, avec ses données, ses
-   comptes et sa propre vie.
+![Planche I — La cellule : la membrane est le framework, un noyau est une solution, la cellule est une instance](docs/images/planche-I-la-cellule.svg)
 
-Cette distinction éclaire les deux rythmes d'évolution du projet : faire évoluer
-le **moteur**, c'est faire avancer le framework (mise à jour technique, sur
-sollicitation) ; faire évoluer la **description**, c'est faire avancer la
-solution (déploiement à chaud). Deux niveaux, deux responsables, deux cadences.
+1. **La membrane, le framework.** Syncytium, le tissu commun : le moteur
+   open source. C'est ce dépôt.
+2. **Un noyau, une solution.** Une application métier décrite sur le
+   framework. Le concepteur écrit la description, en YAML.
+3. **La cellule, une instance.** La solution déployée chez une TPE, avec
+   ses données, ses comptes et sa propre vie.
 
-La cible : les **TPE** — une instance autonome par client, environ vingt
-utilisateurs simultanés, des bases de quelques Go. La sophistication se
-concentre là où elle a de la valeur : migrations sûres (validation, répétition
-à blanc, exécution transactionnelle), contrats d'API stables dans le temps,
-télémétrie au service de l'évolution du modèle.
+Deux rythmes en découlent. Le moteur évolue sur sollicitation, par une
+mise à jour technique. La description évolue à chaud : une nouvelle version
+se dépose, les données migrent, les écrans et les API suivent.
 
-## Genèse
+## Une application en vingt-six lignes
 
-Syncytium est né d'un besoin concret : **développer rapidement une application
-fondée sur la donnée**, pour réduire les coûts de développement tout en livrant
-à mes clients des solutions d'abord *montrables*, puis rapidement *exploitables*.
+Tout Syncytium tient dans cette promesse. Voici une application complète,
+un annuaire, telle que le concepteur l'écrit :
 
-C'est cette double exigence — la démonstration tôt, l'exploitation peu après —
-qui a façonné l'approche pilotée par les métadonnées : une description suffit à
-faire émerger une solution présentable, et la même description, enrichie au fil
-des échanges avec le client, la conduit jusqu'à la production sans réécriture.
-Le nom *Syncytium* guide ce projet depuis plus de dix ans.
+```yaml
+from: Syncytium-1.0
+name: tiny
+description: Une entité, quatre champs et une application complète avec API et documentation
 
-## État du projet
+environments:
+  home:
+    description: Exécution en mode local
+    storage: sqlite
 
-🚧 **Phase de conception.** Aucun code n'est encore écrit : le projet en est au
-débat d'architecture, mené point par point et consigné dans le document de
-conception.
+versions:
+  production:
+    environment: home
 
-📄 **[Document de conception](docs/conception.md)** — vision, décisions actées
-(numérotées Dxx), questions ouvertes (Qxx) et journal des échanges ; les
-artefacts préparatoires de la documentation vivent à côté, dans `docs/`
-(le glossaire, l'entité, les types, les composants, les hooks, les
-connecteurs, le mapping, les droits, l'administration, la télémétrie, la
-sécurité, la configuration, le module de migration, la documentation
-générée).
+    1.0.0.0:
+      release-notes: Version 1 de l'annuaire
+
+      annuaire:
+        personne:
+          description: Les membres de l'entreprise
+          label: "{prenom} {nom}"
+          identity: [nom, prenom]
+          fields:
+            nom: text[..40]
+            prenom: text[..40]
+            age: integer
+            fonction: text[..60]
+```
+
+De ces vingt-six lignes naissent la base et sa migration, l'écran de liste
+et le formulaire, l'API versionnée, l'export et l'import, et la
+documentation de l'application dans toutes ses formes. Le fichier est dans
+[examples/01_tiny/](examples/01_tiny/).
+
+## La documentation
+
+La documentation du projet est dans [docs/](docs/README.md). Elle est **en
+cours de réécriture**, chapitre par chapitre : chaque chapitre est relu
+contre les décisions qui le fondent, découpé en documents courts, puis
+réécrit pour être didactique, illustré d'exemples et lisible dans GitHub.
+Le plan et l'avancement, chapitre par chapitre, sont dans
+[docs/README.md](docs/README.md).
+
+- [Syncytium, ce qui est](docs/syncytium/configuration/README.md) : le
+  premier chapitre réécrit, la configuration et sa syntaxe ; les autres
+  suivent dans l'ordre du plan.
+- [Le registre de conception](docs/conception.md) : les décisions
+  numérotées, les questions, le journal des échanges depuis juin 2026. Il
+  est trop gros pour l'affichage de GitHub ; il sera découpé en dernier.
+- [Les cas d'usage](usecases/) et [leurs configurations](examples/) : cinq
+  cas, du tiny à l'entrepôt de données.
+
+## L'état du projet
+
+🚧 **Phase de conception.** Aucun code n'est écrit : tout est débattu point
+par point, consigné au registre, puis documenté. Le code viendra quand la
+documentation sera complète.
 
 ## Licence
 
-Ce projet est distribué sous licence **GNU Affero General Public License v3.0**
-(voir [LICENSE](LICENSE)). Toute version modifiée du moteur — y compris
-proposée en tant que service en ligne — doit être publiée sous la même
-licence : Syncytium est un bien commun et le restera.
+Ce projet est distribué sous licence **GNU Affero General Public License
+v3.0** (voir [LICENSE](LICENSE)). Toute version modifiée du moteur, y
+compris proposée en tant que service en ligne, doit être publiée sous la
+même licence : Syncytium est un bien commun et le restera.

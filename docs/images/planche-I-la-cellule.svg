@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="627" viewBox="0 0 1200 627" role="img"
+     aria-label="Planche I — La cellule : le syncytium en biologie et les trois strates du projet">
+  <title>Syncytium — Planche I — La cellule</title>
+  <defs>
+    <style>
+      .hdr   { font-family: 'Consolas', 'Courier New', monospace; font-weight: bold; font-size: 15px; letter-spacing: 4px; fill: #E0902F; }
+      .hdrR  { font-family: 'Consolas', 'Courier New', monospace; font-size: 12px; letter-spacing: 2px; fill: #8C8072; }
+      .lbl   { font-family: 'Consolas', 'Courier New', monospace; font-size: 13px; fill: #BFB3A3; }
+      .num   { font-family: 'Consolas', 'Courier New', monospace; font-weight: bold; font-size: 12px; fill: #1B1714; }
+      .ttl   { font-family: 'Georgia', 'Cambria', serif; font-style: italic; font-size: 21px; fill: #EDE6DA; }
+      .dsc   { font-family: 'Consolas', 'Courier New', monospace; font-size: 14px; fill: #D08A3C; }
+      .quote { font-family: 'Georgia', 'Cambria', serif; font-style: italic; font-size: 18px; fill: #D9D1C4; }
+      .ctr   { font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; fill: #8C8072; }
+    </style>
+  </defs>
+
+  <!-- fond et cadre -->
+  <rect width="1200" height="627" fill="#100E0C"/>
+  <rect x="30" y="30" width="1140" height="567" fill="#1B1714" stroke="#3B332B" stroke-width="1.5"/>
+
+  <!-- en-tête -->
+  <text x="70" y="78" class="hdr">SYNCYTIUM</text>
+  <text x="1130" y="78" class="hdrR" text-anchor="end">PL. I — LA CELLULE</text>
+
+  <!-- ===== la cellule : une membrane, plusieurs noyaux ===== -->
+  <!-- la membrane -->
+  <path d="M340 140 C430 120 520 170 540 250 C560 330 520 420 440 450 C360 480 250 470 200 410 C150 350 160 250 220 190 C255 155 300 148 340 140 Z"
+        fill="#221D19" stroke="#E0902F" stroke-width="2.2"/>
+  <path d="M340 152 C425 133 508 180 527 253 C546 328 509 410 435 438 C360 466 258 457 212 402 C167 346 176 254 231 199 C263 167 303 160 340 152 Z"
+        fill="none" stroke="#5A4B3B" stroke-width="1" stroke-dasharray="3 5"/>
+
+  <!-- les noyaux : des solutions autonomes dans un même corps -->
+  <g stroke="#E0902F" stroke-width="1.6">
+    <circle cx="300" cy="250" r="38" fill="#2C241E"/>
+    <circle cx="300" cy="250" r="12" fill="#E0902F" stroke="none"/>
+    <circle cx="420" cy="300" r="44" fill="#2C241E"/>
+    <circle cx="420" cy="300" r="14" fill="#E0902F" stroke="none"/>
+    <circle cx="320" cy="380" r="36" fill="#2C241E"/>
+    <circle cx="320" cy="380" r="11" fill="#E0902F" stroke="none"/>
+  </g>
+
+  <!-- les repères numérotés -->
+  <g>
+    <line x1="540" y1="250" x2="600" y2="200" stroke="#E0902F" stroke-width="1.2"/>
+    <circle cx="612" cy="192" r="12" fill="#E0902F"/>
+    <text x="612" y="196.5" class="num" text-anchor="middle">1</text>
+
+    <line x1="464" y1="300" x2="600" y2="300" stroke="#E0902F" stroke-width="1.2"/>
+    <circle cx="612" cy="300" r="12" fill="#E0902F"/>
+    <text x="612" y="304.5" class="num" text-anchor="middle">2</text>
+
+    <line x1="440" y1="450" x2="600" y2="408" stroke="#E0902F" stroke-width="1.2"/>
+    <circle cx="612" cy="400" r="12" fill="#E0902F"/>
+    <text x="612" y="404.5" class="num" text-anchor="middle">3</text>
+  </g>
+
+  <!-- ===== la légende : les trois strates ===== -->
+  <g>
+    <text x="650" y="186" class="ttl">La membrane — le framework</text>
+    <text x="650" y="208" class="dsc">Syncytium, le tissu commun : le moteur open source — ce dépôt.</text>
+    <text x="650" y="226" class="lbl">Il lit une description et fait vivre la base, les écrans, l'API, la documentation.</text>
+
+    <text x="650" y="294" class="ttl">Un noyau — une solution</text>
+    <text x="650" y="316" class="dsc">Une application métier décrite sur le framework, en YAML.</text>
+    <text x="650" y="334" class="lbl">Le concepteur écrit la description ; plusieurs noyaux partagent le même corps.</text>
+
+    <text x="650" y="394" class="ttl">La cellule — une instance</text>
+    <text x="650" y="416" class="dsc">La solution déployée chez une TPE : ses données, ses comptes, sa vie.</text>
+    <text x="650" y="434" class="lbl">Une instance par client ; la description se déploie à chaud, le moteur sur sollicitation.</text>
+  </g>
+
+  <!-- ===== la comparaison, dans les mots de l'auteur ===== -->
+  <line x1="70" y1="490" x2="1130" y2="490" stroke="#3B332B" stroke-width="1"/>
+  <text x="70" y="524" class="quote">« Une cellule unique à plusieurs noyaux, née de la fusion de cellules qui partagent désormais un même corps.</text>
+  <text x="70" y="550" class="quote">Le cœur d'une application repose sur la donnée et sa structure. Alors, pourquoi ne pas aller plus loin</text>
+  <text x="70" y="576" class="quote">et générer des applications rien qu'en déclarant un méta-modèle ? »</text>
+  <text x="1130" y="576" class="ctr" text-anchor="end">— Aymeric Lesert, 17/08/2026</text>
+</svg>

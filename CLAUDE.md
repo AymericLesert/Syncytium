@@ -69,6 +69,11 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   options que nous avons vues ») : chaque notion s'explique avant de se
   nommer, chaque règle a son exemple — en YAML quand la configuration est
   en jeu, pris dans un cas du dépôt de préférence —, une idée par phrase.
+- **Un chapitre se fait en trois temps** (D1521, D1543) : la lecture — l'audit
+  par famille, les écarts arbitrés point par point —, la réorganisation —
+  le découpage vérifié, l'histoire sortie, les liens —, puis la
+  **réécriture** dans la forme ci-dessus, à la fin du chapitre, pour une
+  relecture rapide ; la table de `docs/README.md` note les trois.
 - Un chapitre dit **ce qui est**, pas ce qui a été : l'histoire reste au
   registre ; les décisions sont citées entre parenthèses, elles
   renverront aux ADR.

@@ -869,7 +869,8 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      chaque chapitre ; la première relecture, la configuration, le
      29/10/2026 (D1540 — vingt reclassements) ;
   3. la partie 3, Syncytium — chaque chapitre audité, ses marques
-     soldées, puis déplacé et découpé ; le README de `docs/` ouvert et
+     soldées, puis déplacé et découpé, puis réécrit, didactique et en
+     phrases courtes (D1542–D1543) ; le README de `docs/` ouvert et
      tenu à jour ; une PR : **en cours** depuis le 28/10/2026 (D1527 — le
      chapitre 1, la configuration ; la table des treize chapitres dans
      `docs/README.md`, lue par le tableau de bord) ;

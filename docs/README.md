@@ -62,12 +62,14 @@ Un chapitre par famille de décisions (D1526). Avant d'être réorganisé, un
 chapitre est *lu* : la classification de sa famille relue, les décisions
 amendées ou remplacées confrontées à son texte, ses marques « en
 proposition » soldées (D1521) ; puis il est *réorganisé* : déplacé, découpé,
-ses renvois réécrits. Les deux colonnes disent « — », « en cours » ou
+ses renvois réécrits ; puis il est *réécrit*, didactique, illustré, en
+phrases courtes (D1542–D1543), ce que la colonne de la réorganisation
+note à sa suite. Les deux colonnes disent « — », « en cours » ou
 « fait le JJ/MM/AAAA ».
 
 | # | Le chapitre | Les documents d'aujourd'hui | La destination | La lecture | La réorganisation |
 |---|---|---|---|---|---|
-| 1 | **La configuration et son écriture** | `configuration.md` | `syncytium/configuration/` | fait le 29/10/2026 (13 points, D1528–D1540) | fait le 29/10/2026 (six fichiers, D1541) |
+| 1 | **La configuration et son écriture** | `configuration.md` | `syncytium/configuration/` | fait le 29/10/2026 (13 points, D1528–D1540) | fait le 29/10/2026 (six fichiers, D1541) ; réécriture en cours |
 | 2 | **Le modèle et les types** | `entity.md`, `types.md` | `syncytium/modele/` | — | — |
 | 3 | **Les surfaces et les composants** | `composants.md` | `syncytium/composants/` | — | — |
 | 4 | **Les hooks** | `hooks.md` | `syncytium/hooks/` | — | — |

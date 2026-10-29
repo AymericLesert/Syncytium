@@ -75,7 +75,7 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   collé à la clé, une ligne vide entre deux clés, aucune référence de
   décision dans l'exemple — les décisions se citent dans la prose qui
   l'entoure —, 120 caractères au plus ; un extrait d'un cas se copie tel
-  quel.
+  quel ; `python tools/docyaml.py docs/syncytium` le vérifie.
 - **Un chapitre se fait en trois temps** (D1521, D1543) : la lecture — l'audit
   par famille, les écarts arbitrés point par point —, la réorganisation —
   le découpage vérifié, l'histoire sortie, les liens —, puis la

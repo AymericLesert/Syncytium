@@ -209,8 +209,10 @@ Chaque environnement a son dossier. Son nom est la clé qui le référence
 dans `environments.yml` (D1088).
 
 ```yaml
-# Les environnements, chacun par son nom et son fichier
+# La production
 production: ~{production/production.yml}
+
+# Le staging
 staging: ~{staging/staging.yml}
 ```
 
@@ -343,8 +345,10 @@ Aucun n'est obligatoire : `production` peut se déclarer sans `beta`
 pattern (D805, D806).
 
 ```yaml
-# Les statuts utilisés, chacun par son fichier
+# Le statut beta
 beta: ~{beta/beta.yml}
+
+# Le statut production
 production: ~{production/production.yml}
 ```
 

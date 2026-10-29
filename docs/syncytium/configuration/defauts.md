@@ -103,15 +103,16 @@ group:
   # Le persona : généré, nommé par le groupe
   persona: <généré>
 
-# Les surfaces et les composants graphiques
+# Les surfaces : la surface par défaut, la première déclarée, sinon le défaut du socle
 surface:
-  # La surface par défaut : la première déclarée, sinon le défaut du socle
   default: <la première déclarée>
+
+# Les wizards : le fil d'Ariane en haut
 wizard:
-  # Le fil d'Ariane : en haut
   breadcrumb: top
+
+# Les composants graphiques : la taille, tout l'espace
 component:
-  # La taille : tout l'espace
   size: <tout l'espace>
 
 # L'environnement

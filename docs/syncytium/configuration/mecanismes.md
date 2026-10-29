@@ -202,7 +202,7 @@ sur le type (D584). Les agrégats acceptent un `if` suffixé (D887).
 montant_signe: credit if credit != null else -debit
 
 # L'état en clair : un jeu de valeurs sur le type, avec son défaut
-etat_lisible: etat.select(brouillon: "En cours", valide: "Validée", "...": "Autre")
+etat_lisible: 'etat.select(brouillon: "En cours", valide: "Validée", "...": "Autre")'
 
 # La dernière sortie : un agrégat filtré par un if suffixé
 derniere_sortie: mouvements.max(date if sens = "sortie")

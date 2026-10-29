@@ -185,8 +185,7 @@ partagent un bloc de trente-huit champs par `fields:
 **L'interpolation lit aussi la racine du projet** (D885 — « on exploite
 une capacité de la configuration » ; D1536) : `confidentiality:
 ${confidentiality.financier}` référence un profil nommé une fois dans
-`syncytium.yml` (*la forme de la référence, ma lecture* ; l'autre forme
-possible, le nom seul, `confidentiality: financier`).
+`syncytium.yml` (la forme de la référence confirmée le 29/10/2026).
 
 ### 2.4 bis Rien hors de la configuration (D1440)
 
@@ -465,8 +464,8 @@ qu'aucune clé ne cite est un orphelin.
 
 ### 3.2 `environments/` — la configuration technique commune (D325/D342)
 
-**`listen:` — l'adresse et le port servis, par le `.env`** (D1427, en
-proposition) : « le listen:url + port est à mettre à la configuration mais
+**`listen:` — l'adresse et le port servis, par le `.env`** (D1427 ;
+acquise à la clôture du rang 6, D1435) : « le listen:url + port est à mettre à la configuration mais
 via des variables d'environnement (.env). En fait, cela relève du
 déploiement et cela n'est pas porté par Syncytium et il ne doit pas être
 nécessaire de changer de version si une configuration réseau change. » —

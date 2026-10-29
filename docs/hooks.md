@@ -76,7 +76,7 @@ name: dupliquer
 description: documentation.md        # → le md du fonctionnement (D778) — un md par langue, comme les autres textes
                                      #   (D1403, D1405) : description: { fr: ~{documentation.fr.md}, en: ~{documentation.en.md} }
 code: source.txt                     # → le code — le langage du domaine 7 (D570)
-properties: { }                      # les paramètres du hook — le mode, le nom, le type, la valeur par défaut (D1535)
+properties: { }                      # les paramètres du hook : le mode, le nom, le type, la valeur par défaut (D1535)
 dependencies: [ ]                    # les bibliothèques embarquées — le nom, la version, la licence (D1432) ; absente = aucune
 errors: ~{errors.yml}                # les traces codifiées du hook (D1461, D1463) — le niveau, le message à gabarit, et selon le niveau = aucune
 ```

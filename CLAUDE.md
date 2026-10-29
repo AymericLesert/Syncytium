@@ -62,6 +62,17 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   il suit les `~{…}`, vérifie le YAML et les 120 caractères, liste les
   orphelins).
 
+## L'écriture de la documentation (`docs/`, le rang 10)
+
+- **Didactique, illustrée d'exemples, en phrases courtes** (D1542 ; D1515 :
+  « didactique, lisible et concise … sans oublier de présenter toutes les
+  options que nous avons vues ») : chaque notion s'explique avant de se
+  nommer, chaque règle a son exemple — en YAML quand la configuration est
+  en jeu, pris dans un cas du dépôt de préférence —, une idée par phrase.
+- Un chapitre dit **ce qui est**, pas ce qui a été : l'histoire reste au
+  registre ; les décisions sont citées entre parenthèses, elles
+  renverront aux ADR.
+
 ## La manière
 
 - Avancer **un point à la fois** ; présenter les lectures à confirmer, ne

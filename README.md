@@ -26,7 +26,13 @@ refonte avec Claude :
 Le nom encode l'architecture : une membrane unique, plusieurs noyaux
 autonomes.
 
-![Planche I — La cellule : la membrane est le framework, un noyau est une solution, la cellule est une instance](docs/images/planche-I-la-cellule.svg)
+![Planche I — La cellule : la membrane, les récepteurs, les noyaux, les ribosomes, les mitochondries, les vésicules](docs/images/planche-I-la-cellule.svg)
+
+*La planche I, « La cellule », publiée le 3 septembre 2026 : la membrane
+est les connecteurs, les récepteurs l'authentification et les droits, les
+noyaux les modules déclarés en YAML, les ribosomes les surfaces générées,
+les mitochondries les champs calculés, les vésicules les opérations et
+les hooks ; le cytoplasme est le socle.*
 
 1. **La membrane, le framework.** Syncytium, le tissu commun : le moteur
    open source. C'est ce dépôt.

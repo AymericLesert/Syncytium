@@ -1,78 +1,124 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="627" viewBox="0 0 1200 627" role="img"
-     aria-label="Planche I — La cellule : le syncytium en biologie et les trois strates du projet">
-  <title>Syncytium — Planche I — La cellule</title>
+     aria-label="Planche I — La cellule : une cellule, plusieurs noyaux ; un socle, des applications qui partagent tout">
+  <title>Syncytium — Planche I — La cellule (3 septembre 2026)</title>
   <defs>
     <style>
       .hdr   { font-family: 'Consolas', 'Courier New', monospace; font-weight: bold; font-size: 15px; letter-spacing: 4px; fill: #E0902F; }
       .hdrR  { font-family: 'Consolas', 'Courier New', monospace; font-size: 12px; letter-spacing: 2px; fill: #8C8072; }
-      .lbl   { font-family: 'Consolas', 'Courier New', monospace; font-size: 13px; fill: #BFB3A3; }
-      .num   { font-family: 'Consolas', 'Courier New', monospace; font-weight: bold; font-size: 12px; fill: #1B1714; }
+      .num   { font-family: 'Consolas', 'Courier New', monospace; font-weight: bold; font-size: 12px; fill: #E0902F; }
+      .numK  { font-family: 'Consolas', 'Courier New', monospace; font-weight: bold; font-size: 11px; fill: #E0902F; }
       .ttl   { font-family: 'Georgia', 'Cambria', serif; font-style: italic; font-size: 21px; fill: #EDE6DA; }
+      .ttlS  { font-family: 'Georgia', 'Cambria', serif; font-style: italic; font-size: 14px; fill: #8C8072; }
       .dsc   { font-family: 'Consolas', 'Courier New', monospace; font-size: 14px; fill: #D08A3C; }
-      .quote { font-family: 'Georgia', 'Cambria', serif; font-style: italic; font-size: 18px; fill: #D9D1C4; }
-      .ctr   { font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; fill: #8C8072; }
+      .noyau { font-family: 'Consolas', 'Courier New', monospace; font-size: 13px; fill: #EDE6DA; }
+      .cyto  { font-family: 'Georgia', 'Cambria', serif; font-style: italic; font-size: 13px; fill: #8C8072; }
+      .quote { font-family: 'Georgia', 'Cambria', serif; font-style: italic; font-size: 19px; fill: #D9D1C4; }
+      .cnt   { font-family: 'Consolas', 'Courier New', monospace; font-size: 12px; letter-spacing: 1px; fill: #8C8072; }
     </style>
   </defs>
 
-  <!-- fond et cadre -->
-  <rect width="1200" height="627" fill="#100E0C"/>
-  <rect x="30" y="30" width="1140" height="567" fill="#1B1714" stroke="#3B332B" stroke-width="1.5"/>
+  <!-- fond -->
+  <rect width="1200" height="627" fill="#1B1714"/>
 
   <!-- en-tête -->
-  <text x="70" y="78" class="hdr">SYNCYTIUM</text>
-  <text x="1130" y="78" class="hdrR" text-anchor="end">PL. I — LA CELLULE</text>
+  <text x="60" y="52" class="hdr">SYNCYTIUM</text>
+  <text x="1140" y="52" class="hdrR" text-anchor="end">PL. I — LA CELLULE</text>
 
-  <!-- ===== la cellule : une membrane, plusieurs noyaux ===== -->
-  <!-- la membrane -->
-  <path d="M340 140 C430 120 520 170 540 250 C560 330 520 420 440 450 C360 480 250 470 200 410 C150 350 160 250 220 190 C255 155 300 148 340 140 Z"
-        fill="#221D19" stroke="#E0902F" stroke-width="2.2"/>
-  <path d="M340 152 C425 133 508 180 527 253 C546 328 509 410 435 438 C360 466 258 457 212 402 C167 346 176 254 231 199 C263 167 303 160 340 152 Z"
-        fill="none" stroke="#5A4B3B" stroke-width="1" stroke-dasharray="3 5"/>
+  <!-- ===== la cellule ===== -->
+  <!-- 1. la membrane -->
+  <circle cx="285" cy="330" r="212" fill="#221D19" stroke="#E0902F" stroke-width="2.2"/>
+  <circle cx="285" cy="330" r="196" fill="none" stroke="#5A4B3B" stroke-width="1" stroke-dasharray="3 5"/>
+  <text x="290" y="512" class="cyto" text-anchor="middle">le cytoplasme — le socle</text>
 
-  <!-- les noyaux : des solutions autonomes dans un même corps -->
+  <!-- 2. les récepteurs, sur la membrane -->
+  <g stroke="#E0902F" stroke-width="1.6" fill="#E0902F">
+    <line x1="155" y1="128" x2="175" y2="162"/><circle cx="153" cy="125" r="4.5"/>
+    <line x1="283" y1="96" x2="283" y2="118"/><circle cx="283" cy="93" r="4.5"/>
+    <line x1="410" y1="128" x2="392" y2="160"/><circle cx="412" cy="125" r="4.5"/>
+  </g>
+
+  <!-- 3. les noyaux : transport, banque, satisfaction -->
   <g stroke="#E0902F" stroke-width="1.6">
-    <circle cx="300" cy="250" r="38" fill="#2C241E"/>
-    <circle cx="300" cy="250" r="12" fill="#E0902F" stroke="none"/>
-    <circle cx="420" cy="300" r="44" fill="#2C241E"/>
-    <circle cx="420" cy="300" r="14" fill="#E0902F" stroke="none"/>
-    <circle cx="320" cy="380" r="36" fill="#2C241E"/>
-    <circle cx="320" cy="380" r="11" fill="#E0902F" stroke="none"/>
+    <circle cx="232" cy="282" r="56" fill="#2C241E"/>
+    <circle cx="232" cy="282" r="44" fill="none" stroke="#5A4B3B" stroke-width="1" stroke-dasharray="2 4"/>
+    <circle cx="232" cy="264" r="7" fill="#E0902F" stroke="none"/>
+    <circle cx="364" cy="320" r="52" fill="#2C241E"/>
+    <circle cx="364" cy="320" r="40" fill="none" stroke="#5A4B3B" stroke-width="1" stroke-dasharray="2 4"/>
+    <circle cx="364" cy="302" r="7" fill="#E0902F" stroke="none"/>
+    <circle cx="262" cy="428" r="46" fill="#2C241E"/>
+    <circle cx="262" cy="428" r="35" fill="none" stroke="#5A4B3B" stroke-width="1" stroke-dasharray="2 4"/>
+    <circle cx="262" cy="412" r="6.5" fill="#E0902F" stroke="none"/>
+  </g>
+  <text x="232" y="300" class="noyau" text-anchor="middle">transport</text>
+  <text x="364" y="343" class="noyau" text-anchor="middle">banque</text>
+  <text x="262" y="449" class="noyau" text-anchor="middle">satisfaction</text>
+
+  <!-- 4. les ribosomes : des grains -->
+  <g fill="#EDE6DA">
+    <circle cx="315" cy="198" r="2.5"/><circle cx="324" cy="192" r="2.5"/><circle cx="333" cy="200" r="2.5"/>
+    <circle cx="318" cy="208" r="2.5"/><circle cx="328" cy="210" r="2.5"/>
+    <circle cx="152" cy="300" r="2.5"/><circle cx="160" cy="294" r="2.5"/><circle cx="166" cy="304" r="2.5"/>
+    <circle cx="156" cy="311" r="2.5"/>
+    <circle cx="318" cy="482" r="2.5"/><circle cx="327" cy="476" r="2.5"/><circle cx="334" cy="486" r="2.5"/>
+    <circle cx="322" cy="493" r="2.5"/>
   </g>
 
-  <!-- les repères numérotés -->
-  <g>
-    <line x1="540" y1="250" x2="600" y2="200" stroke="#E0902F" stroke-width="1.2"/>
-    <circle cx="612" cy="192" r="12" fill="#E0902F"/>
-    <text x="612" y="196.5" class="num" text-anchor="middle">1</text>
-
-    <line x1="464" y1="300" x2="600" y2="300" stroke="#E0902F" stroke-width="1.2"/>
-    <circle cx="612" cy="300" r="12" fill="#E0902F"/>
-    <text x="612" y="304.5" class="num" text-anchor="middle">2</text>
-
-    <line x1="440" y1="450" x2="600" y2="408" stroke="#E0902F" stroke-width="1.2"/>
-    <circle cx="612" cy="400" r="12" fill="#E0902F"/>
-    <text x="612" y="404.5" class="num" text-anchor="middle">3</text>
+  <!-- 5. les mitochondries : des ellipses à crêtes -->
+  <g fill="none" stroke="#BFB3A3" stroke-width="1.5">
+    <ellipse cx="398" cy="214" rx="26" ry="12" transform="rotate(-30 398 214)"/>
+    <path d="M384 220 q7 -10 14 0 t14 0" stroke-width="1"/>
+    <ellipse cx="160" cy="382" rx="24" ry="11" transform="rotate(35 160 382)"/>
+    <path d="M148 376 q6 10 12 0 t12 0" stroke-width="1"/>
+    <ellipse cx="382" cy="438" rx="24" ry="11" transform="rotate(-40 382 438)"/>
+    <path d="M370 444 q6 -10 12 0 t12 0" stroke-width="1"/>
   </g>
 
-  <!-- ===== la légende : les trois strates ===== -->
-  <g>
-    <text x="650" y="186" class="ttl">La membrane — le framework</text>
-    <text x="650" y="208" class="dsc">Syncytium, le tissu commun : le moteur open source — ce dépôt.</text>
-    <text x="650" y="226" class="lbl">Il lit une description et fait vivre la base, les écrans, l'API, la documentation.</text>
-
-    <text x="650" y="294" class="ttl">Un noyau — une solution</text>
-    <text x="650" y="316" class="dsc">Une application métier décrite sur le framework, en YAML.</text>
-    <text x="650" y="334" class="lbl">Le concepteur écrit la description ; plusieurs noyaux partagent le même corps.</text>
-
-    <text x="650" y="394" class="ttl">La cellule — une instance</text>
-    <text x="650" y="416" class="dsc">La solution déployée chez une TPE : ses données, ses comptes, sa vie.</text>
-    <text x="650" y="434" class="lbl">Une instance par client ; la description se déploie à chaud, le moteur sur sollicitation.</text>
+  <!-- 6. les vésicules : de petites bulles -->
+  <g fill="none" stroke="#BFB3A3" stroke-width="1.5">
+    <circle cx="124" cy="240" r="8"/><circle cx="446" cy="262" r="8"/>
+    <circle cx="462" cy="378" r="8"/><circle cx="186" cy="488" r="8"/>
   </g>
 
-  <!-- ===== la comparaison, dans les mots de l'auteur ===== -->
-  <line x1="70" y1="490" x2="1130" y2="490" stroke="#3B332B" stroke-width="1"/>
-  <text x="70" y="524" class="quote">« Une cellule unique à plusieurs noyaux, née de la fusion de cellules qui partagent désormais un même corps.</text>
-  <text x="70" y="550" class="quote">Le cœur d'une application repose sur la donnée et sa structure. Alors, pourquoi ne pas aller plus loin</text>
-  <text x="70" y="576" class="quote">et générer des applications rien qu'en déclarant un méta-modèle ? »</text>
-  <text x="1130" y="576" class="ctr" text-anchor="end">— Aymeric Lesert, 17/08/2026</text>
+  <!-- les repères numérotés, sur le schéma -->
+  <g fill="#1B1714" stroke="#E0902F" stroke-width="1.5">
+    <circle cx="79" cy="222" r="11"/><circle cx="318" cy="108" r="11"/><circle cx="296" cy="268" r="11"/>
+    <circle cx="356" cy="194" r="11"/><circle cx="430" cy="202" r="11"/><circle cx="478" cy="270" r="11"/>
+  </g>
+  <g class="numK" text-anchor="middle">
+    <text x="79" y="226">1</text><text x="318" y="112">2</text><text x="296" y="272">3</text>
+    <text x="356" y="198">4</text><text x="430" y="206">5</text><text x="478" y="274">6</text>
+  </g>
+
+  <!-- ===== la légende ===== -->
+  <g fill="none" stroke="#E0902F" stroke-width="1.5">
+    <circle cx="592" cy="124" r="13"/><circle cx="592" cy="199" r="13"/><circle cx="592" cy="274" r="13"/>
+    <circle cx="592" cy="349" r="13"/><circle cx="592" cy="424" r="13"/><circle cx="592" cy="499" r="13"/>
+  </g>
+  <g class="num" text-anchor="middle">
+    <text x="592" y="128.5">1</text><text x="592" y="203.5">2</text><text x="592" y="278.5">3</text>
+    <text x="592" y="353.5">4</text><text x="592" y="428.5">5</text><text x="592" y="503.5">6</text>
+  </g>
+
+  <text x="620" y="131" class="ttl">la membrane</text>
+  <text x="620" y="156" class="dsc">les connecteurs — le stockage, le mail, les fichiers repris</text>
+
+  <text x="620" y="206" class="ttl">les récepteurs</text>
+  <text x="620" y="231" class="dsc">l'authentification, les droits — la frontière contrôlée</text>
+
+  <text x="620" y="281" class="ttl">les noyaux <tspan class="ttlS">— le syncytium en a plusieurs</tspan></text>
+  <text x="620" y="306" class="dsc">les modules — l'ADN déclaré en YAML : entités, champs, cycles</text>
+
+  <text x="620" y="356" class="ttl">les ribosomes</text>
+  <text x="620" y="381" class="dsc">les surfaces générées depuis le modèle — listes, formulaires</text>
+
+  <text x="620" y="431" class="ttl">les mitochondries</text>
+  <text x="620" y="456" class="dsc">les champs calculés — count, avg, solde : tout se refait seul</text>
+
+  <text x="620" y="506" class="ttl">les vésicules</text>
+  <text x="620" y="531" class="dsc">les opérations, les hooks — engendrer, notifier, finaliser</text>
+
+  <!-- ===== le pied ===== -->
+  <line x1="60" y1="562" x2="1140" y2="562" stroke="#3B332B" stroke-width="1"/>
+  <text x="60" y="598" class="quote">« Une cellule, plusieurs noyaux — un socle, des applications qui partagent tout. »</text>
+  <text x="1140" y="598" class="cnt" text-anchor="end">856 décisions · 3 noyaux vivants · open source</text>
 </svg>

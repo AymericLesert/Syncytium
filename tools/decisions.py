@@ -322,6 +322,21 @@ def main():
     elif args[0] == "--decision" and len(args) > 1:
         num = int(args[1].lstrip("D"))
         montrer(decisions[num])
+    elif args[0] == "--numeros" and len(args) > 1:
+        # les numéros d'une famille, en plages compactes — la liste des décisions d'un chapitre, pour son README
+        if args[1] not in FAMILLES:
+            sys.exit(f"famille inconnue : {args[1]} — {', '.join(FAMILLES)}")
+        nums = sorted(d["numero"] for d in decisions.values() if d["famille"] == args[1])
+        plages, debut, prev = [], None, None
+        for n in nums + [None]:
+            if debut is None:
+                debut = prev = n
+            elif n is not None and n == prev + 1:
+                prev = n
+            else:
+                plages.append(f"D{debut}" if debut == prev else f"D{debut}–D{prev}")
+                debut = prev = n
+        print(f"{len(nums)} décisions : " + ", ".join(plages))
     elif args[0] == "--json" and len(args) > 1:
         with open(args[1], "w", encoding="utf-8") as f:
             json.dump(list(decisions.values()), f, ensure_ascii=False, indent=1)

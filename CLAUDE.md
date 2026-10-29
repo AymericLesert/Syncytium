@@ -27,7 +27,11 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   administration, telemetry, security, configuration, migration,
   documentation). Ils sont **vivants** : une décision qui touche un élément
   se reporte dans l'artefact de l'élément ; les principes de la génération
-  de la documentation vont dans `docs/documentation.md`.
+  de la documentation vont dans `docs/documentation.md`. Au rang 10, un
+  chapitre réorganisé vit dans `docs/syncytium/<chapitre>/` (la
+  configuration depuis D1541) ; `docs/README.md` tient l'arborescence et
+  l'avancement ; `python tools/links.py docs usecases README.md` vérifie
+  les renvois.
 - `usecases/<n>_<nom>.md` : la maison de chaque cas (1 tiny, 2 enquête,
   3 véhicule, 4 banque, 5 entrepôt — les cinq seuls, D1518) ; une décision qui touche un
   cas s'y reporte (le cas 5 en particulier). `examples/<n>_<nom>/` ne

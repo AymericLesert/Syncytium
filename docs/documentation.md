@@ -5,7 +5,7 @@ documentation** : ce que Syncytium produit depuis la configuration,
 pour qui, à partir de quoi, sous quelle forme, et ce que le concepteur
 peut y ajouter. C'est le quinzième artefact préparatoire de la
 documentation (Q58, le domaine 6 — D602), après
-[configuration.md](configuration.md) (D994) et
+[configuration.md](syncytium/configuration/README.md) (D994) et
 [migration.md](migration.md) (D1028) ; il est ouvert le 04/10/2026
 (D1118). **Il centralise les principes ; chaque artefact garde ce que
 son élément apporte à la documentation** — l'entité et ses champs dans
@@ -310,7 +310,7 @@ documentations** (§13, D1159), dans les artefacts des composants.
      imprimable, machine) ; la forme attend le domaine 7 (D1126).
 - **Déclinaison** : le tiny.
 - **Livrables** : §2, §3, §12, §13, §21 validés ;
-  [configuration.md](configuration.md) (`documentation.yml`) ;
+  [configuration.md](syncytium/configuration/README.md) (`documentation.yml`) ;
   [types.md](types.md) (la forme en clair de chaque type).
 - **Dépendances** : aucune, sauf §11.
 
@@ -428,7 +428,7 @@ décisions, D1170–D1238.)*
   (le storage refondé, `describe(model)`, les index, les partitions),
   [telemetry.md](telemetry.md) (les indicateurs),
   [migration.md](migration.md) (le chapitre 4.1), [hooks.md](hooks.md)
-  (le contrat du hook de type), [configuration.md](configuration.md)
+  (le contrat du hook de type), [configuration.md](syncytium/configuration/README.md)
   (les groupes, les réglages), [rights.md](rights.md),
   [administration.md](administration.md), [composants.md](composants.md),
   [mapping.md](mapping.md), le glossaire ; la colonne 2 de la matrice
@@ -507,7 +507,7 @@ décisions, D1170–D1238.)*
   1.0.0.1 en beta) — **faite** (D1382 — les clés écrites dans la
   configuration ; [usecases/05_entrepot.md](../usecases/05_entrepot.md)).
 - **Livrables** : une section « Le projet et le support » (§26, les
-  quatre chapitres acquis) ; [configuration.md](configuration.md),
+  quatre chapitres acquis) ; [configuration.md](syncytium/configuration/README.md),
   [composants.md](composants.md) ; la colonne 8 de la matrice dans les
   onze artefacts et la matrice d'ensemble (D1383).
 - **Dépendances** : aucune.
@@ -581,7 +581,7 @@ décisions, D1170–D1238.)*
 - **Livrables** : une section « Le D.A.T. » (§28, les quatre chapitres
   acquis) ; [connectors.md](connectors.md), [security.md](security.md),
   [administration.md](administration.md), [hooks.md](hooks.md),
-  [configuration.md](configuration.md) ; la colonne 4 de la matrice dans
+  [configuration.md](syncytium/configuration/README.md) ; la colonne 4 de la matrice dans
   les onze artefacts et la matrice d'ensemble (D1435).
 - **Dépendances** : les choix techniques (D1025).
 
@@ -3761,7 +3761,7 @@ le concepteur du projet, `author:`) ; Syncytium dit les siens. Les
 clés (D1355) : `copyright:` au projet (`syncytium.yml`, à côté
 d'`author:` et `contact:`), `authors:` à la version ; pour les
 ressources, le `credit:` de D803 suffit (D1384) —
-[configuration.md](configuration.md) §3.1 et §3.4. Les droits
+[configuration.md](syncytium/configuration/README.md) §3.1 et §3.4. Les droits
 d'accès restent à la documentation des droits
 ([rights.md](rights.md)). **Les
 passages** : les transitions de D344–D345 — beta vers production,

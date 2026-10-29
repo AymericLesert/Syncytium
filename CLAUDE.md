@@ -70,7 +70,12 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   nommer, chaque règle a son exemple — en YAML quand la configuration est
   en jeu, pris dans un cas du dépôt de préférence —, une idée par phrase ;
   **des listes à puces** quand le texte décrit une liste d'actions ou de
-  valeurs (D1544).
+  valeurs (D1544) ; **un exemple YAML suit les règles des cas d'exemple**
+  ci-dessus (D1545) : l'introduction avant chaque clé, le commentaire
+  collé à la clé, une ligne vide entre deux clés, aucune référence de
+  décision dans l'exemple — les décisions se citent dans la prose qui
+  l'entoure —, 120 caractères au plus ; un extrait d'un cas se copie tel
+  quel.
 - **Un chapitre se fait en trois temps** (D1521, D1543) : la lecture — l'audit
   par famille, les écarts arbitrés point par point —, la réorganisation —
   le découpage vérifié, l'histoire sortie, les liens —, puis la

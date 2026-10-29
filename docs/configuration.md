@@ -696,12 +696,33 @@ confidentiality:                     # les profils nommés (D885) — des décla
 - **la cascade** (D359/D360/D588) : `settings.yml` de la version
   (l'instance), `settings:` du module, `settings:` de l'entité — **le
   plus proche l'emporte** ; le champ garde le dernier mot ;
-- les réglages dynamiques portent une valeur par défaut surchargeable
-  par l'administration (D588 — `{ mode: dynamic | static, value: … }`) ;
+- **les paramètres — la règle** (D1535) : un hook décrit par son contrat
+  la liste de ses paramètres, le mode, le nom, le type, la valeur par
+  défaut (les `properties` de sa fiche, D809) ; le socle a les siens,
+  décrits par Syncytium — l'inventaire ci-dessous ; **un paramètre
+  surchargé par la configuration exploite les informations connues du
+  paramètre**, et un paramètre surchargé d'un autre paramètre, d'un
+  étage à l'autre de la cascade, celles du rang précédent — seule la
+  valeur se réécrit ; **un paramètre rattaché à aucun paramètre existant,
+  en forme courte, est une valeur texte et statique** (D590) ; la forme
+  longue dit tout (D588–D589) : `mode:` — `dynamic`, surchargeable à
+  chaud par l'administration, ou `static` —, `type:` (texte par défaut)
+  et `value:`, la valeur par défaut ;
+
+  ```yaml
+  marge: 10%                         # la forme courte, sans paramètre connu : texte, statique (D590)
+  taux:                              # la forme longue (D588–D589)
+    mode: dynamic                    # surchargeable à chaud par l'administration
+    type: decimal
+    value: 20
+  counter:
+    reset: never                     # un paramètre du socle surchargé : son mode et son type sont connus
+  ```
+
 - **la règle (D1175) : toute valeur ou tout statut par défaut de
   Syncytium se surcharge dans les settings** — les types (D359), `reset:`
   du compteur (D409), `normalize:` (D870), les profils (D885), les
-  réglages dynamiques (D588), `history:` (D1174) sont les cas déjà
+  paramètres (D588, D1535), `history:` (D1174) sont les cas déjà
   traités d'un seul principe ; la clé porte le nom de la propriété
   réglée, sous le nom du type quand c'est une propriété de type ;
   statique dès que le défaut engage le stockage ou la structure,

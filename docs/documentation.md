@@ -1406,26 +1406,22 @@ composition** par le losange plein et le trait plein, **la référence**
 par la flèche simple, **l'association dérivée par le losange vide et le
 pointillé** (D1268 — dix traits sur le cas 5, du côté de l'entité qui la
 porte), **les cardinalités** gardées — l'obligation et la multiplicité
-que le nom ne dit pas ; **le parent abstrait** annoté `<<abstract>>`,
-l'italique attendant l'outil ; les paquetages préfixés `module_` (la
+que le nom ne dit pas ; le parent sans annotation, puisqu'il
+s'instancie (D143, D1558) ; les paquetages préfixés `module_` (la
 contrainte Mermaid ci-dessus). *(Rendu vérifié.)*
 
 ```mermaid
 classDiagram
   direction LR
   namespace module_technique {
-    class article {
-      <<abstract>>
-    }
+    class article
     class fabrique
     class semi_fini
     class fantome
     class nomenclature
   }
   namespace module_tiers {
-    class tiers {
-      <<abstract>>
-    }
+    class tiers
     class client
     class fournisseur
     class adresse
@@ -1509,7 +1505,6 @@ classDiagram
   direction LR
   namespace module_technique {
     class article {
-      <<abstract>>
       code
       complement
       libelle

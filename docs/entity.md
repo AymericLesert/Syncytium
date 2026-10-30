@@ -203,8 +203,9 @@ Huit règles disent ce que l'héritage est :
   vit en bloc sur le parent, qui référence ses enfants ; une entité à
   hiérarchie a son statut dans ses positions, jamais dans un champ.
 
-*Une tension reste à trancher* : D143 dit le parent instanciable, sans
-abstrait ; le diagramme annote pourtant « le parent abstrait » (D1268).
+Tout parent s'instancie comme ses enfants : il n'y a pas de parent
+abstrait (D143, D1558). Un article acheté est un `article`, sans dérivé ;
+un tiers peut n'être ni client ni fournisseur.
 
 ## La suppression et la réactivation
 
@@ -322,7 +323,7 @@ D1266–D1278.)*
 | la configuration | le diagramme (D1213 ; la table acquise, D1278) |
 |---|---|
 | le module | le paquetage ; dans la vue des modules (D1214, D1266), une boîte par module, la flèche dans le sens de la dépendance, un seul trait par sens, sans poids ; les associations dérivées font flèche aussi — les liens bidirectionnels |
-| l'entité (`name:`) | la classe, par son nom ; le parent abstrait (D1035 — `tiers`) en italique — `<<abstract>>` en attendant l'outil (D1268) |
+| l'entité (`name:`) | la classe, par son nom ; le parent est une classe comme une autre, sans annotation — tout parent s'instancie (D143, D1558) |
 | `inheritance:` | la généralisation — le triangle vers le parent (D143–D145, D1278) |
 | le champ `nom: type` | **son nom seul** — aucun type au diagramme, la table du dictionnaire le dit ; seuls les champs de valeur sont des lignes : tout champ qui pointe vers une entité est un lien (D1270) ; **un compartiment par groupe** (les groupes dans `fields:`, D1273/D1279), l'implicite en tête |
 | `identity:` / `identities:` | **souligné** ; l'identité écrite `identity:` se nomme par défaut « identity » (D1304) |

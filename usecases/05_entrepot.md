@@ -2395,7 +2395,7 @@ est marqué. **En proposition.**)*
 >
 > Un article de l'entreprise — son identité, sa famille, ses unités, ses
 > prix de revient et ses tarifs ; le parent des produits fabriqués,
-> semi-finis et fantômes. **Le parent abstrait** d'une hiérarchie :
+> semi-finis et fantômes. **Le parent** d'une hiérarchie, instanciable :
 > `fabrique`, `semi_fini`, `fantome` en héritent. **L'identité** `code`,
 > `complement` — « identity », l'identité de naissance. **Le visage**
 > `{code}[{complement}] — {libelle}`. **Historisée.** **Le rgpd** : aucun

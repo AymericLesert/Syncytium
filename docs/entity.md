@@ -57,7 +57,7 @@ droits à [rights.md](rights.md).*
 | `identity:` | **la clé fonctionnelle** — la liste des champs (`[nom]`, `[numero]`) ; **toute entité en porte une**, la sienne ou celle de sa racine, que les dérivés conservent (D1035/D1039) ; l'identité interne reste l'UUID (D142), hors déclaration ; pour une composition, la clé vaut au sein du possesseur — elle ouvre l'accès `collection[<clé>]` (D841) ; **la clé composée s'énumère** (`[v1, v2]` — une valeur par identifiant), **l'étendue globale passe par l'entité** (`transport.consommation[…]` — la clé du/des parents en tête, D842) ; **ses champs sont obligatoires sans `required:`** — cela découle de la définition (D1170) ; écrite `identity:`, l'identité se nomme « identity » par défaut (D1304) | D141–D142, D357, D841–D842, D1170 |
 | `identities:` | **plusieurs identités, nommées** — une carte ordonnée, un nom par identité et la liste de ses champs (`identities: { mensuelle: [client, mois], numero: [numero] }`, en bloc) ; exclusive de `identity:` (les deux = une erreur d'ingestion) ; **la première déclarée est l'identité de naissance** : ses champs obligatoires (D1170) ; **les suivantes sont acquises** : leurs champs non obligatoires, le `counter` attribué à la validation y a sa place ; une identité dont un champ est nul ne vaut pas pour l'enregistrement, chacune est une clé parmi les actifs (D141) ; l'accès par la clé vise la première, une autre se nomme — `factures[numero: v]` *(ma forme)* ; la racine porte les identités, les dérivés les conservent (D1039) ; la documentation les nomme | D1170–D1171 |
 | `states:` | **le porteur du cycle de vie** — le champ énuméré désigné (`states: statut`) ; l'entité à hiérarchie a son statut dans ses positions (D353), jamais les deux | D424 |
-| `inheritance:` | l'enfant référence son parent — la hiérarchie se lit chez le parent (le bloc `states:` D353) | D353 |
+| `inheritance:` | l'enfant référence son parent — la hiérarchie se lit chez le parent (le bloc `states:` D353) ; ce que l'enfant reçoit et comment un enregistrement change de niveau : la section « L'héritage » | D353 |
 | `fields:` | les champs — le bloc ou la référence (`fields: fields.yml`) | D767 |
 | les groupes de champs, dans `fields:` | **un groupe est une clé de la carte des champs qui porte `fields:` et `title:`, sans `type:`** (D1279 — amende D1273 ; le critère validé, D1289) : `classification: { title: La classification, fields: ~{classification.yml} }` ou le bloc en place ; les champs hors groupe forment **le groupe implicite** ; les noms de champs restent uniques dans l'entité et s'adressent sans le groupe ; un groupe ne s'emboîte pas ; l'ordre est celui du fichier ; le `title:` texte simple à une langue, par langue à plusieurs (D1101). Le diagramme fait un compartiment par groupe, la table du dictionnaire une section, **le formulaire par défaut un onglet par groupe, l'implicite en en-tête au-dessus des onglets** (D1273). Un champ à `type:` et `fields:` est une liste de valeurs composées (D115), pas un groupe | D1273, D1275, D1279 |
 | `partition:` | **le découpage physique de la table** — le ou les champs dont les valeurs la partitionnent (`partition: date_comptable[year]`, `partition: [site, statut]`), par période pour une date ; sans déclaration, pas de partition ; le storage décide la forme, le `describe(model)` la rend (connectors.md) | D1293, D1300 |
@@ -158,6 +158,52 @@ au-dessus des onglets.
   sa droite — et ce qui parle à l'utilisateur n'est pas un
   commentaire YAML : c'est un `hint:` (la précision courte) ou
   une `description:` (l'aide longue) — D258/D840.
+
+## L'héritage
+
+Une entité peut hériter d'une autre. L'enfant déclare son parent par
+`inheritance:`, et c'est sa seule référence à lui (D353). L'entrepôt en
+a deux : `article` et ses dérivés `fabrique`, `semi_fini`, `fantome` ;
+`tiers` et ses dérivés `client`, `fournisseur`.
+
+```yaml
+# Le nom de l'entité
+name: client
+
+# Le parent
+inheritance: tiers
+
+# L'historique
+history: true
+```
+
+Huit règles disent ce que l'héritage est :
+
+- **la structure** (D143) : un héritage simple, jamais multiple ; dans un
+  seul module ; sur plusieurs niveaux ;
+- **le stockage** (D144) : une table unique pour le parent et ses enfants,
+  portée par Syncytium ; un champ appartient à un niveau, et n'est visible
+  que si l'enregistrement a atteint ce niveau ;
+- **l'identité à la racine** (D1035, D1039) : la racine porte l'identité,
+  les dérivés la conservent ; `client` et `fournisseur` gardent l'identité
+  du `tiers` ;
+- **pas de surcharge d'un champ du parent** (D152) : l'enfant ne redéfinit
+  jamais un champ hérité ; il peut seulement en ajuster la visibilité ;
+- **la promotion** (D145) : un enregistrement progresse dans la hiérarchie,
+  de `tiers` à `client` dès sa première commande, en gardant son
+  identité ; la promotion étend ses propriétés et ouvre les listes, les
+  écrans, les traitements du niveau ; ses déclencheurs se déclarent ;
+- **la double position** (D146) : un tiers peut être client et
+  fournisseur à la fois ; le parent porte le commun, chaque branche ses
+  champs ; l'état est un ensemble de positions ;
+- **la création directe** (D355) : un client peut naître client, sans
+  passer par prospect ;
+- **le cycle chez le parent** (D353) : la machine à états d'une hiérarchie
+  vit en bloc sur le parent, qui référence ses enfants ; une entité à
+  hiérarchie a son statut dans ses positions, jamais dans un champ.
+
+*Une tension reste à trancher* : D143 dit le parent instanciable, sans
+abstrait ; le diagramme annote pourtant « le parent abstrait » (D1268).
 
 ## La suppression et la réactivation
 

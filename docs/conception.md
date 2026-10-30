@@ -25023,7 +25023,7 @@ avant la synthèse Q16).
   « fonction d'agrégation remplace avantageusement "agrégat" pour les fonctions » (D1564) ; « avons-nous
   ajouté des fonctions ensemblistes » : non, ouvert pour le chapitre 3.
   « Ouvrir le chapitre 3 » (D1565) : soixante-dix-huit décisions lues, treize points en quatre
-  groupes ; « Point par point », le point 1, la concaténation.
+  groupes ; le point 1, la concaténation, présenté.
 - **2026-10-28 (suite 3) — LA PAUSE : LE CHAPITRE 1, QUATRE POINTS SUR
   TREIZE, SEPT DÉCISIONS (D1528–D1534, 1534 décisions).** Le point 1
   appliqué avec D1528 ; le point 2 devenu D1529 et D1530 — trois

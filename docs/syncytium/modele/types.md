@@ -66,8 +66,10 @@ Tout type déclare ce que le langage peut faire de ses valeurs (D579–D584).
 Sa signature a six parties.
 
 - **La conversion intrinsèque** : une fonction au nom du type convertit
-  une valeur, `text(x)`, `date(x)`, `integer(CLCTCECHEA)`. La promotion
-  implicite n'a lieu que sans perte (D581).
+  une valeur, `text(x)`, `date(x)`, `integer(CLCTCECHEA)` (D579, D1568).
+  C'est la seule écriture de la conversion explicite. La promotion
+  implicite n'a lieu que sans perte (D581). Une conversion impossible,
+  `integer("abc")`, échoue proprement, jamais en silence (D304, D312).
 - **La table des opérateurs** : les combinaisons admises et le type du
   résultat, `date - date` rend une durée.
 - **Les comparateurs** : l'ordre des valeurs, celui des règles de tri.

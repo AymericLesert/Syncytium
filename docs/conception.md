@@ -25043,7 +25043,7 @@ avant la synthèse Q16).
   ajouté des fonctions ensemblistes » : non, ouvert pour le chapitre 3.
   « Ouvrir le chapitre 3 » (D1565) : soixante-dix-huit décisions lues, treize points en quatre
   groupes ; le point 1, la concaténation, présenté.
-  « re » — la reprise ; « on garde les 2 écritures » (D1566) ;
+  « re » — « re est une abréviation pour reprenons » ; « on garde les 2 écritures » (D1566) ;
   « On peut ajouter les fonctions lpad et rpad sur le texte » (D1567) ; le point 2 présenté.
 - **2026-10-28 (suite 3) — LA PAUSE : LE CHAPITRE 1, QUATRE POINTS SUR
   TREIZE, SEPT DÉCISIONS (D1528–D1534, 1534 décisions).** Le point 1

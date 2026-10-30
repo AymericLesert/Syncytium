@@ -68,10 +68,23 @@ km_courant:
 Deux opérateurs complètent la collection :
 
 - **l'appartenance**, `in` (D888) : `<élément> in <collection>`,
-  `me in fournisseurs` ;
+  `me in fournisseurs` ; sa négation s'écrit `not in` (D1572) ;
 - **la projection**, le point (D889) : `<collection>.<champ>` rend la
   collection des valeurs de ce champ, `me.code in fournisseurs.code`,
   `lignes.article`.
+
+**La liste littérale** écrit des valeurs en dur, entre crochets (D1572). Ses
+valeurs sont du même type ; elle se lit telle quelle, sans retirer de doublon :
+
+```yaml
+# La ligne en retard : le statut n'est ni soldé ni terminé
+en_retard:
+  type: boolean
+  formula: delai_expedition < context.today and statut not in ["soldee", "terminee"]
+```
+
+Une formule qui commence par `[` se met entre apostrophes, sinon le YAML la lit comme une
+liste.
 
 **Le constructeur `list(a, b, …)`** assemble plusieurs valeurs en une
 liste (D971, D579, D659) :

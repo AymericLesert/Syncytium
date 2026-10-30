@@ -448,7 +448,7 @@ emploient.
 | `left(t, n)`, `right(t, n)` | garde les n premiers ou derniers caractères, `right("0000" + me, 4)` (D870) |
 | `mid(t, début, longueur)` | extrait la sous-chaîne (D934) |
 | `length(t)` | rend la longueur (D934) |
-| `t1 + t2` | concatène (D870) |
+| `t1 + t2` | concatène ; un nul y est une anomalie, comme dans toute expression (D870, D1566) |
 | `t like "regex"` | compare à une expression régulière (D818) |
 | `extract(t, "regex")` | extrait par l'expression régulière : la capture unique, ou plusieurs noms par les groupes nommés, lus au point (D817) |
 
@@ -464,6 +464,9 @@ perissable:
   formula: mid(ARCTCODFAM, 4, 1) = "1"
   description: Un 4e caractère à 1 dans le code de famille marque l'article périssable.
 ```
+
+Le gabarit est l'autre écriture de la concaténation : `"{code} — {nom}"` compose un texte, et une valeur nulle
+s'y écrit vide (D1106, D1566). `+` convient aux codes, le gabarit aux phrases et aux adresses.
 
 Un texte trop long pour sa cible se tronque par `left`. La conversion
 avec perte est refusée à l'ingestion, jamais implicite (D581, D934).

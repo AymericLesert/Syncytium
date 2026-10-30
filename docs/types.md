@@ -38,7 +38,7 @@ composants.md.
   la promotion implicite sans perte seulement — D581), **la table des
   opérateurs** (les combinaisons admises, le type du résultat), **les
   comparateurs** (l'ordre des règles de tri), **le `if` suffixé et sa chaîne** — `valeur if condition else valeur if condition else valeur`, les cas dans l'ordre, lus de gauche à droite, le dernier sans condition (D580, D1109–D1110) —, **le `select`**
-  (`valeur.select(cas: …, "...": défaut)` — **deux conduites** (D1002) : sans `"..."`, une valeur hors des cas est rejetée ; avec `"..."`, toutes les autres valeurs sont cadrées ou traitées par ce cas ; `null:` nomme le cas du nul, le vide du texte — *forme mienne*), **les fonctions dédiées**
+  (`valeur.select(cas: …, "...": défaut)` — **deux conduites** (D1002) : sans `"..."`, une valeur hors des cas est rejetée ; avec `"..."`, toutes les autres valeurs sont cadrées ou traitées par ce cas ; `null:` nomme le cas du nul (D1551) ; le nul et la chaîne vide ne se confondent pas : `""` n'est pas un nul et ne tombe pas dans `null:`), **les fonctions dédiées**
   (`distance` de la géolocalisation — D579 ; **`extract` du texte** :
   l'extraction par la regex, la capture unique ou **plusieurs noms
   simultanément par les groupes nommés**, les valeurs au point —

@@ -29,7 +29,7 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   se reporte dans l'artefact de l'élément ; les principes de la génération
   de la documentation vont dans `docs/documentation.md`. Au rang 10, un
   chapitre réorganisé vit dans `docs/syncytium/<chapitre>/` (la
-  configuration depuis D1541, le modèle depuis D1561) ; `docs/README.md` tient l'arborescence et
+  configuration depuis D1541, le modèle depuis D1561, le langage depuis D1586) ; `docs/README.md` tient l'arborescence et
   l'avancement ; `python tools/links.py docs usecases README.md` vérifie
   les renvois.
 - `usecases/<n>_<nom>.md` : la maison de chaque cas (1 tiny, 2 enquête,

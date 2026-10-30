@@ -336,6 +336,11 @@ vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ 
 **Filigrane** — La marque de fond de page d'une édition de beta,
 « Beta vx.y.z.w » par défaut, personnalisable ou absente. *(D1145)*
 
+**Fonction** — Une opération du langage qui prend des valeurs en arguments et
+rend une valeur, ou plusieurs valeurs nommées. Le catalogue est en anglais ;
+chaque type emmène les siennes, un hook de fonction en ajoute.
+*Ex. : `left(code, 3)`, `ifnull(remise, 0)`.* *(D301, D571, D579, D593)*
+
 **Fonction d'agrégation** — Une méthode d'une collection qui en résume
 les éléments en une valeur : `sum`, `count`, `avg`, `min`, `max`, `first`,
 `last`, `any`, `all`, `list`. Celle qui porte une valeur se lit
@@ -450,7 +455,7 @@ de la configuration à la place d'une valeur.
 
 **Langage d'expression** — La langue unique des formules : calculs,
 validations, filtres, gabarits.
-*Ex. : `sum(lines.amount if quantity > 0)`.* *(D90/D301)*
+*Ex. : `lines.sum(amount if quantity > 0)`.* *(D90/D301, D1570)*
 
 **Langue apportée** — Une langue que le core ne porte pas et qu'un
 projet apporte : son catalogue, complet, construit par `syncytium
@@ -477,6 +482,11 @@ l'**usager** (la personne dont les données sont traitées — une
 édition sur sa demande), le **DPO** (l'auditeur aussi), l'**hébergeur**
 (`reader` ou une édition), le **prospect** (le partenaire aussi — le
 mode public). *(D1148, D1152)*
+
+**Littéral** — Une valeur écrite en dur dans une formule : un texte entre
+guillemets ou apostrophes, un nombre au point décimal, une durée, un booléen,
+une date. Une unité ou une devise s'écrit entre guillemets ; une clé reste nue.
+*Ex. : `"soldee"`, `6.55957`, `180d`, `true`, `date("2026-01-01")`.* *(D1579, D1581)*
 
 **Libellé** (`label`) — Le nom d'une chose dans la langue de
 l'utilisateur. *Ex. : `label: { fr: Client }`.* Sans lui, le gabarit du

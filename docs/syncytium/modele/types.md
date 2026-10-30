@@ -62,55 +62,10 @@ toujours en premier (D391).
 
 ### La signature d'un type
 
-Tout type déclare ce que le langage peut faire de ses valeurs (D579–D584).
-Sa signature a six parties.
-
-- **La conversion intrinsèque** : une fonction au nom du type convertit
-  une valeur, `text(x)`, `date(x)`, `integer(CLCTCECHEA)` (D579, D1568).
-  C'est la seule écriture de la conversion explicite. La promotion
-  implicite n'a lieu que sans perte (D581). Une conversion impossible,
-  `integer("abc")`, échoue proprement, jamais en silence (D304, D312).
-- **La table des opérateurs** : les combinaisons admises et le type du
-  résultat, `date - date` rend une durée.
-- **Les comparateurs** : l'ordre des valeurs, celui des règles de tri.
-- **Le `if` suffixé et sa chaîne** : `valeur if condition else valeur if
-  condition else valeur`. Les cas se lisent de gauche à droite, dans
-  l'ordre ; le dernier est sans condition (D580, D1109, D1110).
-- **Le `select`** : `valeur.select(cas: résultat, …)`, la table de
-  correspondance d'une valeur.
-- **Les fonctions dédiées** : `distance` pour la géolocalisation (D579),
-  `extract` pour le texte (D817).
-
-Le `select` a deux conduites (D1002) :
-
-- sans le cas `"..."`, une valeur hors des cas est rejetée ;
-- avec le cas `"..."`, toutes les autres valeurs prennent son résultat.
-
-La reprise de l'entrepôt emploie les deux. La langue d'un tiers n'admet
-que quatre codes ; l'usage d'une adresse range tout le reste en
-« autre » :
-
-```yaml
-# La langue du tiers : quatre codes, une valeur hors de la table est rejetée
-langue: 'CLCTLANGUE.select(01: "fr", 03: "en", 05: "de", 07: "es")'
-
-# L'usage de l'adresse : deux codes, tout le reste est « autre »
-usage: 'ADCTTYPE.select(LIVRAISON: "livraison", FACTURATION: "facturation", "...": "autre")'
-```
-
-Le cas `null:` nomme le nul (D1551). Le nul et la chaîne vide ne se
-confondent pas : `""` n'est pas un nul, et ne tombe pas dans `null:` ;
-il se nomme `""`.
-
-Sur un énuméré, les valeurs sont connues dès l'ingestion. Un `select` sans le cas `"..."`
-doit donc les nommer toutes ; s'il en oublie une, c'est une erreur d'ingestion (D1569). Sur un
-texte ou un nombre, la valeur hors de la table est rejetée à l'exécution.
-
-### Le typage statique
-
-Le type de chaque expression se calcule à l'ingestion, de la feuille à
-la racine (D581). Une erreur de type est une erreur d'ingestion, jamais
-une erreur à l'exécution.
+Tout type déclare ce que le langage peut faire de ses valeurs : sa conversion,
+ses opérateurs, ses comparateurs, son `select`, ses fonctions (D579–D584). Le
+langage la décrit, dans [l'écriture d'une expression](../langage/ecriture.md) ; le
+typage statique et les garde-fous sont dans [le langage](../langage/README.md).
 
 ### La conversion vers le stockage
 
@@ -442,38 +397,5 @@ Le tri : sur l'entier, le nul en premier.
 
 ## Les fonctions du texte
 
-Le type `text` emmène ses fonctions (D579, D934). Le registre le dit :
-« trim, upper, right, mid, … doivent figurer au catalogue sur un champ
-texte ». Les règles du mapping, les calculés et les normalisations les
-emploient.
-
-| La fonction | Le geste |
-|---|---|
-| `trim(t)` | retire les blancs de tête et de fin (D870, D872) |
-| `upper(t)`, `lower(t)` | change la casse (D656) |
-| `left(t, n)`, `right(t, n)` | garde les n premiers ou derniers caractères, `right("0000" + me, 4)` (D870) |
-| `lpad(t, n, c)`, `rpad(t, n, c)` | complète le texte à gauche ou à droite par le caractère `c`, une espace par défaut, jusqu'à `n` caractères ; un texte plus long reste tel quel, `lpad(me, 4, "0")` (D1567) |
-| `mid(t, début, longueur)` | extrait la sous-chaîne (D934) |
-| `length(t)` | rend la longueur (D934) |
-| `t1 + t2` | concatène ; un nul y est une anomalie, comme dans toute expression (D870, D1566) |
-| `t like "regex"` | compare à une expression régulière (D818) |
-| `extract(t, "regex")` | extrait par l'expression régulière : la capture unique, ou plusieurs noms par les groupes nommés, lus au point (D817) |
-
-`trim` est la normalisation par défaut des textes de l'entrepôt : les
-settings l'écrivent sous `field:` et le nom du type, `text: { normalize:
-trim(me) }` (D991, D1239), et un champ peut la surcharger (D872).
-
-La reprise des articles en emploie une pour lire un code de famille :
-
-```yaml
-# L'article périssable : le quatrième caractère du code de famille
-perissable:
-  formula: mid(ARCTCODFAM, 4, 1) = "1"
-  description: Un 4e caractère à 1 dans le code de famille marque l'article périssable.
-```
-
-Le gabarit est l'autre écriture de la concaténation : `"{code} — {nom}"` compose un texte, et une valeur nulle
-s'y écrit vide (D1106, D1566). `+` convient aux codes, le gabarit aux phrases et aux adresses.
-
-Un texte trop long pour sa cible se tronque par `left`. La conversion
-avec perte est refusée à l'ingestion, jamais implicite (D581, D934).
+Le type `text` emmène ses fonctions : `trim`, `upper`, `left`, `lpad`, `mid`,
+`extract`… (D934). Elles sont décrites dans [le catalogue des fonctions](../langage/fonctions.md).

@@ -172,77 +172,10 @@ fichiers disent ce qui est inclus.
 
 ## 2.7 Le langage d'expression dans les valeurs (D90–D92)
 
-Un seul langage sert partout où une valeur se calcule ou se vérifie :
-
-- les calculs, `formula:` ;
-- les validations, `validation:` ;
-- les filtres, `filter:` ;
-- les normalisations, `normalize:` ;
-- les règles de migration, `fields:` d'une règle ;
-- les conditions, `if`, `when:`.
-
-Ses mots à portée :
-
-- **`me`** : la valeur, à l'étage du champ (`normalize: trim(me)`) ;
-  l'enregistrement, à l'étage de la règle (D872, D822) ;
-- **`owner`** : le possesseur (D760, D841) ;
-- **`context`** : le contexte courant, `context.now`, `context.settings`
-  (D575, D588) ;
-- **`connector`** et **`cache`** : dans une règle de migration (D821,
-  D845).
-
-Le conditionnel s'écrit `valeur if condition else autre`. Les cas
-s'enchaînent par `else … if …`, lus de gauche à droite ; les parenthèses
-changent la priorité ; un `if` seul vaut nul sinon (D580, D1003, D1109,
-D1110). Un jeu de valeurs s'écrit `.select(clé: valeur, "...": défaut)`
-sur le type (D584). Les fonctions d'agrégation acceptent un `if` suffixé (D887, D1564).
-
-Les conditions se joignent par les opérateurs logiques `and`, `or`, `xor` et `not` (D1571).
-`not` lie le plus fort, puis `and`, puis `xor`, puis `or` ; tous passent après les comparaisons.
-`a or b and c` se lit donc `a or (b and c)`. Le signe `!` est le factoriel, jamais la négation
-(D577).
-
-Le test du nul s'écrit `a is null`, son inverse `a is not null` (D1573). Il rend toujours vrai
-ou faux, jamais une anomalie : c'est la seule façon de tester un nul. `a = null` est une erreur
-d'ingestion, qui indique `is null` ; `isnull` n'existe pas (D1585).
-
-La fonction `ifnull(p, v)` rend `p`, ou `v` quand `p` est nul (D1574) : `ifnull(Credit, 0)`
-remplace un crédit absent par zéro. `p` et `v` sont du même type, et `ifnull` ne lève jamais
-d'anomalie (D1585).
-
-Les littéraux s'écrivent ainsi (D1578, D1579) :
-
-- **un texte**, entre guillemets ou entre apostrophes, au même sens : `"soldee"`, `'^([^.]+)\.'` ;
-- **un nombre**, avec le point décimal, sans séparateur de milliers : `6.55957` ;
-- **une durée**, en nombre suivi de son unité : `12m`, `180d`, `2h` ; `m` est le mois, `min` la minute ;
-- **un booléen**, `true` ou `false` ; le nul, `null` ;
-- **une date**, en ISO, par la fonction du type : `date("2026-01-01")` ;
-- **une unité, une devise, une valeur d'énuméré**, entre guillemets, comme tout texte :
-  `quantite.to("kg")`, `amount(v, "EUR")`, `statut = "soldee"` (D1578, D1581).
-
-Une clé reste nue : celle d'un `select`, `select(EUR: …)` comme `select(thermique: …)`. Une
-déclaration YAML suit l'usage du YAML : `units: [kg, g]`, `currency: EUR` (D1581).
-
-```yaml
-# La cohérence des dates : la règle ne joue que si la vente est posée
-validation:
-  - rule: date_vente >= date_achat if date_vente is not null
-    message: La vente du {date_vente} précède l'achat du {date_achat}.
-```
-
-```yaml
-# Le montant signé : le conditionnel natif
-montant_signe: credit if credit is not null else -debit
-
-# L'état en clair : un jeu de valeurs sur le type, avec son défaut
-etat_lisible: 'etat.select(brouillon: "En cours", valide: "Validée", "...": "Autre")'
-
-# La dernière sortie : une fonction d'agrégation filtrée par un if suffixé
-derniere_sortie: mouvements.max(date if sens = "sortie")
-```
-
-Chaque type porte ses fonctions (D579). Le catalogue est dans
-[types.md](../modele/types.md).
+Un seul langage sert partout où une valeur se calcule ou se vérifie (D90). Il est décrit
+dans [le langage d'expression](../langage/README.md) : son écriture, ses collections, ses
+fonctions. Ce chapitre garde ce qui n'est pas une expression : l'interpolation `${…}`,
+résolue au chargement, et la référence de fichier `~{…}` (D1583).
 
 ## 2.8 La forme courte et le bloc (D356)
 

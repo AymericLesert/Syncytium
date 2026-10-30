@@ -26,7 +26,7 @@ porte ses écritures en euros ou en francs :
 # Le montant de l'écriture : la devise vit dans la valeur
 montant:
   type: amount
-  currencies: [EUR, FRF]
+  currencies: ["EUR", "FRF"]
   required: true
   label: { fr: Montant, en: Amount, es: Importe }
   hint:
@@ -44,7 +44,7 @@ montant:
   `amount * decimal` (D581).
 - **Les parties** : `.value`, `.currency`.
 - **La devise par défaut** se règle dans les settings, sous `field:` et
-  le nom du type, `amount: { currency: EUR }` (D991, D993, D1239).
+  le nom du type, `amount: { currency: "EUR" }` (D991, D993, D1239).
 - **Le constructeur à un argument**, `amount(v)`, prend la devise du
   champ s'il en déclare une, celle des settings sinon (D359). La reprise
   de l'entrepôt lit ainsi des prix sans colonne de devise :
@@ -73,7 +73,7 @@ le cas complet : l'unité d'un article, qui porte ses conversions.
 # L'unité de l'article : une mesure qui porte la matrice de conversion de l'article
 unite:
   type: measure
-  units: [U, kg]
+  units: ["U", "kg"]
   required: true
   label: Unité
   hint: Une unité de l'article, avec ses conversions — la plaque en pièces, en kilogrammes.
@@ -91,12 +91,12 @@ unite:
 
 `units:` dit les unités du champ, de trois façons :
 
-- **statiques**, `units: [kg, g, t]` ;
+- **statiques**, `units: ["kg", "g", "t"]` ;
 - **par une table de référence**, `units: stock.unit` ;
 - **libres**, le défaut.
 
 Les unités **connues** du champ sont les standards du type, restreintes
-par `units:`, et celles de sa déclaration. `units: [U]` ne garde que la
+par `units:`, et celles de sa déclaration. `units: ["U"]` ne garde que la
 diagonale, U vers U vaut 1 : aucune unité standard, et la valeur est
 valide en soi. La comparaison des unités est normalisée : `KG` vaut `kg`,
 `T` vaut `t` (D983).

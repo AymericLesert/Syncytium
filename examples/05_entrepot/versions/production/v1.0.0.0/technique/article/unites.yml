@@ -13,7 +13,7 @@ unite_commande:
 
 unite:
   type: measure
-  units: [U, kg]
+  units: ["U", "kg"]
   required: true
   label: Unité
   hint: Une unité de l'article, avec ses conversions — la plaque en pièces, en kilogrammes.
@@ -28,27 +28,27 @@ unite:
 
 poids:
   type: measure
-  units: [kg, g]
+  units: ["kg", "g"]
   label: Poids unitaire
   hint: Le poids d'une unité — en kilogrammes.
   description: Porté par l'article, lisible ici ; il est aussi le coefficient de l'unité vers le kilogramme.
 
 longueur:
   type: measure
-  units: [mm]
+  units: ["mm"]
   label: Longueur
 
 largeur:
   type: measure
-  units: [mm]
+  units: ["mm"]
   label: Largeur
 
 epaisseur:
   type: measure
-  units: [mm]
+  units: ["mm"]
   label: Épaisseur
 
 volume:
   type: measure
-  units: [dm3, m3]
+  units: ["dm3", "m3"]
   label: Volume unitaire

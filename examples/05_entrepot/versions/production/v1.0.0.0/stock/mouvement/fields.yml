@@ -126,7 +126,7 @@ valeur:
 
 masse:
   type: measure
-  units: [kg]
+  units: ["kg"]
   formula: quantite.to("kg")
   label: Masse
   description: >-

@@ -1379,7 +1379,7 @@ dérivés** `date_pmi: { type: date, mask: "yyyymmdd" }` et `time_pmi`
 sont définissables avec des paramètres par défaut » : la clé est le
 nom, `type:` la base, le reste ses défauts ; les trente-quatre colonnes
 J et S des sources s'écrivent `ARCJCRE: date_pmi`, la forme courte),
-**`amount: { currency: EUR }`** (D993, qui amende D970 — « le défaut du
+**`amount: { currency: "EUR" }`** (D993, qui amende D970 — « le défaut du
 type me convient » : la devise de l'entreprise en défaut du type, les
 prix de l'article sans colonne de devise par le constructeur à un
 argument, `amount(ARCNPRS)`) et
@@ -2413,7 +2413,7 @@ est marqué. **En proposition.**)*
 > | `prix_achat` | un montant, en euros par défaut | Prix d'achat | … | non | — | protégé — achats, direction | — | 1.0.0.0 |
 >
 > *(« un montant, en euros par défaut » : le type `amount` avec le réglage
-> `currency: EUR` de `settings.yml` fondu dans la forme en clair (D1253) ;
+> `currency: "EUR"` de `settings.yml` fondu dans la forme en clair (D1253) ;
 > « protégé — achats, direction » : le profil `financier` résolu (D1247) ;
 > la colonne des exceptions d'écriture (D1311) est vide — les champs
 > suivent leur entité, et le module ferme `create`, `update`, `delete` :

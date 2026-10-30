@@ -159,6 +159,39 @@ au-dessus des onglets.
   commentaire YAML : c'est un `hint:` (la précision courte) ou
   une `description:` (l'aide longue) — D258/D840.
 
+## La suppression et la réactivation
+
+Supprimer un enregistrement ne l'efface pas. **La suppression est une
+inactivation** (D137) : l'enregistrement devient inactif, ses propriétés
+restent lisibles sur demande, et les listes ne montrent que les actifs
+par défaut. Supprimer un agrégat inactive l'agrégat entier, la commande
+et ses lignes ensemble. Modifier un inactif est refusé. L'effacement
+réel, le droit du RGPD, est une purge distincte, un acte de
+l'administrateur ([rights.md](rights.md)).
+
+Quatre règles en découlent :
+
+- **le comportement à la suppression se déduit de la nullabilité** du
+  champ qui référence, sans déclaration (D138) : une référence
+  obligatoire interdit de supprimer sa cible ; une référence optionnelle
+  l'autorise, et la référence reste, pointée vers l'inactif ; il n'y a
+  jamais de référence pendante ;
+- **l'unicité ne vaut que parmi les actifs** (D141) : deux inactifs
+  peuvent porter la même clé, et un enregistrement supprimé peut être
+  recréé avec la même identité ;
+- **la réactivation est l'acte exceptionnel de l'administrateur** (D140,
+  D903), sous contrôle de collision des clés avec les actifs ; elle ne se
+  déclare pas et n'est offerte ni à l'utilisateur ni au manager : c'est
+  un geste du module d'administration ([administration.md](administration.md)) ;
+- **les colonnes qui portent l'inactivation** sont celles du socle, à
+  étudier à l'implémentation (D1305) ; la règle, elle, ne dépend pas du
+  stockage.
+
+Dans la banque, un compte que ses écritures référencent par une
+référence obligatoire ne peut pas être supprimé tant qu'elles existent ;
+un lieu, référencé par une référence optionnelle, peut l'être, et les
+écritures qui le citent continuent de pointer vers le lieu inactif.
+
 ## Les opérations — le renvoi
 
 Le bloc `operations:` (D432) déclare l'usage des hooks d'opération

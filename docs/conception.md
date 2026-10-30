@@ -1688,6 +1688,7 @@ Q58) :
 | D1554 | **Cinq formes de `measure` acquises, pour `duration` à l'identique : `.value`, le nombre nu ; `unit: <référence>.<champ>`, l'unité empruntée ; `.to(<unité>, <paramètres>)`, la conversion ; l'invariant — toute unité d'une valeur atteint une unité connue du champ, sinon la valeur n'est pas conforme ; la table d'opérateurs — les sommes et les rapports d'unités reliées, le produit par un décimal, les comparaisons par conversion, les agrégats** (confirme mes formes de D975, D979, D984, D1009, D1011 ; le chapitre 2, le point 18) : « Oui, les cinq » | Trois étaient déjà écrites dans l'entrepôt — `quantite.value`, `unit: article.unite`, `quantite.to(kg)` —, acquises par l'usage sans être nommées. `storage: <unité>` reste une note pour l'implémentation (D1012). types.md. Voir §3.2c. |
 | D1555 | **Un compteur mutualisé se repositionne par son nom au crochet : `counter[mon_compteur].update(valeur)`** (confirme ma forme de D999 ; précise D409 — le compteur mutualisé, D999 — la méthode `update` du type ; le chapitre 2, le point 19) : « Oui, point 19 » | Aucun champ ne possède seul un compteur mutualisé ; il se nomme par lui-même, comme à sa déclaration. types.md. Voir §3.2c. |
 | D1556 | **Les noms des parties et des opérations du fichier : `.size`, `.created`, `.modified`, `.hash` ; `.read()`, `.read(text)`, `.move(destination)`, `.delete()`, `.hash()`** (confirme mes noms de D972 et D974 ; D301/D358 — le catalogue en anglais ; le chapitre 2, le point 21) : « Oui, point 21 » | Les quatre descripteurs de D972 et les gestes de D974 ; la partie `.hash` est l'empreinte gardée quand `hash: true`, l'opération `.hash()` l'empreinte calculée, les parenthèses les distinguent. types.md. Voir §3.2c. |
+| D1557 | **Les noms des parties de la géolocalisation : `.latitude`, `.longitude`, `.address` — l'adresse normalisée —, `.raw` — l'adresse brute, telle que saisie** (confirme mes noms de D961 ; le chapitre 2, le point 22) : « Oui, point 22 » | Le mot simple rend l'adresse qu'on affiche, le mot marqué la donnée d'origine. types.md. Voir §3.2c. |
 | D1198 | **Les liens de la documentation sont ceux que l'ingestion garantit — les références et les associations entre entités et champs, dans les traitements et les opérations ; ils montrent les relations, disent à quoi sert un champ et mesurent l'impact d'une modification du modèle** (précise D1186 ; s'appuie sur D330/D344 — l'ingestion, D394/D405, D90, D1112 ; le rang 1 et le rang 2) : « je confirme — les associations utilisées dans les traitements / les opérations / ... font référence entre les entités et les champs. Tous ces liens permettent de visualiser les liens et de mesurer l'impact de la modification du modèle. Lors de l'ingestion, le moteur de Syncytium garantit la validité des références et des associations. Les mettre dans la documentation permet de montrer les relations et d'expliquer à quoi sert un champ (propriété ou calculé). » — la documentation reprend le graphe que l'ingestion a validé : pour chaque champ, propriété ou calculé, **où il sert** — les formules qui le lisent, les validations, les opérations et leurs effets, les règles de reprise, les rapports, les écrans ; pour chaque entité, qui la référence et qui elle référence ; aux deux bouts (D1186). | Mes lectures, en proposition : dans la fonctionnelle, « à quoi sert ce champ » en langage d'usager (« entre dans le calcul du montant TTC », « déclenche la validation de la facture ») ; dans la documentation de l'information (le rang 2), le graphe complet des dépendances et **l'analyse d'impact** — ce qu'un changement de ce champ ou de cette entité touche (l'écho des écarts calculés D1112) ; la matrice gagne une colonne de contenu sur la ligne du champ. Voir §3.2c. |
 
 ---
@@ -13261,6 +13262,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 **Le compteur mutualisé (D1555).** Le point 19 : « Oui, point 19 ».
 
 **Les noms du fichier (D1556).** Le point 21 : « Oui, point 21 ».
+
+**Les noms de la géolocalisation (D1557).** Le point 22 : « Oui, point 22 ».
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -24982,7 +24985,8 @@ avant la synthèse Q16).
   `datetime` rend le nul (D1553). Le point 18 : les cinq formes de
   `measure` (D1554). Le point 19 : `counter[mon_compteur].update(valeur)`
   (D1555). Le point 20 : lower, left, length par D934. Le point 21 : les
-  noms du fichier (D1556) ; le chapitre compte vingt-cinq points.
+  noms du fichier (D1556) ; le chapitre compte vingt-cinq points. Le point
+  22 : les noms de la géolocalisation (D1557).
 - **2026-10-28 (suite 3) — LA PAUSE : LE CHAPITRE 1, QUATRE POINTS SUR
   TREIZE, SEPT DÉCISIONS (D1528–D1534, 1534 décisions).** Le point 1
   appliqué avec D1528 ; le point 2 devenu D1529 et D1530 — trois

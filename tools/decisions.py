@@ -17,7 +17,8 @@ Ce que l'outil déduit :
 - le statut (D1392) : « remplacée » si une décision postérieure la retire, la remplace ou l'annule ; « amendée »
   si une décision postérieure l'amende, la revoit, la solde ou revient sur elle ; « acceptée » sinon ; et, à
   côté, la marque « une lecture à confirmer » quand la ligne porte « ma lecture », « à confirmer » ou « en
-  proposition » — levée quand une décision postérieure la confirme ou la valide (D1582) ;
+  proposition », hors des citations entre « … » (D1584) — levée quand une décision postérieure la confirme ou
+  la valide (D1582) ;
 - les liens : amende → amendée par ; confirme/valide → confirmée par ;
   précise/étend/complète/exécute/généralise → précisée par ;
   clôt → close par ; résout Qn ;
@@ -102,6 +103,8 @@ REFS_D = re.compile(r"D(\d+)(?:\s*[–-]\s*D?(\d+))?")
 REFS_Q = re.compile(r"Q(\d+)")
 ARTEFACT = re.compile(r"\b([a-z_]+\.md)\b")
 LECTURE = re.compile(r"ma lecture|à confirmer|en proposition", re.I)
+# une citation de l'auteur, entre « … », ne porte pas la marque d'une lecture (D1584)
+CITATION = re.compile(r"«[^»]*»|(?:confirme|valide|écarte) (?:ma|mes) lectures? de D\d+", re.I)
 # Les verbes de la parenthèse, et le lien qu'ils posent de la décision vers sa cible.
 VERBES = [
     (r"remplace|retire|annule|abroge|rend caduc|écarte", "remplace"),
@@ -169,7 +172,7 @@ def lire(chemin):
             "liens": liens, "cite": cites,
             "artefacts": [a for a in ARTEFACT.findall(texte + " " + justification) if a in ARTEFACT_FAMILLE
                           or a.endswith(("_tiny.md", "_enquete.md", "_vehicule.md", "_banque.md", "_entrepot.md"))],
-            "lecture": bool(LECTURE.search(texte + " " + justification)),
+            "lecture": bool(LECTURE.search(CITATION.sub(" ", texte + " " + justification))),
         }
     return decisions
 
@@ -203,6 +206,20 @@ for _fam, _nums in {
     "api": [150, 151],
     "administration": [675],
     "telemetrie": [38],
+}.items():
+    RELECTURE.update({_n: _fam for _n in _nums})
+# Le chapitre 3, le langage d'expression (D1584, le 31/10/2026) : douze sorties, quarante-sept entrées.
+for _fam, _nums in {
+    "modele": [388, 405, 427],
+    "surfaces": [560, 567, 783],
+    "reprise": [648, 656],
+    "hooks": [754],
+    "cas": [954, 1003],
+    "documentation": [958, 1225, 1226],
+    "methode": [1549, 1565],
+    "configuration": [321, 802],
+    "langage": [35, 36, 254, 571, 575, 576, 578, 579, 584, 587, 593, 659, 760, 817, 818, 841, 842, 872, 934, 971,
+                1002, 1015, 1017, 1106, 1109, 1110, 1564] + list(range(1566, 1585)),
 }.items():
     RELECTURE.update({_n: _fam for _n in _nums})
 

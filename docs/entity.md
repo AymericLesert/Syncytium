@@ -195,7 +195,7 @@ diagrammes de classes UML, calculés depuis la configuration** (D1119 —
 « pour que le modèle soit facilement perceptible par un opérateur ou
 un décideur » ; les niveaux de lecture, la forme et les lecteurs dans
 [documentation.md](documentation.md) §5). Ce que chaque propriété de
-l'entité y devient *(en proposition)* :
+l'entité y devient, la table acquise par D1278 :
 
 *(Amendé par D1213 : « uniquement le nom du module, de l'entité et du
 champ », des effets de style, les listes en liens — ma correspondance

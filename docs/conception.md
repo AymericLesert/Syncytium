@@ -1686,6 +1686,7 @@ Q58) :
 | D1552 | **Dans l'entrepôt, le statut « vide » de l'ERP se capte par la chaîne vide seule : `LCCTSTATUT.select("": "non_traite", A: …, P: …, S: …, T: …)` ; un vrai nul, s'il en survenait un, est une anomalie rejetée** (applique D1551 ; amende la forme de D1002 — `null: "non_traite"` ; le chapitre 2, le point 16 bis) : à « l'entrepôt capte-t-il le statut vide par `null:` et `""` ensemble, ou par `""` seul ? » — « "" seul » | La colonne est un `text[2]`, normalisée par `trim(me)` : le blanc arrive en chaîne vide. Les quatre règles des lignes de commande, dans les deux versions, corrigées ; le traceur relancé. usecases/05_entrepot.md. Voir §3.2c. |
 | D1553 | **Le constructeur `datetime(jour, heure)` rend le nul si l'une de ses parts est nulle, le jour ou l'heure** (confirme ma proposition de D1001 ; s'appuie sur D303 — la logique ternaire, D308 — le nul évalué capturé, D1551 — le nul a un sens propre ; le chapitre 2, le point 17) : « Oui, le nul » | Aucune heure inventée : un mouvement sans heure est signalé, non daté à minuit. types.md. Voir §3.2c. |
 | D1554 | **Cinq formes de `measure` acquises, pour `duration` à l'identique : `.value`, le nombre nu ; `unit: <référence>.<champ>`, l'unité empruntée ; `.to(<unité>, <paramètres>)`, la conversion ; l'invariant — toute unité d'une valeur atteint une unité connue du champ, sinon la valeur n'est pas conforme ; la table d'opérateurs — les sommes et les rapports d'unités reliées, le produit par un décimal, les comparaisons par conversion, les agrégats** (confirme mes formes de D975, D979, D984, D1009, D1011 ; le chapitre 2, le point 18) : « Oui, les cinq » | Trois étaient déjà écrites dans l'entrepôt — `quantite.value`, `unit: article.unite`, `quantite.to(kg)` —, acquises par l'usage sans être nommées. `storage: <unité>` reste une note pour l'implémentation (D1012). types.md. Voir §3.2c. |
+| D1555 | **Un compteur mutualisé se repositionne par son nom au crochet : `counter[mon_compteur].update(valeur)`** (confirme ma forme de D999 ; précise D409 — le compteur mutualisé, D999 — la méthode `update` du type ; le chapitre 2, le point 19) : « Oui, point 19 » | Aucun champ ne possède seul un compteur mutualisé ; il se nomme par lui-même, comme à sa déclaration. types.md. Voir §3.2c. |
 | D1198 | **Les liens de la documentation sont ceux que l'ingestion garantit — les références et les associations entre entités et champs, dans les traitements et les opérations ; ils montrent les relations, disent à quoi sert un champ et mesurent l'impact d'une modification du modèle** (précise D1186 ; s'appuie sur D330/D344 — l'ingestion, D394/D405, D90, D1112 ; le rang 1 et le rang 2) : « je confirme — les associations utilisées dans les traitements / les opérations / ... font référence entre les entités et les champs. Tous ces liens permettent de visualiser les liens et de mesurer l'impact de la modification du modèle. Lors de l'ingestion, le moteur de Syncytium garantit la validité des références et des associations. Les mettre dans la documentation permet de montrer les relations et d'expliquer à quoi sert un champ (propriété ou calculé). » — la documentation reprend le graphe que l'ingestion a validé : pour chaque champ, propriété ou calculé, **où il sert** — les formules qui le lisent, les validations, les opérations et leurs effets, les règles de reprise, les rapports, les écrans ; pour chaque entité, qui la référence et qui elle référence ; aux deux bouts (D1186). | Mes lectures, en proposition : dans la fonctionnelle, « à quoi sert ce champ » en langage d'usager (« entre dans le calcul du montant TTC », « déclenche la validation de la facture ») ; dans la documentation de l'information (le rang 2), le graphe complet des dépendances et **l'analyse d'impact** — ce qu'un changement de ce champ ou de cette entité touche (l'écho des écarts calculés D1112) ; la matrice gagne une colonne de contenu sur la ligne du champ. Voir §3.2c. |
 
 ---
@@ -13255,6 +13256,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 **La part nulle du `datetime` (D1553).** Le point 17 : « Oui, le nul ».
 
 **Les cinq formes de `measure` (D1554).** Le point 18 : « Oui, les cinq » — `.value`, `unit:`, `.to()`, l'invariant, l'arithmétique, pour `duration` aussi.
+
+**Le compteur mutualisé (D1555).** Le point 19 : « Oui, point 19 ».
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -24974,7 +24977,8 @@ avant la synthèse Q16).
   n'ont pas la même signification » (D1551) ; l'entrepôt : « "" seul »
   (D1552 — quatre règles corrigées). Le point 17 : la part nulle du
   `datetime` rend le nul (D1553). Le point 18 : les cinq formes de
-  `measure` (D1554).
+  `measure` (D1554). Le point 19 : `counter[mon_compteur].update(valeur)`
+  (D1555).
 - **2026-10-28 (suite 3) — LA PAUSE : LE CHAPITRE 1, QUATRE POINTS SUR
   TREIZE, SEPT DÉCISIONS (D1528–D1534, 1534 décisions).** Le point 1
   appliqué avec D1528 ; le point 2 devenu D1529 et D1530 — trois

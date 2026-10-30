@@ -5,7 +5,7 @@ consignés sur le mapping** — la description de la source et les
 règles de migration — le sixième artefact préparatoire de la
 documentation (Q58, le domaine 6 — D602), après le
 [glossaire](glossaire.md), les [composants](composants.md), les
-[hooks](hooks.md), les [types](types.md) et les
+[hooks](hooks.md), les [types](syncytium/modele/types.md) et les
 [connecteurs](connectors.md). Les décisions citées renvoient à la
 [conception](conception.md).
 

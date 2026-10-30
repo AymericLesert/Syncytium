@@ -4,7 +4,7 @@ Ce document rassemble **les échanges consignés sur la télémétrie** —
 le dixième artefact préparatoire de la documentation (Q58, le
 domaine 6 — D602), après le [glossaire](glossaire.md), les
 [composants](composants.md), les [hooks](hooks.md), les
-[types](types.md), les [connecteurs](connectors.md), le
+[types](syncytium/modele/types.md), les [connecteurs](connectors.md), le
 [mapping](mapping.md), les [droits](rights.md) et
 l'[administration](administration.md). Les décisions citées
 renvoient à la [conception](conception.md). Il consolide l'acquis du

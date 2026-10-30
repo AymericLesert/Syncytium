@@ -258,8 +258,8 @@ il ne surcharge pas la base :
 
 ## Le modèle
 
-L'écriture est celle du méta-schéma ([entity.md](entity.md),
-[types.md](types.md)) ; les noms sont miens, en proposition (D1021).
+L'écriture est celle du méta-schéma ([entity.md](syncytium/modele/entite.md),
+[types.md](syncytium/modele/types.md)) ; les noms sont miens, en proposition (D1021).
 
 ```yaml
 # _migration/_migration.yml — le module du socle (D666/D1028), au

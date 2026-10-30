@@ -215,7 +215,7 @@ opérations, les surfaces, la reprise)*
     commentaire YAML garde les références de décisions et les
     formules du réel — ce qui parle à l'utilisateur est un `hint:`
     ou une `description:`, pas un commentaire ; **l'artefact
-    [entity.md](../docs/entity.md) créé** (le onzième —
+    [entity.md](../docs/syncytium/modele/entite.md) créé** (le onzième —
     l'organisation d'une entité, ses champs, ses composants). `echues` devient une liste de widgets
     (D492) au **texte unique** — le widget `annonce` de la
     révision : deux `paragraph` au gabarit mustache (les chemins

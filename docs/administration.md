@@ -4,7 +4,7 @@ Ce document rassemble **les actes d'administration et les éléments
 d'exploitation consignés** — le neuvième artefact préparatoire de la
 documentation (Q58, le domaine 6 — D602), après le
 [glossaire](glossaire.md), les [composants](composants.md), les
-[hooks](hooks.md), les [types](types.md), les
+[hooks](hooks.md), les [types](syncytium/modele/types.md), les
 [connecteurs](connectors.md), le [mapping](mapping.md) et les
 [droits](rights.md). Les décisions citées renvoient à la
 [conception](conception.md). Il consolide l'acquis épars et porte

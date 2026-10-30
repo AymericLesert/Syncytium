@@ -209,7 +209,7 @@ derniere_sortie: mouvements.max(date if sens = "sortie")
 ```
 
 Chaque type porte ses fonctions (D579). Le catalogue est dans
-[types.md](../../types.md).
+[types.md](../modele/types.md).
 
 ## 2.8 La forme courte et le bloc (D356)
 

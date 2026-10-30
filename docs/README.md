@@ -40,7 +40,7 @@ docs/
 │   ├── README.md          Syncytium, les dix piliers, l'organisation recommandée de la configuration
 │   ├── glossaire.md
 │   ├── configuration/     la syntaxe, les mécanismes, l'arbre, les défauts du socle
-│   ├── modele/            l'entité, les champs, les types
+│   ├── modele/            l'entité, les champs, la vie d'un enregistrement, les types, les liens
 │   ├── langage/           le langage d'expression : la grammaire, le nul, les fonctions, les agrégats
 │   ├── composants/        le catalogue des composants graphiques
 │   ├── hooks/             les hooks et leurs familles
@@ -71,8 +71,8 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 | # | Le chapitre | Les documents d'aujourd'hui | La destination | La lecture | La réorganisation |
 |---|---|---|---|---|---|
 | 1 | **La configuration et son écriture** | `configuration.md` | `syncytium/configuration/` | fait le 29/10/2026 (13 points, D1528–D1540) | fait le 29/10/2026 (six fichiers, D1541) ; réécrite le 29/10/2026 (D1542–D1544) |
-| 2 | **Le modèle et les types** | `entity.md`, `types.md` | `syncytium/modele/` | fait le 30/10/2026 (25 points, D1549–D1560) | — |
-| 3 | **Le langage d'expression** | le registre ; `types.md` (la signature des types) ; `syncytium/configuration/mecanismes.md` §2.7 | `syncytium/langage/` | — | — |
+| 2 | **Le modèle et les types** | `entity.md`, `types.md` | `syncytium/modele/` | fait le 30/10/2026 (25 points, D1549–D1560) | fait le 30/10/2026 (huit fichiers, D1561) ; réécriture en cours |
+| 3 | **Le langage d'expression** | le registre ; `syncytium/modele/types.md` (la signature des types) ; `syncytium/configuration/mecanismes.md` §2.7 | `syncytium/langage/` | — | — |
 | 4 | **Les surfaces et les composants** | `composants.md` | `syncytium/composants/` | — | — |
 | 5 | **Les hooks** | `hooks.md` | `syncytium/hooks/` | — | — |
 | 6 | **Les connecteurs** | `connectors.md` | `syncytium/connecteurs/` | — | — |

@@ -96,7 +96,7 @@ Le plan et l'avancement, chapitre par chapitre, sont dans
 Les chapitres, dans l'ordre du plan :
 
 1. [La configuration](docs/syncytium/configuration/README.md) — réécrit.
-2. Le modèle — en cours de lecture.
+2. [Le modèle](docs/syncytium/modele/README.md) — en cours de réécriture.
 3. Le langage d'expression.
 4. Les surfaces et les composants.
 5. Les hooks.

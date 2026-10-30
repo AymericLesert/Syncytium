@@ -9,7 +9,7 @@ documentation (Q58, le domaine 6 — D602), après
 [migration.md](migration.md) (D1028) ; il est ouvert le 04/10/2026
 (D1118). **Il centralise les principes ; chaque artefact garde ce que
 son élément apporte à la documentation** — l'entité et ses champs dans
-[entity.md](entity.md), les hooks et leur `describe` dans
+[entity.md](syncytium/modele/entite.md), les hooks et leur `describe` dans
 [hooks.md](hooks.md), les connecteurs dans
 [connectors.md](connectors.md), les dépendances dans
 [security.md](security.md), les rapports de la reprise dans
@@ -301,7 +301,7 @@ documentations** (§13, D1159), dans les artefacts des composants.
      pour le tiny (fait), puis pour un module du cas 5 ; chaque
      frottement une décision ;
   4. les frottements transversaux du tiny : 6 (la langue de
-     l'édition), 7 (le type dit en clair — [types.md](types.md)), 9
+     l'édition), 7 (le type dit en clair — [types.md](syncytium/modele/types.md)), 9
      (les chapitres de l'instance montrés vides au dépôt) ;
   5. §12 — `documentation.yml` : la liste de ses propriétés et sa place
      (l'environnement ou le projet) ;
@@ -311,7 +311,7 @@ documentations** (§13, D1159), dans les artefacts des composants.
 - **Déclinaison** : le tiny.
 - **Livrables** : §2, §3, §12, §13, §21 validés ;
   [configuration.md](syncytium/configuration/README.md) (`documentation.yml`) ;
-  [types.md](types.md) (la forme en clair de chaque type).
+  [types.md](syncytium/modele/types.md) (la forme en clair de chaque type).
 - **Dépendances** : aucune, sauf §11.
 
 #### Rang 1 — la fonctionnelle (documentation 1) — *clos le 11/10/2026, D1238*
@@ -371,7 +371,7 @@ décisions, D1170–D1238.)*
   personas, le premier `menu.yml` et le tableau de bord de la banque
   dans `examples/` (2bcc1da, D1230, D1237). *(Le plan d'origine disait
   :)* §6, §7, §14–§16, §19, §22, §24 validés ;
-  [entity.md](entity.md), [composants.md](composants.md) (le wizard
+  [entity.md](syncytium/modele/entite.md), [composants.md](composants.md) (le wizard
   comme scénario), [rights.md](rights.md) (les personas et les
   groupes) ; `usecases/01_tiny.md` amendé ; une déclinaison dans
   `usecases/05_entrepot.md`.
@@ -413,7 +413,7 @@ décisions, D1170–D1238.)*
   9. le contrat du hook de type : **acquis le 15/10/2026 (D1301)** —
      les cinq livraisons (la forme en clair, la déclinaison, les
      indicateurs, l'exemple, le marquage), dans [hooks.md](hooks.md) et
-     [types.md](types.md) ;
+     [types.md](syncytium/modele/types.md) ;
   10. la lisibilité de l'index 5.1 (D1263) — à la déclinaison ;
   11. la colonne 2 de la matrice (§13) dans les artefacts : **acquise
      le 15/10/2026 (D1303)**.
@@ -422,8 +422,8 @@ décisions, D1170–D1238.)*
   l'entrepôt (usecases/05_entrepot.md — les évolutions, les groupes,
   les profils, la hiérarchie au stockage, la reprise, l'index mesuré) ;
   les points arbitrés D1304–D1313.
-- **Livrables** : **acquis** — §4, §5, §8, §9 ; [entity.md](entity.md)
-  (la correspondance, les groupes, `partition:`), [types.md](types.md)
+- **Livrables** : **acquis** — §4, §5, §8, §9 ; [entity.md](syncytium/modele/entite.md)
+  (la correspondance, les groupes, `partition:`), [types.md](syncytium/modele/types.md)
   (la facette du type, la déclinaison), [connectors.md](connectors.md)
   (le storage refondé, `describe(model)`, les index, les partitions),
   [telemetry.md](telemetry.md) (les indicateurs),
@@ -1020,7 +1020,7 @@ booléen : vrai, faux, vide ; le texte : les valeurs distinctes, la
 diversité (D46/D48) ; le nombre et la date : les bornes observées, les
 vides ; la référence : les cibles liées ; l'entité : le nombre de
 lignes, la dernière modification ; la forme de chaque type dans
-[types.md](types.md) (le rang 2) ; au dépôt, le cadre vide (c). **Et
+[types.md](syncytium/modele/types.md) (le rang 2) ; au dépôt, le cadre vide (c). **Et
 les usages, de la même manière** (D1168) : la documentation d'un
 module, d'un écran, d'un rapport, d'une opération dit, à la
 consultation, combien de fois il a servi — l'écran ouvert, le rapport
@@ -1322,7 +1322,7 @@ diagramme**, la table le dit. Ce qui demeure de D1119 : le module → le
 paquetage ; `inheritance:` → la généralisation ; `states:` → **un
 diagramme d'états** à part, les valeurs du statut et les passages
 permis (D422) — le véhicule (cas 3) en a un. La table détaillée dans
-[entity.md](entity.md).
+[entity.md](syncytium/modele/entite.md).
 
 **Les groupes de champs** (D1273, D1279 — dans `fields:`, une clé à
 `title:` et `fields:` sans `type:`, entity.md) :
@@ -1839,7 +1839,7 @@ d'enregistrements historisés ; les compteurs de lecture et d'écriture
 
 **Qui livre quoi** (D1288) : **le hook de type livre ses indicateurs**
 comme il livre sa forme en clair — une clause de son contrat
-([hooks.md](hooks.md), [types.md](types.md), l'étape 9) ;
+([hooks.md](hooks.md), [types.md](syncytium/modele/types.md), l'étape 9) ;
 [telemetry.md](telemetry.md) porte la liste, le dictionnaire la
 consomme ; le tableau de bord « telemetry » du module d'administration
 (D736) montre les mêmes chiffres, à sa manière. Cette source nourrit
@@ -2292,7 +2292,7 @@ et des implémentations se généraliseront.
    (§3), ce qu'il demande au concepteur et ce qu'il tire de
    l'instance. **La cellule se spécifie dans l'artefact du
    composant** — une rubrique « La documentation » dans
-   [entity.md](entity.md), [types.md](types.md) (type par type),
+   [entity.md](syncytium/modele/entite.md), [types.md](syncytium/modele/types.md) (type par type),
    [composants.md](composants.md) (fiche par fiche), [hooks.md](hooks.md),
    [connectors.md](connectors.md), [mapping.md](mapping.md),
    [rights.md](rights.md), [administration.md](administration.md),
@@ -2510,7 +2510,7 @@ fournit chaque item** : l'entité, le champ, le type, le hook livrent
 leur ligne et leur figure par leur facette documentation (D1158) ;
 **le contrat du hook de type gagne cette facette** — le type en clair,
 ses contraintes, son exemple, dans chaque langue du moteur (D1162) —
-à écrire au rang 2 dans [hooks.md](hooks.md) et [types.md](types.md).
+à écrire au rang 2 dans [hooks.md](hooks.md) et [types.md](syncytium/modele/types.md).
 
 **Où il se lit** *(ma lecture)* : l'annexe de la fonctionnelle (D1183)
 en porte la version lisible, dans la langue du lecteur, bornée à ce

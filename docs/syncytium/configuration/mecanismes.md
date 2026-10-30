@@ -205,6 +205,9 @@ Les conditions se joignent par les opérateurs logiques `and`, `or`, `xor` et `n
 Le test du nul s'écrit `a is null`, son inverse `a is not null` (D1573). Il rend toujours vrai
 ou faux, jamais une anomalie : c'est la seule façon de tester un nul.
 
+La fonction `ifnull(p, v)` rend `p`, ou `v` quand `p` est nul (D1574) : `ifnull(Credit, 0)`
+remplace un crédit absent par zéro.
+
 ```yaml
 # La cohérence des dates : la règle ne joue que si la vente est posée
 validation:

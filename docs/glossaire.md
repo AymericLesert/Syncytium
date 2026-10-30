@@ -33,6 +33,10 @@ migration. *(D1044/D1045)*
 **Cartouche** — L'en-tête ou le pied obligatoire d'une édition : le
 numéro de version, la date, l'auteur de l'édition. *(D1142)*
 
+**Cascade** — Le chemin de lecture des réglages : la version, puis le module,
+puis l'entité, puis le champ ; le plus proche l'emporte. Voir Réglage.
+*(D359/D360, D1174)*
+
 **Catalogue (des textes du moteur)** — Les libellés, intitulés et
 gabarits génériques de Syncytium, codifiés et uniques, un catalogue par
 langue portée ; en couches — le moteur, le hook, l'application — le
@@ -71,6 +75,11 @@ naissance, obligatoire ; les suivantes sont acquises — un numéro
 attribué à la validation — et ne valent qu'une fois complètes.
 *Ex. : `identity: [code]` ; `identities: { mensuelle: [client, mois],
 numero: [numero] }`.* *(D142/D357, D1035/D1039, D1170–D1171)*
+
+**Collection** — Une valeur à plusieurs éléments : une liste, une
+composition, une association. Elle porte ses méthodes : `sum`, `count()`,
+`first`, `group`, `sort`… *Ex. : `lignes.sum(montant)`.* *(D580, D887,
+D1015–D1017)*
 
 **Complétude (de la documentation)** — Le rapport du concepteur : ce
 qui devrait être écrit et ne l'est pas — les descriptions, les aides,
@@ -139,6 +148,14 @@ d'un connecteur à l'autre. *(D79, D603–D642)*
 Exemple : `location: { class: ban, parameters: { url: … },
 secrets: [api_key] }`.
 
+**Constructeur** — La fonction au nom d'un type, qui fabrique une valeur
+de ce type à partir de ses parties. *Ex. : `amount(ARCNPMP)`,
+`measure(ARCNEPAISS, mm)`, `datetime(MVCJSAI, MVCTSAI)`.* *(D659)*
+
+**Contexte** (`context`) — L'entité du moteur, en lecture seule :
+l'utilisateur, le moment, l'instance, le module, la page d'un document,
+les paramètres. *Ex. : `context.now`, `context.user`.* *(D254, D588–D591)*
+
 **Crochet** (`type[paramètre]`) — La convention d'écriture qui glisse
 un paramètre dans un nom : `text[3..10]`, `time[hh:mm]`,
 `counter[accounting]`. *(D366)*
@@ -154,6 +171,11 @@ fichiers YAML qui décrivent l'application. Syncytium la lit, la
 vérifie, puis la fait vivre. *(D336)*
 La configuration peut se décomposé par étage (la version, le module, l'entité) et diffusés en cascade à ce qu'il
 contient : le plus proche l'emporte. *(D348/D360)*
+
+**Défaut du socle** — Une valeur que Syncytium applique quand rien n'est
+déclaré : le libellé `${name}`, `reset: never`, l'historisation éteinte.
+Les settings le surchargent ; une clé qui ne nomme aucun défaut connu est
+une erreur d'ingestion. *(D1175, D1239)*
 
 **Description** (`hint`, `label`, `description`) — Information plus ou moins complète permettant d'apporter du contexte à un élément du modèle de données. La description couvre plusieurs fonctions : aide à la saisie, une infobulle, une description courte (`hint` — D840) pour comprendre la nature de l'information, une description détaillée (`description`) pour construire une aide ou un masque d'aide. La description permet également à des outils tiers (comme l'IA) de s'interfacer ou de proposer des constructions de modèles ou de rapports adaptés à un usage.
 *Ex. : `hint: { fr: Le code se génère à la création }`.*
@@ -291,6 +313,11 @@ et son identité technique, invisible. *(D141, D142)*
 client, la commande, le produit. Chaque entité a ses
 champs, ses règles, sa représentation, ... *(D347)*
 
+**Énuméré** (`enum`) — Un type dont les valeurs sont listées, `values:` :
+chacune a sa clé stockée, son libellé par langue, sa description, son
+icône. L'ordre de déclaration est l'ordre de tri.
+*Ex. : `values: { thermique: { label: Thermique } }`.* *(D130, D387–D388)*
+
 **Environnement** (`environments/`) — Un cadre d'exécution hermétique : le staging
 (l'essai), la production active (le quotidien), la passive (le
 secours). Chacun a ses connecteurs et ses journaux. Un environnement vise à tester de nouveaux concepts, évolutions ou corrections d'anomalie sans impacter les autres environnements. Cela suit une règle bien définie (Staging avec Production). Ici, la production active/passive permet de synchroniser les informations entre les 2 environnements afin de faciliter en cas d'interruption de l'infrastructure sur l'un, une bascule quasi-automatique sur l'autre. *(D342)*
@@ -307,6 +334,24 @@ vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ 
 
 **Filigrane** — La marque de fond de page d'une édition de beta,
 « Beta vx.y.z.w » par défaut, personnalisable ou absente. *(D1145)*
+
+**Fonction d'agrégation** — Une méthode d'une collection qui en résume
+les éléments en une valeur : `sum`, `count`, `avg`, `min`, `max`, `first`,
+`last`, `any`, `exists`, `list`. Celle qui porte une valeur se lit
+« valeur if condition ». À ne pas confondre avec l'agrégat, l'enregistrement
+et ce qu'il possède. *Ex. : `lignes.sum(montant if statut = "en_cours")`.*
+*(D580, D887, D1564)*
+
+**Forme courte, forme longue** — Deux écritures d'une même clé : la
+valeur seule, tout le reste au défaut, ou le bloc qui détaille ses
+propriétés. Un champ, une règle de validation, un paramètre ont les deux.
+Voir Type court. *Ex. : `lieu_achat: text[..60]` ; `- rule: … message: …`.*
+*(D356, D590, D1116–D1117)*
+
+**Gabarit** — Un texte à trous, dont les accolades citent des valeurs :
+le message d'une validation, le visage d'une entité, le libellé d'un
+champ. *Ex. : `"{code} — {nom}"` ; `La vente du {date_vente} précède
+l'achat du {date_achat}.`* *(D397, D1106, D1181)*
 
 **Gabarit d'import** — Le fichier CSV attendu par l'écran d'import,
 généré par la documentation pour chaque entité importable, par langue :
@@ -371,6 +416,14 @@ temps universel et affiché à l'heure de chacun. S'oppose à la valeur
 **brute**, qui reste ce qu'on a écrit — une échéance au 1ᵉʳ juillet
 reste au 1ᵉʳ juillet. *(D220)*
 
+**Identité** (`identity:`, `identities:`) — Voir Clé fonctionnelle et
+Identité technique. *(D142, D1170)*
+
+**Identité acquise** — Une identité qui ne vaut qu'une fois ses champs
+remplis, comme un numéro attribué à la validation. La première identité
+d'une entité est celle de naissance ; les suivantes sont acquises. Voir
+Clé fonctionnelle. *(D1171)*
+
 **Identité technique** — Le matricule interne et invisible d'un
 enregistrement (un UUID), qui ne change jamais — même renommé, même
 anonymisé. C'est lui que les références retiennent. *(D142)*
@@ -389,6 +442,10 @@ description. Une par TPE. *(D16)*
 **Instantané** — La photographie complète d'un agrégat à une date,
 rangée dans l'historique. On la consulte, on ne la modifie pas.
 *(D169)*
+
+**Interpolation** (`${…}`) — L'écriture qui cite une déclaration nommée
+de la configuration à la place d'une valeur.
+*Ex. : `confidentiality: ${confidentiality.financier}`.* *(D885, D1536)*
 
 **Langage d'expression** — La langue unique des formules : calculs,
 validations, filtres, gabarits.
@@ -428,6 +485,12 @@ socle `${name}` : la clé de la configuration, que rien ne surcharge
 champs référencent par leur clé (D440, D1236). *(D217/D465, D1181,
 D1236)*
 
+**Lien n-aire** (`list of [a, b]`) — Un lien dont chaque élément combine
+plusieurs entités nommées, et parfois une valeur typée ; chaque
+combinaison est une cellule qui porte ses champs.
+*Ex. : `list of [emplacement: stock.emplacement, article: technique.article]`.*
+*(D402, D897–D898)*
+
 **Liste (type)** (`list of`) — Un champ à plusieurs valeurs du même
 type. *Ex. : `phones: list of phone`.* Sur un nom d'entité, elle
 devient la composition. *(D166/D362)*
@@ -449,6 +512,18 @@ format. À ne pas confondre avec le masque d'explication. *(D260)*
 par des données : la règle de contrôle du stock, emplacement × article
 = la somme des entrées moins la somme des sorties des mouvements.
 *(D1014)*
+
+**Matrice de conversion** — Pour une mesure ou une durée, la table des
+coefficients entre unités. Le type fournit les matrices standard ; chaque
+champ a la sienne ; les données apportent des unités supplémentaires avec
+leur coefficient ; la conversion suit le chemin, dans les deux sens.
+*Ex. : la plaque d'un article vaut 12,5 kg.* *(D975–D983)*
+
+**Menu** (`menu.yml`) — La carte des entrées d'un module, dans l'ordre
+d'affichage. Chaque entrée porte son libellé par langue et son lien,
+l'adresse d'une liste, d'un formulaire, d'une opération, d'un wizard ou
+d'un tableau de bord ; un sous-menu porte ses entrées.
+*Ex. : `link: banque.ecriture[pointage]`.* *(D351, D439, D1237)*
 
 **Méta-schéma** — La description complète d'un modèle de données —
 modules, entités, champs — **et la grammaire utilisée** pour les
@@ -485,9 +560,32 @@ module servi par Syncytium, jamais déclaré par l'application ; son nom
 commence par `_`, le préfixe des modules internes, et Syncytium refuse
 ce premier caractère aux modules d'application. *(D1029)*
 
+**Normalisation** (`normalize:`) — L'expression appliquée à une valeur à
+la frontière, quand elle entre. *Ex. : `normalize: trim(me)`, les blancs
+retirés.* *(D870, D872, D991)*
+
 **Opération** — Une action déclarée sur une entité, au-delà du
 créer-modifier-supprimer : valider, envoyer, clôturer. Sous droits, et
 déclencheur possible d'un changement d'état. *(D148)*
+
+**Orphelin** — Un fichier de la configuration qu'aucune clé ne cite par
+`~{…}`. Le traceur `tools/orphans.py` les liste. *(D956, D1240)*
+
+**Paramètre** — Une valeur réglable et nommée, que les expressions lisent
+par `context.settings.<nom>`. Il a un mode, statique ou dynamique —
+surchargeable à chaud par l'administration —, un type et une valeur par
+défaut. Les hooks décrivent les leurs dans leur contrat, le socle a les
+siens ; un paramètre libre en forme courte est un texte statique.
+*Ex. : `taux: { mode: dynamic, type: decimal, value: 20 }`.*
+*(D588–D590, D1535)*
+
+**Partie au point** — Une composante d'une valeur, atteinte par le
+point : une fonction du type. *Ex. : `montant.currency`, `date.month`,
+`adresse.latitude`, `fichier.size`.* *(D772–D773)*
+
+**Partition** (`partition:`) — Le découpage physique de la table d'une
+entité selon un ou plusieurs champs, par période pour une date.
+*Ex. : `partition: date_comptable[year]`.* *(D1293, D1300)*
 
 **Passage** — Une exécution d'une reprise de données (`migrate`) : la
 lecture, les cinq phases de contrôle, la comparaison, la bascule ; sa
@@ -506,11 +604,32 @@ bout, appuyés sur les wizards ; déclaré dans le groupe de `groups.yml`
 — un prénom fictif, un rôle, et une description qui, à défaut, est
 celle du groupe. *(D1127/D1130, D1200)*
 
+**Plage** (`range of`) — Deux valeurs du même type, la première
+inférieure ou égale à la seconde ; l'une peut manquer. La jauge est une
+plage. *Ex. : `range of integer`.* *(D497–D498)*
+
 **Planche** — Le mode opératoire imprimable : une page A4 paysage — le
 titre, les étapes numérotées, une capture par étape, le contrôle
 entouré ; la forme condensée d'un scénario de persona, une à trois
 planches synthétiques qui montrent un enchaînement d'écrans et
 d'actions, dessinées step par step depuis le wizard. *(D1129, D1188)*
+
+**Possesseur** (`owner`) — L'enregistrement qui possède une
+composition ; l'enfant l'atteint par `owner`. *Ex. : `owner.km_initial`.*
+*(D760–D761)*
+
+**Profil de confidentialité** — Une déclaration nommée, dans
+`syncytium.yml`, sous `confidentiality:`, que les champs citent par
+interpolation au lieu de répéter leur niveau.
+*Ex. : `${confidentiality.financier}`.* *(D885, D1536)*
+
+**Promotion** — Le passage d'un enregistrement au niveau suivant de sa
+hiérarchie d'héritage, son identité gardée : le tiers devient client à sa
+première commande. Voir État hiérarchique. *(D145, D355)*
+
+**Propriété** — Une clé portée par un élément de la configuration, qui
+en règle un aspect : `type:`, `label:`, `required:`, `formula:` sur un
+champ ; `identity:`, `history:` sur une entité. *(D364, D391)*
 
 **Provenance** — La carte d'identité d'origine d'une donnée reprise :
 de quel système, quand, sous quelle clé. Un fait qui ne bouge plus.
@@ -532,10 +651,17 @@ suppriment, dans un dossier, les fichiers d'un pattern au-delà d'une
 durée ou d'un nombre : le journal, les watchers, le détail des
 migrations. *(D1070–D1076)*
 
+**Purge** — L'effacement réel d'un enregistrement, le droit du RGPD,
+distinct de l'inactivation ; un acte de l'administrateur. *(D137)*
+
 **Rapport des non-conformités** (`report`) — La liste de ce qui ne
 respecte plus une règle de lien — le filtre a changé, la donnée a
 dérivé. Produit à la demande, à la migration ou en continu, adressé à
 qui de droit. Ce rapport permet également de couvrir les modifications directes à la base de données par un outil tiers sans passer par Syncytiium. *(D395/D406)*
+
+**Réactivation** — Le retour d'un enregistrement inactif parmi les
+actifs : un acte exceptionnel de l'administrateur, sous contrôle de
+collision des clés. *(D140, D903)*
 
 **Recherche** (`searchable`) — La manière dont un champ se cherche :
 exacte (`strict`), tolérante aux accents (`normalized`), aux fautes de
@@ -560,6 +686,10 @@ Le parent déclare le lien vers l'enregistrement d'une autre entité pour marque
 Dans Syncytium, la navigation entre le parent et l'enfant est conservée et permet depuis l'enfant d'accéder à son ou ses parents sans déclaration complémentaire.
 *Ex. : `advisor: hr.employee`.* *(D394/D396)*
 
+**Référence de fichier** (`~{…}`) — L'écriture qui cite un fichier, ou
+un pattern de fichiers, à la place d'une valeur.
+*Ex. : `fields: ~{fields.yml}`.* *(D956)*
+
 **Référence nommée** (`TABLE[NOM].colonne`) — À la source d'une
 migration, quand la même entité est référencée plusieurs fois, le nom
 entre crochets lie les colonnes d'une même référence ; la référence
@@ -572,6 +702,10 @@ apportées par une version, porté par `version.yml`. L'historique
 complet s'assemble par concaténation des release-notes des versions
 antérieures jusqu'à la courante — pas de fichier unique à maintenir.
 *(D808)*
+
+**Réplication** (`replication:`) — La copie des données de la production
+active vers la passive ; `differential` ne transmet que les écarts.
+*(D724–D725, D1534)*
 
 **Reprise des données** — Le chargement, dans Syncytium, des données
 d'un système précédent : les sources lues ou ignorées, leurs colonnes,
@@ -589,6 +723,22 @@ dépendent de la version d'exécution »). La fiche d'une ressource :
 `name`, `description`, `file`, `credit:` — le crédit des éléments
 tiers, par courtoisie.
 *(D346, amendé par D803)*
+
+**Restauration** — Le retour d'un enregistrement à un instantané de son
+historique : par l'administrateur seul, sous condition, tracée ; elle est
+elle-même une modification, historisée. *(D171)*
+
+**Sévérité** (`severity:`) — Ce que fait une validation en échec :
+`error`, le défaut, bloque ; `confirm` demande une confirmation, tracée ;
+`info` signale sans bloquer. *(D157, D1559)*
+
+**Signature d'un type** — Ce que le langage peut faire des valeurs d'un
+type : sa conversion, ses opérateurs, ses comparateurs, son `select`, ses
+fonctions. *(D579–D584)*
+
+**Socle** — Ce que Syncytium fournit sans que le concepteur l'écrive :
+le moteur, ses types, ses composants, ses hooks, ses modules internes, ses
+défauts. *(D1175)*
 
 **Storage** (`storage`, une famille de connecteurs) — Le lien entre
 les données manipulées par Syncytium, leur manipulation, son
@@ -619,6 +769,11 @@ widget de résumé, le widget de synthèse. *(Q48)*
 **Table des clés d'origine** — Ce que le module `_migration` garde de
 chaque ligne d'une source : sa clé, sa partition, un hash, le statut
 de son dernier traitement — jamais la clé de destination. *(D1047–D1050)*
+
+**Tableau de bord** (`dashboards:`) — Un écran de synthèse d'un module,
+ses widgets et ses graphiques, que le menu adresse ; le concepteur le
+compose, l'utilisateur peut avoir le sien. *Ex. : `link: banque[accueil]`.*
+*(D439, D554)*
 
 **Technicien** — Le consommateur des API, dans une partie tierce
 (D334) : un compte technique (D28), qui lit la documentation du

@@ -181,7 +181,7 @@ La table des opérateurs du type (D581, D984, D1554) :
 - **les comparaisons** se font par conversion ;
 - **`measure × measure`** est hors de la table.
 
-Les agrégats `sum`, `avg`, `min`, `max` s'appliquent aux mesures
+Les fonctions d'agrégation `sum`, `avg`, `min`, `max` s'appliquent aux mesures
 reliées, dans l'unité du champ (D887).
 
 ### Les volumes
@@ -190,7 +190,7 @@ Sur des millions de lignes, la conversion pèse (D985). Le registre le
 dit : « nous devons prévoir un mécanisme qui permette de précalculer des
 valeurs pour accélérer les calculs » (D1012). La piste est à
 l'implémentation : une unité canonique de stockage, `storage:
-<unité>`, la valeur convertie stockée à côté de l'origine ; les agrégats
+<unité>`, la valeur convertie stockée à côté de l'origine ; les fonctions d'agrégation
 poussés au storage ; les calculés matérialisés à l'écriture (D378,
 D571).
 
@@ -236,7 +236,7 @@ L'arithmétique (D984, D1554) :
 - avec le temps (D838) : `date + duration` rend une date, `date - date`
   rend une durée, de même pour `datetime`.
 
-Les agrégats `sum`, `avg`, `min`, `max` s'appliquent (D887) :
+Les fonctions d'agrégation `sum`, `avg`, `min`, `max` s'appliquent (D887) :
 `temps_gamme: nomenclature.sum(temps_ouverture if nature = "operation")`.
 Le tri se fait sur la valeur ; le nul vaut 0.
 

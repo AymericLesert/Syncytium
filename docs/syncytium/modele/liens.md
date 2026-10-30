@@ -18,16 +18,16 @@ fichier décrit ces types, puis ceux qu'un hook ajoute.
 - **Les facettes du champ s'appliquent à chaque élément.**
 - **Une liste d'énumérés**, avec `values:`, se saisit en multi-sélection.
 
-**La collection est un type** : elle porte ses agrégats en méthodes
+**La collection est un type** : elle porte ses fonctions d'agrégation en méthodes
 (D580). L'élément est le contexte implicite de chacun :
 
 - `sum`, `count()`, `avg`, `min`, `max` ;
 - `first`, `last` ;
 - `any`, `exists` ;
-- `list`, l'agrégat qui rend la liste des valeurs, `list of <type>`
+- `list`, la fonction qui rend la liste des valeurs, `list of <type>`
   (D965) ;
 - **`group(champ, …)`**, le regroupement : une cellule par combinaison,
-  l'agrégat évalué par cellule, le résultat un hypercube aux dimensions
+  la fonction évaluée par cellule, le résultat un hypercube aux dimensions
   des champs (D1015) ;
 - **`sort(champ, …)`**, le tri en ligne ; `first()` et `last()` sans
   argument rendent alors la tête ou la queue de la liste triée (D1017).
@@ -36,18 +36,18 @@ fichier décrit ces types, puis ceux qu'un hook ajoute.
 association, `group:` et `sort:` (D1016, D1017,
 [champs.md](champs.md)).
 
-**La doctrine des agrégats** (D887) :
+**La doctrine des fonctions d'agrégation** (D887) :
 
-- l'agrégat qui porte une valeur se lit « valeur if condition » :
+- la fonction qui porte une valeur se lit « valeur if condition » :
   `sum(montant if statut = "en_cours")` ;
-- l'agrégat qui n'en porte pas reçoit la condition seule :
+- la fonction qui n'en porte pas reçoit la condition seule :
   `count(nature = "composant")`, `any(…)`, `exists(…)` ;
 - `count()` sans argument compte le tout.
 
-Le véhicule calcule son kilométrage courant par deux agrégats :
+Le véhicule calcule son kilométrage courant par deux fonctions d'agrégation :
 
 ```yaml
-# Le kilométrage courant : le plus grand compteur vu, par deux agrégats et un if suffixé
+# Le kilométrage courant : le plus grand compteur vu, par deux fonctions d'agrégation et un if suffixé
 km_courant:
   type: integer
   formula: entretiens.max(km) if entretiens.max(km) > consommations.max(total_km) else consommations.max(total_km)

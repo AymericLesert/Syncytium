@@ -195,7 +195,7 @@ Le conditionnel s'écrit `valeur if condition else autre`. Les cas
 s'enchaînent par `else … if …`, lus de gauche à droite ; les parenthèses
 changent la priorité ; un `if` seul vaut nul sinon (D580, D1003, D1109,
 D1110). Un jeu de valeurs s'écrit `.select(clé: valeur, "...": défaut)`
-sur le type (D584). Les agrégats acceptent un `if` suffixé (D887).
+sur le type (D584). Les fonctions d'agrégation acceptent un `if` suffixé (D887, D1564).
 
 ```yaml
 # Le montant signé : le conditionnel natif
@@ -204,7 +204,7 @@ montant_signe: credit if credit != null else -debit
 # L'état en clair : un jeu de valeurs sur le type, avec son défaut
 etat_lisible: 'etat.select(brouillon: "En cours", valide: "Validée", "...": "Autre")'
 
-# La dernière sortie : un agrégat filtré par un if suffixé
+# La dernière sortie : une fonction d'agrégation filtrée par un if suffixé
 derniere_sortie: mouvements.max(date if sens = "sortie")
 ```
 

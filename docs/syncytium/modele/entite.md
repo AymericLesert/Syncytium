@@ -230,7 +230,7 @@ première déclarée est la surface par défaut (D437, D438).
 | `forms:` | les formulaires : `record`, et les formulaires d'appel des opérations (D775) | un arbre de composants : les conteneurs, `tabs`, `sections`, `grid` ; les feuilles, `field[…]`, `operation[…]`, `chart[…]`, `paragraph` ; le `visible:` vivant (D567) |
 | `lists:` | les listes, la porte d'entrée de l'entité | un tableau, `columns:`, ou une liste de widgets (D492) ; `editable:`, `filter:`, `sort:`, `title:` ; sans formulaire déclaré, le formulaire par défaut du socle (D438, D530) |
 | `widgets:` | la carte d'un enregistrement, ou une synthèse (D202, D492) | des sections, des feuilles, des graphiques ; un `paragraph` au gabarit |
-| `charts:` | les graphiques de l'entité | `x:`, le découpage, `date[month]` (D516) ; `y:`, l'agrégat (D517) |
+| `charts:` | les graphiques de l'entité | `x:`, le découpage, `date[month]` (D516) ; `y:`, la fonction d'agrégation (D517) |
 
 Tout se relie par une adresse, `<type>[<nom>]` : `field[nom]`,
 `operation[ajuster_echeancier]`, `list[echues]` (D566). Hors de l'entité

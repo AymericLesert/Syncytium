@@ -6,7 +6,8 @@ Cette section décrit les mots clés utilisés dans le projet Syncytium. Nous di
 
 **Agrégat** — Un enregistrement « racine » et tout ce qu'il possède,
 pris comme un tout indivisible. Une commande et ses lignes s'enregistrent,
-s'historisent et disparaissent ensemble. *(D101)*
+s'historisent et disparaissent ensemble. À ne pas confondre avec la fonction
+d'agrégation, `sum` ou `count`. *(D101, D1564)*
 
 **Anonymisation** — L'effacement des données personnelles d'un
 enregistrement, qui garde son squelette : les liens et l'historique

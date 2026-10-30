@@ -82,7 +82,7 @@ Le groupe implicite occupe l'en-tête de l'écran, au-dessus des onglets.
   `sort: [owner.date, owner.numero]` ; `first()` et `last()` rendent alors
   l'élément de tête ou de queue (D997, D1017). `group:` donne les champs
   de regroupement, `group: [emplacement]` : l'association livre une
-  cellule par combinaison, et un agrégat s'évalue cellule par cellule
+  cellule par combinaison, et une fonction d'agrégation s'évalue cellule par cellule
   (D1016). Les méthodes `sort(…)` et `group(…)` en sont les formes en
   ligne (D1015, D1017).
 - **`filter:`** et **`check:`** s'écrivent sur une référence : le filtre
@@ -121,7 +121,7 @@ Le groupe implicite occupe l'en-tête de l'écran, au-dessus des onglets.
 
 - **`formula:`** fait du champ un calculé : une expression, en lecture
   seule, recalculée dès qu'une dépendance change (D255, D298). Elle
-  emploie les agrégats des collections, `sum`, `max`, `count`, les
+  emploie les fonctions d'agrégation des collections, `sum`, `max`, `count`, les
   fonctions des types au point, `montant.currency`, `nb_jours.days`,
   l'accès par la clé, `owner.consommations[me.numero - 1].date` (D841),
   et les mots `owner`, `me`, `context`. Le langage est décrit dans son

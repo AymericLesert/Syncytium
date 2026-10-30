@@ -183,6 +183,24 @@ RELECTURE = {
     1047: "reprise", 1049: "reprise", 1050: "reprise", 1051: "reprise", 1066: "reprise",
     1383: "methode", 1516: "methode",
 }
+# Le chapitre 2, le modèle et les types (D1560, le 30/10/2026) : quatre-vingt-sept décisions reclassées.
+for _fam, _nums in {
+    "reprise": [175, 176, 177, 178, 179, 181, 182, 183, 184, 657, 931, 966, 995, 1006, 1007, 1033, 1037, 1040,
+                1053, 1054],
+    "documentation": [1119, 1150, 1152, 1160, 1215, 1233, 1253, 1267, 1268, 1269, 1270, 1271, 1274, 1278, 1314],
+    "cas": [824, 859, 866, 936, 950, 955, 962, 964, 989, 997, 1000],
+    "surfaces": [126, 464, 494, 500, 513, 518, 541, 544, 786, 795],
+    "langage": [90, 158, 580, 833, 889, 891, 1551],
+    "hooks": [148, 159, 431, 435, 613],
+    "securite": [139, 163, 702, 1149, 1326],
+    "configuration": [116, 117, 352, 765],
+    "connecteurs": [79, 637, 1293],
+    "methode": [608, 843, 1546],
+    "api": [150, 151],
+    "administration": [675],
+    "telemetrie": [38],
+}.items():
+    RELECTURE.update({_n: _fam for _n in _nums})
 
 
 def classer(d):

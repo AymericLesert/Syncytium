@@ -24,6 +24,7 @@ fichier décrit ces types, puis ceux qu'un hook ajoute.
 - `sum`, `count()`, `avg`, `min`, `max` ;
 - `first`, `last` ;
 - `any`, `all` : au moins un élément, ou tous, vérifient la condition (D1575, D1576) ;
+  sans argument, `lignes.any()` dit que la collection n'est pas vide (D1577) ;
 - `list`, la fonction qui rend la liste des valeurs, `list of <type>`
   (D965) ;
 - **`group(champ, …)`**, le regroupement : une cellule par combinaison,

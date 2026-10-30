@@ -197,6 +197,11 @@ changent la priorité ; un `if` seul vaut nul sinon (D580, D1003, D1109,
 D1110). Un jeu de valeurs s'écrit `.select(clé: valeur, "...": défaut)`
 sur le type (D584). Les fonctions d'agrégation acceptent un `if` suffixé (D887, D1564).
 
+Les conditions se joignent par les opérateurs logiques `and`, `or`, `xor` et `not` (D1571).
+`not` lie le plus fort, puis `and`, puis `xor`, puis `or` ; tous passent après les comparaisons.
+`a or b and c` se lit donc `a or (b and c)`. Le signe `!` est le factoriel, jamais la négation
+(D577).
+
 ```yaml
 # Le montant signé : le conditionnel natif
 montant_signe: credit if credit != null else -debit

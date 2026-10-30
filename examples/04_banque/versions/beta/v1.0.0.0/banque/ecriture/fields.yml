@@ -45,7 +45,7 @@ budget:
 
 montant:
   type: amount
-  currencies: ["EUR", "FRF"]
+  currencies: [EUR, FRF]
   required: true
   label: { fr: Montant, en: Amount, es: Importe }
   hint:
@@ -103,8 +103,8 @@ imprimee:
 
 montant_euro:
   type: amount
-  currencies: ["EUR"]
-  formula: 'montant.currency.select("EUR": montant, "FRF": amount(montant.value / 6.55957, "EUR"))'
+  currencies: [EUR]
+  formula: 'montant.currency.select(EUR: montant, FRF: amount(montant.value / 6.55957, "EUR"))'
   label: { fr: Montant en euros, en: Amount in euros, es: Importe en euros }
   description:
     fr: Un montant à devise unique ; currency est la fonction du type qui donne la devise de la valeur.
@@ -113,13 +113,13 @@ montant_euro:
 
 montant_franc:
   type: amount
-  currencies: ["FRF"]
-  formula: 'montant.currency.select("FRF": montant, "EUR": amount(montant.value * 6.55957, "FRF"))'
+  currencies: [FRF]
+  formula: 'montant.currency.select(FRF: montant, EUR: amount(montant.value * 6.55957, "FRF"))'
   label: { fr: Montant en francs, en: Amount in francs, es: Importe en francos }
 
 solde:
   type: amount
-  currencies: ["EUR"]
+  currencies: [EUR]
   formula: owner.ecritures.sum(montant_euro if date_operation <= me.date_operation)
   label: { fr: Solde, en: Balance, es: Saldo }
   description:
@@ -129,7 +129,7 @@ solde:
 
 debit:
   type: amount
-  currencies: ["EUR", "FRF"]
+  currencies: [EUR, FRF]
   formula: -montant if montant.value < 0
   label: { fr: Débit, en: Debit, es: Debe }
   description:
@@ -139,6 +139,6 @@ debit:
 
 credit:
   type: amount
-  currencies: ["EUR", "FRF"]
+  currencies: [EUR, FRF]
   formula: montant if montant.value > 0
   label: { fr: Crédit, en: Credit, es: Haber }

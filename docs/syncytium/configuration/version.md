@@ -22,7 +22,7 @@ field:
 
   # Le montant : la devise par défaut
   amount:
-    currency: "EUR"
+    currency: EUR
 
   # Le nom d'une personne : un dérivé qui porte le marquage RGPD ; tout champ de ce type en hérite
   nom:

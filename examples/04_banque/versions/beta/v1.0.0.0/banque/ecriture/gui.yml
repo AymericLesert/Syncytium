@@ -64,7 +64,7 @@ forms:
       - libelle_nouveau:
           type: text[..60]
           required: true
-      - montant_nouveau: { type: amount, currencies: ["EUR"], required: true }
+      - montant_nouveau: { type: amount, currencies: [EUR], required: true }
 
   # L'appel de virer
   # Le compte cible et le montant.
@@ -72,7 +72,7 @@ forms:
     title: { fr: Virement, en: Transfer, es: Transferencia }
     items:
       - vers:    { type: banque.compte, required: true }
-      - montant: { type: amount, currencies: ["EUR"], required: true }
+      - montant: { type: amount, currencies: [EUR], required: true }
 
 # Les listes
 # La première déclarée est celle par défaut ; chacune porte sa zone de recherche — le compte, la plage de dates par la

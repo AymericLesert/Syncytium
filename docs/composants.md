@@ -407,10 +407,10 @@ fields:
   quantity: integer[0..]           # number par défaut, aligné à droite
   price:
     type: amount                   # le composé — la devise en post-zone (D391)
-    currencies: ["EUR"]
+    currencies: [EUR]
   weight:
     type: measure
-    units: ["kg", "g"]
+    units: [kg, g]
     mask: "0 000.00"               # les séparateurs selon la langue (D373)
 
 gui:

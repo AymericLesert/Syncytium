@@ -215,9 +215,11 @@ Les littéraux s'écrivent ainsi (D1578, D1579) :
 - **une durée**, en nombre suivi de son unité : `12m`, `180d`, `2h` ; `m` est le mois, `min` la minute ;
 - **un booléen**, `true` ou `false` ; le nul, `null` ;
 - **une date**, en ISO, par la fonction du type : `date("2026-01-01")` ;
-- **une unité ou une devise**, entre guillemets, partout : dans une formule, `quantite.to("kg")`,
-  `amount(v, "EUR")` ; dans une clé de `select`, `select("EUR": …)` ; dans une déclaration,
-  `units: ["kg", "g"]`, `currency: "EUR"` (D1580).
+- **une unité, une devise, une valeur d'énuméré**, entre guillemets, comme tout texte :
+  `quantite.to("kg")`, `amount(v, "EUR")`, `statut = "soldee"` (D1578, D1581).
+
+Une clé reste nue : celle d'un `select`, `select(EUR: …)` comme `select(thermique: …)`. Une
+déclaration YAML suit l'usage du YAML : `units: [kg, g]`, `currency: EUR` (D1581).
 
 ```yaml
 # La cohérence des dates : la règle ne joue que si la vente est posée

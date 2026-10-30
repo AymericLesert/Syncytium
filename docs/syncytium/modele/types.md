@@ -169,7 +169,7 @@ field:
     # La devise
     # La monnaie de l'entreprise, pour les prix que PMI écrit sans colonne de devise ; les tiers, les tarifs et les
     # commandes portent la leur.
-    currency: "EUR"
+    currency: EUR
 ```
 
 Six règles encadrent les dérivés.

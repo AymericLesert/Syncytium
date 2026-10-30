@@ -15,9 +15,11 @@ remplace (« (amende D756 ; précise D1515 — …) ») ; les artefacts que la l
 
 Ce que l'outil déduit :
 - le statut (D1392) : « remplacée » si une décision postérieure la retire, la remplace ou l'annule ; « amendée »
-  si une décision postérieure l'amende, la revoit ou la solde ; « acceptée » sinon ; et, à côté, la marque
-  « une lecture à confirmer » quand la ligne porte « ma lecture », « à confirmer » ou « en proposition » ;
-- les liens : amende → amendée par ; précise/étend/complète/confirme/exécute/généralise → précisée par ;
+  si une décision postérieure l'amende, la revoit, la solde ou revient sur elle ; « acceptée » sinon ; et, à
+  côté, la marque « une lecture à confirmer » quand la ligne porte « ma lecture », « à confirmer » ou « en
+  proposition » — levée quand une décision postérieure la confirme ou la valide (D1582) ;
+- les liens : amende → amendée par ; confirme/valide → confirmée par ;
+  précise/étend/complète/exécute/généralise → précisée par ;
   clôt → close par ; résout Qn ;
 - la famille (D1516) : celle de l'artefact que la ligne cite le plus souvent ; à défaut, la section du registre
   qu'elle cite (« Voir §8.6 ») ; à défaut, des mots du titre, puis du texte ; à défaut, la plage du domaine
@@ -103,8 +105,10 @@ LECTURE = re.compile(r"ma lecture|à confirmer|en proposition", re.I)
 # Les verbes de la parenthèse, et le lien qu'ils posent de la décision vers sa cible.
 VERBES = [
     (r"remplace|retire|annule|abroge|rend caduc|écarte", "remplace"),
-    (r"amende|revoit|solde|corrige|rectifie|renverse", "amende"),
-    (r"précise|étend|complète|confirme|exécute|généralise|applique|prolonge|reprend|répare", "précise"),
+    (r"amende|revoit|revient sur|solde|corrige|rectifie|renverse", "amende"),
+    # la confirmation lève la marque « à confirmer » de sa cible (D1582)
+    (r"confirme|valide", "confirme"),
+    (r"précise|étend|complète|exécute|généralise|applique|prolonge|reprend|répare", "précise"),
     (r"clôt|clot|ferme|résout", "clôt"),
     # les appuis ne posent aucun lien, mais bornent la portée du verbe qui précède
     (r"s'appuie|appuie|fonde|borne|suit|après|voir|rappelle|garde|compose|exploite|arbitre|ouvre", "cite"),
@@ -242,6 +246,8 @@ def calculer(decisions):
         d["amendee_par"] = sorted(inv.get("amende", []))
         d["precisee_par"] = sorted(inv.get("précise", []))
         d["close_par"] = sorted(inv.get("clôt", []))
+        d["confirmee_par"] = sorted(inv.get("confirme", []))
+        d["lecture_ouverte"] = d["lecture"] and not d["confirmee_par"]
         d["statut"] = ("remplacée" if d["remplacee_par"] else "amendée" if d["amendee_par"] else "acceptée")
         d["famille"], d["famille_source"] = classer(d)
     return decisions
@@ -263,11 +269,14 @@ def resume(decisions):
     print("## Les statuts (D1392)\n")
     for s in ("acceptée", "amendée", "remplacée"):
         print(f"- {s} : {statuts.get(s, 0)}")
-    lectures = sum(1 for d in decisions.values() if d["lecture"])
+    lectures = sum(1 for d in decisions.values() if d["lecture_ouverte"])
+    levees = sum(1 for d in decisions.values() if d["lecture"] and d["confirmee_par"])
     liens = sum(len(d["liens"]) for d in decisions.values())
-    print(f"- une lecture à confirmer sur la ligne : {lectures}\n\nLes liens posés : {liens} "
+    print(f"- une lecture à confirmer sur la ligne : {lectures} (et {levees} levées par une confirmation)"
+          f"\n\nLes liens posés : {liens} "
           f"(amende {sum(1 for d in decisions.values() for l, _ in d['liens'] if l == 'amende')}, "
           f"précise {sum(1 for d in decisions.values() for l, _ in d['liens'] if l == 'précise')}, "
+          f"confirme {sum(1 for d in decisions.values() for l, _ in d['liens'] if l == 'confirme')}, "
           f"remplace {sum(1 for d in decisions.values() for l, _ in d['liens'] if l == 'remplace')}, "
           f"clôt {sum(1 for d in decisions.values() for l, _ in d['liens'] if l == 'clôt')}).")
 
@@ -309,7 +318,7 @@ def audit(decisions, fam, racine):
             print(f"- D{d['numero']} ({d['statut']}) — {d['titre'][:100]}")
     print("\n## 3. Les décisions qui portent une lecture à confirmer\n")
     for d in mienne:
-        if d["lecture"]:
+        if d["lecture_ouverte"]:
             print(f"- D{d['numero']} — {d['titre'][:100]}")
     print("\n## 4. Les marques « en proposition » des artefacts\n")
     for a, t in textes.items():
@@ -321,9 +330,11 @@ def audit(decisions, fam, racine):
 def montrer(d):
     print(f"# D{d['numero']} — {d['titre']}\n")
     print(f"- la famille : `{d['famille']}` ({d['famille_source']}) ; le statut : {d['statut']}"
-          f"{' ; une lecture à confirmer' if d['lecture'] else ''}")
+          f"{' ; une lecture à confirmer' if d['lecture_ouverte'] else ''}"
+          f"{' ; sa lecture confirmée' if d['lecture'] and d['confirmee_par'] else ''}")
     for k, lib in (("amendee_par", "amendée par"), ("remplacee_par", "remplacée par"),
-                   ("precisee_par", "précisée par"), ("close_par", "close par")):
+                   ("precisee_par", "précisée par"), ("confirmee_par", "confirmée par"),
+                   ("close_par", "close par")):
         if d[k]:
             print(f"- {lib} : {', '.join(f'D{x}' for x in d[k])}")
     if d["liens"]:

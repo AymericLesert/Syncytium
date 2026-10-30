@@ -446,6 +446,7 @@ emploient.
 | `trim(t)` | retire les blancs de tête et de fin (D870, D872) |
 | `upper(t)`, `lower(t)` | change la casse (D656) |
 | `left(t, n)`, `right(t, n)` | garde les n premiers ou derniers caractères, `right("0000" + me, 4)` (D870) |
+| `lpad(t, n, c)`, `rpad(t, n, c)` | complète le texte à gauche ou à droite par le caractère `c`, une espace par défaut, jusqu'à `n` caractères ; un texte plus long reste tel quel, `lpad(me, 4, "0")` (D1567) |
 | `mid(t, début, longueur)` | extrait la sous-chaîne (D934) |
 | `length(t)` | rend la longueur (D934) |
 | `t1 + t2` | concatène ; un nul y est une anomalie, comme dans toute expression (D870, D1566) |

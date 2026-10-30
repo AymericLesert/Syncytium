@@ -1424,7 +1424,7 @@ même table = deux fichiers :
   dérivé) ; dedans : les `select` du type et du
   code de gestion, `perissable: mid(ARCTCODFAM, 4, 1) = "1"` (D954),
   `matieres: list(…)` (D971), `plans: plans.files(ARCTFICPLA)` (D972),
-  les mesures par `measure(x, kg)` (D975), les prix
+  les mesures par `measure(x, "kg")` (D975), les prix
   `amount(x)` à la devise par défaut du type (D970, amendée par D993),
   `ean13:
   left(ARCTEAN13, 13)` sous la facette `barcode: ean13` (D988), **une
@@ -1434,7 +1434,7 @@ même table = deux fichiers :
 - **017, la nomenclature** — `parent: { article: { code, complement
   } }`, le possesseur retrouvé parmi les dérivés par l'identité
   partagée (D969), la désignation lue de NOCTLIBCOM (D989), les temps
-  en `duration(x, h)`, la validité en `period(…)` ;
+  en `duration(x, "h")`, la validité en `period(…)` ;
 - **018–019, les tarifs** — deux règles sur TARIF filtrées sur le
   genre (D948), `to: technique.article.tarifs` (la cellule de
   l'hypercube), le tiers par le calculé de la source, `valide:
@@ -1958,7 +1958,7 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   porte sa matrice (D982) : faut-il contrôler que l'unité de la ligne
   est connue de l'article (`LCCTUNICDE in article.unite.units` — une
   validation de la cible, forme mienne) ? Sinon la conversion
-  `(article.unite * quantite).to(kg)` échouera à la lecture — **tranché
+  `(article.unite * quantite).to("kg")` échouera à la lecture — **tranché
   par D1007** : « pour l'exemple, l'unité peut être contrôlée lors de
   la migration » — `me.unite in me.article.unite.units` aux règles 021
   et 023, le deuxième temps de la validation (D1006) ; `.units` mien.
@@ -1992,13 +1992,13 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   champ calculé valide qui est vrai si la quantité est non nulle » —
   le calculé, pas un rejet.
 - **la masse du mouvement** — MVTSTO porte un poids unitaire
-  (MVCNPDSUNI) : `poids_unitaire: measure(MVCNPDSUNI, kg)` (l'unité
+  (MVCNPDSUNI) : `poids_unitaire: measure(MVCNPDSUNI, "kg")` (l'unité
   inventée, D963) et `masse: poids_unitaire * quantite` à la cible ;
   *l'autre voie, la matrice de l'article `(article.unite *
-  quantite).to(kg)` (D982) ; et la matérialisation à l'écriture sur des
+  quantite).to("kg")` (D982) ; et la matérialisation à l'écriture sur des
   millions de lignes (D985, en proposition)* — **tranché par D1010** :
   « le poids unitaire est à porter au niveau de l'article » — le champ
-  retiré du mouvement, MVCNPDSUNI ignorée, `masse: quantite.to(kg)` par
+  retiré du mouvement, MVCNPDSUNI ignorée, `masse: quantite.to("kg")` par
   la matrice de l'article, où le poids entre comme conversion vers le
   kilogramme (mien) ; la matérialisation D985 est notée pour
   l'implémentation (D1012).

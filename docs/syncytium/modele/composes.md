@@ -15,7 +15,7 @@ Un composé reçoit les facettes communes à tous les types
   (D772, D773) : `montant.value`, `montant.currency`, les coordonnées
   d'une géolocalisation (D638), les bornes d'une période.
 - **Le constructeur porte le nom du type** (D659) ; il compose la
-  conversion avec les parties : `amount(montant.value / 6.55957, EUR)`.
+  conversion avec les parties : `amount(montant.value / 6.55957, "EUR")`.
 
 ## `amount`, le montant
 
@@ -81,9 +81,10 @@ unite:
     La mesure « 1 × l'unité de stock », qui porte la matrice de conversion propre à l'article : les unités
     supplémentaires de l'ERP — la plaque — avec leur coefficient vers une unité connue, le poids unitaire comme la
     conversion de l'unité de stock vers le kilogramme ; la transitivité fait le reste, et la masse d'un mouvement est
-    quantite.to(kg). Les quantités des niveaux de stock et des lignes de commande, en décimal dans l'unité de
-    l'article, l'empruntent pour se convertir : (article.unite * quantite).to(kg). Les unités connues sont celles de la
-    liste — U, la pièce, n'a que sa diagonale ; kg ouvre le bloc des poids — et la comparaison est normalisée (KG = kg).
+    quantite.to("kg"). Les quantités des niveaux de stock et des lignes de commande, en décimal dans l'unité de
+    l'article, l'empruntent pour se convertir : (article.unite * quantite).to("kg"). Les unités connues sont celles de
+    la liste — U, la pièce, n'a que sa diagonale ; kg ouvre le bloc des poids — et la comparaison est normalisée (KG =
+    kg).
 ```
 
 ### Les unités
@@ -126,7 +127,7 @@ colonnes, le coefficient à l'intersection (D976).
 ### Le constructeur et les fonctions
 
 - **`measure(valeur, unité)`**, l'unité parmi celles du champ
-  (D659, D975) : `epaisseur: measure(ARCNEPAISS, mm)`. Une unité hors de
+  (D659, D975) : `epaisseur: measure(ARCNEPAISS, "mm")`. Une unité hors de
   la liste est une erreur d'ingestion (D581).
 - **`measure(valeur, unité, conversions)`**, le constructeur à trois
   paramètres (D982) : la liste des conversions apportées, chacune écrite
@@ -140,10 +141,10 @@ unite:
     measure(1, ARCTUNISTO,
       list(measure.convert(ARCTCONV1A, ARCTCONV1B, ARCNCONC01),
            measure.convert(ARCTCONV2A, ARCTCONV2B, ARCNCONC02),
-           measure.convert(ARCTUNISTO, kg, ARCNPDSUNI)))
+           measure.convert(ARCTUNISTO, "kg", ARCNPDSUNI)))
 ```
 
-- **`.to(<unité>, <paramètres>)`** convertit, `quantite.to(kg)` (D975,
+- **`.to(<unité>, <paramètres>)`** convertit, `quantite.to("kg")` (D975,
   D1554).
 - **`.units`** rend la liste des unités connues du champ : les standards
   restreintes, les déclarées, celles des données (D983, D1007). Elle sert

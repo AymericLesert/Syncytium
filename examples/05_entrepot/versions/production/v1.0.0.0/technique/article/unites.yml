@@ -21,9 +21,10 @@ unite:
     La mesure « 1 × l'unité de stock », qui porte la matrice de conversion propre à l'article : les unités
     supplémentaires de l'ERP — la plaque — avec leur coefficient vers une unité connue, le poids unitaire comme la
     conversion de l'unité de stock vers le kilogramme ; la transitivité fait le reste, et la masse d'un mouvement est
-    quantite.to(kg). Les quantités des niveaux de stock et des lignes de commande, en décimal dans l'unité de
-    l'article, l'empruntent pour se convertir : (article.unite * quantite).to(kg). Les unités connues sont celles de la
-    liste — U, la pièce, n'a que sa diagonale ; kg ouvre le bloc des poids — et la comparaison est normalisée (KG = kg).
+    quantite.to("kg"). Les quantités des niveaux de stock et des lignes de commande, en décimal dans l'unité de
+    l'article, l'empruntent pour se convertir : (article.unite * quantite).to("kg"). Les unités connues sont celles de
+    la liste — U, la pièce, n'a que sa diagonale ; kg ouvre le bloc des poids — et la comparaison est normalisée (KG =
+    kg).
 
 poids:
   type: measure

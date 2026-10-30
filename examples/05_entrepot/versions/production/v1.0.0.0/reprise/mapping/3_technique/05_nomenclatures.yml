@@ -17,9 +17,9 @@ NOMENC:
     rendement:   NOCNRENDT
     operation:         NOCTCODOPE
     jalon:             integer(NOCNJALON)
-    temps_preparation: duration(NOCNTPSPRE, h)
-    temps_ouverture:   duration(NOCNTPSOUV, h)
-    temps_attente:     duration(NOCNTPSATT, h)
+    temps_preparation: duration(NOCNTPSPRE, "h")
+    temps_ouverture:   duration(NOCNTPSOUV, "h")
+    temps_attente:     duration(NOCNTPSATT, "h")
     nombre_ouvriers:   NOCNBREOUV
     validite:          period(NOCJDEBVAL, NOCJFINVAL)
   report:

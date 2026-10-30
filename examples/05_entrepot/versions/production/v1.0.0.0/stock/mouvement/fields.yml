@@ -127,7 +127,7 @@ valeur:
 masse:
   type: measure
   units: [kg]
-  formula: quantite.to(kg)
+  formula: quantite.to("kg")
   label: Masse
   description: >-
     La quantité, dans l'unité de stock, se convertit par la matrice de l'article, où le poids unitaire est le

@@ -151,7 +151,7 @@ secrets: [api_key] }`.
 
 **Constructeur** — La fonction au nom d'un type, qui fabrique une valeur
 de ce type à partir de ses parties. *Ex. : `amount(ARCNPMP)`,
-`measure(ARCNEPAISS, mm)`, `datetime(MVCJSAI, MVCTSAI)`.* *(D659)*
+`measure(ARCNEPAISS, "mm")`, `datetime(MVCJSAI, MVCTSAI)`.* *(D659)*
 
 **Contexte** (`context`) — L'entité du moteur, en lecture seule :
 l'utilisateur, le moment, l'instance, le module, la page d'un document,

@@ -35,15 +35,15 @@ unite:
     measure(1, ARCTUNISTO,
       list(measure.convert(ARCTCONV1A, ARCTCONV1B, ARCNCONC01),
            measure.convert(ARCTCONV2A, ARCTCONV2B, ARCNCONC02),
-           measure.convert(ARCTUNISTO, kg, ARCNPDSUNI)))
+           measure.convert(ARCTUNISTO, "kg", ARCNPDSUNI)))
   description: >-
     Une unité de l'article : l'unité de stock et ses conversions — les deux couples de PMI, et le poids unitaire vers le
     kilogramme.
-poids:     measure(ARCNPDSUNI, kg)
-longueur:  measure(ARCNLONGUE, mm)
-largeur:   measure(ARCNLARGEU, mm)
-epaisseur: measure(ARCNEPAISS, mm)
-volume:    measure(ARCNVOLUNI, dm3)
+poids:     measure(ARCNPDSUNI, "kg")
+longueur:  measure(ARCNLONGUE, "mm")
+largeur:   measure(ARCNLARGEU, "mm")
+epaisseur: measure(ARCNEPAISS, "mm")
+volume:    measure(ARCNVOLUNI, "dm3")
 ean13:
   formula: left(ARCTEAN13, 13)
   description: Les 13 premiers caractères du code EAN.

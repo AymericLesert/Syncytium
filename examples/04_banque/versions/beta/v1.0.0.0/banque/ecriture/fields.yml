@@ -104,7 +104,7 @@ imprimee:
 montant_euro:
   type: amount
   currencies: [EUR]
-  formula: 'montant.currency.select(EUR: montant, FRF: amount(montant.value / 6.55957, EUR))'
+  formula: 'montant.currency.select(EUR: montant, FRF: amount(montant.value / 6.55957, "EUR"))'
   label: { fr: Montant en euros, en: Amount in euros, es: Importe en euros }
   description:
     fr: Un montant à devise unique ; currency est la fonction du type qui donne la devise de la valeur.
@@ -114,7 +114,7 @@ montant_euro:
 montant_franc:
   type: amount
   currencies: [FRF]
-  formula: 'montant.currency.select(FRF: montant, EUR: amount(montant.value * 6.55957, FRF))'
+  formula: 'montant.currency.select(FRF: montant, EUR: amount(montant.value * 6.55957, "FRF"))'
   label: { fr: Montant en francs, en: Amount in francs, es: Importe en francos }
 
 solde:

@@ -23,7 +23,7 @@ fichier décrit ces types, puis ceux qu'un hook ajoute.
 
 - `sum`, `count()`, `avg`, `min`, `max` ;
 - `first`, `last` ;
-- `any`, `exists` ;
+- `any`, `exists`, `all` : au moins un élément, ou tous, vérifient la condition (D1575) ;
 - `list`, la fonction qui rend la liste des valeurs, `list of <type>`
   (D965) ;
 - **`group(champ, …)`**, le regroupement : une cellule par combinaison,
@@ -72,6 +72,21 @@ Deux opérateurs complètent la collection :
 - **la projection**, le point (D889) : `<collection>.<champ>` rend la
   collection des valeurs de ce champ, `me.code in fournisseurs.code`,
   `lignes.article`.
+
+**Les opérations ensemblistes** combinent deux collections du même type (D1575). Ce sont
+des méthodes, et leur résultat retire ses doublons :
+
+- `a.union(b)`, les éléments de l'une ou de l'autre ;
+- `a.intersect(b)`, les éléments communs ;
+- `a.except(b)`, les éléments de `a` absents de `b` ;
+- `a.xor(b)`, les éléments d'un seul des deux côtés, comme le `xor` des booléens.
+
+```yaml
+# Les articles commandés absents du dépôt : la différence de deux projections
+manquants:
+  type: list of technique.article
+  formula: lignes.article.except(depot.niveaux.article)
+```
 
 **La liste littérale** écrit des valeurs en dur, entre crochets (D1572). Ses
 valeurs sont du même type ; elle se lit telle quelle, sans retirer de doublon :

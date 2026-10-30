@@ -338,10 +338,10 @@ vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ 
 
 **Fonction d'agrégation** — Une méthode d'une collection qui en résume
 les éléments en une valeur : `sum`, `count`, `avg`, `min`, `max`, `first`,
-`last`, `any`, `exists`, `list`. Celle qui porte une valeur se lit
+`last`, `any`, `exists`, `all`, `list`. Celle qui porte une valeur se lit
 « valeur if condition ». À ne pas confondre avec l'agrégat, l'enregistrement
 et ce qu'il possède. *Ex. : `lignes.sum(montant if statut = "en_cours")`.*
-*(D580, D887, D1564)*
+*(D580, D887, D1564, D1575)*
 
 **Forme courte, forme longue** — Deux écritures d'une même clé : la
 valeur seule, tout le reste au défaut, ou le bloc qui détaille ses
@@ -564,6 +564,12 @@ ce premier caractère aux modules d'application. *(D1029)*
 **Normalisation** (`normalize:`) — L'expression appliquée à une valeur à
 la frontière, quand elle entre. *Ex. : `normalize: trim(me)`, les blancs
 retirés.* *(D870, D872, D991)*
+
+**Opération ensembliste** — Une méthode qui combine deux collections du même
+type : `union`, `intersect`, `except` — ce que l'une a et l'autre pas — et `xor`,
+ce qui n'est que d'un seul côté. Le résultat retire ses doublons. À ne pas confondre
+avec l'opération d'une entité. *Ex. : `lignes.article.except(depot.niveaux.article)`.*
+*(D1575)*
 
 **Opération** — Une action déclarée sur une entité, au-delà du
 créer-modifier-supprimer : valider, envoyer, clôturer. Sous droits, et

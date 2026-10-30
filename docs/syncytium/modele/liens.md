@@ -44,6 +44,16 @@ association, `group:` et `sort:` (D1016, D1017,
   `count(nature = "composant")`, `any(…)`, `exists(…)` ;
 - `count()` sans argument compte le tout.
 
+Une fonction d'agrégation s'écrit sous trois formes (D1570) :
+
+- **la méthode de la collection**, partout où une collection est nommée : `lignes.sum(montant)` ;
+- **la forme contextuelle**, dans les seules surfaces qui portent leur collection, le graphique, le
+  tableau croisé, les totaux d'une liste : `sum(montant)` porte sur les enregistrements affichés
+  (D517) ;
+- **la fonction libre**, sur deux valeurs ou plus, sans collection : `max(0, total)` (D576, D587).
+
+`sum(lignes.montant)` est une erreur d'ingestion, qui indique la méthode à employer.
+
 Le véhicule calcule son kilométrage courant par deux fonctions d'agrégation :
 
 ```yaml

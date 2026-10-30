@@ -25026,6 +25026,28 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-31 — LA PAUSE : LE CHAPITRE 3 ENTIER (D1566–D1588, 1588
+  décisions).** « re » — « re est une abréviation pour reprenons ». La lecture
+  du chapitre 3, treize points : la concaténation par `+` et par le gabarit
+  (D1566), `lpad` et `rpad` (D1567), la conversion au nom du type (D1568), le
+  `select` seul et l'énuméré complet (D1569), les trois formes des fonctions
+  d'agrégation (D1570), `and`, `or`, `xor`, `not` (D1571), la liste littérale
+  et `not in` (D1572), `is null` (D1573), `ifnull` (D1574), `union`,
+  `intersect`, `except`, `xor` et `all` (D1575), `any` seul (D1576–D1577),
+  les littéraux et les unités entre guillemets (D1578–D1579), « Partout »
+  (D1580) puis « reviens sur D1580 » (D1581 — la valeur entre guillemets dans
+  une formule, la clé et le YAML nus), quatre statuts (D1582), la frontière du
+  langage (D1583), la classification relue (D1584), huit lectures confirmées
+  (D1585). Cent cinq comparaisons au nul et trente-neuf unités réécrites dans
+  les cas ; l'adresse de l'entrepôt au gabarit, cinq formules en `ifnull`.
+  L'outil des décisions lève les marques confirmées et ignore les citations.
+  La réorganisation : `syncytium/langage/` en quatre fichiers (D1586) ;
+  l'arrondi et ses sœurs (D1587) ; la réécriture faite ; le glossaire gagne
+  Fonction, Littéral, Conditionnel, Nul, Opérateur, Select. Les listes des
+  décisions écrites dans les trois chapitres (D1588). « je marque une
+  pause ». **À la reprise** : le chapitre 4, les surfaces et les composants
+  (`composants.md`), son audit ; les lectures de D1587 sur l'arrondi restent
+  à confirmer. Tout est committé et poussé.
 - **2026-10-30 — LA PAUSE : LE CHAPITRE 2 ENTIER, LE GLOSSAIRE ÉTOFFÉ, LE
   CHAPITRE 3 OUVERT (D1561–D1565, 1565 décisions).** Le chapitre 2 réorganisé
   (D1561) puis réécrit : les huit fichiers de `syncytium/modele/`, les exemples

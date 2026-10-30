@@ -220,11 +220,8 @@ D1266–D1278.)*
 | `states:` | un diagramme d'états à part (D1276) : les valeurs du champ-statut, les passages permis (D422) — le trait porte la cible et la condition `when:` telle qu'écrite, le nom de l'opération qui déclenche le passage s'il y en a une ; les actes `allow:` en note, la table des états en détail ; un par entité qui déclare `states:`, le dérivé hérite |
 | `operations:`, `history:`, `hint:`, `description:`, `placeholder:` | rien au diagramme — la table du dictionnaire (D1215) et le registre (D698) ; `required:` y est par la cardinalité (D1278) |
 
-**La table du dictionnaire** (D1215, ma forme) : une table par entité,
-une ligne par champ — le libellé avec les marques du diagramme, le type
-en clair, l'obligation, la valeur par défaut, les valeurs permises, le
-`hint:` et la `description:`, le `placeholder:` en exemple ; chaque
-item livre sa ligne par sa facette documentation (D1158).
+Ce que l'entité et chaque champ livrent au dictionnaire est dit à la
+facette documentation, ci-dessous (D1158, D1215, D1253).
 
 ## L'exemple fil rouge
 

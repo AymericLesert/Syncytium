@@ -24957,6 +24957,19 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-10-30 — LA PAUSE : LE CHAPITRE 2 ENTIER, LE GLOSSAIRE ÉTOFFÉ, LE
+  CHAPITRE 3 OUVERT (D1561–D1565, 1565 décisions).** Le chapitre 2 réorganisé
+  (D1561) puis réécrit : les huit fichiers de `syncytium/modele/`, les exemples
+  copiés des cas ; la définition en tête de chaque partie et le glossaire relié
+  à la racine (D1562) ; trente-quatre entrées au glossaire (D1563) ; « fonction
+  d'agrégation » pour les fonctions (D1564) ; la question des fonctions
+  ensemblistes, ouverte pour le chapitre 3 ; « Reste en français ». Le
+  chapitre 3 ouvert (D1565) : soixante-dix-huit décisions lues, treize points
+  en quatre groupes ; le point 1, la concaténation, présenté — `+` ou le
+  gabarit, et le nul dans `+` —, en attente. « Je marque une pause ». **À la
+  reprise** : le point 1, puis les points 2 à 13 du chapitre 3 ; les
+  définitions des trente-sept entrées nouvelles du glossaire restent à
+  relire. Tout est committé et poussé.
 - **2026-10-29 — REPRISE : LE POINT 5, LA RÈGLE DES PARAMÈTRES (D1535,
   1535 décisions).** « reprenons » — le point 5 rappelé dans la forme
   convenue ; « Que dit D1175 ? » — la décision relue ; puis la règle : le

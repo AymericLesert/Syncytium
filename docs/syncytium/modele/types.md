@@ -102,6 +102,10 @@ Le cas `null:` nomme le nul (D1551). Le nul et la chaîne vide ne se
 confondent pas : `""` n'est pas un nul, et ne tombe pas dans `null:` ;
 il se nomme `""`.
 
+Sur un énuméré, les valeurs sont connues dès l'ingestion. Un `select` sans le cas `"..."`
+doit donc les nommer toutes ; s'il en oublie une, c'est une erreur d'ingestion (D1569). Sur un
+texte ou un nombre, la valeur hors de la table est rejetée à l'exécution.
+
 ### Le typage statique
 
 Le type de chaque expression se calcule à l'ingestion, de la feuille à

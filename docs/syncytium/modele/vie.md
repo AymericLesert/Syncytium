@@ -6,6 +6,11 @@ portent : l'héritage, la suppression, l'historisation.
 
 ## L'héritage
 
+> **L'héritage** fait d'une entité l'enfant d'une autre : l'enfant
+> reçoit les champs de son parent et ajoute les siens. Le client et le
+> fournisseur sont des tiers ; un tiers devient client à sa première
+> commande ([glossaire](../../glossaire.md)).
+
 Une entité peut hériter d'une autre. L'enfant déclare son parent par
 `inheritance:`, et c'est sa seule référence à lui (D353). L'entrepôt en
 a deux : `article` et ses dérivés `fabrique`, `semi_fini`, `fantome` ;
@@ -62,6 +67,11 @@ un tiers peut n'être ni client ni fournisseur.
 
 ## La suppression et la réactivation
 
+> **L'inactivation** est la suppression de Syncytium : l'enregistrement
+> sort des listes, mais reste lisible et cité. **L'agrégat** est un
+> enregistrement et tout ce qu'il possède, pris comme un tout : une
+> commande et ses lignes ([glossaire](../../glossaire.md)).
+
 Supprimer un enregistrement ne l'efface pas. **La suppression est une
 inactivation** (D137) : l'enregistrement devient inactif, ses propriétés
 restent lisibles sur demande, et les listes ne montrent que les actifs
@@ -95,10 +105,29 @@ un lieu, référencé par une référence optionnelle, peut l'être, et les
 
 ## L'historisation
 
+> **L'historisation** est la mémoire d'une entité : chaque modification
+> photographie l'agrégat entier ([glossaire](../../glossaire.md)).
+
 `history:` allume l'historisation d'une entité (D168, D1174). Une fois
 allumée, chaque modification d'un enregistrement laisse une trace, et la
-fiche se relit telle qu'elle était à une date. Six règles disent ce que
-cette trace est et comment on s'en sert.
+fiche se relit telle qu'elle était à une date.
+
+La valeur de `history:` règle la profondeur de la mémoire (D411) :
+
+- `true` ou `perpetual`, tout depuis la création : le défaut du mode
+  activé ;
+- `temporal[x]`, les x derniers jours ;
+- `update[x]`, les x dernières modifications ;
+- `false`, rien : l'historisation est éteinte.
+
+```yaml
+# L'historique de la commande : les 365 derniers jours
+history: temporal[365]
+```
+
+La propriété d'une entité porte aussi sur ses compositions : l'agrégat
+s'historise en entier (D169, D411). Six règles disent ce que la trace
+est et comment on s'en sert.
 
 - **Chaud et froid, des instantanés complets** (D169) : le courant est
   chaud, l'historique est froid ; chaque entrée porte toutes les valeurs

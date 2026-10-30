@@ -1,5 +1,9 @@
 # L'entité — l'en-tête, la validation, les renvois
 
+> **Une entité** est un objet du métier, ou une table dans un modèle
+> relationnel : le client, la commande, l'article. Elle a ses champs,
+> ses règles, sa présentation ([glossaire](../../glossaire.md)).
+
 Une entité se décrit dans un fichier d'en-tête. Il dit son nom, son
 identité, son visage, son cycle de vie, et renvoie à ses champs, à ses
 opérations et à sa présentation. Le véhicule (le cas 3) est l'exemple
@@ -63,8 +67,14 @@ validation:
 
 ## L'identité
 
-L'identité est la clé fonctionnelle d'une entité, la liste des champs qui
-la distinguent : `identity: [immatriculation]`. Six règles l'encadrent.
+> **L'identité** d'une entité est sa clé fonctionnelle : la liste des
+> champs qui distinguent un enregistrement des autres, comme la plaque
+> d'un véhicule. **L'identité technique**, elle, est le matricule
+> interne et invisible de l'enregistrement, un UUID qui ne change jamais
+> ([glossaire](../../glossaire.md)).
+
+L'identité s'écrit `identity: [immatriculation]`. Six règles
+l'encadrent.
 
 - **Toute entité en porte une**, la sienne ou celle de sa racine
   d'héritage, que les dérivés conservent (D1035, D1039). Une entité sans
@@ -101,6 +111,11 @@ identities:
 
 ## Le cycle de vie, l'héritage, l'historique
 
+> **Le cycle de vie** est la suite d'états qu'un enregistrement
+> traverse : brouillon, confirmée, expédiée. Un champ énuméré le porte ;
+> chaque état déclare ses droits et ses passages
+> ([glossaire](../../glossaire.md)).
+
 - **`states:`** désigne le champ énuméré qui porte le cycle de vie,
   `states: statut` (D424). Ses valeurs portent les droits par état et le
   graphe des passages ([champs.md](champs.md), `values:`).
@@ -129,6 +144,10 @@ l'ordre (D968) : c'est un mécanisme de la
 [configuration](../configuration/mecanismes.md).
 
 ## La validation
+
+> **Une validation** est une règle de refus : sur le champ, elle juge sa
+> valeur ; sur l'entité, la cohérence de l'enregistrement
+> ([glossaire](../../glossaire.md)).
 
 `validation:` porte les règles de l'entité : des expressions booléennes,
 évaluées au scellé de la transaction, après chaque modification (D156,
@@ -182,6 +201,11 @@ re-soumission avec l'acquittement des confirmations, les informations
 signalées dans la réponse.
 
 ## Les opérations — le renvoi
+
+> **Une opération** est une action déclarée sur une entité, au-delà de
+> créer, modifier, supprimer : valider, envoyer, clôturer. Elle s'exerce
+> sous droits, et peut déclencher un changement d'état
+> ([glossaire](../../glossaire.md)).
 
 Une opération est un hook d'opération employé par l'entité ; le hook
 **est** l'opération (D609). Le bloc `operations:` le déclare (D432) :

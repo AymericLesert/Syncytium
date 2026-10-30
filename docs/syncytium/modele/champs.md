@@ -1,20 +1,32 @@
 # Les champs — `fields.yml`
 
+> **Un champ** est la plus petite donnée d'une entité. Il a un nom, un
+> type et des propriétés ([glossaire](../../glossaire.md)).
+
 Les champs d'une entité forment une carte ordonnée : le nom du champ est
 la clé, l'ordre de déclaration est l'ordre d'affichage par défaut. Ils
 s'écrivent sous `fields:`, en place ou dans un fichier, `fields.yml`.
 
 ## La forme courte et le bloc
 
-Un champ sans façon s'écrit en une ligne : son nom, puis son type. Dès
-qu'il porte une facette ou sa documentation, il s'écrit en bloc. Le
-véhicule montre les deux :
+Un champ sans façon s'écrit en une ligne : son nom, puis son type.
 
 ```yaml
-# Le lieu d'achat : la forme courte, le type seul
+# Le lieu d'achat, en forme courte : le type seul
 lieu_achat: text[..60]
+```
 
-# Le kilométrage au retrait : le bloc, le type, l'obligation, le libellé et l'aide
+Dès qu'il porte une facette ou sa documentation, il s'écrit en bloc. Le
+véhicule écrit ainsi ses champs, chacun avec son libellé et son aide :
+
+```yaml
+# Le lieu d'achat : le type, le libellé et l'exemple de la zone vide
+lieu_achat:
+  type: text[..60]
+  label: Lieu d'achat
+  placeholder: Garage Peugeot à Dôle
+
+# Le kilométrage au retrait : le type, l'obligation, le libellé et l'aide
 km_initial:
   type: integer[0..]
   required: true
@@ -23,6 +35,12 @@ km_initial:
 ```
 
 ## Les groupes de champs
+
+> **Un groupe de champs** range des champs sous un titre, comme les prix
+> d'un article. Il est nommé, titré par langue et ordonné ; le modèle
+> reste plat, et un champ s'adresse sans son groupe
+> ([glossaire](../../glossaire.md)). Il ne se confond pas avec **un
+> groupe d'utilisateurs**, qui porte les droits.
 
 Dans la même carte, une clé qui porte `fields:` sans `type:` est un
 **groupe** (D1279, D1289). Il a son `title:`, par langue, et ses champs,

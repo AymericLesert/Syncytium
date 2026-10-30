@@ -283,6 +283,10 @@ l'assistant ; le Markdown est le rendu humain. *(D1165)* Depuis D1245, l'annexe 
 dictionnaire de la donnée : la configuration entière et dépliée, sans
 les clés confidentielles.
 
+**Enregistrement** — Une occurrence d'une entité : tel client, telle
+commande. Il a son identité fonctionnelle, celle que l'entité déclare,
+et son identité technique, invisible. *(D141, D142)*
+
 **Entité** (`entity`) — Un objet du métier ou une table dans un modèle relationnel : le
 client, la commande, le produit. Chaque entité a ses
 champs, ses règles, sa représentation, ... *(D347)*
@@ -348,6 +352,12 @@ documentation sans accéder au détail) ; l'appartenance à un groupe est
 **obligatoire** pour utiliser l'application.
 *Ex. : `managers: { degree: manager, groups: [accounting, sales_team] }`.* *(D26/D414/D699)*
 
+**Héritage** (`inheritance:`) — Le lien qui fait d'une entité l'enfant
+d'une autre : l'enfant reçoit les champs du parent et ajoute les siens,
+dans une seule table. Un enregistrement progresse dans la hiérarchie en
+gardant son identité : le tiers devient client. *Ex. : `inheritance:
+tiers`.* *(D143–D146, D353)*
+
 **Historisation** (`history`) — La mémoire d'une entité : chaque
 modification photographie l'agrégat entier. On en règle la profondeur :
 tout (`perpetual`), une période (`temporal[365]`), les dernières
@@ -364,6 +374,10 @@ reste au 1ᵉʳ juillet. *(D220)*
 **Identité technique** — Le matricule interne et invisible d'un
 enregistrement (un UUID), qui ne change jamais — même renommé, même
 anonymisé. C'est lui que les références retiennent. *(D142)*
+
+**Inactivation** — La suppression dans Syncytium : l'enregistrement
+devient inactif, sort des listes par défaut, reste lisible et cité ;
+l'effacement réel est une purge distincte. *(D137–D141)*
 
 **Ingestion** — Processus visant à convertir une version de
 configuration en une entrée dans le moteur exploitable par toutes les

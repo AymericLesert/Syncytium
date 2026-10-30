@@ -32,6 +32,20 @@ entre parenthèses renvoient au [registre](../../conception.md).
 
 ## La doctrine
 
+> **Un module** est une part de l'application : ses entités, son menu,
+> sa page d'accueil. Il décrit une partie fonctionnelle, comme la gestion
+> des ventes ou le référentiel des produits d'un ERP.
+>
+> **Une entité** est un objet du métier, ou une table dans un modèle
+> relationnel : le client, la commande, l'article. Elle a ses champs,
+> ses règles, sa présentation.
+>
+> **Un champ** est la plus petite donnée d'une entité. Il a un nom, un
+> type et des propriétés.
+>
+> **Un enregistrement** est une occurrence d'une entité : tel client,
+> telle commande. Les définitions sont au [glossaire](../../glossaire.md).
+
 ### Le module déclare ses entités
 
 Un module liste ses entités dans son fichier, par `entities:` (D765,

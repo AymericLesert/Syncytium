@@ -93,10 +93,13 @@ réécrit pour être didactique, illustré d'exemples et lisible dans GitHub.
 Le plan et l'avancement, chapitre par chapitre, sont dans
 [docs/README.md](docs/README.md).
 
+Les mots du projet, de l'agrégat au type, sont définis dans
+[le glossaire](docs/glossaire.md).
+
 Les chapitres, dans l'ordre du plan :
 
 1. [La configuration](docs/syncytium/configuration/README.md) — réécrit.
-2. [Le modèle](docs/syncytium/modele/README.md) — en cours de réécriture.
+2. [Le modèle](docs/syncytium/modele/README.md) — réécrit.
 3. Le langage d'expression.
 4. Les surfaces et les composants.
 5. Les hooks.

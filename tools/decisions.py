@@ -110,7 +110,7 @@ VERBES = [
     (r"remplace|retire|annule|abroge|rend caduc|écarte", "remplace"),
     (r"amende|revoit|revient sur|solde|corrige|rectifie|renverse", "amende"),
     # la confirmation lève la marque « à confirmer » de sa cible (D1582)
-    (r"confirme|valide", "confirme"),
+    (r"confirme|valide|lève", "confirme"),
     (r"précise|étend|complète|exécute|généralise|applique|prolonge|reprend|répare", "précise"),
     (r"clôt|clot|ferme|résout", "clôt"),
     # les appuis ne posent aucun lien, mais bornent la portée du verbe qui précède

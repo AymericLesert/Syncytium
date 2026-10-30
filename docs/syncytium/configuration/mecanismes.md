@@ -203,10 +203,12 @@ Les conditions se joignent par les opérateurs logiques `and`, `or`, `xor` et `n
 (D577).
 
 Le test du nul s'écrit `a is null`, son inverse `a is not null` (D1573). Il rend toujours vrai
-ou faux, jamais une anomalie : c'est la seule façon de tester un nul.
+ou faux, jamais une anomalie : c'est la seule façon de tester un nul. `a = null` est une erreur
+d'ingestion, qui indique `is null` ; `isnull` n'existe pas (D1585).
 
 La fonction `ifnull(p, v)` rend `p`, ou `v` quand `p` est nul (D1574) : `ifnull(Credit, 0)`
-remplace un crédit absent par zéro.
+remplace un crédit absent par zéro. `p` et `v` sont du même type, et `ifnull` ne lève jamais
+d'anomalie (D1585).
 
 Les littéraux s'écrivent ainsi (D1578, D1579) :
 

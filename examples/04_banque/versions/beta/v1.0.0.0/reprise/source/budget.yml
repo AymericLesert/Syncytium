@@ -104,7 +104,7 @@ fields:
   # Les calculés de normalisation
 
   montant_signe:
-    formula: round((Credit if Credit is not null else 0) - (Debit if Debit is not null else 0), 2)
+    formula: round(ifnull(Credit, 0) - ifnull(Debit, 0), 2)
     description:
       fr: Le montant signé, arrondi au centime — les poussières flottantes du legacy s'éteignent.
       en: The signed amount, rounded to the cent — the legacy's floating-point dust dies out.

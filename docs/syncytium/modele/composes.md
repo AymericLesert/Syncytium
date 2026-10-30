@@ -271,13 +271,13 @@ L'entrepôt géocode l'adresse de livraison d'une commande :
 adresse_livraison:
   type: geolocation
   formula: >-
-    geolocation(livraison_rue1 + " " + livraison_rue2 + " " + livraison_rue3 + ", " + livraison_code_postal + " "
-    + livraison_ville + ", " + livraison_pays) if livraison_ville is not null
+    geolocation("{livraison_rue1} {livraison_rue2} {livraison_rue3}, {livraison_code_postal} {livraison_ville},
+    {livraison_pays}") if livraison_ville is not null
   label: Adresse de livraison
   description: >-
     Le géocodage du détail par le connecteur de localisation : la forme texte du constructeur rend les quatre parties,
-    l'adresse normalisée et le point viennent du connecteur. Sans la condition, la géolocalisation refuse le texte
-    vide : le calculé est nul quand la ville manque.
+    l'adresse normalisée et le point viennent du connecteur. Le gabarit écrit vide une ligne de rue absente. Sans
+    la condition, la géolocalisation refuse le texte vide : le calculé est nul quand la ville manque.
 ```
 
 ## `period`, la période

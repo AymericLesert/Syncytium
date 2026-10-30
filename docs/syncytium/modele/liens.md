@@ -53,7 +53,9 @@ Une fonction d'agrégation s'écrit sous trois formes (D1570) :
   (D517) ;
 - **la fonction libre**, sur deux valeurs ou plus, sans collection : `max(0, total)` (D576, D587).
 
-`sum(lignes.montant)` est une erreur d'ingestion, qui indique la méthode à employer.
+La méthode s'écrit sur la collection des enregistrements, la valeur entre les parenthèses :
+`lignes.sum(montant)`, jamais `lignes.montant.sum()` (D1585). `sum(lignes.montant)` est une
+erreur d'ingestion, qui indique la méthode à employer.
 
 Le véhicule calcule son kilométrage courant par deux fonctions d'agrégation :
 
@@ -75,7 +77,8 @@ Deux opérateurs complètent la collection :
   `lignes.article`.
 
 **Les opérations ensemblistes** combinent deux collections du même type (D1575). Ce sont
-des méthodes, et leur résultat retire ses doublons :
+des méthodes ; leur résultat retire ses doublons et garde l'ordre de la première collection
+(D1585) :
 
 - `a.union(b)`, les éléments de l'une ou de l'autre ;
 - `a.intersect(b)`, les éléments communs ;

@@ -121,10 +121,9 @@ calculés et les normalisations :
 | `t like "regex"` | la comparaison régulière | D818 |
 | `extract(t, "regex")` | l'extraction par la regex — la capture unique, ou plusieurs noms par les groupes nommés | D817 |
 
-*(`lower`, `left`, `length` : mes ajouts, les pendants naturels. La
-troncature d'un texte trop long pour sa cible passe par `left` —
-la conversion avec perte est refusée à l'ingestion, D581, jamais
-implicite.)*
+La troncature d'un texte trop long pour sa cible passe par `left` : la
+conversion avec perte est refusée à l'ingestion, jamais implicite
+(D581, D934).
 
 ## Les composés
 

@@ -12,6 +12,6 @@ budget:
       la identidad; el valor vacío no hace un lugar.
   to: banque.lieu
   distinct: [Lieu]
-  filter: Lieu != null
+  filter: Lieu is not null
   fields:
     libelle: Lieu

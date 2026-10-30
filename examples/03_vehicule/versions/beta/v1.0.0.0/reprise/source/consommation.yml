@@ -46,9 +46,9 @@ fields:
     label: Prix au KwH
 
   quantite_n:
-    formula: nb_litres if nb_litres != null else charge
+    formula: nb_litres if nb_litres is not null else charge
     description: La quantité, litres ou kWh — les deux colonnes en une.
 
   prix_unitaire_n:
-    formula: prix_litre if prix_litre != null else prix_kwh
+    formula: prix_litre if prix_litre is not null else prix_kwh
     description: Le prix unitaire, du litre ou du kWh — les deux colonnes en une.

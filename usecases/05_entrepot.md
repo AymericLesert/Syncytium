@@ -1921,7 +1921,7 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   pas ; six colonnes lues (ECCTNOMLIV, ECCTRUE1LI/2LI/3LI, ECCTCPLIV,
   ECCTVILLIV, ECCTPAYSLI ; ECCTCPAYLI non lue), sans GPS : la forme
   texte du constructeur (D961), *absente quand la ville manque (`if
-  ECCTVILLIV != null` — mien)* ; l'adresse de facturation de l'entête
+  ECCTVILLIV is not null` — mien)* ; l'adresse de facturation de l'entête
   (ECCTRUE1–3, ECCTCP, ECCTVILLE, ECCTPAYS) n'a pas de champ au modèle —
   non lue, celle du client fait foi ; à confirmer — **tranché par
   D1004** : « nous stockons le détail pour la reprise et nous calculons
@@ -2424,7 +2424,7 @@ est marqué. **En proposition.**)*
 > est modifié le {date_modification}, avant sa création le
 > {date_creation} » — les messages par leurs gabarits (D1227). Cinq
 > calculés et leurs formules — `dormant` :
-> `context.now - derniere_sortie > 180d if derniere_sortie != null` ;
+> `context.now - derniere_sortie > 180d if derniere_sortie is not null` ;
 > `derniere_sortie` : `mouvements.max(date if sens = "sortie")` ;
 > `dernier_fournisseur`, `nature`, `stock_par_emplacement`. Aucun état.
 >

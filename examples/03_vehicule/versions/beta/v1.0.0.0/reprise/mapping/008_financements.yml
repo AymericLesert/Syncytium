@@ -9,7 +9,7 @@ echeance:
     La première ligne du tableau sans intérêt : la LOA, sa mensualité, son premier mois et son jour de prélèvement.
     L'identité alimentée retrouve le véhicule — la mise à jour.
   to: transport.vehicule
-  filter: connector.line = 1 and interet = null
+  filter: connector.line = 1 and interet is null
   fields:
     immatriculation: immatriculation
     financement:     "loa"

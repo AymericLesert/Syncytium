@@ -117,7 +117,7 @@ valide:
 
 valeur:
   type: amount
-  formula: prix_unitaire * quantite.value if prix_unitaire != null
+  formula: prix_unitaire * quantite.value if prix_unitaire is not null
   confidentiality: ${confidentiality.financier}
   label: Valeur
   description: >-

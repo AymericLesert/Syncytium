@@ -39,7 +39,7 @@ fields:
       es: Vacío mientras la cuenta está abierta.
 
   ouvert:
-    formula: cloture = null
+    formula: cloture is null
     label: { fr: Ouvert, en: Open, es: Abierta }
 
   # La composition

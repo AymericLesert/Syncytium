@@ -35,7 +35,7 @@ FOURNIS:
       formula: CLCTACTIF != "N"
       description: Vide, le tiers est actif.
     bloque:
-      formula: CLCTBLOCAG != null
+      formula: CLCTBLOCAG is not null
       description: Un motif de blocage, E ou C, bloque le tiers.
     date_creation:     CLCJCRE
     date_modification: CLCJMOU

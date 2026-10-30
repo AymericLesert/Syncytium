@@ -90,18 +90,18 @@ disponible:
 
 valeur:
   type: amount
-  formula: prix_unitaire * quantite if prix_unitaire != null
+  formula: prix_unitaire * quantite if prix_unitaire is not null
   confidentiality: ${confidentiality.financier}
   label: Valeur
   description: Restreinte comme le prix.
 
 sous_minimum:
   type: boolean
-  formula: quantite < stock_minimum if stock_minimum != null
+  formula: quantite < stock_minimum if stock_minimum is not null
   label: Sous le minimum
   hint: Un indicateur du tableau de bord.
 
 perime:
   type: boolean
-  formula: peremption < context.today if peremption != null
+  formula: peremption < context.today if peremption is not null
   label: Périmé

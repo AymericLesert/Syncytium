@@ -103,7 +103,7 @@ lists:
       fr: Par date comptable
       en: By posting date
       es: Por fecha contable
-    filter: date_comptable != null
+    filter: date_comptable is not null
     searchable:
       - compte: { select: mono, required: true }
       - date_comptable
@@ -121,7 +121,7 @@ lists:
       fr: Sans date comptable
       en: Without posting date
       es: Sin fecha contable
-    filter: date_comptable = null
+    filter: date_comptable is null
     searchable:
       - compte: { select: mono, required: true }
       - recherche

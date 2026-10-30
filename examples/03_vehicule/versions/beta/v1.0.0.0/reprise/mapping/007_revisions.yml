@@ -6,7 +6,7 @@ regle_revision:
   to: transport.revision
   parent:
     vehicule: immatriculation
-  filter: pas_km_n != null
+  filter: pas_km_n is not null
   fields:
     designation: "Révision constructeur"
     pas_km:      pas_km_n

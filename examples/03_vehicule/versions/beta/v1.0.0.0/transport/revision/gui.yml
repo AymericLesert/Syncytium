@@ -8,10 +8,10 @@ widgets:
   annonce:
     items:
       - paragraph:
-          if: prochaine_date != null
+          if: prochaine_date is not null
           label: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue le {{prochaine_date}}"
       - paragraph:
-          if: prochaine_date = null
+          if: prochaine_date is null
           label: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue à {{prochaine_km}} km"
 
 # Les listes

@@ -28,7 +28,7 @@ validation:
     message: La quantité physique {quantite} est négative.
   - rule: quantite_reservee <= quantite
     message: La quantité réservée {quantite_reservee} dépasse la quantité physique {quantite}.
-  - rule: peremption != null if article.perissable
+  - rule: peremption is not null if article.perissable
     description: Le lot d'un article périssable porte sa date de péremption ; la référence navigue, l'entrepôt vérifie.
     message: L'article {article} est périssable et le lot {lot} n'a pas de date de péremption.
 

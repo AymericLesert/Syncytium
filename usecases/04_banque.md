@@ -185,7 +185,7 @@ le bloc `operations:` d'`ecriture.yml` déclare l'usage (D609) —
 
 **Le morceau 4 — les surfaces** (en cours) : **la liste des
 écritures soldée** (D779–D783) — les trois listes en entier (la
-partition `!= null`/`= null`, le relevé sur la seule par_comptable),
+partition `is not null`/`is null`, le relevé sur la seule par_comptable),
 la zone de recherche déclarée (le compte mono obligatoire, la plage
 `input: range`, la `recherche` mutualisée au modèle D780), les
 calculés d'affichage débit/crédit, le montant modifié par la ligne,

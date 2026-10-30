@@ -6,7 +6,7 @@ ARTICLE:
     libellé ; déjà connu, il n'est pas touché.
   to: stock.emplacement
   distinct: [ARCTCODEPF, ARCTCOEMPF]
-  filter: ARCTCODEPF != null and ARCTCOEMPF != null
+  filter: ARCTCODEPF is not null and ARCTCOEMPF is not null
   fields:
     depot: ARCTCODEPF
     code:  ARCTCOEMPF

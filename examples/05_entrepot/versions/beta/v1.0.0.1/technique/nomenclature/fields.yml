@@ -90,6 +90,6 @@ validite:
 
 quantite_nette:
   type: decimal
-  formula: quantite / (rendement / 100) if rendement != null and rendement > 0
+  formula: quantite / (rendement / 100) if rendement is not null and rendement > 0
   label: Quantité nette
   hint: La quantité à engager, rendement compris.

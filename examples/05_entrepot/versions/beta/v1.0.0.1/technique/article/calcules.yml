@@ -2,7 +2,7 @@
 
 dormant:
   type: boolean
-  formula: context.now - derniere_sortie > 180d if derniere_sortie != null
+  formula: context.now - derniere_sortie > 180d if derniere_sortie is not null
   label: Dormant
   hint: Aucune sortie de stock depuis six mois.
   description: Un indicateur du tableau de bord ; le contexte courant donne la date du jour.

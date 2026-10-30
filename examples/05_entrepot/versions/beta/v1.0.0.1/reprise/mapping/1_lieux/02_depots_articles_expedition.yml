@@ -5,7 +5,7 @@ ARTICLE:
     une fiche sans dépôt n'en fait pas. Un dépôt né ici est inactif et sans libellé ; déjà connu, il n'est pas touché.
   to: stock.depot
   distinct: [ARCTCODEP]
-  filter: ARCTCODEP != null
+  filter: ARCTCODEP is not null
   fields:
     code: ARCTCODEP
   report:

@@ -1637,7 +1637,7 @@ stateDiagram-v2
   direction LR
   [*] --> creation : default
   creation --> actif
-  actif --> cloture : date_vente != null
+  actif --> cloture : date_vente is not null
   cloture --> [*]
   note right of creation : create, read, update, delete
   note right of actif : create, read, update

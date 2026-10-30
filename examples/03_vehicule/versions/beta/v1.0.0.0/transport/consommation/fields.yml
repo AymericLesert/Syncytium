@@ -60,7 +60,7 @@ conso_100:
 km_prevu:
   type: decimal
   formula: >-
-    ((owner.date_vente if owner.date_vente != null and owner.date_vente < date else date) - owner.date_achat).months
+    ((owner.date_vente if owner.date_vente is not null and owner.date_vente < date else date) - owner.date_achat).months
     * owner.km_annuel / 12
   label: Km prévu
   hint: Le prorata du forfait annuel de la LOA depuis l'achat.

@@ -6,7 +6,7 @@ ARTICLE:
     touché.
   to: stock.depot
   distinct: [ARCTCODEPC]
-  filter: ARCTCODEPC != null
+  filter: ARCTCODEPC is not null
   fields:
     code: ARCTCODEPC
   report:

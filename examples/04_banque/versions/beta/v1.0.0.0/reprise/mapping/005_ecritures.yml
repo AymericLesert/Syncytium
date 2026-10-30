@@ -31,4 +31,4 @@ budget:
     cheque:   cheque_norme
     imprimee: Date_Impression
   operations:
-    cache.push("virement", reference_virement, me) if reference_virement != null
+    cache.push("virement", reference_virement, me) if reference_virement is not null

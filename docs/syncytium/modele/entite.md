@@ -44,7 +44,7 @@ gui: ~{gui.yml}
 
 # La cohérence des données
 validation:
-  - rule: date_vente >= date_achat if date_vente != null
+  - rule: date_vente >= date_achat if date_vente is not null
     message: La vente du {date_vente} précède l'achat du {date_achat}.
 ```
 
@@ -181,7 +181,7 @@ longue porte sa sévérité, `severity:` (D157, D1559) :
 # La cohérence des données
 validation:
   # La vente suit l'achat
-  - rule: date_vente >= date_achat if date_vente != null
+  - rule: date_vente >= date_achat if date_vente is not null
     message: La vente du {date_vente} précède l'achat du {date_achat}.
 
   # Un kilométrage inhabituel se confirme

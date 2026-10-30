@@ -5,7 +5,7 @@ MVTSTO:
     emplacements qui ne servent plus. Un emplacement né ici est inactif et sans libellé.
   to: stock.emplacement
   distinct: [MVCTDEPOT, MVCTCODMPL]
-  filter: MVCTDEPOT != null and MVCTCODMPL != null
+  filter: MVCTDEPOT is not null and MVCTCODMPL is not null
   fields:
     depot: MVCTDEPOT
     code:  MVCTCODMPL

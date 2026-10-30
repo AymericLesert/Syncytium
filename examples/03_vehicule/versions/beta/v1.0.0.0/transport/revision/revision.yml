@@ -29,7 +29,7 @@ operations:
 
 # La cohérence des données
 validation:
-  - rule: pas_km != null or pas_duree != null
+  - rule: pas_km is not null or pas_duree is not null
     description: Une règle sans pas ne dit rien.
     message: La règle « {designation} » n'a ni pas en kilomètres ni pas en délai.
 

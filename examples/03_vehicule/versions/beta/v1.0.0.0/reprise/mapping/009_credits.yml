@@ -5,7 +5,7 @@ echeance:
     crédit. Une règle par fichier : la clé YAML ne se répète pas. L'identité alimentée retrouve le véhicule — la mise à
     jour.
   to: transport.vehicule
-  filter: connector.line = 1 and interet != null
+  filter: connector.line = 1 and interet is not null
   fields:
     immatriculation: immatriculation
     premier_mois:    date

@@ -5,7 +5,7 @@ MVTSTO:
     Un dépôt né ici est inactif et sans libellé.
   to: stock.depot
   distinct: [MVCTDEPOT]
-  filter: MVCTDEPOT != null
+  filter: MVCTDEPOT is not null
   fields:
     code: MVCTDEPOT
   report:

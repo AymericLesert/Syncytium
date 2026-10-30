@@ -62,7 +62,7 @@ statut:
       allow: [create, read, update]
       promote:
         - to: cloture
-          when: date_vente != null
+          when: date_vente is not null
       description: Le journal s'écrit — create est la création des composants.
     cloture:
       label: Clôture

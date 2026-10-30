@@ -25,5 +25,5 @@ fields: ~{fields.yml}
 
 # La cohérence des données converties
 validation:
-  - rule: date_modification >= date_creation if date_modification != null
+  - rule: date_modification >= date_creation if date_modification is not null
     message: Le tiers est modifié le {date_modification}, avant sa création le {date_creation}.

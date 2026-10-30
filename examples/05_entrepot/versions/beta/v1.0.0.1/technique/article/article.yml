@@ -30,7 +30,7 @@ fields: ~{fields.yml}
 
 # La cohérence des données converties
 validation:
-  - rule: stock_maximum >= stock_minimum if stock_maximum != null and stock_minimum != null
+  - rule: stock_maximum >= stock_minimum if stock_maximum is not null and stock_minimum is not null
     message: Le stock maximum {stock_maximum} est sous le stock minimum {stock_minimum}.
-  - rule: date_modification >= date_creation if date_modification != null
+  - rule: date_modification >= date_creation if date_modification is not null
     message: L'article est modifié le {date_modification}, avant sa création le {date_creation}.

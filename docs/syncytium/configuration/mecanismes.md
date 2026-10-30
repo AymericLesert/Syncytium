@@ -202,9 +202,19 @@ Les conditions se joignent par les opérateurs logiques `and`, `or`, `xor` et `n
 `a or b and c` se lit donc `a or (b and c)`. Le signe `!` est le factoriel, jamais la négation
 (D577).
 
+Le test du nul s'écrit `a is null`, son inverse `a is not null` (D1573). Il rend toujours vrai
+ou faux, jamais une anomalie : c'est la seule façon de tester un nul.
+
+```yaml
+# La cohérence des dates : la règle ne joue que si la vente est posée
+validation:
+  - rule: date_vente >= date_achat if date_vente is not null
+    message: La vente du {date_vente} précède l'achat du {date_achat}.
+```
+
 ```yaml
 # Le montant signé : le conditionnel natif
-montant_signe: credit if credit != null else -debit
+montant_signe: credit if credit is not null else -debit
 
 # L'état en clair : un jeu de valeurs sur le type, avec son défaut
 etat_lisible: 'etat.select(brouillon: "En cours", valide: "Validée", "...": "Autre")'

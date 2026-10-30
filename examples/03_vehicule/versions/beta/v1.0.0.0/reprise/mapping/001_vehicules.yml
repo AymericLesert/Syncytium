@@ -15,4 +15,4 @@ identification:
       formula: date_debut
       description: Le classeur récent seul la porte ; les autres la prendront à l'origine, la première consommation.
     date_vente:      date_fin
-    statut:          '"cloture" if date_fin != null else "actif"'
+    statut:          '"cloture" if date_fin is not null else "actif"'

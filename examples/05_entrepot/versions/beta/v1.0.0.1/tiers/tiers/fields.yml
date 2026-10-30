@@ -160,7 +160,7 @@ note_interne:
 
 siren:
   type: siren
-  formula: left(siret, 9) if siret != null
+  formula: left(siret, 9) if siret is not null
   label: SIREN
   hint: Les neuf premiers chiffres du SIRET.
 

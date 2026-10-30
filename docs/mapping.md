@@ -592,7 +592,7 @@ indicatif » ne se valide pas, ses cas limites s'observent.
 # reprise/source/technique/NOMENC.yml — la phase 2 : les règles de la source, sur la ligne lue
 NOMENC:
   validation:
-    - NOCJFINVAL >= NOCJDEBVAL if NOCJFINVAL != null and NOCJDEBVAL != null
+    - NOCJFINVAL >= NOCJDEBVAL if NOCJFINVAL is not null and NOCJDEBVAL is not null
 
 # reprise/mapping/3_technique/05_nomenclatures.yml — la phase 4 : la source à nu, le construit par me
 NOMENC:
@@ -602,11 +602,11 @@ NOMENC:
     quantite: NOCNQTEUNI
   validation:
     - me.quantite > 0 if me.nature = "composant"       # le construit
-    - NOCTCODOPE != null if me.nature = "operation"    # la source et le construit
+    - NOCTCODOPE is not null if me.nature = "operation"    # la source et le construit
 
 # technique/ligne_nomenclature/ligne_nomenclature.yml — la phase 5 : sur la base miroir complète
 validation:
-  - composant != null if nature = "composant"
+  - composant is not null if nature = "composant"
 ```
 
 **L'échec dans une composition (D933).** « Si un échec est vu sur le

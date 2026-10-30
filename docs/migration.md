@@ -330,7 +330,7 @@ fields:
   couverture_donnees:
     type: percentage
     formula: sources.sum(sans_erreur) / sources.sum(lues) if sources.sum(lues) > 0
-  duree: { type: duration, formula: fin - debut if fin != null }
+  duree: { type: duration, formula: fin - debut if fin is not null }
 ```
 
 ### `passage_source` — les compteurs de l'origine

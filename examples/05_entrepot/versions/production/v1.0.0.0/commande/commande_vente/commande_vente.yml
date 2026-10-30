@@ -22,5 +22,5 @@ fields: ~{fields.yml}
 
 # La cohérence des données converties
 validation:
-  - rule: date_echeance >= date if date_echeance != null
+  - rule: date_echeance >= date if date_echeance is not null
     message: L'échéance {date_echeance} précède la date de la commande {date}.

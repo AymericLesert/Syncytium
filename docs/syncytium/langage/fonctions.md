@@ -53,6 +53,22 @@ Une fonction libre prend des valeurs, sans collection (D576, D587) :
 - `ifnull(p, v)`, qui rend `p`, ou `v` quand `p` est nul (D1574) ;
 - `exp`, `sin`, `cos`, `tan`, les fonctions mathématiques (D577).
 
+Les fonctions de l'arrondi complètent le catalogue (D1587) :
+
+- `round(x, n)` arrondit à `n` décimales, `n` valant 0 par défaut ; la moitié s'arrondit loin
+  de zéro, comme dans Excel ;
+- `floor(x)` et `ceil(x)` arrondissent à l'entier inférieur et à l'entier supérieur ;
+- `trunc(x, n)` coupe à `n` décimales, sans arrondir ;
+- `abs(x)` rend la valeur absolue.
+
+La banque arrondit son montant signé au centime :
+
+```yaml
+# Le montant signé : le crédit moins le débit, arrondi au centime
+montant_signe:
+  formula: round(ifnull(Credit, 0) - ifnull(Debit, 0), 2)
+```
+
 ## Les valeurs nommées
 
 Une fonction rend une valeur, par défaut, ou plusieurs valeurs nommées

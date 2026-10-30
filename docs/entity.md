@@ -64,7 +64,7 @@ droits à [rights.md](rights.md).*
 | `operations:` | les opérations — le bloc ou la référence ; le mapping ordonné, l'ordre = les boutons | D432 |
 | `gui:` | la présentation — le bloc ou la référence | D767 |
 | `validation:` | les règles inter-champs — la liste d'expressions booléennes (D90), le `if` suffixé (« `date_operation = owner.ouverture if budget = "OUVERTURE"` ») ; l'évaluation **au scellé** de la transaction | D156, D594, D824 |
-| `history:` | **l'historisation** — inactive par défaut, en cascade de `settings.yml` de la version (`history: true` rend l'option disponible par défaut, D1174) au module puis à l'entité, le plus proche l'emporte, l'opt-out par `history: false` (D168) ; tue partout, la documentation écrit « pas d'historique » en clair et la complétude ne le compte pas (D1173) | D168, D1173–D1174 |
+| `history:` | **l'historisation** — inactive par défaut, en cascade de `settings.yml` de la version (`history: true` rend l'option disponible par défaut, D1174) au module puis à l'entité, le plus proche l'emporte, l'opt-out par `history: false` (D168) ; tue partout, la documentation écrit « pas d'historique » en clair et la complétude ne le compte pas (D1173) ; ce que l'historique contient et comment il se lit : la section « L'historisation » | D168, D1173–D1174 |
 
 L'exemple — le véhicule (`examples/03_vehicule/`) :
 
@@ -191,6 +191,42 @@ Dans la banque, un compte que ses écritures référencent par une
 référence obligatoire ne peut pas être supprimé tant qu'elles existent ;
 un lieu, référencé par une référence optionnelle, peut l'être, et les
 écritures qui le citent continuent de pointer vers le lieu inactif.
+
+## L'historisation
+
+`history:` allume l'historisation d'une entité (D168, D1174). Une fois
+allumée, chaque modification d'un enregistrement laisse une trace, et la
+fiche se relit telle qu'elle était à une date. Six règles disent ce que
+cette trace est et comment on s'en sert.
+
+- **Chaud et froid, des instantanés complets** (D169) : le courant est
+  chaud, l'historique est froid ; chaque entrée porte toutes les valeurs
+  de l'agrégat, pas les écarts, avec l'auteur, l'horodatage, le canal et
+  le motif ; elle est en lecture seule.
+- **La confidentialité de l'historique** (D170) : la visibilité se
+  déclare par groupe, le responsable métier oui, le client non ; les
+  confidentialités des champs sont héritées de l'entité ; l'anonymisation
+  s'étend à l'historique, sinon elle fuit.
+- **La consultation à une date** (D172) : l'API rend le courant par
+  défaut, et l'agrégat à la date quand elle est précisée ; l'IHM a un
+  composant « historique », la synthèse des entrées, un clic ouvre la
+  fiche à la date ; les champs calculés s'évaluent sur l'instantané, la
+  fiche d'époque montre ses calculs d'époque.
+- **La lecture hors couverture** (D412) : une date postérieure à la
+  création rend l'état à la dernière valeur connue avant elle, la valeur
+  courante si rien n'est historisé, le plus ancien instantané si la
+  rétention est dépassée ; une date antérieure à la création ne rend
+  rien.
+- **La restauration** (D171) : l'administrateur seul, sous condition,
+  tracée ; restaurer est une modification, historisée elle aussi.
+- **L'insertion antidatée** (D173) : réservée à la reprise, par une
+  sollicitation à une date antérieure, les contrôles de cohérence levés.
+
+Le véhicule ne déclare pas `history:` : sa documentation écrit « pas
+d'historique » (D1173). Un projet qui écrit `history: true` dans les
+settings de sa version l'active pour toutes ses entités ; chaque
+modification d'un véhicule laisse alors un instantané, et la fiche se
+relit à une date, ses calculs compris.
 
 ## Les opérations — le renvoi
 

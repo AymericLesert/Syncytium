@@ -21,7 +21,7 @@ LCOMFOU:
     delai_demande:   LCCJDELDDE
     delai_accuse:    LCCJDELARR
     delai_reception: LCCJDELEXP
-    statut: 'LCCTSTATUT.select(null: "non_traite", A: "en_cours", P: "partielle", S: "soldee", T: "terminee")'
+    statut: 'LCCTSTATUT.select("": "non_traite", A: "en_cours", P: "partielle", S: "soldee", T: "terminee")'
   validation:
     - rule: me.unite in me.article.unite.units
       description: L'unité de la ligne est l'une de celles que son article connaît.

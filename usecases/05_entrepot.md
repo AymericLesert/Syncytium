@@ -1912,7 +1912,9 @@ chaque frottement présenté avec ses voies, l'auteur tranche)*
   l'absence de "...", la valeur est rejetée ; "..." permet de préciser
   toutes les autres valeurs » — les énumérés des lignes réécrits
   (non_traite, en_cours, partielle, soldee, terminee), le statut retiré
-  des entêtes, `null:` pour le vide (mien) ; puis **D1003** : « l'état
+  des entêtes, `null:` pour le vide (mien) — *corrigé le 30/10/2026 :
+  le blanc arrive en chaîne vide, `"": "non_traite"` (D1551–D1552)* ;
+  puis **D1003** : « l'état
   d'une commande se déduit de l'état des lignes » — le statut de
   l'entête en calculé, la chaîne `valeur if condition else …` (mienne).
 - **l'adresse de livraison de l'entête** — le morceau 3 ne la lisait

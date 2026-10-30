@@ -41,8 +41,9 @@ droits à [rights.md](rights.md).*
   `placeholder:` nourrissent **la documentation générée** (Q58 —
   le document fonctionnel et technique, **la description claire
   des données véhiculées par les API**) **et** l'IHM (D258) ; le
-  commentaire YAML (`#`) reste pour le lecteur du fichier (les
-  références de décisions, les formules du réel).
+  commentaire YAML (`#`) dit la nature de la clé et son apport, pour
+  le lecteur du fichier (D1084) ; jamais une décision ni l'histoire du
+  cas (D1085) ; ce qui parle à l'utilisateur est une propriété (D1100).
 
 ## Le fichier de l'entité — l'en-tête
 

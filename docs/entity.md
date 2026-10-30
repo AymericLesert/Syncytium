@@ -92,6 +92,32 @@ valeurs de la clé de l'enregistrement (la `description:` n'y entre pas). Avec
 plusieurs langues, `message:` est exigé, par langue : sinon une erreur
 d'ingestion, et la forme courte est refusée.
 
+**Les trois sévérités d'une règle** (D157, D1559). Une règle en échec
+n'empêche pas toujours l'enregistrement. La forme longue porte sa
+sévérité, `severity:` :
+
+- `error`, le défaut : la règle bloque ;
+- `confirm` : l'utilisateur confirme pour passer, et sa confirmation est
+  tracée ;
+- `info` : la règle signale sans bloquer.
+
+À l'enregistrement, trois passes : toutes les erreurs d'un coup, puis les
+confirmations regroupées en une seule validation, puis les informations
+regroupées ; jamais d'arrêt à la première erreur. L'API suit le même
+protocole : le rejet avec la liste, la re-soumission avec
+l'acquittement, le signalement dans la réponse.
+
+```yaml
+# Les règles du véhicule
+validation:
+  - rule: date_vente >= date_achat if date_vente != null
+    message: La date de vente précède la date d'achat.
+
+  - rule: km_initial < 500000
+    severity: confirm
+    message: Un kilométrage initial de {km_initial} km est inhabituel.
+```
+
 **Le cumul de fichiers** (D968) : une propriété à carte peut porter
 une liste de références en bloc — `fields:` suivi de `- ~{commun.yml}`,
 `- ~{propre.yml}`, ou d'une carte en ligne — fusionnées dans l'ordre ;

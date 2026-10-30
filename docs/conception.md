@@ -1690,6 +1690,7 @@ Q58) :
 | D1556 | **Les noms des parties et des opérations du fichier : `.size`, `.created`, `.modified`, `.hash` ; `.read()`, `.read(text)`, `.move(destination)`, `.delete()`, `.hash()`** (confirme mes noms de D972 et D974 ; D301/D358 — le catalogue en anglais ; le chapitre 2, le point 21) : « Oui, point 21 » | Les quatre descripteurs de D972 et les gestes de D974 ; la partie `.hash` est l'empreinte gardée quand `hash: true`, l'opération `.hash()` l'empreinte calculée, les parenthèses les distinguent. types.md. Voir §3.2c. |
 | D1557 | **Les noms des parties de la géolocalisation : `.latitude`, `.longitude`, `.address` — l'adresse normalisée —, `.raw` — l'adresse brute, telle que saisie** (confirme mes noms de D961 ; le chapitre 2, le point 22) : « Oui, point 22 » | Le mot simple rend l'adresse qu'on affiche, le mot marqué la donnée d'origine. types.md. Voir §3.2c. |
 | D1558 | **Il n'y a pas de parent abstrait : D143 tient, tout parent s'instancie comme ses enfants ; l'annotation `<<abstract>>` du diagramme tombe** (confirme D143 ; amende D1268 sur ce seul point ; clôt ma lecture de D1035 — « le parent abstrait qui la laisse à ses enfants », déjà écartée par D1039 ; le chapitre 2, le point 23) : « Non, D143 tient » | Un article acheté est un `article`, sans dérivé ; un tiers peut n'être ni client ni fournisseur. Aucune clé ne déclare un parent abstrait, et le diagramme n'en annote aucun. entity.md, documentation.md §5, usecases/05_entrepot.md. Voir §3.2c. |
+| D1559 | **Les trois sévérités d'une validation sont en vigueur : la forme longue d'une règle porte `severity:` — `error`, le défaut, bloque ; `confirm`, l'utilisateur confirme, la confirmation tracée ; `info`, signale sans bloquer — et l'enregistrement suit le protocole en trois passes** (confirme D157 ; précise D364 — « chaque règle en échec = refus », le défaut `error`, D1116–D1117 — les deux formes ; le chapitre 2, le point 24) : à « Les trois sévérités de D157 sont-elles en vigueur, à déclarer par une clé sur la règle, ou abandonnées au profit du seul refus ? » — « En vigueur » | La clé `severity:` et ses trois valeurs, ma forme, proposée avec la question. L'API reprend le protocole : le rejet avec la liste, la re-soumission avec l'acquittement, le signalement dans la réponse — à reporter au chapitre des API. entity.md. Voir §3.2c. |
 | D1198 | **Les liens de la documentation sont ceux que l'ingestion garantit — les références et les associations entre entités et champs, dans les traitements et les opérations ; ils montrent les relations, disent à quoi sert un champ et mesurent l'impact d'une modification du modèle** (précise D1186 ; s'appuie sur D330/D344 — l'ingestion, D394/D405, D90, D1112 ; le rang 1 et le rang 2) : « je confirme — les associations utilisées dans les traitements / les opérations / ... font référence entre les entités et les champs. Tous ces liens permettent de visualiser les liens et de mesurer l'impact de la modification du modèle. Lors de l'ingestion, le moteur de Syncytium garantit la validité des références et des associations. Les mettre dans la documentation permet de montrer les relations et d'expliquer à quoi sert un champ (propriété ou calculé). » — la documentation reprend le graphe que l'ingestion a validé : pour chaque champ, propriété ou calculé, **où il sert** — les formules qui le lisent, les validations, les opérations et leurs effets, les règles de reprise, les rapports, les écrans ; pour chaque entité, qui la référence et qui elle référence ; aux deux bouts (D1186). | Mes lectures, en proposition : dans la fonctionnelle, « à quoi sert ce champ » en langage d'usager (« entre dans le calcul du montant TTC », « déclenche la validation de la facture ») ; dans la documentation de l'information (le rang 2), le graphe complet des dépendances et **l'analyse d'impact** — ce qu'un changement de ce champ ou de cette entité touche (l'écho des écarts calculés D1112) ; la matrice gagne une colonne de contenu sur la ligne du champ. Voir §3.2c. |
 
 ---
@@ -13267,6 +13268,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 **Les noms de la géolocalisation (D1557).** Le point 22 : « Oui, point 22 ».
 
 **Pas de parent abstrait (D1558).** Le point 23 — D143 contre l'annotation de D1268 — : « Non, D143 tient ».
+
+**Les trois sévérités (D1559).** Le point 24 — D157 sans trace ni clé — : « En vigueur ».
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -24990,7 +24993,8 @@ avant la synthèse Q16).
   (D1555). Le point 20 : lower, left, length par D934. Le point 21 : les
   noms du fichier (D1556) ; le chapitre compte vingt-cinq points. Le point
   22 : les noms de la géolocalisation (D1557). Le point 23 : « Non, D143
-  tient » (D1558 — pas de parent abstrait).
+  tient » (D1558 — pas de parent abstrait). Le point 24 : D157 « En
+  vigueur » (D1559 — `severity:`).
 - **2026-10-28 (suite 3) — LA PAUSE : LE CHAPITRE 1, QUATRE POINTS SUR
   TREIZE, SEPT DÉCISIONS (D1528–D1534, 1534 décisions).** Le point 1
   appliqué avec D1528 ; le point 2 devenu D1529 et D1530 — trois

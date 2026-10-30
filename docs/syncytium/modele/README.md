@@ -96,6 +96,12 @@ une propriété, jamais un commentaire (D1100).
 
 ## Les décisions
 
-Ce chapitre repose sur les décisions de la famille « le modèle et les
-types », relues le 30/10/2026 (D1560). La liste se recalcule :
-`python tools/decisions.py docs/conception.md --numeros modele`.
+Ce chapitre repose sur les décisions de la famille « le modèle et les
+types », relues le 30/10/2026 (D1560). Elles sont 130 au registre : D115,
+D118–D125, D127–D138, D140–D147, D149, D152–D157, D160–D162, D165–D174,
+D220, D222, D353, D355, D359–D361, D364, D368–D369, D373, D381–D383, D386,
+D388–D392, D394–D402, D404–D405, D409, D412, D420–D421, D427, D496–D497,
+D585–D586, D589, D638, D682, D687, D761, D771, D773, D894, D941, D961, D972,
+D974–D976, D981, D983–D984, D987–D988, D991–D992, D998–D999, D1001, D1009,
+D1016, D1035, D1039, D1277, D1304–D1305, D1550, D1553–D1561. Chacune se lit
+dans [le registre](../../conception.md).

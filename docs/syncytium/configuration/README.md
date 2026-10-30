@@ -197,13 +197,13 @@ Les exemples de cette documentation suivent les mêmes règles (D1545).
 
 ## Les décisions
 
-Ce chapitre repose sur les décisions de la famille « la configuration et
-son écriture », relues le 29/10/2026 (D1540) — 94 décisions : D217, D219,
-D320, D323, D327, D332, D335, D337, D339, D346–D349, D363, D365, D408,
-D410, D583, D588, D590–D591, D707, D726, D760, D762, D764, D766–D768,
-D799, D816, D825, D842, D892–D893, D944, D967, D994, D1069, D1071,
-D1074–D1075, D1082–D1086, D1088–D1092, D1094–D1098, D1101, D1109–D1110,
+Ce chapitre repose sur les décisions de la famille « la configuration et son
+écriture », relues le 29/10/2026 (D1540). Elles sont 96 au registre :
+D116–D117, D217, D219, D320–D321, D323, D327, D332, D335, D337, D339,
+D346–D349, D352, D363, D365, D408, D410, D588, D590–D591, D707, D726, D762,
+D764–D768, D799, D802, D816, D825, D892–D893, D944, D967, D994, D1069,
+D1071, D1074–D1075, D1082–D1086, D1088–D1092, D1094–D1098, D1101,
 D1113–D1115, D1151, D1174–D1175, D1181, D1239, D1291, D1355, D1361, D1384,
 D1427–D1428, D1444, D1465–D1466, D1473–D1474, D1498, D1500, D1511–D1513,
-D1517, D1528–D1532, D1535–D1538. La liste se recalcule :
-`python tools/decisions.py docs/conception.md --numeros configuration`.
+D1517, D1528–D1532, D1535–D1538, D1541. Chacune se lit dans [le
+registre](../../conception.md).

@@ -57,6 +57,13 @@ docs/
 La configuration des cas vit dans [`../examples/`](../examples/), les outils
 dans [`../tools/`](../tools/).
 
+La liste des décisions d'un chapitre, que son README écrit, se recalcule à chaque
+relecture de sa famille :
+
+```bash
+python tools/decisions.py docs/conception.md --numeros <famille>
+```
+
 ## L'avancement des quatorze chapitres
 
 Un chapitre par famille de décisions (D1526). Avant d'être réorganisé, un

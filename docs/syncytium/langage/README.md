@@ -105,6 +105,9 @@ Trois règles complètent les garde-fous :
 
 ## Les décisions
 
-Ce chapitre repose sur les décisions de la famille « le langage
-d'expression », relues le 31/10/2026 (D1584). La liste se recalcule :
-`python tools/decisions.py docs/conception.md --numeros langage`.
+Ce chapitre repose sur les décisions de la famille « le langage
+d'expression », relues le 31/10/2026 (D1584). Elles sont 77 au registre :
+D35–D36, D90, D92, D104, D158, D254, D301–D312, D571, D575–D584, D587, D593,
+D659, D760, D817–D818, D833, D838, D841–D842, D872, D887–D889, D891, D934,
+D971, D1002, D1015, D1017, D1106, D1109–D1110, D1551, D1564, D1566–D1587.
+Chacune se lit dans [le registre](../../conception.md).

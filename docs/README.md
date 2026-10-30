@@ -41,6 +41,7 @@ docs/
 │   ├── glossaire.md
 │   ├── configuration/     la syntaxe, les mécanismes, l'arbre, les défauts du socle
 │   ├── modele/            l'entité, les champs, les types
+│   ├── langage/           le langage d'expression : la grammaire, le nul, les fonctions, les agrégats
 │   ├── composants/        le catalogue des composants graphiques
 │   ├── hooks/             les hooks et leurs familles
 │   ├── connecteurs/       les connecteurs et leurs contrats
@@ -56,7 +57,7 @@ docs/
 La configuration des cas vit dans [`../examples/`](../examples/), les outils
 dans [`../tools/`](../tools/).
 
-## L'avancement des treize chapitres
+## L'avancement des quatorze chapitres
 
 Un chapitre par famille de décisions (D1526). Avant d'être réorganisé, un
 chapitre est *lu* : la classification de sa famille relue, les décisions
@@ -71,17 +72,18 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 |---|---|---|---|---|---|
 | 1 | **La configuration et son écriture** | `configuration.md` | `syncytium/configuration/` | fait le 29/10/2026 (13 points, D1528–D1540) | fait le 29/10/2026 (six fichiers, D1541) ; réécrite le 29/10/2026 (D1542–D1544) |
 | 2 | **Le modèle et les types** | `entity.md`, `types.md` | `syncytium/modele/` | en cours | — |
-| 3 | **Les surfaces et les composants** | `composants.md` | `syncytium/composants/` | — | — |
-| 4 | **Les hooks** | `hooks.md` | `syncytium/hooks/` | — | — |
-| 5 | **Les connecteurs** | `connectors.md` | `syncytium/connecteurs/` | — | — |
-| 6 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/securite/` | — | — |
-| 7 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/reprise/` | — | — |
-| 8 | **L'administration et l'exploitation** | `administration.md` | `syncytium/administration/` | — | — |
-| 9 | **La télémétrie** | `telemetry.md` | `syncytium/administration/telemetrie.md` | — | — |
-| 10 | **La documentation** | `documentation.md` | `syncytium/documentation/` ; `histoire/chantier-documentation.md` | — | — |
-| 11 | **Les API et les échanges** | `documentation.md` §10 et §27 | `syncytium/documentation/developpeur.md` | — | — |
-| 12 | **Les cas d'usage** | `../usecases/*.md` | `cas-d-usage/` (partie 4) | — | — |
-| 13 | **La méthode et le projet** | `conception.md`, `../README.md` | `syncytium/README.md`, `histoire/` (parties 0 et 2) | — | — |
+| 3 | **Le langage d'expression** | le registre ; `types.md` (la signature des types) ; `syncytium/configuration/mecanismes.md` §2.7 | `syncytium/langage/` | — | — |
+| 4 | **Les surfaces et les composants** | `composants.md` | `syncytium/composants/` | — | — |
+| 5 | **Les hooks** | `hooks.md` | `syncytium/hooks/` | — | — |
+| 6 | **Les connecteurs** | `connectors.md` | `syncytium/connecteurs/` | — | — |
+| 7 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/securite/` | — | — |
+| 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/reprise/` | — | — |
+| 9 | **L'administration et l'exploitation** | `administration.md` | `syncytium/administration/` | — | — |
+| 10 | **La télémétrie** | `telemetry.md` | `syncytium/administration/telemetrie.md` | — | — |
+| 11 | **La documentation** | `documentation.md` | `syncytium/documentation/` ; `histoire/chantier-documentation.md` | — | — |
+| 12 | **Les API et les échanges** | `documentation.md` §10 et §27 | `syncytium/documentation/developpeur.md` | — | — |
+| 13 | **Les cas d'usage** | `../usecases/*.md` | `cas-d-usage/` (partie 4) | — | — |
+| 14 | **La méthode et le projet** | `conception.md`, `../README.md` | `syncytium/README.md`, `histoire/` (parties 0 et 2) | — | — |
 
 Hors des familles : `glossaire.md` va à `syncytium/glossaire.md` avec le
 premier chapitre ; `etude-comparative-20260718.md` à

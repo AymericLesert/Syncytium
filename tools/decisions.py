@@ -49,13 +49,14 @@ FAMILLES = {
     "telemetrie": ("la télémétrie", ["telemetry.md"]),
     "configuration": ("la configuration et son écriture", ["configuration.md"]),
     "documentation": ("la documentation", ["documentation.md"]),
+    "langage": ("le langage d'expression", []),  # un chapitre à part (D1549)
     "api": ("les API et les échanges", []),  # ma lecture : ajoutée à la liste de D1516 — aucun artefact ne la porte
     "cas": ("les cas d'usage", []),
     "methode": ("la méthode et le projet", []),
 }
 # Les sections du registre que les décisions citent (« Voir §8.6 ») — le second signal, après l'artefact cité.
 SECTIONS = {
-    "3": "modele", "4": "reprise", "5.1": "reprise", "5.2": "reprise", "5.3": "reprise", "5.4": "api",
+    "3": "modele", "3.3": "langage", "4": "reprise", "5.1": "reprise", "5.2": "reprise", "5.3": "reprise", "5.4": "api",
     "5.5": "api", "5.6": "securite", "5.7": "securite", "5.8": "api", "6": "telemetrie", "6.6": "securite",
     "7": "administration", "8.0": "hooks", "8.1": "hooks", "8.2": "hooks", "8.3": "hooks", "8.4": "hooks",
     "8.5": "connecteurs", "8.6": "surfaces", "8.7": "configuration", "8.8": "surfaces",
@@ -67,6 +68,10 @@ PLAGES = [(333, 346, "configuration"), (347, 419, "modele"), (420, 436, "hooks")
 ARTEFACT_FAMILLE = {a: f for f, (_, arts) in FAMILLES.items() for a in arts}
 # Les mots du titre, quand aucun artefact n'est cité — du plus spécifique au plus général.
 MOTS = [
+    # le langage, sur les seuls mots qui le nomment ; les agrégats, le select et les fonctions de type se relisent
+    # au chapitre 3, où la frontière avec les types se tranche
+    ("langage", r"langage d'expression|\blangage\b|\bnull\b|ternaire|coercition|déterminis|conditionnel|\biif\b|"
+                r"selon que|catalogue de fonctions|multi-valué|opérateurs?\b|comparateurs?\b"),
     ("api", r"\bAPI\b|pagination|curseur|contrat d'API|endpoint|dépréciation|épinglage|consommateur|rate limit|"
             r"webhook|export|import|CSV|JSON"),
     ("documentation", r"documentation|dictionnaire|plaquette|promotionnel|D\.A\.T\.|guide d'exploitation|persona|"

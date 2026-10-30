@@ -97,17 +97,18 @@ Les chapitres, dans l'ordre du plan :
 
 1. [La configuration](docs/syncytium/configuration/README.md) — réécrit.
 2. Le modèle — en cours de lecture.
-3. Les surfaces et les composants.
-4. Les hooks.
-5. Les connecteurs.
-6. Les droits et la sécurité.
-7. La reprise et le mapping.
-8. L'administration et l'exploitation.
-9. La télémétrie.
-10. La documentation générée.
-11. Les API et les échanges.
-12. Les cas d'usage.
-13. La méthode et le projet.
+3. Le langage d'expression.
+4. Les surfaces et les composants.
+5. Les hooks.
+6. Les connecteurs.
+7. Les droits et la sécurité.
+8. La reprise et le mapping.
+9. L'administration et l'exploitation.
+10. La télémétrie.
+11. La documentation générée.
+12. Les API et les échanges.
+13. Les cas d'usage.
+14. La méthode et le projet.
 
 À côté des chapitres : [le registre de conception](docs/conception.md),
 les décisions numérotées, les questions et le journal des échanges depuis

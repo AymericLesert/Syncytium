@@ -1,55 +1,43 @@
 # Les collections
 
 > **Une collection** est une valeur à plusieurs éléments : une liste, une
-> composition, une association. **Une fonction d'agrégation** en résume
-> les éléments en une valeur ; **une opération ensembliste** en combine
-> deux ([glossaire](../../glossaire.md)).
+> composition, une association ([glossaire](../../glossaire.md)).
 
 Les types des collections, `list of` et `range of`, sont décrits dans
-[le modèle](../modele/liens.md). Ce fichier dit ce que le langage en fait.
+[le modèle](../modele/liens.md). Ce fichier dit ce que le langage en
+fait : les résumer, les interroger, les combiner, les adresser par la
+clé.
 
-## Les fonctions d'agrégation et les opérations
+## Les fonctions d'agrégation
 
-**La collection est un type** : elle porte ses fonctions d'agrégation en méthodes
-(D580). L'élément est le contexte implicite de chacun :
+> **Une fonction d'agrégation** résume les éléments d'une collection en
+> une valeur : `sum`, `count`, `max`… À ne pas confondre avec l'agrégat,
+> l'enregistrement et ce qu'il possède ([glossaire](../../glossaire.md)).
+
+La collection est un type : elle porte ses fonctions d'agrégation en
+méthodes (D580). Dans la parenthèse, l'élément est le contexte implicite :
+`lignes.sum(montant)` additionne le montant de chaque ligne.
+
+Les fonctions d'agrégation sont :
 
 - `sum`, `count()`, `avg`, `min`, `max` ;
 - `first`, `last` ;
-- `any`, `all` : au moins un élément, ou tous, vérifient la condition (D1575, D1576) ;
-  sans argument, `lignes.any()` dit que la collection n'est pas vide (D1577) ;
-- `list`, la fonction qui rend la liste des valeurs, `list of <type>`
-  (D965) ;
-- **`group(champ, …)`**, le regroupement : une cellule par combinaison,
-  la fonction évaluée par cellule, le résultat un hypercube aux dimensions
-  des champs (D1015) ;
-- **`sort(champ, …)`**, le tri en ligne ; `first()` et `last()` sans
-  argument rendent alors la tête ou la queue de la liste triée (D1017).
+- `any` et `all` : au moins un élément, ou tous, vérifient la condition
+  (D1575, D1576) ; sans argument, `lignes.any()` dit que la collection
+  n'est pas vide (D1577) ;
+- `list`, qui rend la liste des valeurs, une `list of <type>` (D965).
 
-`group` et `sort` ont aussi leur propriété déclarative sur une
-association, `group:` et `sort:` (D1016, D1017,
-[les champs](../modele/champs.md)).
+Une fonction d'agrégation reçoit une valeur ou une condition (D887) :
 
-**La doctrine des fonctions d'agrégation** (D887) :
+- **celle qui porte une valeur** se lit « valeur if condition » :
+  `lignes.sum(montant if statut = "en_cours")` ;
+- **celle qui n'en porte pas** reçoit la condition seule :
+  `nomenclature.count(nature = "composant")`, `lignes.any(…)`,
+  `lignes.all(…)` ;
+- **`count()` sans argument** compte le tout.
 
-- la fonction qui porte une valeur se lit « valeur if condition » :
-  `sum(montant if statut = "en_cours")` ;
-- la fonction qui n'en porte pas reçoit la condition seule :
-  `count(nature = "composant")`, `any(…)`, `all(…)` ;
-- `count()` sans argument compte le tout.
-
-Une fonction d'agrégation s'écrit sous trois formes (D1570) :
-
-- **la méthode de la collection**, partout où une collection est nommée : `lignes.sum(montant)` ;
-- **la forme contextuelle**, dans les seules surfaces qui portent leur collection, le graphique, le
-  tableau croisé, les totaux d'une liste : `sum(montant)` porte sur les enregistrements affichés
-  (D517) ;
-- **la fonction libre**, sur deux valeurs ou plus, sans collection : `max(0, total)` (D576, D587).
-
-La méthode s'écrit sur la collection des enregistrements, la valeur entre les parenthèses :
-`lignes.sum(montant)`, jamais `lignes.montant.sum()` (D1585). `sum(lignes.montant)` est une
-erreur d'ingestion, qui indique la méthode à employer.
-
-Le véhicule calcule son kilométrage courant par deux fonctions d'agrégation :
+Le véhicule calcule son kilométrage courant par deux fonctions
+d'agrégation :
 
 ```yaml
 # Le kilométrage courant : le plus grand compteur vu, par deux fonctions d'agrégation et un if suffixé
@@ -60,22 +48,71 @@ km_courant:
   hint: Le plus grand compteur vu — consommations et entretiens confondus.
 ```
 
-Deux opérateurs complètent la collection :
+### Les trois formes
 
-- **l'appartenance**, `in` (D888) : `<élément> in <collection>`,
-  `me in fournisseurs` ; sa négation s'écrit `not in` (D1572) ;
-- **la projection**, le point (D889) : `<collection>.<champ>` rend la
-  collection des valeurs de ce champ, `me.code in fournisseurs.code`,
-  `lignes.article`.
+Une fonction d'agrégation s'écrit sous trois formes (D1570) :
 
-**Les opérations ensemblistes** combinent deux collections du même type (D1575). Ce sont
-des méthodes ; leur résultat retire ses doublons et garde l'ordre de la première collection
-(D1585) :
+- **la méthode de la collection**, partout où une collection est nommée :
+  `lignes.sum(montant)` ;
+- **la forme contextuelle**, dans les seules surfaces qui portent leur
+  collection — le graphique, le tableau croisé, les totaux d'une liste :
+  `sum(montant)` porte sur les enregistrements affichés (D517) ;
+- **la fonction libre**, sur deux valeurs ou plus, sans collection :
+  `max(0, total)` (D576, D587).
+
+```yaml
+# Le graphique des mouvements : la forme contextuelle, sur les mouvements affichés
+y: [ sum(quantite if sens = "entree"), sum(quantite if sens = "sortie") ]
+```
+
+La méthode s'écrit sur la collection des enregistrements, la valeur entre
+les parenthèses : `lignes.sum(montant)`, jamais `lignes.montant.sum()`
+(D1585). `sum(lignes.montant)` est une erreur d'ingestion, qui indique la
+méthode à employer.
+
+### `group` et `sort`
+
+Deux méthodes préparent une collection avant de la résumer :
+
+- **`group(champ, …)`** regroupe : une cellule par combinaison des
+  champs nommés ; la fonction qui suit s'évalue par cellule, et le
+  résultat est un hypercube aux dimensions de ces champs (D1015) ;
+- **`sort(champ, …)`** trie ; `first()` et `last()` sans argument rendent
+  alors la tête ou la queue de la liste triée (D1017).
+
+```yaml
+# Le contrôle du stock : la somme des entrées moins les sorties, par emplacement et par article
+formula: 'mouvements.group(emplacement, article).sum(sens.select(entree: quantite, sortie: -quantite))'
+```
+
+`group` et `sort` ont aussi leur propriété sur une association dérivée,
+`group:` et `sort:` (D1016, D1017, [les champs](../modele/champs.md)).
+
+## L'appartenance et la projection
+
+Deux opérateurs interrogent une collection :
+
+- **l'appartenance**, `in` : `<élément> in <collection>`,
+  `me in fournisseurs` ; sa négation s'écrit `not in` (D888, D1572) ;
+- **la projection**, le point : `<collection>.<champ>` rend la
+  collection des valeurs de ce champ, `lignes.article` ; elle sert
+  l'appartenance d'une valeur, `me.code in fournisseurs.code` (D889).
+
+## Les opérations ensemblistes
+
+> **Une opération ensembliste** combine deux collections du même type :
+> la réunion, l'intersection, la différence ([glossaire](../../glossaire.md)).
+
+Ce sont des méthodes (D1575) :
 
 - `a.union(b)`, les éléments de l'une ou de l'autre ;
 - `a.intersect(b)`, les éléments communs ;
 - `a.except(b)`, les éléments de `a` absents de `b` ;
-- `a.xor(b)`, les éléments d'un seul des deux côtés, comme le `xor` des booléens.
+- `a.xor(b)`, les éléments d'un seul des deux côtés, comme le `xor` des
+  booléens.
+
+Leur résultat retire ses doublons et garde l'ordre de la première
+collection (D1585).
 
 ```yaml
 # Les articles commandés absents du dépôt : la différence de deux projections
@@ -84,8 +121,15 @@ manquants:
   formula: lignes.article.except(depot.niveaux.article)
 ```
 
-**La liste littérale** écrit des valeurs en dur, entre crochets (D1572). Ses
-valeurs sont du même type ; elle se lit telle quelle, sans retirer de doublon :
+## La liste littérale et `list(…)`
+
+Deux écritures font une liste à partir de valeurs :
+
+- **la liste littérale** écrit des valeurs en dur, entre crochets
+  (D1572) ; ses valeurs sont du même type, et elle se lit telle quelle,
+  sans retirer de doublon ;
+- **le constructeur `list(a, b, …)`** assemble des valeurs calculées
+  (D971, D579, D659).
 
 ```yaml
 # La ligne en retard : le statut n'est ni soldé ni terminé
@@ -94,11 +138,10 @@ en_retard:
   formula: delai_expedition < context.today and statut not in ["soldee", "terminee"]
 ```
 
-Une formule qui commence par `[` se met entre apostrophes, sinon le YAML la lit comme une
-liste.
+Une formule qui commence par `[` se met entre apostrophes, sinon le YAML
+la lit comme une liste.
 
-**Le constructeur `list(a, b, …)`** assemble plusieurs valeurs en une
-liste (D971, D579, D659) :
+Le constructeur `list(…)` suit cinq règles :
 
 - les vides tombent, le nul comme la chaîne vide ;
 - l'ordre des arguments est gardé ;
@@ -115,9 +158,11 @@ matieres:
   description: Les neuf colonnes des matières en une liste ; les vides et les doublons tombent.
 ```
 
-**À la source d'une reprise, l'entité décrite est une collection**
-(D965, D966). Un calculé lit une autre entité de la source par `first`
-ou `list`, avec son filtre :
+## La source d'une reprise, une collection
+
+À la source d'une reprise, l'entité décrite est une collection (D965,
+D966). Un calculé lit une autre entité de la source par `first` ou
+`list`, avec son filtre :
 `PARAM_EMPLACEMENTS.first(PACTEXT140 if PACTEXT210 = …)`. Le résultat est
 mis en cache par critères, le temps d'un passage. Au modèle, la règle
 reste qu'un calcul ne lit jamais une entité entière (D891).

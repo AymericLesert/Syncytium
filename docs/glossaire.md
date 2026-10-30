@@ -116,6 +116,11 @@ description. Un rôle, pas un métier : une à plusieurs personnes le
 portent. Le concepteur est celui qui porte la validité de la
 configuration et la stabilité de l'application. *(D95, D1148)*
 
+**Conditionnel** (`if … else`) — L'expression qui choisit une valeur selon une
+condition, la valeur d'abord : `valeur if condition else autre`. Les cas
+s'enchaînent de gauche à droite ; un `if` sans `else` vaut nul quand la condition
+est fausse. *Ex. : `"cloture" if date_fin is not null else "actif"`.* *(D580, D1109–D1110)*
+
 **Confidentialité** (`confidentiality`) — Le niveau d'exposition d'une
 donnée : `public` (partout), `protected` (l'interface et les tâches),
 `private` (les tâches seulement) — resserrable par groupes. *(D25)*
@@ -575,6 +580,16 @@ ce premier caractère aux modules d'application. *(D1029)*
 la frontière, quand elle entre. *Ex. : `normalize: trim(me)`, les blancs
 retirés.* *(D870, D872, D991)*
 
+**Nul** (`null`) — L'absence de valeur, qui ne se confond pas avec la chaîne vide.
+Stocké, il est légitime ; évalué dans une expression, c'est une anomalie, sauf
+par le test `is null` ou la fonction `ifnull`. *Ex. : `date_vente is not null`.*
+*(D303, D308, D310, D1551, D1573–D1574)*
+
+**Opérateur** — Une fonction du type à l'écriture symbolique : les opérateurs
+numériques (`+`, `*`, `**`…), les comparateurs (`=`, `<`, `in`, `is null`…) et
+les opérateurs logiques (`not`, `and`, `xor`, `or`), chacun à sa priorité.
+*(D577, D581–D582, D1571)*
+
 **Opération ensembliste** — Une méthode qui combine deux collections du même
 type : `union`, `intersect`, `except` — ce que l'une a et l'autre pas — et `xor`,
 ce qui n'est que d'un seul côté. Le résultat retire ses doublons. À ne pas confondre
@@ -748,6 +763,12 @@ elle-même une modification, historisée. *(D171)*
 **Sévérité** (`severity:`) — Ce que fait une validation en échec :
 `error`, le défaut, bloque ; `confirm` demande une confirmation, tracée ;
 `info` signale sans bloquer. *(D157, D1559)*
+
+**Select** (`.select(…)`) — La table de correspondance en ligne : la valeur
+porte son `select`, qui nomme ses cas ; le cas `"..."` prend toutes les autres
+valeurs, et sans lui une valeur hors des cas est rejetée. Sur un énuméré, les
+cas doivent être complets. *Ex. : `type.select(thermique: "litres", electrique: "kWh")`.*
+*(D584, D1002, D1569)*
 
 **Signature d'un type** — Ce que le langage peut faire des valeurs d'un
 type : sa conversion, ses opérateurs, ses comparateurs, son `select`, ses

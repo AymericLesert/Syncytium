@@ -23,28 +23,50 @@ décisions citées entre parenthèses renvoient au
    l'appartenance, la projection, les opérations ensemblistes, l'accès
    par la clé.
 4. **[Le catalogue des fonctions](fonctions.md)** — les fonctions du
-   texte, les fonctions libres, les valeurs nommées, la fonction définie.
+   texte, les fonctions libres et l'arrondi, les valeurs nommées, la
+   fonction définie.
 
 ## Où il s'emploie
 
-Un seul langage sert partout où une valeur se calcule ou se vérifie :
+Le même langage sert partout où une valeur se calcule ou se vérifie :
 
-- les calculs, `formula:` ;
-- les validations, `validation:` ;
-- les filtres, `filter:` ;
-- les normalisations, `normalize:` ;
-- les règles de migration, `fields:` d'une règle ;
-- les conditions, `if`, `when:`.
+- **les calculs**, `formula:` ;
+- **les validations**, `validation:` ;
+- **les filtres**, `filter:` ;
+- **les normalisations**, `normalize:` ;
+- **les règles de migration**, les `fields:` d'une règle ;
+- **les conditions**, `if`, `when:`.
 
-Ses mots à portée :
+L'entrepôt en montre deux, un calcul sur le niveau de stock et une
+validation sur l'article :
 
-- **`me`** : la valeur, à l'étage du champ (`normalize: trim(me)`) ;
-  l'enregistrement, à l'étage de la règle (D872, D822) ;
-- **`owner`** : le possesseur (D760, D841) ;
-- **`context`** : le contexte courant, `context.now`, `context.settings`
-  (D575, D588) ;
-- **`connector`** et **`cache`** : dans une règle de migration (D821,
-  D845).
+```yaml
+# Le niveau sous son minimum : un calcul, qui ne joue que si le minimum est posé
+sous_minimum:
+  type: boolean
+  formula: quantite < stock_minimum if stock_minimum is not null
+
+# Les bornes du stock de l'article : une validation, entre deux champs qui peuvent manquer
+validation:
+  - rule: stock_maximum >= stock_minimum if stock_maximum is not null and stock_minimum is not null
+```
+
+## Les mots du langage
+
+Quelques mots désignent ce qui entoure l'expression. Leur sens dépend de
+l'endroit où elle s'écrit :
+
+- **`me`** désigne ce que l'expression qualifie (D872, D822, D396) :
+  - la valeur, dans une normalisation : `normalize: trim(me)` ;
+  - l'enregistrement, dans une règle de migration ;
+  - l'enregistrement d'origine, dans le filtre d'une référence ;
+- **`owner`** désigne le possesseur d'une composition :
+  `owner.km_initial` (D760, D841) ;
+- **`context`** désigne le contexte courant : `context.now`,
+  `context.today`, `context.user`, `context.settings.<nom>` (D254, D575,
+  D588) ;
+- **`connector`** et **`cache`** servent dans une règle de migration :
+  la ligne lue, le rapprochement de deux règles (D821, D845).
 
 ## L'expression multivaluée
 
@@ -57,8 +79,8 @@ des champs en sont des cas.
 
 ## Les garde-fous
 
-Le type de chaque expression se calcule à l'ingestion, de la feuille à
-la racine (D581). Une erreur de type est une erreur d'ingestion, jamais
+Le type de chaque expression se calcule à l'ingestion, de la feuille à la
+racine (D581). Une erreur de type est donc une erreur d'ingestion, jamais
 une erreur à l'exécution.
 
 Rien n'échoue en silence. Quand une expression échoue à l'exécution, la
@@ -72,8 +94,8 @@ suite dépend de l'endroit où elle s'emploie (D304) :
 
 Trois règles complètent les garde-fous :
 
-- **le déterminisme** n'est exigé que pour les migrations, dont la
-  répétition à blanc doit se rejouer à l'identique (D311) ; partout
+- **le déterminisme** n'est exigé que pour les migrations : leur
+  exécution à blanc doit se rejouer à l'identique (D311) ; partout
   ailleurs, aucune restriction ;
 - **une fonction est simple ou complexe**, une propriété du catalogue
   (D104, D306) ; seule une fonction complexe porte un délai d'exécution

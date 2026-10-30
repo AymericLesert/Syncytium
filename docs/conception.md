@@ -25129,7 +25129,9 @@ avant la synthèse Q16).
   « Oui, tels quels » (D1584 — la classification relue) ; **la lecture du chapitre 3 est faite**.
   « Oui, toutes » (D1585 — huit lectures confirmées, cinq marques levées) ; la réorganisation présentée.
   « Oui, quatre fichiers » (D1586 — `syncytium/langage/`, le texte vérifié identique ; `round` relevé).
-  « Oui, avec ses sœurs » (D1587 — `round`, `floor`, `ceil`, `trunc`, `abs`) ; la réécriture du chapitre 3.
+  « Oui, avec ses sœurs » (D1587 — `round`, `floor`, `ceil`, `trunc`, `abs`) ; **le chapitre 3 réécrit** :
+  les quatre fichiers de `syncytium/langage/` dans la forme des six règles, les exemples pris aux cas ; le
+  glossaire gagne Conditionnel, Nul, Opérateur et Select. Le chapitre 3 est entier : D1565–D1587.
 - **2026-10-28 (suite 3) — LA PAUSE : LE CHAPITRE 1, QUATRE POINTS SUR
   TREIZE, SEPT DÉCISIONS (D1528–D1534, 1534 décisions).** Le point 1
   appliqué avec D1528 ; le point 2 devenu D1529 et D1530 — trois

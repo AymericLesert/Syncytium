@@ -23,7 +23,7 @@ fichier décrit ces types, puis ceux qu'un hook ajoute.
 
 - `sum`, `count()`, `avg`, `min`, `max` ;
 - `first`, `last` ;
-- `any`, `exists`, `all` : au moins un élément, ou tous, vérifient la condition (D1575) ;
+- `any`, `all` : au moins un élément, ou tous, vérifient la condition (D1575, D1576) ;
 - `list`, la fonction qui rend la liste des valeurs, `list of <type>`
   (D965) ;
 - **`group(champ, …)`**, le regroupement : une cellule par combinaison,
@@ -41,7 +41,7 @@ association, `group:` et `sort:` (D1016, D1017,
 - la fonction qui porte une valeur se lit « valeur if condition » :
   `sum(montant if statut = "en_cours")` ;
 - la fonction qui n'en porte pas reçoit la condition seule :
-  `count(nature = "composant")`, `any(…)`, `exists(…)` ;
+  `count(nature = "composant")`, `any(…)`, `all(…)` ;
 - `count()` sans argument compte le tout.
 
 Une fonction d'agrégation s'écrit sous trois formes (D1570) :

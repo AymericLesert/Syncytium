@@ -338,10 +338,10 @@ vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ 
 
 **Fonction d'agrégation** — Une méthode d'une collection qui en résume
 les éléments en une valeur : `sum`, `count`, `avg`, `min`, `max`, `first`,
-`last`, `any`, `exists`, `all`, `list`. Celle qui porte une valeur se lit
+`last`, `any`, `all`, `list`. Celle qui porte une valeur se lit
 « valeur if condition ». À ne pas confondre avec l'agrégat, l'enregistrement
 et ce qu'il possède. *Ex. : `lignes.sum(montant if statut = "en_cours")`.*
-*(D580, D887, D1564, D1575)*
+*(D580, D887, D1564, D1575, D1576)*
 
 **Forme courte, forme longue** — Deux écritures d'une même clé : la
 valeur seule, tout le reste au défaut, ou le bloc qui détaille ses

@@ -208,6 +208,15 @@ ou faux, jamais une anomalie : c'est la seule façon de tester un nul.
 La fonction `ifnull(p, v)` rend `p`, ou `v` quand `p` est nul (D1574) : `ifnull(Credit, 0)`
 remplace un crédit absent par zéro.
 
+Les littéraux s'écrivent ainsi (D1578, D1579) :
+
+- **un texte**, entre guillemets ou entre apostrophes, au même sens : `"soldee"`, `'^([^.]+)\.'` ;
+- **un nombre**, avec le point décimal, sans séparateur de milliers : `6.55957` ;
+- **une durée**, en nombre suivi de son unité : `12m`, `180d`, `2h` ; `m` est le mois, `min` la minute ;
+- **un booléen**, `true` ou `false` ; le nul, `null` ;
+- **une date**, en ISO, par la fonction du type : `date("2026-01-01")` ;
+- **une unité ou une devise**, entre guillemets : `quantite.to("kg")`, `amount(v, "EUR")`.
+
 ```yaml
 # La cohérence des dates : la règle ne joue que si la vente est posée
 validation:

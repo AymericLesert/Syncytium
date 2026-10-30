@@ -1684,6 +1684,7 @@ Q58) :
 | D1550 | **Une identité nommée autre que la première se vise par son nom dans l'accès par la clé : `factures[numero: v]`** (confirme ma forme de D1171 ; précise D841 — l'accès par la clé, D892 — le `: ` entre guillemets en flux ; le chapitre 2, le point 15) : « Oui, point 15 » | Le deux-points sépare un nom de sa valeur, comme dans `.select(clé: valeur)` ; la première identité se vise sans nom. entity.md. Voir §3.2c. |
 | D1551 | **`null:` est un cas du `select` ; le nul et la chaîne vide n'ont pas la même signification** (précise D1002 — les deux conduites du `select`, D379 — l'équivalence du nul et de la chaîne vide vaut pour le tri seul, le nul stocké demeure nul ; écarte ma lecture « `null:` nomme le cas du nul, le vide du texte » ; le chapitre 2, le point 16) : « null ou "" n'ont pas la même signification. null: peut être un cas de select » | Une chaîne vide ne tombe pas dans `null:`. La conséquence sur l'entrepôt — le statut « vide (non traité) » de LCCTSTATUT, lu après `normalize: trim(me)`, est une chaîne vide que `null:` ne capte pas — est soumise à l'auteur. types.md. Voir §3.2c. |
 | D1552 | **Dans l'entrepôt, le statut « vide » de l'ERP se capte par la chaîne vide seule : `LCCTSTATUT.select("": "non_traite", A: …, P: …, S: …, T: …)` ; un vrai nul, s'il en survenait un, est une anomalie rejetée** (applique D1551 ; amende la forme de D1002 — `null: "non_traite"` ; le chapitre 2, le point 16 bis) : à « l'entrepôt capte-t-il le statut vide par `null:` et `""` ensemble, ou par `""` seul ? » — « "" seul » | La colonne est un `text[2]`, normalisée par `trim(me)` : le blanc arrive en chaîne vide. Les quatre règles des lignes de commande, dans les deux versions, corrigées ; le traceur relancé. usecases/05_entrepot.md. Voir §3.2c. |
+| D1553 | **Le constructeur `datetime(jour, heure)` rend le nul si l'une de ses parts est nulle, le jour ou l'heure** (confirme ma proposition de D1001 ; s'appuie sur D303 — la logique ternaire, D308 — le nul évalué capturé, D1551 — le nul a un sens propre ; le chapitre 2, le point 17) : « Oui, le nul » | Aucune heure inventée : un mouvement sans heure est signalé, non daté à minuit. types.md. Voir §3.2c. |
 | D1198 | **Les liens de la documentation sont ceux que l'ingestion garantit — les références et les associations entre entités et champs, dans les traitements et les opérations ; ils montrent les relations, disent à quoi sert un champ et mesurent l'impact d'une modification du modèle** (précise D1186 ; s'appuie sur D330/D344 — l'ingestion, D394/D405, D90, D1112 ; le rang 1 et le rang 2) : « je confirme — les associations utilisées dans les traitements / les opérations / ... font référence entre les entités et les champs. Tous ces liens permettent de visualiser les liens et de mesurer l'impact de la modification du modèle. Lors de l'ingestion, le moteur de Syncytium garantit la validité des références et des associations. Les mettre dans la documentation permet de montrer les relations et d'expliquer à quoi sert un champ (propriété ou calculé). » — la documentation reprend le graphe que l'ingestion a validé : pour chaque champ, propriété ou calculé, **où il sert** — les formules qui le lisent, les validations, les opérations et leurs effets, les règles de reprise, les rapports, les écrans ; pour chaque entité, qui la référence et qui elle référence ; aux deux bouts (D1186). | Mes lectures, en proposition : dans la fonctionnelle, « à quoi sert ce champ » en langage d'usager (« entre dans le calcul du montant TTC », « déclenche la validation de la facture ») ; dans la documentation de l'information (le rang 2), le graphe complet des dépendances et **l'analyse d'impact** — ce qu'un changement de ce champ ou de cette entité touche (l'écho des écarts calculés D1112) ; la matrice gagne une colonne de contenu sur la ligne du champ. Voir §3.2c. |
 
 ---
@@ -13249,6 +13250,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 **`null:` et la chaîne vide (D1551).** Le point 16 — ma forme « `null:`, le nul et le vide du texte » — : « null ou "" n'ont pas la même signification. null: peut être un cas de select ».
 
 **Le statut vide de l'entrepôt (D1552).** La conséquence de D1551 : le blanc de LCCTSTATUT arrive en chaîne vide, que `null:` ne capte pas — « "" seul ».
+
+**La part nulle du `datetime` (D1553).** Le point 17 : « Oui, le nul ».
 
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
@@ -24966,7 +24969,8 @@ avant la synthèse Q16).
   point 14 : « Un chapitre à part » (D1549 — le langage d'expression). Le
   point 15 : `factures[numero: v]` confirmée (D1550). Le point 16 : « null ou ""
   n'ont pas la même signification » (D1551) ; l'entrepôt : « "" seul »
-  (D1552 — quatre règles corrigées).
+  (D1552 — quatre règles corrigées). Le point 17 : la part nulle du
+  `datetime` rend le nul (D1553).
 - **2026-10-28 (suite 3) — LA PAUSE : LE CHAPITRE 1, QUATRE POINTS SUR
   TREIZE, SEPT DÉCISIONS (D1528–D1534, 1534 décisions).** Le point 1
   appliqué avec D1528 ; le point 2 devenu D1529 et D1530 — trois

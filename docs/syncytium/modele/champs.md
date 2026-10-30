@@ -1,62 +1,146 @@
 # Les champs — `fields.yml`
 
-## Les champs — `fields.yml`
+Les champs d'une entité forment une carte ordonnée : le nom du champ est
+la clé, l'ordre de déclaration est l'ordre d'affichage par défaut. Ils
+s'écrivent sous `fields:`, en place ou dans un fichier, `fields.yml`.
 
-**La forme courte et la forme pleine.** Un champ sans façon s'écrit
-en une ligne — `lieu_achat: text[..60]` ; dès qu'il porte une facette
-ou sa documentation, le bloc :
+## La forme courte et le bloc
+
+Un champ sans façon s'écrit en une ligne : son nom, puis son type. Dès
+qu'il porte une facette ou sa documentation, il s'écrit en bloc. Le
+véhicule montre les deux :
 
 ```yaml
+# Le lieu d'achat : la forme courte, le type seul
+lieu_achat: text[..60]
+
+# Le kilométrage au retrait : le bloc, le type, l'obligation, le libellé et l'aide
 km_initial:
   type: integer[0..]
   required: true
-  label:
-    fr: Kilométrage initial
-  hint:
-    fr: Le compteur au retrait du véhicule — la première ligne de consommation en part.
+  label: Kilométrage initial
+  hint: Le compteur au retrait du véhicule — la première ligne de consommation en part.
 ```
 
-**Les groupes de champs** (D1273, D1279–D1280). Dans la même carte, une
-clé qui porte `fields:` sans `type:` est un groupe : son `title:` par
-langue, ses champs en place ou dans un fichier référencé — un fichier
-par groupe dans le cas 5 (`prix: { title: Les prix, fields: ~{prix.yml}
-}`). Les champs hors groupe forment le groupe implicite ; les noms
-restent uniques dans l'entité et s'adressent sans le groupe ; un groupe
-ne s'emboîte pas ; l'ordre est celui du fichier. Le groupe est une vue :
-un compartiment du diagramme, une section de la table du dictionnaire,
-un onglet du formulaire par défaut — l'implicite en en-tête de l'écran,
-au-dessus des onglets.
+## Les groupes de champs
 
-**Les propriétés du champ.**
+Dans la même carte, une clé qui porte `fields:` sans `type:` est un
+**groupe** (D1279, D1289). Il a son `title:`, par langue, et ses champs,
+en place ou dans un fichier. L'entrepôt range les prix de l'article dans
+un groupe :
 
-| la propriété | la nature | D |
-|---|---|---|
-| `type:` | le type du catalogue ([types.md](types.md)) — les bornes au nom (`text[..40]`, `integer[0..]`, `date[yyyy-mm]`) ; **la référence** = le nom d'une entité (`transport.revision`) ; **la composition** = `list of <entité>` (le parent déclare, l'enfant ne déclare rien — l'accès montant `owner`) ; **l'association** = `association with <entité>[.<champ>]` | D362, D366, D394–D402, D760–D762 |
-| `sort:` | **le tri d'une liste calculée** — sur une association dérivée (D405), les clés de tri dans l'ordre (`sort: [owner.date, owner.numero]`) ; « le tri est porté par la liste calculée » : `first()`/`last()` sans argument rendent l'élément en tête ou en queue (`commandes_vente.last().client`) ; nommée `order:` par D997, renommée `sort:` par D1017 pour porter le mot de la méthode `sort(…)` | D997, D1017 |
-| `group:` | **le « group by » d'une liste calculée** — sur une association dérivée (D405), les champs de groupement (`group: [emplacement]`) : « le group by devient une propriété de l'association au même titre que le sort by » ; l'association livre une cellule par combinaison, un agrégat dessus s'évalue par cellule et rend l'hypercube aux dimensions du group (`stock_par_emplacement: mouvements_par_emplacement.sum(…)`) ; les méthodes `group(champ, …)` et `sort(champ, …)` sont les formes en ligne (D1015/D1017) | D1016, D1017 |
-| `required:` | le champ obligatoire — le nul retiré ; implicite sur les champs de l'identité (de la première, avec `identities:` — D1170) | D373, D1170 |
-| `mode:` | **si le champ se modifie** — `editable` (le défaut), `read-only`, ou `write-once`, l'écriture unique : vide, la saisie est permise ; renseigné, elle est refusée ; l'administrateur garde l'écriture pleine, une correction tracée ; ce qui s'écrit se lit toujours ; un calculé est en lecture seule par nature — le code d'un client, saisi à la création : `code: { type: text, mask: "C-999999", mode: write-once }` | D73, D153, D358, D364 |
-| *(la documentation du champ)* | **à quoi il sert** — ses emplois, calculés depuis les liens que l'ingestion garantit (D1198) : les formules qui le lisent, les validations, les opérations et leurs effets, les règles de reprise, les rapports, les écrans ; en langage d'usager dans la fonctionnelle, en graphe d'impact dans la documentation de l'information ; aux deux bouts (D1186) | D1186, D1198 |
-| `default:` | la valeur de naissance (le statut naît à son `default:` — D424) | D424 |
-| `unchanged:` | `true` : le champ possédé par la cible — la migration ne l'écrit pas, il naît à son `default:` et garde sa valeur, l'écran de saisie reste libre ; une règle de migration qui l'alimente = une erreur d'ingestion ; `false` par défaut | D941 |
-| `formula:` | **le champ calculé** — l'expression (D90), lecture seule, recalculé dès qu'une dépendance change ; les agrégats des collections (`sum`, `max`, `count`… — l'élément en contexte implicite, le `if` conditionnel), les fonctions de type au point (`montant.currency.select(…)`, `nb_jours.days`), **l'accès par la clé** (`owner.consommations[me.numero - 1].date` — l'`identity:` requise, D841 ; avec `identities:`, la première identité, ou une autre par son nom : `factures[numero: v]` — D1171, D1550), `owner`, `me`, `context` | D255, D298, D580, D588–D593, D772–D773, D841, D1171 |
-| `values:` | les valeurs d'un `enum` — chacune porte son `label:` par langue ; sur le champ-statut : les `allow` par état (le CRUD — D422) et le graphe `promote:`/`demote:` (`to:`/`when:` — libre, l'acte, l'automatisme D426–D427) | D422–D427 |
-| `label:` | le libellé par langue (`fr:`) — les colonnes, les formulaires, les exports ; sans lui, **le gabarit du socle `${name}`** — la clé de la configuration, l'invariant que rien ne surcharge (D1181) ; le gabarit par défaut est un défaut du socle, porté par l'inventaire (D1175, D1239) | D124, D127, D465, D1181 |
-| `hint:` | **la description courte** — la précision au « (?) » du champ : l'infobulle (la tablette la replie en petit logo près du libellé, le smartphone l'omet — D262) ; par langue ; le nom `hint` (D840 — la réserve Android au glossaire) | D124, D258, D262, D840 |
-| `description:` | **la description longue** — l'aide détaillée : le masque d'explication (D209 — la première consultation ou la sollicitation), **la matière du tutoriel** ; par langue | D209, D258 |
-| `placeholder:` | la valeur de démonstration dans la zone vide (`AA-999-AA`) — par langue (D128/D258) ; l'image a le sien (l'icône de fond — D390) | D128, D258, D390 |
-| `mask:` | le masque de saisie (`_`, `9`, les littéraux) — il pilote aussi la lecture des sources (D820) | D259–D265, D820 |
-| `searchable:` | la capacité de recherche — `range`, `mutualizable[<nom>]`… — déclarée **au modèle**, consommée par les listes | D780, D784 |
-| `filter:` / `check:` | sur une référence — le filtre des candidats (l'origine par `me.`), le contrôle `selection` (défaut) \| `immutable` | D394–D396 |
-| `currencies:`, `units:`, `decimals:`… | les facettes propres à chaque type — la fiche du type fait foi ([types.md](types.md)) | D391 |
+```yaml
+# Les prix : un groupe, son titre et ses champs dans un fichier
+prix:
+  title: Les prix
+  fields: ~{prix.yml}
+```
 
-**L'ordre du fichier — la convention de lisibilité** (le cas 4) :
+- Les champs hors groupe forment **le groupe implicite**.
+- Les noms des champs restent uniques dans l'entité ; un champ s'adresse
+  sans son groupe.
+- Un groupe ne s'emboîte pas dans un autre.
+- Un champ qui porte `type:` et `fields:` n'est pas un groupe : c'est une
+  liste de valeurs composées (D115).
 
-- les fichiers **aérés** — les accolades `{ }` dépliées en bloc, une
-  ligne vide entre deux champs ;
-- **les champs saisis en tête, les calculés en pied**, séparés par
-  `# ------ Champs calculés ------` ;
-- **le commentaire d'un champ se place devant le champ**, jamais à
-  sa droite — et ce qui parle à l'utilisateur n'est pas un
-  commentaire YAML : c'est un `hint:` (la précision courte) ou
-  une `description:` (l'aide longue) — D258/D840.
+Le groupe est une vue (D1273) : un compartiment du diagramme, une
+section de la table du dictionnaire, un onglet du formulaire par défaut.
+Le groupe implicite occupe l'en-tête de l'écran, au-dessus des onglets.
+
+## Les propriétés d'un champ
+
+### Le type et les liens
+
+- **`type:`** est le type du champ, pris au [catalogue](types.md), ses
+  bornes au nom : `text[..40]`, `integer[0..]`, `date[yyyy-mm]` (D362,
+  D366). Trois types sont des liens vers une autre entité
+  ([liens.md](liens.md)) :
+  - **la référence**, le nom d'une entité, `transport.revision` (D394) ;
+  - **la composition**, `list of <entité>` : le parent déclare, l'enfant
+    ne déclare rien, il atteint son possesseur par `owner` (D399, D760) ;
+  - **l'association**, `association with <entité>[.<champ>]` (D400, D762).
+- **`sort:`** et **`group:`** s'écrivent sur une association dérivée, une
+  liste calculée (D405). `sort:` donne les clés de tri dans l'ordre,
+  `sort: [owner.date, owner.numero]` ; `first()` et `last()` rendent alors
+  l'élément de tête ou de queue (D997, D1017). `group:` donne les champs
+  de regroupement, `group: [emplacement]` : l'association livre une
+  cellule par combinaison, et un agrégat s'évalue cellule par cellule
+  (D1016). Les méthodes `sort(…)` et `group(…)` en sont les formes en
+  ligne (D1015, D1017).
+- **`filter:`** et **`check:`** s'écrivent sur une référence : le filtre
+  des candidats, l'origine citée par `me.` ; le contrôle, `selection` par
+  défaut, ou `immutable` (D394–D396).
+
+### La saisie
+
+- **`required:`** rend le champ obligatoire : le nul est retiré (D373).
+  Les champs de l'identité le sont sans qu'on l'écrive (D1170).
+- **`mode:`** dit si le champ se modifie (D364) :
+  - `editable`, le défaut ;
+  - `read-only` ;
+  - `write-once`, l'écriture unique : vide, la saisie est permise ;
+    renseigné, elle est refusée (D153). L'administrateur garde l'écriture
+    pleine, une correction tracée.
+
+  Ce qui s'écrit se lit toujours (D73). Un calculé est en lecture seule
+  par nature. Le code d'un client, saisi à la création, ne bouge plus :
+  `code: { type: text, mask: "C-999999", mode: write-once }`.
+- **`default:`** est la valeur de naissance ; un statut naît à son
+  `default:` (D424).
+- **`unchanged: true`** marque un champ que la cible possède : une
+  migration ne l'écrit pas, il naît à son `default:` et garde sa valeur,
+  la saisie restant libre (D941). Une règle de migration qui l'alimente
+  est une erreur d'ingestion. `false` par défaut.
+- **`mask:`** est le masque de saisie, `_`, `9`, les littéraux
+  (D259–D265) ; il pilote aussi la lecture des sources (D820).
+- **`searchable:`** déclare au modèle la capacité de recherche, `range`,
+  `mutualizable[<nom>]` ; les listes la consomment (D780, D784).
+- **Les facettes propres à un type**, `currencies:`, `units:`,
+  `decimals:`, sont décrites à sa fiche ([types.md](types.md),
+  [composes.md](composes.md)).
+
+### Le calcul et les valeurs
+
+- **`formula:`** fait du champ un calculé : une expression, en lecture
+  seule, recalculée dès qu'une dépendance change (D255, D298). Elle
+  emploie les agrégats des collections, `sum`, `max`, `count`, les
+  fonctions des types au point, `montant.currency`, `nb_jours.days`,
+  l'accès par la clé, `owner.consommations[me.numero - 1].date` (D841),
+  et les mots `owner`, `me`, `context`. Le langage est décrit dans son
+  propre chapitre.
+- **`values:`** porte les valeurs d'un énuméré ; chacune a son `label:`
+  par langue. Sur le champ qui porte le cycle de vie, chaque valeur porte
+  aussi ses droits, `allow` (D422), et ses passages, `promote:` et
+  `demote:`, avec `to:` et `when:` (D426, D427).
+
+### La documentation du champ
+
+- **`label:`** est le libellé, par langue : les colonnes, les
+  formulaires, les exports (D124, D127). Sans lui, le gabarit du socle
+  `${name}`, le nom du champ (D1181) ; ce gabarit est un défaut du socle,
+  porté par l'inventaire (D1175, D1239).
+- **`hint:`** est la description courte, l'infobulle du « (?) » (D840) ;
+  la tablette la replie près du libellé, le smartphone l'omet (D262).
+- **`description:`** est la description longue, l'aide du masque
+  d'explication (D209) et la matière du tutoriel.
+- **`placeholder:`** est la valeur de démonstration dans la zone vide,
+  `AA-999-AA`, par langue (D128) ; une image a la sienne, une icône
+  (D390).
+
+La documentation dit aussi **à quoi sert** un champ : les formules qui
+le lisent, les validations, les opérations, les règles de reprise, les
+rapports, les écrans (D1186, D1198). Rien ne se déclare : Syncytium le
+calcule depuis les liens que l'ingestion garantit.
+
+## L'ordre du fichier
+
+Un fichier de champs se lit comme une page. La banque en fixe la
+convention :
+
+- **le fichier est aéré** : les accolades dépliées en bloc, une ligne
+  vide entre deux champs ;
+- **les champs saisis en tête, les calculés en pied**, séparés par un
+  commentaire, `# Les champs calculés` ;
+- **le commentaire d'un champ se place devant lui**, jamais à sa droite ;
+  ce qui parle à l'utilisateur n'est pas un commentaire, c'est un
+  `hint:` ou une `description:` (D258, D840).

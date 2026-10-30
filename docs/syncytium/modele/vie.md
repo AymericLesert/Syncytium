@@ -1,15 +1,28 @@
 # La vie d'un enregistrement — l'héritage, la suppression, l'historisation
 
+Un enregistrement naît, change de niveau, se modifie, se supprime, et
+parfois se relit tel qu'il était. Trois mécanismes du modèle le
+portent : l'héritage, la suppression, l'historisation.
+
 ## L'héritage
 
 Une entité peut hériter d'une autre. L'enfant déclare son parent par
 `inheritance:`, et c'est sa seule référence à lui (D353). L'entrepôt en
 a deux : `article` et ses dérivés `fabrique`, `semi_fini`, `fantome` ;
-`tiers` et ses dérivés `client`, `fournisseur`.
+`tiers` et ses dérivés `client`, `fournisseur`. Le client ne porte que
+ce qui lui est propre :
 
 ```yaml
-# Le nom de l'entité
+# Le client
+# L'enfant du tiers : il ne porte que ce qui lui est propre — la commission du représentant, le plafond d'encours,
+# ses commandes de vente. L'identité est celle du tiers, conservée.
 name: client
+
+# La description de l'entité
+description: Un client — le tiers qui achète à l'entreprise
+
+# Le visage texte
+label: "{code} — {nom}"
 
 # Le parent
 inheritance: tiers

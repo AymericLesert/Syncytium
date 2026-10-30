@@ -882,7 +882,12 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      (D1392, D1516), le journal par mois, le narratif découpé, le résumé
      du cheminement, CLAUDE.md réécrit ; une PR ;
   7. la partie 5, les études — le document d'époque daté ; la mise à jour
-     à la demande.
+     à la demande ;
+  8. le nettoyage (D1548) — alléger le texte de la documentation des
+     références aux décisions, pour ne pas noyer les futurs utilisateurs ;
+     *ma lecture* : après les ADR, les « (Dnnnn) » de la prose effacés ou
+     devenus des liens discrets, la liste exhaustive au README de chaque
+     chapitre ; une PR.
 - **Déclinaison** : le dépôt lui-même.
 - **Livrables** : `docs/` réorganisé, consultable sur GitHub, embarqué ;
   le README de la racine réécrit en accroche (D1519) ; `tools/decisions.py`

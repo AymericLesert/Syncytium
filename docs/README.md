@@ -90,5 +90,6 @@ de la racine s'écrivent à la partie 0 ; `conception.md` se convertit en
 dernier (partie 2).
 
 *L'ordre des parties : ce plan, puis Syncytium chapitre par chapitre, les
-cas d'usage, la présentation, l'histoire, et les études à la demande
-(D1520–D1521).*
+cas d'usage, la présentation, l'histoire, les études à la demande, et en
+dernier le nettoyage, qui allège le texte des références aux décisions
+(D1520–D1521, D1548).*

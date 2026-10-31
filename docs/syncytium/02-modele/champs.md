@@ -149,7 +149,8 @@ Le groupe implicite occupe l'en-tête de l'écran, au-dessus des onglets.
 - **`hint:`** est la description courte (D840). Sur un pc, elle
   apparaît au survol de la souris. Sur une tablette ou un smartphone,
   il n'y a pas de survol : elle se lit par un clic sur une petite icône
-  (?) à côté du champ, ou en texte plus petit sous la zone (D1618).
+  (?) à côté du champ, ou en texte plus petit sous la zone (D1618). Le
+  composant choisit selon la place disponible (D1620).
 - **`description:`** est la description longue, l'aide du masque
   d'explication (D209) et la matière du tutoriel.
 - **`placeholder:`** est la valeur de démonstration dans la zone vide,

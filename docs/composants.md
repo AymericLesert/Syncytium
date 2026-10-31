@@ -327,7 +327,7 @@ gui:
    D1619) ; tablette et smartphone : pas
    de survol, le texte de `hint:` se lit par un clic sur une petite
    icône (?) à côté du champ, ou en texte plus petit sous la zone
-   (D1618) ;
+   (D1618) — le composant choisit selon la place disponible (D1620) ;
 8. **États et interactions** — grisée si `readonly`/droits ; le refus
    de validation affiché (D307) ; en recherche : `strict` /
    `normalized` / `similarity[x]` / `mutualizable[nom]` (D367–D368) —

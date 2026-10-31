@@ -8,6 +8,17 @@ Les types des collections, `list of` et `range of`, sont décrits dans
 fait : les résumer, les interroger, les combiner, les adresser par la
 clé.
 
+## Le sommaire
+
+- [Les fonctions d'agrégation](#les-fonctions-dagrégation)
+  - [Les trois formes](#les-trois-formes)
+  - [`group` et `sort`](#group-et-sort)
+- [L'appartenance et la projection](#lappartenance-et-la-projection)
+- [Les opérations ensemblistes](#les-opérations-ensemblistes)
+- [La liste littérale et `list(…)`](#la-liste-littérale-et-list)
+- [La source d'une reprise, une collection](#la-source-dune-reprise-une-collection)
+- [L'accès par la clé](#laccès-par-la-clé)
+
 ## Les fonctions d'agrégation
 
 > **Une fonction d'agrégation** résume les éléments d'une collection en

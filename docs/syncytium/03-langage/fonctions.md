@@ -12,6 +12,13 @@ constructeurs, ses conversions. Elles sont décrites à sa fiche, dans
 décrit les autres : celles du texte, les fonctions libres, et les
 fonctions que le concepteur ajoute.
 
+## Le sommaire
+
+- [Les fonctions du texte](#les-fonctions-du-texte)
+- [Les fonctions libres](#les-fonctions-libres)
+- [Les valeurs nommées](#les-valeurs-nommées)
+- [La fonction définie](#la-fonction-définie)
+
 ## Les fonctions du texte
 
 Le type `text` emmène ses fonctions (D579, D934). Le registre le dit :

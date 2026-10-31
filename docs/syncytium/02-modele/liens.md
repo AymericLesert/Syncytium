@@ -5,6 +5,25 @@ liste, une plage, ou pointer vers d'autres enregistrements. Il peut
 aussi être produit par Syncytium : un numéro, un calcul, un statut. Ce
 fichier décrit ces types, puis ceux qu'un hook ajoute.
 
+## Le sommaire
+
+- [Les collections et les plages](#les-collections-et-les-plages)
+  - [`list of <type simple>`, la liste](#list-of-type-simple-la-liste)
+  - [`range of <type>`, la plage](#range-of-type-la-plage)
+- [Les liens](#les-liens)
+  - [La référence, `<module>.<entité>`](#la-référence-moduleentité)
+  - [La composition, `list of <entité>`](#la-composition-list-of-entité)
+  - [L'association, `association with <entité>[.<champ>]`](#lassociation-association-with-entitéchamp)
+  - [L'association dérivée, `association with <entité> if …`](#lassociation-dérivée-association-with-entité-if-)
+  - [Le lien n-aire, `list of [a, b]`](#le-lien-n-aire-list-of-a-b)
+  - [L'accès montant, `owner`](#laccès-montant-owner)
+- [Les générés et le contexte](#les-générés-et-le-contexte)
+  - [`counter`, le compteur](#counter-le-compteur)
+  - [Le champ calculé, `formula:`](#le-champ-calculé-formula)
+  - [Le statut, `states:`](#le-statut-states)
+  - [L'entité `context`](#lentité-context)
+- [Les types ajoutés par un hook](#les-types-ajoutés-par-un-hook)
+
 ## Les collections et les plages
 
 > **Une liste** est un champ à plusieurs valeurs du même type,

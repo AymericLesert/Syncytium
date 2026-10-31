@@ -25,6 +25,25 @@ mêmes interactions. Ce socle est décrit une fois, ci-dessous. Chaque
 fiche y renvoie et ne détaille que ses écarts. Le `kpi` et le `pivot` en
 reprennent une partie ; leur fiche dit laquelle.
 
+## Le sommaire
+
+- [Le socle commun](#le-socle-commun)
+  - [La déclaration autonome](#la-déclaration-autonome)
+  - [L'assise, `on:`](#lassise-on)
+  - [Les axes, `x:` et `y:`](#les-axes-x-et-y)
+  - [Le périmètre et le drill-down](#le-périmètre-et-le-drill-down)
+  - [L'affichage](#laffichage)
+  - [Le contexte consommé](#le-contexte-consommé)
+  - [Les modes et déclinaisons](#les-modes-et-déclinaisons)
+  - [Les états et interactions](#les-états-et-interactions)
+- [`chart.line`](#chartline)
+- [`chart.bars`](#chartbars)
+- [`chart.pie`](#chartpie)
+- [`chart.scatter`](#chartscatter)
+- [`chart.combo`](#chartcombo)
+- [`kpi`](#kpi)
+- [`pivot`](#pivot)
+
 ## Le socle commun
 
 ### La déclaration autonome

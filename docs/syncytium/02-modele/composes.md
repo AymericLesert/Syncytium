@@ -17,6 +17,25 @@ Un composé reçoit les facettes communes à tous les types
 - **Le constructeur porte le nom du type** (D659) ; il compose la
   conversion avec les parties : `amount(montant.value / 6.55957, "EUR")`.
 
+## Le sommaire
+
+- [`amount`, le montant](#amount-le-montant)
+- [`percentage`, le pourcentage](#percentage-le-pourcentage)
+- [`measure`, la mesure](#measure-la-mesure)
+  - [Les unités](#les-unités)
+  - [Les conversions](#les-conversions)
+  - [Le constructeur et les fonctions](#le-constructeur-et-les-fonctions)
+  - [L'unité empruntée](#lunité-empruntée)
+  - [L'arithmétique](#larithmétique)
+  - [Les volumes](#les-volumes)
+- [`duration`, la durée](#duration-la-durée)
+- [`phone`, le téléphone](#phone-le-téléphone)
+- [`geolocation`, la géolocalisation](#geolocation-la-géolocalisation)
+- [`period`, la période](#period-la-période)
+- [Les identifiants contrôlés](#les-identifiants-contrôlés)
+- [`communication`, le fil](#communication-le-fil)
+- [`label`, le libellé nommé](#label-le-libellé-nommé)
+
 ## `amount`, le montant
 
 Un montant est une valeur et sa devise (D391, D771, D772). La banque

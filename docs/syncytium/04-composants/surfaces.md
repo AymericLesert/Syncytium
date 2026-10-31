@@ -26,6 +26,18 @@ Ce fichier porte neuf fiches, dans l'ordre du catalogue : `menu`,
 `chat`. Chaque fiche suit le modèle du chapitre
 ([README.md](README.md)).
 
+## Le sommaire
+
+- [`menu`](#menu)
+- [`list` (la surface)](#list-la-surface)
+- [`form`](#form)
+- [`summary`](#summary)
+- [`widget`](#widget)
+- [`wizard`](#wizard)
+- [`dashboard`](#dashboard)
+- [`template`](#template)
+- [`chat`](#chat)
+
 ## `menu`
 
 **Nom et famille.** `menu`, une surface (D1604). C'est la porte de

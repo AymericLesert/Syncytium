@@ -9,6 +9,17 @@ et des fonctions. Ce fichier dit comment chacun s'écrit, puis comment une
 expression choisit entre plusieurs valeurs, traite le nul et compose un
 texte.
 
+## Le sommaire
+
+- [Les littéraux](#les-littéraux)
+- [Les opérateurs](#les-opérateurs)
+- [La conversion](#la-conversion)
+- [Ce qu'un type apporte](#ce-quun-type-apporte)
+- [Le conditionnel](#le-conditionnel)
+- [Le `select`](#le-select)
+- [Le nul](#le-nul)
+- [La concaténation et le gabarit](#la-concaténation-et-le-gabarit)
+
 ## Les littéraux
 
 Chaque sorte de littéral a son écriture (D1578, D1579) :

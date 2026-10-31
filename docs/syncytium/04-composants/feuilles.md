@@ -19,6 +19,38 @@ fiche par composant, dans la forme du
 saisie d'une valeur au regard d'un objet, puis aux textes et images
 fixes, puis à la couleur et aux codes.
 
+## Le sommaire
+
+- [La saisie d'une valeur](#la-saisie-dune-valeur)
+  - [`checkbox`](#checkbox)
+  - [`toggle`](#toggle)
+  - [`text`](#text)
+  - [`number`](#number)
+  - [`calculator`](#calculator)
+  - [`gauge`](#gauge)
+  - [`fuel`](#fuel)
+  - [`slider`](#slider)
+  - [`clock`](#clock)
+  - [`calendar`](#calendar)
+  - [`dropdown`](#dropdown)
+  - [`radios`](#radios)
+  - [`icons`](#icons)
+- [Le choix et le regard d'un objet](#le-choix-et-le-regard-dun-objet)
+  - [`picker.record`](#pickerrecord)
+  - [`picker.image`](#pickerimage)
+  - [`picker.file`](#pickerfile)
+  - [`viewer`](#viewer)
+  - [`map`](#map)
+  - [`thread`](#thread)
+  - [`list`](#list)
+- [Le texte et l'image fixes](#le-texte-et-limage-fixes)
+  - [`paragraph`](#paragraph)
+  - [`picture`](#picture)
+- [La couleur et les codes](#la-couleur-et-les-codes)
+  - [`color`](#color)
+  - [`picker.color`](#pickercolor)
+  - [`qrcode` / `barcode`](#qrcode--barcode)
+
 ## La saisie d'une valeur
 
 Les feuilles de cette partie rendent un champ simple : un booléen, un

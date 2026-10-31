@@ -13,6 +13,28 @@ diagramme du modèle, puis à chacune des neuf documentations générées.
 Les documentations elles-mêmes sont décrites dans
 [documentation.md](../../documentation.md).
 
+## Le sommaire
+
+- [L'entité dans le diagramme](#lentité-dans-le-diagramme)
+- [La facette de l'entité et du champ](#la-facette-de-lentité-et-du-champ)
+  - [Dans la documentation fonctionnelle](#dans-la-documentation-fonctionnelle)
+  - [Dans le dictionnaire des données](#dans-le-dictionnaire-des-données)
+  - [Ce que la complétude compte](#ce-que-la-complétude-compte)
+  - [Dans le dictionnaire de la donnée](#dans-le-dictionnaire-de-la-donnée)
+  - [Dans la réglementation](#dans-la-réglementation)
+  - [Dans le projet et le support](#dans-le-projet-et-le-support)
+  - [Dans la documentation du développeur](#dans-la-documentation-du-développeur)
+  - [Dans le D.A.T.](#dans-le-dat)
+  - [Dans le guide d'exploitation](#dans-le-guide-dexploitation)
+  - [Dans la maintenance, les risques et les améliorations](#dans-la-maintenance-les-risques-et-les-améliorations)
+  - [Dans la documentation promotionnelle](#dans-la-documentation-promotionnelle)
+- [La facette du type](#la-facette-du-type)
+  - [Dans la documentation fonctionnelle](#dans-la-documentation-fonctionnelle-1)
+  - [Le type dérivé et le glossaire](#le-type-dérivé-et-le-glossaire)
+  - [Dans le dictionnaire](#dans-le-dictionnaire)
+  - [Les cinq livraisons du hook de type](#les-cinq-livraisons-du-hook-de-type)
+  - [Dans les autres documentations](#dans-les-autres-documentations)
+
 ## L'entité dans le diagramme
 
 La documentation générée porte un volet « modèle de données », en

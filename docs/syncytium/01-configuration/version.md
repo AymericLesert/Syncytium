@@ -3,6 +3,21 @@
 *Les sous-chapitres 3.5 à 3.9 de l'[arbre](arbre.md) : les réglages, les
 groupes, le module et son menu, l'entité, les hooks et la reprise.*
 
+## Le sommaire
+
+- [3.5 `settings.yml` — la maison des types et des réglages (D359, D360, D991–D993)](#35-settingsyml--la-maison-des-types-et-des-réglages-d359-d360-d991d993)
+  - [Les types et les dérivés](#les-types-et-les-dérivés)
+  - [La cascade](#la-cascade)
+  - [La règle des paramètres (D1535)](#la-règle-des-paramètres-d1535)
+  - [La règle des défauts (D1175)](#la-règle-des-défauts-d1175)
+- [3.6 `groups.yml` — les groupes (D414)](#36-groupsyml--les-groupes-d414)
+- [3.7 Le module — `<module>.yml` (D765, D416)](#37-le-module--moduleyml-d765-d416)
+  - [`menu.yml` — une carte d'entrées nommées (D1237)](#menuyml--une-carte-dentrées-nommées-d1237)
+- [3.8 L'entité, les champs, les surfaces](#38-lentité-les-champs-les-surfaces)
+- [3.9 `hooks/` et `reprise/`](#39-hooks-et-reprise)
+  - [`hooks/`](#hooks)
+  - [`reprise/`](#reprise)
+
 ## 3.5 `settings.yml` — la maison des types et des réglages (D359, D360, D991–D993)
 
 Les settings règlent les défauts. Ils se structurent en trois niveaux

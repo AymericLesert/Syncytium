@@ -8,6 +8,21 @@ surfaces et tous les composants graphiques :
 - **la documentation** : ce que les composants et les surfaces apportent
   à chacune des neuf documentations.
 
+## Le sommaire
+
+- [L'assistance — les trois groupes d'une surface](#lassistance--les-trois-groupes-dune-surface)
+- [La documentation — la facette des composants graphiques et des surfaces](#la-documentation--la-facette-des-composants-graphiques-et-des-surfaces)
+  - [Ce que tout composant graphique apporte](#ce-que-tout-composant-graphique-apporte)
+  - [La fonctionnelle (la colonne 1)](#la-fonctionnelle-la-colonne-1)
+  - [Le dictionnaire de la donnée (la colonne 2)](#le-dictionnaire-de-la-donnée-la-colonne-2)
+  - [La réglementation (la colonne 5)](#la-réglementation-la-colonne-5)
+  - [Le projet et le support (la colonne 8)](#le-projet-et-le-support-la-colonne-8)
+  - [La documentation du développeur (la colonne 3)](#la-documentation-du-développeur-la-colonne-3)
+  - [Le D.A.T. (la colonne 4)](#le-dat-la-colonne-4)
+  - [Le guide d'exploitation (la colonne 9)](#le-guide-dexploitation-la-colonne-9)
+  - [La promotionnelle (la colonne 6)](#la-promotionnelle-la-colonne-6)
+  - [La maintenance, les risques et les améliorations (la colonne 7)](#la-maintenance-les-risques-et-les-améliorations-la-colonne-7)
+
 ## L'assistance — les trois groupes d'une surface
 
 > **L'assistance** est la F.A.Q. vivante du socle. L'utilisateur pose une

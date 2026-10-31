@@ -4,6 +4,11 @@ Deux règles traversent toute la configuration. La cascade dit qui
 l'emporte quand une valeur s'écrit à plusieurs étages. L'ingestion dit ce
 que le moteur refuse avant de servir.
 
+## Le sommaire
+
+- [4. Les cascades — le plus proche l'emporte](#4-les-cascades--le-plus-proche-lemporte)
+- [5. L'ingestion — ce qui est refusé](#5-lingestion--ce-qui-est-refusé)
+
 ## 4. Les cascades — le plus proche l'emporte
 
 Une valeur écrite près de l'élément l'emporte sur une valeur écrite plus

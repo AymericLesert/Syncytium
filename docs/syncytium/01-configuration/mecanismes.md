@@ -4,6 +4,21 @@ Dix mécanismes reviennent dans toute la configuration, quel que soit le
 fichier. Ils sont décrits ici une fois. Les chapitres suivants les
 emploient sans les redire.
 
+## Le sommaire
+
+- [2.1 La référence de fichier — `~{<fichier>}` (D956)](#21-la-référence-de-fichier--fichier-d956)
+- [2.2 Le pattern — la liste par expression régulière (D806)](#22-le-pattern--la-liste-par-expression-régulière-d806)
+- [2.3 Le cumul de fichiers sous une carte (D968)](#23-le-cumul-de-fichiers-sous-une-carte-d968)
+- [2.4 Les variables — `${…}` (D321)](#24-les-variables---d321)
+  - [Rien hors de la configuration (D1440)](#rien-hors-de-la-configuration-d1440)
+- [2.5 La marque `*` — la clé confidentielle (D944)](#25-la-marque---la-clé-confidentielle-d944)
+- [2.6 L'adressage logique — le point (D363)](#26-ladressage-logique--le-point-d363)
+- [2.7 Le langage d'expression dans les valeurs (D90–D92)](#27-le-langage-dexpression-dans-les-valeurs-d90d92)
+- [2.8 La forme courte et le bloc (D356)](#28-la-forme-courte-et-le-bloc-d356)
+  - [Les groupes de champs (D1273, D1279–D1280)](#les-groupes-de-champs-d1273-d1279d1280)
+- [2.9 Les deux formes d'une collection — la liste et la substitution (D1113)](#29-les-deux-formes-dune-collection--la-liste-et-la-substitution-d1113)
+- [2.10 Les défauts du poste informatique (D1114)](#210-les-défauts-du-poste-informatique-d1114)
+
 ## 2.1 La référence de fichier — `~{<fichier>}` (D956)
 
 Une valeur peut désigner un fichier. Elle s'écrit alors `~{…}`. À

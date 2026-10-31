@@ -80,6 +80,10 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   citation, la notion en gras, reprise du glossaire en phrases courtes,
   le renvoi au glossaire à sa suite ; une notion absente du glossaire y
   entre.
+- **Chaque fichier porte un sommaire dans son introduction** (D1658) :
+  `## Le sommaire`, avant le premier titre, les titres `##` et `###` du
+  fichier en liens vers leurs ancres ; le README d'un chapitre porte le
+  sommaire de ses fichiers.
 - **Un chapitre se fait en trois temps** (D1521, D1543) : la lecture — l'audit
   par famille, les écarts arbitrés point par point —, la réorganisation —
   le découpage vérifié, l'histoire sortie, les liens —, puis la

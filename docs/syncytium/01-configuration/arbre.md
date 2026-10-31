@@ -49,6 +49,23 @@ connecteurs, D343 et D830 pour la journalisation, D1073 pour le
 nettoyage, D414 pour les groupes, D803 et D1530 pour les ressources
 versionnées et celles du module, D1279–D1280 pour les groupes de champs.
 
+## Le sommaire
+
+- [3.1 `syncytium.yml` — le projet](#31-syncytiumyml--le-projet)
+  - [`from:` — le core, et l'amorçage](#from--le-core-et-lamorçage)
+  - [`language:` — la langue technique](#language--la-langue-technique)
+  - [`confidentiality:` — les profils de confidentialité](#confidentiality--les-profils-de-confidentialité)
+  - [`visibility:` et `promotional:` — ce qui se lit sans compte](#visibility-et-promotional--ce-qui-se-lit-sans-compte)
+  - [`author:`, `contact:`, `copyright:` — le projet nommé](#author-contact-copyright--le-projet-nommé)
+  - [`resources:` — les ressources, à trois étages](#resources--les-ressources-à-trois-étages)
+  - [`description:` — en ligne ou par fichier](#description--en-ligne-ou-par-fichier)
+- [3.2 `environments/` — la configuration technique commune (D325, D342)](#32-environments--la-configuration-technique-commune-d325-d342)
+  - [Les clés d'un environnement](#les-clés-dun-environnement)
+- [3.3 `versions/` — le cycle de vie en dossiers](#33-versions--le-cycle-de-vie-en-dossiers)
+- [3.4 `version.yml` — l'entrée de la version](#34-versionyml--lentrée-de-la-version)
+  - [Les langues de la version](#les-langues-de-la-version)
+  - [Une langue que le core ne porte pas](#une-langue-que-le-core-ne-porte-pas)
+
 ## 3.1 `syncytium.yml` — le projet
 
 Le fichier d'entrée dit ce qui vaut pour toute l'application, hors des

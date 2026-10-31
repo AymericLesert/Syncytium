@@ -147,6 +147,12 @@ application:
     values: pareto[80/20]
 ```
 
+## Le sommaire
+
+- [Les décisions de l'inventaire](#les-décisions-de-linventaire)
+- [Le bloc `rgpd:` des settings (D1323)](#le-bloc-rgpd-des-settings-d1323)
+- [Hors de l'inventaire](#hors-de-linventaire)
+
 ## Les décisions de l'inventaire
 
 - le projet : `visibility` (D1151) ;

@@ -13,6 +13,33 @@ fichier décrit ce que tous les types partagent, puis les types simples.
 Les types composés et les liens ont leurs propres fichiers,
 [composes.md](composes.md) et [liens.md](liens.md).
 
+## Le sommaire
+
+- [Le socle commun](#le-socle-commun)
+  - [Un seul espace de noms](#un-seul-espace-de-noms)
+  - [Les facettes communes](#les-facettes-communes)
+  - [Le tri et le nul](#le-tri-et-le-nul)
+  - [La signature d'un type](#la-signature-dun-type)
+  - [La conversion vers le stockage](#la-conversion-vers-le-stockage)
+  - [Les types dérivés](#les-types-dérivés)
+  - [Le composant par défaut](#le-composant-par-défaut)
+- [Les types simples](#les-types-simples)
+  - [`boolean`](#boolean)
+  - [`enum`](#enum)
+  - [`text`](#text)
+  - [`integer`](#integer)
+  - [`decimal`](#decimal)
+  - [`date`](#date)
+  - [`time`](#time)
+  - [`datetime`](#datetime)
+  - [`file`](#file)
+  - [`image`](#image)
+  - [`thumbnail`](#thumbnail)
+  - [`uuid`](#uuid)
+  - [`password`](#password)
+  - [`color`](#color)
+- [Les fonctions du texte](#les-fonctions-du-texte)
+
 ## Le socle commun
 
 ### Un seul espace de noms

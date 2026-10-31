@@ -33,6 +33,16 @@ Le formulaire est lui-même un `pages` qui ne se déclare pas (D509) : ses
 clés `header:`, `page:` et `footer:` sont les conteneurs de cette fiche.
 La surface est décrite dans [les surfaces](surfaces.md).
 
+## Le sommaire
+
+- [`sections`](#sections)
+- [`section`](#section)
+- [`tabs`](#tabs)
+- [`tab`](#tab)
+- [`pages`](#pages)
+- [`page`](#page)
+- [`header` / `footer`](#header--footer)
+
 ## `sections`
 
 **Nom et famille.** `sections`, un conteneur : l'organisateur. Il

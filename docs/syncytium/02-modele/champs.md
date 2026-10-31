@@ -7,6 +7,17 @@ Les champs d'une entité forment une carte ordonnée : le nom du champ est
 la clé, l'ordre de déclaration est l'ordre d'affichage par défaut. Ils
 s'écrivent sous `fields:`, en place ou dans un fichier, `fields.yml`.
 
+## Le sommaire
+
+- [La forme courte et le bloc](#la-forme-courte-et-le-bloc)
+- [Les groupes de champs](#les-groupes-de-champs)
+- [Les propriétés d'un champ](#les-propriétés-dun-champ)
+  - [Le type et les liens](#le-type-et-les-liens)
+  - [La saisie](#la-saisie)
+  - [Le calcul et les valeurs](#le-calcul-et-les-valeurs)
+  - [La documentation du champ](#la-documentation-du-champ)
+- [L'ordre du fichier](#lordre-du-fichier)
+
 ## La forme courte et le bloc
 
 Un champ sans façon s'écrit en une ligne : son nom, puis son type.

@@ -4,6 +4,12 @@ Un enregistrement naît, change de niveau, se modifie, se supprime, et
 parfois se relit tel qu'il était. Trois mécanismes du modèle le
 portent : l'héritage, la suppression, l'historisation.
 
+## Le sommaire
+
+- [L'héritage](#lhéritage)
+- [La suppression et la réactivation](#la-suppression-et-la-réactivation)
+- [L'historisation](#lhistorisation)
+
 ## L'héritage
 
 > **L'héritage** fait d'une entité l'enfant d'une autre : l'enfant

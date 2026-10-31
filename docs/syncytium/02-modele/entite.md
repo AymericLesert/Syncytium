@@ -48,6 +48,18 @@ validation:
     message: La vente du {date_vente} précède l'achat du {date_achat}.
 ```
 
+## Le sommaire
+
+- [Le nom et les textes](#le-nom-et-les-textes)
+- [L'identité](#lidentité)
+- [Le cycle de vie, l'héritage, l'historique](#le-cycle-de-vie-lhéritage-lhistorique)
+- [Les champs, les opérations, la présentation, la partition](#les-champs-les-opérations-la-présentation-la-partition)
+- [La validation](#la-validation)
+  - [Les trois sévérités](#les-trois-sévérités)
+- [Les opérations — le renvoi](#les-opérations--le-renvoi)
+- [La présentation — le renvoi](#la-présentation--le-renvoi)
+- [L'exemple fil rouge](#lexemple-fil-rouge)
+
 ## Le nom et les textes
 
 - **`name:`** est le nom de l'entité, invariant quelle que soit la

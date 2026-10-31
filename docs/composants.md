@@ -343,7 +343,7 @@ fields:
     type: text                   # auto → multi-lignes (D366)
     shortcut:                    # le raccourci (D464)
       lines: 4                   #   4 lignes visibles, puis…
-      icon: next.svg             #   …l'icône et…
+      icon: next                 #   …l'icône (une ressource — D1625) et…
       label: { fr: Voir plus, en: More }   # …le libellé par langue
   registration:
     type: text
@@ -771,7 +771,7 @@ fields:
   category:
     type: enum                     # dropdown par défaut
     values:
-      bronze: { label: { fr: Bronze }, description: { fr: Le niveau d'entrée }, icon: bronze.png }
+      bronze: { label: { fr: Bronze }, description: { fr: Le niveau d'entrée }, icon: bronze }
       silver: { label: { fr: Argent } }
       gold:   { label: { fr: Or } }
     default: bronze
@@ -874,9 +874,9 @@ fields:
   category:
     type: enum
     values:
-      bronze: { label: { fr: Bronze }, icon: bronze.png }   # ← resources/ (D346)
-      silver: { label: { fr: Argent }, icon: silver.png }
-      gold:   { label: { fr: Or },     icon: gold.png }
+      bronze: { label: { fr: Bronze }, icon: bronze }   # ← l'identifiant d'une ressource (D1625)
+      silver: { label: { fr: Argent }, icon: silver }
+      gold:   { label: { fr: Or },     icon: gold }
     default: bronze
     component: icons            # la surcharge au champ — les icônes partout
 
@@ -983,7 +983,7 @@ gui:
 fields:
   photo:
     type: image[512x512]           # la boîte max, la vignette auto (D389)
-    placeholder: avatar.png        # l'icône de fond (D390)
+    placeholder: avatar            # l'icône de fond (D390), une ressource (D1625)
 
 gui:
   forms:
@@ -1110,7 +1110,7 @@ gui:
 fields:
   photo:
     type: image[512x512]           # la boîte max, la vignette auto (D389)
-    placeholder: avatar.png        # l'icône de fond (D390)
+    placeholder: avatar            # l'icône de fond (D390), une ressource (D1625)
   contract: { type: file, extensions: [pdf] }
 
 gui:
@@ -1557,8 +1557,9 @@ gui:
 3. **Types servis** — aucun : le fichier est livré avec la
    configuration, comme les icônes du menu (D439) ;
 4. **Contexte consommé** — les droits et la confidentialité ;
-5. **Propriétés** — le fichier — la forme courte `picture: logo.png`,
-   ou `file:` en clair (*en proposition*) ; le couple `size:` /
+5. **Propriétés** — l'image, par l'identifiant d'une ressource
+   (D1625) — la forme courte `picture: logo`, ou `resource:` en clair
+   (*en proposition*) ; le couple `size:` /
    `dimension:` (D484) ; le socle du vocabulaire (D461) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — au formulaire : l'image en place ;
@@ -1576,9 +1577,9 @@ gui:
   forms:
     default:
       header:
-        - picture: logo.png        # la forme courte — le fichier de la configuration
+        - picture: logo            # la forme courte — l'identifiant d'une ressource (D1625)
         - picture:
-            file: banner.png       # la forme en clair (proposition)
+            resource: banner       # la forme en clair (proposition)
             size: 120px            # à l'affichage (D484)
 ```
 
@@ -1701,7 +1702,7 @@ page:
               - field[status]
         - tab:
             title: { fr: Échanges }
-            icon: chat.svg         # l'icône de l'item gui (D439)
+            icon: chat             # l'icône de l'item gui (D439), une ressource (D1625)
             items:
               - field[discussion]  # le fil prend l'onglet (D485)
 ```
@@ -1931,7 +1932,7 @@ gui:
       footer:
         items:
           - operation[invoice]:        # le bouton au formulaire (D511)
-              icon: invoice.svg
+              icon: invoice
   lists:
     main:
       columns: [number, customer, invoice]   # l'icône à trois états (D444/D462)
@@ -2261,7 +2262,7 @@ charts:
     title: { fr: CA du mois }
     labels: { fr: "{value} € HT" }
     colors: { 0: red, 50000: orange, 100000: green }   # les seuils (D467)
-    icons:  { 0: red_light.svg, 50000: orange_light.svg, 100000: green_light.svg }
+    icons:  { 0: red_light, 50000: orange_light, 100000: green_light }
                                  # le feu tricolore (D526)
     layout: left                 # le label à gauche, l'icône à droite (D527)
     drill: invoiced              # le clic : la liste (D242)
@@ -3009,7 +3010,7 @@ templates:
     header:
       height: 40mm
       items:
-        - picture: ~{logo.png}     # l'image fixe (D488), la référence explicite (D956)
+        - picture: logo            # l'image fixe (D488), l'identifiant d'une ressource (D1625)
         - field[number]: { component: qrcode, size: 25mm }   # (D543)
     page:
       - field[customer]

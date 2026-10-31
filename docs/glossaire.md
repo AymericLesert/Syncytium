@@ -781,8 +781,10 @@ Le dossier est **versionné** — il vit dans la version, déclaré par
 `version.yml` (« un jeu d'icônes, des templates de fichiers…
 dépendent de la version d'exécution »). La fiche d'une ressource :
 `name`, `description`, `file`, `credit:` — le crédit des éléments
-tiers, par courtoisie.
-*(D346, amendé par D803)*
+tiers, par courtoisie. Toute image et toute icône passe par les
+ressources : la configuration cite l'identifiant de la ressource,
+`icon: bronze`, et la ressource représente le fichier.
+*(D346, amendé par D803 ; D1625)*
 
 **Restauration** — Le retour d'un enregistrement à un instantané de son
 historique : par l'administrateur seul, sous condition, tracée ; elle est

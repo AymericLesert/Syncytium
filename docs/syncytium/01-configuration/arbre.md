@@ -186,6 +186,23 @@ la même fiche, `name`, `description`, `file`, `credit` (D1384) ; par le
 nom, le plus proche l'emporte, le module, puis la version, puis la
 racine.
 
+Toute image et toute icône passe par les ressources (D1625). La
+configuration cite l'identifiant de la ressource, `icon: bronze` ou
+`picture: logo`. Le fichier ne s'écrit qu'une fois, en `~{…}`, dans la
+fiche de la ressource :
+
+```yaml
+# Les icônes du projet
+icones:
+
+  # L'icône du niveau d'entrée
+  bronze:
+    name: bronze
+
+    # Le fichier que la ressource représente
+    file: ~{icones/bronze.png}
+```
+
 ### `description:` — en ligne ou par fichier
 
 `description:` prend le texte en ligne ou un fichier, `description:

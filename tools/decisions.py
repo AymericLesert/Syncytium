@@ -222,6 +222,22 @@ for _fam, _nums in {
                 1002, 1015, 1017, 1106, 1109, 1110, 1564] + list(range(1566, 1588)) + [1589],
 }.items():
     RELECTURE.update({_n: _fam for _n in _nums})
+# Le chapitre 4, les surfaces et les composants (D1644, le 01/11/2026) : soixante-sept sorties ; D788, `record`, reste.
+for _fam, _nums in {
+    "documentation": [1202, 1203, 1204, 1214, 1231, 1232, 1252, 1257, 1266, 1272, 1276, 1287, 1303, 1310, 1343],
+    "reprise": [5, 820, 847, 848, 869, 1034, 1042, 1043, 1048, 1057, 1059],
+    "cas": [779, 798, 815, 844, 937, 938, 951, 1005, 1019, 1063, 1081],
+    "modele": [379, 403, 424, 784, 832, 895, 896, 1120, 1171],
+    "methode": [180, 313, 314, 602, 643],
+    "administration": [211, 235, 238, 732, 751],
+    "configuration": [928, 1117, 1306, 1441, 1523],
+    "telemetrie": [736, 739, 1290],
+    "securite": [422, 720],
+    "connecteurs": [641],
+    "surfaces": [788],
+}.items():
+    RELECTURE.update({_n: _fam for _n in _nums})
+
 
 
 def classer(d):

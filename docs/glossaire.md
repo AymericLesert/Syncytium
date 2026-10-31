@@ -31,6 +31,11 @@ où une reprise de données se construit et se contrôle avant d'être
 reportée dans la base de l'application ; elle vit le temps de la
 migration. *(D1044/D1045)*
 
+**Boîte de dialogue** — Une fenêtre que l'application dessine dans sa page,
+au-dessus de la surface : un message, puis confirmer ou annuler. C'est une
+fenêtre assumée. La fenêtre surgissante du navigateur, la popup, ne sert
+jamais. *(D601, D1605)*
+
 **Cartouche** — L'en-tête ou le pied obligatoire d'une édition : le
 numéro de version, la date, l'auteur de l'édition. *(D1142)*
 

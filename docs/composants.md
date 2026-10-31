@@ -1895,7 +1895,9 @@ forms:
    actionnable / **non actionnable** (la garde grise le bouton, l'API
    refuse proprement — D430) / **non visible** (les droits D196, la
    confidentialité) ; la relecture avant engagement (D431 — lecture
-   seule + confirmer/annuler, jamais de popup D196) ; l'exécution
+   seule + confirmer/annuler — D196) ; **jamais de popup du
+   navigateur** : la boîte de dialogue de l'application est une fenêtre
+   assumée, celle du message seul (D601, D1605) ; l'exécution
    `synchronous`/`asynchronous`/`await` (D436) ;
 9. **Décisions fondatrices** — D196, D425–D433, D436, D439, D444,
    D446, D456, D460, D462, D504–D505, D511, D553 ;
@@ -2603,7 +2605,8 @@ lists:
    validation)* » — D154/D199), la modification (la concurrence par
    champ — D111), la suppression (la lecture seule + la
    confirmation — D446), la consultation (`mode: read-only`),
-   l'historique (l'onglet — D453) ; **jamais de popup** (D196) ; la
+   l'historique (l'onglet — D453) ; **jamais de popup du navigateur**,
+   la boîte de dialogue de l'application assumée (D196, D1605) ; la
    relecture d'opération (D431 — lecture seule + confirmer/annuler) ;
    le responsive au repli (D203) ;
 8. **États et interactions** — les droits déterminent l'usage offert

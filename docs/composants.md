@@ -1960,7 +1960,7 @@ gui:
    temporalité** (D240) ; **Y = un agrégat (D158) filtré sur X** ; la
    confidentialité héritée de l'entité, surchargeable (D247) ; les
    droits ;
-5. **Propriétés** — la déclaration (*les noms en proposition*) :
+5. **Propriétés** — la déclaration (les noms — D1637) :
    **`on:`** — l'assise à l'adresse (D517/D439) : `sales.order`
    (l'entité) ou `sales.order[invoiced]` (la liste nommée, le crochet
    de l'adresse) — **absent : l'entité porteuse de la déclaration**
@@ -1979,9 +1979,8 @@ gui:
    dégradé), **`labels:`** (D516) — `true` : la valeur au format du
    champ ; **le gabarit** pour personnaliser (la collision avec le
    dictionnaire D440 notée — le contexte départage, D458) ; le visage
-   au nuage (D386) ; *(en proposition : `y:` accepte une
-   liste — plusieurs séries sur le même axe ; les deux axes restent à
-   `chart.combo`, D239)* ;
+   au nuage (D386) ; `y:` accepte une liste — plusieurs séries sur le
+   même axe ; les deux axes restent à `chart.combo` (D239, D1637) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **réutilisable** : le widget (associé à
    une entité → le module fonctionnel — D247), le formulaire, le
@@ -2034,7 +2033,7 @@ charts:
 5. **Propriétés** — **le socle commun** (D515–D518, D521 — `display:`
    compris) : `on:`, `x:`, `y:` (la forme riche — et la liste :
    plusieurs séries), `filter:`, `drill:`, `colors:`, `labels:`,
-   `title:` ; **les écarts propres** (*en proposition*) :
+   `title:` ; **les écarts propres** (D1637) :
    **`mode: vertical | horizontal`** (défaut
    vertical — le crochet en raccourci : `chart.bars[horizontal]`,
    D478) ; **`stacked:`** — les séries empilées (`true`), côte à côte
@@ -2061,7 +2060,7 @@ charts:
 
   stock_by_site:
     component: chart.bars
-    stacked: true                # les séries empilées (proposition)
+    stacked: true                # les séries empilées (D1637)
     x: site
     y: [ sum(reserved), sum(available) ]
 ```
@@ -2080,9 +2079,9 @@ charts:
    `colors:`, `labels:`, `title:` ; **les écarts propres** (D519) : **`mode: pie | donut | quarter`** — le
    camembert (défaut), l'anneau, l'arc (le crochet en raccourci :
    `chart.pie[donut]`, D478) ; **`thickness:`** — l'épaisseur de
-   l'anneau et de l'arc (D520 — *en proposition : le pourcentage du
-   rayon*) ; **les angles de `quarter`** — le départ et la fin, *en
-   proposition au crochet aux bornes* : `quarter[-90..90]` (0° à
+   l'anneau et de l'arc (D520 — le pourcentage du rayon, D1637) ;
+   **les angles de `quarter`** — le départ et la fin, au crochet aux
+   bornes (D1637) : `quarter[-90..90]` (0° à
    midi, le sens horaire ; nu = `[0..90]`) — « représenter
    l'assemblée nationale de la gauche vers la droite » (D520) ; **les variables du
    gabarit** des labels : `{value}`, `{percent}`, `{total}` —
@@ -2143,9 +2142,8 @@ charts:
    min, max et threshold » : la liste croissante des seuils, les
    bandes ; **`zones:`** — la zone **s'adresse dans la matrice
    créée** : `zone: [1,1]` + `title:` (+ `color:`) — plus aucune
-   borne répétée (D523 ; *la convention en proposition :
-   `[colonne, ligne]` depuis l'origine des axes, `[1,1]` en bas à
-   gauche*) : le MoSCoW à deux critères, l'effort/bénéfice ;
+   borne répétée (D523 ; la convention, D1637 : `[colonne, ligne]`
+   depuis l'origine des axes, `[1,1]` en bas à gauche) : le MoSCoW à deux critères, l'effort/bénéfice ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — réutilisable (D243/D249) ; template :
    l'image (D257) ; **le survol** : le visage de l'enregistrement
@@ -2185,8 +2183,8 @@ charts:
 4. **Contexte consommé** — le socle des `chart.*` (la confidentialité
    D247, les droits) ;
 5. **Propriétés** — **le socle commun** (D515–D518, D521 —
-   `display:` compris) ; **les écarts propres** (*écritures en
-   proposition*) : `y:` en liste de séries —
+   `display:` compris) ; **les écarts propres** (D1637) : `y:` en
+   liste de séries —
    `{ value:, as: line | bars, axis: left | right }` — la nature et
    l'axe de chacune (défauts : la première à gauche, la seconde à
    droite) ; **ou `axis: bottom | top`** — « la représentation en
@@ -2227,7 +2225,7 @@ charts:
 4. **Contexte consommé** — le socle des graphiques : la
    confidentialité héritée surchargeable (D247), les droits ;
 5. **Propriétés** — `on:` (D517–D518), **`value:`** — l'agrégat
-   (*l'écho de `y:`, sans axe — en proposition*), `filter:` (D90),
+   (l'écho de `y:`, sans axe — D1637), `filter:` (D90),
    `title:` (D493), `labels:` — le gabarit du format (D516,
    `{value}`) ; **`colors:` par seuils** — le chiffre qui change de
    couleur (la mécanique D467, la table d'entité D495 comprise) ;
@@ -2286,10 +2284,10 @@ charts:
    (D247), les droits ; **indépendant des compositions matricielles**
    (D134) — le croisé est une présentation, applicable à toute
    entité ;
-5. **Propriétés** — (*les noms en proposition*) : **`rows:`** — le ou
+5. **Propriétés** — (les noms — D1637) : **`rows:`** — le ou
    les champs en ligne (la liste = le groupement hiérarchique,
    `[seller, customer]` : commercial › client) ; **`columns:`** — le
-   ou les champs en colonne (le mot des listes D441) ; **`value:`** —
+   ou les champs en colonne (le mot des listes D442) ; **`value:`** —
    la formule : un agrégat (D158) **partitionné par la cellule** ;
    `filter:` (D90) ; **`sort:`** — « le tri peut s'appuyer
    sur les rows, les columns ou la value » (D528–D529) : la clé = un
@@ -2306,8 +2304,8 @@ charts:
    tableau de bord (D249), le formulaire (D243) ; **template** : le
    tableau rendu, groupements dépliés ;
 8. **États et interactions** — **le pli et le dépli** des
-   groupements ; *(en proposition : le clic sur une cellule ouvre la
-   liste des éléments de l'intersection — l'écho D242/D519)* ; la
+   groupements ; le clic sur une cellule ouvre la liste des éléments
+   de l'intersection — l'écho D242/D519 (D1637) ; la
    confidentialité masque ;
 9. **Décisions fondatrices** — D134, D158, D240, D243, D246–D249,
    D441, D512, D517–D518, D528–D529 ;

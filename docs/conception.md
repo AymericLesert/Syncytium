@@ -25236,6 +25236,23 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-11-01 (fin) — LA PAUSE : LE CHAPITRE 4 FAIT DANS SES TROIS TEMPS, LE CHAPITRE 5 OUVERT (D1613–D1658, 1658
+  décisions).** La lecture du chapitre 4 achevée : la saisie selon l'écran — une surface par écran, `screen:` en
+  `<format>[<orientation>]`, `pc[landscape]`, les formats portés au bloc `version:` des settings (D1613–D1617) ;
+  « poste informatique », jamais « poste » seul, 39 lignes reprises (D1615, D1621, D1623) ; l'aide sans survol et
+  `abbreviation:` selon la place disponible (D1618–D1624) ; les huit corrections d'application (D1628) ; les
+  manques, le paramétrage d'une liste, les filtres selon l'écran (D1631–D1634) ; les propositions des feuilles,
+  des conteneurs, des graphiques, des codes-barres, des surfaces et les sans-marque validées (D1635–D1640) ; toute
+  image et toute icône par les ressources, leur dimension dans la ressource (D1625–D1629) ; les exemples des cas
+  (D1641–D1642) ; les statuts des périmées (D1643) ; la classification relue (D1644) ; `record` confirmé (D1645).
+  La réorganisation : `docs/syncytium/04-composants/`, sept fichiers (D1646). La réécriture par cinq agents, relue :
+  le glossaire tenu, dix-huit entrées (D1647) ; la disposition, un maximum (D1648) ; le raccourci `items:` partout
+  (D1649) ; `selection:` aux sept valeurs (D1650–D1651) ; `commit:` au wizard (D1652) ; `component:` obligatoire
+  au graphique, la banque et le véhicule réparés (D1653) ; `searchable:` au graphique (D1654) ; la copie stricte des
+  extraits, `docyaml.py` qui reconnaît `label:` (D1655) ; le menu replié (D1656). Le chapitre 5 ouvert : les hooks,
+  103 décisions, dix-sept points (D1657) ; un sommaire dans chaque fichier (D1658). « je marque une pause ».
+  **À la reprise** : le point 1 du chapitre 5, la fiche d'un hook — présenté, en attente (remplacer l'exemple de
+  hooks.md par l'extrait de `dupliquer.yml` de la banque) ; puis les points 2 à 17.
 - **2026-11-01 (suite) — LA PAUSE : LES POINTS 1 À 9 DU CHAPITRE 4 SOLDÉS (D1593–D1612, 1612
   décisions).** Le chapitre 4 avance : `body` et `grid` retirés (D1593) ; `items:` pour la page unique
   (D1594–D1595) ; la recherche aux champs qui portent `searchable:`, le possesseur `owner` filtré par la

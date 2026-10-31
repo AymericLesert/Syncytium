@@ -1,28 +1,63 @@
 # Les feuilles
 
-## `checkbox`
+> **Une feuille** est un composant qui rend un champ : la saisie d'une
+> valeur, le choix ou le regard d'un objet. Le composant par défaut d'un
+> type porte le nom du type ([glossaire](../../glossaire.md)).
 
-1. **Nom et famille** — `checkbox`, une feuille ;
-2. **Rôle** — la case à cocher : l'état vrai/faux d'un booléen, d'un
-   clic ;
-3. **Types servis** — `boolean` ; **le défaut du type** ; le tri-état
-   si le champ est optionnel (D377) ;
-4. **Contexte consommé** — le champ, son `mode` (D364), les droits ;
-5. **Propriétés** — les libellés d'états hérités des `values` du champ
-   (D377) ; rien d'autre : tout se déduit ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : le clic cycle
-   faux → vrai → nul → faux (D374) ; lecture : l'état affiché, le
-   survol montre le libellé (D281) ; résumé / template / Excel : le
-   libellé ou la valeur (D130) ; identique aux trois écrans ;
-8. **États et interactions** — grisée si `readonly` ou droits ; en
-   recherche, le composant sert le filtre : le tri-état vise les lignes
-   nulles, la position nulle dit « tous » si le champ est obligatoire
-   (D375–D376) ;
-9. **Décisions fondatrices** — D281, D374–D377 ;
-10. **Exemple de configuration** —
+Chaque champ du modèle ([le modèle](../02-modele/champs.md)) se montre
+par une feuille. Le type du champ choisit la feuille par défaut (D458).
+Le concepteur en choisit une autre par `component:`, à trois étages
+(D461) :
 
-Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/stock/depot/depot.yml` :
+- au type, dans les settings ;
+- au champ, dans `fields:` ;
+- au nœud, dans l'arbre d'une surface.
+
+Le plus proche l'emporte. Ce fichier est le catalogue des feuilles, une
+fiche par composant, dans la forme du
+[modèle de fiche](README.md#le-modèle-de-fiche). Les fiches vont de la
+saisie d'une valeur au regard d'un objet, puis aux textes et images
+fixes, puis à la couleur et aux codes.
+
+## La saisie d'une valeur
+
+Les feuilles de cette partie rendent un champ simple : un booléen, un
+texte, un nombre, une heure, une date, une valeur parmi un jeu fermé.
+
+### `checkbox`
+
+**Nom et famille.** `checkbox`, une feuille.
+
+**Rôle.** La case à cocher. Elle montre l'état d'un booléen, vrai ou
+faux, et le change d'un clic.
+
+**Types servis.** `boolean`. C'est le composant par défaut du type. Si
+le champ est optionnel, la case a trois états : faux, vrai, nul (D377).
+
+**Contexte consommé.** Le champ, son `mode` (D364), les droits.
+
+**Propriétés.** Rien de propre : tout se déduit. Les libellés des états
+viennent des `values` du champ (D377).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, le clic fait le tour des états : faux, puis vrai,
+  puis nul, puis faux (D374) ;
+- en lecture, l'état est affiché ; le survol montre le libellé (D281) ;
+- en résumé, en template et en Excel, le libellé ou la valeur (D130) ;
+- la case est la même sur les trois écrans.
+
+**États et interactions.** La case est grisée si le champ est
+`readonly` ou si les droits l'imposent. En recherche, la case sert le
+filtre. Le tri-état vise les lignes nulles. Si le champ est obligatoire,
+la position nulle dit « tous » (D375, D376).
+
+**Décisions fondatrices.** D130, D281, D364, D374–D377.
+
+**Exemple de configuration.** Dans le cas 5 (entrepôt),
+`05_entrepot/versions/beta/v1.0.0.1/stock/depot/depot.yml` :
 
 ```yaml
 # Les champs
@@ -36,9 +71,12 @@ fields:
     description: Les paramètres sont les dépôts actifs ; né d'une autre origine, le dépôt naît inactif, à son défaut.
 ```
 
-Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/entretien/fields.yml` :
+Dans le cas 3 (véhicule),
+`03_vehicule/versions/beta/v1.0.0.0/transport/entretien/fields.yml`, le
+booléen est optionnel : la case a trois états.
 
 ```yaml
+# La révision : un booléen optionnel
 revision:
   type: boolean
   label: Révision ?
@@ -48,89 +86,131 @@ revision:
     journal.
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. Un booléen obligatoire naît faux,
+sauf `default:` (D377). Dans le formulaire, la forme explicite
+`field[active]` lève l'ambiguïté entre le champ et le composant (D460).
+La forme riche ouvre les propriétés du nœud (D270), dont `resources:`,
+la ressource de chaque valeur (D1608).
 
 ```yaml
-# sales/entities/customer.yml
+# Les champs : deux booléens, l'un obligatoire, l'autre optionnel
 fields:
+
+  # L'activité : obligatoire, deux états, la case simple
   active:
     type: boolean
-    required: true               # deux états — la checkbox simple (le défaut du type)
-    default: true                # l'obligatoire naît false sauf default (D377)
+    required: true
+    # Le défaut : l'obligatoire naît faux sans lui
+    default: true
+    # Les libellés des deux états
     values:
-      true:  { label: { fr: Actif } }
+      true: { label: { fr: Actif } }
       false: { label: { fr: Inactif } }
+
+  # L'audit : optionnel, la case à trois états
   audited:
-    type: boolean                # optionnel — la checkbox TRI-ÉTAT (D374)
+    type: boolean
     hint: { fr: "Audit réalisé ?" }
 
+# L'interface : la liste et le formulaire
 gui:
+
+  # La liste : les deux cases en colonne, au filtre et en édition en ligne
   lists:
     main:
       columns: [code, company_name, active, audited]
-      searchable: [active, audited]   # la case sert le filtre — tri-état pour
-                                      #   audited (lignes nulles), « tous » pour
-                                      #   active (obligatoire) — D375–D376
-      editable: [active]              # l'édition en ligne — le clic cycle (D374)
+      # Le filtre : le tri-état pour audited, « tous » pour active
+      searchable: [active, audited]
+      # L'édition en ligne : le clic fait le tour des états
+      editable: [active]
+
+  # Le formulaire : la forme explicite, puis la forme riche
   forms:
     record:
       page:
         - section:
             title: { fr: Statut }
             items:
-              - field[active]         # la forme explicite (D460) — l'ambiguïté
-                                      #   champ/composant levée
+              - field[active]
               - field[audited]:
-                  readonly: true      # la forme riche (D270)
-                  resources:          # la ressource de chaque valeur (D1608) —
-                    true:  check      #   coché = vrai, vide = faux,
-                    false: empty      #   le nul distinct
-                    null:  dash
-                  size: 24px          # la taille
+                  readonly: true
+                  # La ressource de chaque valeur : coché, vide, et le nul distinct
+                  resources:
+                    true: check
+                    false: empty
+                    null: dash
+                  # La taille
+                  size: 24px
 ```
 
-## `toggle`
+### `toggle`
 
-1. **Nom et famille** — `toggle`, une feuille ;
-2. **Rôle** — l'interrupteur : le vrai/faux d'un booléen qui bascule
-   d'un geste — l'état se lit à la position ;
-3. **Types servis** — `boolean` **obligatoire seulement** (`required` —
-   jamais d'état nul, D281/D377) ; en surcharge du défaut
-   (`component: toggle`) ;
-4. **Contexte consommé** — le champ, son `mode` (D364), les droits ;
-5. **Propriétés** — les libellés d'états hérités des `values` du champ
-   (D377), montrés au survol (D281) ; rien d'autre : tout se déduit ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : la bascule au clic, au
-   glissé sur tactile ; lecture : la position figée ; résumé /
-   template / Excel : le libellé ou la valeur (D130) ; identique aux
-   trois écrans — la cible tactile suffit d'elle-même ;
-8. **États et interactions** — grisé si `readonly` ou droits ; en
-   recherche, il filtre **vrai/faux seuls** — le « tous » n'existe pas
-   en toggle : c'est la réinitialisation qui désengage (D375–D377), la
-   case tri-état restant le composant du « tous » (D376) ;
-9. **Décisions fondatrices** — D281, D375–D377 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `toggle`, une feuille.
+
+**Rôle.** L'interrupteur. Il montre le vrai ou faux d'un booléen, et
+bascule d'un geste. L'état se lit à la position.
+
+**Types servis.** `boolean` obligatoire seulement : le champ porte
+`required`, car l'interrupteur n'a jamais d'état nul (D281, D377). Il
+surcharge le défaut par `component: toggle`.
+
+**Contexte consommé.** Le champ, son `mode` (D364), les droits.
+
+**Propriétés.** Rien de propre : tout se déduit. Les libellés des états
+viennent des `values` du champ (D377) et se montrent au survol (D281).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, la bascule au clic, ou au glissé sur tactile ;
+- en lecture, la position figée ;
+- en résumé, en template et en Excel, le libellé ou la valeur (D130) ;
+- l'interrupteur est le même sur les trois écrans : sa cible tactile
+  suffit d'elle-même.
+
+**États et interactions.** L'interrupteur est grisé si le champ est
+`readonly` ou si les droits l'imposent. En recherche, il filtre vrai ou
+faux seulement. Le « tous » n'existe pas en toggle : c'est la
+réinitialisation du filtre qui le désengage (D375–D377). La case à trois
+états reste le composant du « tous » (D376).
+
+**Décisions fondatrices.** D130, D281, D364, D375–D377, D461.
+
+**Exemple de configuration.** La surcharge du défaut `checkbox` se
+déclare au champ, pour toutes les surfaces, ou au nœud, pour un seul
+formulaire (D461). Le toggle filtre vrai ou faux, et la réinitialisation
+désengage (D375, D377).
 
 ```yaml
-# stock/entities/warehouse.yml
+# Les champs : un booléen obligatoire rendu en interrupteur
 fields:
+
+  # L'automatisation : obligatoire, jamais de nul
   automated:
     type: boolean
-    required: true               # le toggle exige l'obligatoire — jamais de nul (D281/D377)
+    required: true
     default: false
-    component: toggle            # la surcharge du défaut checkbox, au champ (D461)
+    # La surcharge du défaut checkbox, au champ
+    component: toggle
+    # Les libellés des deux états
     values:
-      true:  { label: { fr: Automatisé } }
+      true: { label: { fr: Automatisé } }
       false: { label: { fr: Manuel } }
 
+# L'interface : la liste et le formulaire
 gui:
+
+  # La liste : l'interrupteur en colonne, au filtre et en édition en ligne
   lists:
     main:
       columns: [code, name, automated]
-      searchable: [automated]    # le toggle filtre vrai/faux — la réinitialisation
-                                 #   désengage (D375/D377)
-      editable: [automated]      # la bascule en ligne
+      # Le filtre : vrai ou faux, la réinitialisation désengage
+      searchable: [automated]
+      # L'édition en ligne : la bascule
+      editable: [automated]
+
+  # Le formulaire : la surcharge au nœud, pour ce formulaire seul
   forms:
     record:
       page:
@@ -138,54 +218,74 @@ gui:
             title: { fr: Fonctionnement }
             items:
               - field[automated]:
-                  component: toggle   # la surcharge peut aussi vivre AU NŒUD (D461) —
-                  size: 32px          #   ce formulaire seul bascule en toggle ; ailleurs,
-                                      #   le champ garde son composant
+                  component: toggle
+                  size: 32px
 ```
 
-## `text`
+### `text`
 
-1. **Nom et famille** — `text`, une feuille ;
-2. **Rôle** — la zone de texte : la saisie et l'affichage d'un texte,
-   du mot court au paragraphe ;
-3. **Types servis** — `text` (**le défaut du type**, D458) ; les
-   composés à base texte (`email`, `url`, `phone`, `siren`… — leur
-   défaut aussi, la validation intégrée venant du type, D391) ;
-4. **Contexte consommé** — le champ (la taille D366, le masque D260, la
-   recherche D367), son `mode`, les droits ;
-5. **Propriétés** — **les trois parties** (D271) : le libellé, la zone
-   de saisie, **la post-zone** (la devise, le %, une abréviation — ou
-   rien : elle vient du type, D271/D391) ; le mono/multi-ligne **déduit
-   de la taille** face au seuil d'instance (D366), surchargeable par
-   `component` ; **`shortcut:`** — le raccourci du texte long (D464) :
-   `lines` (les lignes visibles), `icon` (l'icône du déploiement),
-   `label` (le libellé par langue — « Voir plus ») ; absent, le moteur
-   applique son défaut traduit ; **`style:`** — « la fonte,
-   la taille et sa mise en forme » (D536) : le défaut au **thème
-   choisi par l'utilisateur** (D752–D755 — le thème combine des
-   styles du catalogue, le style porte le HTML des types + le CSS3),
-   la surcharge à la cascade D461 (`style: { font: Roboto, size:
-   14px, format: [bold, italic] }` — le size intérieur = la police,
-   D458 départage ; D1635) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : la saisie, guidée par le
-   masque s'il existe (les lignes du masque font les lignes de la zone,
-   D366) ; lecture : le texte — le multi-lignes **justifié** (D447), le
-   « voir plus » au-delà des `lines` ; résumé : « libellé pour
-   widget » + valeur ; template / Excel : la valeur ; smartphone : le
-   libellé plus petit au-dessus (D262), ou son `abbreviation:` (D265,
-   D1619) — elle s'affiche aussi partout où la place manque (D1622) ; tablette et smartphone : pas
-   de survol, le texte de `hint:` se lit par un clic sur une petite
-   icône (?) à côté du champ, ou en texte plus petit sous la zone
-   (D1618) — le composant choisit selon la place disponible (D1620) ;
-8. **États et interactions** — grisée si `readonly`/droits ; le refus
-   de validation affiché (D307) ; en recherche : `strict` /
-   `normalized` / `similarity[x]` / `mutualizable[nom]` (D367–D368) —
-   la boîte au filtrage vivant (D228) ;
-9. **Décisions fondatrices** — D222, D260, D271, D366–D368, D447 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `text`, une feuille.
 
-Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/stock/depot/depot.yml` :
+**Rôle.** La zone de texte. Elle saisit et affiche un texte, du mot
+court au paragraphe.
+
+**Types servis.** `text`, dont elle est le composant par défaut (D458).
+Les composés à base de texte aussi : `email`, `url`, `phone`, `siren`…
+Elle en est le défaut, et la validation intégrée vient du type (D391).
+
+**Contexte consommé.** Le champ : sa taille (D366), son masque (D260),
+sa recherche (D367). Son `mode`, les droits.
+
+**Propriétés.**
+
+- **Les trois parties** (D271) : le libellé, la zone de saisie et la
+  post-zone. La post-zone porte la devise, le `%`, une abréviation, ou
+  rien. Elle vient du type (D271, D391).
+- **Mono ou multi-ligne**, déduit de la taille du champ face au seuil
+  de l'instance (D366). `component:` le surcharge.
+- **`shortcut:`**, le raccourci du texte long (D464). Il porte `lines`,
+  le nombre de lignes visibles ; `icon`, l'icône du déploiement, citée
+  par l'identifiant d'une ressource (D1625) ; `label`, le libellé par
+  langue, « Voir plus ». Sans `shortcut:`, le moteur applique son défaut
+  traduit.
+- **`style:`**, « la fonte, la taille et sa mise en forme » (D536). Le
+  défaut vient du thème choisi par l'utilisateur (D752–D755). Un thème
+  combine des styles du catalogue ; un style porte le HTML des types et
+  le CSS3. La surcharge suit la cascade (D461) :
+  `style: { font: Roboto, size: 14px, format: [bold, italic] }`. Le
+  `size` intérieur est la taille de la police ; D458 départage ce
+  `size` de la taille du composant (D1635).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, la saisie, guidée par le masque s'il existe ; les
+  lignes du masque font les lignes de la zone (D366) ;
+- en lecture, le texte ; le multi-ligne est justifié (D447) ; le
+  « voir plus » apparaît au-delà des `lines` ;
+- en résumé, le « libellé pour widget » et la valeur ;
+- en template et en Excel, la valeur ;
+- sur smartphone, le libellé est plus petit, au-dessus (D262), ou
+  remplacé par son `abbreviation:` (D265, D1619) ; l'abréviation
+  s'affiche aussi partout où la place manque (D1622) ;
+- sur tablette et smartphone, il n'y a pas de survol : le texte de
+  `hint:` se lit par un clic sur une petite icône « ? » à côté du
+  champ, ou en texte plus petit sous la zone (D1618) ; le composant
+  choisit selon la place disponible (D1620).
+
+**États et interactions.** La zone est grisée si le champ est
+`readonly` ou si les droits l'imposent. Le refus de validation
+s'affiche au champ (D307). En recherche, le mode vient du champ :
+`strict`, `normalized`, `similarity[x]` ou `mutualizable[nom]`
+(D367, D368). La boîte filtre au fil de la frappe (D228).
+
+**Décisions fondatrices.** D222, D228, D260, D262, D265, D271, D307,
+D366–D368, D391, D447, D458, D461, D464, D536, D752–D755, D1618–D1620,
+D1622, D1635.
+
+**Exemple de configuration.** Dans le cas 5 (entrepôt),
+`05_entrepot/versions/beta/v1.0.0.1/stock/depot/depot.yml` :
 
 ```yaml
 # Les champs
@@ -202,27 +302,43 @@ fields:
     description: Connu par les paramètres seulement ; vide pour un dépôt né des mouvements ou des fiches articles.
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. `name` reste sous le seuil : une
+ligne. `notes` n'a pas de taille : le multi-ligne se déduit (D366), et
+`shortcut:` le replie (D464). `registration` est guidé par un masque
+(D260, D366). La liste filtre au fil de la frappe (D228, D441). Le nœud
+surcharge le raccourci pour ce formulaire (D461, D464).
 
 ```yaml
-# sales/entities/customer.yml
+# Les champs : trois textes, court, long et masqué
 fields:
-  name: text[80]                 # mono-ligne (sous le seuil) — text par défaut
+
+  # Le nom : sous le seuil, une ligne
+  name: text[80]
+
+  # Les notes : sans taille, le multi-ligne se déduit
   notes:
-    type: text                   # auto → multi-lignes (D366)
-    shortcut:                    # le raccourci (D464)
-      lines: 4                   #   4 lignes visibles, puis…
-      icon: next                 #   …l'icône (une ressource — D1625) et…
-      label: { fr: Voir plus, en: More }   # …le libellé par langue
+    type: text
+    # Le raccourci : quatre lignes visibles, puis l'icône et son libellé
+    shortcut:
+      lines: 4
+      icon: next
+      label: { fr: Voir plus, en: More }
+
+  # L'immatriculation : la saisie guidée par le masque
   registration:
     type: text
-    mask: "FR__ ____ [A-E]9"     # la saisie guidée (D260/D366)
+    mask: "FR__ ____ [A-E]9"
 
+# L'interface : la liste et le formulaire
 gui:
+
+  # La liste : la boîte de recherche filtre au fil de la frappe
   lists:
     main:
       columns: [name, registration]
-      searchable: [name]         # la boîte au filtrage vivant (D228/D441)
+      searchable: [name]
+
+  # Le formulaire : le raccourci surchargé au nœud
   forms:
     record:
       page:
@@ -231,52 +347,75 @@ gui:
             items:
               - field[name]
               - field[notes]:
-                  shortcut: { lines: 6 }    # la surcharge au nœud (D461/D464)
+                  shortcut: { lines: 6 }
               - field[registration]
 ```
 
-## `number`
+### `number`
 
-1. **Nom et famille** — `number`, une feuille ;
-2. **Rôle** — la zone numérique : la saisie et l'affichage d'un nombre,
-   entier ou décimal ;
-3. **Types servis** — `integer` et `decimal` (**le défaut des deux**) ;
-   les composés à base numérique (`amount`, `percentage`, `measure` —
-   leur défaut aussi, la post-zone venant du type, D391) ;
-4. **Contexte consommé** — le champ (les bornes D372, les décimales
-   D373, le masque D370, l'unité ou la devise du composé), son `mode`,
-   les droits ;
-5. **Propriétés** — **les trois parties** (D271/D272) : le libellé, la
-   zone de saisie, **la post-zone** (l'unité, la devise, le % — selon
-   la langue, avant ou après, D272) ; **le masque-format** (`"00 00
-   00"`, `"0 000.00"` — le `0` du nombre, les séparateurs rendus selon
-   la langue, D370/D373) ; **l'alignement à droite** (D447) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : la saisie guidée par le
-   masque ; **sur tactile, le clavier numérique, la calculatrice ou le
-   clavier stylisé** (D272 — le satellite `calculator` ; sur
-   smartphone, la calculatrice remplace le clavier natif) ; lecture :
-   le nombre formaté ; résumé : « libellé pour widget » + valeur ;
-   template / Excel : **la valeur canonique** (Excel reçoit le nombre,
-   jamais la chaîne) ;
-8. **États et interactions** — grisée si `readonly`/droits ; le refus
-   des bornes et validations affiché (D307) ; en recherche : `strict` /
-   **`range`** (la plage, l'usage roi du nombre) / `mutualizable` par
-   la forme affichée (D369/D371) ; **pour `measure` et `duration`, la
-   matrice de conversion visible** (D980 — « la facette de saisie doit
-   permettre de visualiser la matrice et les règles de conversion ») :
-   à la demande, le volet du composant montre la matrice du champ sur
-   cet enregistrement — les unités connues et apportées (D978), les
-   coefficients, les chemins de transitivité (D979) ; l'unité de la
-   saisie se choisit parmi celles de la matrice ; une unité nouvelle se
-   déclare avec son coefficient vers une connue — le volet s'ouvre par
-   l'icône post-zone (l'écho de D563) et montre un tableau (D1635) ;
-9. **Décisions fondatrices** — D272–D273, D370–D373, D447, D978–D980 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `number`, une feuille.
 
-Dans le cas 4 (banque), `04_banque/versions/beta/v1.0.0.0/banque/ecriture/fields.yml` :
+**Rôle.** La zone numérique. Elle saisit et affiche un nombre, entier ou
+décimal.
+
+**Types servis.** `integer` et `decimal`, dont elle est le composant par
+défaut. Les composés à base numérique aussi : `amount`, `percentage`,
+`measure`. Elle en est le défaut, et la post-zone vient du type (D391).
+
+**Contexte consommé.** Le champ : ses bornes (D372), ses décimales
+(D373), son masque (D370), l'unité ou la devise du composé. Son `mode`,
+les droits.
+
+**Propriétés.**
+
+- **Les trois parties** (D271, D272) : le libellé, la zone de saisie et
+  la post-zone. La post-zone porte l'unité, la devise ou le `%`. Selon
+  la langue, elle se place avant ou après (D272).
+- **Le masque-format** : `"00 00 00"`, `"0 000.00"`. Le `0` figure un
+  chiffre ; les séparateurs se rendent selon la langue (D370, D373).
+- **L'alignement à droite** (D447).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, la saisie guidée par le masque ; sur tactile, le
+  clavier numérique, la calculatrice ou le clavier stylisé (D272) ; la
+  calculatrice est le satellite `calculator` ; sur smartphone, elle
+  remplace le clavier natif ;
+- en lecture, le nombre formaté ;
+- en résumé, le « libellé pour widget » et la valeur ;
+- en template et en Excel, la valeur canonique : Excel reçoit le nombre,
+  jamais la chaîne.
+
+**États et interactions.** La zone est grisée si le champ est
+`readonly` ou si les droits l'imposent. Le refus des bornes et des
+validations s'affiche au champ (D307). En recherche, le mode vient du
+champ : `strict`, `range` pour une plage, l'usage roi du nombre, ou
+`mutualizable` par la forme affichée (D369, D371).
+
+Pour `measure` et `duration`, la matrice de conversion est visible
+(D980) : « la facette de saisie doit permettre de visualiser la matrice
+et les règles de conversion ». À la demande, le volet du composant
+montre la matrice du champ sur cet enregistrement :
+
+- les unités connues et apportées (D978) ;
+- les coefficients ;
+- les chemins de transitivité (D979).
+
+L'unité de la saisie se choisit parmi celles de la matrice. Une unité
+nouvelle se déclare avec son coefficient vers une unité connue. Le volet
+s'ouvre par une icône en post-zone, comme le lien d'une `url` (D563), et
+montre un tableau (D1635).
+
+**Décisions fondatrices.** D271–D273, D307, D369–D373, D391, D447,
+D563, D978–D980, D1635.
+
+**Exemple de configuration.** Dans le cas 4 (banque),
+`04_banque/versions/beta/v1.0.0.0/banque/ecriture/fields.yml` :
 
 ```yaml
+# Le montant : un composé, la devise dans la valeur
 montant:
   type: amount
   currencies: [EUR, FRF]
@@ -292,26 +431,40 @@ montant:
     es: La moneda vive en el valor; el franco lleva el histórico anterior al paso al euro.
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. `price` est un composé : la
+devise va en post-zone (D391). `weight` porte un masque, dont les
+séparateurs suivent la langue (D373). La liste cherche `price` par une
+plage (D371). Le nœud `weight` prend le satellite `calculator` (D461).
 
 ```yaml
-# stock/entities/item.yml
+# Les champs : un entier, un montant, une mesure
 fields:
-  quantity: integer[0..]           # number par défaut, aligné à droite
+
+  # La quantité : un entier positif, aligné à droite
+  quantity: integer[0..]
+
+  # Le prix : un composé, la devise en post-zone
   price:
-    type: amount                   # le composé — la devise en post-zone (D391)
+    type: amount
     currencies: [EUR]
+
+  # Le poids : une mesure, le masque aux séparateurs de la langue
   weight:
     type: measure
     units: [kg, g]
-    mask: "0 000.00"               # les séparateurs selon la langue (D373)
+    mask: "0 000.00"
 
+# L'interface : la liste et le formulaire
 gui:
+
+  # La liste : la recherche du prix par une plage
   lists:
     main:
       columns: [quantity, price, weight]
-      searchable: [price]          # la plage de montants (range — D371)
+      searchable: [price]
       editable: [quantity]
+
+  # Le formulaire : la calculatrice au nœud du poids
   forms:
     record:
       page:
@@ -321,43 +474,65 @@ gui:
               - field[quantity]
               - field[price]
               - field[weight]:
-                  component: calculator   # le satellite au nœud (D461)
+                  component: calculator
 ```
 
-## `calculator`
+### `calculator`
 
-1. **Nom et famille** — `calculator`, une feuille — le satellite de
-   `number` ;
-2. **Rôle** — la calculatrice : la saisie numérique tactile, **avec les
-   calculs élémentaires** (+, −, ×, ÷) — le résultat alimente le champ ;
-3. **Types servis** — les numériques (`integer`, `decimal` et leurs
-   composés) ; **jamais un défaut — une surcharge** (`component:
-   calculator`, aux trois étages D461) ; sur smartphone et tablette,
-   **elle remplace le clavier natif** ;
-4. **Contexte consommé** — le champ (les bornes, les décimales, le
-   masque), son `mode`, les droits ;
-5. **Propriétés** — aucune propre : les touches et opérations
-   élémentaires sont livrées, le format vient du champ (D370/D373) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **la modification seulement** (la
-   calculatrice est une saisie) ; en lecture, résumé, template et
-   Excel : le rendu `number` standard ; sur PC, disponible au clic
-   (l'icône près du champ) — sur tactile, le plein usage ;
-8. **États et interactions** — grisée si `readonly`/droits ; le refus
-   des bornes affiché (D307) ;
-9. **Décisions fondatrices** — D272, D461 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `calculator`, une feuille, le satellite de
+`number`.
+
+**Rôle.** La calculatrice. Elle saisit un nombre au tactile, avec les
+calculs élémentaires : `+`, `−`, `×`, `÷`. Le résultat alimente le
+champ.
+
+**Types servis.** Les numériques : `integer`, `decimal` et leurs
+composés. Elle n'est jamais un défaut. Elle se déclare par
+`component: calculator`, aux trois étages (D461). Sur smartphone et sur
+tablette, elle remplace le clavier natif.
+
+**Contexte consommé.** Le champ : ses bornes, ses décimales, son
+masque. Son `mode`, les droits.
+
+**Propriétés.** Aucune propre. Les touches et les opérations
+élémentaires sont livrées. Le format vient du champ (D370, D373).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification seulement : la calculatrice est une saisie ;
+- en lecture, en résumé, en template et en Excel, le rendu `number`
+  standard ;
+- sur le poste informatique, elle s'ouvre au clic sur une icône près
+  du champ ; sur tactile, c'est le plein usage.
+
+**États et interactions.** La calculatrice est grisée si le champ est
+`readonly` ou si les droits l'imposent. Le refus des bornes s'affiche au
+champ (D307).
+
+**Décisions fondatrices.** D272, D307, D370, D373, D461.
+
+**Exemple de configuration.** La surcharge au champ vaut partout. La
+surcharge au nœud vaut pour ce formulaire seul (D461).
 
 ```yaml
-# sales/entities/order_line.yml
+# Les champs : deux numériques, l'un rendu partout en calculatrice
 fields:
+
+  # La quantité : un entier, la calculatrice au nœud seulement
   quantity: integer[1..]
+
+  # La remise : un décimal borné, la calculatrice partout
   discount:
     type: decimal[0..100]
     decimals: 2
-    component: calculator          # la surcharge au champ — partout
+    component: calculator
 
+# L'interface : le formulaire
 gui:
+
+  # Le formulaire : la surcharge au nœud de la quantité
   forms:
     record:
       page:
@@ -365,74 +540,100 @@ gui:
             title: { fr: Ligne }
             items:
               - field[quantity]:
-                  component: calculator   # ou au nœud seul — ce formulaire (D461)
+                  component: calculator
               - field[discount]
 ```
 
-## `gauge`
+### `gauge`
 
-1. **Nom et famille** — `gauge`, une feuille — le satellite des
-   numériques bornés ; **« la jauge étant un cas particulier d'un
-   range »** (D498 — min/value/max en une, D494) ;
-2. **Rôle** — la jauge : la valeur dans son cadre, d'un coup d'œil — la
-   barre qui se remplit entre les bornes ;
-3. **Types servis** — les numériques **bornés** (`integer[a..b]`,
-   `decimal[a..b]`, l'`amount` borné — « un montant entre 0 et
-   10 000 € », D275) ; **le choix naturel du `percentage` dans son
-   cadre 0..100** (D274) ; une surcharge (`component: gauge`) — **les
-   bornes sont exigées** : sans bornes, pas de jauge (erreur à
-   l'ingestion, l'esprit D344) ;
-4. **Contexte consommé** — le champ (les bornes, les décimales), son
-   `mode`, les droits ;
-5. **Propriétés** — **les trois valeurs en une** (D494, précise
-   D241) : `min`, `value`, `max` — min et max **fixes ou dépendants**
-   (un champ, une formule), les bornes du type (D276) en défaut ;
-   **`colors:`** (D467) — le dégradé deux couleurs (`{ min: red,
-   max: green }` — le défaut, du rouge au vert), **les seuils**
-   (`{ 0: red, 50: orange, 80: green }`) **ou la table de référence**
-   (D495 — l'entité et ses liaisons : la colonne du seuil, la colonne
-   de la couleur ; `colors: { from: quality.threshold, threshold:
-   level, color: tint }`, D1635) ;
-   **`resources:`** — l'icône selon la valeur, aux mêmes seuils que les
-   couleurs (D1609, D1611) — `resources: { 0: empty, 50: half, 80:
-   full }` ; les noms viennent du catalogue des ressources, le défaut
-   du socle se surcharge par les settings ou au champ ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **la lecture d'abord** (la valeur en un
-   regard — listes, résumés, widgets) ; en modification, le glissé
-   possible — mais `slider` est le composant de saisie dédié (D275) ;
-   template / Excel : la valeur canonique ; identique aux trois
-   écrans ;
-8. **États et interactions** — **le dépassement** : le `percentage`
-   hors cadre change de représentation (D391) ; grisée si
-   `readonly`/droits ;
-9. **Décisions fondatrices** — D241, D274–D276, D391, D467,
-   D494–D495, D498 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `gauge`, une feuille, le satellite des numériques
+bornés. « La jauge étant un cas particulier d'un range » (D498) : le
+minimum, la valeur et le maximum en une (D494).
 
-Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
+**Rôle.** La jauge. Elle montre la valeur dans son cadre, d'un coup
+d'œil : la barre qui se remplit entre les bornes.
+
+**Types servis.** Les numériques bornés : `integer[a..b]`,
+`decimal[a..b]`, l'`amount` borné, « un montant entre 0 et 10 000 € »
+(D275). Le `percentage` dans son cadre 0..100 en est le choix naturel
+(D274). La jauge se déclare par `component: gauge`. Les bornes sont
+exigées : sans bornes, pas de jauge, une erreur d'ingestion (D344).
+
+**Contexte consommé.** Le champ : ses bornes, ses décimales. Son
+`mode`, les droits.
+
+**Propriétés.**
+
+- **Les trois valeurs en une** (D494, qui précise D241) : `min`,
+  `value`, `max`. Le minimum et le maximum sont fixes ou dépendants,
+  d'un champ ou d'une formule. Les bornes du type sont le défaut
+  (D276).
+- **`colors:`** (D467), sous trois formes. Le dégradé entre deux
+  couleurs, `{ min: red, max: green }`, est le défaut, du rouge au
+  vert. Les seuils, `{ 0: red, 50: orange, 80: green }`. La table de
+  référence (D495) : une entité et ses liaisons, la colonne du seuil,
+  la colonne de la couleur,
+  `colors: { from: quality.threshold, threshold: level, color: tint }`
+  (D1635).
+- **`resources:`**, l'icône selon la valeur, aux mêmes seuils que les
+  couleurs (D1609, D1611) : `resources: { 0: empty, 50: half, 80: full }`.
+  Les noms viennent du catalogue des ressources. Le défaut du socle se
+  surcharge par les settings ou au champ.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- la lecture d'abord : la valeur en un regard, dans les listes, les
+  résumés, les widgets ;
+- en modification, le glissé est possible, mais `slider` est le
+  composant de saisie dédié (D275) ;
+- en template et en Excel, la valeur canonique ;
+- la jauge est la même sur les trois écrans.
+
+**États et interactions.** Le dépassement : un `percentage` hors de son
+cadre change de représentation (D391). La jauge est grisée si le champ
+est `readonly` ou si les droits l'imposent.
+
+**Décisions fondatrices.** D241, D274–D276, D344, D391, D467,
+D494–D495, D498, D1609, D1611, D1635.
+
+**Exemple de configuration.** Dans le cas 3 (véhicule),
+`03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
 
 ```yaml
+# Le taux annuel : un pourcentage, la jauge dans son cadre
 taux_annuel:
   type: percentage
   label: Taux annuel
   hint: Le taux nominal du crédit — 6,187.
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. Le `percentage` prend la jauge
+naturellement (D274). L'entier borné la prend par surcharge ; ses bornes
+sont exigées. En cellule de liste, la jauge se lit d'un regard.
 
 ```yaml
-# hr/entities/employee.yml
+# Les champs : un pourcentage et un entier borné
 fields:
-  satisfaction: percentage         # 0..100 — la jauge, choix naturel (D274)
+
+  # La satisfaction : de 0 à 100, la jauge est le choix naturel
+  satisfaction: percentage
+
+  # La charge : un entier borné, la jauge par surcharge
   workload:
     type: integer[0..40]
-    component: gauge               # la surcharge — les bornes exigées
+    component: gauge
 
+# L'interface : la liste et le formulaire
 gui:
+
+  # La liste : la jauge en cellule, un regard
   lists:
     main:
-      columns: [name, satisfaction, workload]   # la jauge en cellule — un regard
+      columns: [name, satisfaction, workload]
+
+  # Le formulaire
   forms:
     record:
       page:
@@ -443,91 +644,141 @@ gui:
               - field[workload]
 ```
 
-## `fuel`
+### `fuel`
 
-1. **Nom et famille** — `fuel`, une feuille — le cadran à aiguille, le
-   cousin circulaire de la jauge ;
-2. **Rôle** — le cadran de carburant : la valeur bornée en arc,
-   l'aiguille pointant la position — la lecture instantanée ;
-3. **Types servis** — les numériques **bornés** (les bornes exigées,
-   comme `gauge`) ; jamais un défaut — la surcharge ; **l'exemple
-   fondateur du projet** : le type personnalisé `progression` =
-   `integer[0..100]` + `component: fuel` (D359) ;
-4. **Contexte consommé** — le champ (les bornes, les décimales), son
-   `mode`, les droits ;
-5. **Propriétés** — l'arc se déduit des bornes ; **`colors:`** (D467) —
-   le dégradé min/max (défaut rouge → vert) ou les seuils
-   valeur → couleur ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **la lecture avant tout** (cellules,
-   résumés, widgets — le cadran est un affichage) ; en modification, la
-   saisie redevient `number` — le cadran illustre, il ne saisit pas
-   (D1635) ; template / Excel : la valeur canonique ;
-8. **États et interactions** — grisé si `readonly`/droits ; le
-   dépassement change de représentation (la ligne D391) ;
-9. **Décisions fondatrices** — D359 (l'exemple fondateur), D274–D275 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `fuel`, une feuille, le cadran à aiguille, le
+cousin circulaire de la jauge.
+
+**Rôle.** Le cadran de carburant. Il montre la valeur bornée en arc,
+l'aiguille pointant la position : la lecture instantanée.
+
+**Types servis.** Les numériques bornés. Les bornes sont exigées, comme
+pour `gauge`. Le cadran n'est jamais un défaut : il se déclare par
+surcharge. Le type personnalisé `progression`, un `integer[0..100]`
+rendu par `component: fuel`, est l'exemple fondateur de la surcharge
+(D359).
+
+**Contexte consommé.** Le champ : ses bornes, ses décimales. Son
+`mode`, les droits.
+
+**Propriétés.** L'arc se déduit des bornes. `colors:` (D467) donne le
+dégradé du minimum au maximum, du rouge au vert par défaut, ou les
+seuils, une couleur par valeur.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- la lecture avant tout : les cellules, les résumés, les widgets ; le
+  cadran est un affichage ;
+- en modification, la saisie redevient `number` ; le cadran illustre,
+  il ne saisit pas (D1635) ;
+- en template et en Excel, la valeur canonique.
+
+**États et interactions.** Le cadran est grisé si le champ est
+`readonly` ou si les droits l'imposent. Le dépassement change de
+représentation (D391).
+
+**Décisions fondatrices.** D274–D275, D359, D391, D467, D1239, D1635.
+
+**Exemple de configuration.** Le type personnalisé se déclare dans les
+settings, à l'étage de la version ou du module, sous `field:` (D1239).
+Le champ le cite en forme courte : le cadran vaut partout (D359).
 
 ```yaml
-# settings.yml — l'étage version ou module : le type fondateur (D359), sous field: (D1239)
+# Les réglages : le type personnalisé progression
 field:
+
+  # La progression : un entier de 0 à 100, rendu en cadran
   progression:
     type: integer
     min: 0
     max: 100
     component: fuel
 
-# production/entities/task.yml
+# Les champs de la tâche : la forme courte, le cadran partout
 fields:
-  name: text[60]
-  avancement: progression          # la forme courte — le cadran partout (D359)
 
+  # Le nom
+  name: text[60]
+
+  # L'avancement : le type personnalisé
+  avancement: progression
+
+# L'interface : la liste et le formulaire
 gui:
+
+  # La liste : le cadran en cellule, la lecture instantanée
   lists:
     main:
-      columns: [name, avancement]  # le cadran en cellule — la lecture instantanée
+      columns: [name, avancement]
+
+  # Le formulaire : en modification, la saisie number, le cadran illustre
   forms:
     record:
       page:
         - section:
             title: { fr: Suivi }
             items:
-              - field[avancement]  # en modification : la saisie number, le cadran illustre
+              - field[avancement]
 ```
 
-## `slider`
+### `slider`
 
-1. **Nom et famille** — `slider`, une feuille — le curseur, la saisie
-   des numériques bornés ;
-2. **Rôle** — le curseur : « une saisie simple et sans clavier »
-   (D275) — la poignée glisse entre les bornes, la valeur suit ;
-3. **Types servis** — les numériques **bornés** (les bornes exigées —
-   l'esprit `gauge`) ; jamais un défaut — la surcharge
-   (`component: slider`, aux trois étages D461) ;
-4. **Contexte consommé** — le champ (les bornes, les décimales — le pas
-   s'en déduit), son `mode`, les droits ;
-5. **Propriétés** — le pas se déduit des décimales (`decimals: 0` → pas
-   de 1) ; **`colors:`** (D467) applicable à la piste ; la valeur
-   affichée près de la poignée ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : le glissé (le tactile en
-   premier — la cible large) ; lecture : la piste figée, la valeur ;
-   résumé / template / Excel : la valeur canonique ; identique aux
-   trois écrans, le pas tactile élargi sur smartphone ;
-8. **États et interactions** — grisé si `readonly`/droits ; le clavier
-   PC : les flèches ajustent d'un pas (l'accessibilité) ;
-9. **Décisions fondatrices** — D275, D461, D467 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `slider`, une feuille, le curseur, la saisie des
+numériques bornés.
+
+**Rôle.** Le curseur : « une saisie simple et sans clavier » (D275). La
+poignée glisse entre les bornes, la valeur suit.
+
+**Types servis.** Les numériques bornés. Les bornes sont exigées, dans
+l'esprit de `gauge`. Le curseur n'est jamais un défaut : il se déclare
+par `component: slider`, aux trois étages (D461).
+
+**Contexte consommé.** Le champ : ses bornes, ses décimales, dont le
+pas se déduit. Son `mode`, les droits.
+
+**Propriétés.**
+
+- le pas se déduit des décimales : `decimals: 0` donne un pas de 1 ;
+- `colors:` (D467) s'applique à la piste ;
+- la valeur s'affiche près de la poignée.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, le glissé ; le tactile en premier, la cible est
+  large ;
+- en lecture, la piste figée et la valeur ;
+- en résumé, en template et en Excel, la valeur canonique ;
+- le curseur est le même sur les trois écrans ; le pas tactile
+  s'élargit sur smartphone.
+
+**États et interactions.** Le curseur est grisé si le champ est
+`readonly` ou si les droits l'imposent. Au clavier du poste
+informatique, les flèches ajustent d'un pas : l'accessibilité.
+
+**Décisions fondatrices.** D275, D461, D467.
+
+**Exemple de configuration.** La surcharge au champ, avec des seuils de
+couleur sur la piste (D467).
 
 ```yaml
-# hr/entities/employee.yml
+# Les champs : un entier borné saisi au curseur
 fields:
+
+  # La charge : la surcharge, la saisie au glissé
   workload:
     type: integer[0..40]
-    component: slider              # la surcharge — la saisie au glissé
-    colors: { 0: green, 30: orange, 38: red }   # les seuils (D467)
+    component: slider
+    # Les seuils de couleur de la piste
+    colors: { 0: green, 30: orange, 38: red }
 
+# L'interface : le formulaire
 gui:
+
+  # Le formulaire
   forms:
     record:
       page:
@@ -537,32 +788,43 @@ gui:
               - field[workload]
 ```
 
-## `clock`
+### `clock`
 
-1. **Nom et famille** — `clock`, une feuille ;
-2. **Rôle** — l'horloge : la saisie et l'affichage d'une heure — « le
-   cadran pour saisir ou afficher » (D277) ;
-3. **Types servis** — `time` (**le défaut du type**) ; la partie heure
-   d'un `datetime` — en tandem avec `calendar` (D280 : la date + heure
-   combine calendrier et horloge) ;
-4. **Contexte consommé** — le champ (**la précision du crochet** —
-   `time[hh]` … `time[hh:mm:ss.sss]`, D277/D383), son `mode`, les
-   droits ;
-5. **Propriétés** — rien de propre : la précision vient du type, le
-   format d'affichage de la langue (le masque de langue par défaut,
-   D383) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : **le cadran au tactile,
-   la saisie directe au clavier sur PC** (l'horloge au clic) ; lecture : l'heure formatée selon
-   la langue ; résumé / template / Excel : la valeur canonique à la
-   précision déclarée ;
-8. **États et interactions** — grisée si `readonly`/droits ; le refus
-   affiché (D307) ; en recherche : `strict` / **`range`** (la plage
-   horaire) / `mutualizable` (D381) ;
-9. **Décisions fondatrices** — D277, D381, D383 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `clock`, une feuille.
 
-Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/settings.yml` :
+**Rôle.** L'horloge. Elle saisit et affiche une heure : « le cadran
+pour saisir ou afficher » (D277).
+
+**Types servis.** `time`, dont elle est le composant par défaut. La
+partie heure d'un `datetime` aussi, en tandem avec `calendar` : la date
+et l'heure combinent le calendrier et l'horloge (D280).
+
+**Contexte consommé.** Le champ, et la précision de son crochet :
+`time[hh]` jusqu'à `time[hh:mm:ss.sss]` (D277, D383). Son `mode`, les
+droits.
+
+**Propriétés.** Rien de propre. La précision vient du type. Le format
+d'affichage vient de la langue : le masque de langue par défaut (D383).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, le cadran au tactile ; sur le poste informatique, la
+  saisie directe au clavier, l'horloge au clic ;
+- en lecture, l'heure formatée selon la langue ;
+- en résumé, en template et en Excel, la valeur canonique à la
+  précision déclarée.
+
+**États et interactions.** L'horloge est grisée si le champ est
+`readonly` ou si les droits l'imposent. Le refus s'affiche au champ
+(D307). En recherche, le mode vient du champ : `strict`, `range` pour
+une plage horaire, ou `mutualizable` (D381).
+
+**Décisions fondatrices.** D277, D280, D307, D381, D383.
+
+**Exemple de configuration.** Dans le cas 5 (entrepôt),
+`05_entrepot/versions/beta/v1.0.0.1/settings.yml` :
 
 ```yaml
 # Les champs
@@ -575,19 +837,30 @@ field:
     mask: hhmmss
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. La précision s'écrit au crochet
+(D277) ; `clock` est le défaut. La liste cherche l'ouverture par une
+plage horaire (D381).
 
 ```yaml
-# stock/entities/warehouse.yml
+# Les champs : deux heures à la minute
 fields:
-  opening: time[hh:mm]             # la précision au crochet (D277) — clock par défaut
+
+  # L'ouverture : la précision au crochet
+  opening: time[hh:mm]
+
+  # La fermeture
   closing: time[hh:mm]
 
+# L'interface : la liste et le formulaire
 gui:
+
+  # La liste : la recherche de l'ouverture par une plage horaire
   lists:
     main:
       columns: [name, opening, closing]
-      searchable: [opening]        # la plage horaire (range — D381)
+      searchable: [opening]
+
+  # Le formulaire
   forms:
     record:
       page:
@@ -598,84 +871,115 @@ gui:
               - field[closing]
 ```
 
-## `calendar`
+### `calendar`
 
-1. **Nom et famille** — `calendar`, une feuille ;
-2. **Rôle** — le calendrier : la saisie et l'affichage d'une date — la
-   vue année, mois ou semaine, et les raccourcis du quotidien ;
-3. **Types servis** — `date` (**le défaut du type**) et la partie date
-   du `datetime` (en tandem avec `clock`, D280) ; **la granularité du
-   crochet** — `date[yyyy-mm-dd]`, `[yyyy-mm]`, `[yyyy-ww]` : « le
-   calendrier au bon grain » (D382) ;
-4. **Contexte consommé** — le champ (la granularité, les bornes ISO, le
-   masque de langue D383), **la langue** (le numéro de semaine et le
-   premier jour lui sont liés — D279), le `mode`, les droits ;
-5. **Propriétés** — rien de propre : **les raccourcis livrés et
-   traduits** (aujourd'hui, la veille, hier, début et fin de mois —
-   D278), la numérotation de semaine par la langue (D279) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : **les steppers
-   [-]/[+]**, le jour d'avant et le jour d'après, au même rang que le
-   calendrier — l'écho du stepper du nombre (D270, D785) ; aucun report
-   de champ en post-zone (D786/D787) ; **smartphone = le plein
-   écran** (la semaine, le mois ou l'agenda — tactile) ; **tablette = à
-   proximité du champ** ; **PC = la saisie au clavier d'abord, le
-   calendrier par l'icône** ; lecture : la
-   date formatée à la langue ; template / Excel : la valeur canonique
-   ISO à la granularité (D382) ;
-8. **États et interactions** — grisé si `readonly`/droits ; le refus
-   des bornes affiché (D307) ; en recherche : `strict` / **`range`**
-   (la plage de dates — l'usage roi, D381) / `mutualizable` ;
-9. **Décisions fondatrices** — D278–D280, D381–D383, D785–D787 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `calendar`, une feuille.
 
-Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/consommation/fields.yml` :
+**Rôle.** Le calendrier. Il saisit et affiche une date : la vue par
+année, par mois ou par semaine, et les raccourcis du quotidien.
+
+**Types servis.** `date`, dont il est le composant par défaut. La
+partie date d'un `datetime` aussi, en tandem avec `clock` (D280). La
+granularité s'écrit au crochet : `date[yyyy-mm-dd]`, `date[yyyy-mm]`,
+`date[yyyy-ww]`, « le calendrier au bon grain » (D382).
+
+**Contexte consommé.** Le champ : sa granularité, ses bornes ISO, le
+masque de langue (D383). La langue : le numéro de semaine et le premier
+jour de la semaine en dépendent (D279). Le `mode`, les droits.
+
+**Propriétés.** Rien de propre. Les raccourcis sont livrés et
+traduits : aujourd'hui, la veille, hier, le début et la fin de mois
+(D278). La numérotation des semaines suit la langue (D279).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, les steppers `[-]` et `[+]`, le jour d'avant et le
+  jour d'après, au même rang que le calendrier, comme le stepper du
+  nombre (D270, D785) ; aucun report de champ en post-zone (D786,
+  D787) ;
+- sur smartphone, le plein écran : la semaine, le mois ou l'agenda, au
+  tactile ;
+- sur tablette, le calendrier à proximité du champ ;
+- sur le poste informatique, la saisie au clavier d'abord, le
+  calendrier par l'icône ;
+- en lecture, la date formatée selon la langue ;
+- en template et en Excel, la valeur canonique ISO, à la granularité
+  (D382).
+
+**États et interactions.** Le calendrier est grisé si le champ est
+`readonly` ou si les droits l'imposent. Le refus des bornes s'affiche
+au champ (D307). En recherche, le mode vient du champ : `strict`,
+`range` pour une plage de dates, l'usage roi (D381), ou `mutualizable`.
+
+**Décisions fondatrices.** D270, D278–D280, D307, D381–D383,
+D785–D787.
+
+**Exemple de configuration.** Dans le cas 3 (véhicule),
+`03_vehicule/versions/beta/v1.0.0.0/transport/consommation/fields.yml` :
 
 ```yaml
+# La date : le calendrier au jour
 date:
   type: date
   required: true
   label: Date
 ```
 
-Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
+Dans le cas 3 (véhicule),
+`03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml`, la
+granularité est le mois :
 
 ```yaml
+# Le premier mois : la granularité au crochet
 premier_mois:
   type: date[yyyy-mm]
   label: Premier mois
   hint: Le premier mois du financement — 2016-02, 2023-10.
 ```
 
-## `dropdown`
+### `dropdown`
 
-1. **Nom et famille** — `dropdown`, une feuille ;
-2. **Rôle** — la liste déroulante : le choix d'une valeur dans un jeu
-   fermé ;
-3. **Types servis** — `enum` (**le défaut du type**, D129/D283) ; le
-   booléen décliné en liste énumérée (la surcharge
-   `component: dropdown`, D281) ;
-4. **Contexte consommé** — le champ (**les `values`** — clé, `label`,
-   `description`-infobulle, `icon`/`image`, l'ordre de déclaration —
-   D387 ; le `default`), la langue, le `mode`, les droits ;
-5. **Propriétés** — rien de propre : tout vient des `values` du champ ;
-   **la ligne vide de l'optionnel** porte le libellé de l'entrée
-   `null:` (D388) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : la liste déroulante —
-   **smartphone : la liste plein écran** ; **PC : les
-   raccourcis clavier, la saisie au début de mots avec throttling** ;
-   lecture : le libellé (et l'icône si déclarée) ; résumé :
-   le libellé ; template / Excel : **le code ou le libellé** (D130) ;
-8. **États et interactions** — grisée si `readonly`/droits ; en
-   recherche : **la liste de sélection du jeu de valeurs,
-   multi-sélection** (D388), `mutualizable` par le libellé (D369) ;
-9. **Décisions fondatrices** — D129, D281, D283, D387–D388 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `dropdown`, une feuille.
 
-Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
+**Rôle.** La liste déroulante. Elle choisit une valeur dans un jeu
+fermé.
+
+**Types servis.** `enum`, dont elle est le composant par défaut (D129,
+D283). Le booléen décliné en liste énumérée, par la surcharge
+`component: dropdown` (D281).
+
+**Contexte consommé.** Le champ, et ses `values` : la clé, le `label`,
+la `description` en infobulle, l'`icon` ou l'`image`, l'ordre de
+déclaration (D387). Le `default`. La langue, le `mode`, les droits.
+
+**Propriétés.** Rien de propre : tout vient des `values` du champ. La
+ligne vide de l'optionnel porte le libellé de l'entrée `null:` (D388).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, la liste déroulante ; sur smartphone, la liste en
+  plein écran ; sur le poste informatique, les raccourcis clavier, et
+  la saisie au début des mots, avec un délai entre deux frappes ;
+- en lecture, le libellé, et l'icône si elle est déclarée ;
+- en résumé, le libellé ;
+- en template et en Excel, le code ou le libellé (D130).
+
+**États et interactions.** La liste est grisée si le champ est
+`readonly` ou si les droits l'imposent. En recherche, la liste de
+sélection du jeu de valeurs, en multi-sélection (D388), ou
+`mutualizable` par le libellé (D369).
+
+**Décisions fondatrices.** D129, D130, D281, D283, D369, D387–D388.
+
+**Exemple de configuration.** Dans le cas 3 (véhicule),
+`03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
 
 ```yaml
+# Le type de véhicule : un énuméré à deux valeurs
 type:
   type: enum
   required: true
@@ -687,43 +991,62 @@ type:
     electrique: { label: Électrique }
 ```
 
-## `radios`
+### `radios`
 
-1. **Nom et famille** — `radios`, une feuille ;
-2. **Rôle** — les boutons radios : le jeu de valeurs étalé sous les
-   yeux, un clic pour choisir — le choix visible sans dérouler ;
-3. **Types servis** — `enum` **aux petits jeux de valeurs** ; le
-   booléen décliné (D281) ; **jamais un défaut — la surcharge**
-   (`component: radios` — D284, D285) ; **le seuil borne la surcharge** (D468, D1612) : un
-   élément de la configuration générale, à la cascade des settings ;
-   au-delà, le champ se replie en `dropdown` — `field: { enum: {
-   radios: 5 } }` (D1635) ;
-4. **Contexte consommé** — les `values` du champ (`label`,
-   `description`, `icon` — D387), le `mode`, les droits ;
-5. **Propriétés** — rien de déclaré : la disposition se déduit de la
-   place (**les radios s'empilent sur smartphone**) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : le clic direct, tout est
-   visible ; lecture : le libellé de la valeur, sobre ; template /
-   Excel : le code ou le libellé (D130) ;
-8. **États et interactions** — grisés si `readonly`/droits ; **en
-   recherche, les radios ne servent pas** : le composant de recherche
-   de l'énuméré reste la liste multi-sélection (D388) ;
-9. **Décisions fondatrices** — D129, D281, D283–D284 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `radios`, une feuille.
+
+**Rôle.** Les boutons radios. Le jeu de valeurs est étalé sous les
+yeux, un clic choisit : le choix visible, sans dérouler.
+
+**Types servis.** `enum` aux petits jeux de valeurs. Le booléen décliné
+(D281). Les radios ne sont jamais un défaut : elles se déclarent par
+`component: radios` (D284, D285). Le seuil borne la surcharge (D468,
+D1612) : c'est un élément de la configuration générale, à la cascade
+des settings, `field: { enum: { radios: 5 } }`. Au-delà du seuil, le
+champ se replie en `dropdown` (D1635).
+
+**Contexte consommé.** Les `values` du champ : le `label`, la
+`description`, l'`icon` (D387). Le `mode`, les droits.
+
+**Propriétés.** Rien de déclaré. La disposition se déduit de la place :
+les radios s'empilent sur smartphone.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, le clic direct, tout est visible ;
+- en lecture, le libellé de la valeur, sobre ;
+- en template et en Excel, le code ou le libellé (D130).
+
+**États et interactions.** Les radios sont grisées si le champ est
+`readonly` ou si les droits l'imposent. En recherche, les radios ne
+servent pas : le composant de recherche de l'énuméré reste la liste en
+multi-sélection (D388).
+
+**Décisions fondatrices.** D129, D130, D281, D283–D285, D387–D388,
+D461, D468, D1612, D1635.
+
+**Exemple de configuration.** La surcharge au nœud : trois valeurs
+étalées, le clic direct (D461).
 
 ```yaml
-# production/entities/task.yml
+# Les champs : un énuméré à trois valeurs
 fields:
+
+  # La priorité
   priority:
     type: enum
     values:
-      low:    { label: { fr: Basse } }
+      low: { label: { fr: Basse } }
       normal: { label: { fr: Normale } }
-      high:   { label: { fr: Haute } }
+      high: { label: { fr: Haute } }
     default: normal
 
+# L'interface : le formulaire
 gui:
+
+  # Le formulaire : les radios au nœud
   forms:
     record:
       page:
@@ -731,101 +1054,147 @@ gui:
             title: { fr: Priorité }
             items:
               - field[priority]:
-                  component: radios   # la surcharge au nœud — trois valeurs
-                                      #   étalées, le clic direct (D461)
+                  component: radios
 ```
 
-## `icons`
+### `icons`
 
-1. **Nom et famille** — `icons`, une feuille ;
-2. **Rôle** — le jeu d'icônes : l'énuméré en images — chaque valeur est
-   une icône, le choix d'un regard et d'un clic ;
-3. **Types servis** — `enum` dont **les `values` portent `icon` ou
-   `image`** (D283/D387) — sans icônes déclarées, pas d'icons
-   (une erreur d'ingestion — D1635) ; jamais un défaut — la
-   surcharge (`component: icons`) ;
-4. **Contexte consommé** — les `values` du champ (`icon`/`image` ←
-   `resources/` D346, le `label` pour l'infobulle), le `mode`, les
-   droits ;
-5. **Propriétés** — **`size`** (la taille des icônes — le vocabulaire
-   unique D461) ; rien d'autre : les icônes viennent des `values` ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : les icônes étalées, la
-   sélection marquée ; **smartphone : le choix par image prend l'écran
-   et s'empile** ; lecture : l'icône de la
-   valeur, le libellé en infobulle ; template : l'icône rendue (l'image
-   au PDF, D257) ; Excel : le code ou le libellé (D130) ;
-8. **États et interactions** — grisé si `readonly`/droits ; en
-   recherche : la liste multi-sélection du jeu, icônes affichées
-   (D388) ;
-9. **Décisions fondatrices** — D283, D346, D387–D388 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `icons`, une feuille.
+
+**Rôle.** Le jeu d'icônes : l'énuméré en images. Chaque valeur est une
+icône ; le choix se fait d'un regard et d'un clic.
+
+**Types servis.** `enum` dont les `values` portent `icon` ou `image`
+(D283, D387). Sans icônes déclarées, pas d'`icons` : c'est une erreur
+d'ingestion (D1635). Le jeu d'icônes n'est jamais un défaut : il se
+déclare par `component: icons`.
+
+**Contexte consommé.** Les `values` du champ : l'`icon` ou l'`image`,
+prises dans `resources/` (D346), et le `label` pour l'infobulle. Le
+`mode`, les droits.
+
+**Propriétés.** `size:`, la taille des icônes, dans le vocabulaire
+unique des composants (D461). Rien d'autre : les icônes viennent des
+`values`.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, les icônes étalées, la sélection marquée ; sur
+  smartphone, le choix par image prend l'écran et s'empile ;
+- en lecture, l'icône de la valeur, le libellé en infobulle ;
+- en template, l'icône rendue, l'image au PDF (D257) ;
+- en Excel, le code ou le libellé (D130).
+
+**États et interactions.** Le jeu est grisé si le champ est `readonly`
+ou si les droits l'imposent. En recherche, la liste du jeu en
+multi-sélection, icônes affichées (D388).
+
+**Décisions fondatrices.** D130, D257, D283, D346, D387–D388, D461,
+D1625, D1635.
+
+**Exemple de configuration.** Chaque valeur cite son icône par
+l'identifiant d'une ressource (D1625). La surcharge au champ vaut
+partout ; la taille se règle au nœud (D461).
 
 ```yaml
-# sales/entities/customer.yml
+# Les champs : un énuméré dont chaque valeur porte une icône
 fields:
+
+  # La catégorie : les icônes partout, par la surcharge au champ
   category:
     type: enum
+    # Les valeurs : le libellé et l'identifiant d'une ressource
     values:
-      bronze: { label: { fr: Bronze }, icon: bronze }   # ← l'identifiant d'une ressource (D1625)
+      bronze: { label: { fr: Bronze }, icon: bronze }
       silver: { label: { fr: Argent }, icon: silver }
-      gold:   { label: { fr: Or },     icon: gold }
+      gold: { label: { fr: Or }, icon: gold }
     default: bronze
-    component: icons            # la surcharge au champ — les icônes partout
+    component: icons
 
+# L'interface : la liste et le formulaire
 gui:
+
+  # La liste : l'icône en cellule
   lists:
     main:
-      columns: [code, company_name, category]   # l'icône en cellule
+      columns: [code, company_name, category]
+
+  # Le formulaire : la taille des icônes au nœud
   forms:
     record:
       page:
         - section:
             title: { fr: Classification }
             items:
-              - field[category]: { size: 48px }   # la taille au nœud (D461)
+              - field[category]: { size: 48px }
 ```
 
-## `picker.record`
+## Le choix et le regard d'un objet
 
-1. **Nom et famille** — `picker.record`, une feuille ;
-2. **Rôle** — le sélecteur d'enregistrement : le choix de la cible
-   d'une référence — la liste qui cherche ;
-3. **Types servis** — **la référence** (le nom d'entité en type, D396)
-   — **le défaut** ; l'association et la liste d'entités, dont les
-   éléments se choisissent pareillement (D401) ; **la sélection se
-   déduit du lien** : la référence = unique, la liste et l'association
-   = multiple (D470 — le vocabulaire de D445) ;
-4. **Contexte consommé** — le champ (la cible, **le `filter` évalué
-   depuis la destination** avec `me.` — D395/D396), **le `title` de la
-   cible** (le visage, D465), les droits — **les actifs seuls** à la
-   sélection (D398) ;
-5. **Propriétés** — **`by:`** — la présentation (D474) : le nom d'une
-   liste de la cible → la liste ; le nom de son champ-image → la
-   galerie de visages ; absent → la liste par défaut filtrée ;
-   **`selection:`** — le nombre d'éléments (`1`, `1..`, `1..5` — la
-   déduction du lien en défaut, D470/D474) ;
-   **`anchor:`** (D469) — l'ancrage de la liste : `center` (le centre
-   de l'écran), `right` (à droite du champ), `field` (à la place du
-   champ) — *défauts au moteur selon l'écran (smartphone = plein
-   écran)* ; **`dimension:`** (D469 — la réutilisation de D454) — plein
-   écran ou le pourcentage **en largeur et en hauteur**
-   (`dimension: 60% 80%`) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : la liste à recherche **au
-   début de mots avec throttling** (le PC aux raccourcis clavier) ; smartphone : la liste plein écran ; lecture : **le titre
-   de la cible + le lien vers sa fiche en lecture seule** (D215) ;
-   résumé : le titre ; template : le titre ; **CSV : la clé
-   fonctionnelle** (l'UUID jamais — D398) ;
-8. **États et interactions** — grisé si `readonly`/droits ; **le filtre
-   restreint les candidats** (D395 — `check: immutable` surveille
-   ensuite) ; la sélection ne propose que les actifs (D398) ;
-9. **Décisions fondatrices** — D215, D284, D395–D398, D465 ;
-10. **Exemple de configuration** —
+Les feuilles de cette partie rendent un objet : un enregistrement
+pointé, un fichier, une image, une position, un fil d'échanges, une
+collection de valeurs. Elles le choisissent, et le donnent à regarder.
 
-Dans le cas 4 (banque), `04_banque/versions/beta/v1.0.0.0/banque/ecriture/fields.yml` :
+### `picker.record`
+
+**Nom et famille.** `picker.record`, une feuille, de la famille des
+pickers (D470).
+
+**Rôle.** Le sélecteur d'enregistrement. Il choisit la cible d'une
+référence : la liste qui cherche.
+
+**Types servis.** La référence, dont le type est le nom de l'entité
+(D396) : le sélecteur en est le défaut. L'association et la liste
+d'entités aussi : leurs éléments se choisissent de la même façon
+(D401). La sélection se déduit du lien : la référence est unique, la
+liste et l'association sont multiples (D470, dans le vocabulaire de
+D445).
+
+**Contexte consommé.** Le champ : sa cible, son `filter`, évalué depuis
+la destination avec `me.` (D395, D396). Le `title` de la cible, son
+visage (D465). Les droits. À la sélection, les actifs seuls (D398).
+
+**Propriétés.**
+
+- **`by:`**, la présentation (D474). Le nom d'une liste de la cible
+  ouvre cette liste. Le nom de son champ image ouvre la galerie des
+  visages. Sans `by:`, la liste par défaut, filtrée.
+- **`selection:`**, le nombre d'éléments : `1`, `1..`, `1..5`. Le défaut
+  se déduit du lien (D470, D474).
+- **`anchor:`**, l'ancrage de la liste (D469) : `center`, au centre de
+  l'écran ; `right`, à droite du champ ; `field`, à la place du champ.
+  Le moteur a ses défauts selon l'écran ; sur smartphone, le plein
+  écran.
+- **`dimension:`** (D469, qui reprend D454) : le plein écran, ou le
+  pourcentage en largeur et en hauteur, `dimension: 60% 80%`.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, la liste à recherche, au début des mots, avec un
+  délai entre deux frappes ; sur le poste informatique, les raccourcis
+  clavier ; sur smartphone, la liste en plein écran ;
+- en lecture, le titre de la cible et le lien vers sa fiche en lecture
+  seule (D215) ;
+- en résumé et en template, le titre ;
+- en CSV, la clé fonctionnelle, jamais l'UUID (D398).
+
+**États et interactions.** Le sélecteur est grisé si le champ est
+`readonly` ou si les droits l'imposent. Le filtre restreint les
+candidats (D395) ; `check: immutable` surveille ensuite. La sélection
+ne propose que les actifs (D398).
+
+**Décisions fondatrices.** D215, D284, D395–D398, D401, D445, D454,
+D465, D469–D470, D474.
+
+**Exemple de configuration.** Dans le cas 4 (banque),
+`04_banque/versions/beta/v1.0.0.0/banque/ecriture/fields.yml` :
 
 ```yaml
+# Le budget : une référence, le sélecteur par défaut
 budget:
   type: banque.budget
   searchable: mutualizable[recherche]
@@ -836,17 +1205,25 @@ budget:
     es: El referencial dinámico — la creación directa desde el selector.
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. La référence (D396) prend le
+sélecteur par défaut. Le filtre restreint les candidats (D395). Au nœud,
+la présentation et la cardinalité (D474), l'ancrage (D469) et la
+dimension, largeur puis hauteur (D454, D469).
 
 ```yaml
-# hr/entities/employment.yml
+# Les champs : une référence filtrée
 fields:
+
+  # Le responsable : la référence, ses candidats restreints
   responsible:
-    type: hr.employee              # la référence (D396) — record-picker par défaut
-    filter: company = me.company   # les candidats restreints (D395)
+    type: hr.employee
+    filter: company = me.company
     check: immutable
 
+# L'interface : le formulaire
 gui:
+
+  # Le formulaire : la présentation, la cardinalité, l'ancrage et la dimension
   forms:
     record:
       page:
@@ -854,40 +1231,53 @@ gui:
             title: { fr: Encadrement }
             items:
               - field[responsible]:
-                  by: active_employees          # la présentation — la liste (D474)
-                  selection: 1                  # la cardinalité (D474)
-                  anchor: right                 # à droite du champ (D469)
-                  dimension: 60% 80%            # largeur × hauteur (D454/D469)
+                  by: active_employees
+                  selection: 1
+                  anchor: right
+                  dimension: 60% 80%
 ```
 
-## `picker.image`
+### `picker.image`
 
-1. **Nom et famille** — `picker.image`, une feuille — **la dérivée de
-   `picker.file`** (D473), la famille `picker` (D470) ;
-2. **Rôle** — le choix d'un ou plusieurs **fichiers images** — « dont
-   la liste des formats est exploitable par Syncytium » (D473) ;
-3. **Types servis** — `image` et `thumbnail` (**leur défaut** —
-   D385/D389) ; le « un ou plusieurs » suit le type (la liste — D470) ;
-4. **Contexte consommé** — le champ (les `extensions` du jeu image, le
-   `quota`, les dimensions du crochet — D389), le `mode`, les droits ;
-5. **Propriétés** — `anchor:` et `dimension:` (la famille — D469) ;
-   rien d'autre : les formats exploitables bornent d'eux-mêmes ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : le dépôt (glisser ou
-   parcourir) — **sur smartphone, l'appareil photo et la galerie**
-   (D292) ; **l'aperçu immédiat au dépôt** (D293), la vignette calculée
-   (D286/D389) ; lecture : la vignette, la visionneuse au clic (plein
-   écran / pourcentage / zone — D293) ; template : l'image rendue
-   (D257) ; CSV : le nom du fichier ;
-8. **États et interactions** — grisé si `readonly`/droits ; le refus
-   des formats hors jeu et du quota, propre (D307/D384) ;
-9. **Décisions fondatrices** — D286, D292–D293, D385, D389, D470,
-   D473 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `picker.image`, une feuille, la dérivée de
+`picker.file` (D473), de la famille des pickers (D470).
 
-Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
+**Rôle.** Le choix d'un ou plusieurs fichiers images, « dont la liste
+des formats est exploitable par Syncytium » (D473).
+
+**Types servis.** `image` et `thumbnail`, dont il est le défaut (D385,
+D389). Le « un ou plusieurs » suit le type : la liste (D470).
+
+**Contexte consommé.** Le champ : les `extensions` du jeu image, le
+`quota`, les dimensions du crochet (D389). Le `mode`, les droits.
+
+**Propriétés.** `anchor:` et `dimension:`, celles de la famille (D469).
+Rien d'autre : les formats exploitables bornent d'eux-mêmes.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, le dépôt : glisser ou parcourir ; sur smartphone,
+  l'appareil photo et la galerie (D292) ; l'aperçu est immédiat au
+  dépôt (D293), la vignette calculée (D286, D389) ;
+- en lecture, la vignette, et la visionneuse au clic : le plein écran,
+  le pourcentage ou la zone (D293) ;
+- en template, l'image rendue (D257) ;
+- en CSV, le nom du fichier.
+
+**États et interactions.** Le sélecteur est grisé si le champ est
+`readonly` ou si les droits l'imposent. Le refus des formats hors jeu et
+du quota est propre (D307, D384).
+
+**Décisions fondatrices.** D257, D286, D292–D293, D307, D384–D385,
+D389–D390, D469–D470, D473, D1625.
+
+**Exemple de configuration.** Dans le cas 3 (véhicule),
+`03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
 
 ```yaml
+# La photo : une image, la vignette automatique
 photo:
   type: image[512x512]
   label: Photo
@@ -895,54 +1285,76 @@ photo:
   description: Le visage porté par l'image ; la vignette est automatique.
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. Le crochet donne la boîte
+maximale, et la vignette se calcule (D389). Le `placeholder:` est
+l'icône de fond (D390), citée par l'identifiant d'une ressource (D1625).
+Le sélecteur est le défaut : le dépôt, la caméra, la galerie.
 
 ```yaml
-# hr/entities/employee.yml
+# Les champs : une image avec son icône de fond
 fields:
-  photo:
-    type: image[512x512]           # la boîte max, la vignette auto (D389)
-    placeholder: avatar            # l'icône de fond (D390), une ressource (D1625)
 
+  # La photo : la boîte maximale au crochet, l'icône de fond
+  photo:
+    type: image[512x512]
+    placeholder: avatar
+
+# L'interface : le formulaire
 gui:
+
+  # Le formulaire : picker.image par défaut
   forms:
     record:
       page:
         - section:
             title: { fr: Profil }
             items:
-              - field[photo]       # picker.image par défaut — dépôt, caméra, galerie
+              - field[photo]
 ```
 
-## `picker.file`
+### `picker.file`
 
-1. **Nom et famille** — `picker.file`, une feuille — la famille
-   `picker` (D470/D473) ;
-2. **Rôle** — le choix d'un ou plusieurs fichiers **quelconques** — le
-   dépôt (glisser) et le parcours ;
-3. **Types servis** — `file` (**le défaut du type**, D384) ; le nombre
-   suit le type et `selection:` (D474) ;
-4. **Contexte consommé** — le champ (**les `extensions`** — la liste
-   simple ou à libellés « la facture (pdf) », D384 ; **le `quota`**
-   D162/D365), le `mode`, les droits ;
-5. **Propriétés** — `selection:` (le nombre — D474), `anchor:` et
-   `dimension:` (la famille — D469) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : **le glisser-déposer et
-   le parcours** ; smartphone : l'appareil photo et la galerie si le
-   jeu d'extensions le permet, le gestionnaire de fichiers sinon
-   (D292) ; **la forme à libellés guide le dépôt** (« déposez la
-   facture (pdf) » — D384) ; lecture : le nom et les métadonnées, le
-   téléchargement sous droits ; template / CSV : le nom du fichier ;
-8. **États et interactions** — grisé si `readonly`/droits ; **le refus
-   propre** des extensions hors jeu et du quota (D307/D384) ; la
-   déduplication silencieuse au moteur (D165) ;
-9. **Décisions fondatrices** — D160–D165, D292, D384, D469–D474 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `picker.file`, une feuille, de la famille des
+pickers (D470, D473).
 
-Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/technique/article/vie.yml` :
+**Rôle.** Le choix d'un ou plusieurs fichiers quelconques : le dépôt,
+par glisser, et le parcours.
+
+**Types servis.** `file`, dont il est le composant par défaut (D384).
+Le nombre suit le type et `selection:` (D474).
+
+**Contexte consommé.** Le champ : ses `extensions`, en liste simple ou
+à libellés, « la facture (pdf) » (D384) ; son `quota` (D162, D365). Le
+`mode`, les droits.
+
+**Propriétés.** `selection:`, le nombre (D474). `anchor:` et
+`dimension:`, celles de la famille (D469).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en modification, le glisser-déposer et le parcours ; sur smartphone,
+  l'appareil photo et la galerie si le jeu d'extensions le permet, le
+  gestionnaire de fichiers sinon (D292) ; la forme à libellés guide le
+  dépôt, « déposez la facture (pdf) » (D384) ;
+- en lecture, le nom et les métadonnées ; le téléchargement sous
+  droits ;
+- en template et en CSV, le nom du fichier.
+
+**États et interactions.** Le sélecteur est grisé si le champ est
+`readonly` ou si les droits l'imposent. Le refus des extensions hors jeu
+et du quota est propre (D307, D384). La déduplication est silencieuse,
+au moteur (D165).
+
+**Décisions fondatrices.** D160–D165, D292, D307, D365, D384,
+D469–D474.
+
+**Exemple de configuration.** Dans le cas 5 (entrepôt),
+`05_entrepot/versions/beta/v1.0.0.1/technique/article/vie.yml` :
 
 ```yaml
+# Les plans : une liste de fichiers, les extensions en liste simple
 plans:
   type: list of file
   extensions: [pdf, dwg, dxf, step]
@@ -951,19 +1363,26 @@ plans:
   description: La liste est remplie par le connecteur des plans, en complément de la base d'origine.
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. La forme à libellés des
+extensions guide le dépôt (D384). Au nœud, `selection: 1` n'admet qu'un
+fichier (D474).
 
 ```yaml
-# sales/entities/customer.yml
+# Les champs : un fichier aux extensions à libellés
 fields:
+
+  # La facture : les extensions à libellés, le quota
   invoice:
     type: file
     extensions:
-      pdf:  { fr: facture }        # la forme à libellés (D384) — guide le dépôt
+      pdf: { fr: facture }
       docx: { fr: document qualité }
     quota: 10MB
 
+# L'interface : le formulaire
 gui:
+
+  # Le formulaire : un seul fichier
   forms:
     record:
       page:
@@ -971,81 +1390,115 @@ gui:
             title: { fr: Documents }
             items:
               - field[invoice]:
-                  selection: 1     # un seul fichier (D474)
+                  selection: 1
 ```
 
-## `viewer`
+### `viewer`
 
-1. **Nom et famille** — `viewer`, une feuille — « image-viewer et
-   carousel sont un même objet : viewer » (D475) ; **« viewer est le
-   composant graphique et carousel un mode d'affichage »** (D477) ;
-2. **Rôle** — la visionneuse : **le fichier regardé** — la vignette en
-   place, le plein cadre au clic ; **tout type visualisable** : l'image
-   n'est « qu'un type parmi tant d'autres » — PDF, Word, Excel,
-   PowerPoint… ; **les collections**, par le mode carousel ; **le
-   document paginé feuilleté** — « un carrousel d'un document PDF
-   correspond à un défilement des pages » (D481) ; et **le document
-   généré** — « le fichier de la facture n'existe pas en tant que tel
-   mais comme un PDF généré à partir des informations de la facture et
-   de ses lignes : un viewer peut faire référence à un template de
-   document à générer » (D483) ;
-3. **Types servis** — `image` et `thumbnail` **en lecture** (le défaut
-   de leur mode lecture — D286/D293) ; `file` dont le format est
-   visualisable (la vignette de fichier sinon) ; les collections :
-   `list of image`, une association ou une liste d'entités **au
-   visage** (`image:` — D386), une liste de fichiers ; **le document
-   paginé seul** (PDF, PowerPoint…) en mode carousel — la page fait
-   l'image (D481) ; **le template** — le document généré à la volée
-   depuis l'enregistrement, sans fichier stocké (D483) ;
-4. **Contexte consommé** — le champ ou le lien (D470), **ou le
-   template et l'enregistrement** (la génération à la volée — D483),
-   les dimensions du crochet et la vignette auto (D389), le
-   `placeholder` (D390), les visages des cibles, les droits ;
-5. **Propriétés** — `dimension:` (la visionneuse — D454/D469/D484) ;
-   **`mode:`** — « le viewer peut afficher une image, une planche ou
-   un carousel » (D478) : `image` (le fichier seul en vignette),
-   `mosaic` (la planche de vignettes — le nom acté D480) —
-   « besoin de préciser le nombre d'images en colonne et en ligne dans
-   la zone » (D479) : le crochet `mosaic[4x3]`, colonnes × lignes, en
-   **raccourci** de la propriété en clair **`sheet:`** —
-   `sheet: 4x3` (D480/D482) ; absent = l'auto selon la zone ; `carousel` (la succession qui défile) ; déduit du contenu — le
-   fichier seul → `image`, la collection → `carousel` (D477) ; **le
-   crochet est un raccourci de la définition du mode** :
-   `viewer[carousel]` ≡ `mode: carousel` (D478) ; `interval:` — le
-   défilement automatique du carrousel (`interval: 5s` — D476 ;
-   absent = manuel seul) ; en items, **`template[<nom>]`** référence le
-   document à générer (l'écho de `field[<nom>]` D460 ; viewer, son
-   composant naturel — D1635) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **`image`** : la vignette, la
-   visionneuse au clic — plein écran sur smartphone, pourcentage sur
-   tablette, zone définie sur PC (D293) ; **`mosaic`** : la planche —
-   les vignettes de la collection en grille, `mosaic[4x3]` fixant
-   colonnes × lignes (D479 — l'excédent se feuillette), le clic ouvrant
-   la visionneuse ; **`carousel`** : « une liste ou une association
-   faisant référence à des images et/ou des vignettes de fichiers » —
-   la succession qui défile, « à intervalle régulier, sur la pression
-   d'une touche avant/après » (D475), le clic ouvrant la visionneuse ;
-   cellule et widget : la vignette (D286) ; template : l'image rendue
-   (D257), le carrousel rendu en planche (D1635) ; **pas de
-   recadrage dans le socle** (le hook D263) ;
-8. **États et interactions** — le `placeholder` tant que le fichier
-   manque ou que la collection est vide (D390) ; le zoom et la
-   fermeture au geste sur tactile ; les commandes avant/après, la pause
-   au survol ;
-9. **Décisions fondatrices** — D257, D286, D293, D386, D389–D390,
-   D475–D483 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `viewer`, une feuille. « Image-viewer et carousel
+sont un même objet : viewer » (D475). « Viewer est le composant
+graphique et carousel un mode d'affichage » (D477).
+
+**Rôle.** La visionneuse : le fichier regardé. La vignette en place, le
+plein cadre au clic. Elle sert :
+
+- tout type visualisable : l'image n'est « qu'un type parmi tant
+  d'autres », avec le PDF, le Word, l'Excel, le PowerPoint… ;
+- les collections, par le mode carousel ;
+- le document paginé, feuilleté : « un carrousel d'un document PDF
+  correspond à un défilement des pages » (D481) ;
+- le document généré : « le fichier de la facture n'existe pas en tant
+  que tel mais comme un PDF généré à partir des informations de la
+  facture et de ses lignes : un viewer peut faire référence à un
+  template de document à générer » (D483).
+
+**Types servis.**
+
+- `image` et `thumbnail` en lecture : la visionneuse est le défaut de
+  leur mode lecture (D286, D293) ;
+- `file`, si son format est visualisable ; sinon la vignette de
+  fichier ;
+- les collections : une `list of image`, une association ou une liste
+  d'entités au visage, par `image:` (D386), une liste de fichiers ;
+- le document paginé seul, PDF ou PowerPoint, en mode carousel : la
+  page fait l'image (D481) ;
+- le template : le document généré à la volée depuis l'enregistrement,
+  sans fichier stocké (D483).
+
+**Contexte consommé.** Le champ ou le lien (D470), ou le template et
+l'enregistrement pour la génération à la volée (D483). Les dimensions
+du crochet et la vignette automatique (D389). Le `placeholder` (D390).
+Les visages des cibles. Les droits.
+
+**Propriétés.**
+
+- **`dimension:`**, celle de la visionneuse (D454, D469, D484).
+- **`mode:`** : « le viewer peut afficher une image, une planche ou un
+  carousel » (D478). `image` montre le fichier seul en vignette.
+  `mosaic` montre la planche de vignettes (D480). `carousel` montre la
+  succession qui défile. Sans `mode:`, il se déduit du contenu : le
+  fichier seul donne `image`, la collection donne `carousel` (D477).
+  Le crochet est un raccourci de la définition du mode :
+  `viewer[carousel]` vaut `mode: carousel` (D478).
+- **`sheet:`**, la planche : il y a « besoin de préciser le nombre
+  d'images en colonne et en ligne dans la zone » (D479). `sheet: 4x3`
+  donne quatre colonnes et trois lignes. Le crochet `mosaic[4x3]` en
+  est le raccourci (D480, D482). Sans `sheet:`, la planche s'adapte à
+  la zone.
+- **`interval:`**, le défilement automatique du carrousel,
+  `interval: 5s` (D476). Sans `interval:`, le défilement est manuel.
+- **`template[<nom>]`**, en item d'une surface, référence le document à
+  générer, sur le modèle de `field[<nom>]` (D460). La visionneuse en
+  est le composant naturel (D1635).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- `image` : la vignette, la visionneuse au clic ; le plein écran sur
+  smartphone, le pourcentage sur tablette, la zone définie sur le poste
+  informatique (D293) ;
+- `mosaic` : la planche, les vignettes de la collection en grille ;
+  `mosaic[4x3]` fixe les colonnes et les lignes, l'excédent se
+  feuillette (D479) ; le clic ouvre la visionneuse ;
+- `carousel` : « une liste ou une association faisant référence à des
+  images et/ou des vignettes de fichiers », la succession qui défile,
+  « à intervalle régulier, sur la pression d'une touche avant/après »
+  (D475) ; le clic ouvre la visionneuse ;
+- en cellule et en widget, la vignette (D286) ;
+- en template, l'image rendue (D257) ; le carrousel se rend en planche
+  (D1635) ;
+- pas de recadrage dans le socle : c'est un hook (D263).
+
+**États et interactions.** Le `placeholder` tient la place tant que le
+fichier manque ou que la collection est vide (D390). Sur tactile, le
+zoom et la fermeture au geste. Les commandes avant et après ; la pause
+au survol.
+
+**Décisions fondatrices.** D257, D263, D286, D293, D386, D389–D390,
+D454, D460, D469–D470, D475–D484, D1625, D1635.
+
+**Exemple de configuration.** Le fichier seul : la boîte maximale au
+crochet et la vignette automatique (D389), l'icône de fond par
+l'identifiant d'une ressource (D390, D1625), la visionneuse au clic
+(D293), le PDF visualisé en place (D475).
 
 ```yaml
-# hr/entities/employee.yml — le fichier seul
+# Les champs : une image et un contrat
 fields:
+
+  # La photo : la boîte maximale, la vignette automatique, l'icône de fond
   photo:
-    type: image[512x512]           # la boîte max, la vignette auto (D389)
-    placeholder: avatar            # l'icône de fond (D390), une ressource (D1625)
+    type: image[512x512]
+    placeholder: avatar
+
+  # Le contrat : un PDF, visualisé en place
   contract: { type: file, extensions: [pdf] }
 
+# L'interface : le formulaire
 gui:
+
+  # Le formulaire : la visionneuse au clic sur la photo
   forms:
     record:
       page:
@@ -1053,101 +1506,152 @@ gui:
             title: { fr: Profil }
             items:
               - field[photo]:
-                  dimension: 60%   # la visionneuse au clic (D293)
-              - field[contract]    # le PDF visualisé en place (D475)
+                  dimension: 60%
+              - field[contract]
+```
 
-# catalog/entities/product.yml — la collection : le mode carousel
+La collection, une `list of image` (D362, D385) : le carrousel se
+déduit (D477), le défilement automatique s'ajoute (D476). La planche
+s'écrit au crochet (D479) ou en clair (D482).
+
+```yaml
+# Les champs : une collection d'images
 fields:
-  gallery:
-    type: list of image            # la collection d'images (D362/D385)
 
+  # La galerie
+  gallery:
+    type: list of image
+
+# L'interface : le formulaire, trois rendus de la même galerie
 gui:
+
+  # Le formulaire : le carrousel déduit, puis la planche, au crochet et en clair
   forms:
     record:
       page:
         - section:
             title: { fr: Galerie }
             items:
-              - field[gallery]:    # la collection => carousel déduit (D477)
-                  interval: 5s     # le défilement automatique (D476)
               - field[gallery]:
-                  component: viewer[mosaic[4x3]]   # la planche : 4 colonnes × 3 lignes (D479)
-              - field[gallery]:                    # la même, en clair (D482)
+                  interval: 5s
+              - field[gallery]:
+                  component: viewer[mosaic[4x3]]
+              - field[gallery]:
                   component: viewer
                   mode: mosaic
-                  sheet: 4x3       # la planche : colonnes x lignes
+                  sheet: 4x3
+```
 
-# workshop/entities/procedure.yml — le document paginé feuilleté (D481)
+Le document paginé, feuilleté (D481) : une présentation, un mode
+opératoire.
+
+```yaml
+# Les champs : un document paginé
 fields:
+
+  # Le manuel : un PDF ou un PowerPoint
   handbook:
     type: file
     extensions: [pdf, pptx]
+
+# L'interface : le formulaire
 gui:
+
+  # Le formulaire : le défilement des pages, automatique
   forms:
     record:
       page:
         - field[handbook]:
-            component: viewer[carousel]  # le défilement des pages
-            interval: 10s                # la présentation, le mode opératoire
+            component: viewer[carousel]
+            interval: 10s
+```
 
-# sales/entities/order.yml — le document généré, regardé (D483)
+Le document généré, regardé (D483) : la facture est produite à la volée
+depuis l'enregistrement, et ses pages se feuillettent (D481).
+
+```yaml
+# L'interface : le patron du document et sa visionneuse
 gui:
+
+  # Le template : le patron de la facture
   templates:
-    invoice: …                           # le patron du document (Q55)
+    invoice:
+      page:
+        - field[number]
+        - field[customer]
+
+  # Le formulaire : la facture générée à la volée, ses pages feuilletées
   forms:
     record:
       page:
-        - template[invoice]:             # la facture générée à la volée —
-            component: viewer[carousel]  # ses pages feuilletées (D481)
+        - template[invoice]:
+            component: viewer[carousel]
 ```
 
-## `map`
+### `map`
 
-1. **Nom et famille** — `map`, une feuille — la carte : le composant
-   naturel de `geolocation` (D458) ;
-2. **Rôle** — **la géolocalisation regardée et saisie** : la mini-carte
-   centrée au marqueur en lecture ; le pointage sur la carte en
-   saisie (D294) ;
-3. **Types servis** — `geolocation` (le composé D391–D392 : les
-   coordonnées + le texte associé — l'adresse, le lieu) ; **la liste
-   de coordonnées** (`list of geolocation`, l'association aux
-   coordonnées) — « le composant doit pouvoir s'adapter » (D513) :
-   les marqueurs multiples sur une même carte, **les lignes possibles
-   ou pas** (D513–D514 : « les lieux de commandes pour un produit » —
-   sans relier ; « le parcours d'un commercial » — relié **au trait
-   droit** ; `lines: true | false`, défaut `false` — D1635) ; **le tracé de la route = un hook** (« les abonnements
-   aux outils annexes » — le patron du géocodage D294, OSRM/Valhalla
-   en candidats open source, Q7) ;
-4. **Contexte consommé** — la valeur (coordonnées et texte associé —
-   D392), **le fond de carte déclaré à l'instance** (D259/D294), la
-   focale (`focus:` au champ ou hérité du setting — D391), **la
-   position courante du terminal** (D291), les droits ;
-5. **Propriétés** — le socle du vocabulaire (D461 : style,
-   readonly…) ; **`size:`** — la mini-carte à l'affichage ;
-   **`dimension:`** — la carte dépliée au clic (**le couple D484** :
-   size à plat, dimension en extension) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **saisie** : pointer sur la carte (le
-   bloc dédié D199), le lat/long au clavier, l'adresse géocodée
-   (D294 — le connecteur, défaut open source : BAN/Addok, Nominatim),
-   **« ma position » en point de départ** (D291) ; **lecture** : la
-   mini-carte centrée + le marqueur, le texte associé en légende
-   (D392) ; **cellule** : le lat/long en texte court — le clic déplie
-   la carte (D294) ; widget : idem cellule ; **template** : une image
-   de la carte (D257) ; **CSV/Excel** : `lat,long` canonique,
-   ré-importable (D294) ; **le tri : la distance à vol d'oiseau,
-   relative à la focale** (D391 — amende D125) ; pas de filtre dans le
-   socle (la proximité = un hook) ;
-8. **États et interactions** — la position courante **sous réserve de
-   l'autorisation du terminal** (D291) ; grisé si `readonly`/droits ;
-   le zoom et le déplacement au geste ;
-9. **Décisions fondatrices** — D125, D199, D257, D259, D291, D294,
-   D391–D392, D484, D513–D514 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `map`, une feuille, la carte : le composant naturel
+de `geolocation` (D458).
 
-Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/commande/commande_vente/fields.yml` :
+**Rôle.** La géolocalisation regardée et saisie. En lecture, la
+mini-carte centrée sur le marqueur. En saisie, le pointage sur la carte
+(D294).
+
+**Types servis.** `geolocation`, le composé (D391, D392) : les
+coordonnées et le texte associé, l'adresse ou le lieu. La liste de
+coordonnées aussi, `list of geolocation` ou l'association aux
+coordonnées : « le composant doit pouvoir s'adapter » (D513). Les
+marqueurs sont alors multiples sur une même carte, reliés ou non
+(D513, D514) : « les lieux de commandes pour un produit » sans relier,
+« le parcours d'un commercial » relié au trait droit. `lines: true` ou
+`lines: false` le dit ; le défaut est `false` (D1635). Le tracé d'une
+route est un hook, « les abonnements aux outils annexes », sur le patron
+du géocodage (D294) ; OSRM et Valhalla en sont les candidats open
+source.
+
+**Contexte consommé.** La valeur : les coordonnées et le texte associé
+(D392). Le fond de carte déclaré à l'instance (D259, D294). La focale,
+`focus:` au champ ou hérité du setting (D391). La position courante du
+terminal (D291). Les droits.
+
+**Propriétés.**
+
+- le socle du vocabulaire (D461) : `style:`, `readonly:`… ;
+- `size:`, la mini-carte à l'affichage ;
+- `dimension:`, la carte dépliée au clic. Les deux forment un couple
+  (D484) : `size:` à plat, `dimension:` en extension.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en saisie, pointer sur la carte, dans le bloc dédié (D199) ; la
+  latitude et la longitude au clavier ; l'adresse géocodée par le
+  connecteur, open source par défaut, BAN/Addok ou Nominatim (D294) ;
+  « ma position » en point de départ (D291) ;
+- en lecture, la mini-carte centrée et le marqueur, le texte associé en
+  légende (D392) ;
+- en cellule, la latitude et la longitude en texte court ; le clic
+  déplie la carte (D294) ; en widget, comme en cellule ;
+- en template, une image de la carte (D257) ;
+- en CSV et en Excel, `lat,long` canonique, ré-importable (D294) ;
+- le tri, par la distance à vol d'oiseau, relative à la focale (D391,
+  qui amende D125) ; pas de filtre dans le socle : la proximité est un
+  hook.
+
+**États et interactions.** La position courante est lue sous réserve de
+l'autorisation du terminal (D291). La carte est grisée si le champ est
+`readonly` ou si les droits l'imposent. Le zoom et le déplacement au
+geste.
+
+**Décisions fondatrices.** D125, D199, D257, D259, D291, D294,
+D391–D392, D458, D461, D484, D513–D514, D1635.
+
+**Exemple de configuration.** Dans le cas 5 (entrepôt),
+`05_entrepot/versions/beta/v1.0.0.1/commande/commande_vente/fields.yml` :
 
 ```yaml
+# L'adresse de livraison : une géolocalisation calculée par le géocodage
 adresse_livraison:
   type: geolocation
   formula: >-
@@ -1160,20 +1664,33 @@ adresse_livraison:
     la condition, la géolocalisation refuse le texte vide : le calculé est nul quand la ville manque.
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. La géolocalisation porte les
+coordonnées et le texte associé (D392). La focale du tri se déclare au
+champ ; sans elle, « ma position » (D391). En cellule, le texte court,
+le clic déplie la carte (D294). Au nœud, le couple `size:` et
+`dimension:` (D484).
 
 ```yaml
-# logistics/entities/site.yml
+# Les champs : un nom et une position
 fields:
-  name: text
-  location:
-    type: geolocation            # coordonnées + texte associé (D392)
-    # focus: 48.86,2.35          # la focale du tri — défaut : ma position (D391)
 
+  # Le nom
+  name: text
+
+  # La position : les coordonnées et le texte associé, la focale du tri
+  location:
+    type: geolocation
+    focus: 48.86,2.35
+
+# L'interface : la liste et le formulaire
 gui:
+
+  # La liste : le texte court en cellule, le clic déplie la carte
   lists:
     main:
-      columns: [name, location]  # lat,long court — le clic déplie la carte (D294)
+      columns: [name, location]
+
+  # Le formulaire : la mini-carte à plat, la carte dépliée au clic
   forms:
     record:
       page:
@@ -1181,193 +1698,258 @@ gui:
             title: { fr: Localisation }
             items:
               - field[location]:
-                  size: 200px      # la mini-carte à l'affichage (D484)
-                  dimension: 60%   # la carte dépliée au clic (D484)
+                  size: 200px
+                  dimension: 60%
 ```
 
-## `thread`
+### `thread`
 
-1. **Nom et famille** — `thread`, une feuille — le fil : le composant
-   naturel de `communication` (D458) ;
-2. **Rôle** — **le fil chronologique regardé et nourri** : les messages
-   immuables — auteur, horodatage, contenu —, la saisie du nouveau
-   message en bas (D295) ;
-3. **Types servis** — `communication` (D166/D393 : un canal = un champ,
-   non listable ; l'auteur et l'horodatage générés, jamais déclarés) ;
-4. **Contexte consommé** — le fil et ses attachés (`attachments:` —
-   `file`, `image` ou `thumbnail`, leurs propriétés à plat sur le
-   champ — D393), **la confidentialité** (D25/D364 — la visibilité du
-   fil s'y cale, aucune propriété séparée), les notifications opt-in
-   (D108–D110), les droits ;
-5. **Propriétés** — le socle du vocabulaire (D461) ; **`preview:`** —
-   le nombre de lignes du résumé au survol en cellule (D393 — la
-   forme `preview: 3`, D1635) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **saisie et lecture** : le fil
-   chronologique, la saisie en bas, les pièces jointes si activées
-   (D295) — **le fil épouse son contenant** : une section, un onglet…
-   « ça prend la place qu'on lui laisse » (D485 — l'onglet de
-   D167/D186, un habitat parmi d'autres) ; **smartphone** :
-   le fil en plein écran (D295) ; **cellule** : une petite icône
-   (thumbnail) — au survol, le ou les derniers échanges résumés
-   (D393, amende D295) ; **template** : le fil complet si le bloc est
-   inclus au gabarit (D295) ; **Excel** : exclu (D236) ; **recherche** :
-   le contenu des messages — `normalized`, `similarity`,
-   `mutualizable` (D393) ;
-8. **États et interactions** — les messages immuables (jamais d'édition
-   ni de suppression) ; la visibilité par la confidentialité (D393) ;
-   les notifications opt-in (D108–D110) ; en lecture seule, le fil se
-   consulte sans zone de saisie ;
-9. **Décisions fondatrices** — D108–D110, D166–D167, D186, D236, D295,
-   D393, D485 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `thread`, une feuille, le fil : le composant naturel
+de `communication` (D458).
+
+**Rôle.** Le fil chronologique, regardé et nourri. Les messages sont
+immuables : l'auteur, l'horodatage, le contenu. La saisie du nouveau
+message est en bas (D295).
+
+**Types servis.** `communication` (D166, D393) : un canal est un champ,
+non listable ; l'auteur et l'horodatage sont générés, jamais déclarés.
+
+**Contexte consommé.** Le fil et ses attachés : `attachments:` porte
+`file`, `image` ou `thumbnail`, et leurs propriétés à plat sur le champ
+(D393). La confidentialité (D25, D364) : la visibilité du fil s'y cale,
+sans propriété séparée. Les notifications, en opt-in (D108–D110). Les
+droits.
+
+**Propriétés.** Le socle du vocabulaire (D461). `preview:`, le nombre
+de lignes du résumé au survol en cellule, `preview: 3` (D393, D1635).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en saisie et en lecture, le fil chronologique, la saisie en bas, les
+  pièces jointes si elles sont activées (D295) ; le fil épouse son
+  contenant, une section, un onglet… « ça prend la place qu'on lui
+  laisse » (D485) ; l'onglet de D167 et D186 est un habitat parmi
+  d'autres ;
+- sur smartphone, le fil en plein écran (D295) ;
+- en cellule, une petite icône ; au survol, le ou les derniers échanges
+  résumés (D393, qui amende D295) ;
+- en template, le fil complet si le bloc est inclus au gabarit (D295) ;
+- en Excel, exclu (D236) ;
+- en recherche, le contenu des messages : `normalized`, `similarity`,
+  `mutualizable` (D393).
+
+**États et interactions.** Les messages sont immuables : jamais
+d'édition ni de suppression. La visibilité suit la confidentialité
+(D393). Les notifications sont en opt-in (D108–D110). En lecture seule,
+le fil se consulte sans zone de saisie.
+
+**Décisions fondatrices.** D25, D108–D110, D166–D167, D186, D236,
+D295, D364, D393, D458, D461, D485, D1635.
+
+**Exemple de configuration.** Le type de l'attaché et ses propriétés
+s'écrivent à plat sur le champ (D389, D393). En colonne, l'icône, et
+trois lignes au survol (D393, D1635). Dans le formulaire, le fil prend
+la place qu'on lui laisse (D485).
 
 ```yaml
-# sales/entities/order.yml
+# Les champs : un fil d'échanges avec ses pièces jointes
 fields:
+
+  # La discussion : les attachés en image, le quota
   discussion:
     type: communication
-    attachments: image[1024x1024]  # le type d'attaché, ses propriétés à plat (D389/D393)
+    attachments: image[1024x1024]
     quota: 5MB
 
+# L'interface : la liste et le formulaire
 gui:
+
+  # La liste : l'icône en cellule, trois lignes au survol
   lists:
     main:
       columns:
         - number
         - customer
-        - discussion: { preview: 3 }  # l'icône ; au survol, 3 lignes (D393, D1635)
+        - discussion: { preview: 3 }
+
+  # Le formulaire : le fil dans sa section
   forms:
     record:
       page:
         - section:
             title: { fr: Échanges }
             items:
-              - field[discussion]   # le fil prend la place qu'on lui laisse (D485)
+              - field[discussion]
 ```
 
-## `list`
+### `list`
 
-1. **Nom et famille** — `list`, une feuille — l'éditeur de liste (l'ex
-   `list-editor`, renommé D458) : le composant naturel du type
-   `list of <type simple>` (D362/D458) — **intimement lié à la liste
-   complète** (D441–D447) : un même composant (D486) ;
-2. **Rôle** — **la collection de valeurs simples éditée** : ajouter,
-   retirer, réordonner — « la phrase se lit » : `list of text`
-   (D362) ;
-3. **Types servis** — `list of <type simple>` (D362 — text, number,
-   date… ; **les facettes déclarées sur le champ s'appliquent à chaque
-   élément** : size, mask…) ; **deux régimes** (D296) : les énumérés
-   (`values:`) → la multi-sélection ; les libres → l'éditeur. **La
-   parenté (D486)** : la liste complète et l'éditeur sont un même
-   composant — `list of <entité>` (la composition D399) le déploie aux
-   colonnes de l'entité (D441), `list of <type simple>` le **resserre
-   sur la colonne unique des valeurs** ; les collections d'images
-   restent au `viewer` (D475) ;
-4. **Contexte consommé** — le champ (le type de l'élément et ses
-   facettes — D362), les `values:` des énumérés, les droits ;
-5. **Propriétés** — le socle du vocabulaire (D461) ; **le vocabulaire
-   de la liste complète vaut où il garde son sens** (D486 : editable,
-   selection, sizable… — la colonne unique dispensant columns) ; **la
-   liste complète a deux visages** (D492) : le tableau (`columns:` —
-   D441) ou **la liste de widgets** — `widget: <nom du widget>` de
-   l'entité de l'élément, la mécanique (filtre, tri, recherche,
-   sélection, pagination, opérations) demeurant ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **saisie** : la multi-sélection (cases
-   ou tags) pour les énumérés, l'éditeur — ajouter / retirer /
-   réordonner quand l'ordre est l'insertion — sinon (D296) ;
-   **lecture** : les tags ; **cellule** : les premières valeurs +
-   l'ellipse (D296) ; **template** : les valeurs énumérées ;
-   **CSV/Excel** : le séparateur interne déclaré au modèle,
-   surchargeable à la fonctionnalité (D296, précise D223 — la
-   ré-importabilité D237 préservée) ; **filtre** : « contient »
-   (D166) ;
-8. **États et interactions** — chaque élément contrôlé par les facettes
-   du champ (D362) — le refus propre à l'élément fautif ; le
-   réordonnancement seulement quand l'ordre est l'insertion (D296) ;
-   grisé si `readonly`/droits ;
-9. **Décisions fondatrices** — D166, D223, D237, D296, D362, D441–D447,
-   D458, D486, D492 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `list`, une feuille, l'éditeur de liste (D458) : le
+composant naturel du type `list of <type simple>` (D362, D458). Il est
+intimement lié à la liste complète (D441–D447) : c'est un même
+composant (D486).
 
-Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/technique/article/classification.yml` :
+**Rôle.** La collection de valeurs simples, éditée : ajouter, retirer,
+réordonner. « La phrase se lit » : `list of text` (D362).
+
+**Types servis.** `list of <type simple>` (D362) : des textes, des
+nombres, des dates… Les facettes déclarées sur le champ s'appliquent à
+chaque élément : la taille, le masque… Il y a deux régimes (D296) :
+
+- les énumérés, avec `values:`, donnent la multi-sélection ;
+- les libres donnent l'éditeur.
+
+La parenté (D486) : la liste complète et l'éditeur sont un même
+composant. Une `list of <entité>`, la composition (D399), le déploie aux
+colonnes de l'entité (D441). Une `list of <type simple>` le resserre sur
+la colonne unique des valeurs. Les collections d'images restent au
+`viewer` (D475).
+
+**Contexte consommé.** Le champ : le type de l'élément et ses facettes
+(D362). Les `values:` des énumérés. Les droits.
+
+**Propriétés.** Le socle du vocabulaire (D461). Le vocabulaire de la
+liste complète vaut partout où il garde son sens (D486) : `editable`,
+`selection`, `sizable`… La colonne unique dispense de `columns`. La
+liste complète a deux visages (D492) : le tableau, par `columns:`
+(D441), ou la liste de widgets, par `widget: <nom du widget>` de
+l'entité de l'élément. La mécanique demeure : le filtre, le tri, la
+recherche, la sélection, la pagination, les opérations.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en saisie, la multi-sélection, par cases ou par tags, pour les
+  énumérés ; l'éditeur sinon : ajouter, retirer, et réordonner quand
+  l'ordre est celui de l'insertion (D296) ;
+- en lecture, les tags ;
+- en cellule, les premières valeurs et l'ellipse (D296) ;
+- en template, les valeurs énumérées ;
+- en CSV et en Excel, le séparateur interne déclaré au modèle,
+  surchargeable à la fonctionnalité (D296, qui précise D223) ; la
+  ré-importabilité est préservée (D237) ;
+- en filtre, « contient » (D166).
+
+**États et interactions.** Chaque élément est contrôlé par les facettes
+du champ (D362) : le refus est propre à l'élément fautif. Le
+réordonnancement n'existe que si l'ordre est celui de l'insertion
+(D296). L'éditeur est grisé si le champ est `readonly` ou si les droits
+l'imposent.
+
+**Décisions fondatrices.** D166, D223, D237, D296, D362, D399,
+D441–D447, D458, D461, D475, D486, D492.
+
+**Exemple de configuration.** Dans le cas 5 (entrepôt),
+`05_entrepot/versions/beta/v1.0.0.1/technique/article/classification.yml` :
 
 ```yaml
+# Les codes matière : une liste de textes courts
 matieres:
   type: list of text[..6]
   label: Codes matière
   hint: Les matières de l'article — jusqu'à neuf chez l'ERP.
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. La facette du champ contraint
+chaque élément (D362). Les `values:` font l'énuméré, et la
+multi-sélection (D296). En cellule, les premières valeurs et l'ellipse
+(D296).
 
 ```yaml
-# crm/entities/contact.yml
+# Les champs : deux listes, l'une libre, l'autre énumérée
 fields:
+
+  # Le nom
   name: text
+
+  # Les mots-clés : chaque élément contraint par la facette
   keywords:
-    type: list of text[30]         # chaque élément contraint par la facette (D362)
+    type: list of text[30]
+
+  # Les langues : les valeurs font l'énuméré, la multi-sélection
   languages:
     type: list of text
-    values: [fr, en, de, es]       # les énumérés => la multi-sélection (D296)
+    values: [fr, en, de, es]
 
+# L'interface : la liste et le formulaire
 gui:
+
+  # La liste : les premières valeurs et l'ellipse en cellule
   lists:
     main:
-      columns: [name, keywords]    # les premières valeurs + ellipse (D296)
+      columns: [name, keywords]
+
+  # Le formulaire : l'éditeur, puis les cases ou les tags
   forms:
     record:
       page:
-        - field[keywords]          # l'éditeur : ajouter, retirer, réordonner
-        - field[languages]         # les cases ou les tags (D296)
+        - field[keywords]
+        - field[languages]
 ```
 
-## `paragraph`
+## Le texte et l'image fixes
 
-1. **Nom et famille** — `paragraph` (D488 — le nom validé), une
-   feuille — **le texte fixe** : « mettre du texte pour indiquer les
-   informations légales de l'entreprise » ;
-2. **Rôle** — le texte venu de la configuration, affiché tel quel —
-   **aucun champ derrière** : la mention, l'explication,
-   l'avertissement — dont **la mention d'information RGPD**, le texte
-   du socle `rgpd.notice` généré depuis le registre, que le concepteur
-   ancre à son choix (D1335) ; **et le gabarit** — « le paragraph peut être un
-   gabarit, utilisable dans le cas d'une lettre » (D559,
-   l'étoffement Q55) : les variables de l'enregistrement dans le
-   texte (« Cher {{customer}}, votre commande {{number}}… ») — le
-   publipostage ;
-3. **Types servis** — aucun : le contenu est déclaré, par langue
-   (D465) ou par référence au dictionnaire du module (`label:` —
-   D440, D1236) ;
-4. **Contexte consommé** — la langue de l'utilisateur (le contexte —
-   D455) ; les droits et la confidentialité ;
-5. **Propriétés** — `label:` — les libellés par langue (D465), ou la
-   référence au dictionnaire (D440) ; le socle du vocabulaire (D461 :
-   style…) ; **le mode publipostage : mustache + markdown**
-   (D559–D562) — **mustache** : les variables `{{champ}}` au format
-   de la langue du document (D369), les chemins
-   (`{{customer.address.city}}` — D71), **les sections**
-   `{{#overdue}}…{{/overdue}}` (l'itération des collections — la puce
-   markdown dans la section fait la liste D561) ; **markdown** : les
-   titres (`#`…`####` — D250), le gras/l'italique, les puces et les
-   indices, les tableaux ; **les limites** : aucun composant dans le
-   texte — pas de liste-composant, pas d'image (`![…]` exclu —
-   l'image reste `picture`) ; **`if:`** — l'alinéa conditionnel à
-   l'expression (D90 — mustache est sans logique) ; le champ texte de
-   l'utilisateur reste nu (D261) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — au formulaire : le paragraphe en
-   place ; **template** : le texte du gabarit — les mentions légales
-   d'une facture ; jamais en colonne (aucun champ) ; *la fiche sera
-   étoffée au point gabarit / génération de documents (Q55)* ;
-8. **États et interactions** — la visibilité par les droits ; rien
-   d'autre — le texte ne se clique pas ;
-9. **Décisions fondatrices** — D71, D90, D250, D261, D369, D440,
-   D455, D461, D465, D488, D536, D559–D562 ;
-10. **Exemple de configuration** —
+Deux feuilles ne rendent aucun champ. Leur contenu vient de la
+configuration : un texte, une image.
 
-Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/revision/gui.yml` :
+### `paragraph`
+
+**Nom et famille.** `paragraph`, une feuille (D488) : le texte fixe,
+pour « mettre du texte pour indiquer les informations légales de
+l'entreprise ».
+
+**Rôle.** Le texte venu de la configuration, affiché tel quel, sans
+champ derrière : la mention, l'explication, l'avertissement. La mention
+d'information RGPD en est une : le texte du socle `rgpd.notice`, généré
+depuis le registre, que le concepteur ancre à son choix (D1335). Le
+paragraphe est aussi un gabarit : « le paragraph peut être un gabarit,
+utilisable dans le cas d'une lettre » (D559). Les variables de
+l'enregistrement entrent dans le texte, « Cher {{customer}}, votre
+commande {{number}}… » : le publipostage.
+
+**Types servis.** Aucun. Le contenu est déclaré par langue (D465), ou
+par référence au dictionnaire du module, par `label:` (D440, D1236).
+
+**Contexte consommé.** La langue de l'utilisateur, par le contexte
+(D455). Les droits et la confidentialité.
+
+**Propriétés.**
+
+- **`label:`**, les libellés par langue (D465), ou la référence au
+  dictionnaire (D440).
+- **Le socle du vocabulaire** (D461) : `style:`…
+- **Le mode publipostage**, mustache et markdown (D559–D562). Mustache
+  donne les variables, `{{champ}}`, au format de la langue du document
+  (D369) ; les chemins, `{{customer.address.city}}` (D71) ; les
+  sections, `{{#overdue}}…{{/overdue}}`, l'itération d'une collection ;
+  une puce markdown dans la section fait la liste (D561). Markdown
+  donne les titres, de `#` à `####` (D250), le gras et l'italique, les
+  puces et les indices, les tableaux. Les limites : aucun composant
+  dans le texte, ni liste-composant, ni image ; `![…]` est exclu,
+  l'image reste `picture`.
+- **`if:`**, l'alinéa conditionnel à l'expression (D90) : mustache est
+  sans logique. Le champ texte de l'utilisateur reste nu (D261).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- au formulaire, le paragraphe en place ;
+- en template, le texte du gabarit : les mentions légales d'une
+  facture ;
+- jamais en colonne : aucun champ.
+
+**États et interactions.** La visibilité suit les droits. Rien d'autre :
+le texte ne se clique pas.
+
+**Décisions fondatrices.** D71, D90, D250, D261, D369, D440, D455,
+D461, D465, D488, D536, D559–D562, D1236, D1335.
+
+**Exemple de configuration.** Dans le cas 3 (véhicule),
+`03_vehicule/versions/beta/v1.0.0.0/transport/revision/gui.yml` :
 
 ```yaml
 # Les widgets
@@ -1387,10 +1969,15 @@ widgets:
           label: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue à {{prochaine_km}} km"
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. Le premier paragraphe porte ses
+libellés par langue (D465). Le second cite une entrée du dictionnaire du
+module (D440).
 
 ```yaml
+# L'interface : le pied du formulaire
 gui:
+
+  # Le formulaire : les mentions légales, par langue, puis par le dictionnaire
   forms:
     record:
       footer:
@@ -1399,177 +1986,276 @@ gui:
               fr: SARL Dupont — RCS Lyon 123 456 789 — TVA FR12 345678901
               en: Dupont Ltd — Trade register 123 456 789
         - paragraph:
-            label: legal           # la référence au dictionnaire du module (D440)
+            label: legal
 ```
 
-## `picture`
+### `picture`
 
-1. **Nom et famille** — `picture` (D488 — le nom validé), une
-   feuille — **l'image fixe** : « son logo » ;
-2. **Rôle** — l'image venue de la configuration, affichée telle
-   quelle — **aucun champ derrière** : le logo, l'illustration ;
-3. **Types servis** — aucun : le fichier est livré avec la
-   configuration, comme les icônes du menu (D439) ;
-4. **Contexte consommé** — les droits et la confidentialité ;
-5. **Propriétés** — l'image, par l'identifiant d'une ressource
-   (D1625) — la forme courte `picture: logo`, ou `resource:` en clair
-   (D1626) ; le couple `size:` /
-   `dimension:` (D484) — la ressource porte ses dimensions par format
-   d'écran, et le `size:` du nœud la surcharge (D1627) ; sans `size:`,
-   la taille que le socle donne au composant ; `dimension:` reste au
-   nœud (D1629) ; le socle du
-   vocabulaire (D461) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — au formulaire : l'image en place ;
-   **template** : le logo du gabarit — l'entête de la facture ; jamais
-   en colonne (aucun champ) ;
-8. **États et interactions** — la visibilité par les droits ; le
-   fichier manquant = une erreur d'ingestion (D330), jamais un
-   placeholder ;
-9. **Décisions fondatrices** — D439, D455, D461, D484, D488 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `picture`, une feuille (D488) : l'image fixe, « son
+logo ».
+
+**Rôle.** L'image venue de la configuration, affichée telle quelle,
+sans champ derrière : le logo, l'illustration.
+
+**Types servis.** Aucun. Le fichier est livré avec la configuration,
+comme les icônes du menu (D439).
+
+**Contexte consommé.** Les droits et la confidentialité.
+
+**Propriétés.**
+
+- l'image, par l'identifiant d'une ressource (D1625) : la forme courte
+  `picture: logo`, ou `resource:` en clair (D1626) ;
+- le couple `size:` et `dimension:` (D484) ; la ressource porte ses
+  dimensions par format d'écran, et le `size:` du nœud la surcharge
+  (D1627) ; sans `size:`, la taille que le socle donne au composant ;
+  `dimension:` reste au nœud (D1629) ;
+- le socle du vocabulaire (D461).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- au formulaire, l'image en place ;
+- en template, le logo du gabarit : l'entête de la facture ;
+- jamais en colonne : aucun champ.
+
+**États et interactions.** La visibilité suit les droits. Un fichier
+manquant est une erreur d'ingestion (D330), jamais un placeholder.
+
+**Décisions fondatrices.** D330, D439, D455, D461, D484, D488,
+D1625–D1627, D1629.
+
+**Exemple de configuration.** La forme courte cite l'identifiant d'une
+ressource (D1625). La forme en clair (D1626) ajoute `size:`, la taille
+à l'affichage (D484), qui surcharge celle de la ressource (D1627).
 
 ```yaml
+# L'interface : l'entête du formulaire
 gui:
+
+  # Le formulaire : le logo en forme courte, la bannière en clair
   forms:
     record:
       header:
-        - picture: logo            # la forme courte — l'identifiant d'une ressource (D1625)
+        - picture: logo
         - picture:
-            resource: banner       # la forme en clair (D1626)
-            size: 120px            # à l'affichage (D484), la surcharge de la ressource (D1627)
+            resource: banner
+            size: 120px
 ```
 
-## `color`
+## La couleur et les codes
 
-1. **Nom et famille** — `color`, une feuille — le composant naturel du
-   type `color` (D458/D496) ;
-2. **Rôle** — la couleur regardée et saisie : **la pastille** — le code
-   hexadécimal en légende —, le sélecteur à l'appel ;
-3. **Types servis** — `color` (D496) : **le stockage est un entier**
-   (le RGB(A) assemblé, au moteur), **l'affichage en hexadécimal**
-   (`#RRGGBB`, l'alpha en option) et **la base des couleurs nommées**
-   traduisant `red`, `orange`, `green`… en RGB — celles de `colors:`
-   (D467) ; la validation intégrée (la règle générale des composés) ;
-4. **Contexte consommé** — le champ, son `mode`, les droits ;
-5. **Propriétés** — le socle du vocabulaire (D461) ; la saisie s'ouvre
-   en `picker.color` (D496) — l'ancre et la dimension du déploiement
-   (D469/D484) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **lecture** : la pastille + le code
-   hex ; **cellule** : la pastille ; **saisie** : le sélecteur
-   (`picker.color`) ; **template** : la pastille imprimée ;
-   **CSV/Excel** : l'hexadécimal (l'affichage canonique),
-   ré-importable ; **le tri sur l'entier stocké**, le nul en premier
-   (la règle des composés D391) ;
-8. **États et interactions** — grisée si `readonly`/droits ; le refus
-   des valeurs hors format ou hors base (la validation du type) ;
-9. **Décisions fondatrices** — D458, D461, D467, D469, D484, D496 ;
-10. **Exemple de configuration** —
+Trois feuilles closent le catalogue : la couleur, son sélecteur, et les
+codes lisibles à la machine.
+
+### `color`
+
+**Nom et famille.** `color`, une feuille, le composant naturel du type
+`color` (D458, D496).
+
+**Rôle.** La couleur regardée et saisie : la pastille, avec le code
+hexadécimal en légende, et le sélecteur à l'appel.
+
+**Types servis.** `color` (D496). Le stockage est un entier : le RGB
+ou RGBA assemblé, au moteur. L'affichage est hexadécimal, `#RRGGBB`,
+l'alpha en option. La base des couleurs nommées traduit `red`,
+`orange`, `green`… en RGB : ce sont celles de `colors:` (D467). La
+validation est intégrée, la règle générale des composés.
+
+**Contexte consommé.** Le champ, son `mode`, les droits.
+
+**Propriétés.** Le socle du vocabulaire (D461). La saisie s'ouvre en
+`picker.color` (D496) : l'ancre et la dimension du déploiement (D469,
+D484).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- en lecture, la pastille et le code hexadécimal ;
+- en cellule, la pastille ;
+- en saisie, le sélecteur, `picker.color` ;
+- en template, la pastille imprimée ;
+- en CSV et en Excel, l'hexadécimal, l'affichage canonique,
+  ré-importable ;
+- le tri, sur l'entier stocké, le nul en premier, la règle des composés
+  (D391).
+
+**États et interactions.** La pastille est grisée si le champ est
+`readonly` ou si les droits l'imposent. Le refus des valeurs hors
+format ou hors base vient de la validation du type.
+
+**Décisions fondatrices.** D391, D458, D461, D467, D469, D484, D495,
+D496.
+
+**Exemple de configuration.** L'entité des seuils, celle que la table de
+référence de `gauge` cite (D495). La couleur est un entier au moteur,
+un hexadécimal à l'écran (D496).
 
 ```yaml
-# quality/entities/threshold.yml — l'entité des seuils (D495)
+# Les champs : un seuil et sa couleur
 fields:
-  level: integer[0..100]
-  tint:  color                   # entier au moteur, hex à l'écran (D496)
 
+  # Le niveau
+  level: integer[0..100]
+
+  # La teinte : un entier au moteur, un hexadécimal à l'écran
+  tint: color
+
+# L'interface : la liste
 gui:
+
+  # La liste : la pastille en cellule
   lists:
     main:
-      columns: [level, tint]     # la pastille en cellule
+      columns: [level, tint]
 ```
 
-## `picker.color`
+### `picker.color`
 
-1. **Nom et famille** — `picker.color`, une feuille de la famille
-   pointée (D470/D473/D496) ;
-2. **Rôle** — **« sélectionner une couleur »** : la palette qui
-   s'ouvre, le choix qui se referme ;
-3. **Types servis** — `color` (la saisie — le défaut du type
-   l'appelle, D458) ; `list of color` (D362) en sélection multiple ;
-4. **Contexte consommé** — le champ (ses `values:` éventuelles), la
-   base des couleurs nommées (D496), les droits ;
-5. **Propriétés** — `selection:` — le nombre (D474 : `1` défaut,
-   `1..`, `1..5`) ; `anchor:` — centre de l'écran, à droite du champ,
-   à la place du champ (D469) ; `dimension:` — le déploiement
-   (D469/D484) ; le socle (D461) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — la palette (la base des couleurs
-   nommées) et le code hexadécimal saisissable ; si le champ porte des
-   `values:`, la palette s'y restreint — l'écho de dropdown/icons
-   (D1636) ; smartphone : le plein écran (l'esprit D293) ;
-8. **États et interactions** — le refus des valeurs hors format (la
-   validation du type) ; grisé si `readonly`/droits ;
-9. **Décisions fondatrices** — D469–D470, D473–D474, D496 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `picker.color`, une feuille, de la famille des
+pickers (D470, D473, D496).
 
-```yaml
-- field[tint]:
-    component: picker.color
-    anchor: right                # à droite du champ (D469)
-    dimension: 30%               # le déploiement (D484)
-```
+**Rôle.** « Sélectionner une couleur » : la palette qui s'ouvre, le
+choix qui se referme.
 
-## `qrcode` / `barcode`
+**Types servis.** `color`, en saisie : le composant par défaut du type
+l'appelle (D458). `list of color` (D362), en sélection multiple.
 
-1. **Nom et famille** — `qrcode` et `barcode`, deux feuilles
-   jumelles — **les composants de sortie** (D300, clôt Q56) ; une
-   fiche commune (D542) ;
-2. **Rôle** — **« ils rendent la valeur d'un champ »** (D300) — la
-   valeur encodée, lisible à la machine : l'étiquette, le document,
-   l'écran ;
-3. **Types servis** — **le texte à la facette `barcode:`** (D988 — la
-   valeur est un texte, la facette dit ce qu'il encode et le valide ;
-   le composant en est le défaut en lecture, la nature venant de la
-   facette) ; et les champs à valeur textuelle sans facette — le texte,
-   le compteur, l'`uuid`, la référence… : **la conversion en texte du
-   type** (D369) fait la valeur encodée ; en surcharge
-   (`component: qrcode`) ;
-4. **Contexte consommé** — le champ, sa valeur convertie (D369), les
-   droits ;
-5. **Propriétés** — le socle (D461) ; **`size:` aux deux régimes**
-   (D543) : le qrcode — **« la taille unique pour les côtés »**
-   (`size: 120px`, le carré — jamais deux valeurs) ; le code-barres —
-   **« largeur × hauteur »** (`size: 200px 60px` — la grammaire
-   D533) ; **la saisie peut porter sa propre taille** (D544, D1638 —
-   `size: { input: 30, display: 120px }`, la forme courte valant
-   l'affichage seul) ; **`labels:`** — « la valeur de
-   la référence sous le code-barres » (D545, D1638 — `labels: true`,
-   la valeur au format du champ — l'écho D516 ; défaut `false`) ; **le format du code-barres** : **de la facette
-   quand le champ en porte une** (D988 — `barcode: ean13` au champ, le
-   composant suit) ; **au crochet pour un champ texte sans facette**
-   rendu en code-barres (D1638 — `component: barcode[code128]`, le
-   défaut `code128`) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **les deux modes du champ** (D544) :
-   **la saisie en mode texte** — la zone du champ, son régime (la
-   taille D366, le masque) — et **l'affichage en mode graphique** ;
-   le PDF et l'étiquette en usage premier (D252 — l'impression
-   directe du serveur, les imprimantes de l'OS) ; **Excel = la valeur
-   source** (D300) ; *(le scan reste hors D300 — la question pour
-   plus tard si besoin)* ;
-8. **États et interactions** — la lecture seule par nature ; masqué
-   par la confidentialité ;
-9. **Décisions fondatrices** — D252, D300, D366, D369, D461, D484,
-   D516, D533, D542–D545, D988 ;
-10. **Exemple de configuration** —
+**Contexte consommé.** Le champ, et ses `values:` s'il en porte. La
+base des couleurs nommées (D496). Les droits.
+
+**Propriétés.**
+
+- `selection:`, le nombre (D474) : `1` par défaut, `1..`, `1..5` ;
+- `anchor:`, le centre de l'écran, à droite du champ, ou à la place du
+  champ (D469) ;
+- `dimension:`, le déploiement (D469, D484) ;
+- le socle du vocabulaire (D461).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- la palette, la base des couleurs nommées, et le code hexadécimal
+  saisissable ;
+- si le champ porte des `values:`, la palette s'y restreint, comme
+  `dropdown` et `icons` (D1636) ;
+- sur smartphone, le plein écran, dans l'esprit de D293.
+
+**États et interactions.** Le refus des valeurs hors format vient de la
+validation du type. Le sélecteur est grisé si le champ est `readonly`
+ou si les droits l'imposent.
+
+**Décisions fondatrices.** D293, D362, D458, D461, D469–D470,
+D473–D474, D484, D496, D1636.
+
+**Exemple de configuration.** Au nœud, l'ancrage à droite du champ
+(D469) et le déploiement (D484).
 
 ```yaml
-# stock/entities/product.yml
-fields:
-  sku: counter[product]            # le compteur mutualisé (D410)
-
+# L'interface : le formulaire
 gui:
-  templates:
-    label:                         # l'étiquette imprimée du serveur (D252)
+
+  # Le formulaire : le sélecteur de couleur, ancré à droite, déployé à 30 %
+  forms:
+    record:
       page:
+        - field[tint]:
+            component: picker.color
+            anchor: right
+            dimension: 30%
+```
+
+### `qrcode` / `barcode`
+
+**Nom et famille.** `qrcode` et `barcode`, deux feuilles jumelles, les
+composants de sortie (D300). Elles partagent une fiche (D542).
+
+**Rôle.** « Ils rendent la valeur d'un champ » (D300) : la valeur
+encodée, lisible à la machine, sur l'étiquette, le document, l'écran.
+
+**Types servis.**
+
+- le texte à la facette `barcode:` (D988) : la valeur est un texte, la
+  facette dit ce qu'il encode et le valide ; le composant en est le
+  défaut en lecture, et la nature vient de la facette ;
+- les champs à valeur textuelle sans facette : le texte, le compteur,
+  l'`uuid`, la référence… La conversion en texte du type (D369) fait la
+  valeur encodée. Le composant se déclare alors par surcharge,
+  `component: qrcode`.
+
+**Contexte consommé.** Le champ, sa valeur convertie (D369), les
+droits.
+
+**Propriétés.**
+
+- **Le socle du vocabulaire** (D461).
+- **`size:`**, à deux régimes (D543). Pour le QR code, « la taille
+  unique pour les côtés » : `size: 120px`, le carré, jamais deux
+  valeurs. Pour le code-barres, « largeur × hauteur » :
+  `size: 200px 60px`, dans la grammaire de `size:` (D533). La saisie
+  peut porter sa propre taille (D544, D1638) :
+  `size: { input: 30, display: 120px }` ; la forme courte vaut
+  l'affichage seul.
+- **`labels:`**, « la valeur de la référence sous le code-barres »
+  (D545, D1638) : `labels: true` écrit la valeur au format du champ,
+  comme les libellés des graphiques (D516). Le défaut est `false`.
+- **Le format du code-barres.** Il vient de la facette quand le champ
+  en porte une (D988) : `barcode: ean13` au champ, le composant suit.
+  Pour un champ texte sans facette, il s'écrit au crochet (D1638) :
+  `component: barcode[code128]` ; le défaut est `code128`.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.**
+
+- les deux modes du champ (D544) : la saisie en mode texte, dans la
+  zone du champ et son régime, la taille (D366), le masque ; et
+  l'affichage en mode graphique ;
+- le PDF et l'étiquette en usage premier (D252) : l'impression directe
+  du serveur, sur les imprimantes du système ;
+- en Excel, la valeur source (D300) ;
+- le scan reste hors de D300.
+
+**États et interactions.** La lecture seule, par nature. Le code est
+masqué par la confidentialité.
+
+**Décisions fondatrices.** D252, D300, D366, D369, D410, D461, D484,
+D516, D533, D542–D545, D988, D1638.
+
+**Exemple de configuration.** L'étiquette est un template imprimé du
+serveur (D252). Le compteur mutualisé (D410) se rend en QR code, au
+carré (D300, D543). Le texte à la facette `barcode: ean13` prend la
+nature de sa facette (D988), largeur puis hauteur (D543), la valeur
+sous les barres (D545). Un texte sans facette se rend en code-barres au
+format du crochet (D1638).
+
+```yaml
+# Les champs : un compteur mutualisé
+fields:
+
+  # La référence
+  sku: counter[product]
+
+# L'interface : le template de l'étiquette
+gui:
+
+  # Le template : l'étiquette imprimée du serveur
+  templates:
+    label:
+      page:
+        # Le QR code : le carré, 120 pixels de côté
         - field[sku]:
-            component: qrcode      # la valeur rendue en QR (D300)
-            size: 120px            # le carré — 120 px de côté (D543)
+            component: qrcode
+            size: 120px
         - field[name]
-        - field[ean]:              # un texte à la facette barcode: ean13 (D988) : la nature vient de la facette
-            size: 200px 60px       # largeur × hauteur (D543)
-            labels: true           # la valeur sous les barres (D545)
+        # Le code-barres : un texte à la facette ean13, la largeur et la hauteur, la valeur sous les barres
+        - field[ean]:
+            size: 200px 60px
+            labels: true
+        # Un texte sans facette rendu en code-barres : le format au crochet
         - field[sku]:
-            component: barcode[code128]   # un champ texte rendu en code-barres — le format au crochet (D1638)
+            component: barcode[code128]
 ```

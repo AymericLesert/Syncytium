@@ -502,6 +502,9 @@ gui:
    (D495 — l'entité et ses liaisons : la colonne du seuil, la colonne
    de la couleur ; *écriture en proposition :* `colors: { from:
    quality.threshold, threshold: level, color: tint }`) ;
+   **`resources:`** — l'icône selon la valeur, aux mêmes seuils que les
+   couleurs (D1609 — *écriture en proposition :* `resources: { 0:
+   empty, 50: half, 80: full }`) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **la lecture d'abord** (la valeur en un
    regard — listes, résumés, widgets) ; en modification, le glissé
@@ -1876,7 +1879,8 @@ forms:
    **la transaction tenue ouverte** (D594) — ce que l'opération y a
    mis, chiffré pour la relecture ;
 5. **Propriétés** — la surcharge de la présentation : `label:`,
-   `icon:`, `style:` (le verbe du catalogue en défaut) ;
+   `icon:`, `style:` (la typographie de son libellé, comme tout
+   composant — D536, D1610) ;
    **`commit:`** — `confirm` (défaut — la relecture D431/D596) ou
    `auto` (la validation automatique) ; **la forme riche**,
    `commit: { mode:, form:, message: }` (D600, D1606) — `commit:

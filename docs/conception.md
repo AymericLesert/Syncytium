@@ -25098,6 +25098,16 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-11-01 (suite) — LA PAUSE : LES POINTS 1 À 9 DU CHAPITRE 4 SOLDÉS (D1593–D1612, 1612
+  décisions).** Le chapitre 4 avance : `body` et `grid` retirés (D1593) ; `items:` pour la page unique
+  (D1594–D1595) ; la recherche aux champs qui portent `searchable:`, le possesseur `owner` filtré par la
+  liste (D1596–D1600) ; `exports:` en forme courte, `word` compris (D1601–D1603) ; la fiche `menu`
+  (D1604) ; la popup du navigateur refusée, la forme riche de `commit:` (D1605–D1606) ; la transaction
+  tenue ouverte (D1607) ; `style:` la typographie, `resources:` la ressource de chaque valeur
+  (D1608–D1611) ; le seuil des radios, borne de la surcharge (D1612). « Je marque une pause ».
+  **À la reprise** : le point 10, la saisie selon l'écran — présenté, en attente (A, une surface par
+  écran ; B, des variantes dans la surface ; trois corrections jointes : l'infobulle au smartphone, les
+  steppers du calendrier, l'abréviation) ; puis les points 11 à 21.
 - **2026-11-01 — REPRISE : LES POINTS 1 À 8 DU CHAPITRE 4 SOLDÉS.** Le tableau de bord ramène l'indicateur à trois
   tuiles, à la demande de l'auteur. « Pour le point 1, je valide le retrait de body et de grid »
   (D1593 — `header`, `page`, `footer` ; la grille par `layout:` ; le tableau du modèle corrigé) ; le

@@ -8,7 +8,8 @@ Pour chaque bloc ```yaml d'un fichier .md :
 - aucune ligne ne dépasse 120 caractères ;
 - aucun commentaire ne cite une décision (« D1234 ») : les décisions se citent dans la prose ;
 - chaque clé de premier niveau est précédée d'un commentaire d'introduction, et une ligne vide sépare deux clés
-  de premier niveau — la forme des cas.
+  de premier niveau — la forme des cas ; une clé dont le bloc porte `label:` ou `description:` est documentée par
+  ses propriétés et se passe d'introduction (D1100, D1655) — le champ d'un `fields.yml`, copié tel quel (D1545).
 Le code de sortie est 1 s'il reste un écart.
 """
 import os
@@ -24,6 +25,17 @@ for stream in (sys.stdout, sys.stderr):
 BLOC = re.compile(r"```yaml\n(.*?)```", re.S)
 DECISION = re.compile(r"#.*\bD\d{2,4}\b")
 CLE = re.compile(r"^[A-Za-z_][\w.\-*]*:")  # une clé de premier niveau, sans indentation
+DOC = re.compile(r"^\s+(?:label|description):")  # la documentation portée par une propriété (D1100)
+
+
+def documentee(lignes, i):
+    """La clé de la ligne i porte-t-elle, dans son bloc, un `label:` ou une `description:` ?"""
+    for l in lignes[i + 1:]:
+        if l.strip() and not l.startswith((" ", "#")):
+            return False
+        if DOC.match(l):
+            return True
+    return False
 
 
 def fichiers(args):
@@ -53,7 +65,8 @@ def verifier_bloc(nom, debut, bloc, ecarts):
             ecarts.append((nom, n, "une décision en commentaire"))
         if CLE.match(l):
             if not precedente.startswith("#"):
-                ecarts.append((nom, n, "une clé de premier niveau sans introduction"))
+                if not documentee(lignes, i):
+                    ecarts.append((nom, n, "une clé de premier niveau sans introduction"))
             elif not premiere:
                 # la ligne vide doit précéder le bloc de commentaires de cette clé
                 j = i - 1

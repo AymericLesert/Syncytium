@@ -76,7 +76,6 @@ Dans le cas 3 (véhicule),
 booléen est optionnel : la case a trois états.
 
 ```yaml
-# La révision : un booléen optionnel
 revision:
   type: boolean
   label: Révision ?
@@ -415,7 +414,6 @@ D563, D978–D980, D1635.
 `04_banque/versions/beta/v1.0.0.0/banque/ecriture/fields.yml` :
 
 ```yaml
-# Le montant : un composé, la devise dans la valeur
 montant:
   type: amount
   currencies: [EUR, FRF]
@@ -602,7 +600,6 @@ D494–D495, D498, D1609, D1611, D1635.
 `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
 
 ```yaml
-# Le taux annuel : un pourcentage, la jauge dans son cadre
 taux_annuel:
   type: percentage
   label: Taux annuel
@@ -920,7 +917,6 @@ D785–D787.
 `03_vehicule/versions/beta/v1.0.0.0/transport/consommation/fields.yml` :
 
 ```yaml
-# La date : le calendrier au jour
 date:
   type: date
   required: true
@@ -932,7 +928,6 @@ Dans le cas 3 (véhicule),
 granularité est le mois :
 
 ```yaml
-# Le premier mois : la granularité au crochet
 premier_mois:
   type: date[yyyy-mm]
   label: Premier mois
@@ -979,7 +974,6 @@ sélection du jeu de valeurs, en multi-sélection (D388), ou
 `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
 
 ```yaml
-# Le type de véhicule : un énuméré à deux valeurs
 type:
   type: enum
   required: true
@@ -1197,7 +1191,6 @@ D465, D469–D470, D474.
 `04_banque/versions/beta/v1.0.0.0/banque/ecriture/fields.yml` :
 
 ```yaml
-# Le budget : une référence, le sélecteur par défaut
 budget:
   type: banque.budget
   searchable: mutualizable[recherche]
@@ -1280,7 +1273,6 @@ D389–D390, D469–D470, D473, D1625.
 `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
 
 ```yaml
-# La photo : une image, la vignette automatique
 photo:
   type: image[512x512]
   label: Photo
@@ -1357,7 +1349,6 @@ D469–D474.
 `05_entrepot/versions/beta/v1.0.0.1/technique/article/vie.yml` :
 
 ```yaml
-# Les plans : une liste de fichiers, les extensions en liste simple
 plans:
   type: list of file
   extensions: [pdf, dwg, dxf, step]
@@ -1654,7 +1645,6 @@ D391–D392, D458, D461, D484, D513–D514, D1635.
 `05_entrepot/versions/beta/v1.0.0.1/commande/commande_vente/fields.yml` :
 
 ```yaml
-# L'adresse de livraison : une géolocalisation calculée par le géocodage
 adresse_livraison:
   type: geolocation
   formula: >-
@@ -1849,7 +1839,6 @@ D441–D447, D458, D461, D475, D486, D492.
 `05_entrepot/versions/beta/v1.0.0.1/technique/article/classification.yml` :
 
 ```yaml
-# Les codes matière : une liste de textes courts
 matieres:
   type: list of text[..6]
   label: Codes matière

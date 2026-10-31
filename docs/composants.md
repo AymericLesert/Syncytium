@@ -2415,8 +2415,8 @@ les widgets, le wizard, les templates, le dashboard du module).*
    défauts : le formulaire par défaut D438, les gestes D446) ;
    **`exports:`** — « les différents exports ou générations de
    documents » (D530) — **la forme courte, `<format>` ou
-   `<format>[<modèle>]`** (D1601) : le format, `csv`, `pdf`, `excel`,
-   `ods`, `mail`… ; le crochet nomme le modèle qui génère le document,
+   `<format>[<modèle>]`** (D1601) : le format, `csv`, `pdf`, `word`
+   (D1602), `excel`, `ods`, `mail`… ; le crochet nomme le modèle qui génère le document,
    sans crochet le modèle de base de la liste (D792) ; `generate()` sert
    les opérations, pas cette propriété :
    `exports: [ csv, excel[stock.xlsx], pdf[order_sheet] ]` ;

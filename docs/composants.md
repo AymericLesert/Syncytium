@@ -232,9 +232,9 @@ gui:
                                       #   champ/composant levée
               - field[audited]:
                   readonly: true      # la forme riche (D270)
-                  style:              # la surcharge de représentation (D460) —
-                    true:  check      #   l'apparence des états : coché = vrai,
-                    false: empty      #   vide = faux, le nul distinct
+                  resources:          # la ressource de chaque valeur (D1608) —
+                    true:  check      #   coché = vrai, vide = faux,
+                    false: empty      #   le nul distinct
                     null:  dash
                   size: 24px          # la taille
 ```

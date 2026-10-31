@@ -80,9 +80,13 @@ section » (D489).
 
 **Modes et déclinaisons.** L'organisateur vit partout où un conteneur
 vit : dans `header`, `page` et `footer`, dans `pages`, dans le template
-(D487, D509). Le format d'écran se déclare sur la surface : « si
-l'affichage doit changer, screen permet de définir le format attendu »
-(D450, D490). La disposition ne change pas d'elle-même.
+(D487, D509). La disposition est un maximum : `column[3]` veut dire
+« jusqu'à trois colonnes ». Le composant la replie selon la place
+disponible : trois colonnes sur un poste informatique, une seule sur un
+smartphone (D491, D1648). Un format qui demande une autre disposition,
+un autre ordre ou d'autres sections, se déclare par une surface à part,
+avec `screen:` : « si l'affichage doit changer, screen permet de
+définir le format attendu » (D450, D490, D1613).
 
 **États et interactions.** Les droits et la confidentialité masquent
 l'organisateur. Quand le contenu déborde de `size:`, il défile (D503) :

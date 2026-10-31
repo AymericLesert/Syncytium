@@ -2508,7 +2508,10 @@ lists:
    grammaire D533 : une ou deux valeurs, % ou px) ;
 6. **Items** — **le `pages` implicite** (D509) : `header`, `page`(s),
    `footer` — les clés à l'usuel, **la liste d'éléments au
-   multi-pages** (D510) ; dans les pages : les sections seules
+   multi-pages** (D510) ; **le raccourci de la page unique** (D1594) :
+   sans entête, sans pied et sur une seule page, le formulaire écrit
+   son contenu sous `items:` — `page:` s'impose dès qu'un `header`, un
+   `footer` ou une seconde page entre ; dans les pages : les sections seules
    (D490), l'organisateur `sections`, les `tabs`, les feuilles
    (`field[<nom>]` — D460), les actes (`operation[<nom>]` — D511),
    les documents (`template[<nom>]` — D483), **les graphiques —

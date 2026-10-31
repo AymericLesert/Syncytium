@@ -2529,8 +2529,7 @@ ecritures:
    filtres, **l'icône-menu des exports**, les icônes de l'ajout, de
    la modification, de la suppression, **étendues aux actions à
    icône** ; **la zone page** — le contenu du tableau ; **le
-   footer** — le sous-total ou un gabarit (`{count}` — *en
-   proposition*), **les boutons des actions sans icône** ; le tableau
+   footer** — le sous-total ou un gabarit (`{count}` — D1639), **les boutons des actions sans icône** ; le tableau
    ou les widgets (D492) ; **le filtrage vivant** — la liste
    s'auto-rafraîchit sans bouton (D226–D229/D444) ; **la recherche
    texte globale** ne porte que sur les champs qui ont `searchable:` —
@@ -2699,7 +2698,7 @@ forms:
 ## `summary`
 
 1. **Nom et famille** — `summary`, une surface — `gui: summary:
-   <nom>:` (le bloc, D437 ; le nom sous le bloc, *en proposition*) ; la première déclarée = le
+   <nom>:` (le bloc, D437 ; le nom sous le bloc, D1639) ; la première déclarée = le
    défaut (D438) — mais **« défaut : n'existe pas »** (D201) : sans
    déclaration, l'entité n'offre aucun résumé ;
 2. **Rôle** — l'enregistrement en bref : **« petit par principe »**
@@ -2721,7 +2720,7 @@ forms:
    verticaux »** (D537 — l'organisateur `sections` et ses layouts,
    D489–D491) et les feuilles ; **un kpi ou un chart — « à condition
    que son affichage reste modeste »** (D538 — `chart[<nom>]` en
-   items, *la famille des adresses en proposition*) ; **l'unique
+   items, la famille des adresses — D1639) ; **l'unique
    page, jamais d'onglets** (D201/D537) ;
 7. **Modes et déclinaisons** — l'appel depuis la référence (D215 — le
    1-1 affiche le libellé, le résumé se déploie) ; la lecture seule
@@ -2759,7 +2758,7 @@ summary:
    <nom>:` ; **associé à une entité — et par construction à un module
    fonctionnel** (D247) ; **« défaut : n'existe pas »** (D202) ;
 2. **Rôle** — la petite surface autonome — **deux usages, une seule
-   surface** (*la lecture en proposition*) : **la carte d'un
+   surface** (D1639) : **la carte d'un
    enregistrement** (D492 — la liste en widgets) et **la synthèse**
    (D202 — « compteurs, sommes/calculs, graphiques, tableaux de
    valeurs », le drill-down) ;
@@ -2849,11 +2848,11 @@ widgets:
    séparation D552 — le step n'est plus un tab) : chaque étape porte sa poignée (`title:`/`icon:` —
    le chemin D505), ses items (les sections, les feuilles — la page
    d'un formulaire — **et les graphiques : `chart[<nom>]`, kpi,
-   pivot, « l'aide à la décision »**, D550), sa condition (*en proposition :* **`if:`** — la
+   pivot, « l'aide à la décision »**, D550), sa condition (D1639 : **`if:`** — la
    transition conditionnelle D231/D90, l'étape sautée si la condition
    ne tient pas), et **son opération** — « un step peut contenir une
-   opération sur la validation » (D546 — *en proposition :*
-   `operation: <nom>`) : **exécutée au passage, dans la transaction
+   opération sur la validation » (D546 — `operation: <nom>`,
+   D1639) : **exécutée au passage, dans la transaction
    du wizard tenue ouverte** (D547, D594, D1607), **rien n'étant scellé
    avant la validation définitive du wizard** ;
 7. **Modes et déclinaisons** — **le stepper** : toutes les étapes
@@ -2911,8 +2910,7 @@ wizards:
 ## `dashboard`
 
 1. **Nom et famille** — `dashboard`, une surface — **au module** :
-   `module.yml`, bloc gui (*l'écriture `dashboards:` en
-   proposition*) ; le menu l'adresse, en valeur de `link:` —
+   `module.yml`, bloc gui (`dashboards:` — D1639) ; le menu l'adresse, en valeur de `link:` —
    `module[dashboard]` (D439, D1237) ;
    la première déclarée = le défaut (D438) ;
 2. **Rôle** — le tableau de bord : **la vue d'ensemble du module** —
@@ -2924,12 +2922,11 @@ wizards:
 5. **Propriétés** — `title:` (D449/D465) ; `size:` (la pile D535 —
    tout l'écran depuis le menu, l'esprit D549) ; `screen:`
    (D450/D532) ; **le rafraîchissement** — les trois modes de D249
-   (*l'écriture en proposition :* `refresh: static | live |
-   every[5min]` — les durées D434/D476 ; surchargeable au widget, la
-   cascade D461) ;
+   (`refresh: static | live | every[5min]` — les durées D434/D476 ;
+   surchargeable au widget, la cascade D461 ; D1639) ;
 6. **Items** — **le squelette** (D555) : **les widgets contraints**
-   (*en proposition :* `widget[<entité>.<nom>]` — la famille des
-   adresses, `widget[order.monthly]` — fixés, non retirables) et
+   (`widget[<entité>.<nom>]` — la famille des adresses,
+   `widget[order.monthly]` — fixés, non retirables ; D1639) et
    **les emplacements libres** — l'item **`_`** (D556, acté — « free
    pouvant être lui-même un nom de widget », la collision évitée),
    répétable : **l'icône du choix** y apparaît, l'utilisateur pioche
@@ -2995,8 +2992,9 @@ dashboards:
    déclinés (la mécanique D465) ;
 5. **Propriétés** — **le formalisme unique avec les formulaires**
    (D250) : `title:` (le gabarit — D449), le `pages` implicite
-   (D509) ; **la dimension de page** (*en proposition :* `paper:` —
-   `A4`, `A4 landscape`, `105x48mm` pour l'étiquette) ; **`margin:`**
+   (D509) ; **la dimension de page** (`paper:` — `A4`, le portrait,
+   `A4[landscape]`, l'orientation au crochet comme les formats d'écran,
+   `105x48mm` pour l'étiquette ; D1614, D1639) ; **`margin:`**
    — « les marges en mm » (D559) ; **`format:`** — « le format de
    destination » (D564–D565) : `pdf` (**le défaut acté** — la lignée
    D212/D250) `| word | excel | mail` — le mail portant le
@@ -3005,7 +3003,7 @@ dashboards:
    ligne des hooks D408) ; les titres à
    quatre niveaux (D250) ;
 6. **Items** — le `pages` implicite : `header`/`footer` — **répétés à
-   chaque page** (la proposition de D507 confirmée par l'usage) —,
+   chaque page** (D507, D1636) —,
    les `page`(s), les sections ; **les feuilles aux pendants PDF**
    (D257 — « un pendant PDF par type » : l'image dimensionnée au
    bloc, le fil complet si inclus…) ; **le contenu fixe** —
@@ -3028,7 +3026,7 @@ dashboards:
 templates:
   invoice:                         # document: invoice (D432) — template[invoice] (D483)
     title: "Facture {number}"
-    paper: A4                      # la dimension de page (D250 — proposition)
+    paper: A4                      # la dimension de page (D250, D1639)
     margin: 15mm                   # les marges (D559)
     header:
       height: 40mm
@@ -3053,7 +3051,7 @@ templates:
 ## `chat`
 
 *(La huitième surface — née avec le module `_chat` du socle, D957, D1029 ;
-la fiche est mienne, en proposition.)*
+la fiche, D1639.)*
 
 1. **Nom et famille** — `chat`, une surface — **au socle** : l'écran
    du module `_chat` fourni par Syncytium (comme `_migration` D666 et
@@ -3074,7 +3072,7 @@ la fiche est mienne, en proposition.)*
    ses données bornent le contexte (D959) ; le connecteur `llm` de
    l'environnement (D617) ;
 5. **Propriétés** — `title:` (D449/D465) ; `screen:` (D450/D532) ;
-   `connector:` — le rôle nommé du connecteur `llm` (D617) ;
+   `connector:` — le rôle nommé du connecteur `llm` (D617, D1639) ;
 6. **Items** — aucun : la surface est le fil et sa saisie ;
 7. **Modes et déclinaisons** — **PC et tablette** : le fil et la
    saisie en bas (D295) ; **smartphone** : le fil en plein écran ;
@@ -3091,7 +3089,7 @@ la fiche est mienne, en proposition.)*
    jusqu'à ce que l'utilisateur demande sa réinitialisation » (D960) :
    l'acte **réinitialiser** sur la session (la suppression du socle,
    qui désactive — D137 ; la session close reste à l'analyse, une
-   nouvelle s'ouvre — mien) ; **chaque
+   nouvelle s'ouvre — D1639) ; **chaque
    question et chaque réponse s'écrivent, avant l'affichage,** dans
    `_chat.session` et `_chat.message` (historisées — D411), l'événement
    au journal de sécurité (D925) ; **le connecteur indisponible** :

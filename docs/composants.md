@@ -2400,7 +2400,8 @@ les widgets, le wizard, les templates, le dashboard du module).*
    couleurs (`colors:` — D467), l'aperçu du fil (`preview:` — D393) ;
    **`widget:`** (D492) ; `filter:` (l'expression D90) ; `sort:` (par
    colonne, à cascades, les signes — D441) ; `searchable:` (les
-   champs ou les noms mutualisés — défaut : tous) ; `editable:`
+   champs ou les noms mutualisés, chacun cherchable au modèle — par
+   défaut, les colonnes affichées qui portent `searchable:`, D1596) ; `editable:`
    (**défaut : tout readonly** — D441) ; `selection: 1 | 1..`
    (D445–D446) ; `sizable: none | auto | manual | auto+manual`
    (D447) ; **`add:` / `update:` / `delete:`** — « le

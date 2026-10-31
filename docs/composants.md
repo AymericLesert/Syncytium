@@ -1385,7 +1385,7 @@ gui:
 6. **Items** — **des sections, rien d'autre** : « chaque item est
    alors une section » (D489) ;
 7. **Modes et déclinaisons** — partout où un conteneur vit :
-   `header`/`body`/`footer`, `pages`, le template (D487) ; **le format
+   `header`/`page`/`footer`, `pages`, le template (D487, D509) ; **le format
    par écran se déclare** : « si l'affichage doit changer, screen
    permet de définir le format attendu » (D450/D490) — rien
    d'automatique ;
@@ -1453,10 +1453,10 @@ gui:
    sections passe par l'organisateur `sections` ; les champs par
    `field[<nom>]` (D460) ;
 7. **Modes et déclinaisons** — au formulaire : le cadre, l'intitulé en
-   tête s'il est nommé ; dans `header`/`body`/`footer` comme dans
+   tête s'il est nommé ; dans `header`/`page`/`footer` comme dans
    `pages` (D450/D487) ; le rendu s'adapte au `screen:` déclaré
    (D450) ; template : le regroupement du gabarit ; **la section seule
-   vit directement sous un conteneur — header, body ou footer**
+   vit directement sous un conteneur — header, page ou footer**
    (D490 — l'écho de D450/D451) ; ailleurs, la composition passe par
    l'organisateur `sections` ;
 8. **États et interactions** — la visibilité par les droits et la
@@ -1671,7 +1671,7 @@ gui:
    courant — en haut, en bas, latérale (D504/D552) ; **la parenté
    visuelle avec le `wizard` est assumée, les objets restent
    distincts** (D552 — la navigation libre ici, le parcours contraint
-   là-bas) ; l'entête, le corps et le pied acceptent les onglets
+   là-bas) ; l'entête, la page et le pied acceptent les onglets
    (D450) ; **tactile** : le swipe bascule d'un onglet à l'autre
    (l'esprit D503) ; **template** : les onglets rendus à la suite
    (*en proposition — rien ne bascule sur le papier*) ;
@@ -1803,8 +1803,8 @@ page:
 
 1. **Nom et famille** — `header` et `footer` — deux conteneurs d'un
    même sang : les rôles réservés de `pages` (D487/D490, amendés
-   D509 — **le formulaire est un `pages` implicite**, `body` a quitté
-   le vocabulaire au profit de `page`) ; « pas besoin de composants
+   D509 — **le formulaire est un `pages` implicite** : `header`, `page`,
+   `footer`) ; « pas besoin de composants
    complémentaires » : la famille des conteneurs est close ;
 2. **Rôle** — l'entête se fige en haut, le pied en bas — **« s'ils
    sont définis, ils sont toujours visibles »**, et **la page prend
@@ -1834,7 +1834,7 @@ forms:
     header:
       height: 60px                 # la hauteur paramétrable (D507)
       items: [ field[number] ]
-    page:                          # ex-body (D509) — la page prend le reste
+    page:                          # la page prend le reste
       - section:
           title: { fr: Client }
           items: [ field[customer] ]

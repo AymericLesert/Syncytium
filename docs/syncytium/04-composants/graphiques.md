@@ -79,7 +79,13 @@ y: { value: avg(margin), min: 0, max: 100, scale: linear }
 ### Le périmètre et le drill-down
 
 - `filter:` restreint l'assise, par une condition du langage (D90) :
-  `filter: state = "invoiced"`.
+  `filter: state = "invoiced"`. C'est le périmètre fixe du concepteur.
+- `searchable:` ouvre une zone de recherche que l'utilisateur remplit ;
+  le graphique se met à jour selon son choix (D798, D1654). Les règles
+  de la liste s'appliquent : seuls les champs qui portent `searchable:`
+  se filtrent, et un critère nommé sans `searchable:` est une erreur
+  d'ingestion (D1596–D1598). La banque filtre ainsi son évolution des
+  dépenses par budget et par plage de dates.
 - `drill:` déclare le drill-down : la liste nommée qui s'ouvre au clic,
   avec le filtre imposé par la valeur cliquée. Sans `drill:`, « par
   défaut, pas de drill-down » (D242).

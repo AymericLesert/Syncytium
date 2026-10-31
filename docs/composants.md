@@ -2806,8 +2806,8 @@ wizards:
    parmi les widgets disponibles — son catalogue propre (le pool
    D247) ou la libération d'un autre emplacement (D556) ; les graphiques
    directs (`chart[<nom>]` — D243/D540) ; les `sections` et leurs
-   layouts pour la disposition (D489–D491)  ; le contenu sous `items:` sur une
-   page unique, sous `page:` dès qu'un `header` ou un `footer` entre —
+   layouts pour la disposition (D489–D491) ; le contenu sous `items:`
+   sur une page unique, sous `page:` dès qu'un `header` ou un `footer` entre —
    le raccourci du formulaire (D1594–D1595) ;
 7. **Modes et déclinaisons** — **le même objet, deux auteurs**
    (D554) : **le concepteur déclare le panel** (les dashboards du

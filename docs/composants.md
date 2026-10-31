@@ -2608,7 +2608,10 @@ lists:
    format qu'aucune surface d'un genre n'autorise est une **erreur
    d'ingestion** (D1614), parmi les formats que la version porte —
    `version: { screen: [ pc, tablet ] }` dans les settings, tous les
-   formats en son absence (D1616) ;
+   formats en son absence (D1616) ; une surface qui déclare un format
+   que la version ne porte pas est une erreur d'ingestion ; ouverte sur
+   un format qu'elle ne porte pas, l'application affiche
+   « l'application n'est pas disponible sur ce support » (D1617) ;
    **`mode:`** — `read-only | updatable` (D453) ; **`history:`** —
    `false` désactive l'onglet historique d'une entité historisée
    (D453) ; **`size:`** — la surimpression, défaut 100 % de

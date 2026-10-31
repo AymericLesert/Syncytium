@@ -367,7 +367,8 @@ quand elle change de taille, l'application bascule d'un format à
 l'autre, et les composants se déclinent d'eux-mêmes. Un format
 qu'aucune surface n'autorise est une erreur d'ingestion, parmi les
 formats que la version porte (`version: { screen: […] }` dans les
-settings). *(D250, D450, D1613–D1616)*
+settings) ; hors de ces formats, l'application n'est pas disponible.
+*(D250, D450, D1613–D1617)*
 
 **Forme courte, forme longue** — Deux écritures d'une même clé : la
 valeur seule, tout le reste au défaut, ou le bloc qui détaille ses

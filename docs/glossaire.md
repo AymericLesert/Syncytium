@@ -597,6 +597,11 @@ module servi par Syncytium, jamais déclaré par l'application ; son nom
 commence par `_`, le préfixe des modules internes, et Syncytium refuse
 ce premier caractère aux modules d'application. *(D1029)*
 
+**Mono-poste** — L'installation d'une application sur un seul poste
+informatique, sans authentification : un compte unique, le groupe par
+défaut, le degré `administrator`. *Ex. : la banque, l'application d'un
+foyer.* *(D759, D1114, D1621)*
+
 **Normalisation** (`normalize:`) — L'expression appliquée à une valeur à
 la frontière, quand elle entre. *Ex. : `normalize: trim(me)`, les blancs
 retirés.* *(D870, D872, D991)*

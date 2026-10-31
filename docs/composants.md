@@ -1381,7 +1381,7 @@ gui:
    la ligne unique ; `row[2]` = jusqu'à deux lignes par colonne, puis
    la colonne suivante — la grille est couverte par le crochet
    (« oublie grid ») ; le crochet en raccourci du composant :
-   `sections[row]` (D478) ; **`width:` / `height:` au même
+   `sections[row]` (D478, D489, D1640) ; **`width:` / `height:` au même
    niveau que layout** — « pour que chaque section ait la même
    dimension » (D502, l'uniforme ; la section peut les surcharger —
    le variable, le plus proche l'emporte D461 ; sans précision, tout
@@ -1443,7 +1443,7 @@ gui:
    langue (D465) en position de titre, **facultatif** (« potentiellement
    nommé ») — **la documentation** : un regroupement qui demande une
    explication la reçoit dans la `description:` de l'écran, l'édition
-   la porte sur le regroupement (D1190 ; ma forme : la partie de la
+   la porte sur le regroupement (D1190, D1640 : la partie de la
    description titrée du nom de la section s'y attache) ;
    **`width:` / `height:`** — « calibrer la taille » :
    l'uniforme se pose sur l'organisateur, **la taille variable sur la
@@ -1953,8 +1953,8 @@ gui:
 3. **Types servis** — aucun champ : **le graphique est une déclaration
    autonome réutilisable** (D243) — **son assise : une entité, une
    liste nommée, ou un champ de type `list of` / `association with`**
-   (D517/D539 — le champ-collection : le graphique des éléments liés
-   à l'enregistrement du contexte), **les axes faisant référence aux
+   (D517/D539 — le champ-collection, `on: <champ>` (D1640) : le
+   graphique des éléments liés à l'enregistrement du contexte), **les axes faisant référence aux
    champs de l'assise** (D517) ;
 4. **Contexte consommé** — **X découpé par valeurs, par plages ou par
    temporalité** (D240) ; **Y = un agrégat (D158) filtré sur X** ; la
@@ -1972,9 +1972,9 @@ gui:
    pas de drill-down ») ; `title:` (D493) ; **les réglages
    d'affichage** (D515) : **la forme riche des axes** — `x:`/`y:`
    acceptent `{ value:, min:, max:, scale: }` (les début et fin
-   d'axe — l'écho D494 ; `scale: linear` défaut `| log`),
+   d'axe — l'écho D494 ; `scale: linear` défaut `| log` — D1640),
    **`display: graph | table | both`** — le graphique, le tableau des
-   valeurs, ou les deux (D521 — l'écho D244 ; défaut `graph`),
+   valeurs, ou les deux (D521 — l'écho D244 ; défaut `graph` ; D1640),
    **`colors:`** (la mécanique D467 — la couleur par série, le
    dégradé), **`labels:`** (D516) — `true` : la valeur au format du
    champ ; **le gabarit** pour personnaliser (la collision avec le
@@ -2078,7 +2078,7 @@ charts:
    `display:` compris) : `on:`, `x:`, `y:`, `filter:`, `drill:`,
    `colors:`, `labels:`, `title:` ; **les écarts propres** (D519) : **`mode: pie | donut | quarter`** — le
    camembert (défaut), l'anneau, l'arc (le crochet en raccourci :
-   `chart.pie[donut]`, D478) ; **`thickness:`** — l'épaisseur de
+   `chart.pie[donut]`, D478, D1640) ; **`thickness:`** — l'épaisseur de
    l'anneau et de l'arc (D520 — le pourcentage du rayon, D1637) ;
    **les angles de `quarter`** — le départ et la fin, au crochet aux
    bornes (D1637) : `quarter[-90..90]` (0° à
@@ -2229,14 +2229,14 @@ charts:
    `title:` (D493), `labels:` — le gabarit du format (D516,
    `{value}`) ; **`colors:` par seuils** — le chiffre qui change de
    couleur (la mécanique D467, la table d'entité D495 comprise) ;
-   **`icons:` par seuils** — « associer éventuellement une icône :
-   cas d'un feu tricolore » (D526 — la mécanique D467 dupliquée ; la
-   collision avec la feuille `icons` notée, le contexte départage
-   D458 ; la liaison `icon:` à la table D495) ; **`layout:`** —
+   **`resources:` par seuils** — « associer éventuellement une icône :
+   cas d'un feu tricolore » (D526 — la mécanique D467 dupliquée ;
+   l'écriture de la jauge, une ressource par seuil, D1609, D1611,
+   D1640 ; la liaison `icon:` à la table D495) ; **`layout:`** —
    « l'organisation se découpe en 4 » (D527) : la position du label —
    `top` (défaut) `| left | bottom | right` (les bords D525),
-   **l'icône au bord opposé** (*la collision avec le layout des
-   sections D490 notée — les valeurs départagent, D458*) ; `drill:`
+   **l'icône au bord opposé** (D1640 ; le `layout:` des sections a
+   d'autres valeurs, le contexte départage — D458) ; `drill:`
    (D242) ; **pas de comparaison dans le socle** (D245 —
    l'évolution contre une période = un hook) ; *(la note pour plus
    tard — D541 : la tendance issue de l'historique de l'entité,
@@ -2264,8 +2264,8 @@ charts:
     title: { fr: CA du mois }
     labels: { fr: "{value} € HT" }
     colors: { 0: red, 50000: orange, 100000: green }   # les seuils (D467)
-    icons:  { 0: red_light, 50000: orange_light, 100000: green_light }
-                                 # le feu tricolore (D526)
+    resources: { 0: red_light, 50000: orange_light, 100000: green_light }
+                                 # le feu tricolore, une ressource par seuil (D526, D1640)
     layout: left                 # le label à gauche, l'icône à droite (D527)
     drill: invoiced              # le clic : la liste (D242)
 ```
@@ -2319,7 +2319,7 @@ charts:
     rows: [seller, customer]     # la hiérarchie pliable — commercial › client
     columns: [date[month]]       # la temporalité (D240)
     value: sum(total)            # l'agrégat partitionné par la cellule (D158)
-    sort: -value                 # les plus gros CA d'abord (D528)
+    sort: -value                 # les plus gros CA d'abord (D528, D1640)
     filter: state = "invoiced"
     title: { fr: CA par commercial et par mois }
 ```

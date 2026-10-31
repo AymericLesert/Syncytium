@@ -795,12 +795,13 @@ gui:
 1. **Nom et famille** — `radios`, une feuille ;
 2. **Rôle** — les boutons radios : le jeu de valeurs étalé sous les
    yeux, un clic pour choisir — le choix visible sans dérouler ;
-3. **Types servis** — `enum` **aux petits jeux de valeurs** — **le
-   seuil est un élément de la configuration générale** (le settings, la
-   cascade — D468 ; le pendant du seuil mono/multi-ligne D366) ; le
+3. **Types servis** — `enum` **aux petits jeux de valeurs** ; le
    booléen décliné (D281) ; **jamais un défaut — la surcharge**
    (`component: radios`, proposée au formulaire dès le thème E,
-   D284) ;
+   D284, D285) ; **le seuil borne la surcharge** (D468, D1612) : un
+   élément de la configuration générale, à la cascade des settings ;
+   au-delà, le champ se replie en `dropdown` — *écriture en
+   proposition :* `field: { enum: { radios: 5 } }` ;
 4. **Contexte consommé** — les `values` du champ (`label`,
    `description`, `icon` — D387), le `mode`, les droits ;
 5. **Propriétés** — rien de déclaré : la disposition se déduit de la

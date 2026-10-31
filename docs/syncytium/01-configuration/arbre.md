@@ -203,7 +203,16 @@ icones:
 
     # Le fichier que la ressource représente
     file: ~{icones/bronze.png}
+
+    # Les dimensions hors de l'affichage standard, par format d'écran
+    size:
+      pc: 32px
+      smartphone[portrait]: 24px
 ```
+
+Une ressource décrit sa dimension par format d'écran, quand elle sort de
+l'affichage standard ; le `size:` du composant qui l'affiche la surcharge
+(D1627).
 
 ### `description:` — en ligne ou par fichier
 

@@ -1560,7 +1560,9 @@ gui:
 5. **Propriétés** — l'image, par l'identifiant d'une ressource
    (D1625) — la forme courte `picture: logo`, ou `resource:` en clair
    (D1626) ; le couple `size:` /
-   `dimension:` (D484) ; le socle du vocabulaire (D461) ;
+   `dimension:` (D484) — la ressource porte ses dimensions par format
+   d'écran, et le `size:` du nœud la surcharge (D1627) ; le socle du
+   vocabulaire (D461) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — au formulaire : l'image en place ;
    **template** : le logo du gabarit — l'entête de la facture ; jamais
@@ -1580,7 +1582,7 @@ gui:
         - picture: logo            # la forme courte — l'identifiant d'une ressource (D1625)
         - picture:
             resource: banner       # la forme en clair (D1626)
-            size: 120px            # à l'affichage (D484)
+            size: 120px            # à l'affichage (D484), la surcharge de la ressource (D1627)
 ```
 
 ## `color`

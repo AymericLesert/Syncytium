@@ -783,8 +783,9 @@ dépendent de la version d'exécution »). La fiche d'une ressource :
 `name`, `description`, `file`, `credit:` — le crédit des éléments
 tiers, par courtoisie. Toute image et toute icône passe par les
 ressources : la configuration cite l'identifiant de la ressource,
-`icon: bronze`, et la ressource représente le fichier.
-*(D346, amendé par D803 ; D1625)*
+`icon: bronze`, et la ressource représente le fichier. Hors de
+l'affichage standard, la ressource décrit sa dimension par format
+d'écran. *(D346, amendé par D803 ; D1625, D1627)*
 
 **Restauration** — Le retour d'un enregistrement à un instantané de son
 historique : par l'administrateur seul, sous condition, tracée ; elle est

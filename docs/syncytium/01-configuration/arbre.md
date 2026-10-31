@@ -212,7 +212,8 @@ icones:
 
 Une ressource décrit sa dimension par format d'écran, quand elle sort de
 l'affichage standard ; le `size:` du composant qui l'affiche la surcharge
-(D1627).
+(D1627). Sans `size:`, ni dans la ressource ni au composant, la taille
+est celle que le socle donne au composant (D1629).
 
 ### `description:` — en ligne ou par fichier
 

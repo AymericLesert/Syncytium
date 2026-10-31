@@ -1561,7 +1561,9 @@ gui:
    (D1625) — la forme courte `picture: logo`, ou `resource:` en clair
    (D1626) ; le couple `size:` /
    `dimension:` (D484) — la ressource porte ses dimensions par format
-   d'écran, et le `size:` du nœud la surcharge (D1627) ; le socle du
+   d'écran, et le `size:` du nœud la surcharge (D1627) ; sans `size:`,
+   la taille que le socle donne au composant ; `dimension:` reste au
+   nœud (D1629) ; le socle du
    vocabulaire (D461) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — au formulaire : l'image en place ;

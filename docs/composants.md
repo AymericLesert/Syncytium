@@ -2401,7 +2401,9 @@ les widgets, le wizard, les templates, le dashboard du module).*
    **`widget:`** (D492) ; `filter:` (l'expression D90) ; `sort:` (par
    colonne, à cascades, les signes — D441) ; `searchable:` (les
    champs ou les noms mutualisés, chacun cherchable au modèle — par
-   défaut, les colonnes affichées qui portent `searchable:`, D1596) ; `editable:`
+   défaut, les colonnes affichées — ou les champs du widget — qui
+   portent `searchable:`, D1596 ; un critère nommé sans `searchable:`
+   est une erreur d'ingestion, D1598) ; `editable:`
    (**défaut : tout readonly** — D441) ; `selection: 1 | 1..`
    (D445–D446) ; `sizable: none | auto | manual | auto+manual`
    (D447) ; **`add:` / `update:` / `delete:`** — « le

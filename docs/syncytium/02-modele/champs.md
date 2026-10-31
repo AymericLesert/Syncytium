@@ -115,7 +115,9 @@ Le groupe implicite occupe l'en-tête de l'écran, au-dessus des onglets.
   `mutualizable[<nom>]` ; les listes la consomment (D780, D784). Sans
   `searchable:`, aucun écran ne filtre sur le champ ; une liste prend
   par défaut pour critères ses champs affichés qui le portent, et ne
-  nomme en critère qu'un champ qui le porte (D1596). Sans déclaration,
+  nomme en critère qu'un champ qui le porte (D1596) : un autre champ est
+  une erreur d'ingestion, un nom mutualisé vaut pour les champs qui le
+  déclarent (D1598). Sans déclaration,
   ni à la liste ni aux champs, la liste n'a aucun critère (D1597).
 - **Les facettes propres à un type**, `currencies:`, `units:`,
   `decimals:`, sont décrites à sa fiche ([types.md](types.md),

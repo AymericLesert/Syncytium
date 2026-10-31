@@ -358,6 +358,14 @@ les éléments en une valeur : `sum`, `count`, `avg`, `min`, `max`, `first`,
 et ce qu'il possède. *Ex. : `lignes.sum(montant if statut = "en_cours")`.*
 *(D580, D887, D1564, D1575, D1576)*
 
+**Format d'écran** (`screen:`) — Le support sur lequel une surface
+s'affiche : un format, `pc`, la tablette ou le smartphone, suivi ou non
+de son orientation, `pc[paysage]`, `pc[portrait]`. Sans orientation, le
+format vaut pour toutes ; sans `screen:`, la surface vaut pour tous les
+formats. Syncytium déduit le format de la zone d'affichage disponible ;
+quand elle change de taille, l'application bascule d'un format à
+l'autre, et les composants se déclinent d'eux-mêmes. *(D250, D450, D1613)*
+
 **Forme courte, forme longue** — Deux écritures d'une même clé : la
 valeur seule, tout le reste au défaut, ou le bloc qui détaille ses
 propriétés. Un champ, une règle de validation, un paramètre ont les deux.

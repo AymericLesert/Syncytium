@@ -1460,8 +1460,8 @@ gui:
    `field[<nom>]` (D460) ;
 7. **Modes et déclinaisons** — au formulaire : le cadre, l'intitulé en
    tête s'il est nommé ; dans `header`/`page`/`footer` comme dans
-   `pages` (D450/D487) ; le rendu s'adapte au `screen:` déclaré
-   (D450) ; template : le regroupement du gabarit ; **la section seule
+   `pages` (D450/D487) ; le rendu s'adapte au format de la zone
+   d'affichage (D200/D1613) ; template : le regroupement du gabarit ; **la section seule
    vit directement sous un conteneur — header, page ou footer**
    (D490 — l'écho de D450/D451) ; ailleurs, la composition passe par
    l'organisateur `sections` ;
@@ -2512,7 +2512,8 @@ ecritures:
    `size: 75%` — la part de l'écran, **centrée** ; `size: 90% 50%` —
    la largeur puis la hauteur ; `size: 1000px 320px` — les pixels ; **`screen:`** — « le support sur
    lequel la liste a été définie et/ou autorisée à s'afficher »
-   (D532/D450 — `[pc paysage]` en défaut) ; `title:` (D493) ;
+   (D532/D450) — `<format>[<orientation>]`, tous les formats en son
+   absence (D1613) ; `title:` (D493) ;
 6. **Items** — aucun à déclarer : **l'anatomie est celle d'un
    `pages`** (D531 — intrinsèque) ;
 7. **Modes et déclinaisons** — **« une liste est comme pages »**
@@ -2591,8 +2592,15 @@ lists:
    confidentialité ; le `title` de l'entité (D465) ;
 5. **Propriétés** — **`title:`** — la zone de texte à gabarit,
    déclinable par langue (D449/D453) : le `title` de l'entité
-   utilisable et surchargeable (D465) ; **`screen:`** — le support de
-   conception et l'autorisation (`[pc paysage]` défaut — D450/D532) ;
+   utilisable et surchargeable (D465) ; **`screen:`** — les formats
+   sur lesquels la surface s'affiche, un ou plusieurs (D450/D532),
+   écrits **`<format>[<orientation>]`** : `pc[paysage]`,
+   `pc[portrait]`, `pc` — sans orientation, toutes les orientations ;
+   **sans `screen:`, tous les formats et toutes les orientations**
+   (D1613) ; **une surface par écran** : Syncytium déduit le format de
+   la zone d'affichage disponible, et un changement de taille fait
+   basculer l'application d'un format à l'autre — les composants se
+   déclinent d'eux-mêmes (D200/D250, D1613) ;
    **`mode:`** — `read-only | updatable` (D453) ; **`history:`** —
    `false` désactive l'onglet historique d'une entité historisée
    (D453) ; **`size:`** — la surimpression, défaut 100 % de
@@ -2633,7 +2641,8 @@ lists:
 forms:
   default:                          # la première déclarée = le défaut (D438)
     title: "{number} — {customer}"  # le gabarit (D449) — le title de l'entité surchargé (D465)
-    screen: [pc paysage]            # le support (D450)
+    screen:                         # les formats autorisés (D450/D1613)
+      - pc[paysage]
     size: 75%                       # la surimpression centrée sur la pile (D535/D533)
     header:
       items: [ field[number], field[state] ]

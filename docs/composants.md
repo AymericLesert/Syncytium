@@ -2471,8 +2471,8 @@ ecritures:
 1. **Nom et famille** — `list`, une surface — **le même composant que
    la feuille** (D486 : « un seul list ») ; ici son visage déclaré :
    `gui: lists: <nom>:` — **la première déclarée est la surface par
-   défaut** (D438), le menu l'adresse (`sales.order[pending]` —
-   D439) ;
+   défaut** (D438), le menu l'adresse en valeur de `link:`
+   (`sales.order[pending]` — D439, D1237) ;
 2. **Rôle** — **la porte d'entrée de l'entité** : les enregistrements
    en tableau ou en widgets, la recherche, le tri, les opérations ;
 3. **Types servis** — l'entité (ses champs en colonnes) ; **les deux
@@ -2584,7 +2584,7 @@ lists:
     selection: 1..                 # la multi-sélection (D446)
     sizable: auto+manual           # (D447)
     add: quick_entry               # le formulaire du bouton + (D530)
-    update: default                # celui du double-clic — le défaut sinon (D438)
+    update: record                 # celui du double-clic — le défaut sinon (D438, D788)
     exports: [ csv, excel[orders.xlsx], pdf[order_sheet] ]        # (D530, D1601)
     actions: [ invoice, cancel ]   # les opérations — l'icône au header, sinon
                                    # le bouton du pied (D531)

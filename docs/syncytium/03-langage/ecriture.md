@@ -87,8 +87,8 @@ signature (D579–D584) :
 - **ses fonctions dédiées** : `distance` pour la géolocalisation,
   `extract` pour le texte (D579, D817).
 
-La fiche de chaque type les donne, dans [les types](../modele/types.md)
-et [les types composés](../modele/composes.md).
+La fiche de chaque type les donne, dans [les types](../02-modele/types.md)
+et [les types composés](../02-modele/composes.md).
 
 ## Le conditionnel
 
@@ -225,4 +225,4 @@ validation:
 ```
 
 Le gabarit `{…}` n'est pas l'interpolation `${…}` de la configuration,
-résolue au chargement ([les mécanismes](../configuration/mecanismes.md)).
+résolue au chargement ([les mécanismes](../01-configuration/mecanismes.md)).

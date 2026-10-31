@@ -64,8 +64,8 @@ toujours en premier (D391).
 
 Tout type déclare ce que le langage peut faire de ses valeurs : sa conversion,
 ses opérateurs, ses comparateurs, son `select`, ses fonctions (D579–D584). Le
-langage la décrit, dans [l'écriture d'une expression](../langage/ecriture.md) ; le
-typage statique et les garde-fous sont dans [le langage](../langage/README.md).
+langage la décrit, dans [l'écriture d'une expression](../03-langage/ecriture.md) ; le
+typage statique et les garde-fous sont dans [le langage](../03-langage/README.md).
 
 ### La conversion vers le stockage
 
@@ -398,4 +398,4 @@ Le tri : sur l'entier, le nul en premier.
 ## Les fonctions du texte
 
 Le type `text` emmène ses fonctions : `trim`, `upper`, `left`, `lpad`, `mid`,
-`extract`… (D934). Elles sont décrites dans [le catalogue des fonctions](../langage/fonctions.md).
+`extract`… (D934). Elles sont décrites dans [le catalogue des fonctions](../03-langage/fonctions.md).

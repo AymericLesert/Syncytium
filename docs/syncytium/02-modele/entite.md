@@ -141,7 +141,7 @@ identities:
 
 Une propriété qui porte une carte peut cumuler plusieurs fichiers, dans
 l'ordre (D968) : c'est un mécanisme de la
-[configuration](../configuration/mecanismes.md).
+[configuration](../01-configuration/mecanismes.md).
 
 ## La validation
 

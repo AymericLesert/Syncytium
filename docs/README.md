@@ -39,16 +39,16 @@ docs/
 ├── syncytium/             partie 3 : ce qui est
 │   ├── README.md          Syncytium, les dix piliers, l'organisation recommandée de la configuration
 │   ├── glossaire.md
-│   ├── configuration/     la syntaxe, les mécanismes, l'arbre, les défauts du socle
-│   ├── modele/            l'entité, les champs, la vie d'un enregistrement, les types, les liens
-│   ├── langage/           le langage d'expression : la grammaire, le nul, les fonctions, les agrégats
-│   ├── composants/        le catalogue des composants graphiques
-│   ├── hooks/             les hooks et leurs familles
-│   ├── connecteurs/       les connecteurs et leurs contrats
-│   ├── securite/          la sécurité et les droits
-│   ├── reprise/           le mapping et le module de migration
-│   ├── administration/    l'administration, l'exploitation, la télémétrie
-│   ├── documentation/     la documentation que Syncytium génère
+│   ├── 01-configuration/  la syntaxe, les mécanismes, l'arbre, les défauts du socle
+│   ├── 02-modele/         l'entité, les champs, la vie d'un enregistrement, les types, les liens
+│   ├── 03-langage/        le langage d'expression : la grammaire, le nul, les fonctions, les agrégats
+│   ├── 04-composants/     le catalogue des composants graphiques
+│   ├── 05-hooks/          les hooks et leurs familles
+│   ├── 06-connecteurs/    les connecteurs et leurs contrats
+│   ├── 07-securite/       la sécurité et les droits
+│   ├── 08-reprise/        le mapping et le module de migration
+│   ├── 09-administration/ l'administration, l'exploitation, la télémétrie
+│   ├── 11-documentation/  la documentation que Syncytium génère
 │   └── outils.md          les outils du dépôt
 ├── cas-d-usage/           partie 4 : les cinq cas, chacun avec sa configuration et ses documents
 └── etudes/                partie 5 : les études comparatives, datées
@@ -77,18 +77,18 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 
 | # | Le chapitre | Les documents d'aujourd'hui | La destination | La lecture | La réorganisation |
 |---|---|---|---|---|---|
-| 1 | **La configuration et son écriture** | `configuration.md` | `syncytium/configuration/` | fait le 29/10/2026 (13 points, D1528–D1540) | fait le 29/10/2026 (six fichiers, D1541) ; réécrite le 29/10/2026 (D1542–D1544) |
-| 2 | **Le modèle et les types** | `entity.md`, `types.md` | `syncytium/modele/` | fait le 30/10/2026 (25 points, D1549–D1560) | fait le 30/10/2026 (huit fichiers, D1561) ; réécrite le 30/10/2026 (D1562, les définitions) |
-| 3 | **Le langage d'expression** | le registre ; `syncytium/modele/types.md` (la signature des types) ; `syncytium/configuration/mecanismes.md` §2.7 | `syncytium/langage/` | fait le 31/10/2026 (13 points, D1565–D1584) | fait le 31/10/2026 (quatre fichiers, D1586) ; réécrite le 31/10/2026 |
-| 4 | **Les surfaces et les composants** | `composants.md` | `syncytium/composants/` | en cours (21 points, D1590) | — |
-| 5 | **Les hooks** | `hooks.md` | `syncytium/hooks/` | — | — |
-| 6 | **Les connecteurs** | `connectors.md` | `syncytium/connecteurs/` | — | — |
-| 7 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/securite/` | — | — |
-| 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/reprise/` | — | — |
-| 9 | **L'administration et l'exploitation** | `administration.md` | `syncytium/administration/` | — | — |
-| 10 | **La télémétrie** | `telemetry.md` | `syncytium/administration/telemetrie.md` | — | — |
-| 11 | **La documentation** | `documentation.md` | `syncytium/documentation/` ; `histoire/chantier-documentation.md` | — | — |
-| 12 | **Les API et les échanges** | `documentation.md` §10 et §27 | `syncytium/documentation/developpeur.md` | — | — |
+| 1 | **La configuration et son écriture** | `configuration.md` | `syncytium/01-configuration/` | fait le 29/10/2026 (13 points, D1528–D1540) | fait le 29/10/2026 (six fichiers, D1541) ; réécrite le 29/10/2026 (D1542–D1544) |
+| 2 | **Le modèle et les types** | `entity.md`, `types.md` | `syncytium/02-modele/` | fait le 30/10/2026 (25 points, D1549–D1560) | fait le 30/10/2026 (huit fichiers, D1561) ; réécrite le 30/10/2026 (D1562, les définitions) |
+| 3 | **Le langage d'expression** | le registre ; `syncytium/02-modele/types.md` (la signature des types) ; `syncytium/01-configuration/mecanismes.md` §2.7 | `syncytium/03-langage/` | fait le 31/10/2026 (13 points, D1565–D1584) | fait le 31/10/2026 (quatre fichiers, D1586) ; réécrite le 31/10/2026 |
+| 4 | **Les surfaces et les composants** | `composants.md` | `syncytium/04-composants/` | en cours (21 points, D1590) | — |
+| 5 | **Les hooks** | `hooks.md` | `syncytium/05-hooks/` | — | — |
+| 6 | **Les connecteurs** | `connectors.md` | `syncytium/06-connecteurs/` | — | — |
+| 7 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/07-securite/` | — | — |
+| 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/08-reprise/` | — | — |
+| 9 | **L'administration et l'exploitation** | `administration.md` | `syncytium/09-administration/` | — | — |
+| 10 | **La télémétrie** | `telemetry.md` | `syncytium/09-administration/telemetrie.md` | — | — |
+| 11 | **La documentation** | `documentation.md` | `syncytium/11-documentation/` ; `histoire/chantier-documentation.md` | — | — |
+| 12 | **Les API et les échanges** | `documentation.md` §10 et §27 | `syncytium/11-documentation/developpeur.md` | — | — |
 | 13 | **Les cas d'usage** | `../usecases/*.md` | `cas-d-usage/` (partie 4) | — | — |
 | 14 | **La méthode et le projet** | `conception.md`, `../README.md` | `syncytium/README.md`, `histoire/` (parties 0 et 2) | — | — |
 

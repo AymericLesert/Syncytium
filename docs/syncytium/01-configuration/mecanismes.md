@@ -173,7 +173,7 @@ fichiers disent ce qui est inclus.
 ## 2.7 Le langage d'expression dans les valeurs (D90–D92)
 
 Un seul langage sert partout où une valeur se calcule ou se vérifie (D90). Il est décrit
-dans [le langage d'expression](../langage/README.md) : son écriture, ses collections, ses
+dans [le langage d'expression](../03-langage/README.md) : son écriture, ses collections, ses
 fonctions. Ce chapitre garde ce qui n'est pas une expression : l'interpolation `${…}`,
 résolue au chargement, et la référence de fichier `~{…}` (D1583).
 

@@ -7,8 +7,8 @@
 
 Chaque type emmène ses fonctions : ses parties au point, ses
 constructeurs, ses conversions. Elles sont décrites à sa fiche, dans
-[les types](../modele/types.md) et
-[les types composés](../modele/composes.md) (D579, D838). Ce fichier
+[les types](../02-modele/types.md) et
+[les types composés](../02-modele/composes.md) (D579, D838). Ce fichier
 décrit les autres : celles du texte, les fonctions libres, et les
 fonctions que le concepteur ajoute.
 

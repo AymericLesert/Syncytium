@@ -6,7 +6,7 @@ Ce chapitre dit comment une entité se décrit, ce que porte un champ, ce
 qui arrive à un enregistrement au fil de sa vie, et quels types un champ
 peut prendre. Le langage qui calcule et vérifie les valeurs a son propre
 chapitre ; la forme des fichiers est dans
-[la configuration](../configuration/README.md). Les décisions citées
+[la configuration](../01-configuration/README.md). Les décisions citées
 entre parenthèses renvoient au [registre](../../conception.md).
 
 ## Le sommaire

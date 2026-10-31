@@ -253,8 +253,8 @@ vit dans trois chapitres :
 
 - l'en-tête de l'entité, `name`, `description`, `label`, `identity`,
   `inheritance`, `states`, `history`, `fields:`, `validation:`,
-  `operations:`, `gui:`, `allow:`, dans [entity.md](../modele/entite.md) ;
-- les champs et leurs facettes dans [types.md](../modele/types.md), dont
+  `operations:`, `gui:`, `allow:`, dans [entity.md](../02-modele/entite.md) ;
+- les champs et leurs facettes dans [types.md](../02-modele/types.md), dont
   `sort:` et `group:` sur une association dérivée (D1016, D1017) et
   `unit:` sur une mesure empruntée à une référence (D1009) ;
 - les surfaces, `lists`, `forms`, `summary`, `widgets`, `wizards`,

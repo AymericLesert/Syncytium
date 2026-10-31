@@ -20,7 +20,7 @@ fichier décrit ces types, puis ceux qu'un hook ajoute.
 
 **La collection est un type** : elle porte ses fonctions d'agrégation en méthodes, et
 le langage la combine, l'interroge, l'adresse par la clé (D580). Tout cela est décrit
-dans [les collections](../langage/collections.md).
+dans [les collections](../03-langage/collections.md).
 
 ### `range of <type>`, la plage
 

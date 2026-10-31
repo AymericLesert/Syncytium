@@ -8,7 +8,7 @@ Une valeur peut se calculer, se vérifier ou se transformer. Syncytium le
 dit dans une seule langue, partout (D90). Ce chapitre dit où elle
 s'emploie, comment s'écrit une expression, ce qu'on fait d'une
 collection, et quelles fonctions existent. Ce qu'un type porte en propre
-reste à sa fiche, dans [le modèle](../modele/types.md) (D1583). Les
+reste à sa fiche, dans [le modèle](../02-modele/types.md) (D1583). Les
 décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).
 

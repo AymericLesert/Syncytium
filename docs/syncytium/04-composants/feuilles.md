@@ -1161,8 +1161,8 @@ visage (D465). Les droits. À la sélection, les actifs seuls (D398).
 - **`by:`**, la présentation (D474). Le nom d'une liste de la cible
   ouvre cette liste. Le nom de son champ image ouvre la galerie des
   visages. Sans `by:`, la liste par défaut, filtrée.
-- **`selection:`**, le nombre d'éléments : `1`, `1..`, `1..5`. Le défaut
-  se déduit du lien (D470, D474).
+- **`selection:`**, le nombre d'éléments : `one`, `multiple`, `1`, `1..`,
+  `1..4`, `2..4`, `..4` (D474, D1650). Le défaut se déduit du lien (D470).
 - **`anchor:`**, l'ancrage de la liste (D469) : `center`, au centre de
   l'écran ; `right`, à droite du champ ; `field`, à la place du champ.
   Le moteur a ses défauts selon l'écran ; sur smartphone, le plein
@@ -2128,7 +2128,7 @@ base des couleurs nommées (D496). Les droits.
 
 **Propriétés.**
 
-- `selection:`, le nombre (D474) : `1` par défaut, `1..`, `1..5` ;
+- `selection:`, le nombre (D474, D1650) : `1` par défaut, ou `one`, `multiple`, `1`, `1..`, `1..4`, `2..4`, `..4` ;
 - `anchor:`, le centre de l'écran, à droite du champ, ou à la place du
   champ (D469) ;
 - `dimension:`, le déploiement (D469, D484) ;

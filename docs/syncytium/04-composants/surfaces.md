@@ -185,8 +185,9 @@ recherche, les gestes et les opérations, les exports, l'écran.
 
 *Les gestes et les opérations.*
 
-- `selection: 1 | 1..`, la sélection d'une ligne ou de plusieurs (D445,
-  D446) ;
+- `selection:`, la sélection d'une ligne ou de plusieurs (D445, D446).
+  Elle admet les mots et le nombre : `one`, `multiple`, `1`, `1..`, `1..4`, `2..4`, `..4` (D1650). La banque
+  écrit `selection: multiple` ;
 - `sizable: none | auto | manual | auto+manual`, le dimensionnement des
   colonnes (D447) ;
 - `add:`, `update:` et `delete:`, « le formulaire/widget à appeler »

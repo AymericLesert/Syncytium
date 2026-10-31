@@ -2418,7 +2418,8 @@ les widgets, le wizard, les templates, le dashboard du module).*
    `<module>.<entité>[<liste>]`, `<module>.<entité>.<opération>`,
    `<module>.<entité>[+<formulaire>]`, `<module>.<entité>[@<wizard>]`,
    `<module>[<dashboard>]` ; **l'icône vient de la surface visée**
-   (D439) ; **le défaut sans `menu.yml`** : les entités agrégats du
+   (D439) ; **une entité peut avoir plusieurs entrées**, chacune vers
+   une de ses listes (D189) ; **le défaut sans `menu.yml`** : les entités agrégats du
    module, leurs enfants et leurs associations en lien multiple en
    sous-menu, chaque entrée vers la liste de l'entité (D193, D186) ;
 6. **Items** — des entrées et des sous-menus : **un sous-menu porte
@@ -2433,7 +2434,7 @@ les widgets, le wizard, les templates, le dashboard du module).*
    encore décidée ;
 8. **États et interactions** — l'entrée masquée par la
    confidentialité (D193) ; le clic ouvre la surface adressée ;
-9. **Décisions fondatrices** — D186, D191–D194, D351, D439, D549,
+9. **Décisions fondatrices** — D186, D189, D191–D194, D351, D439, D549,
    D1227, D1237 ; **la documentation suit le menu** (D1194) : chaque
    entrée est une section de la documentation fonctionnelle — une
    liste décrite par une entrée a sa section, une entité hors du menu
@@ -2490,12 +2491,12 @@ ecritures:
    colonne, à cascades, les signes — D442) ; `searchable:` (les
    champs ou les noms mutualisés, chacun cherchable au modèle — par
    défaut, les colonnes affichées — ou les champs du widget — qui
-   portent `searchable:`, D1596 ; un critère nommé sans `searchable:`
+   portent `searchable:`, D1308, D1596 ; un critère nommé sans `searchable:`
    est une erreur d'ingestion, D1598 ; **le possesseur d'une
    composition** : ouverte depuis lui, la liste de ses éléments le tient
    du contexte ; la liste de tous les éléments, sans distinction de
    possesseur, peut proposer un filtre sur lui par sa définition, en
-   recherche stricte ou sous l'une des autres formes, D1599) ; `editable:`
+   recherche stricte ou sous l'une des autres formes, D782, D1599) ; `editable:`
    (**défaut : tout readonly** — D442) ; `selection: 1 | 1..`
    (D445–D446) ; `sizable: none | auto | manual | auto+manual`
    (D447) ; **`add:` / `update:` / `delete:`** — « le
@@ -2505,7 +2506,9 @@ ecritures:
    documents » (D530) — **la forme courte, `<format>` ou
    `<format>[<modèle>]`** (D1601) : le format, `csv`, `pdf`, `word`
    (D1602), `excel`, `ods`, `mail`… ; le crochet nomme le modèle qui génère le document,
-   sans crochet le modèle de base de la liste (D792) ; le format est
+   sans crochet le modèle de base de la liste (D792) ; `csv` exporte
+   par défaut les colonnes affichées, et les colonnes d'un export
+   déclaré portent leur longueur (D213) ; le format est
    un storage de format (D636) ou une destination du gabarit (D564),
    sinon une erreur d'ingestion ; derrière la forme courte, `export`
    ou `generate` s'exécute et ses événements suivent (D1603) ;
@@ -2540,11 +2543,14 @@ ecritures:
    le cadre** — le formulaire d'`add:` (D530) ; **la modification au
    double-clic** — celui d'`update:` ; la lecture seule → la
    consultation ; **la suppression** : une ligne = le formulaire de
-   `delete:` en lecture seule + la confirmation, plusieurs = le
-   décompte confirmé (D446/D530) ; **l'opération de masse** sur les lignes
+   `delete:` en lecture seule + la confirmation, plusieurs = **la
+   double validation** — le nombre et la synthèse des suppressions,
+   puis la confirmation (D197, D446/D530) ; **la modification en
+   masse** : un parcours séquentiel — valider, passer au suivant —,
+   interruptible à tout moment (D197) ; **l'opération de masse** sur les lignes
    sélectionnées (D446) ; les opérations en colonne à trois états
    (D444) ;
-9. **Décisions fondatrices** — D226–D229, D437–D448, D450, D462,
+9. **Décisions fondatrices** — D189, D197, D213, D226–D229, D437–D448, D450, D462,
    D466–D467, D484, D486, D492–D493, D530–D533 ;
 10. **Exemple de configuration** —
 

@@ -82,8 +82,19 @@ confondus (D1227).
 **Modes et déclinaisons.** À l'écran, le bandeau haut porte les menus
 et les sous-menus. Quand l'application a plusieurs modules, le bandeau
 gauche porte le choix du module (D191). Depuis le menu, le wizard prend
-tout l'écran (D549). La déclinaison au smartphone et à la tablette
-n'est pas encore décidée.
+tout l'écran (D549).
+
+Quand la place manque, le menu se replie (D1656) :
+
+- le bandeau passe derrière une icône ;
+- l'icône ouvre le menu en plein écran, et les sous-menus se déplient en
+  place ;
+- le choix du module vient en tête du menu ;
+- sur une tablette, le composant garde le bandeau s'il tient, et se
+  replie sinon.
+
+Le concepteur ne déclare rien : c'est la règle de la place disponible,
+la même que pour l'aide, l'abréviation ou les filtres (D1620, D1633).
 
 La documentation suit le menu (D1194). Chaque entrée est une section de
 la documentation fonctionnelle. Une liste décrite par une entrée a sa

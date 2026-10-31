@@ -570,8 +570,8 @@ gui:
 10. **Exemple de configuration** —
 
 ```yaml
-# settings.yml — l'étage version ou module : le type fondateur (D359)
-types:
+# settings.yml — l'étage version ou module : le type fondateur (D359), sous field: (D1239)
+field:
   progression:
     type: integer
     min: 0
@@ -1503,7 +1503,7 @@ page:                              # la section seule, directement (D490)
    ancre à son choix (D1335) ; **et le gabarit** — « le paragraph peut être un
    gabarit, utilisable dans le cas d'une lettre » (D559,
    l'étoffement Q55) : les variables de l'enregistrement dans le
-   texte (« Cher {customer}, votre commande {number}… ») — le
+   texte (« Cher {{customer}}, votre commande {{number}}… ») — le
    publipostage ;
 3. **Types servis** — aucun : le contenu est déclaré, par langue
    (D465) ou par référence au dictionnaire du module (`labels` —
@@ -1840,7 +1840,7 @@ page:
 
 ```yaml
 forms:
-  default:                         # le formulaire = un pages implicite (D509)
+  record:                          # le formulaire = un pages implicite (D509) ; record, le nom (D788)
     header:
       height: 60px                 # la hauteur paramétrable (D507)
       items: [ field[number] ]
@@ -2292,7 +2292,7 @@ charts:
    `filter:` (D90) ; **`sort:`** — « le tri peut s'appuyer
    sur les rows, les columns ou la value » (D528–D529) : la clé = un
    champ des lignes, un champ des colonnes, ou `value` — les signes
-   et cascades D441 (`sort: { seller: -value, date: + }`) ; chaque
+   et cascades D442 (`sort: { seller: -value, date: + }`) ; chaque
    niveau du groupement trié par son sous-total, l'ordre naturel du
    champ en défaut ; **les
    plages et temporalités** sur les champs numériques ou dates —
@@ -2485,7 +2485,7 @@ ecritures:
    (`visible: false`), le fond gradué (`background:` — D466), les
    couleurs (`colors:` — D467), l'aperçu du fil (`preview:` — D393) ;
    **`widget:`** (D492) ; `filter:` (l'expression D90) ; `sort:` (par
-   colonne, à cascades, les signes — D441) ; `searchable:` (les
+   colonne, à cascades, les signes — D442) ; `searchable:` (les
    champs ou les noms mutualisés, chacun cherchable au modèle — par
    défaut, les colonnes affichées — ou les champs du widget — qui
    portent `searchable:`, D1596 ; un critère nommé sans `searchable:`
@@ -2494,7 +2494,7 @@ ecritures:
    du contexte ; la liste de tous les éléments, sans distinction de
    possesseur, peut proposer un filtre sur lui par sa définition, en
    recherche stricte ou sous l'une des autres formes, D1599) ; `editable:`
-   (**défaut : tout readonly** — D441) ; `selection: 1 | 1..`
+   (**défaut : tout readonly** — D442) ; `selection: 1 | 1..`
    (D445–D446) ; `sizable: none | auto | manual | auto+manual`
    (D447) ; **`add:` / `update:` / `delete:`** — « le
    formulaire/widget à appeler » pour chaque geste (D530 — les
@@ -2557,9 +2557,9 @@ lists:
       - total: { background: progress }   # le fond gradué (D466)
       - discussion: { preview: 3 }        # le fil au survol (D393)
       - invoice                    # l'opération — l'icône à 3 états (D444/D462)
-    filter: state in [draft, confirmed]
-    sort: { date: -, number: + }   # les cascades (D441)
-    editable: [notes]              # le reste readonly (D441)
+    filter: state in ["draft", "confirmed"]
+    sort: { date: -, number: + }   # les cascades (D442)
+    editable: [notes]              # le reste readonly (D442)
     selection: 1..                 # la multi-sélection (D446)
     sizable: auto+manual           # (D447)
     add: quick_entry               # le formulaire du bouton + (D530)
@@ -2570,9 +2570,9 @@ lists:
 
   cards:                           # le second visage (D492)
     widget: card                   # chaque enregistrement rendu par son widget
-    filter: state in [draft, confirmed]
+    filter: state in ["draft", "confirmed"]
 
-# et le menu l'adresse (D439) : sales.order[pending]
+# et le menu l'adresse, en valeur de link: (D439, D1237) : sales.order[pending]
 ```
 
 ## `form`
@@ -2583,7 +2583,8 @@ lists:
    l'entité** (D1273, D1279 — les groupes dans `fields:`, entity.md) : un onglet par groupe, les
    champs hors groupe en en-tête au-dessus de tous les onglets ; sans
    `groups:`, pas d'onglet ;
-   adressé par le menu (`[+form]` — D439), appelé par la liste
+   adressé par le menu (le `link:` d'une entrée, `[+form]` — D439,
+   D1237), appelé par la liste
    (`add:`/`update:`/`delete:` — D530), par une opération (la
    relecture `commit: confirm` — D431/D596) ;
 2. **Rôle** — l'enregistrement en face à face : **le formulaire
@@ -2655,7 +2656,7 @@ lists:
 ```yaml
 # sales/entities/order.yml, bloc gui — le fil de la passe
 forms:
-  default:                          # la première déclarée = le défaut (D438)
+  record:                           # la première déclarée = le défaut (D438) ; record, le nom (D788)
     title: "{number} — {customer}"  # le gabarit (D449) — le title de l'entité surchargé (D465)
     screen:                         # les formats autorisés (D450/D1613)
       - pc[landscape]
@@ -2679,8 +2680,8 @@ forms:
 
 ## `summary`
 
-1. **Nom et famille** — `summary`, une surface — `gui: summaries:
-   <nom>:` (*l'écriture en proposition*) ; la première déclarée = le
+1. **Nom et famille** — `summary`, une surface — `gui: summary:
+   <nom>:` (le bloc, D437 ; le nom sous le bloc, *en proposition*) ; la première déclarée = le
    défaut (D438) — mais **« défaut : n'existe pas »** (D201) : sans
    déclaration, l'entité n'offre aucun résumé ;
 2. **Rôle** — l'enregistrement en bref : **« petit par principe »**
@@ -2717,7 +2718,7 @@ forms:
 
 ```yaml
 # crm/entities/customer.yml, bloc gui — le résumé du client
-summaries:
+summary:
   card:                            # sans déclaration : aucun résumé (D201)
     title: "{name}"
     size: 30%                      # petit par principe (D201), centré (D533)
@@ -2792,7 +2793,8 @@ widgets:
 ## `wizard`
 
 1. **Nom et famille** — `wizard`, une surface — `gui: wizards:
-   <nom>:` ; le menu l'adresse (`[@wizard]` — D439) ; la première
+   <nom>:` ; le menu l'adresse (le `link:` d'une entrée,
+   `[@wizard]` — D439, D1237) ; la première
    déclarée = le défaut (D438) ; **séparé de `tabs`**
    (D552 — « je valide la séparation ») : deux objets, une parenté
    visuelle assumée — le vocabulaire du parcours (steps/step) tout
@@ -2861,7 +2863,7 @@ widgets:
 ```yaml
 # sales/entities/order.yml, bloc gui
 wizards:
-  new_order:                       # le menu : sales.order[@new_order] (D439)
+  new_order:                       # le link: du menu : sales.order[@new_order] (D439, D1237)
     title: { fr: Nouvelle commande }
     steps:
       - step:
@@ -2892,7 +2894,8 @@ wizards:
 
 1. **Nom et famille** — `dashboard`, une surface — **au module** :
    `module.yml`, bloc gui (*l'écriture `dashboards:` en
-   proposition*) ; le menu l'adresse — `module[dashboard]` (D439) ;
+   proposition*) ; le menu l'adresse, en valeur de `link:` —
+   `module[dashboard]` (D439, D1237) ;
    la première déclarée = le défaut (D438) ;
 2. **Rôle** — le tableau de bord : **la vue d'ensemble du module** —
    les widgets et les graphiques de ses entités, assemblés ;
@@ -2940,7 +2943,7 @@ wizards:
 ```yaml
 # sales/module.yml, bloc gui — le tableau de bord du module (D439)
 dashboards:
-  main:                            # le menu : sales[main] (D439)
+  main:                            # le link: du menu : sales[main] (D439, D1237)
     title: { fr: Pilotage des ventes }
     refresh: every[5min]           # static | live | every[…] (D249/D434)
     page:
@@ -3031,12 +3034,12 @@ templates:
 
 ## `chat`
 
-*(La huitième surface — née avec le module `chat` du socle, D957 ;
+*(La huitième surface — née avec le module `_chat` du socle, D957, D1029 ;
 la fiche est mienne, en proposition.)*
 
 1. **Nom et famille** — `chat`, une surface — **au socle** : l'écran
-   du module `chat` fourni par Syncytium (comme `_migration` D666 et
-   `_administration` D710) ; le menu l'adresse — `_chat[main]` (D439 — le préfixe des modules internes, D1029) ;
+   du module `_chat` fourni par Syncytium (comme `_migration` D666 et
+   `_administration` D710) ; le menu l'adresse, en valeur de `link:` — `_chat[main]` (D439, D1237 ; le préfixe des modules internes, D1029) ;
 2. **Rôle** — **la question en langue naturelle à la somme des
    connaissances de l'instance** — les données et leur description —,
    la réponse d'un modèle de langage déclaré en connecteur (`llm`) ;
@@ -3082,11 +3085,11 @@ la fiche est mienne, en proposition.)*
    formulaire, l'acte — D439/D483), où l'utilisateur agit sous ses
    propres droits ;
 9. **Décisions fondatrices** — D295, D439, D449–D450, D465, D617,
-   D626, D695–D696, D885–D886, D917–D918, D925, D957 ;
+   D626, D695–D696, D885–D886, D917–D918, D925, D957–D960, D1029 ;
 10. **Exemple de configuration** —
 
 ```yaml
-# le module chat du socle — rien à déclarer chez le client, sinon le
+# le module _chat du socle — rien à déclarer chez le client, sinon le
 # connecteur llm de l'environnement (connectors.yml — D617)
 assistant:
   type: llm

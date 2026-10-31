@@ -23,11 +23,13 @@ d'agrégation, `sum` ou `count`. *(D101, D1564)*
 enregistrement, qui garde son squelette : les liens et l'historique
 tiennent, le contenu s'efface. *(D139)*
 
-**Assistance** (`_assistance`, module interne — en proposition) — La
+**Assistance** (`_assistance`, module interne) — La
 F.A.Q. vivante du socle : l'utilisateur pose une question depuis un
 écran, le concepteur ou un responsable métier répond ; la question
-répondue nourrit la F.A.Q. générée, le chat et la complétude.
-*(D1132)*
+répondue nourrit la F.A.Q. générée, le chat et la complétude. Chaque
+surface nomme, dans `assistance:`, les groupes qui traitent une
+anomalie, répondent à une question, enregistrent une évolution.
+*(D1132, D1363–D1374)*
 
 **Association** (`association with`) — Le lien souple entre
 enregistrements, sans possession : chacun vit sa vie.
@@ -45,6 +47,10 @@ migration. *(D1044/D1045)*
 au-dessus de la surface : un message, puis confirmer ou annuler. C'est une
 fenêtre assumée. La fenêtre surgissante du navigateur, la popup, ne sert
 jamais. *(D601, D1605)*
+
+**Carrousel** (`viewer[carousel]`) — La succession des images d'une
+collection, qui défile à intervalle régulier ou à la touche.
+*(D475, D476)*
 
 **Cartouche** — L'en-tête ou le pied obligatoire d'une édition : le
 numéro de version, la date, l'auteur de l'édition. *(D1142)*
@@ -330,6 +336,12 @@ l'assistant ; le Markdown est le rendu humain. *(D1165)* Depuis D1245, l'annexe 
 dictionnaire de la donnée : la configuration entière et dépliée, sans
 les clés confidentielles.
 
+**Drill-down** (`drill:`) — Le clic sur un graphique, qui ouvre la liste
+des éléments derrière la valeur. Il n'existe que déclaré. *(D242, D519)*
+
+**Emplacement libre** (`_`) — La place d'un tableau de bord que
+l'utilisateur remplit lui-même, avec les widgets de son choix. *(D556)*
+
 **Enregistrement** — Une occurrence d'une entité : tel client, telle
 commande. Il a son identité fonctionnelle, celle que l'entité déclare,
 et son identité technique, invisible. *(D141, D142)*
@@ -355,7 +367,9 @@ condition vraie franchit, l'acquis se garde), redescendent par l'acte
 explicite, se cumulent en branches. *(D144–D147, D353–D355, D424)*
 
 **Facette** — Un des modes de représentations d'un type de données : la logique (la valeur
-vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ CSV. *(D119)*
+vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ CSV. Par
+extension, un des visages d'un composant ou d'une surface dans chaque document : la
+documentation est une facette de tous les composants. *(D119, D1158)*
 
 **Feuille** — Un composant qui rend un champ : la saisie d'une valeur,
 le choix ou le regard d'un objet. Le composant par défaut d'un type
@@ -393,6 +407,10 @@ valeur seule, tout le reste au défaut, ou le bloc qui détaille ses
 propriétés. Un champ, une règle de validation, un paramètre ont les deux.
 Voir Type court. *Ex. : `lieu_achat: text[..60]` ; `- rule: … message: …`.*
 *(D356, D590, D1116–D1117)*
+
+**Formulaire** (`forms:`) — La surface d'un enregistrement, aux cinq
+usages : créer, lire, modifier, supprimer, consulter l'historique. Il
+s'appelle `record` par défaut. *(D199, D788, D1645)*
 
 **Gabarit** — Un texte à trous, dont les accolades citent des valeurs :
 le message d'une validation, le visage d'une entité, le libellé d'un
@@ -553,6 +571,10 @@ combinaison est une cellule qui porte ses champs.
 type. *Ex. : `phones: list of phone`.* Sur un nom d'entité, elle
 devient la composition. *(D166/D362)*
 
+**Liste (la surface)** (`lists:`) — La porte d'entrée de l'entité : ses
+enregistrements en tableau ou en widgets, la recherche, le tri, les
+opérations. À ne pas confondre avec la Liste (type). *(D486, D492)*
+
 **Masque d'explication** — L'aide en ligne tissée dans l'application :
 la documentation fonctionnelle de l'écran servie en place — la
 description de la surface, puis, pour chaque champ qui en a, son
@@ -688,6 +710,14 @@ bout, appuyés sur les wizards ; déclaré dans le groupe de `groups.yml`
 — un prénom fictif, un rôle, et une description qui, à défaut, est
 celle du groupe. *(D1127/D1130, D1200)*
 
+**Picker** (`picker.*`) — La famille des feuilles qui choisissent un
+objet : un enregistrement, une image, un fichier, une couleur.
+*(D470, D473)*
+
+**Pile** — Les surfaces ouvertes l'une sur l'autre : toute surface
+s'ouvre au-dessus de celles qui l'ont appelée, et les contextes
+s'empilent avec elles. *(D535, D553)*
+
 **Plage** (`range of`) — Deux valeurs du même type, la première
 inférieure ou égale à la seconde ; l'une peut manquer. La jauge est une
 plage. *Ex. : `range of integer`.* *(D497–D498)*
@@ -696,11 +726,15 @@ plage. *Ex. : `range of integer`.* *(D497–D498)*
 titre, les étapes numérotées, une capture par étape, le contrôle
 entouré ; la forme condensée d'un scénario de persona, une à trois
 planches synthétiques qui montrent un enchaînement d'écrans et
-d'actions, dessinées step par step depuis le wizard. *(D1129, D1188)*
+d'actions, dessinées step par step depuis le wizard. Dans un `viewer`, la planche est aussi la mosaïque de vignettes d'une
+collection, `viewer[mosaic]`. *(D1129, D1188 ; D478, D480)*
 
 **Possesseur** (`owner`) — L'enregistrement qui possède une
 composition ; l'enfant l'atteint par `owner`. *Ex. : `owner.km_initial`.*
 *(D760–D761)*
+
+**Post-zone** — La partie qui suit la zone de saisie d'un champ : la
+devise, le `%`, une unité, une icône. *(D265, D271)*
 
 **Profil de confidentialité** — Une déclaration nommée, dans
 `syncytium.yml`, sous `confidentiality:`, que les champs citent par
@@ -718,6 +752,10 @@ champ ; `identity:`, `history:` sur une entité. *(D364, D391)*
 **Provenance** — La carte d'identité d'origine d'une donnée reprise :
 de quel système, quand, sous quelle clé. Un fait qui ne bouge plus.
 *(D178)*
+
+**Publipostage** — Le mode du `paragraph` qui mêle un texte et les
+valeurs d'un enregistrement, la lettre au client : mustache pour les
+valeurs, markdown pour la forme. *(D559–D562)*
 
 **Scénario d'utilisation** (`scenarios:`) — Une fonctionnalité de bout
 en bout vécue par un persona : un but, une fréquence, des étapes,
@@ -815,6 +853,14 @@ d'écran. *(D346, amendé par D803 ; D1625, D1627)*
 historique : par l'administrateur seul, sous condition, tracée ; elle est
 elle-même une modification, historisée. *(D171)*
 
+**Résumé** (`summary:`) — L'enregistrement en bref, petit par principe :
+il se déploie depuis une référence. Il n'existe que déclaré.
+*(D201, D215)*
+
+**Satellite** — Une feuille qui en sert une autre : la calculatrice d'un
+nombre, la jauge, le curseur. Elle se choisit par `component:`.
+*(D272, D461)*
+
 **Sévérité** (`severity:`) — Ce que fait une validation en échec :
 `error`, le défaut, bloque ; `confirm` demande une confirmation, tracée ;
 `info` signale sans bloquer. *(D157, D1559)*
@@ -856,8 +902,10 @@ par un CSS3 — la structure d'un côté, la présentation de l'autre.
 La structure des styles ne se généralise pas forcément.
 *(D752, D754–D755)*
 
-**Surface** ou Facette d'une entité ou composant graphique élaboré pour une entité — Un écran généré et nommé : la liste, le formulaire, le
-widget de résumé, le widget de synthèse. *(Q48)*
+**Surface** — Un écran généré et nommé, que le menu adresse : la liste,
+le formulaire, le résumé, le widget, le wizard, le tableau de bord, le
+template, le chat. Elle se déclare dans le bloc `gui:` de l'entité, le
+tableau de bord au module. *(D437, D456, D1639)*
 
 **Table des clés d'origine** — Ce que le module `_migration` garde de
 chaque ligne d'une source : sa clé, sa partition, un hash, le statut
@@ -875,6 +923,11 @@ développeur aux versions publiées. *(D1148 — le rôle s'appelait
 concepteur.)*
 
 **Télémétrie** — Tous compteurs, journaux ou rapports visant à assurer la stabilité du projet (fonctionnement, migration, sécurité, ...) et à apporter des conseils sur des optimisations à apporter tant en termes de développement interne qu'en usage pour les applications tierces. *(D38)*
+
+**Template** (`templates:`) — Le patron d'un document généré, la
+facture ou l'étiquette : un formulaire en lecture seule et une dimension
+de page. À ne pas confondre avec le Gabarit, un texte à trous.
+*(D250, D483, D564)*
 
 **Traitement (RGPD)** — Une opération ou une suite d'opérations —
 un wizard, une action, un déclencheur — impliquant au moins un champ
@@ -942,6 +995,10 @@ Le fait de déposer une version, nous considérons que la version est publiée. 
 Dans la configuration, chaque version fera l'objet d'une entrée et cette entrée est un sous-dossier de l'application. Chaque sous-dossier reprend alors tous les éléments nécessaires au bon fonctionnement de l'application.
 *Ex. : `2.1.0.14.yml` → `2.1.0.14/`.* *(D322)*
 
+**Vignette, visionneuse** — La vignette est l'image réduite d'un fichier,
+en cellule ou en place. La visionneuse l'ouvre en grand, au clic.
+*(D286, D293, D389)*
+
 **Visages de l'entité** (`label`, `image`) — La manière dont un
 enregistrement se présente : son visage texte (le gabarit `label:`) et
 son image, servis partout — de la liste déroulante au widget ; `title:`
@@ -955,10 +1012,11 @@ la donnée qui la fonde.
 *Ex. : `orders: association with order if order.customer = me` — les
 commandes de ce client.* *(D405)*
 
-**Widget** — Une tuile d'information. Trois espèces : le widget
-d'accueil (sur la page d'accueil), le widget de résumé (au survol d'une
-référence), le widget de synthèse (graphiques et indicateurs).
-*(D185/D191/D247)*
+**Widget** (`widgets:`) — La petite surface autonome, à deux usages : la
+carte d'un enregistrement, quand une liste s'affiche en widgets, et la
+synthèse, avec ses compteurs, ses sommes et ses graphiques. La page
+d'accueil et le tableau de bord en rassemblent.
+*(D202, D247, D492, D1639)*
 
 **Wizard** — Le parcours guidé : des étapes, des transitions, une
 transaction à la sortie. *(D230)*

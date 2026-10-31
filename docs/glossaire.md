@@ -10,6 +10,10 @@ place manque, comme la colonne étroite d'une liste. Sans elle, le
 libellé. *Ex. : `abbreviation: { fr: Ouv., en: Opened }`.*
 *(D265, D1619, D1622)*
 
+**Acte** — Le composant qui déclenche une opération : le bouton, l'icône,
+le passage d'étape d'un wizard. L'utilisateur acte, Syncytium exécute.
+*(D432, D444, D456)*
+
 **Agrégat** — Un enregistrement « racine » et tout ce qu'il possède,
 pris comme un tout indivisible. Une commande et ses lignes s'enregistrent,
 s'historisent et disparaissent ensemble. À ne pas confondre avec la fonction
@@ -168,6 +172,10 @@ secrets: [api_key] }`.
 **Constructeur** — La fonction au nom d'un type, qui fabrique une valeur
 de ce type à partir de ses parties. *Ex. : `amount(ARCNPMP)`,
 `measure(ARCNEPAISS, "mm")`, `datetime(MVCJSAI, MVCTSAI)`.* *(D659)*
+
+**Conteneur** — Un composant qui organise d'autres composants sans
+rendre de champ : `sections` et `section`, `tabs` et `tab`, `pages`,
+`page`, `header` et `footer`. *(D450, D456, D489)*
 
 **Contexte** (`context`) — L'entité du moteur, en lecture seule :
 l'utilisateur, le moment, l'instance, le module, la page d'un document,
@@ -348,6 +356,10 @@ explicite, se cumulent en branches. *(D144–D147, D353–D355, D424)*
 
 **Facette** — Un des modes de représentations d'un type de données : la logique (la valeur
 vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ CSV. *(D119)*
+
+**Feuille** — Un composant qui rend un champ : la saisie d'une valeur,
+le choix ou le regard d'un objet. Le composant par défaut d'un type
+porte le nom du type. *(D456, D458)*
 
 **Filigrane** — La marque de fond de page d'une édition de beta,
 « Beta vx.y.z.w » par défaut, personnalisable ou absente. *(D1145)*
@@ -603,6 +615,11 @@ ce premier caractère aux modules d'application. *(D1029)*
 informatique, sans authentification : un compte unique, le groupe par
 défaut, le degré `administrator`. *Ex. : la banque, l'application d'un
 foyer.* *(D759, D1114, D1621)*
+
+**Nœud** — Un composant placé dans l'arbre d'une surface. Il a un nom
+unique, des propriétés, des items, et reçoit un contexte :
+l'enregistrement, le champ, les opérations, l'utilisateur. Tout nœud a
+la même signature, en sept traits. *(D455, D566)*
 
 **Normalisation** (`normalize:`) — L'expression appliquée à une valeur à
 la frontière, quand elle entre. *Ex. : `normalize: trim(me)`, les blancs

@@ -2594,13 +2594,19 @@ lists:
    déclinable par langue (D449/D453) : le `title` de l'entité
    utilisable et surchargeable (D465) ; **`screen:`** — les formats
    sur lesquels la surface s'affiche, un ou plusieurs (D450/D532),
-   écrits **`<format>[<orientation>]`** : `pc[paysage]`,
-   `pc[portrait]`, `pc` — sans orientation, toutes les orientations ;
+   écrits **`<format>[<orientation>]`** — les formats `pc`, `tablet`,
+   `smartphone`, les orientations `landscape` et `portrait` :
+   `pc[landscape]`, `pc[portrait]`, `pc` — sans orientation, toutes
+   les orientations (D1614) ;
    **sans `screen:`, tous les formats et toutes les orientations**
    (D1613) ; **une surface par écran** : Syncytium déduit le format de
    la zone d'affichage disponible, et un changement de taille fait
    basculer l'application d'un format à l'autre — les composants se
-   déclinent d'eux-mêmes (D200/D250, D1613) ;
+   déclinent d'eux-mêmes (D200/D250, D1613) ; à la bascule, un lien
+   vers une surface que le nouveau format n'autorise pas ouvre la
+   première surface déclarée du même genre qui l'autorise (D438) ; un
+   format qu'aucune surface d'un genre n'autorise est une **erreur
+   d'ingestion** (D1614) ;
    **`mode:`** — `read-only | updatable` (D453) ; **`history:`** —
    `false` désactive l'onglet historique d'une entité historisée
    (D453) ; **`size:`** — la surimpression, défaut 100 % de
@@ -2642,7 +2648,7 @@ forms:
   default:                          # la première déclarée = le défaut (D438)
     title: "{number} — {customer}"  # le gabarit (D449) — le title de l'entité surchargé (D465)
     screen:                         # les formats autorisés (D450/D1613)
-      - pc[paysage]
+      - pc[landscape]
     size: 75%                       # la surimpression centrée sur la pile (D535/D533)
     header:
       items: [ field[number], field[state] ]

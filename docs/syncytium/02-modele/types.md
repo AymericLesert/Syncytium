@@ -52,7 +52,12 @@ Certaines valent pour tous les types (D391) :
 - **`trace:`**, la trace des lectures, `audit` ou `limited` (D703) ; un
   champ `sensitive` est audité d'office ;
 - **`component:`**, **`style:`**, **`size:`**, la présentation, en
-  cascade : le plus proche l'emporte (D461).
+  cascade : le plus proche l'emporte (D461) ; `style:` dit la
+  typographie (D1608) ;
+- **`resources:`**, la ressource graphique de chaque valeur d'un
+  énuméré, d'un booléen ou d'une jauge, tirée du catalogue des
+  ressources ; Syncytium porte le défaut, les settings ou le champ le
+  surchargent (D1608, D1611).
 
 ### Le tri et le nul
 

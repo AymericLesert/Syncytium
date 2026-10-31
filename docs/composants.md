@@ -503,8 +503,9 @@ gui:
    de la couleur ; *écriture en proposition :* `colors: { from:
    quality.threshold, threshold: level, color: tint }`) ;
    **`resources:`** — l'icône selon la valeur, aux mêmes seuils que les
-   couleurs (D1609 — *écriture en proposition :* `resources: { 0:
-   empty, 50: half, 80: full }`) ;
+   couleurs (D1609, D1611) — `resources: { 0: empty, 50: half, 80:
+   full }` ; les noms viennent du catalogue des ressources, le défaut
+   du socle se surcharge par les settings ou au champ ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **la lecture d'abord** (la valeur en un
    regard — listes, résumés, widgets) ; en modification, le glissé

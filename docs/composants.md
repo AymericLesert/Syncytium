@@ -2543,7 +2543,15 @@ ecritures:
    `administrator` (D198, D1632) ; **la pagination
    au curseur opaque** avec les indicateurs ; l'embarquée d'une
    composition ou d'une association (D486) ; le responsive au repli
-   (Q48) ;
+   (Q48) ; **selon l'écran** : sur smartphone, un tableau pour les
+   petites listes, des widgets pour les grandes — une colonne en
+   portrait, deux en paysage ; sur tablette et poste informatique,
+   tableaux ou widgets sur plusieurs colonnes — *ma lecture* : une
+   recommandation au concepteur, qui déclare une liste par écran avec
+   `screen:` (D290, D1613) ; **les filtres** toujours affichés sur un
+   poste informatique, derrière une icône sur un smartphone, et sur une
+   tablette au choix du composant selon la place disponible (D290,
+   D1633) ;
 8. **États et interactions** — **la création : le bouton compris dans
    le cadre** — le formulaire d'`add:` (D530) ; **la modification au
    double-clic** — celui d'`update:` ; la lecture seule → la
@@ -2555,7 +2563,7 @@ ecritures:
    interruptible à tout moment (D197) ; **l'opération de masse** sur les lignes
    sélectionnées (D446) ; les opérations en colonne à trois états
    (D444) ;
-9. **Décisions fondatrices** — D189, D197–D198, D213, D226–D229, D437–D448, D450, D462,
+9. **Décisions fondatrices** — D189, D197–D198, D213, D226–D229, D290, D437–D448, D450, D462,
    D466–D467, D484, D486, D492–D493, D530–D533 ;
 10. **Exemple de configuration** —
 

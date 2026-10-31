@@ -1878,10 +1878,14 @@ forms:
 5. **Propriétés** — la surcharge de la présentation : `label:`,
    `icon:`, `style:` (le verbe du catalogue en défaut) ;
    **`commit:`** — `confirm` (défaut — la relecture D431/D596) ou
-   `auto` (la validation automatique) ; **le message au gabarit
-   nourri de la transaction active** (D511/D594 — *la forme riche en
-   proposition :* `commit: { mode: confirm, message: { fr:
-   "{invoices} factures seront créées" } }`) ;
+   `auto` (la validation automatique) ; **la forme riche**,
+   `commit: { mode:, form:, message: }` (D600, D1606) — `commit:
+   confirm` en est le raccourci, `{ mode: confirm }` ; avec `form:`, la
+   relecture au formulaire nommé ; avec `message:` seul, la boîte de
+   dialogue (D601) ; sans l'un ni l'autre, le formulaire par défaut en
+   lecture seule (D196, D431) ; **le message au gabarit nourri de la
+   transaction active** (D511/D594) : `commit: { mode: confirm,
+   message: { fr: "{invoices} factures seront créées" } }` ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **l'habitat fait le visage** : le
    formulaire → **le bouton** ; la colonne de liste → **l'icône à

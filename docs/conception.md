@@ -1737,6 +1737,7 @@ Q58) :
 | D1603 | **Les trois lectures de D1601 confirmées : un format de `exports:` est un storage de format ou une destination du gabarit, sinon une erreur d'ingestion — un format nouveau entre par un hook de connecteur `storage` ou par une destination du gabarit ; sans crochet, le modèle de base de la liste ; derrière la forme courte, `export` ou `generate` s'exécute et ses événements suivent** (confirme D1601 ; le chapitre 4, le point 4) : « Oui, les trois » | composants.md, la fiche de la liste. Le point 4 est soldé. Voir §3.2c. |
 | D1604 | **Le menu a sa fiche parmi les surfaces du chapitre 4 ; le chapitre de la configuration garde le fichier `menu.yml` et sa grammaire, et renvoie à la fiche** (le chapitre 4, le point 5 ; précise D193, D351, D439, D1237 ; sur mes lectures A — une fiche — et B — un renvoi au chapitre 1) : « La A » | composants.md : la fiche `menu` en tête des surfaces, ses dix parties tirées de D186, D191–D194, D351, D439, D549, D1194–D1195, D1227, D1229 et D1237, l'exemple copié du menu de la banque ; l'inventaire la compte parmi les surfaces ; syncytium/01-configuration/version.md y renvoie. Le relevé de la fiche : la déclinaison du menu au smartphone et à la tablette n'est pas décidée. Voir §3.2c. |
 | D1605 | **« Jamais de popup » vise la fenêtre surgissante du navigateur : une fenêtre de l'application, assumée, reste permise — la boîte de dialogue du message seul (D601), le nombre de lignes à supprimer (D445)** (le chapitre 4, le point 6 ; précise D196 et D431 ; tranche entre mes lectures A — l'exception assumée — et B — aucune fenêtre —, du côté de A) : « J'avais dû dire "Jamais de popup" en ayant comme idée ... pas de popup dans un navigateur web sans passer par une fenêtre assumée. » | composants.md, les fiches de l'opération et du formulaire. Mes lectures, à confirmer : (1) la popup refusée est la fenêtre que le navigateur ouvre — `window.open`, `alert`, `confirm` —, la fenêtre assumée est dessinée par l'application dans sa page ; (2) la relecture d'un enregistrement reste au formulaire en lecture seule (D196), la boîte ne porte qu'un message. Les trois lectures de `commit:` restent à confirmer : la forme riche acquise, `commit: confirm` raccourci de `{ mode: confirm }`, sans `form:` ni `message:` le formulaire par défaut en lecture seule. Voir §3.2c. |
+| D1606 | **Les cinq lectures de D1605 confirmées : la popup refusée est la fenêtre que le navigateur ouvre, la fenêtre assumée est dessinée par l'application ; la relecture d'un enregistrement reste au formulaire, la boîte ne porte qu'un message ; la forme riche `commit: { mode:, form:, message: }` est acquise ; `commit: confirm` en est le raccourci ; sans `form:` ni `message:`, le formulaire par défaut en lecture seule** (confirme D1605 ; lève la proposition de D596 et D600 ; le chapitre 4, le point 6) : « Oui, les cinq » | composants.md, la fiche de l'opération ; les neuf `commit:` des cas restent tels quels. Le point 6 est soldé. Voir §3.2c. |
 | D1198 | **Les liens de la documentation sont ceux que l'ingestion garantit — les références et les associations entre entités et champs, dans les traitements et les opérations ; ils montrent les relations, disent à quoi sert un champ et mesurent l'impact d'une modification du modèle** (précise D1186 ; s'appuie sur D330/D344 — l'ingestion, D394/D405, D90, D1112 ; le rang 1 et le rang 2) : « je confirme — les associations utilisées dans les traitements / les opérations / ... font référence entre les entités et les champs. Tous ces liens permettent de visualiser les liens et de mesurer l'impact de la modification du modèle. Lors de l'ingestion, le moteur de Syncytium garantit la validité des références et des associations. Les mettre dans la documentation permet de montrer les relations et d'expliquer à quoi sert un champ (propriété ou calculé). » — la documentation reprend le graphe que l'ingestion a validé : pour chaque champ, propriété ou calculé, **où il sert** — les formules qui le lisent, les validations, les opérations et leurs effets, les règles de reprise, les rapports, les écrans ; pour chaque entité, qui la référence et qui elle référence ; aux deux bouts (D1186). | Mes lectures, en proposition : dans la fonctionnelle, « à quoi sert ce champ » en langage d'usager (« entre dans le calcul du montant TTC », « déclenche la validation de la facture ») ; dans la documentation de l'information (le rang 2), le graphe complet des dépendances et **l'analyse d'impact** — ce qu'un changement de ce champ ou de cette entité touche (l'écho des écarts calculés D1112) ; la matrice gagne une colonne de contenu sur la ligne du champ. Voir §3.2c. |
 
 ---
@@ -13409,6 +13410,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **La popup du navigateur (D1605).** « J'avais dû dire "Jamais de popup" en ayant comme idée ... pas de popup dans un navigateur web sans passer par une fenêtre assumée. »
 
+**Le commit confirmé (D1606).** « Oui, les cinq » — la forme riche acquise, son raccourci, son défaut.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -25077,7 +25080,7 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
-- **2026-11-01 — REPRISE : LES POINTS 1 À 5 DU CHAPITRE 4 SOLDÉS.** Le tableau de bord ramène l'indicateur à trois
+- **2026-11-01 — REPRISE : LES POINTS 1 À 6 DU CHAPITRE 4 SOLDÉS.** Le tableau de bord ramène l'indicateur à trois
   tuiles, à la demande de l'auteur. « Pour le point 1, je valide le retrait de body et de grid »
   (D1593 — `header`, `page`, `footer` ; la grille par `layout:` ; le tableau du modèle corrigé) ; le
   point 2 présenté, puis « La B, le raccourci » (D1594 — `items:` pour la page unique) ; « Je confirme
@@ -25094,7 +25097,8 @@ avant la synthèse Q16).
   « on peut ajouter aussi word à l'export » (D1602) ; « Oui, les trois » (D1603) : le point 4 soldé ;
   le point 5 présenté, puis « La A » (D1604 — la fiche `menu` parmi les surfaces) ; le point 6
   présenté, puis le sens de « Jamais de popup » : la fenêtre du navigateur, une fenêtre assumée
-  permise (D1605).
+  permise (D1605) ; « Oui, les cinq » (D1606 — la forme riche de `commit:` acquise) : le point 6 soldé ;
+  le point 7 présenté.
 - **2026-10-31 (suite) — LA PAUSE : LE CHAPITRE 4 OUVERT, LES DOSSIERS NUMÉROTÉS (D1589–D1591, 1591
   décisions).** Le tableau de bord porte un indicateur pour l'étape 3 du rang 10 : les décisions du
   registre, celles des chapitres traités, celles du chapitre en cours, comptées par famille ; il

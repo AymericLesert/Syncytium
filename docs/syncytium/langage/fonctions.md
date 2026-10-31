@@ -98,6 +98,8 @@ Les fonctions de l'arrondi complètent le catalogue (D1587) :
 - `trunc(x, n)` coupe à `n` décimales, sans arrondir ;
 - `abs(x)` rend la valeur absolue.
 
+Un montant ou une mesure s'arrondit sur sa valeur, et garde son unité (D1589).
+
 La banque arrondit son montant signé au centime :
 
 ```yaml

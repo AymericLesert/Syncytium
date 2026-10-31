@@ -23,7 +23,7 @@ project:
 
 # La version : sans languages: dans version.yml, la version parle une seule langue, celle du poste informatique
 version:
-  languages: [<la langue du poste>]
+  languages: [<la langue du poste informatique>]
 
   # Les formats d'écran que la version porte : tous
   screen: [<tous les formats>]

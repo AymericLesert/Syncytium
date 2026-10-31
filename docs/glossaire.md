@@ -274,7 +274,7 @@ de sécurité la qualifie pour un core. *(D924, D1431, D1443)*
 **D.A.T. (le dossier d'architecture technique)** — La quatrième
 documentation : les inter-connexions de l'application avec son
 environnement et le paramétrage externe indispensable — le schéma des
-connexions calculé par environnement, les silhouettes des postes, le
+connexions calculé par environnement, les silhouettes des postes informatiques, le
 réseau en texte porté par la description de l'environnement ; les
 environnements, leurs relations, les flux et les ports ; la liste des
 variables d'environnement, les comptes chez les tiers, les certificats ;

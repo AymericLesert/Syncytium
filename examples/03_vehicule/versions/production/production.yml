@@ -1,4 +1,4 @@
-# Les versions en service s'exécutent sur le poste du foyer.
+# Les versions en service s'exécutent sur le poste informatique du foyer.
 environment: home
 
 # Chaque dossier nommé vM.m.i.b qui porte un version.yml est une version en service.

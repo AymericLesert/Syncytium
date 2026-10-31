@@ -20,7 +20,7 @@ décisions citées entre parenthèses renvoient au
    fichier `~{…}`, le pattern, le cumul, les variables `${…}`, la
    marque `*`, l'adressage par le point, le langage d'expression, la
    forme courte et le bloc, la liste et la substitution, les défauts du
-   poste.
+   poste informatique.
 3. **[L'arbre](arbre.md)** — du sommet à la feuille : `syncytium.yml`,
    `environments/`, `versions/`, `version.yml` ; puis
    **[ce que la version porte](version.md)** — `settings.yml` et la règle

@@ -12,7 +12,7 @@ name: budget
 description: ~{README.md}
 
 # Les environnements d'exécution
-# Un seul, le poste du foyer ; rien ne se déduit de l'arborescence, la déclaration fait foi.
+# Un seul, le poste informatique du foyer ; rien ne se déduit de l'arborescence, la déclaration fait foi.
 environments: ~{environments/environments.yml}
 
 # Les versions de l'application

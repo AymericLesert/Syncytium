@@ -696,7 +696,7 @@ dépendances** par `dependencies:` (D1430, D1432), dans la liste des
 dépendances à côté de celles du core, comparées par la veille des CVE
 (D1431) ; **le hook de connecteur** personnalisé, un nœud du schéma
 comme les connecteurs du socle (D1426) ; **le hook d'interface** sur le
-poste de l'utilisateur (D918).
+poste informatique de l'utilisateur (D918).
 
 **Les hooks, dans le guide d'exploitation** (la colonne 9 — le rang 7) :
 **les erreurs codifiées** du hook, `errors:` (D1461) — le code, le

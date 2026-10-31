@@ -178,7 +178,7 @@ documentation de référence de Syncytium entre (le point ouvert 11).
 **4. Le D.A.T.** *Le schéma des connexions* — un diagramme calculé,
 comme le modèle (D1119) : l'instance, son storage, l'authentification,
 le SMTP, les bases d'origine de la reprise, les webhooks et les API
-tierces, le LLM (D957), les postes ; *les environnements* et leur rôle
+tierces, le LLM (D957), les postes informatiques ; *les environnements* et leur rôle
 (production, staging, passif — D339, D112–D114), les flux et les ports
 ; **le paramétrage externe indispensable** (D1134) — les variables
 d'environnement et les secrets (D321/D944/D902 : où ils vivent, qui les
@@ -559,7 +559,7 @@ décisions, D1170–D1238.)*
 - **Étapes** :
   1. le schéma des connexions, calculé : l'instance, le storage,
      l'authentification, le SMTP, les bases d'origine, les webhooks et
-     API tierces, le LLM, les postes : **acquis le 24/10/2026 (D1426)**
+     API tierces, le LLM, les postes informatiques : **acquis le 24/10/2026 (D1426)**
      — par environnement, les silhouettes par le moteur, le réseau en
      texte porté par la description de l'environnement ;
   2. les environnements et leur rôle (D339, D112–D114), les flux et
@@ -3075,7 +3075,7 @@ la surface est une surcharge pour un usage particulier ; l'entité sans aucun
 `rgpd:` (D1319) ; le `placeholder:` absent, la cellule d'exemple reste
 vide (§14) ; une langue de la version manquante — une erreur
 d'ingestion, non un manque (D1474) ; la référence du core et la skill
-(§27) ; les postes et les navigateurs du D.A.T. (§28) ; un texte écrit
+(§27) ; les postes informatiques et les navigateurs du D.A.T. (§28) ; un texte écrit
 par une IA — pour Syncytium, un texte du concepteur, passé par le dépôt
 et sa relecture (D1226, qui clôt D1169). Les questions sans réponse de
 l'assistance ne sont pas un manque de description : elles vont à la
@@ -3176,7 +3176,7 @@ par sa clé anglaise (D335) : `functional`, `information`, `developer`,
 `architecture` (le D.A.T.), `regulation`, `promotional`,
 `maintenance`, `project`, `operations` (le guide d'exploitation) — ou
 `all` ; sans version, la plus élevée des actives (D1123) ; sans langue,
-celle du poste (D1114) ; le résultat dans `output.directory`, au format
+celle du poste informatique (D1114) ; le résultat dans `output.directory`, au format
 de `output.formats` ; **`--check` mesure la complétude sans produire**
 (D1221 — le même moteur ; ma forme).
 
@@ -4296,7 +4296,7 @@ la mention « reprise », le rythme déclaré, une fois ou périodique, et, à
 l'instance, son état — actif, le dernier passage, désactivé depuis ;
 **la nature de la reprise, totale ou mise à jour** (D1446) ; désactivé,
 il reste dessiné et grisé ; il disparaît s'il est supprimé de la
-configuration (D1446). **Les silhouettes des postes sont dessinées par le
+configuration (D1446). **Les silhouettes des postes informatiques sont dessinées par le
 moteur** (D1426) — les utilisateurs et leur navigateur, les techniciens
 et leurs systèmes, l'administrateur et le concepteur avec les
 commandes du moteur — avec les flux qui en partent ; **deux ouvertures
@@ -4434,7 +4434,7 @@ tourner — « ça peut s'avérer intéressant pour moi concernant le fait
 que Syncytium soit utilisé et quelle version », l'auteur l'assume,
 « même si rien empêche un tiers de dupliquer le dépôt et de travailler
 avec sa version » ; la forme du fichier, de la signature et de la
-nomenclature au domaine 7. **Les postes des utilisateurs** : les navigateurs
+nomenclature au domaine 7. **Les postes informatiques des utilisateurs** : les navigateurs
 supportés et leur version minimale, écrits par Syncytium pour son
 core ; rien d'autre n'est requis. **La complétude** ne mesure rien ici.
 

@@ -58,7 +58,7 @@ description, un environnement `home` (« Exécution en mode local »,
 un module `annuaire`, une entité `personne` — sa description, son
 visage `"{prenom} {nom}"`, son identité `[nom, prenom]`, ses quatre
 champs en forme courte. Ni journal, ni nettoyage, ni langues, ni
-groupes, ni `title:` : les défauts du poste portent le reste (D1114,
+groupes, ni `title:` : les défauts du poste informatique portent le reste (D1114,
 D1120).
 
 ## La documentation générée — la déclinaison sur le plan acquis
@@ -81,7 +81,7 @@ sont tous soldés (la section suivante). **Validée par l'auteur le
 > # tiny — Une entité, quatre champs et une application complète avec API et documentation
 >
 > *La documentation fonctionnelle de la version 1.0.0.0 — production,
-> la seule version active, servie par défaut ; la langue du poste.*
+> la seule version active, servie par défaut ; la langue du poste informatique.*
 >
 > *(0. La couverture n'existe qu'en édition : la page de garde, le
 > cartouche — tiny, 1.0.0.0, la date, l'auteur de l'édition — ; pas de
@@ -233,7 +233,7 @@ produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md)
 > # tiny — Le dictionnaire de la donnée
 >
 > *La version 1.0.0.0 — production, la seule version active ; la langue
-> du poste ; généré au dépôt : les données de l'instance absentes, leur
+> du poste informatique ; généré au dépôt : les données de l'instance absentes, leur
 > cadre présent.*
 >
 > *(1. La couverture n'existe qu'en édition : le cartouche — tiny,
@@ -247,7 +247,7 @@ produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md)
 > **Le projet.** `tiny` — Une entité, quatre champs et une application
 > complète avec API et documentation ; le format `Syncytium-1.0`.
 >
-> **La version 1.0.0.0.** Production ; la langue du poste. Notes de
+> **La version 1.0.0.0.** Production ; la langue du poste informatique. Notes de
 > version : « Version 1 de l'annuaire ». **L'historique** : première
 > version, aucune version antérieure. **À venir** : aucune beta.
 >
@@ -394,7 +394,7 @@ produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md)
 >
 > *(Un seul arbre — D1245, D1250, D1306 : les défauts du socle écrits aux
 > trois niveaux — « un outil tiers ne peut pas les déduire seul » —, le
-> catalogue dans la langue du poste ; aucune clé `*` à retirer. Les
+> catalogue dans la langue du poste informatique ; aucune clé `*` à retirer. Les
 > valeurs sont celles de l'inventaire des défauts de configuration.md
 > §3.5 ; la forme est de moi, en proposition.)*
 >
@@ -411,7 +411,7 @@ produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md)
 >   production:
 >     environment: home
 >     1.0.0.0:
->       languages: [<la langue du poste>]
+>       languages: [<la langue du poste informatique>]
 >       title: tiny
 >       release-notes: Version 1 de l'annuaire
 >       history: false
@@ -612,7 +612,7 @@ le 24/10/2026 — D1424.**)*
 > ### S'authentifier
 >
 > L'environnement `home` ne déclare pas d'authentification : les
-> défauts du poste (D1114) — *ma lecture* : `none` (D759), l'utilisateur
+> défauts du poste informatique (D1114) — *ma lecture* : `none` (D759), l'utilisateur
 > par défaut au degré `administrator`, aucun défi ; le contrat le dit et
 > les exemples ne portent aucun porteur (confirmé, D1424).
 >

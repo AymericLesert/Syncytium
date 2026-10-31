@@ -1,5 +1,5 @@
 # La description de l'environnement
-description: L'environnement d'exécution du poste du foyer
+description: L'environnement d'exécution du poste informatique du foyer
 
 # La base de l'application
 # Le connecteur storage qui porte le modèle et ses données.
@@ -14,5 +14,5 @@ logging: ~{logging.yml}
 cleanup: ~{cleanup.yml}
 
 # Les connecteurs
-# La base, l'authentification et le mail du poste du foyer.
+# La base, l'authentification et le mail du poste informatique du foyer.
 connectors: ~{connectors.yml}

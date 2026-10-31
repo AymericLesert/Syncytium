@@ -271,7 +271,7 @@ Au même niveau, les clés réservées sont celles du moteur, `environment`,
 sont des identifiants. Un identifiant qui reprend une clé réservée de son
 niveau est refusé à l'ingestion.
 
-## 2.10 Les défauts du poste (D1114)
+## 2.10 Les défauts du poste informatique (D1114)
 
 Ce qu'un projet n'écrit pas, le poste informatique le porte, la machine
 qui fait tourner l'instance. Le tiny (le cas 1) ne

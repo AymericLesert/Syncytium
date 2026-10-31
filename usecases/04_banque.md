@@ -15,7 +15,7 @@ le compte bancaire.*
 ## Le contexte (D758)
 
 - **le foyer** accède au compte bancaire — l'application tourne
-  **sur un poste du foyer**, **sans authentification** (« pas de
+  **sur un poste informatique du foyer**, **sans authentification** (« pas de
   secrets dans la famille ») ;
 - **la genèse : 1987** — un des premiers développements personnels
   de l'auteur (la version 1 en Turbo Pascal, puis plusieurs vies —
@@ -140,7 +140,7 @@ l'auteur.
 
 **Le morceau 1 — la racine et l'environnement** (validé) :
 `syncytium.yml` (l'entrée D322) et `environments/home.yml` —
-l'environnement unique du poste du foyer : le storage `sqlite`
+l'environnement unique du poste informatique du foyer : le storage `sqlite`
 (D729), l'authentification `none` (D759), le smtp `none` (D763) ;
 la réplication `disabled` par défaut (D725), rien à écrire.
 

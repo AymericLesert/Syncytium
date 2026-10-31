@@ -2901,7 +2901,7 @@ D1434.**)*
 > | de | vers | la famille, la classe | le protocole, le port | ce qui circule |
 > |---|---|---|---|---|
 > | **les utilisateurs** — les six groupes, leur navigateur | l'instance | — | HTTPS, le port de `listen:` *(non déclaré)* | l'interface |
-> | **l'administrateur, le concepteur** — le poste | l'instance | — | les commandes du moteur | `init`, `copy`, `document` |
+> | **l'administrateur, le concepteur** — le poste informatique | l'instance | — | les commandes du moteur | `init`, `copy`, `document` |
 > | l'instance | `entrepot` | storage, postgresql | TCP 5432 | tout le modèle — le chapitre 3 du dictionnaire |
 > | l'instance | `cegid` — **reprise** (D1433, D1446) | storage, sqlserver | TCP 1433 | en lecture ; la mise à jour chaque nuit, la reprise totale le dimanche — des champs `rgpd:` (§18) ; l'état à l'instance |
 > | l'instance | `temporaire` | storage, memory | — | les tables de travail de la reprise |
@@ -2980,7 +2980,7 @@ D1434.**)*
 > aucun hook, aucune dépendance du projet. **La veille des CVE** : *non
 > reliée* — l'autorisation de l'administrateur absente (D1431).
 >
-> **Les postes** : les navigateurs supportés par le core, à sa
+> **Les postes informatiques** : les navigateurs supportés par le core, à sa
 > référence.
 
 ---

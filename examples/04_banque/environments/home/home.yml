@@ -1,5 +1,5 @@
 # La description de l'environnement
-description: L'environnement d'exécution du poste du foyer
+description: L'environnement d'exécution du poste informatique du foyer
 
 # La base de l'application
 # Le connecteur storage qui porte le modèle et ses données ; le storage legacy sert la reprise.

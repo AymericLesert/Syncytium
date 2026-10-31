@@ -1505,8 +1505,8 @@ page:                              # la section seule, directement (D490)
    texte (« Cher {{customer}}, votre commande {{number}}… ») — le
    publipostage ;
 3. **Types servis** — aucun : le contenu est déclaré, par langue
-   (D465) ou par référence au dictionnaire du module (`labels` —
-   D440) ;
+   (D465) ou par référence au dictionnaire du module (`label:` —
+   D440, D1236) ;
 4. **Contexte consommé** — la langue de l'utilisateur (le contexte —
    D455) ; les droits et la confidentialité ;
 5. **Propriétés** — `label:` — les libellés par langue (D465), ou la

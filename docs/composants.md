@@ -200,6 +200,34 @@ arbitrés par l'auteur :
 9. **Décisions fondatrices** — D281, D374–D377 ;
 10. **Exemple de configuration** —
 
+Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/stock/depot/depot.yml` :
+
+```yaml
+# Les champs
+fields:
+
+  actif:
+    type: boolean
+    required: true
+    default: false
+    label: Actif
+    description: Les paramètres sont les dépôts actifs ; né d'une autre origine, le dépôt naît inactif, à son défaut.
+```
+
+Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/entretien/fields.yml` :
+
+```yaml
+revision:
+  type: boolean
+  label: Révision ?
+  hint: La ligne est une révision — sinon, une intervention hors révision.
+  description: >-
+    Le booléen suffit, la référence à la règle n'avait pas d'intérêt ; les révisions faites restent des lignes du
+    journal.
+```
+
+Les autres propriétés, sur un exemple :
+
 ```yaml
 # sales/entities/customer.yml
 fields:
@@ -212,7 +240,7 @@ fields:
       false: { label: { fr: Inactif } }
   audited:
     type: boolean                # optionnel — la checkbox TRI-ÉTAT (D374)
-    hint: { fr: Audit réalisé ? }
+    hint: { fr: "Audit réalisé ?" }
 
 gui:
   lists:
@@ -335,6 +363,25 @@ gui:
 9. **Décisions fondatrices** — D222, D260, D271, D366–D368, D447 ;
 10. **Exemple de configuration** —
 
+Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/stock/depot/depot.yml` :
+
+```yaml
+# Les champs
+fields:
+
+  code:
+    type: text[..6]
+    required: true
+    label: Code
+
+  libelle:
+    type: text[..40]
+    label: Libellé
+    description: Connu par les paramètres seulement ; vide pour un dépôt né des mouvements ou des fiches articles.
+```
+
+Les autres propriétés, sur un exemple :
+
 ```yaml
 # sales/entities/customer.yml
 fields:
@@ -404,6 +451,26 @@ gui:
    l'icône post-zone (l'écho de D563) et montre un tableau (D1635) ;
 9. **Décisions fondatrices** — D272–D273, D370–D373, D447, D978–D980 ;
 10. **Exemple de configuration** —
+
+Dans le cas 4 (banque), `04_banque/versions/beta/v1.0.0.0/banque/ecriture/fields.yml` :
+
+```yaml
+montant:
+  type: amount
+  currencies: [EUR, FRF]
+  required: true
+  label: { fr: Montant, en: Amount, es: Importe }
+  hint:
+    fr: Signé — négatif pour une dépense.
+    en: Signed — negative for an expense.
+    es: Con signo — negativo para un gasto.
+  description:
+    fr: La devise vit dans la valeur ; le franc porte l'historique antérieur au passage à l'euro.
+    en: The currency lives in the value; the franc carries the history before the switch to the euro.
+    es: La moneda vive en el valor; el franco lleva el histórico anterior al paso al euro.
+```
+
+Les autres propriétés, sur un exemple :
 
 ```yaml
 # stock/entities/item.yml
@@ -522,26 +589,13 @@ gui:
    D494–D495, D498 ;
 10. **Exemple de configuration** —
 
-```yaml
-# hr/entities/employee.yml
-fields:
-  satisfaction: percentage         # 0..100 — la jauge, choix naturel (D274)
-  workload:
-    type: integer[0..40]
-    component: gauge               # la surcharge — les bornes exigées
+Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
 
-gui:
-  lists:
-    main:
-      columns: [name, satisfaction, workload]   # la jauge en cellule — un regard
-  forms:
-    default:
-      page:
-        - section:
-            title: { fr: Activité }
-            items:
-              - field[satisfaction]
-              - field[workload]
+```yaml
+taux_annuel:
+  type: percentage
+  label: Taux annuel
+  hint: Le taux nominal du crédit — 6,187.
 ```
 
 ## `fuel`
@@ -664,25 +718,17 @@ gui:
 9. **Décisions fondatrices** — D277, D381, D383 ;
 10. **Exemple de configuration** —
 
-```yaml
-# stock/entities/warehouse.yml
-fields:
-  opening: time[hh:mm]             # la précision au crochet (D277) — clock par défaut
-  closing: time[hh:mm]
+Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/settings.yml` :
 
-gui:
-  lists:
-    main:
-      columns: [name, opening, closing]
-      searchable: [opening]        # la plage horaire (range — D381)
-  forms:
-    default:
-      page:
-        - section:
-            title: { fr: Horaires }
-            items:
-              - field[opening]
-              - field[closing]
+```yaml
+# Les champs
+field:
+
+  # Le type time_pmi
+  # Les heures de PMI : une heure lue au masque hhmmss ; une colonne en hhmm surcharge le masque au champ.
+  time_pmi:
+    type: time
+    mask: hhmmss
 ```
 
 ## `calendar`
@@ -716,27 +762,22 @@ gui:
 9. **Décisions fondatrices** — D278–D280, D381–D383, D785–D787 ;
 10. **Exemple de configuration** —
 
-```yaml
-# sales/entities/invoice.yml
-fields:
-  due_date:
-    type: date                     # le jour — calendar par défaut
-    min: 2020-01-01                # la borne ISO (D381)
-  billing_month: date[yyyy-mm]     # le mois — le calendrier au bon grain (D382)
+Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/consommation/fields.yml` :
 
-gui:
-  lists:
-    main:
-      columns: [number, due_date, billing_month]
-      searchable: [due_date]       # la plage de dates — l'usage roi (D381)
-  forms:
-    default:
-      page:
-        - section:
-            title: { fr: Échéances }
-            items:
-              - field[due_date]
-              - field[billing_month]
+```yaml
+date:
+  type: date
+  required: true
+  label: Date
+```
+
+Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
+
+```yaml
+premier_mois:
+  type: date[yyyy-mm]
+  label: Premier mois
+  hint: Le premier mois du financement — 2016-02, 2023-10.
 ```
 
 ## `dropdown`
@@ -765,30 +806,18 @@ gui:
 9. **Décisions fondatrices** — D129, D281, D283, D387–D388 ;
 10. **Exemple de configuration** —
 
-```yaml
-# sales/entities/customer.yml
-fields:
-  category:
-    type: enum                     # dropdown par défaut
-    values:
-      bronze: { label: { fr: Bronze }, description: { fr: Le niveau d'entrée }, icon: bronze }
-      silver: { label: { fr: Argent } }
-      gold:   { label: { fr: Or } }
-    default: bronze
+Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
 
-gui:
-  lists:
-    main:
-      columns: [code, company_name, category]
-      searchable: [category]       # la multi-sélection du jeu de valeurs (D388)
-      editable: [category]         # la liste en cellule (D205)
-  forms:
-    default:
-      page:
-        - section:
-            title: { fr: Classification }
-            items:
-              - field[category]
+```yaml
+type:
+  type: enum
+  required: true
+  label: Type de véhicule
+  hint: Il porte l'unité de la consommation — les litres du thermique, les kWh de l'électrique.
+  description: L'unité vit dans le type, pas dans la valeur.
+  values:
+    thermique:  { label: Thermique }
+    electrique: { label: Électrique }
 ```
 
 ## `radios`
@@ -931,6 +960,21 @@ gui:
 9. **Décisions fondatrices** — D215, D284, D395–D398, D465 ;
 10. **Exemple de configuration** —
 
+Dans le cas 4 (banque), `04_banque/versions/beta/v1.0.0.0/banque/ecriture/fields.yml` :
+
+```yaml
+budget:
+  type: banque.budget
+  searchable: mutualizable[recherche]
+  label: { fr: Budget, en: Budget, es: Presupuesto }
+  description:
+    fr: Le référentiel dynamique — la création directe au picker.
+    en: The dynamic reference list — direct creation from the picker.
+    es: El referencial dinámico — la creación directa desde el selector.
+```
+
+Les autres propriétés, sur un exemple :
+
 ```yaml
 # hr/entities/employment.yml
 fields:
@@ -978,21 +1022,14 @@ gui:
    D473 ;
 10. **Exemple de configuration** —
 
-```yaml
-# hr/entities/employee.yml
-fields:
-  photo:
-    type: image[512x512]           # la boîte max, la vignette auto (D389)
-    placeholder: avatar            # l'icône de fond (D390), une ressource (D1625)
+Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/fields.yml` :
 
-gui:
-  forms:
-    default:
-      page:
-        - section:
-            title: { fr: Profil }
-            items:
-              - field[photo]       # picker.image par défaut — dépôt, caméra, galerie
+```yaml
+photo:
+  type: image[512x512]
+  label: Photo
+  hint: Le visage du véhicule — la vignette des listes et de la carte.
+  description: Le visage porté par l'image ; la vignette est automatique.
 ```
 
 ## `picker.file`
@@ -1020,6 +1057,19 @@ gui:
    déduplication silencieuse au moteur (D165) ;
 9. **Décisions fondatrices** — D160–D165, D292, D384, D469–D474 ;
 10. **Exemple de configuration** —
+
+Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/technique/article/vie.yml` :
+
+```yaml
+plans:
+  type: list of file
+  extensions: [pdf, dwg, dxf, step]
+  label: Plans
+  hint: Les plans de l'article, lus dans le répertoire des plans.
+  description: La liste est remplie par le connecteur des plans, en complément de la base d'origine.
+```
+
+Les autres propriétés, sur un exemple :
 
 ```yaml
 # sales/entities/customer.yml
@@ -1213,6 +1263,23 @@ gui:
    D391–D392, D484, D513–D514 ;
 10. **Exemple de configuration** —
 
+Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/commande/commande_vente/fields.yml` :
+
+```yaml
+adresse_livraison:
+  type: geolocation
+  formula: >-
+    geolocation("{livraison_rue1} {livraison_rue2} {livraison_rue3}, {livraison_code_postal} {livraison_ville},
+    {livraison_pays}") if livraison_ville is not null
+  label: Adresse de livraison
+  description: >-
+    Le géocodage du détail par le connecteur de localisation : la forme texte du constructeur rend les quatre parties,
+    l'adresse normalisée et le point viennent du connecteur. Le gabarit écrit vide une ligne de rue absente. Sans
+    la condition, la géolocalisation refuse le texte vide : le calculé est nul quand la ville manque.
+```
+
+Les autres propriétés, sur un exemple :
+
 ```yaml
 # logistics/entities/site.yml
 fields:
@@ -1342,25 +1409,13 @@ gui:
    D458, D486, D492 ;
 10. **Exemple de configuration** —
 
-```yaml
-# crm/entities/contact.yml
-fields:
-  name: text
-  keywords:
-    type: list of text[30]         # chaque élément contraint par la facette (D362)
-  languages:
-    type: list of text
-    values: [fr, en, de, es]       # les énumérés => la multi-sélection (D296)
+Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/technique/article/classification.yml` :
 
-gui:
-  lists:
-    main:
-      columns: [name, keywords]    # les premières valeurs + ellipse (D296)
-  forms:
-    default:
-      page:
-        - field[keywords]          # l'éditeur : ajouter, retirer, réordonner
-        - field[languages]         # les cases ou les tags (D296)
+```yaml
+matieres:
+  type: list of text[..6]
+  label: Codes matière
+  hint: Les matières de l'article — jusqu'à neuf chez l'ERP.
 ```
 
 ## `sections`
@@ -1404,24 +1459,34 @@ gui:
    D489–D491, D501–D503 ;
 10. **Exemple de configuration** —
 
+Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/gui.yml` :
+
 ```yaml
-gui:
-  forms:
-    default:
-      page:
-        - sections:                # l'organisateur (D489)
-            layout: row            # column[n] | row[n] (D490/D491)
-            items:
-              - section:
-                  title: { fr: Adresse, en: Address }
-                  items:
-                    - field[street]
-                    - field[city]
-              - section:
-                  title: { fr: Contact }
-                  items:
-                    - field[phone]
-                    - field[email]
+- sections:
+    layout: row
+    items:
+      - section:
+          title: Les compteurs
+          items:
+            - field[nb_jours]
+            - field[km_courant]
+            - field[km_total]
+            - field[quantite_totale]
+            - field[duree_moyenne]
+      - section:
+          title: Les totaux
+          items:
+            - field[total_entretien]
+            - field[total_energie]
+            - field[cout_financement]
+            - field[cout_total]
+      - section:
+          title: Les prix de revient
+          items:
+            - field[conso_moyenne]
+            - field[prix_energie_km]
+            - field[prix_km]
+            - field[prix_jour]
 ```
 
 ## `section`
@@ -1473,6 +1538,21 @@ gui:
 10. **Exemple de configuration** — *(le couple vit ensemble — voir
     aussi la fiche `sections`)* —
 
+Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/gui.yml` :
+
+```yaml
+- section:
+    title: Les compteurs
+    items:
+      - field[nb_jours]
+      - field[km_courant]
+      - field[km_total]
+      - field[quantite_totale]
+      - field[duree_moyenne]
+```
+
+Les autres propriétés, sur un exemple :
+
 ```yaml
 page:                              # la section seule, directement (D490)
   - section:
@@ -1486,8 +1566,12 @@ page:                              # la section seule, directement (D490)
             items:
               - section:
                   width: 70%       # le variable — la section l'emporte (D502)
-                  items: [ field[zip], field[city] ]
-              - section: { items: [ field[country] ] }   # le reste de l'espace
+                  items:
+                    - field[zip]
+                    - field[city]
+              - section:           # le reste de l'espace
+                  items:
+                    - field[country]
 ```
 
 ## `paragraph`
@@ -1533,6 +1617,28 @@ page:                              # la section seule, directement (D490)
 9. **Décisions fondatrices** — D71, D90, D250, D261, D369, D440,
    D455, D461, D465, D488, D536, D559–D562 ;
 10. **Exemple de configuration** —
+
+Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/revision/gui.yml` :
+
+```yaml
+# Les widgets
+# Pas de formulaire déclaré : celui du socle suffit ; la règle s'écrit dans la liste, en ligne.
+widgets:
+
+  # L'annonce
+  # Le widget d'une règle échue : une alerte, un seul texte, sans lien vers le véhicule ni la règle — le foyer n'a pas
+  # plus de deux véhicules. Le gabarit cite les chemins ; chaque alinéa porte sa condition.
+  annonce:
+    items:
+      - paragraph:
+          if: prochaine_date is not null
+          label: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue le {{prochaine_date}}"
+      - paragraph:
+          if: prochaine_date is null
+          label: "Révision « {{designation}} » du véhicule {{owner.nom}} — prévue à {{prochaine_km}} km"
+```
+
+Les autres propriétés, sur un exemple :
 
 ```yaml
 gui:
@@ -1693,6 +1799,33 @@ gui:
    D487, D489 (le patron), D503–D506, D552 ;
 10. **Exemple de configuration** — *(le couple vit ensemble)* —
 
+Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/gui.yml` :
+
+```yaml
+- tabs:
+    items:
+
+      # L'identification
+      # Le visage, le type, la devise visuelle, le statut qui navigue dans le cycle de vie, l'achat et la vente.
+      - tab:
+          title: Véhicule
+          items:
+            - field[nom]
+            - field[immatriculation]
+            - field[photo]
+            - field[type]
+            - field[devise]
+            - field[statut]
+            - field[mode_achat]
+            - field[lieu_achat]
+            - field[date_achat]
+            - field[date_vente]
+            - field[lieu_vente]
+            - field[km_initial]
+```
+
+Les autres propriétés, sur un exemple :
+
 ```yaml
 page:
   - tabs:
@@ -1777,15 +1910,20 @@ page:
       items:
         - header:
             height: 60px                 # la hauteur paramétrable (D507)
-            items: [ field[number] ]     # toujours visible (D507)
+            items:                       # toujours visible (D507)
+              - field[number]
         - page:
-            items: [ field[customer], field[lines] ]
+            items:
+              - field[customer]
+              - field[lines]
         - page:
             title: { fr: Notes }         # la poignée nommée — sinon le numéro (D508)
-            items: [ field[notes] ]
+            items:
+              - field[notes]
         - footer:
             height: 40px
-            items: [ field[total] ]      # toujours visible — la page prend le reste
+            items:                       # toujours visible — la page prend le reste
+              - field[total]
 ```
 
 ## `page`
@@ -1845,21 +1983,32 @@ forms:
   record:                          # le formulaire = un pages implicite (D509) ; record, le nom (D788)
     header:
       height: 60px                 # la hauteur paramétrable (D507)
-      items: [ field[number] ]
+      items:
+        - field[number]
     page:                          # la page prend le reste
       - section:
           title: { fr: Client }
-          items: [ field[customer] ]
+          items:
+            - field[customer]
     footer:
-      items: [ field[total] ]
+      items:
+        - field[total]
 
 # le multi-pages : la liste d'éléments (D510)
 forms:
   wizard_entry:
-    - header: { items: [ field[number] ] }
-    - page:   { items: [ field[customer] ] }
-    - page:   { items: [ field[lines] ] }
-    - footer: { items: [ field[total] ] }
+    - header:
+        items:
+          - field[number]
+    - page:
+        items:
+          - field[customer]
+    - page:
+        items:
+          - field[lines]
+    - footer:
+        items:
+          - field[total]
 ```
 
 # Les actes
@@ -1919,6 +2068,19 @@ forms:
 9. **Décisions fondatrices** — D196, D425–D433, D436, D439, D444,
    D446, D456, D460, D462, D504–D505, D511, D553 ;
 10. **Exemple de configuration** —
+
+Dans le cas 4 (banque), `04_banque/versions/beta/v1.0.0.0/banque/ecriture/operations.yml` :
+
+```yaml
+# La duplication entre deux dates
+# Le pas et les deux dates ; la relecture affiche le nombre de créations.
+dupliquer:
+  label: { fr: Dupliquer, en: Duplicate, es: Duplicar }
+  form: duplication
+  commit: confirm
+```
+
+Les autres propriétés, sur un exemple :
 
 ```yaml
 # sales/entities/order.yml
@@ -1997,6 +2159,28 @@ gui:
    D439, D512, D515–D518, D521, D539 ;
 10. **Exemple de configuration** —
 
+Dans le cas 4 (banque), `04_banque/versions/beta/v1.0.0.0/banque/ecriture/gui.yml` :
+
+```yaml
+# Les graphiques
+charts:
+
+  # L'évolution des dépenses par budget
+  # Les deux filtres du patron des listes ; le mois en abscisse, le montant cumulé du mois en ordonnée.
+  evolution_budget:
+    title:
+      fr: L'évolution des dépenses par budget
+      en: Spending over time by budget
+      es: La evolución de los gastos por presupuesto
+    searchable:
+      - budget
+      - date_operation
+    x: date_operation[month]
+    y: sum(montant_euro)
+```
+
+Les autres propriétés, sur un exemple :
+
 ```yaml
 # sales/entities/order.yml, bloc gui — la déclaration autonome (D243)
 charts:
@@ -2048,6 +2232,27 @@ charts:
 9. **Décisions fondatrices** — D239–D243, D247–D249, D512,
    D515–D518 ;
 10. **Exemple de configuration** —
+
+Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/stock/mouvement/mouvement.yml` :
+
+```yaml
+# L'interface
+# Les graphiques du mouvement pour le tableau de bord du module : les entrées et les sorties par mois, la matrice de
+# contrôle en croisé.
+gui:
+  charts:
+
+    # Les entrées et les sorties par mois
+    # Deux séries sur la temporalité du mois, les douze derniers mois.
+    par_mois:
+      component: chart.bars
+      x: date[month]
+      y: [ sum(quantite if sens = "entree"), sum(quantite if sens = "sortie") ]
+      filter: date >= context.today - 12m
+      title: Entrées et sorties par mois
+```
+
+Les autres propriétés, sur un exemple :
 
 ```yaml
 # sales/entities/order.yml, bloc gui
@@ -2254,6 +2459,33 @@ charts:
    D467, D495, D512, D515–D518, D526–D527 ;
 10. **Exemple de configuration** —
 
+Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/stock/niveau/niveau.yml` :
+
+```yaml
+# L'interface
+# Les indicateurs du tableau de bord du module : des kpi, dont la valeur est un agrégat, sans axe.
+gui:
+  charts:
+
+    # La valeur du stock
+    # Restreinte comme la valeur des niveaux.
+    valeur_stock:
+      component: kpi
+      value: sum(valeur)
+      title: Valeur du stock
+      labels: "{value}"
+
+    # Les niveaux sous le minimum
+    # Le compte sur la condition seule ; les couleurs à seuils.
+    sous_minimum:
+      component: kpi
+      value: count(sous_minimum = true)
+      title: Niveaux sous le minimum
+      colors: { 0: green, 1: orange, 20: red }
+```
+
+Les autres propriétés, sur un exemple :
+
 ```yaml
 # sales/entities/order.yml, bloc gui
 charts:
@@ -2311,13 +2543,37 @@ charts:
    D441, D512, D517–D518, D528–D529 ;
 10. **Exemple de configuration** —
 
+Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/stock/mouvement/mouvement.yml` :
+
+```yaml
+# L'interface
+# Les graphiques du mouvement pour le tableau de bord du module : les entrées et les sorties par mois, la matrice de
+# contrôle en croisé.
+gui:
+  charts:
+
+    # Le contrôle des stocks par les mouvements
+    # Le pivot : la hiérarchie pliable dépôt puis emplacement en lignes, les articles en colonnes ; la règle de
+    # contrôle à la cellule, sur le dernier mois.
+    controle:
+      component: pivot
+      rows: [depot, emplacement]
+      columns: [article]
+      value: 'sum(sens.select(entree: quantite, sortie: -quantite))'
+      filter: date >= context.today - 1m
+      title: Contrôle des stocks par les mouvements (le mois)
+```
+
+Les autres propriétés, sur un exemple :
+
 ```yaml
 # sales/entities/order.yml, bloc gui — l'exemple fondateur de D246
 charts:
   revenue_matrix:
     component: pivot
     rows: [seller, customer]     # la hiérarchie pliable — commercial › client
-    columns: [date[month]]       # la temporalité (D240)
+    columns:                     # la temporalité (D240)
+      - date[month]
     value: sum(total)            # l'agrégat partitionné par la cellule (D158)
     sort: -value                 # les plus gros CA d'abord (D528, D1640)
     filter: state = "invoiced"
@@ -2563,6 +2819,36 @@ ecritures:
    D466–D467, D484, D486, D492–D493, D530–D533 ;
 10. **Exemple de configuration** —
 
+Dans le cas 4 (banque), `04_banque/versions/beta/v1.0.0.0/banque/ecriture/gui.yml` :
+
+```yaml
+# Les listes
+# La première déclarée est celle par défaut ; chacune porte sa zone de recherche — le compte, la plage de dates par la
+# facette du champ, le champ de recherche mutualisé.
+lists:
+
+  # Par date comptable
+  # Les écritures pointées seules ; le tri, partagé avec le relevé, va de la dépense à la ressource ; l'export PDF prend
+  # le modèle de base de la liste.
+  par_comptable:
+    title:
+      fr: Par date comptable
+      en: By posting date
+      es: Por fecha contable
+    filter: date_comptable is not null
+    searchable:
+      - owner: { searchable: strict, select: mono, required: true }
+      - date_comptable
+      - recherche
+    columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
+    sort: [date_comptable, montant, numero]
+    selection: multiple
+    actions: [copy]
+    exports: [ pdf ]
+```
+
+Les autres propriétés, sur un exemple :
+
 ```yaml
 # sales/entities/order.yml, bloc gui (D437)
 lists:
@@ -2581,7 +2867,10 @@ lists:
     sizable: auto+manual           # (D447)
     add: quick_entry               # le formulaire du bouton + (D530)
     update: record                 # celui du double-clic — le défaut sinon (D438, D788)
-    exports: [ csv, excel[orders.xlsx], pdf[order_sheet] ]        # (D530, D1601)
+    exports:                       # (D530, D1601)
+      - csv
+      - excel[orders.xlsx]
+      - pdf[order_sheet]
     actions: [ invoice, cancel ]   # les opérations — l'icône au header, sinon
                                    # le bouton du pied (D531)
 
@@ -2670,6 +2959,48 @@ lists:
    D530, D533–D535 ;
 10. **Exemple de configuration** —
 
+Dans le cas 4 (banque), `04_banque/versions/beta/v1.0.0.0/banque/ecriture/gui.yml` :
+
+```yaml
+# Les formulaires
+# Le formulaire de l'écriture, puis les formulaires d'appel des opérations : leur validation est l'opération, et leurs
+# items déclarent des champs libres — les paramètres du hook.
+forms:
+
+  # Le formulaire de l'écriture
+  # Les cinq usages ; le titre suit le mode d'ouverture. Le calendrier et ses pas sur les dates, les choix du mode, le
+  # numéro de chèque visible pour le mode autre, les référentiels à création directe.
+  record:
+    title:
+      create:
+        fr: Création d'une écriture
+        en: New entry
+        es: Nuevo apunte
+      read:
+        fr: Écriture '{libelle}' du {date_operation}
+        en: Entry '{libelle}' of {date_operation}
+        es: Apunte '{libelle}' del {date_operation}
+      update:
+        fr: Modification de l'écriture '{libelle}' du {date_operation}
+        en: Editing entry '{libelle}' of {date_operation}
+        es: Modificación del apunte '{libelle}' del {date_operation}
+      delete:
+        fr: Suppression de l'écriture '{libelle}' du {date_operation}
+        en: Deleting entry '{libelle}' of {date_operation}
+        es: Eliminación del apunte '{libelle}' del {date_operation}
+    items:
+      - field[date_operation]
+      - field[date_comptable]
+      - field[libelle]
+      - field[budget]
+      - field[montant]
+      - field[mode]
+      - field[cheque]: { visible: mode = autre }
+      - field[lieu]
+```
+
+Les autres propriétés, sur un exemple :
+
 ```yaml
 # sales/entities/order.yml, bloc gui — le fil de la passe
 forms:
@@ -2679,15 +3010,21 @@ forms:
       - pc[landscape]
     size: 75%                       # la surimpression centrée sur la pile (D535/D533)
     header:
-      items: [ field[number], field[state] ]
+      items:
+        - field[number]
+        - field[state]
     page:                           # le pages implicite (D509)
       - section:
           title: { fr: Client }
-          items: [ field[customer], field[date] ]
+          items:
+            - field[customer]
+            - field[date]
       - field[lines]                # la composition — la liste embarquée (D486)
       - field[discussion]           # le fil prend la place qu'on lui laisse (D485)
     footer:
-      items: [ field[total], operation[invoice] ]   # l'acte au pied (D511)
+      items:                        # l'acte au pied (D511)
+        - field[total]
+        - operation[invoice]
 
   quick_entry:                      # le formulaire d'add: de la liste (D530)
     page:
@@ -2743,8 +3080,13 @@ summary:
       - sections:
           layout: row              # l'horizontal et le vertical mêlés (D537)
           items:
-            - section: { items: [ field[photo] ] }
-            - section: { items: [ field[name], field[phone] ] }
+            - section:
+                items:
+                  - field[photo]
+            - section:
+                items:
+                  - field[name]
+                  - field[phone]
       - field[balance]: { mode: read-only }   # le mêlé lecture/modification (D201)
       - chart[orders_kpi]          # le kpi modeste (D538)
 
@@ -2789,6 +3131,36 @@ summary:
    D437–D438, D449–D450, D455, D465, D492, D533, D535, D538, D540 ;
 10. **Exemple de configuration** —
 
+Dans le cas 3 (véhicule), `03_vehicule/versions/beta/v1.0.0.0/transport/vehicule/gui.yml` :
+
+```yaml
+# Les widgets
+widgets:
+
+  # La carte du véhicule
+  # Le widget de la liste : la photo, l'identité, les deux chiffres clés.
+  voiture:
+    items:
+      - sections:
+          layout: row
+          items:
+            - section:
+                items:
+                  - field[photo]
+            - section:
+                items:
+                  - field[nom]
+                  - field[immatriculation]
+                  - field[type]
+                  - field[statut]
+            - section:
+                items:
+                  - field[km_courant]
+                  - field[prix_km]
+```
+
+Les autres propriétés, sur un exemple :
+
 ```yaml
 # sales/entities/order.yml, bloc gui
 widgets:
@@ -2797,8 +3169,13 @@ widgets:
       - sections:
           layout: row
           items:
-            - section: { items: [ field[number], field[state] ] }
-            - section: { items: [ field[total] ] }
+            - section:
+                items:
+                  - field[number]
+                  - field[state]
+            - section:
+                items:
+                  - field[total]
 
   monthly:                         # la synthèse (D202) — le pool de l'accueil (D204)
     title: { fr: Le mois en cours }
@@ -2885,25 +3262,35 @@ wizards:
     steps:
       - step:
           title: { fr: Client }
-          items: [ field[customer] ]
+          items:
+            - field[customer]
       - step:
           title: { fr: TVA }
           if: customer.country != "FR"   # la transition conditionnelle (D231/D90)
-          items: [ field[vat_number] ]
+          items:
+            - field[vat_number]
       - step:
           title: { fr: Lignes }
-          items: [ field[lines] ]
+          items:
+            - field[lines]
     commit: confirm                # la relecture, puis la transaction scellée (D232/D596)
 
 # catering/entities/menu.yml — l'impression guidée (D546)
 wizards:
   print_week:
     steps:
-      - step: { title: { fr: Semaine }, items: [ field[week] ] }
-      - step: { title: { fr: Menus },   items: [ field[menus] ] }
+      - step:
+          title: { fr: Semaine }
+          items:
+            - field[week]
+      - step:
+          title: { fr: Menus }
+          items:
+            - field[menus]
       - step:
           title: { fr: Diffusion }
-          items: [ field[channel] ]
+          items:
+            - field[channel]
           operation: print_menus   # l'opération à la validation du step (D546)
 ```
 
@@ -2955,18 +3342,31 @@ wizards:
    D535, D540, D554–D558 ;
 10. **Exemple de configuration** —
 
+Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/stock/stock.yml` :
+
 ```yaml
-# sales/module.yml, bloc gui — le tableau de bord du module (D439)
-dashboards:
-  main:                            # le link: du menu : sales[main] (D439, D1237)
-    title: { fr: Pilotage des ventes }
-    refresh: every[5min]           # static | live | every[…] (D249/D434)
-    page:
-      - sections:
-          layout: column[2]
-          items:
-            - section: { items: [ widget[order.monthly] ] }   # contraint (D555)
-            - section: { items: [ _ ] }      # l'emplacement libre — le pool (D556)
+# L'interface du module
+# Le seul tableau de bord du cas : la preuve que l'entrepôt sert une fois rempli — les indicateurs du stock et la
+# matrice de contrôle. Le menu l'adresse stock[pilotage] ; le premier tableau de bord déclaré est celui par défaut.
+gui:
+  dashboards:
+
+    # Le pilotage des stocks
+    # Rafraîchi toutes les heures : les données changent la nuit, après la migration, l'heure rassure. Les graphiques
+    # sont adressés chart[<entité>.<nom>], en flux entre guillemets ; l'emplacement libre `_` est le pool de l'usager.
+    pilotage:
+      title: Le pilotage des stocks
+      refresh: every[1h]
+      page:
+        - sections:
+            layout: row
+            items:
+              - section: { items: [ 'chart[niveau.valeur_stock]' ] }
+              - section: { items: [ 'chart[niveau.sous_minimum]' ] }
+              - section: { items: [ 'chart[niveau.perimes]' ] }
+        - chart[mouvement.par_mois]
+        - chart[mouvement.controle]
+        - _
 ```
 
 ## `template`
@@ -3039,7 +3439,8 @@ templates:
       - paragraph: { label: legal }   # le texte fixe du dictionnaire (D440/D488)
     footer:
       height: 15mm
-      items: [ field[total] ]      # répété à chaque page (D507)
+      items:                       # répété à chaque page (D507)
+        - field[total]
 
   label:                           # l'étiquette (D252)
     paper: 105x48mm
@@ -3124,13 +3525,26 @@ d'évolution. À la création d'un ticket depuis le « ? » de la surface
 (documentation.md §26, chapitre 3), le groupe destinataire est connu et
 transmis automatiquement ; le gestionnaire du ticket se prend dans ce
 groupe. Le bloc `assistance:` aux clés anglaises (D335), héritable par
-la cascade du module et des settings (D359) — acquis, D1374 :
+la cascade du module et des settings (D359) — acquis, D1374.
+
+Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/settings.yml` :
 
 ```yaml
+# Le support
+# Les groupes qui reçoivent les tickets ouverts depuis les écrans ; hérité par toutes les surfaces de la version.
 assistance:
-  anomaly: support_technique      # qui traite une anomalie
-  question: responsables_metier   # qui répond à une question fonctionnelle
-  evolution: direction            # qui enregistre une demande d'évolution
+
+  # Les anomalies
+  # L'administration de l'entrepôt : la reprise, la configuration.
+  anomaly: administration
+
+  # Les questions
+  # La logistique, qui connaît les stocks et fait suivre aux autres services.
+  question: logistique
+
+  # Les évolutions
+  # La direction, qui arbitre et planifie.
+  evolution: direction
 ```
 
 ## La documentation — la facette des composants graphiques et des surfaces (D1158–D1159)

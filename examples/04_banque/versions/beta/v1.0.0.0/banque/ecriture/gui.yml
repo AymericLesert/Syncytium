@@ -87,7 +87,7 @@ lists:
       en: By transaction date
       es: Por fecha de operación
     searchable:
-      - compte: { select: mono, required: true }
+      - owner: { searchable: strict, select: mono, required: true }
       - date_operation
       - recherche
     columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
@@ -105,7 +105,7 @@ lists:
       es: Por fecha contable
     filter: date_comptable is not null
     searchable:
-      - compte: { select: mono, required: true }
+      - owner: { searchable: strict, select: mono, required: true }
       - date_comptable
       - recherche
     columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
@@ -123,7 +123,7 @@ lists:
       es: Sin fecha contable
     filter: date_comptable is null
     searchable:
-      - compte: { select: mono, required: true }
+      - owner: { searchable: strict, select: mono, required: true }
       - recherche
     columns:
       - date_operation: { editable: true }

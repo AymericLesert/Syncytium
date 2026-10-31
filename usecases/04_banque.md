@@ -485,9 +485,11 @@ D1210*) :
    deux images pour une étape ; **ses champs libres** (`pas`, `du`, `au`
    — sans `hint:` ni `description:`) **comptent dans la complétude**
    (D1230 — « oui, cela fait partie de la complétude »).
-4. **La liste à recherche obligatoire** (`compte: { select: mono,
-   required: true }`) : le lien sans paramètre ouvre la liste qui
-   demande le compte ; le scénario peut le fixer (`?compte=…`, D1203)
+4. **La liste à recherche obligatoire** (`owner: { searchable: strict,
+   select: mono, required: true }` — le possesseur, filtré par la
+   définition de la liste, D1599–D1600) : le lien sans paramètre ouvre
+   la liste qui demande le compte ; le scénario peut le fixer
+   (`?owner=…`, D1203)
    quand le contexte le connaît — ici il ne le connaît pas, la planche
    montre la liste avec le compte en attente.
 5. **L'automatisme déclenché par une génération** (`creer_releve`,

@@ -237,7 +237,7 @@ Tout se relie par une adresse, `<type>[<nom>]` : `field[nom]`,
 courante, l'adresse se qualifie, `chart[consommation.evolution_consommation]`.
 Le module porte ses tableaux de bord, `dashboards:`, et le menu les
 adresse (D439, D554). Les fiches des composants sont dans
-[le catalogue des composants](../../composants.md).
+[le catalogue des composants](../04-composants/README.md).
 
 ## L'exemple fil rouge
 

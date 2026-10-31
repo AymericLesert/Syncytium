@@ -5,7 +5,7 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
 à rédiger (Q58, le domaine 6 — D602) et suit le vocabulaire du
 [glossaire](glossaire.md) ; les décisions citées renvoient à la
 [conception](conception.md) ; les composants graphiques au
-[catalogue](composants.md).
+[catalogue](syncytium/04-composants/README.md).
 
 ## La doctrine
 

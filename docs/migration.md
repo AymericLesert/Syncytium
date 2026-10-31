@@ -491,7 +491,7 @@ fields:
 
 ## Les surfaces
 
-Celles du catalogue ([composants.md](composants.md)) sur ces entités
+Celles du catalogue ([les composants](syncytium/04-composants/README.md)) sur ces entités
 (D666), fournies par le socle sous l'entrée « migrations » du module
 d'administration (D711) :
 

@@ -169,7 +169,7 @@ Les décisions de ces clés : D1120 pour `name:` et `title:`, D886 pour la
 cascade de `allow:`, D765 pour la liste des entités, D351 pour le menu,
 D359 pour les réglages, D1530 pour les ressources (la déclaration, ma
 lecture). Les tableaux de bord du module, `dashboards:`, sont décrits
-dans [composants.md](../../composants.md).
+dans [les surfaces](../04-composants/surfaces.md).
 
 Déclarer un module, c'est l'activer (D350) : présent, il est actif ;
 retiré par une nouvelle version, il est désactivé.
@@ -188,7 +188,7 @@ Le menu est une carte, dans l'ordre d'affichage. Chaque entrée porte son
 
 Ce que le menu fait à l'écran — le défaut, les droits, la
 documentation qu'il ordonne — est décrit à sa fiche, parmi les surfaces
-(D1604, [les composants](../../composants.md)).
+(D1604, [les surfaces](../04-composants/surfaces.md)).
 
 Un sous-menu porte `items:`, la carte de ses entrées. Le menu de la
 banque (le cas 4), le premier au dépôt (D1230), tel qu'il est écrit :
@@ -263,7 +263,7 @@ vit dans trois chapitres :
   `unit:` sur une mesure empruntée à une référence (D1009) ;
 - les surfaces, `lists`, `forms`, `summary`, `widgets`, `wizards`,
   `templates`, et `dashboards` au module, dans
-  [composants.md](../../composants.md).
+  [les surfaces](../04-composants/surfaces.md).
 
 ## 3.9 `hooks/` et `reprise/`
 

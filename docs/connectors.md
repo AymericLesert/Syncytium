@@ -3,7 +3,7 @@
 Ce document rassemble **la nature et les exemples des échanges
 consignés sur les connecteurs** — le cinquième artefact préparatoire
 de la documentation (Q58, le domaine 6 — D602), après le
-[glossaire](glossaire.md), les [composants](composants.md), les
+[glossaire](glossaire.md), les [composants](syncytium/04-composants/README.md), les
 [hooks](hooks.md) et les [types](syncytium/02-modele/types.md). Les décisions citées
 renvoient à la [conception](conception.md).
 

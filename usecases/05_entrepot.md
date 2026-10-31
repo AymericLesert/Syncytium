@@ -1526,7 +1526,7 @@ emplacements en lignes, les articles en colonnes, la somme signée à la
 cellule, le mois courant), et l'emplacement libre `_` du pool (D556) ;
 le rafraîchissement `every[1h]` (D249). Les graphiques s'adressent par
 `chart[<entité>.<nom>]` depuis le module (la forme en proposition dans
-composants.md). Le suivi de la migration — les indicateurs, les
+docs/syncytium/04-composants/graphiques.md). Le suivi de la migration — les indicateurs, les
 anomalies, l'évolution — est celui des surfaces standard du module
 `_migration` (D666/D711, ci-dessous) : le cas les cite, ne les
 déclare pas. Rien

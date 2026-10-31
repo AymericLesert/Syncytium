@@ -371,7 +371,7 @@ décisions, D1170–D1238.)*
   personas, le premier `menu.yml` et le tableau de bord de la banque
   dans `examples/` (2bcc1da, D1230, D1237). *(Le plan d'origine disait
   :)* §6, §7, §14–§16, §19, §22, §24 validés ;
-  [entity.md](syncytium/02-modele/entite.md), [composants.md](composants.md) (le wizard
+  [entity.md](syncytium/02-modele/entite.md), [les surfaces](syncytium/04-composants/surfaces.md) (le wizard
   comme scénario), [rights.md](rights.md) (les personas et les
   groupes) ; `usecases/01_tiny.md` amendé ; une déclinaison dans
   `usecases/05_entrepot.md`.
@@ -430,7 +430,7 @@ décisions, D1170–D1238.)*
   [migration.md](migration.md) (le chapitre 4.1), [hooks.md](hooks.md)
   (le contrat du hook de type), [configuration.md](syncytium/01-configuration/README.md)
   (les groupes, les réglages), [rights.md](rights.md),
-  [administration.md](administration.md), [composants.md](composants.md),
+  [administration.md](administration.md), [les composants](syncytium/04-composants/README.md),
   [mapping.md](mapping.md), le glossaire ; la colonne 2 de la matrice
   (D1303) ; les groupes de champs dans la configuration du cas 5.
   **Ouvert au-delà du rang** : les colonnes du socle (D1305).
@@ -508,7 +508,7 @@ décisions, D1170–D1238.)*
   configuration ; [usecases/05_entrepot.md](../usecases/05_entrepot.md)).
 - **Livrables** : une section « Le projet et le support » (§26, les
   quatre chapitres acquis) ; [configuration.md](syncytium/01-configuration/README.md),
-  [composants.md](composants.md) ; la colonne 8 de la matrice dans les
+  [les composants](syncytium/04-composants/documentation.md) ; la colonne 8 de la matrice dans les
   onze artefacts et la matrice d'ensemble (D1383).
 - **Dépendances** : aucune.
 
@@ -2295,7 +2295,7 @@ et des implémentations se généraliseront.
    l'instance. **La cellule se spécifie dans l'artefact du
    composant** — une rubrique « La documentation » dans
    [entity.md](syncytium/02-modele/entite.md), [types.md](syncytium/02-modele/types.md) (type par type),
-   [composants.md](composants.md) (fiche par fiche), [hooks.md](hooks.md),
+   [les composants](syncytium/04-composants/README.md) (fiche par fiche), [hooks.md](hooks.md),
    [connectors.md](connectors.md), [mapping.md](mapping.md),
    [rights.md](rights.md), [administration.md](administration.md),
    [migration.md](migration.md) — ; documentation.md garde les principes
@@ -3219,7 +3219,7 @@ proposition de l'étape 5, plus bas.*
 
 **Le persona s'appuie sur les wizards** (D1130 — « ce que nous avons
 déjà décrit dans la constitution des GUI, les wizards »). Le wizard
-([composants.md](composants.md) — D546–D552, D594) est déjà **un
+([le wizard](syncytium/04-composants/surfaces.md) — D546–D552, D594) est déjà **un
 scénario fait surface** : une démarche guidée en `steps`, chaque step
 un écran, certains portant une opération pré-exécutée, le fil d'Ariane
 qui dit le chemin parcouru (D505), la transaction tenue ouverte jusqu'à

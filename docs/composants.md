@@ -251,7 +251,7 @@ gui:
                                       #   active (obligatoire) — D375–D376
       editable: [active]              # l'édition en ligne — le clic cycle (D374)
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Statut }
@@ -310,7 +310,7 @@ gui:
                                  #   désengage (D375/D377)
       editable: [automated]      # la bascule en ligne
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Fonctionnement }
@@ -402,7 +402,7 @@ gui:
       columns: [name, registration]
       searchable: [name]         # la boîte au filtrage vivant (D228/D441)
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Identité }
@@ -491,7 +491,7 @@ gui:
       searchable: [price]          # la plage de montants (range — D371)
       editable: [quantity]
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Mesures }
@@ -538,7 +538,7 @@ fields:
 
 gui:
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Ligne }
@@ -666,7 +666,7 @@ gui:
     main:
       columns: [name, avancement]  # le cadran en cellule — la lecture instantanée
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Suivi }
@@ -708,7 +708,7 @@ fields:
 
 gui:
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Charge }
@@ -908,7 +908,7 @@ fields:
 
 gui:
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Priorité }
@@ -961,7 +961,7 @@ gui:
     main:
       columns: [code, company_name, category]   # l'icône en cellule
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Classification }
@@ -1032,7 +1032,7 @@ fields:
 
 gui:
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Encadrement }
@@ -1149,7 +1149,7 @@ fields:
 
 gui:
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Documents }
@@ -1231,7 +1231,7 @@ fields:
 
 gui:
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Profil }
@@ -1247,7 +1247,7 @@ fields:
 
 gui:
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Galerie }
@@ -1268,7 +1268,7 @@ fields:
     extensions: [pdf, pptx]
 gui:
   forms:
-    default:
+    record:
       page:
         - field[handbook]:
             component: viewer[carousel]  # le défilement des pages
@@ -1279,7 +1279,7 @@ gui:
   templates:
     invoice: …                           # le patron du document (Q55)
   forms:
-    default:
+    record:
       page:
         - template[invoice]:             # la facture générée à la volée —
             component: viewer[carousel]  # ses pages feuilletées (D481)
@@ -1359,7 +1359,7 @@ gui:
     main:
       columns: [name, location]  # lat,long court — le clic déplie la carte (D294)
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Localisation }
@@ -1422,7 +1422,7 @@ gui:
         - customer
         - discussion: { preview: 3 }  # l'icône ; au survol, 3 lignes (D393, D1635)
   forms:
-    default:
+    record:
       page:
         - section:
             title: { fr: Échanges }
@@ -1732,7 +1732,7 @@ Les autres propriétés, sur un exemple :
 ```yaml
 gui:
   forms:
-    default:
+    record:
       footer:
         - paragraph:
             label:
@@ -1773,7 +1773,7 @@ gui:
 ```yaml
 gui:
   forms:
-    default:
+    record:
       header:
         - picture: logo            # la forme courte — l'identifiant d'une ressource (D1625)
         - picture:
@@ -2183,7 +2183,7 @@ operations:
 
 gui:
   forms:
-    default:
+    record:
       footer:
         items:
           - operation[invoice]:        # le bouton au formulaire (D511)

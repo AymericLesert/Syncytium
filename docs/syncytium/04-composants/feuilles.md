@@ -2128,7 +2128,8 @@ base des couleurs nommées (D496). Les droits.
 
 **Propriétés.**
 
-- `selection:`, le nombre (D474, D1650) : `1` par défaut, ou `one`, `multiple`, `1`, `1..`, `1..4`, `2..4`, `..4` ;
+- `selection:`, le nombre (D474, D1650) : `1` par défaut, ou `one`,
+  `multiple`, `1..`, `1..4`, `2..4`, `..4` ;
 - `anchor:`, le centre de l'écran, à droite du champ, ou à la place du
   champ (D469) ;
 - `dimension:`, le déploiement (D469, D484) ;

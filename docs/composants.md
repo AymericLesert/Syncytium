@@ -2546,9 +2546,9 @@ ecritures:
    (Q48) ; **selon l'écran** : sur smartphone, un tableau pour les
    petites listes, des widgets pour les grandes — une colonne en
    portrait, deux en paysage ; sur tablette et poste informatique,
-   tableaux ou widgets sur plusieurs colonnes — *ma lecture* : une
-   recommandation au concepteur, qui déclare une liste par écran avec
-   `screen:` (D290, D1613) ; **les filtres** toujours affichés sur un
+   tableaux ou widgets sur plusieurs colonnes — une recommandation au
+   concepteur, qui déclare une liste par écran avec `screen:` (D290,
+   D1613, D1634) ; **les filtres** toujours affichés sur un
    poste informatique, derrière une icône sur un smartphone, et sur une
    tablette au choix du composant selon la place disponible (D290,
    D1633) ;

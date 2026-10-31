@@ -217,14 +217,14 @@ fiche `sections`. Dans le cas 3 (véhicule),
 ```
 
 Les autres propriétés, sur un exemple. La section seule vit directement
-sous `page:` (D490). Elle contient des feuilles et un organisateur
+sous `items:`, le raccourci de la page unique (D490, D1594, D1649). Elle contient des feuilles et un organisateur
 (D489). L'organisateur replie au-delà de deux colonnes (D491), borne
 l'espace du tout (D503) et fixe la hauteur uniforme (D502). Une de ses
 sections impose sa largeur ; l'autre prend le reste (D502) :
 
 ```yaml
-# La page du formulaire : la section seule, directement sous le conteneur
-page:
+# Le contenu du formulaire : la section seule, directement sous le conteneur
+items:
 
   # L'adresse : un regroupement nommé
   - section:
@@ -348,8 +348,8 @@ Les autres propriétés, sur un exemple. La barre est en bas, comme Excel
 (D439, D1625). Le fil prend l'onglet entier (D485) :
 
 ```yaml
-# La page du formulaire : deux onglets, la barre en bas
-page:
+# Le contenu du formulaire : deux onglets, la barre en bas
+items:
 
   # Les onglets
   - tabs:
@@ -462,8 +462,8 @@ pied sont toujours visibles, leur hauteur est réglée (D507). La première
 page porte son numéro en poignée, la seconde un nom (D508) :
 
 ```yaml
-# La page du formulaire : un pages déclaré, l'entête et le pied fixes, deux pages qui tournent
-page:
+# Le contenu du formulaire : un pages déclaré, l'entête et le pied fixes, deux pages qui tournent
+items:
 
   # Le conteneur paginé
   - pages:

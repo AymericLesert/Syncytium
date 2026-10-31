@@ -127,7 +127,7 @@ gui:
   # Le formulaire : la forme explicite, puis la forme riche
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Statut }
             items:
@@ -213,7 +213,7 @@ gui:
   # Le formulaire : la surcharge au nœud, pour ce formulaire seul
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Fonctionnement }
             items:
@@ -341,7 +341,7 @@ gui:
   # Le formulaire : le raccourci surchargé au nœud
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Identité }
             items:
@@ -467,7 +467,7 @@ gui:
   # Le formulaire : la calculatrice au nœud du poids
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Mesures }
             items:
@@ -535,7 +535,7 @@ gui:
   # Le formulaire : la surcharge au nœud de la quantité
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Ligne }
             items:
@@ -636,7 +636,7 @@ gui:
   # Le formulaire
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Activité }
             items:
@@ -716,7 +716,7 @@ gui:
   # Le formulaire : en modification, la saisie number, le cadran illustre
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Suivi }
             items:
@@ -781,7 +781,7 @@ gui:
   # Le formulaire
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Charge }
             items:
@@ -863,7 +863,7 @@ gui:
   # Le formulaire
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Horaires }
             items:
@@ -1049,7 +1049,7 @@ gui:
   # Le formulaire : les radios au nœud
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Priorité }
             items:
@@ -1124,7 +1124,7 @@ gui:
   # Le formulaire : la taille des icônes au nœud
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Classification }
             items:
@@ -1226,7 +1226,7 @@ gui:
   # Le formulaire : la présentation, la cardinalité, l'ancrage et la dimension
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Encadrement }
             items:
@@ -1305,7 +1305,7 @@ gui:
   # Le formulaire : picker.image par défaut
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Profil }
             items:
@@ -1385,7 +1385,7 @@ gui:
   # Le formulaire : un seul fichier
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Documents }
             items:
@@ -1501,7 +1501,7 @@ gui:
   # Le formulaire : la visionneuse au clic sur la photo
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Profil }
             items:
@@ -1528,7 +1528,7 @@ gui:
   # Le formulaire : le carrousel déduit, puis la planche, au crochet et en clair
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Galerie }
             items:
@@ -1560,7 +1560,7 @@ gui:
   # Le formulaire : le défilement des pages, automatique
   forms:
     record:
-      page:
+      items:
         - field[handbook]:
             component: viewer[carousel]
             interval: 10s
@@ -1576,14 +1576,14 @@ gui:
   # Le template : le patron de la facture
   templates:
     invoice:
-      page:
+      items:
         - field[number]
         - field[customer]
 
   # Le formulaire : la facture générée à la volée, ses pages feuilletées
   forms:
     record:
-      page:
+      items:
         - template[invoice]:
             component: viewer[carousel]
 ```
@@ -1693,7 +1693,7 @@ gui:
   # Le formulaire : la mini-carte à plat, la carte dépliée au clic
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Localisation }
             items:
@@ -1777,7 +1777,7 @@ gui:
   # Le formulaire : le fil dans sa section
   forms:
     record:
-      page:
+      items:
         - section:
             title: { fr: Échanges }
             items:
@@ -1885,7 +1885,7 @@ gui:
   # Le formulaire : l'éditeur, puis les cases ou les tags
   forms:
     record:
-      page:
+      items:
         - field[keywords]
         - field[languages]
 ```
@@ -2161,7 +2161,7 @@ gui:
   # Le formulaire : le sélecteur de couleur, ancré à droite, déployé à 30 %
   forms:
     record:
-      page:
+      items:
         - field[tint]:
             component: picker.color
             anchor: right
@@ -2245,7 +2245,7 @@ gui:
   # Le template : l'étiquette imprimée du serveur
   templates:
     label:
-      page:
+      items:
         # Le QR code : le carré, 120 pixels de côté
         - field[sku]:
             component: qrcode

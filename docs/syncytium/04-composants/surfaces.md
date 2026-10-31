@@ -462,7 +462,10 @@ les pages s'écrivent en liste (D510).
 - `page:` s'impose dès qu'un `header`, un `footer` ou une seconde page
   entre ;
 - sous `page:`, le contenu s'écrit en liste ; `header:` et `footer:`
-  portent `items:`, parce qu'ils portent aussi `height:` (D507).
+  portent `items:`, parce qu'ils portent aussi `height:` (D507) ;
+- le raccourci vaut pour toutes les surfaces à pages : le formulaire,
+  le résumé, le widget, le template, le tableau de bord. `page:` reste
+  valide (D1649).
 
 Dans les pages, le formulaire accueille :
 
@@ -576,7 +579,7 @@ forms:
   # La saisie rapide
   # Le formulaire que le bouton d'ajout de la liste appelle, par add:.
   quick_entry:
-    page:
+    items:
       - field[customer]
       - field[lines]
 ```
@@ -653,7 +656,7 @@ summary:
   card:
     title: "{name}"
     size: 30%
-    page:
+    items:
       - sections:
           layout: row
           items:
@@ -768,7 +771,7 @@ widgets:
   # La carte de la commande
   # Le widget de la liste en cartes : le numéro et l'état à côté du total.
   card:
-    page:
+    items:
       - sections:
           layout: row
           items:
@@ -784,7 +787,7 @@ widgets:
   # La synthèse, proposée au pool de l'accueil : le chiffre clé, puis la courbe.
   monthly:
     title: { fr: Le mois en cours }
-    page:
+    items:
       - chart[monthly_revenue]
       - chart[revenue_by_month]
 ```
@@ -1148,7 +1151,7 @@ templates:
   # Le code article en QR code, puis le nom.
   label:
     paper: 105x48mm
-    page:
+    items:
       - field[sku]: { component: qrcode, size: 30mm }
       - field[name]
 ```

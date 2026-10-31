@@ -2403,7 +2403,11 @@ les widgets, le wizard, les templates, le dashboard du module).*
    champs ou les noms mutualisés, chacun cherchable au modèle — par
    défaut, les colonnes affichées — ou les champs du widget — qui
    portent `searchable:`, D1596 ; un critère nommé sans `searchable:`
-   est une erreur d'ingestion, D1598) ; `editable:`
+   est une erreur d'ingestion, D1598 ; **le possesseur d'une
+   composition** : ouverte depuis lui, la liste de ses éléments le tient
+   du contexte ; la liste de tous les éléments, sans distinction de
+   possesseur, peut proposer un filtre sur lui par sa définition, en
+   recherche stricte ou sous l'une des autres formes, D1599) ; `editable:`
    (**défaut : tout readonly** — D441) ; `selection: 1 | 1..`
    (D445–D446) ; `sizable: none | auto | manual | auto+manual`
    (D447) ; **`add:` / `update:` / `delete:`** — « le

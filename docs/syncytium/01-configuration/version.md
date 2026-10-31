@@ -186,6 +186,10 @@ Le menu est une carte, dans l'ordre d'affichage. Chaque entrée porte son
 - `<module>.<entité>[@<wizard>]`, un wizard ;
 - `<module>[<dashboard>]`, un tableau de bord du module.
 
+Ce que le menu fait à l'écran — le défaut, les droits, la
+documentation qu'il ordonne — est décrit à sa fiche, parmi les surfaces
+(D1604, [les composants](../../composants.md)).
+
 Un sous-menu porte `items:`, la carte de ses entrées. Le menu de la
 banque (le cas 4), le premier au dépôt (D1230), tel qu'il est écrit :
 

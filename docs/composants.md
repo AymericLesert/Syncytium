@@ -42,8 +42,9 @@ matérialisation ; l'analogie des web components est consignée (D455).
 
 ## L'inventaire (D456)
 
-- **Les surfaces** : `form` · `summary` · `wizard` · `widget` · `list`
-  · `dashboard` · `template` · `chat` (la huitième, au socle — D957) ;
+- **Les surfaces** : `menu` (la porte du module — D1604) · `form` ·
+  `summary` · `wizard` · `widget` · `list` · `dashboard` · `template` ·
+  `chat` (au socle — D957) ;
 - **Les conteneurs** : `pages` (header + page(s) + footer) · `page` (le
   saut de page) · `sections` (l'organisateur — D489) · `section` (le regroupement potentiellement nommé) ·
   `tabs`/`tab` ;
@@ -2376,6 +2377,74 @@ gui:
 *Le fil conducteur de la passe : `sales.order` — les surfaces
 construites dans l'ordre d'usage (la liste, le formulaire, le résumé,
 les widgets, le wizard, les templates, le dashboard du module).*
+
+## `menu`
+
+1. **Nom et famille** — `menu`, une surface (D1604) — la porte de
+   chaque module : **un menu par module fonctionnel, hiérarchique**
+   (D193) ; écrit dans `menu.yml`, référencé par le module, facultatif
+   (D351) — le fichier et sa grammaire sont au chapitre de la
+   configuration ([version.md](syncytium/01-configuration/version.md)) ;
+2. **Rôle** — conduire l'utilisateur à une surface : **une carte
+   d'entrées nommées, dans l'ordre d'affichage** (D1237) ; le logo mène
+   à la page d'accueil (D193) ;
+3. **Types servis** — aucun : le menu adresse des surfaces, il ne rend
+   aucun champ ;
+4. **Contexte consommé** — l'utilisateur, ses droits et la
+   confidentialité : **une entité invisible rend invisibles toutes ses
+   entrées** (D193) ;
+5. **Propriétés** — par entrée, **`label:`** par langue — sans lui,
+   le titre de la surface liée — et **`link:`**, l'adresse logique
+   (D1237, D439) : `<module>.<entité>` (la liste par défaut),
+   `<module>.<entité>[<liste>]`, `<module>.<entité>.<opération>`,
+   `<module>.<entité>[+<formulaire>]`, `<module>.<entité>[@<wizard>]`,
+   `<module>[<dashboard>]` ; **l'icône vient de la surface visée**
+   (D439) ; **le défaut sans `menu.yml`** : les entités agrégats du
+   module, leurs enfants et leurs associations en lien multiple en
+   sous-menu, chaque entrée vers la liste de l'entité (D193, D186) ;
+6. **Items** — des entrées et des sous-menus : **un sous-menu porte
+   `label:` et `items:`, la carte de ses entrées** (D1237) ; trois
+   niveaux au plus — le module, les entités parents, les enfants et
+   les liaisons (D192) ; **l'entrée d'une composition ouvre la liste
+   de l'enfant, tous possesseurs confondus** (D1227) ;
+7. **Modes et déclinaisons** — à l'écran, le bandeau haut des menus et
+   des sous-menus, le bandeau gauche du choix du module quand il y en a
+   plusieurs (D191) ; depuis le menu, le wizard prend tout l'écran
+   (D549) ; la déclinaison au smartphone et à la tablette n'est pas
+   encore décidée ;
+8. **États et interactions** — l'entrée masquée par la
+   confidentialité (D193) ; le clic ouvre la surface adressée ;
+9. **Décisions fondatrices** — D186, D191–D194, D351, D439, D549,
+   D1227, D1237 ; **la documentation suit le menu** (D1194) : chaque
+   entrée est une section de la documentation fonctionnelle — une
+   liste décrite par une entrée a sa section, une entité hors du menu
+   n'est pas décrite (D1195, D1229) ;
+10. **Exemple de configuration** — le menu de la banque (le cas 4),
+    son accueil et son sous-menu des écritures :
+
+```yaml
+# L'accueil du module
+accueil:
+  label:
+    fr: Tableau de bord
+    en: Dashboard
+    es: Panel de control
+  link: banque[accueil]
+
+# Les écritures, en sous-menu — une entrée par liste
+ecritures:
+  label:
+    fr: Écritures
+    en: Entries
+    es: Apuntes
+  items:
+    operations:
+      link: banque.ecriture[par_operation]
+    comptable:
+      link: banque.ecriture[par_comptable]
+    rapprochement:
+      link: banque.ecriture[pointage]
+```
 
 ## `list` (la surface)
 

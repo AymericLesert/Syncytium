@@ -2535,7 +2535,12 @@ ecritures:
    footer** — le sous-total ou un gabarit (`{count}` — *en
    proposition*), **les boutons des actions sans icône** ; le tableau
    ou les widgets (D492) ; **le filtrage vivant** — la liste
-   s'auto-rafraîchit sans bouton (D226–D229/D444) ; **la pagination
+   s'auto-rafraîchit sans bouton (D226–D229/D444) ; **la recherche
+   texte globale** ne porte que sur les champs qui ont `searchable:` —
+   sans eux, aucune recherche (D198, D1632) ; **le paramétrage par
+   l'utilisateur** : le choix et l'ordre des colonnes se règlent à son
+   profil, ou se publient au groupe par un `manager` ou un
+   `administrator` (D198, D1632) ; **la pagination
    au curseur opaque** avec les indicateurs ; l'embarquée d'une
    composition ou d'une association (D486) ; le responsive au repli
    (Q48) ;
@@ -2550,7 +2555,7 @@ ecritures:
    interruptible à tout moment (D197) ; **l'opération de masse** sur les lignes
    sélectionnées (D446) ; les opérations en colonne à trois états
    (D444) ;
-9. **Décisions fondatrices** — D189, D197, D213, D226–D229, D437–D448, D450, D462,
+9. **Décisions fondatrices** — D189, D197–D198, D213, D226–D229, D437–D448, D450, D462,
    D466–D467, D484, D486, D492–D493, D530–D533 ;
 10. **Exemple de configuration** —
 

@@ -118,7 +118,9 @@ Le groupe implicite occupe l'en-tête de l'écran, au-dessus des onglets.
   nomme en critère qu'un champ qui le porte (D1596) : un autre champ est
   une erreur d'ingestion, un nom mutualisé vaut pour les champs qui le
   déclarent (D1598). Sans déclaration,
-  ni à la liste ni aux champs, la liste n'a aucun critère (D1597).
+  ni à la liste ni aux champs, la liste n'a aucun critère (D1597) ; sa
+  recherche texte globale ne porte, elle aussi, que sur les champs qui
+  ont `searchable:` (D1632).
 - **Les facettes propres à un type**, `currencies:`, `units:`,
   `decimals:`, sont décrites à sa fiche ([types.md](types.md),
   [composes.md](composes.md)).

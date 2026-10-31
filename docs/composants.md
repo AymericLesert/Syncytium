@@ -29,7 +29,7 @@ matérialisation ; l'analogie des web components est consignée (D455).
    d'usage intégrable dans la documentation de l'écran ») : le texte
    générique qui dit comment on s'en sert — le picker à création
    directe, l'édition en ligne, le toggle —, un item du catalogue du
-   moteur par composant (D1160, ma lecture), repris par la
+   moteur par composant (D1160, D1635), repris par la
    documentation de l'écran à côté de la description du champ ;
 6. **Items** — ce que le composant contient ;
 7. **Modes et déclinaisons** — lecture / modification / résumé /
@@ -314,9 +314,9 @@ gui:
    la taille et sa mise en forme » (D536) : le défaut au **thème
    choisi par l'utilisateur** (D752–D755 — le thème combine des
    styles du catalogue, le style porte le HTML des types + le CSS3),
-   la surcharge à la cascade D461 (*en
-   proposition : `style: { font: Roboto, size: 14px, format: [bold,
-   italic] }` — le size intérieur = la police, D458 départage*) ;
+   la surcharge à la cascade D461 (`style: { font: Roboto, size:
+   14px, format: [bold, italic] }` — le size intérieur = la police,
+   D458 départage ; D1635) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — modification : la saisie, guidée par le
    masque s'il existe (les lignes du masque font les lignes de la zone,
@@ -400,8 +400,8 @@ gui:
    cet enregistrement — les unités connues et apportées (D978), les
    coefficients, les chemins de transitivité (D979) ; l'unité de la
    saisie se choisit parmi celles de la matrice ; une unité nouvelle se
-   déclare avec son coefficient vers une connue — *la forme du volet
-   (l'icône post-zone, l'écho de D563 ; le tableau) est en proposition* ;
+   déclare avec son coefficient vers une connue — le volet s'ouvre par
+   l'icône post-zone (l'écho de D563) et montre un tableau (D1635) ;
 9. **Décisions fondatrices** — D272–D273, D370–D373, D447, D978–D980 ;
 10. **Exemple de configuration** —
 
@@ -503,8 +503,8 @@ gui:
    max: green }` — le défaut, du rouge au vert), **les seuils**
    (`{ 0: red, 50: orange, 80: green }`) **ou la table de référence**
    (D495 — l'entité et ses liaisons : la colonne du seuil, la colonne
-   de la couleur ; *écriture en proposition :* `colors: { from:
-   quality.threshold, threshold: level, color: tint }`) ;
+   de la couleur ; `colors: { from: quality.threshold, threshold:
+   level, color: tint }`, D1635) ;
    **`resources:`** — l'icône selon la valeur, aux mêmes seuils que les
    couleurs (D1609, D1611) — `resources: { 0: empty, 50: half, 80:
    full }` ; les noms viennent du catalogue des ressources, le défaut
@@ -563,7 +563,7 @@ gui:
 7. **Modes et déclinaisons** — **la lecture avant tout** (cellules,
    résumés, widgets — le cadran est un affichage) ; en modification, la
    saisie redevient `number` — le cadran illustre, il ne saisit pas
-   *(en proposition)* ; template / Excel : la valeur canonique ;
+   (D1635) ; template / Excel : la valeur canonique ;
 8. **États et interactions** — grisé si `readonly`/droits ; le
    dépassement change de représentation (la ligne D391) ;
 9. **Décisions fondatrices** — D359 (l'exemple fondateur), D274–D275 ;
@@ -801,8 +801,8 @@ gui:
    (`component: radios`, proposée au formulaire dès le thème E,
    D284, D285) ; **le seuil borne la surcharge** (D468, D1612) : un
    élément de la configuration générale, à la cascade des settings ;
-   au-delà, le champ se replie en `dropdown` — *écriture en
-   proposition :* `field: { enum: { radios: 5 } }` ;
+   au-delà, le champ se replie en `dropdown` — `field: { enum: {
+   radios: 5 } }` (D1635) ;
 4. **Contexte consommé** — les `values` du champ (`label`,
    `description`, `icon` — D387), le `mode`, les droits ;
 5. **Propriétés** — rien de déclaré : la disposition se déduit de la
@@ -849,7 +849,7 @@ gui:
    une icône, le choix d'un regard et d'un clic ;
 3. **Types servis** — `enum` dont **les `values` portent `icon` ou
    `image`** (D283/D387) — sans icônes déclarées, pas d'icons
-   (*erreur à l'ingestion, en proposition*) ; jamais un défaut — la
+   (une erreur d'ingestion — D1635) ; jamais un défaut — la
    surcharge (`component: icons`) ;
 4. **Contexte consommé** — les `values` du champ (`icon`/`image` ←
    `resources/` D346, le `label` pour l'infobulle), le `mode`, les
@@ -1082,8 +1082,8 @@ gui:
    `viewer[carousel]` ≡ `mode: carousel` (D478) ; `interval:` — le
    défilement automatique du carrousel (`interval: 5s` — D476 ;
    absent = manuel seul) ; en items, **`template[<nom>]`** référence le
-   document à générer (*l'écriture en proposition — l'écho de
-   `field[<nom>]` D460 ; viewer, son composant naturel*) ;
+   document à générer (l'écho de `field[<nom>]` D460 ; viewer, son
+   composant naturel — D1635) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **`image`** : la vignette, la
    visionneuse au clic — plein écran sur smartphone, pourcentage sur
@@ -1095,7 +1095,7 @@ gui:
    la succession qui défile, « à intervalle régulier, sur la pression
    d'une touche avant/après » (D475), le clic ouvrant la visionneuse ;
    cellule et widget : la vignette (D286) ; template : l'image rendue
-   (D257), le carrousel rendu en planche (*en proposition*) ; **pas de
+   (D257), le carrousel rendu en planche (D1635) ; **pas de
    recadrage dans le socle** (le hook D263) ;
 8. **États et interactions** — le `placeholder` tant que le fichier
    manque ou que la collection est vide (D390) ; le zoom et la
@@ -1183,8 +1183,7 @@ gui:
    les marqueurs multiples sur une même carte, **les lignes possibles
    ou pas** (D513–D514 : « les lieux de commandes pour un produit » —
    sans relier ; « le parcours d'un commercial » — relié **au trait
-   droit** ; *en proposition : `lines: true | false`, défaut
-   `false`*) ; **le tracé de la route = un hook** (« les abonnements
+   droit** ; `lines: true | false`, défaut `false` — D1635) ; **le tracé de la route = un hook** (« les abonnements
    aux outils annexes » — le patron du géocodage D294, OSRM/Valhalla
    en candidats open source, Q7) ;
 4. **Contexte consommé** — la valeur (coordonnées et texte associé —
@@ -1252,8 +1251,8 @@ gui:
    fil s'y cale, aucune propriété séparée), les notifications opt-in
    (D108–D110), les droits ;
 5. **Propriétés** — le socle du vocabulaire (D461) ; **`preview:`** —
-   le nombre de lignes du résumé au survol en cellule (D393 — *la
-   forme `preview: 3` en proposition*) ;
+   le nombre de lignes du résumé au survol en cellule (D393 — la
+   forme `preview: 3`, D1635) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **saisie et lecture** : le fil
    chronologique, la saisie en bas, les pièces jointes si activées
@@ -1288,7 +1287,7 @@ gui:
       columns:
         - number
         - customer
-        - discussion: { preview: 3 }  # l'icône ; au survol, 3 lignes (D393 — proposition)
+        - discussion: { preview: 3 }  # l'icône ; au survol, 3 lignes (D393, D1635)
   forms:
     default:
       page:

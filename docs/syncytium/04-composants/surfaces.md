@@ -839,7 +839,12 @@ l'appel, l'utilisateur (D455) ; les droits (D196).
   la grammaire est commune (D533) ;
 - `breadcrumb: none | top | bottom`, le fil d'Ariane (D549). Par défaut
   `top`, les étapes visibles (D504) ; `none` le masque ;
-- `screen:` (D450, D532).
+- `screen:` (D450, D532) ;
+- `commit:`, la clôture du wizard, à la forme de l'opération (D596,
+  D1606, D1652). `confirm` est le défaut : la relecture finale. `auto`
+  scelle la transaction sans relecture. La forme riche,
+  `{ mode:, form:, message: }`, donne un message ou un formulaire de
+  relecture. L'opération d'une étape garde son propre `commit:` (D546).
 
 Quatre principes gouvernent le wizard :
 

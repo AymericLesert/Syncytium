@@ -1559,7 +1559,7 @@ gui:
 4. **Contexte consommé** — les droits et la confidentialité ;
 5. **Propriétés** — l'image, par l'identifiant d'une ressource
    (D1625) — la forme courte `picture: logo`, ou `resource:` en clair
-   (*en proposition*) ; le couple `size:` /
+   (D1626) ; le couple `size:` /
    `dimension:` (D484) ; le socle du vocabulaire (D461) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — au formulaire : l'image en place ;
@@ -1579,7 +1579,7 @@ gui:
       header:
         - picture: logo            # la forme courte — l'identifiant d'une ressource (D1625)
         - picture:
-            resource: banner       # la forme en clair (proposition)
+            resource: banner       # la forme en clair (D1626)
             size: 120px            # à l'affichage (D484)
 ```
 

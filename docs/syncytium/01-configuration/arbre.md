@@ -189,7 +189,9 @@ racine.
 Toute image et toute icône passe par les ressources (D1625). La
 configuration cite l'identifiant de la ressource, `icon: bronze` ou
 `picture: logo`. Le fichier ne s'écrit qu'une fois, en `~{…}`, dans la
-fiche de la ressource :
+fiche de la ressource. L'identifiant est le nom de la fiche, cherché du
+plus proche au plus lointain, puis parmi les ressources que Syncytium
+fournit ; un identifiant inconnu est une erreur d'ingestion (D1626) :
 
 ```yaml
 # Les icônes du projet

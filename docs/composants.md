@@ -1641,9 +1641,9 @@ gui:
    (D469/D484) ; le socle (D461) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — la palette (la base des couleurs
-   nommées) et le code hexadécimal saisissable ; *(en proposition : si
-   le champ porte des `values:`, la palette s'y restreint — l'écho de
-   dropdown/icons)* ; smartphone : le plein écran (l'esprit D293) ;
+   nommées) et le code hexadécimal saisissable ; si le champ porte des
+   `values:`, la palette s'y restreint — l'écho de dropdown/icons
+   (D1636) ; smartphone : le plein écran (l'esprit D293) ;
 8. **États et interactions** — le refus des valeurs hors format (la
    validation du type) ; grisé si `readonly`/droits ;
 9. **Décisions fondatrices** — D469–D470, D473–D474, D496 ;
@@ -1660,7 +1660,7 @@ gui:
 
 1. **Nom et famille** — `tabs`, un conteneur — **l'organisateur des
    onglets** (l'inventaire D456) ; le couple `tabs`/`tab` au miroir de
-   `sections`/`section` (*le patron D489 — en proposition*) ;
+   `sections`/`section` (le patron D489 — D1636) ;
 2. **Rôle** — poser les onglets : **un seul volet visible à la fois**,
    la bascule par la poignée ;
 3. **Types servis** — aucun : le conteneur est indifférent au contenu
@@ -1672,12 +1672,12 @@ gui:
    amendé D552) : `top` (Windows — le défaut), `bottom` (Excel),
    `left`/`right` (la latérale) — **le mode wizard a quitté tabs**
    (D552 : la séparation) ; le crochet en raccourci : `tabs[bottom]`
-   (*l'écriture en proposition — D478*) ; `size:` — l'espace du tout (l'écho D503/D484) ; **la
+   (D478, D1636) ; `size:` — l'espace du tout (l'écho D503/D484) ; **la
    dimension unique des volets** — « pour chaque tab, toujours la même
    dimension » (D506 — aucun `width`/`height` par volet, le contraste
    avec D502) ; le socle du vocabulaire (D461) ;
-6. **Items** — **des `tab`, rien d'autre** (*le miroir de D489 — en
-   proposition*) ;
+6. **Items** — **des `tab`, rien d'autre** (le miroir de D489 —
+   D1636) ;
 7. **Modes et déclinaisons** — la barre des poignées + le volet
    courant — en haut, en bas, latérale (D504/D552) ; **la parenté
    visuelle avec le `wizard` est assumée, les objets restent
@@ -1685,7 +1685,7 @@ gui:
    là-bas) ; l'entête, la page et le pied acceptent les onglets
    (D450) ; **tactile** : le swipe bascule d'un onglet à l'autre
    (l'esprit D503) ; **template** : les onglets rendus à la suite
-   (*en proposition — rien ne bascule sur le papier*) ;
+   (rien ne bascule sur le papier — D1636) ;
 8. **États et interactions** — la bascule au clic ou au swipe ;
    l'onglet masqué par les droits disparaît ; le fil peut prendre un
    onglet (D485) ;
@@ -1719,8 +1719,9 @@ page:
 3. **Types servis** — aucun ;
 4. **Contexte consommé** — le contexte transmis tel quel (D455) ; les
    droits (l'onglet masqué disparaît, poignée comprise) ;
-5. **Propriétés** — **`title:`** — la poignée se nomme (D493 ; *requis
-   en proposition — un onglet sans poignée ne se choisit pas*) ;
+5. **Propriétés** — **`title:`** — la poignée se nomme (D493) ;
+   **requis** : un onglet sans poignée ne se choisit pas, un `tab` sans
+   `title:` est une erreur d'ingestion (D1636) ;
    **`icon:`** — « chaque item gui doit disposer d'un champ icône »
    (D439) ; **« les icônes permettent de minimiser le texte ou
    afficher le texte en survol »** (D504 — la poignée compacte, le
@@ -1757,7 +1758,7 @@ page:
    toujours visibles »** (D507) — l'entête et le pied encadrent les
    pages qui tournent, **leur `height:` est paramétrable**, et **« la
    page prend toujours le reste »** ; au template, ils se répètent à
-   chaque page (*en proposition*) ;
+   chaque page (D1636) ;
 7. **Modes et déclinaisons** — au formulaire : une page à l'écran —
    **« la navigation s'effectue de la même façon que les tabs, et
    l'affichage suit la même logique »** (D508) : la barre des
@@ -1799,8 +1800,8 @@ page:
 5. **Propriétés** — **la poignée : le numéro par défaut** — « nous
    pouvons lui affecter un nom et/ou un icône comme un tab » (D508) :
    `title:` (D493) et `icon:` (D439) ; le socle (D461) ;
-6. **Items** — des `sections` ou des feuilles (l'alternance D489 —
-   *le miroir en proposition*) ;
+6. **Items** — des `sections` ou des feuilles (l'alternance D489, en
+   miroir — D1636) ;
 7. **Modes et déclinaisons** — au formulaire : la page à l'écran ; au
    template : la page physique — le saut force le passage ;
 8. **États et interactions** — masquée par droits ou confidentialité,
@@ -1832,7 +1833,7 @@ page:
 7. **Modes et déclinaisons** — au formulaire (le `pages` implicite —
    D509) comme dans un `pages` déclaré (D507) : toujours visibles
    pendant que les pages tournent ; au template : répétés à chaque
-   page (*en proposition — D507*) ;
+   page (D507, D1636) ;
 8. **États et interactions** — masqués par les droits ; rien d'autre
    au socle ;
 9. **Décisions fondatrices** — D449–D450, D455, D461, D487, D490,

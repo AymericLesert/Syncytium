@@ -96,8 +96,8 @@ lists:
     actions: [copy]
 
   # Par date comptable
-  # Les écritures pointées seules ; le tri, partagé avec le relevé, va de la dépense à la ressource ; l'export PDF est
-  # l'opération de génération du socle.
+  # Les écritures pointées seules ; le tri, partagé avec le relevé, va de la dépense à la ressource ; l'export PDF prend
+  # le modèle de base de la liste.
   par_comptable:
     title:
       fr: Par date comptable
@@ -112,7 +112,7 @@ lists:
     sort: [date_comptable, montant, numero]
     selection: multiple
     actions: [copy]
-    exports: [ generate(me, PDF) ]
+    exports: [ pdf ]
 
   # Le pointage
   # Les écritures sans date comptable — la partition avec la liste précédente ; le pointage se fait en ligne.

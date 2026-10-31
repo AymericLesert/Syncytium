@@ -2414,10 +2414,12 @@ les widgets, le wizard, les templates, le dashboard du module).*
    formulaire/widget à appeler » pour chaque geste (D530 — les
    défauts : le formulaire par défaut D438, les gestes D446) ;
    **`exports:`** — « les différents exports ou générations de
-   documents » (D530) : CSV (un fichier par type de composant), Excel
-   (l'onglet par type, le modèle, le tri d'export — D445), **le
-   template** (la génération — D483/D511) — *en proposition :*
-   `exports: [ csv, excel[stock.xlsx], template[order_sheet] ]` ;
+   documents » (D530) — **la forme courte, `<format>` ou
+   `<format>[<modèle>]`** (D1601) : le format, `csv`, `pdf`, `excel`,
+   `ods`, `mail`… ; le crochet nomme le modèle qui génère le document,
+   sans crochet le modèle de base de la liste (D792) ; `generate()` sert
+   les opérations, pas cette propriété :
+   `exports: [ csv, excel[stock.xlsx], pdf[order_sheet] ]` ;
    **`actions:`** — la liste d'opérations (D531) : **l'opération
    porte son icône à la déclaration, la liste la surcharge** au
    besoin ; **`size:`** — « la zone de couverture de l'écran »
@@ -2471,7 +2473,7 @@ lists:
     sizable: auto+manual           # (D447)
     add: quick_entry               # le formulaire du bouton + (D530)
     update: default                # celui du double-clic — le défaut sinon (D438)
-    exports: [ csv, excel[orders.xlsx], template[order_sheet] ]   # (D530)
+    exports: [ csv, excel[orders.xlsx], pdf[order_sheet] ]        # (D530, D1601)
     actions: [ invoice, cancel ]   # les opérations — l'icône au header, sinon
                                    # le bouton du pied (D531)
 
@@ -2850,7 +2852,7 @@ dashboards:
    **les quatre portes** : l'effet `document:` d'une opération
    (D432), le viewer à la volée (`template[<nom>]` — D483, « le
    fichier qui n'existe pas »), les exports de la liste
-   (`exports: [ template[…] ]` — D530), **l'impression directe du
+   (`exports: [ pdf[…] ]` — D530, D1601), **l'impression directe du
    serveur** (D252 — les imprimantes de l'OS, l'étiquette) ;
 4. **Contexte consommé** — l'enregistrement ; **les variables de
    contexte = l'entité « contexte »** (D254 — la pagination,

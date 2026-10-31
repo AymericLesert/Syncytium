@@ -101,8 +101,8 @@ Les chapitres, dans l'ordre du plan :
 1. [La configuration](docs/syncytium/01-configuration/README.md) — réécrit.
 2. [Le modèle](docs/syncytium/02-modele/README.md) — réécrit.
 3. [Le langage d'expression](docs/syncytium/03-langage/README.md) — réécrit.
-4. Les surfaces et les composants.
-5. Les hooks.
+4. [Les surfaces et les composants](docs/syncytium/04-composants/README.md) — réécrit.
+5. Les hooks — en lecture.
 6. Les connecteurs.
 7. Les droits et la sécurité.
 8. La reprise et le mapping.

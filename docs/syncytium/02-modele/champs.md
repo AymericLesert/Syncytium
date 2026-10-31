@@ -146,6 +146,8 @@ Le groupe implicite occupe l'en-tête de l'écran, au-dessus des onglets.
 - **`abbreviation:`** est l'abréviation du libellé, par langue, pour la
   tablette et le smartphone (D265, D1619) :
   `abbreviation: { fr: Ouv., en: Opened }`. Sans elle, le libellé.
+  Elle s'affiche sur la tablette et le smartphone, et partout où la
+  place manque, comme la colonne étroite d'une liste (D1622).
 - **`hint:`** est la description courte (D840). Sur un pc, elle
   apparaît au survol de la souris. Sur une tablette ou un smartphone,
   il n'y a pas de survol : elle se lit par un clic sur une petite icône

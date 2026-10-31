@@ -5,8 +5,10 @@ Cette section décrit les mots clés utilisés dans le projet Syncytium. Nous di
 ---
 
 **Abréviation** (`abbreviation:`) — La forme abrégée du libellé d'un
-champ, par langue, pour la tablette et le smartphone. Sans elle, le
-libellé. *Ex. : `abbreviation: { fr: Ouv., en: Opened }`.* *(D265, D1619)*
+champ, par langue, pour la tablette et le smartphone, et partout où la
+place manque, comme la colonne étroite d'une liste. Sans elle, le
+libellé. *Ex. : `abbreviation: { fr: Ouv., en: Opened }`.*
+*(D265, D1619, D1622)*
 
 **Agrégat** — Un enregistrement « racine » et tout ce qu'il possède,
 pris comme un tout indivisible. Une commande et ses lignes s'enregistrent,

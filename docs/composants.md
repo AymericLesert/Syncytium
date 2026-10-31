@@ -324,7 +324,7 @@ gui:
    « voir plus » au-delà des `lines` ; résumé : « libellé pour
    widget » + valeur ; template / Excel : la valeur ; smartphone : le
    libellé plus petit au-dessus (D262), ou son `abbreviation:` (D265,
-   D1619) ; tablette et smartphone : pas
+   D1619) — elle s'affiche aussi partout où la place manque (D1622) ; tablette et smartphone : pas
    de survol, le texte de `hint:` se lit par un clic sur une petite
    icône (?) à côté du champ, ou en texte plus petit sous la zone
    (D1618) — le composant choisit selon la place disponible (D1620) ;
@@ -2519,7 +2519,8 @@ ecritures:
    `pages`** (D531 — intrinsèque) ;
 7. **Modes et déclinaisons** — **« une liste est comme pages »**
    (D531) : **le header** — le titre, les colonnes (le tabulaire ;
-   « non visibles sur les widgets, sauf pour assurer les tris »), les
+   « non visibles sur les widgets, sauf pour assurer les tris » ; une
+   colonne étroite prend l'`abbreviation:` du champ — D1622), les
    filtres, **l'icône-menu des exports**, les icônes de l'ajout, de
    la modification, de la suppression, **étendues aux actions à
    icône** ; **la zone page** — le contenu du tableau ; **le

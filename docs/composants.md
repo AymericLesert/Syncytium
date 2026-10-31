@@ -1873,8 +1873,8 @@ forms:
    l'enregistrement du formulaire, le transitoire du wizard —
    l'origine de l'appel (D455) est la pile entière ;
    l'enregistrement ou la sélection (l'opération de masse — D446) ;
-   **la pré-exécution** (D511) — les modifications à venir,
-   chiffrées ;
+   **la transaction tenue ouverte** (D594) — ce que l'opération y a
+   mis, chiffré pour la relecture ;
 5. **Propriétés** — la surcharge de la présentation : `label:`,
    `icon:`, `style:` (le verbe du catalogue en défaut) ;
    **`commit:`** — `confirm` (défaut — la relecture D431/D596) ou
@@ -1891,9 +1891,10 @@ forms:
    formulaire → **le bouton** ; la colonne de liste → **l'icône à
    trois états** (D444, le verbe au nom nu — D462) ; le wizard → **le
    passage d'étape** (D504–D505, l'avance gardée) ; le menu →
-   l'adresse `<module>.<entité>.<opération>` (D439) ; **les deux
-   modes de l'opération** (D511) : la pré-exécution — « identifier
-   les modifications à apporter » — puis l'exécution réelle ;
+   l'adresse `<module>.<entité>.<opération>` (D439) ; **la
+   transaction tenue ouverte** (D594, D1607) : l'opération la remplit
+   (`execute`), la relecture en montre le contenu (`confirm`), valider
+   la scelle (`commit`), annuler la défait (`rollback` — D595) ;
    template : jamais (le papier n'agit pas) ;
 8. **États et interactions** — **les trois états** (D444) :
    actionnable / **non actionnable** (la garde grise le bouton, l'API
@@ -2801,9 +2802,9 @@ widgets:
    transition conditionnelle D231/D90, l'étape sautée si la condition
    ne tient pas), et **son opération** — « un step peut contenir une
    opération sur la validation » (D546 — *en proposition :*
-   `operation: <nom>`) : **pré-exécutée au passage** (D547 — le
-   chiffrage D511), **la transformation n'ayant lieu qu'à la
-   validation définitive du wizard** ;
+   `operation: <nom>`) : **exécutée au passage, dans la transaction
+   du wizard tenue ouverte** (D547, D594, D1607), **rien n'étant scellé
+   avant la validation définitive du wizard** ;
 7. **Modes et déclinaisons** — **le stepper** : toutes les étapes
    visibles, **l'avance au rythme de l'exploration**, « le chemin de
    traitement » navigable — le retour libre d'un clic (D505 —
@@ -2815,8 +2816,9 @@ widgets:
    d'assemblage états + opérations + notifications, sans moteur BPM
    (D233) ;
 8. **États et interactions** — **l'état transitoire** jusqu'à la
-   transaction finale (D232/D101) — **la chaîne de pré-exécutions**
-   (D547) : rien ne se transforme avant la validation définitive ;
+   transaction finale (D232/D101) — **la transaction tenue ouverte au
+   fil des étapes** (D547, D594) : rien n'est scellé avant la
+   validation définitive ;
    **la confirmation validée barre le retour** — le chemin navigable
    (D505) s'arrête au dernier step confirmé (le cliquet) ;
    l'interruption emporte le transitoire (D547 — le draft effacé) ;

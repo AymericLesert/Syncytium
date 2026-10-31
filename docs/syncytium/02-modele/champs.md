@@ -143,6 +143,9 @@ Le groupe implicite occupe l'en-tête de l'écran, au-dessus des onglets.
   formulaires, les exports (D124, D127). Sans lui, le gabarit du socle
   `${name}`, le nom du champ (D1181) ; ce gabarit est un défaut du socle,
   porté par l'inventaire (D1175, D1239).
+- **`abbreviation:`** est l'abréviation du libellé, par langue, pour la
+  tablette et le smartphone (D265, D1619) :
+  `abbreviation: { fr: Ouv., en: Opened }`. Sans elle, le libellé.
 - **`hint:`** est la description courte (D840). Sur un pc, elle
   apparaît au survol de la souris. Sur une tablette ou un smartphone,
   il n'y a pas de survol : elle se lit par un clic sur une petite icône

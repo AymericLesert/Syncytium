@@ -32,7 +32,8 @@ d'ingestion.
 Le champ règle ses facettes par des propriétés, à côté de son type.
 Certaines valent pour tous les types (D391) :
 
-- **`label:`**, les libellés par langue (D465) ;
+- **`label:`**, les libellés par langue (D465), et **`abbreviation:`**,
+  leur abréviation pour la tablette et le smartphone (D265, D1619) ;
 - **`description:`** et **`hint:`**, l'aide et l'infobulle (D209, D258) ;
 - **`validation:`**, les règles, une expression booléenne et son message
   ([entite.md](entite.md)) ;

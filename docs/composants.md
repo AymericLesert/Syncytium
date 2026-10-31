@@ -323,7 +323,8 @@ gui:
    D366) ; lecture : le texte — le multi-lignes **justifié** (D447), le
    « voir plus » au-delà des `lines` ; résumé : « libellé pour
    widget » + valeur ; template / Excel : la valeur ; smartphone : le
-   libellé plus petit au-dessus (D262) ; tablette et smartphone : pas
+   libellé plus petit au-dessus (D262), ou son `abbreviation:` (D265,
+   D1619) ; tablette et smartphone : pas
    de survol, le texte de `hint:` se lit par un clic sur une petite
    icône (?) à côté du champ, ou en texte plus petit sous la zone
    (D1618) ;

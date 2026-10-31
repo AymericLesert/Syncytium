@@ -187,7 +187,10 @@ recherche, les gestes et les opérations, les exports, l'écran.
 
 - `selection:`, la sélection d'une ligne ou de plusieurs (D445, D446).
   Elle admet les mots et le nombre : `one`, `multiple`, `1`, `1..`,
-  `1..4`, `2..4`, `..4` (D1650). La banque écrit `selection: multiple` ;
+  `1..4`, `2..4`, `..4` (D1650). `one` vaut `1` et `multiple` vaut `1..` ;
+  `2..4` veut dire entre deux et quatre lignes, `..4` au plus quatre.
+  Une autre valeur est une erreur d'ingestion (D1651). La banque écrit
+  `selection: multiple` ;
 - `sizable: none | auto | manual | auto+manual`, le dimensionnement des
   colonnes (D447) ;
 - `add:`, `update:` et `delete:`, « le formulaire/widget à appeler »

@@ -1162,7 +1162,10 @@ visage (D465). Les droits. À la sélection, les actifs seuls (D398).
   ouvre cette liste. Le nom de son champ image ouvre la galerie des
   visages. Sans `by:`, la liste par défaut, filtrée.
 - **`selection:`**, le nombre d'éléments : `one`, `multiple`, `1`, `1..`,
-  `1..4`, `2..4`, `..4` (D474, D1650). Le défaut se déduit du lien (D470).
+  `1..4`, `2..4`, `..4` (D474, D1650). `one` vaut `1`, `multiple` vaut
+  `1..` ; `2..4` veut dire entre deux et quatre éléments, `..4` au plus
+  quatre ; une autre valeur est une erreur d'ingestion (D1651). Le
+  défaut se déduit du lien (D470).
 - **`anchor:`**, l'ancrage de la liste (D469) : `center`, au centre de
   l'écran ; `right`, à droite du champ ; `field`, à la place du champ.
   Le moteur a ses défauts selon l'écran ; sur smartphone, le plein

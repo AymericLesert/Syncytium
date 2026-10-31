@@ -2417,8 +2417,11 @@ les widgets, le wizard, les templates, le dashboard du module).*
    documents » (D530) — **la forme courte, `<format>` ou
    `<format>[<modèle>]`** (D1601) : le format, `csv`, `pdf`, `word`
    (D1602), `excel`, `ods`, `mail`… ; le crochet nomme le modèle qui génère le document,
-   sans crochet le modèle de base de la liste (D792) ; `generate()` sert
-   les opérations, pas cette propriété :
+   sans crochet le modèle de base de la liste (D792) ; le format est
+   un storage de format (D636) ou une destination du gabarit (D564),
+   sinon une erreur d'ingestion ; derrière la forme courte, `export`
+   ou `generate` s'exécute et ses événements suivent (D1603) ;
+   `generate()` sert les opérations, pas cette propriété :
    `exports: [ csv, excel[stock.xlsx], pdf[order_sheet] ]` ;
    **`actions:`** — la liste d'opérations (D531) : **l'opération
    porte son icône à la déclaration, la liste la surcharge** au

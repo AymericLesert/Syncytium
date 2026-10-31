@@ -16,6 +16,7 @@ charts:
   # L'évolution de la consommation
   # La feuille graphique du classeur : la moyenne du mois.
   evolution_consommation:
+    component: chart.line
     title: L'évolution de la consommation
     x: date[month]
     y: avg(conso_100)

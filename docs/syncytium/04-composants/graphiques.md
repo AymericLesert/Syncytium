@@ -34,6 +34,9 @@ plusieurs surfaces réutilisent (D243). Il repose sur une assise et sur
 des axes. L'assise est l'ensemble des enregistrements que le graphique
 résume. Les axes font référence aux champs de cette assise (D517).
 
+Un graphique déclare toujours son composant, `component: chart.line` par
+exemple. Sans lui, la déclaration est une erreur d'ingestion (D1653).
+
 ### L'assise, `on:`
 
 La propriété `on:` nomme l'assise, à l'adresse (D439, D517). Elle accepte
@@ -175,6 +178,7 @@ charts:
   # L'évolution des dépenses par budget
   # Les deux filtres du patron des listes ; le mois en abscisse, le montant cumulé du mois en ordonnée.
   evolution_budget:
+    component: chart.line
     title:
       fr: L'évolution des dépenses par budget
       en: Spending over time by budget

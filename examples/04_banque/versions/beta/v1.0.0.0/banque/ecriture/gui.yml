@@ -142,6 +142,7 @@ charts:
   # L'évolution des dépenses par budget
   # Les deux filtres du patron des listes ; le mois en abscisse, le montant cumulé du mois en ordonnée.
   evolution_budget:
+    component: chart.line
     title:
       fr: L'évolution des dépenses par budget
       en: Spending over time by budget

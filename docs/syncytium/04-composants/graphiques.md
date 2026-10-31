@@ -1,59 +1,172 @@
 # Les graphiques
 
+> **Un graphique** est le composant qui résume des données en une image :
+> la courbe d'une évolution, les barres d'une comparaison, le chiffre clé
+> d'un indicateur, le tableau croisé d'une analyse. Il se déclare une fois
+> et se réutilise dans un widget, un formulaire ou un tableau de bord
+> ([glossaire](../../glossaire.md)).
+
+Un graphique n'est pas la représentation d'un champ. Il se déclare dans
+le bloc `charts:` de l'interface d'une entité et se réutilise (D243). Ce
+fichier compte sept fiches :
+
+- les cinq graphiques de la famille pointée `chart.*` (D512) :
+  `chart.line`, `chart.bars`, `chart.pie`, `chart.scatter` et
+  `chart.combo` ;
+- `kpi`, le chiffre clé ;
+- `pivot`, le tableau croisé.
+
+Un hook étend la famille, `chart.radar` par exemple (D239). La jauge
+n'est pas un graphique : c'est la feuille `gauge`
+([les feuilles](feuilles.md)).
+
+Les cinq `chart.*` partagent les mêmes propriétés, les mêmes modes et les
+mêmes interactions. Ce socle est décrit une fois, ci-dessous. Chaque
+fiche y renvoie et ne détaille que ses écarts. Le `kpi` et le `pivot` en
+reprennent une partie ; leur fiche dit laquelle.
+
+## Le socle commun
+
+### La déclaration autonome
+
+Un graphique ne sert aucun champ. C'est une déclaration autonome, que
+plusieurs surfaces réutilisent (D243). Il repose sur une assise et sur
+des axes. L'assise est l'ensemble des enregistrements que le graphique
+résume. Les axes font référence aux champs de cette assise (D517).
+
+### L'assise, `on:`
+
+La propriété `on:` nomme l'assise, à l'adresse (D439, D517). Elle accepte
+trois formes :
+
+- une entité : `on: sales.order` ;
+- une liste nommée, par le crochet de l'adresse : `on: sales.order[invoiced]`.
+  Le périmètre de la liste est hérité ;
+- un champ de type `list of` ou `association with`, le champ-collection :
+  `on: <champ>` (D539, D1640). Le graphique porte alors sur les éléments
+  liés à l'enregistrement du contexte.
+
+Quand `on:` est absent, l'assise est l'entité qui porte la déclaration
+(D518).
+
+### Les axes, `x:` et `y:`
+
+L'axe `x:` découpe un champ de l'assise (D240). Le découpage se fait :
+
+- par valeurs : `x: seller`, une catégorie par commercial ;
+- par plages, pour un champ numérique ;
+- par temporalité, au crochet : `x: date[month]`, un point par mois.
+
+L'axe `y:` est un agrégat (D158), écrit dans le langage d'expression
+(D90) : `y: sum(total)`. Pour chaque valeur de X, Syncytium calcule
+l'agrégat sur les enregistrements de cette valeur. `y:` accepte une
+liste : plusieurs séries sur le même axe. Les deux axes Y restent le
+propre de `chart.combo` (D239, D1637).
+
+Chaque axe accepte une forme riche (D515), qui règle son début, sa fin et
+son échelle (D494) :
+
+```yaml
+# L'ordonnée : la marge moyenne, de 0 à 100, sur une échelle linéaire
+y: { value: avg(margin), min: 0, max: 100, scale: linear }
+```
+
+`scale:` vaut `linear` par défaut, ou `log` (D1640).
+
+### Le périmètre et le drill-down
+
+- `filter:` restreint l'assise, par une condition du langage (D90) :
+  `filter: state = "invoiced"`.
+- `drill:` déclare le drill-down : la liste nommée qui s'ouvre au clic,
+  avec le filtre imposé par la valeur cliquée. Sans `drill:`, « par
+  défaut, pas de drill-down » (D242).
+- `title:` est le titre du graphique, par langue (D493).
+
+### L'affichage
+
+Les réglages d'affichage (D515) sont :
+
+- `display:` — `graph`, le graphique seul, par défaut ; `table`, le
+  tableau des valeurs ; `both`, les deux (D244, D521, D1640) ;
+- `colors:` — la couleur par série, ou un dégradé, selon la mécanique
+  commune des couleurs (D467) ;
+- `labels:` — `true` affiche la valeur au format du champ ; un gabarit la
+  personnalise (D516). Le dictionnaire du module, lui, s'écrit `label:`
+  (D440, D1236) ; le contexte départage (D458). Sur le nuage de points, le label
+  est le visage de l'enregistrement (D386).
+
+### Le contexte consommé
+
+Un graphique lit la confidentialité de son assise. Elle est héritée de
+l'entité et surchargeable sur le graphique (D247). Il lit aussi les
+droits de l'utilisateur.
+
+### Les modes et déclinaisons
+
+Un graphique est réutilisable dans trois surfaces :
+
+- le widget ; associé à une entité, il rejoint le module fonctionnel
+  (D247) ;
+- le formulaire ;
+- le tableau de bord, avec son rafraîchissement : statique, en temps
+  réel ou à une fréquence (D249).
+
+Dans un template, le graphique est une image (D257). Sur un écran
+tactile, l'élément touché montre sa valeur.
+
+### Les états et interactions
+
+- **Le drill-down au clic.** Le graphique « enrichit le filtre de la
+  liste pour imposer » les éléments de la valeur cliquée (D242).
+- **Le clic sur une vignette** permet de « voir toutes les valeurs
+  utilisées pour le calcul » (D516). Si l'agrégat dépend d'une liste ou
+  d'une association, le détail des contributions s'ouvre.
+- **La confidentialité masque** ce que l'utilisateur ne peut pas voir.
+
 ## `chart.line`
 
-1. **Nom et famille** — `chart.line`, un graphique de la famille
-   pointée (D512) — la courbe ;
-2. **Rôle** — l'évolution d'un agrégat le long d'un axe : la tendance
-   d'un regard ;
-3. **Types servis** — aucun champ : **le graphique est une déclaration
-   autonome réutilisable** (D243) — **son assise : une entité, une
-   liste nommée, ou un champ de type `list of` / `association with`**
-   (D517/D539 — le champ-collection, `on: <champ>` (D1640) : le
-   graphique des éléments liés à l'enregistrement du contexte), **les axes faisant référence aux
-   champs de l'assise** (D517) ;
-4. **Contexte consommé** — **X découpé par valeurs, par plages ou par
-   temporalité** (D240) ; **Y = un agrégat (D158) filtré sur X** ; la
-   confidentialité héritée de l'entité, surchargeable (D247) ; les
-   droits ;
-5. **Propriétés** — la déclaration (les noms — D1637) :
-   **`on:`** — l'assise à l'adresse (D517/D439) : `sales.order`
-   (l'entité) ou `sales.order[invoiced]` (la liste nommée, le crochet
-   de l'adresse) — **absent : l'entité porteuse de la déclaration**
-   (D518) ; **`x:`** — le découpage d'un champ de l'assise
-   (`date[month]` : le crochet temporel),
-   **`y:`** — l'agrégat (`sum(total)` — l'expression D90/D158),
-   `filter:` — le périmètre (D90), **`drill:`** — le drill-down
-   déclaré : la liste nommée au filtre imposé (D242 — « par défaut,
-   pas de drill-down ») ; `title:` (D493) ; **les réglages
-   d'affichage** (D515) : **la forme riche des axes** — `x:`/`y:`
-   acceptent `{ value:, min:, max:, scale: }` (les début et fin
-   d'axe — l'écho D494 ; `scale: linear` défaut `| log` — D1640),
-   **`display: graph | table | both`** — le graphique, le tableau des
-   valeurs, ou les deux (D521 — l'écho D244 ; défaut `graph` ; D1640),
-   **`colors:`** (la mécanique D467 — la couleur par série, le
-   dégradé), **`labels:`** (D516) — `true` : la valeur au format du
-   champ ; **le gabarit** pour personnaliser (la collision avec le
-   dictionnaire D440 notée — le contexte départage, D458) ; le visage
-   au nuage (D386) ; `y:` accepte une liste — plusieurs séries sur le
-   même axe ; les deux axes restent à `chart.combo` (D239, D1637) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **réutilisable** : le widget (associé à
-   une entité → le module fonctionnel — D247), le formulaire, le
-   tableau de bord (le rafraîchissement statique / temps réel /
-   fréquence — D249) ; **template** : l'image du graphique (D257) ;
-   tactile : le point touché montre sa valeur ;
-8. **États et interactions** — **le drill-down au clic** : le
-   graphique « enrichit le filtre de la liste pour imposer » les
-   éléments de la valeur cliquée (D242) ; **le clic sur une
-   vignette** : « voir toutes les valeurs utilisées pour le calcul »
-   (D516 — si l'agrégat dépend d'une liste ou d'une association, le
-   détail des contributions s'ouvre) ; la confidentialité masque ;
-9. **Décisions fondatrices** — D90, D158, D239–D244, D247–D249,
-   D439, D512, D515–D518, D521, D539 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `chart.line`, la courbe. Un graphique de la famille
+pointée (D512).
 
-Dans le cas 4 (banque), `04_banque/versions/beta/v1.0.0.0/banque/ecriture/gui.yml` :
+**Rôle.** L'évolution d'un agrégat le long d'un axe : la tendance d'un
+regard.
+
+**Types servis.** Aucun champ. Le graphique est une déclaration autonome
+réutilisable (D243). Son assise est une entité, une liste nommée ou un
+champ-collection, et ses axes font référence aux champs de l'assise
+(D517, D518, D539, D1640) : [le socle commun](#le-socle-commun).
+
+**Contexte consommé.** Le socle commun : X découpé par valeurs, par
+plages ou par temporalité (D240) ; Y un agrégat filtré sur X (D158) ; la
+confidentialité héritée et surchargeable (D247) ; les droits.
+
+**Propriétés.** Celles du socle commun, aux noms acquis (D1637) :
+
+- `on:` (D439, D517, D518) ;
+- `x:` et `y:`, nus ou en forme riche (D240, D158, D515, D494, D1640) ;
+  `y:` accepte une liste de séries ;
+- `filter:` (D90) et `drill:` (D242) ;
+- `title:` (D493) ;
+- `display:` (D521, D244), `colors:` (D467) et `labels:` (D516, D440,
+  D458, D386).
+
+Les deux axes Y restent à `chart.combo` (D239, D1637).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.** Le socle commun : le widget (D247), le
+formulaire, le tableau de bord (D249), l'image dans un template (D257).
+Sur un écran tactile, le point touché montre sa valeur.
+
+**États et interactions.** Le socle commun : le drill-down au clic
+(D242), les valeurs du calcul au clic sur une vignette (D516), la
+confidentialité qui masque.
+
+**Décisions fondatrices.** D90, D158, D239–D244, D247–D249, D439, D512,
+D515–D518, D521, D539.
+
+**Exemple de configuration.** Dans le cas 4 (banque),
+`04_banque/versions/beta/v1.0.0.0/banque/ecriture/gui.yml` :
 
 ```yaml
 # Les graphiques
@@ -73,61 +186,81 @@ charts:
     y: sum(montant_euro)
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. Le premier graphique n'a pas de
+`on:` : son assise est l'entité porteuse (D518). Le second prend pour
+assise la liste nommée `invoiced` et hérite de son périmètre (D517) ; son
+axe Y est en forme riche (D515), ses couleurs et ses labels sont réglés
+(D467, D516).
 
 ```yaml
-# sales/entities/order.yml, bloc gui — la déclaration autonome (D243)
+# Les graphiques de l'entité order, dans son bloc gui
 charts:
+
+  # Le chiffre d'affaires par mois : l'assise est l'entité porteuse
   revenue_by_month:
     component: chart.line
     title: { fr: Chiffre d'affaires }
-                                 # on: absent — l'assise : l'entité porteuse (D518)
-    x: date[month]               # le champ, découpé (D240/D517)
-    y: sum(total)                # l'agrégat d'un champ (D158)
-    filter: state = "invoiced"   # le périmètre (D90)
-    drill: invoiced              # la liste nommée au filtre imposé (D242)
+    # L'abscisse : la date, découpée par mois
+    x: date[month]
+    # L'ordonnée : la somme des totaux
+    y: sum(total)
+    # Le périmètre : les commandes facturées
+    filter: state = "invoiced"
+    # Le drill-down : la liste nommée, au filtre imposé
+    drill: invoiced
 
+  # La marge par mois : l'assise est la liste nommée des commandes facturées
   margin_by_month:
     component: chart.line
-    on: sales.order[invoiced]    # l'assise : la liste — le périmètre hérité (D517)
+    on: sales.order[invoiced]
     x: date[month]
-    y: { value: avg(margin), min: 0, max: 100, scale: linear }   # (D515)
-    colors: { serie: blue }      # la mécanique D467 — le dégradé possible
-    labels: true                 # la valeur au format du champ (D516)
+    # L'ordonnée en forme riche : la marge moyenne, de 0 à 100, en linéaire
+    y: { value: avg(margin), min: 0, max: 100, scale: linear }
+    # La couleur de la série
+    colors: { serie: blue }
+    # La valeur affichée au format du champ
+    labels: true
 ```
 
 ## `chart.bars`
 
-1. **Nom et famille** — `chart.bars`, un graphique de la famille
-   pointée (D512) — les barres ;
-2. **Rôle** — la comparaison des quantités par catégorie : la barre
-   qui mesure ;
-3. **Types servis** — l'assise (D517–D518 : l'entité porteuse ou
-   `on:`), les axes aux champs — le découpage **par valeurs** y est
-   roi (les catégories — D240), les plages et la temporalité
-   possibles ;
-4. **Contexte consommé** — le socle des `chart.*` : la confidentialité
-   héritée surchargeable (D247), les droits ;
-5. **Propriétés** — **le socle commun** (D515–D518, D521 — `display:`
-   compris) : `on:`, `x:`, `y:` (la forme riche — et la liste :
-   plusieurs séries), `filter:`, `drill:`, `colors:`, `labels:`,
-   `title:` ; **les écarts propres** (D1637) :
-   **`mode: vertical | horizontal`** (défaut
-   vertical — le crochet en raccourci : `chart.bars[horizontal]`,
-   D478) ; **`stacked:`** — les séries empilées (`true`), côte à côte
-   sinon (défaut) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — réutilisable : le widget, le
-   formulaire, le tableau de bord (D243/D249) ; **template** :
-   l'image (D257) ; tactile : la barre touchée montre sa valeur ;
-8. **États et interactions** — le drill-down au clic (D242) ; le clic
-   sur une barre : les valeurs du calcul (D516) ; la confidentialité
-   masque ;
-9. **Décisions fondatrices** — D239–D243, D247–D249, D512,
-   D515–D518 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `chart.bars`, les barres. Un graphique de la famille
+pointée (D512).
 
-Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/stock/mouvement/mouvement.yml` :
+**Rôle.** La comparaison des quantités par catégorie : la barre qui
+mesure.
+
+**Types servis.** L'assise du socle commun : l'entité porteuse ou `on:`
+(D517, D518). Les axes font référence aux champs de l'assise. Le
+découpage par valeurs est le plus naturel : une barre par catégorie
+(D240). Les plages et la temporalité sont possibles.
+
+**Contexte consommé.** Le socle commun : la confidentialité héritée et
+surchargeable (D247), les droits.
+
+**Propriétés.** Le socle commun (D515–D518, D521) : `on:`, `x:`, `y:` en
+forme riche ou en liste de séries, `filter:`, `drill:`, `colors:`,
+`labels:`, `title:`, `display:`. Les écarts propres (D1637) :
+
+- `mode:` — `vertical` par défaut, ou `horizontal`. Le crochet est le
+  raccourci : `chart.bars[horizontal]` vaut `mode: horizontal` (D478) ;
+- `stacked:` — `true` empile les séries ; sans lui, elles sont côte à
+  côte.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.** Le socle commun : le widget, le formulaire,
+le tableau de bord (D243, D249), l'image dans un template (D257). Sur un
+écran tactile, la barre touchée montre sa valeur.
+
+**États et interactions.** Le socle commun : le drill-down au clic
+(D242), les valeurs du calcul au clic sur une barre (D516), la
+confidentialité qui masque.
+
+**Décisions fondatrices.** D239–D243, D247–D249, D512, D515–D518.
+
+**Exemple de configuration.** Dans le cas 5 (entrepôt),
+`05_entrepot/versions/beta/v1.0.0.1/stock/mouvement/mouvement.yml` :
 
 ```yaml
 # L'interface
@@ -146,75 +279,109 @@ gui:
       title: Entrées et sorties par mois
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. Le premier graphique est couché,
+par le crochet (D478) ; son abscisse découpe par valeurs (D240). Le
+second empile ses séries (D1637).
 
 ```yaml
-# sales/entities/order.yml, bloc gui
+# Les graphiques de l'entité order, dans son bloc gui
 charts:
+
+  # Le chiffre d'affaires par commercial : les barres couchées
   revenue_by_seller:
-    component: chart.bars[horizontal]   # ≡ mode: horizontal (D478)
-    x: seller                    # le découpage par valeurs (D240)
-    y: [ sum(total), sum(margin) ]      # deux séries côte à côte
+    component: chart.bars[horizontal]
+    # L'abscisse : une barre par commercial
+    x: seller
+    # Deux séries, côte à côte
+    y: [ sum(total), sum(margin) ]
     labels: true
 
+  # Le stock par site : les séries empilées
   stock_by_site:
     component: chart.bars
-    stacked: true                # les séries empilées (D1637)
+    stacked: true
     x: site
     y: [ sum(reserved), sum(available) ]
 ```
 
 ## `chart.pie`
 
-1. **Nom et famille** — `chart.pie`, un graphique de la famille
-   pointée (D512) — les secteurs : « camembert/anneau » (D239) ;
-2. **Rôle** — la répartition d'un tout : chaque part son secteur ;
-3. **Types servis** — l'assise (D517–D518) ; `x:` = le découpage **par
-   valeurs** (les parts — D240), `y:` = l'agrégat qui mesure la part ;
-4. **Contexte consommé** — le socle des `chart.*` : la confidentialité
-   héritée surchargeable (D247), les droits ;
-5. **Propriétés** — **le socle commun** (D515–D518, D521 —
-   `display:` compris) : `on:`, `x:`, `y:`, `filter:`, `drill:`,
-   `colors:`, `labels:`, `title:` ; **les écarts propres** (D519) : **`mode: pie | donut | quarter`** — le
-   camembert (défaut), l'anneau, l'arc (le crochet en raccourci :
-   `chart.pie[donut]`, D478, D1640) ; **`thickness:`** — l'épaisseur de
-   l'anneau et de l'arc (D520 — le pourcentage du rayon, D1637) ;
-   **les angles de `quarter`** — le départ et la fin, au crochet aux
-   bornes (D1637) : `quarter[-90..90]` (0° à
-   midi, le sens horaire ; nu = `[0..90]`) — « représenter
-   l'assemblée nationale de la gauche vers la droite » (D520) ; **les variables du
-   gabarit** des labels : `{value}`, `{percent}`, `{total}` —
-   « {percent} % ({value} / {total}) » (D516/D519) ; **le
-   regroupement des petites parts en « autres »** — un seuil, rien
-   par défaut (D519) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — réutilisable : le widget, le
-   formulaire, le tableau de bord (D243/D249) ; **template** :
-   l'image (D257) ; tactile : la part touchée montre sa valeur ;
-8. **États et interactions** — **le clic sur une part : la liste de
-   ses éléments** (D242/D519) ; **le drill d'« autres » à deux
-   étages** : une barre de répartition de toutes les autres valeurs
-   s'ouvre — l'utilisateur y précise la valeur à filtrer dans la
-   liste (D519) ; les valeurs du calcul (D516) ; la confidentialité
-   masque ;
-9. **Décisions fondatrices** — D239–D243, D247–D249, D512, D515–D516,
-   D519–D520 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `chart.pie`, les secteurs : le « camembert/anneau »
+(D239). Un graphique de la famille pointée (D512).
+
+**Rôle.** La répartition d'un tout : chaque part a son secteur.
+
+**Types servis.** L'assise du socle commun (D517, D518). `x:` découpe
+par valeurs : une part par valeur (D240). `y:` est l'agrégat qui mesure
+la part.
+
+**Contexte consommé.** Le socle commun : la confidentialité héritée et
+surchargeable (D247), les droits.
+
+**Propriétés.** Le socle commun (D515–D518, D521) : `on:`, `x:`, `y:`,
+`filter:`, `drill:`, `colors:`, `labels:`, `title:`, `display:`. Les
+écarts propres (D519) :
+
+- `mode:` — `pie`, le camembert, par défaut ; `donut`, l'anneau ;
+  `quarter`, l'arc. Le crochet est le raccourci : `chart.pie[donut]`
+  (D478, D1640) ;
+- `thickness:` — l'épaisseur de l'anneau et de l'arc, en pourcentage du
+  rayon (D520, D1637) ;
+- les angles de `quarter` — le départ et la fin, au crochet, aux bornes
+  (D1637) : `quarter[-90..90]`. 0° est à midi, le sens est horaire ;
+  `quarter` nu vaut `[0..90]`. L'usage fondateur est de « représenter
+  l'assemblée nationale de la gauche vers la droite » (D520) ;
+- les variables du gabarit des labels — `{value}`, `{percent}` et
+  `{total}` : `{percent} % ({value} / {total})` (D516, D519) ;
+- le regroupement des petites parts en « autres » — un seuil ; rien par
+  défaut (D519).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.** Le socle commun : le widget, le formulaire,
+le tableau de bord (D243, D249), l'image dans un template (D257). Sur un
+écran tactile, la part touchée montre sa valeur.
+
+**États et interactions.**
+
+- Le clic sur une part ouvre la liste de ses éléments (D242, D519).
+- Le drill de la part « autres » est à deux étages : une barre de
+  répartition de toutes les autres valeurs s'ouvre, et l'utilisateur y
+  précise la valeur à filtrer dans la liste (D519).
+- Les valeurs du calcul s'ouvrent comme pour tout graphique (D516).
+- La confidentialité masque.
+
+**Décisions fondatrices.** D239–D243, D247–D249, D512, D515–D516,
+D519–D520.
+
+**Exemple de configuration.** Sur un exemple. Le premier graphique est
+un anneau, par le crochet (D239, D478) ; ses parts sont les catégories
+(D240), son label est le trio du gabarit (D519), et le clic sur une part
+ouvre la liste nommée `by_category` (D242, D519). Le second est
+l'hémicycle (D520).
 
 ```yaml
-# sales/entities/order.yml, bloc gui
+# Les graphiques de l'entité order, dans son bloc gui
 charts:
-  revenue_by_category:
-    component: chart.pie[donut]     # ≡ mode: donut — l'anneau (D239/D478)
-    x: category                     # les parts (D240 — par valeurs)
-    y: sum(total)
-    labels: { fr: "{percent} % ({value} / {total})" }   # le trio (D519)
-    drill: by_category              # le clic : la liste de la part (D242/D519)
 
-  assembly:                         # l'hémicycle (D520)
+  # Le chiffre d'affaires par catégorie : l'anneau
+  revenue_by_category:
+    component: chart.pie[donut]
+    # Les parts : une par catégorie
+    x: category
+    y: sum(total)
+    # Le gabarit du label : le pourcentage, la valeur et le total
+    labels: { fr: "{percent} % ({value} / {total})" }
+    # Le clic sur une part : la liste nommée de la catégorie
+    drill: by_category
+
+  # L'hémicycle : l'arc de la gauche vers la droite
+  assembly:
     component: chart.pie
-    mode: quarter[-90..90]          # de la gauche vers la droite
-    thickness: 40%                  # l'épaisseur de l'arc
+    # L'arc, du départ à la fin, en degrés
+    mode: quarter[-90..90]
+    # L'épaisseur de l'arc, en pourcentage du rayon
+    thickness: 40%
     on: politics.deputy
     x: party
     y: count()
@@ -222,138 +389,202 @@ charts:
 
 ## `chart.scatter`
 
-1. **Nom et famille** — `chart.scatter`, un graphique de la famille
-   pointée — le nuage de points, l'ajout de l'auteur (D512) ;
-2. **Rôle** — **« représenter une concentration ou une dispersion
-   d'une certaine valeur »** — et **« aider à catégoriser des
-   éléments »** (D522) : la matrice de décision ;
-3. **Types servis** — l'assise (D517–D518) ; **le grain diffère** :
-   un point par **enregistrement** — `x:` et `y:` deux champs
-   numériques **nus** (sans agrégat), là où courbe et barres
-   agrègent (D522) ;
-4. **Contexte consommé** — le socle des `chart.*` (la confidentialité
-   D247, les droits) ; **le visage de l'enregistrement** (D386 —
-   le gabarit `{champ}` des valeurs ; l'interpolation `${…}` de
-   configuration possible aussi, D802) ;
-5. **Propriétés** — **le socle commun** (D515–D518, D521 — `display:`
-   compris) ; **les écarts propres** (D522–D523) :
-   **`threshold:`** dans la forme riche de l'axe — « l'axe définit
-   min, max et threshold » : la liste croissante des seuils, les
-   bandes ; **`zones:`** — la zone **s'adresse dans la matrice
-   créée** : `zone: [1,1]` + `title:` (+ `color:`) — plus aucune
-   borne répétée (D523 ; la convention, D1637 : `[colonne, ligne]`
-   depuis l'origine des axes, `[1,1]` en bas à gauche) : le MoSCoW à deux critères, l'effort/bénéfice ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — réutilisable (D243/D249) ; template :
-   l'image (D257) ; **le survol** : le visage de l'enregistrement
-   (D386) ; le tableau des valeurs (`display:` — D521) ;
-8. **États et interactions** — **le clic sur un point : le
-   formulaire de l'enregistrement** ; **le clic sur une zone : la
-   liste de ses éléments** (l'écho D519) ; la confidentialité
-   masque ;
-9. **Décisions fondatrices** — D239–D243, D247–D249, D386, D512,
-   D515–D518, D521–D523 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `chart.scatter`, le nuage de points. Un graphique de
+la famille pointée (D512).
+
+**Rôle.** « Représenter une concentration ou une dispersion d'une
+certaine valeur » et « aider à catégoriser des éléments » (D522) : la
+matrice de décision.
+
+**Types servis.** L'assise du socle commun (D517, D518). Le grain
+diffère des autres graphiques : un point par enregistrement. `x:` et
+`y:` sont deux champs numériques nus, sans agrégat, là où la courbe et
+les barres agrègent (D522).
+
+**Contexte consommé.** Le socle commun : la confidentialité (D247), les
+droits. Le nuage lit aussi le visage de l'enregistrement (D386), par le
+gabarit `{champ}` des valeurs ; l'interpolation `${…}` de la
+configuration est possible aussi (D802).
+
+**Propriétés.** Le socle commun (D515–D518, D521), `display:` compris.
+Les écarts propres (D522, D523) :
+
+- `threshold:`, dans la forme riche de l'axe. « L'axe définit min, max
+  et threshold » : la liste croissante des seuils découpe l'axe en
+  bandes ;
+- `zones:`, la liste des zones. Les bandes des deux axes forment une
+  matrice. Une zone s'adresse dans cette matrice : `zone: [1,1]`, avec
+  son `title:` et, au choix, sa `color:`. Aucune borne n'est répétée
+  (D523). La convention est `[colonne, ligne]` depuis l'origine des
+  axes ; `[1,1]` est en bas à gauche (D1637). C'est le MoSCoW à deux
+  critères, ou la matrice effort/bénéfice.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.** Le socle commun : réutilisable (D243, D249),
+l'image dans un template (D257), le tableau des valeurs par `display:`
+(D521). Au survol d'un point, le visage de l'enregistrement s'affiche
+(D386).
+
+**États et interactions.**
+
+- Le clic sur un point ouvre le formulaire de l'enregistrement.
+- Le clic sur une zone ouvre la liste de ses éléments, comme le clic sur
+  une part de `chart.pie` (D519).
+- La confidentialité masque.
+
+**Décisions fondatrices.** D239–D243, D247–D249, D386, D512, D515–D518,
+D521–D523.
+
+**Exemple de configuration.** Sur un exemple, la matrice
+effort/bénéfice (D522). Chaque axe porte un seuil, qui fait deux bandes
+(D523) ; les quatre zones s'adressent par `[colonne, ligne]` (D523) ; le
+label est le visage de l'enregistrement, au survol (D386).
 
 ```yaml
-# projects/entities/action.yml, bloc gui — la matrice effort/bénéfice (D522)
+# Les graphiques de l'entité action, dans son bloc gui
 charts:
+
+  # Les priorités : la matrice effort/bénéfice
   priorities:
     component: chart.scatter
-    x: { value: effort,  min: 0, max: 100, threshold: [50] }   # les bandes (D523)
+    # Les axes : l'effort et le bénéfice, de 0 à 100, un seuil à 50
+    x: { value: effort, min: 0, max: 100, threshold: [50] }
     y: { value: benefit, min: 0, max: 100, threshold: [50] }
-    zones:                        # la position dans la matrice — [colonne, ligne] (D523)
-      - { zone: [1,2], title: { fr: Gains rapides }, color: green }
-      - { zone: [2,2], title: { fr: Grands projets }, color: orange }
-      - { zone: [1,1], title: { fr: Tâches de fond }, color: gray }
-      - { zone: [2,1], title: { fr: À éviter },      color: red }
-    labels: true                  # le visage au survol (D386)
+    # Les zones : la position dans la matrice, en colonne puis en ligne
+    zones:
+      - zone: [1, 2]
+        title: { fr: Gains rapides }
+        color: green
+      - zone: [2, 2]
+        title: { fr: Grands projets }
+        color: orange
+      - zone: [1, 1]
+        title: { fr: Tâches de fond }
+        color: gray
+      - zone: [2, 1]
+        title: { fr: À éviter }
+        color: red
+    # Le visage de l'enregistrement au survol
+    labels: true
 ```
 
 ## `chart.combo`
 
-1. **Nom et famille** — `chart.combo`, un graphique de la famille
-   pointée (D512) — le combiné ;
-2. **Rôle** — deux mesures d'un regard : **« courbe + barres ou deux
-   courbes, 2 axes Y max, même temporalité/échantillon »** (D239) ;
-3. **Types servis** — l'assise (D517–D518) ; **un `x:` commun** (le
-   même découpage — la même temporalité par construction) ; **deux
-   séries `y:`, chacune son axe** (gauche/droite) ;
-4. **Contexte consommé** — le socle des `chart.*` (la confidentialité
-   D247, les droits) ;
-5. **Propriétés** — **le socle commun** (D515–D518, D521 —
-   `display:` compris) ; **les écarts propres** (D1637) : `y:` en
-   liste de séries —
-   `{ value:, as: line | bars, axis: left | right }` — la nature et
-   l'axe de chacune (défauts : la première à gauche, la seconde à
-   droite) ; **ou `axis: bottom | top`** — « la représentation en
-   ligne contre la représentation en colonne » (D524, harmonisé
-   D525) : les valeurs couchées, la paire homogène par construction —
-   les bords d'un seul vocabulaire (D504) ; **deux axes maximum** — « au-delà de 2 axes, illisible »
-   (D239) : la troisième série refusée à l'ingestion, le hook pour
-   aller au-delà ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — réutilisable (D243/D249) ; template :
-   l'image (D257) ; le tableau des valeurs — les deux séries en
-   colonnes (`display:` — D521) ;
-8. **États et interactions** — le drill-down au clic (D242) ; les
-   valeurs du calcul (D516) ; la confidentialité masque ;
-9. **Décisions fondatrices** — D239–D243, D247–D249, D512,
-   D515–D518, D521, D524–D525 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `chart.combo`, le combiné. Un graphique de la
+famille pointée (D512).
+
+**Rôle.** Deux mesures d'un regard : « courbe + barres ou deux courbes,
+2 axes Y max, même temporalité/échantillon » (D239).
+
+**Types servis.** L'assise du socle commun (D517, D518). Un `x:` commun
+aux deux séries : le même découpage, donc la même temporalité par
+construction. Deux séries `y:`, chacune sur son axe, à gauche et à
+droite.
+
+**Contexte consommé.** Le socle commun : la confidentialité (D247), les
+droits.
+
+**Propriétés.** Le socle commun (D515–D518, D521), `display:` compris.
+Les écarts propres (D1637) :
+
+- `y:` est une liste de séries. Chaque série s'écrit
+  `{ value:, as: line | bars, axis: left | right }` : sa nature et son
+  axe. Par défaut, la première est à gauche et la seconde à droite ;
+- `axis: bottom | top` couche les valeurs : « la représentation en
+  ligne contre la représentation en colonne » (D524, D525). La paire
+  est homogène par construction. Les bords sont d'un seul vocabulaire
+  (D504) ;
+- deux axes au plus : « au-delà de 2 axes, illisible » (D239). Une
+  troisième série est refusée à l'ingestion. Un hook permet d'aller
+  au-delà.
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.** Le socle commun : réutilisable (D243, D249),
+l'image dans un template (D257). Le tableau des valeurs met les deux
+séries en colonnes (`display:`, D521).
+
+**États et interactions.** Le socle commun : le drill-down au clic
+(D242), les valeurs du calcul (D516), la confidentialité qui masque.
+
+**Décisions fondatrices.** D239–D243, D247–D249, D512, D515–D518, D521,
+D524–D525.
+
+**Exemple de configuration.** Sur un exemple. L'abscisse est commune aux
+deux séries (D239, D240) : le chiffre d'affaires en barres sur l'axe de
+gauche, le volume en courbe sur l'axe de droite.
 
 ```yaml
-# sales/entities/order.yml, bloc gui
+# Les graphiques de l'entité order, dans son bloc gui
 charts:
+
+  # L'activité : le chiffre d'affaires en barres, le volume en courbe
   activity:
     component: chart.combo
-    x: date[month]               # le découpage commun (D239/D240)
+    # L'abscisse commune : la date, découpée par mois
+    x: date[month]
+    # Les deux séries, chacune sa nature et son axe
     y:
-      - { value: sum(total), as: bars, axis: left }    # le CA en barres
-      - { value: count(),    as: line, axis: right }   # le volume en courbe
+      - { value: sum(total), as: bars, axis: left }
+      - { value: count(), as: line, axis: right }
     labels: true
 ```
 
 ## `kpi`
 
-1. **Nom et famille** — `kpi`, un graphique (D512 — à côté de la
-   famille pointée) — le chiffre-clé ;
-2. **Rôle** — un agrégat en grand : l'indicateur d'un regard ;
-3. **Types servis** — l'assise (D517–D518 : l'entité porteuse ou
-   `on:`) ; **la valeur = un agrégat (D158) — aucun axe** ;
-4. **Contexte consommé** — le socle des graphiques : la
-   confidentialité héritée surchargeable (D247), les droits ;
-5. **Propriétés** — `on:` (D517–D518), **`value:`** — l'agrégat
-   (l'écho de `y:`, sans axe — D1637), `filter:` (D90),
-   `title:` (D493), `labels:` — le gabarit du format (D516,
-   `{value}`) ; **`colors:` par seuils** — le chiffre qui change de
-   couleur (la mécanique D467, la table d'entité D495 comprise) ;
-   **`resources:` par seuils** — « associer éventuellement une icône :
-   cas d'un feu tricolore » (D526 — la mécanique D467 dupliquée ;
-   l'écriture de la jauge, une ressource par seuil, D1609, D1611,
-   D1640 ; la liaison `icon:` à la table D495) ; **`layout:`** —
-   « l'organisation se découpe en 4 » (D527) : la position du label —
-   `top` (défaut) `| left | bottom | right` (les bords D525),
-   **l'icône au bord opposé** (D1640 ; le `layout:` des sections a
-   d'autres valeurs, le contexte départage — D458) ; `drill:`
-   (D242) ; **pas de comparaison dans le socle** (D245 —
-   l'évolution contre une période = un hook) ; *(la note pour plus
-   tard — D541 : la tendance issue de l'historique de l'entité,
-   D411/D172 — le détail différé)* ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **« mis en valeur avec un style
-   différent de la feuille »** (D527) : le chiffre en exergue, jamais
-   comme un champ ; **le widget roi** (l'entité → le module
-   fonctionnel — D247), le tableau de bord (le rafraîchissement
-   D249), le formulaire possible (D243) ; **template** : la valeur au
-   format ;
-8. **États et interactions** — le clic : le drill-down (D242) ou les
-   valeurs du calcul (D516) ; la confidentialité masque ;
-9. **Décisions fondatrices** — D158, D242–D243, D245, D247–D249,
-   D467, D495, D512, D515–D518, D526–D527 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `kpi`, le chiffre clé. Un graphique, à côté de la
+famille pointée (D512).
 
-Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/stock/niveau/niveau.yml` :
+**Rôle.** Un agrégat en grand : l'indicateur d'un regard.
+
+**Types servis.** L'assise du socle commun : l'entité porteuse ou `on:`
+(D517, D518). La valeur est un agrégat (D158). Il n'y a aucun axe.
+
+**Contexte consommé.** Le socle commun : la confidentialité héritée et
+surchargeable (D247), les droits.
+
+**Propriétés.** Le `kpi` reprend une partie du socle commun et y ajoute
+les siennes :
+
+- `on:` (D517, D518) ;
+- `value:` — l'agrégat. C'est le `y:` des graphiques, sans axe (D1637) ;
+- `filter:` (D90) ;
+- `title:` (D493) ;
+- `labels:` — le gabarit du format, avec `{value}` (D516) ;
+- `colors:` par seuils — le chiffre change de couleur selon sa valeur.
+  C'est la mécanique commune des couleurs (D467), la table d'entité
+  comprise (D495) ;
+- `resources:` par seuils — « associer éventuellement une icône : cas
+  d'un feu tricolore » (D526). La mécanique de `colors:` est dupliquée :
+  une ressource par seuil, l'écriture de la jauge (D1609, D1611, D1640).
+  La liaison `icon:` à la table d'entité vaut aussi (D495) ;
+- `layout:` — « l'organisation se découpe en 4 » (D527) : la position du
+  label, `top` par défaut, `left`, `bottom` ou `right`, les bords de
+  D525. L'icône est au bord opposé (D1640). Le `layout:` des sections a
+  d'autres valeurs ; le contexte départage (D458) ;
+- `drill:` (D242).
+
+Le socle ne compare pas (D245) : l'évolution contre une période est un
+hook. Une tendance lue dans l'historique de l'entité est une piste notée
+au registre, sans détail (D541, D411, D172).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.** Le chiffre est « mis en valeur avec un style
+différent de la feuille » (D527) : en exergue, jamais comme un champ. Le
+widget est sa surface naturelle ; l'entité rejoint le module fonctionnel
+(D247). Le tableau de bord le rafraîchit (D249). Le formulaire le
+reçoit aussi (D243). Dans un template, c'est la valeur au format.
+
+**États et interactions.** Le clic ouvre le drill-down (D242) ou les
+valeurs du calcul (D516). La confidentialité masque.
+
+**Décisions fondatrices.** D158, D242–D243, D245, D247–D249, D467, D495,
+D512, D515–D518, D526–D527.
+
+**Exemple de configuration.** Dans le cas 5 (entrepôt),
+`05_entrepot/versions/beta/v1.0.0.1/stock/niveau/niveau.yml` :
 
 ```yaml
 # L'interface
@@ -378,66 +609,97 @@ gui:
       colors: { 0: green, 1: orange, 20: red }
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple. La valeur est un agrégat sans axe
+(D158). Les couleurs et les ressources changent par seuils : le feu
+tricolore, une ressource par seuil (D467, D526, D1640). Le label est à
+gauche, donc l'icône à droite (D527). Le clic ouvre la liste nommée
+(D242).
 
 ```yaml
-# sales/entities/order.yml, bloc gui
+# Les indicateurs de l'entité order, dans son bloc gui
 charts:
+
+  # Le chiffre d'affaires du mois
   monthly_revenue:
     component: kpi
-    value: sum(total)            # l'agrégat (D158) — aucun axe
+    # L'agrégat, sans axe
+    value: sum(total)
+    # Le périmètre : le mois courant
     filter: date in current_month
     title: { fr: CA du mois }
+    # Le gabarit du format
     labels: { fr: "{value} € HT" }
-    colors: { 0: red, 50000: orange, 100000: green }   # les seuils (D467)
+    # La couleur par seuils
+    colors: { 0: red, 50000: orange, 100000: green }
+    # Le feu tricolore : une ressource par seuil
     resources: { 0: red_light, 50000: orange_light, 100000: green_light }
-                                 # le feu tricolore, une ressource par seuil (D526, D1640)
-    layout: left                 # le label à gauche, l'icône à droite (D527)
-    drill: invoiced              # le clic : la liste (D242)
+    # Le label à gauche ; l'icône au bord opposé, à droite
+    layout: left
+    # Le clic : la liste nommée des commandes facturées
+    drill: invoiced
 ```
 
 ## `pivot`
 
-1. **Nom et famille** — `pivot`, un graphique (D512 — à côté de la
-   famille pointée) — le croisé dynamique ;
-2. **Rôle** — **« un outil d'analyse puissant et pourtant simple à
-   mettre en œuvre »** (D246) : les lignes croisent les colonnes, la
-   formule remplit l'intersection ;
-3. **Types servis** — l'assise (D517–D518) ; **les quatre éléments**
-   (D246) : un filtre, le ou les champs en ligne, le ou les champs en
-   colonne, une formule à l'intersection ;
-4. **Contexte consommé** — la confidentialité héritée surchargeable
-   (D247), les droits ; **indépendant des compositions matricielles**
-   (D134) — le croisé est une présentation, applicable à toute
-   entité ;
-5. **Propriétés** — (les noms — D1637) : **`rows:`** — le ou
-   les champs en ligne (la liste = le groupement hiérarchique,
-   `[seller, customer]` : commercial › client) ; **`columns:`** — le
-   ou les champs en colonne (le mot des listes D442) ; **`value:`** —
-   la formule : un agrégat (D158) **partitionné par la cellule** ;
-   `filter:` (D90) ; **`sort:`** — « le tri peut s'appuyer
-   sur les rows, les columns ou la value » (D528–D529) : la clé = un
-   champ des lignes, un champ des colonnes, ou `value` — les signes
-   et cascades D442 (`sort: { seller: -value, date: + }`) ; chaque
-   niveau du groupement trié par son sous-total, l'ordre naturel du
-   champ en défaut ; **les
-   plages et temporalités** sur les champs numériques ou dates —
-   « comme pour les graphiques (D240), pour réduire le volume » :
-   `date[month]`, les crochets ; `title:` (D493) ;
-6. **Items** — aucun ;
-7. **Modes et déclinaisons** — **les groupements hiérarchiques,
-   pliables au besoin** (D246) ; réutilisable : le widget (D247), le
-   tableau de bord (D249), le formulaire (D243) ; **template** : le
-   tableau rendu, groupements dépliés ;
-8. **États et interactions** — **le pli et le dépli** des
-   groupements ; le clic sur une cellule ouvre la liste des éléments
-   de l'intersection — l'écho D242/D519 (D1637) ; la
-   confidentialité masque ;
-9. **Décisions fondatrices** — D134, D158, D240, D243, D246–D249,
-   D441, D512, D517–D518, D528–D529 ;
-10. **Exemple de configuration** —
+**Nom et famille.** `pivot`, le tableau croisé dynamique. Un graphique,
+à côté de la famille pointée (D512).
 
-Dans le cas 5 (entrepôt), `05_entrepot/versions/beta/v1.0.0.1/stock/mouvement/mouvement.yml` :
+**Rôle.** « Un outil d'analyse puissant et pourtant simple à mettre en
+œuvre » (D246) : les lignes croisent les colonnes, et la formule remplit
+l'intersection.
+
+**Types servis.** L'assise du socle commun (D517, D518). Le croisé tient
+en quatre éléments (D246) :
+
+- un filtre ;
+- le ou les champs en ligne ;
+- le ou les champs en colonne ;
+- une formule à l'intersection.
+
+**Contexte consommé.** La confidentialité héritée et surchargeable
+(D247), les droits. Le croisé est indépendant des compositions
+matricielles du modèle (D134) : c'est une présentation, applicable à
+toute entité.
+
+**Propriétés.** Aux noms acquis (D1637) :
+
+- `rows:` — le ou les champs en ligne. La liste est un groupement
+  hiérarchique : `[seller, customer]`, le commercial puis le client ;
+- `columns:` — le ou les champs en colonne. C'est le mot des listes
+  (D442) ;
+- `value:` — la formule : un agrégat (D158), partitionné par la
+  cellule ;
+- `filter:` — le périmètre (D90) ;
+- `sort:` — « le tri peut s'appuyer sur les rows, les columns ou la
+  value » (D528, D529). La clé est un champ des lignes, un champ des
+  colonnes, ou `value`. Les signes et les cascades sont ceux des listes
+  (D442) : `sort: { seller: -value, date: + }`. Chaque niveau du
+  groupement est trié par son sous-total. Par défaut, l'ordre est
+  l'ordre naturel du champ ;
+- les plages et les temporalités, sur les champs numériques ou dates :
+  « comme pour les graphiques (D240), pour réduire le volume ».
+  `date[month]` s'écrit au crochet ;
+- `title:` (D493).
+
+**Items.** Aucun.
+
+**Modes et déclinaisons.** Les groupements sont hiérarchiques, pliables
+au besoin (D246). Le croisé est réutilisable : le widget (D247), le
+tableau de bord (D249), le formulaire (D243). Dans un template, c'est le
+tableau rendu, groupements dépliés.
+
+**États et interactions.**
+
+- Le pli et le dépli des groupements.
+- Le clic sur une cellule ouvre la liste des éléments de l'intersection,
+  comme le drill-down des graphiques (D242, D519, D1637).
+- La confidentialité masque.
+
+**Décisions fondatrices.** D134, D158, D240, D243, D246–D249, D441,
+D512, D517–D518, D528–D529.
+
+**Exemple de configuration.** Dans le cas 5 (entrepôt),
+`05_entrepot/versions/beta/v1.0.0.1/stock/mouvement/mouvement.yml` :
 
 ```yaml
 # L'interface
@@ -458,18 +720,28 @@ gui:
       title: Contrôle des stocks par les mouvements (le mois)
 ```
 
-Les autres propriétés, sur un exemple :
+Les autres propriétés, sur un exemple : l'exemple fondateur du croisé
+(D246). Les lignes sont la hiérarchie pliable, les colonnes la
+temporalité (D240), la valeur l'agrégat partitionné par la cellule
+(D158), et le tri met les plus gros chiffres d'affaires d'abord (D528,
+D1640).
 
 ```yaml
-# sales/entities/order.yml, bloc gui — l'exemple fondateur de D246
+# Les croisés de l'entité order, dans son bloc gui
 charts:
+
+  # Le chiffre d'affaires par commercial et par mois
   revenue_matrix:
     component: pivot
-    rows: [seller, customer]     # la hiérarchie pliable — commercial › client
-    columns:                     # la temporalité (D240)
+    # Les lignes : la hiérarchie pliable, le commercial puis le client
+    rows: [seller, customer]
+    # Les colonnes : la date, découpée par mois
+    columns:
       - date[month]
-    value: sum(total)            # l'agrégat partitionné par la cellule (D158)
-    sort: -value                 # les plus gros CA d'abord (D528, D1640)
+    # La valeur : la somme des totaux, par cellule
+    value: sum(total)
+    # Le tri : les plus gros chiffres d'affaires d'abord
+    sort: -value
     filter: state = "invoiced"
     title: { fr: CA par commercial et par mois }
 ```

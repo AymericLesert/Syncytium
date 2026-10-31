@@ -418,6 +418,13 @@ version sinon l'erreur d'ingestion ; dans l'application, la définition
 s'affiche au survol de la première occurrence du terme dans la page.
 *(D1179–D1180, D1183–D1184, D1197, D1475)*
 
+**Graphique** (`charts:`) — Le composant qui résume des données en une
+image : la courbe d'une évolution, les barres d'une comparaison, le
+chiffre clé, le tableau croisé. Il se déclare une fois, dans le bloc
+`charts:` d'une entité, et se réutilise dans un widget, un formulaire
+ou un tableau de bord. *Ex. : `chart.bars`, `kpi`, `pivot`.*
+*(D239, D243, D512)*
+
 **Group by** (`group(champ, …)`, `group:`) — Le regroupement d'une
 liste par les valeurs d'un ou plusieurs champs : une cellule par
 combinaison, l'agrégat qui suit s'évalue par cellule et le résultat est

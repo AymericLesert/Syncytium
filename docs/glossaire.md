@@ -365,8 +365,9 @@ format vaut pour toutes ; sans `screen:`, la surface vaut pour tous les
 formats. Syncytium déduit le format de la zone d'affichage disponible ;
 quand elle change de taille, l'application bascule d'un format à
 l'autre, et les composants se déclinent d'eux-mêmes. Un format
-qu'aucune surface n'autorise est une erreur d'ingestion.
-*(D250, D450, D1613–D1614)*
+qu'aucune surface n'autorise est une erreur d'ingestion, parmi les
+formats que la version porte (`version: { screen: […] }` dans les
+settings). *(D250, D450, D1613–D1616)*
 
 **Forme courte, forme longue** — Deux écritures d'une même clé : la
 valeur seule, tout le reste au défaut, ou le bloc qui détaille ses

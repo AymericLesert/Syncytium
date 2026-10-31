@@ -2606,7 +2606,9 @@ lists:
    vers une surface que le nouveau format n'autorise pas ouvre la
    première surface déclarée du même genre qui l'autorise (D438) ; un
    format qu'aucune surface d'un genre n'autorise est une **erreur
-   d'ingestion** (D1614) ;
+   d'ingestion** (D1614), parmi les formats que la version porte —
+   `version: { screen: [ pc, tablet ] }` dans les settings, tous les
+   formats en son absence (D1616) ;
    **`mode:`** — `read-only | updatable` (D453) ; **`history:`** —
    `false` désactive l'onglet historique d'une entité historisée
    (D453) ; **`size:`** — la surimpression, défaut 100 % de

@@ -25,6 +25,9 @@ project:
 version:
   languages: [<la langue du poste>]
 
+  # Les formats d'écran que la version porte : tous
+  screen: [<tous les formats>]
+
 # Le module
 module:
   # Le nom d'usage : le nom
@@ -144,7 +147,7 @@ application:
 ## Les décisions de l'inventaire
 
 - le projet : `visibility` (D1151) ;
-- la version : `languages` (D1101, D1114) ;
+- la version : `languages` (D1101, D1114), `screen` (D1616) ;
 - le module : `title` (D1120), `history` (D168, D1174), `menu` (D193,
   D351) ;
 - l'entité : `title` (D1120), `label` (D1181), `history` (D168), `allow`

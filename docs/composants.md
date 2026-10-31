@@ -2345,16 +2345,15 @@ charts:
    (D543) : le qrcode — **« la taille unique pour les côtés »**
    (`size: 120px`, le carré — jamais deux valeurs) ; le code-barres —
    **« largeur × hauteur »** (`size: 200px 60px` — la grammaire
-   D533) ; **la saisie peut porter sa propre taille** (D544 — *en
-   proposition :* `size: { input: 30, display: 120px }`, la forme
-   courte valant l'affichage seul) ; **`labels:`** — « la valeur de
-   la référence sous le code-barres » (D545 — *en proposition :*
-   `labels: true`, la valeur au format du champ — l'écho D516 ;
-   défaut `false`) ; **le format du code-barres** : **de la facette
+   D533) ; **la saisie peut porter sa propre taille** (D544, D1638 —
+   `size: { input: 30, display: 120px }`, la forme courte valant
+   l'affichage seul) ; **`labels:`** — « la valeur de
+   la référence sous le code-barres » (D545, D1638 — `labels: true`,
+   la valeur au format du champ — l'écho D516 ; défaut `false`) ; **le format du code-barres** : **de la facette
    quand le champ en porte une** (D988 — `barcode: ean13` au champ, le
    composant suit) ; **au crochet pour un champ texte sans facette**
-   rendu en code-barres (*en proposition :* `component:
-   barcode[code128]` — le défaut `code128`) ;
+   rendu en code-barres (D1638 — `component: barcode[code128]`, le
+   défaut `code128`) ;
 6. **Items** — aucun ;
 7. **Modes et déclinaisons** — **les deux modes du champ** (D544) :
    **la saisie en mode texte** — la zone du champ, son régime (la
@@ -2386,7 +2385,7 @@ gui:
             size: 200px 60px       # largeur × hauteur (D543)
             labels: true           # la valeur sous les barres (D545)
         - field[sku]:
-            component: barcode[code128]   # un champ texte rendu en code-barres — le format au crochet (proposition)
+            component: barcode[code128]   # un champ texte rendu en code-barres — le format au crochet (D1638)
 ```
 
 # Les surfaces

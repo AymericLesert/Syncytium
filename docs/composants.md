@@ -686,11 +686,6 @@ gui:
 
 ## `calendar`
 
-*(D785 — le champ date porte aussi **les steppers [-]/[+]** : le
-jour d'avant, le jour d'après — au même rang que le picker, l'écho
-du stepper du nombre D270. Le report de champ en post-zone fut
-proposé puis **écarté** — D786/D787 : la simplicité prime.)*
-
 1. **Nom et famille** — `calendar`, une feuille ;
 2. **Rôle** — le calendrier : la saisie et l'affichage d'une date — la
    vue année, mois ou semaine, et les raccourcis du quotidien ;
@@ -705,7 +700,10 @@ proposé puis **écarté** — D786/D787 : la simplicité prime.)*
    traduits** (aujourd'hui, la veille, hier, début et fin de mois —
    D278), la numérotation de semaine par la langue (D279) ;
 6. **Items** — aucun ;
-7. **Modes et déclinaisons** — modification : **smartphone = le plein
+7. **Modes et déclinaisons** — modification : **les steppers
+   [-]/[+]**, le jour d'avant et le jour d'après, au même rang que le
+   calendrier — l'écho du stepper du nombre (D270, D785) ; aucun report
+   de champ en post-zone (D786/D787) ; **smartphone = le plein
    écran** (la semaine, le mois ou l'agenda — tactile) ; **tablette = à
    proximité du champ** ; **PC = la saisie au clavier d'abord, le
    calendrier par l'icône** (vos arbitrages du thème E) ; lecture : la
@@ -714,7 +712,7 @@ proposé puis **écarté** — D786/D787 : la simplicité prime.)*
 8. **États et interactions** — grisé si `readonly`/droits ; le refus
    des bornes affiché (D307) ; en recherche : `strict` / **`range`**
    (la plage de dates — l'usage roi, D381) / `mutualizable` ;
-9. **Décisions fondatrices** — D278–D280, D381–D383 ;
+9. **Décisions fondatrices** — D278–D280, D381–D383, D785–D787 ;
 10. **Exemple de configuration** —
 
 ```yaml

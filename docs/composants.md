@@ -598,6 +598,30 @@ taux_annuel:
   hint: Le taux nominal du crédit — 6,187.
 ```
 
+Les autres propriétés, sur un exemple :
+
+```yaml
+# hr/entities/employee.yml
+fields:
+  satisfaction: percentage         # 0..100 — la jauge, choix naturel (D274)
+  workload:
+    type: integer[0..40]
+    component: gauge               # la surcharge — les bornes exigées
+
+gui:
+  lists:
+    main:
+      columns: [name, satisfaction, workload]   # la jauge en cellule — un regard
+  forms:
+    record:
+      page:
+        - section:
+            title: { fr: Activité }
+            items:
+              - field[satisfaction]
+              - field[workload]
+```
+
 ## `fuel`
 
 1. **Nom et famille** — `fuel`, une feuille — le cadran à aiguille, le
@@ -729,6 +753,29 @@ field:
   time_pmi:
     type: time
     mask: hhmmss
+```
+
+Les autres propriétés, sur un exemple :
+
+```yaml
+# stock/entities/warehouse.yml
+fields:
+  opening: time[hh:mm]             # la précision au crochet (D277) — clock par défaut
+  closing: time[hh:mm]
+
+gui:
+  lists:
+    main:
+      columns: [name, opening, closing]
+      searchable: [opening]        # la plage horaire (range — D381)
+  forms:
+    record:
+      page:
+        - section:
+            title: { fr: Horaires }
+            items:
+              - field[opening]
+              - field[closing]
 ```
 
 ## `calendar`
@@ -1030,6 +1077,25 @@ photo:
   label: Photo
   hint: Le visage du véhicule — la vignette des listes et de la carte.
   description: Le visage porté par l'image ; la vignette est automatique.
+```
+
+Les autres propriétés, sur un exemple :
+
+```yaml
+# hr/entities/employee.yml
+fields:
+  photo:
+    type: image[512x512]           # la boîte max, la vignette auto (D389)
+    placeholder: avatar            # l'icône de fond (D390), une ressource (D1625)
+
+gui:
+  forms:
+    record:
+      page:
+        - section:
+            title: { fr: Profil }
+            items:
+              - field[photo]       # picker.image par défaut — dépôt, caméra, galerie
 ```
 
 ## `picker.file`
@@ -1416,6 +1482,29 @@ matieres:
   type: list of text[..6]
   label: Codes matière
   hint: Les matières de l'article — jusqu'à neuf chez l'ERP.
+```
+
+Les autres propriétés, sur un exemple :
+
+```yaml
+# crm/entities/contact.yml
+fields:
+  name: text
+  keywords:
+    type: list of text[30]         # chaque élément contraint par la facette (D362)
+  languages:
+    type: list of text
+    values: [fr, en, de, es]       # les énumérés => la multi-sélection (D296)
+
+gui:
+  lists:
+    main:
+      columns: [name, keywords]    # les premières valeurs + ellipse (D296)
+  forms:
+    record:
+      page:
+        - field[keywords]          # l'éditeur : ajouter, retirer, réordonner
+        - field[languages]         # les cases ou les tags (D296)
 ```
 
 ## `sections`

@@ -25315,9 +25315,10 @@ avant la synthèse Q16).
   (D1677, les points 3 et 8) ; neuf familles de connecteurs et l'extrait de la banque (D1678, le point 4) ;
   l'opération par l'extrait de la banque, `form: default` disparu (D1679, le point 5) ; `degree:` aux quatre
   valeurs, `reader` compris (D1680, le point 6). Quatorze chapitres, renumérotés dans les README et le plan.
-  « Je marque une pause ». **À la reprise** : le point 7 de la lecture de hooks.md, le hook de fonction — son
-  exemple en `functions:`, à réécrire dans la forme de D809 avec `type:` (D1676) —, puis les points 9 à 17 ; puis
-  la distribution : les parties « Les hooks » des chapitres 1, 2 et 4 ; puis le chapitre 5, les connecteurs.
+  « Je marque une pause ». **À la reprise** : un résumé des points 7 et 9 à 17 de la lecture de hooks.md, demandé
+  par l'auteur pour « voir s'il est possible de valider en masse » — le point 7, le hook de fonction, son exemple
+  en `functions:` à réécrire dans la forme de D809 avec `type:` (D1676) ; puis la distribution : les parties
+  « Les hooks » des chapitres 1, 2 et 4 ; puis le chapitre 5, les connecteurs.
 - **2026-11-01 (soir) — LA PAUSE : LE PLAN EN UNE PAGE, LA COLLABORATION DANS L'HISTOIRE (D1659–D1666, 1666
   décisions).** Le plan tient lieu de liste des tâches, les issues GitHub après l'implémentation (D1659) ;
   `docs/histoire/plan.md`, calculée par `tools/plan.py` — les domaines, les rangs, les étapes, les chapitres, un

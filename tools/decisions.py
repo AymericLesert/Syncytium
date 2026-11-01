@@ -47,6 +47,7 @@ FAMILLES = {
     "securite": ("les droits et la sécurité", ["rights.md", "security.md"]),
     "hooks": ("les hooks", ["hooks.md"]),
     "connecteurs": ("les connecteurs", ["connectors.md"]),
+    "operations": ("les opérations", []),  # le chapitre 6 (D1675) — hooks.md, §3, jusqu'à la distribution
     "reprise": ("la reprise et le mapping", ["mapping.md", "migration.md"]),
     "administration": ("l'administration et l'exploitation", ["administration.md"]),
     "telemetrie": ("la télémétrie", ["telemetry.md"]),
@@ -235,6 +236,20 @@ for _fam, _nums in {
     "securite": [422, 720],
     "connecteurs": [641],
     "surfaces": [788],
+}.items():
+    RELECTURE.update({_n: _fam for _n in _nums})
+# Le chapitre 5, les hooks (D1688, le 01/11/2026) : trente-huit sorties — les décisions de la famille qui ne parlent
+# pas des hooks ; les opérations au chapitre 6 (D1675).
+for _fam, _nums in {
+    "modele": [21, 357, 372, 380, 870, 898, 1307],
+    "langage": [159],
+    "configuration": [221, 416, 1482],
+    "surfaces": [431, 443, 466, 471, 499, 516],
+    "reprise": [655, 658, 660, 986, 996],
+    "cas": [770, 781, 834, 852, 897, 963, 1011, 1012, 1014],
+    "documentation": [1112, 1195, 1425],
+    "methode": [1588, 1657],
+    "operations": [148, 354],
 }.items():
     RELECTURE.update({_n: _fam for _n in _nums})
 

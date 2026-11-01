@@ -508,7 +508,7 @@ des paramètres d'administration (D904, D906). Le hook `dupliquer`
 (le code) exécute dans la transaction tenue ouverte ; `confirm`
 laisse le moteur présenter le formulaire et le message ; `commit`
 scelle et retourne l'issue ; `rollback` défait si l'utilisateur
-annule (D594–D595).
+annule (D594–D595). `dupliquer` est le clone en hook (D776, D797).
 
 **Le wizard, la même transaction** (D546–D547/D594) : les steps qui
 portent une `operation:` s'exécutent **dans la transaction du

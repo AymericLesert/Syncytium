@@ -169,38 +169,45 @@ legacy:
     budget: [budget.txt, budget-clos.txt]
 ```
 
-## Le câblage — les rôles nommés
+## Le câblage — le socle par le nom, le hook par `uses:`
 
-- **Le hook nomme le type qu'il attend** (D611) : `send` → `smtp`, la
-  géolocalisation → `location`, le stockage → `storage`, la
-  migration → `from` (D610) ; **le nom est disponible dans le
-  contexte d'exécution** — le hook lit `context.connector.<rôle>`
-  (D612) ;
-- **le câblage n'est pas toujours requis** (D612) — « pour des
-  questions de simplicité » : le connecteur nommé comme son type se
-  trouve seul ; « dans les cas les plus complexes, le câblage doit
-  être explicite » — **l'environnement désigne le storage du modèle**
-  (D1094), la migration désigne sa base d'origine par `from:`
-  (D1087) ; le câblage à la racine de D610 (`connector: { storage:
-  main_db, from: legacy_db }`) s'est ainsi réparti :
+**Le socle trouve ses connecteurs par le nom** (D612, D1710) :
+
+- le storage du modèle est désigné par le fichier de l'environnement,
+  `storage: entrepot` (D1094) ;
+- la base d'origine d'une reprise, par `from:` dans la migration
+  (D1087) ; dans le cas 5 (entrepôt), `reprise/reprise.yml` :
 
 ```yaml
-# environments/production/production.yml — le storage du modèle (D1094)
-storage: entrepot
-
-# reprise.yml — la base d'origine d'une migration (D1087)
+# La migration cegid
+# La reprise des données de Cegid PMI dans l'entrepôt ; l'ordre des migrations déclarées est leur ordre d'exécution.
 cegid:
+
+  # La base d'origine
+  # Le storage de PMI, lu en lecture seule.
   from: cegid
 ```
 
-- **la surcharge locale** (D611) : « pour l'opération `send`, le
-  connecteur attendu est "smtp" — mais s'il existe une propriété
-  `smtp` sur l'opération, elle peut préciser un connecteur compatible
-  avec le smtp » ;
-- **plusieurs connecteurs en service** (D612) — et « l'utilisation de
-  plusieurs connecteurs par un item n'est pas exclue » : « dans le
-  cas de l'affichage d'une carte, nous pouvons définir plusieurs
-  connecteurs et, en fonction de l'écran, utiliser l'un ou l'autre ».
+- le mail sortant est le connecteur `smtp`, le géocodage `location`,
+  l'identité `authentication` : le connecteur nommé comme sa famille
+  (D612, D1093) ; l'entrepôt géocode l'adresse de livraison par le
+  constructeur `geolocation("…")` en formule, et le connecteur
+  `location` se trouve par son nom (D1004).
+
+**Le hook lie par `uses:`** (D913, D914) : le contrat d'un hook
+d'opération déclare dans `connectors:` les connecteurs qu'il attend,
+nommés et typés ; la déclaration de l'opération lie chacun à un
+connecteur de l'environnement par `uses:`, toujours écrit — aucune
+liaison implicite, même quand l'environnement n'offre qu'un candidat de
+la famille ; l'erreur d'ingestion nomme alors l'attendu, sa famille et
+le candidat unique. La surcharge locale par une propriété au nom du
+rôle (D611) est ce `uses:`. Le nom du rôle est disponible au contexte
+d'exécution, `context.connector.<rôle>` (D612) ; plusieurs connecteurs
+par item ne sont pas exclus, « dans le cas de l'affichage d'une carte,
+nous pouvons définir plusieurs connecteurs et, en fonction de l'écran,
+utiliser l'un ou l'autre » (D612). Le hook de connecteur, lui, ajoute
+une classe à une famille ; la partie « Les hooks » de ce chapitre le
+dit.
 
 ## Les neuf familles (D623/D692/D957) et le catalogue de base (D604)
 

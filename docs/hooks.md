@@ -178,81 +178,36 @@ Ajoute **un type** au catalogue — exploitable comme les types
 standard (le chaînage possible, les types custom ne portant pas le
 graphe de conversion).
 
-**La signature du type porte :**
-- **la conversion intrinsèque** (D579) — la fonction au nom du type
-  (`text(x)`, `montype(x)`) ; la promotion implicite sans perte
-  seulement (D581) ;
-- **la table des opérateurs** (D581) — les combinaisons d'opérandes
-  admises et le type du résultat ;
-- **les comparateurs** (D582) — l'ordre des règles de tri, l'égalité
-  de l'équivalence ; le `select` (D584) ;
-- **les fonctions dédiées** (D579) — `distance`/`euclide` pour la
-  géolocalisation : « un type emmène avec lui des fonctions
-  dédiées » ; `extract` pour le texte (D817 — la regex, les groupes
-  nommés au point) ;
-- **les accès aux sous-items** (D772–D773) — un type composé expose
-  **ses parties nommées via des fonctions** : `value`/`currency`
-  (amount), les coordonnées/l'adresse (geolocation), les bornes
-  (period)… — la signature les déclare, un composé sans ses accès
-  est incomplet ;
-- **le composant par défaut au nom du type** (D458) — le type-hook
-  nomme son composant comme le socle nomme les siens ; le contexte
-  départage les espaces de noms ;
-- **les règles de tri et le nul** (D368 et suivantes), la recherche,
-  le masque — le kit des facettes ;
-- **la représentation obligatoire** (D459) : « aucun type sans
-  visage » — le composant d'écran et/ou le rendu de document ;
-- **les règles de conversion vers un storage** (D681–D682 — le
-  patron visiteur) : « le contrat d'un type doit inclure les règles
-  de conversion vers un storage » — la classe storage visite le
-  type, le type se décrit, la classe rend la forme native ; le
-  contrat couvre **les trois gestes du champ** (D682) : la création
-  (les colonnes natives), la modification (l'altération + le
-  transcodage — D647/D673), la suppression — **et les fonctions de
-  valeur** (D683) : `create`/`update`/`read` d'une valeur (la forme
-  native écrite et relue) — et **l'identification** (D684) : le type
-  sait **se reconnaître** dans une structure native à l'introspection
-  (`get_instance` compose les identifications) ; un type-hook sans
-  ses règles de conversion ne se stocke pas — l'ingestion le refuse ;
-  **depuis D1298, la règle de conversion est la déclinaison** : un
-  élémentaire avec ses propriétés génériques, ou une liste nommée
-  d'élémentaires, le storage ne transcrivant que ceux-là ;
-- **la facette documentation** (D1301 — le rang 2) : le type livre
-  **cinq choses**, le moteur assemble — **la forme en clair**, par
-  langue du moteur, les réglages fondus (« une date, écrite AAAAMMJJ »,
-  « un texte de 40 caractères au plus » — D1160, D1253) ; **la
-  déclinaison** en élémentaires (D1298) ; **les indicateurs** qu'il
-  mesure (D1288) ; **l'exemple** — le `placeholder` du type (D1307), quand le champ n'a
-  pas le sien (D1211) ; **le marquage** qu'il porte, `rgpd:` (D1178) ;
-  et, pour le chapitre du stockage, **les modes de recherche qu'il
-  admet** — les index que le storage en tire (D1292) — et **s'il peut
-  porter une partition** (D1293).
-  Le moteur résout les trois niveaux de réglages (D1239) avant l'appel,
-  le type reçoit ses facettes appliquées et formule ; les mots viennent
-  du catalogue par langue (D1160/D1163), un type ajouté apporte ses
-  items ; un type dérivé hérite de la facette de son socle et peut
-  reformuler ; le glossaire des types (l'annexe B du dictionnaire) se
-  construit de ces livraisons ; un type sans sa facette est complet
-  pour tourner, incomplet pour documenter — la complétude le relève
-  (D1221), l'ingestion ne le refuse pas.
+**Ce qu'un type ajouté livre** (D1677) — chaque item est décrit à sa
+fiche du chapitre 2 ou du chapitre 3 ; un type sans l'un d'eux est
+incomplet, et l'ingestion refuse un type sans ses règles de stockage :
 
-**La collection est un type — et porte les agrégats** (D580) : les
-fonctions de la collection (`list of`, `association with`) sont ses
-méthodes — `commandes.sum(montant if etat = "facturée")` (l'élément
-en contexte implicite dans la parenthèse), `count()`, `avg`,
-`min`/`max` (universels — tous les types sont triables, D575),
-`first`, `last`, `any`, `exists` ; **`group(champ, …)`** — le « group
-by » d'une liste (D1015) : une cellule par combinaison de valeurs des
-champs nommés, l'agrégat qui suit s'évalue par cellule, le résultat est
-un hypercube (D897) aux dimensions des champs —
-`mouvements.group(emplacement, article).sum(…)` ; **`sort(champ, …)`** — le
-tri d'une liste en ligne (D1017), les clés dans l'ordre, `first()`/`last()`
-sans argument rendent l'élément en tête ou en queue
-(`commandes_vente.sort(owner.date).last().client`) ; « les méthodes group
-et sort sont à ajouter », leurs propriétés déclaratives `group:` et
-`sort:` sur l'association (D1016/D1017) ; la forme contextuelle
-sans préfixe quand la collection est le contexte (l'assise d'un chart —
-D517).
+- **sa signature** (D579–D584) : la conversion au nom du type, la table
+  des opérateurs, les comparateurs, le tri, ses fonctions — ses
+  méthodes (D1674) — et, pour un composé, l'accès à ses parties
+  (D772–D773) ; voir `02-modele/types.md`, « La signature d'un type » ;
+- **sa représentation** (D458–D459) : « aucun type sans visage », le
+  composant d'écran au nom du type et/ou le rendu de document ; voir
+  `02-modele/types.md`, « Le composant par défaut » ;
+- **ses règles de stockage** (D681–D684, D1296–D1298) : la déclinaison
+  en types élémentaires, la forme pivot, l'identification, les trois
+  gestes du champ dont la modification, l'altération et le transcodage
+  (D647, D673) ; voir
+  `02-modele/types.md`, « La conversion vers le stockage » ;
+- **sa facette documentation** (D1301) : la forme en clair, la
+  déclinaison, les indicateurs, l'exemple, le marquage, les mots du
+  catalogue par langue, que le type ajouté apporte (D1160, D1163) ;
+  voir
+  `02-modele/documentation.md`, « Les cinq livraisons du hook de
+  type » ;
+- **ses facettes** (D368 et suivantes) : le tri et le nul, la
+  recherche, le masque ; voir `02-modele/types.md`, « Les facettes
+  communes ».
+
+La collection est un type comme les autres : ses méthodes, `sum`,
+`count`, `avg`, `min`, `max`, `first`, `last`, `any`, `all`, `group`,
+`sort`, sont à sa fiche, `02-modele/liens.md`, et leur usage au
+chapitre 3, `03-langage/collections.md` (D580, D1015–D1017, D1576).
 
 **Le type `label`** (D585–D586) — le type-hook du socle qui montre la
 voie : l'accès au catalogue des labels (D440), les gabarits nommés

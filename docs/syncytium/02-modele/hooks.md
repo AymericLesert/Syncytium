@@ -109,7 +109,8 @@ documentation.
 ### La fiche et l'usage
 
 La fiche suit la forme commune du chapitre 1 (D809) : `name`,
-`description`, `code`, `properties`. Le code livre la signature et le
+`description`, `code`, `properties`, et une clé de plus pour un type,
+`methods:`, ses méthodes (D1700). Le code livre la signature et le
 composant. L'exemple est inventé, aucun cas n'en porte : un type `isbn`,
 l'identifiant d'un livre, que le catalogue n'a pas, alors qu'il a `iban`
 (D391). L'ISBN est l'identifiant international du livre, à dix ou treize
@@ -134,6 +135,25 @@ description:
 # Le code
 # La signature du type et son composant.
 code: ~{source.txt}
+
+# Les méthodes
+# Une clé par méthode, chacune décrite comme une fonction : sa signature, sa documentation, son code.
+methods:
+  # La clé de contrôle
+  # Vraie quand la clé est juste : à dix chiffres, la somme pondérée de 10 à 1 est un multiple de 11, X valant
+  # dix ; à treize chiffres, la somme pondérée 1, 3, 1, 3… est un multiple de 10.
+  check:
+    # La signature : aucun paramètre, un booléen
+    parameters: { }
+    result: boolean
+
+    # La documentation de la méthode, en Markdown, une par langue de la version
+    description:
+      fr: ~{check.fr.md}
+      en: ~{check.en.md}
+
+    # Le code
+    code: ~{check.txt}
 
 # Les propriétés
 # Les formes admises, à dix ou treize chiffres ; vide, les deux le sont.
@@ -174,10 +194,13 @@ isbn: isbn
 
 Une fonction est une méthode d'un type (D1674). Le hook de fonction est
 porté par le type qui expose ses fonctions (D1676) : « le hook de
-fonction est porté par le type qui exposera ses fonctions ». Le hook qui
-ajoute une fonction dit donc quel type l'expose, `isbn` pour
-`check`, et un type apporté par un hook liste ses fonctions dans
-sa propre fiche. La clé qui le dit, `type:`, reste en proposition.
+fonction est porté par le type qui exposera ses fonctions ». Un type apporté
+par un hook décrit donc ses méthodes dans sa propre fiche, sous la clé
+`methods:`, une clé par méthode avec la description d'une fonction
+(D1700). L'appel s'écrit `isbn.check()`, la forme des méthodes. Une
+méthode ajoutée à un type du socle, `text` par exemple, se déclarera de
+même, dans une fiche au nom du type — *en proposition*, la forme se
+précisera à l'implémentation.
 
 Le hook de fonction se complétera à l'implémentation (D1684) : « ça
 assurera le lien entre le socle et les composants ajoutés. En fonction
@@ -210,43 +233,40 @@ besoin ». Elles sont décrites au chapitre 3,
 L'exemple est inventé, aucun cas n'en porte : la méthode `check` du type
 `isbn`, ci-dessus, qui valide la clé de contrôle de l'identifiant. Le
 type porte la validation de l'identifiant et ses méthodes (D1699) ;
-`check` en est une. La fiche nomme le type qui l'expose.
-`hooks/functions/check/check.yml` :
+`check` en est une. La fiche du type la décrit, sous `methods:`, l'extrait
+de `hooks/types/isbn/isbn.yml` :
 
 ```yaml
-# La méthode check du type isbn
-# Vraie quand la clé de contrôle est juste : à dix chiffres, la somme pondérée de 10 à 1 est un multiple de 11,
-# X valant dix ; à treize chiffres, la somme pondérée 1, 3, 1, 3… est un multiple de 10.
-name: check
+# Les méthodes
+# Une clé par méthode, chacune décrite comme une fonction : sa signature, sa documentation, son code.
+methods:
+  # La clé de contrôle
+  # Vraie quand la clé est juste : à dix chiffres, la somme pondérée de 10 à 1 est un multiple de 11, X valant
+  # dix ; à treize chiffres, la somme pondérée 1, 3, 1, 3… est un multiple de 10.
+  check:
+    # La signature : aucun paramètre, un booléen
+    parameters: { }
+    result: boolean
 
-# Le type qui expose la méthode
-type: isbn
+    # La documentation de la méthode, en Markdown, une par langue de la version
+    description:
+      fr: ~{check.fr.md}
+      en: ~{check.en.md}
 
-# La description
-# La documentation de la méthode, en Markdown, une par langue de la version.
-description:
-  fr: ~{documentation.fr.md}
-  en: ~{documentation.en.md}
-
-# Le code
-# La signature, un booléen sans paramètre, et le calcul de la clé.
-code: ~{source.txt}
-
-# Les propriétés
-# Aucune.
-properties: { }
+    # Le code
+    code: ~{check.txt}
 ```
 
-L'usage est celui d'une fonction du type, dans toute expression. Une
-règle de validation l'appelle, et le projet choisit la sévérité : un
-livre ancien porte parfois une clé mal imprimée, la règle demande
-confirmation plutôt que de bloquer.
+L'usage est celui d'une méthode du type, dans toute expression,
+`isbn.check()`. Une règle de validation l'appelle, et le projet choisit
+la sévérité : un livre ancien porte parfois une clé mal imprimée, la
+règle demande confirmation plutôt que de bloquer.
 
 ```yaml
 # La cohérence des données
 validation:
   # La clé de l'ISBN est juste ; une clé fausse se confirme
-  - rule: check(isbn)
+  - rule: isbn.check()
     severity: confirm
     message: La clé de contrôle de l'ISBN {isbn} est fausse.
 ```

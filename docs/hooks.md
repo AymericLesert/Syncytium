@@ -556,7 +556,7 @@ complétera à l'implémentation** (D1684) : « ça assurera le lien entre
 le socle et les composants ajoutés. En fonction de l'architecture
 technique et des composants techniques, les règles peuvent être revues
 et corrigées. Pour le moment, ça couvre le besoin et ça reste vrai. »
-`type:` (D1676) reste en proposition jusque-là.
+**La méthode d'un type se décrit dans la fiche du type** (D1700), sous `methods:`, une clé par méthode avec la description d'une fonction ; l'appel s'écrit `isbn.check()` ; `type:` dans une fiche de fonction (D1676) tombe. L'exemple ci-dessous, `extract_name`, reste tel quel jusqu'à la dissolution.
 
 Ajoute **une fonction** — le calcul pur : une valeur (ou une liste)
 aux types du modèle, ou **des valeurs nommées** (D593 — la regex à

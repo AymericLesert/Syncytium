@@ -145,32 +145,66 @@ décision ni histoire du cas (D1085).
 gabarit sur le message, la description et chaque nœud ; l'arbre en
 nœuds, une analyse et des branches, acyclique par construction ; **le
 raccourci selon le niveau** : une trace `debug` n'a que son code et son
-message, une `error` le détail entier, l'arbre compris) :
+message, une `error` le détail entier, l'arbre compris). L'exemple est
+inventé, aucun cas n'en porte ; `hooks/operations/virer/errors.yml` :
 
 ```yaml
-# hooks/operations/virer/errors.yml — les traces du hook, par code ; le détail croît avec le niveau (D1463)
+# Les traces du hook, par code : le détail croît avec le niveau.
+
+# Une trace : le code, le niveau et le message suffisent.
 D001:
-  level: debug                           # une trace — le code et le message suffisent
+  # Le niveau de la trace.
+  level: debug
+
+  # Le message, un gabarit par langue.
   message: { fr: "Virement de {montant} vers {compte} : les deux écritures créées" }
+
+# Une erreur : le détail entier, l'arbre de résolution compris.
 E001:
-  level: error                           # une erreur — le détail entier (D1464) ; le niveau du journal (D737)
-  family: connector                      # la famille du dépannage (D1456) — le démarrage, un connecteur, la reprise, une version…
-  safety: cancel                         # la position de sécurité — l'annulation, la page de maintenance, le mode safe
-  retry: true                            # rejouable telle quelle, ou à corriger avant
-  resolver: administrator                # qui résout — l'administrateur, le concepteur, l'intégrateur — et son canal
-  parameters: { compte: text, date: date, montant: amount }   # les paramètres typés du gabarit
-  procedure: restaurer_enregistrement    # le renvoi à une fiche du guide, s'il y en a une
-  message:                               # le gabarit du journal (D562), par langue
+  # Le niveau de la trace ; le journal le reprend.
+  level: error
+
+  # La famille du dépannage : le démarrage, un connecteur, la reprise, une version…
+  family: connector
+
+  # La position de sécurité : l'annulation, la page de maintenance, le mode safe.
+  safety: cancel
+
+  # Rejouable telle quelle, ou à corriger avant.
+  retry: true
+
+  # Qui résout, l'administrateur, le concepteur ou l'intégrateur, et son canal.
+  resolver: administrator
+
+  # Les paramètres typés du gabarit.
+  parameters: { compte: text, date: date, montant: amount }
+
+  # Le renvoi à une fiche du guide d'exploitation, s'il y en a une.
+  procedure: restaurer_enregistrement
+
+  # Le gabarit du journal, par langue.
+  message:
     fr: "Le compte cible {compte} est clos depuis le {date}"
     en: "Target account {compte} has been closed since {date}"
-  description:                           # facultative, par langue
+
+  # La description, facultative, par langue.
+  description:
     fr: Le virement vise un compte que son titulaire a fermé.
-  resolution:                            # l'arbre de résolution — des nœuds, acyclique ; schématisé, exploitable par l'IA
-    check: { fr: "Le compte {compte} est-il réellement clos ?" }   # un nœud : une analyse, le gabarit résolu
-    branches:                                                    # les cas ; une feuille porte une action
+
+  # L'arbre de résolution : des nœuds, acyclique ; une analyse, des branches, une action à chaque feuille.
+  resolution:
+    # Un nœud : une analyse, le gabarit résolu.
+    check: { fr: "Le compte {compte} est-il réellement clos ?" }
+
+    # Les cas ; une feuille porte une action.
+    branches:
       oui: { action: { fr: "Choisir un autre compte cible et relancer le virement de {montant}." } }
       non: { action: { fr: "Rouvrir le compte {compte} depuis sa fiche, puis relancer." } }
 ```
+
+Le niveau est celui du journal (D737), la famille celle du dépannage
+(D1456), le message un gabarit du journal (D562) ; une erreur porte le
+détail entier (D1464).
 
 ## Les familles
 
@@ -308,15 +342,20 @@ leurs règles »** : le composant ne contourne jamais le modèle.
 `gauge_3d` comme il écrirait un composant du socle ») :
 
 ```yaml
-# le hook enregistre « gauge_3d » au catalogue des composants —
-# l'objet gère le rendu Web, PDF, Word, Excel, Email (D566.7)
-
-# l'usage — la première classe (D65/D68) :
+# Le champ emploie le composant ajouté comme un composant du socle ; s'il échoue, le repli.
 fields:
   progress_ring:
+    # Le type du champ.
     type: percentage
-    component: gauge_3d            # comme un built-in ; s'il échoue, le repli (D68)
+
+    # Le composant, celui que le hook a enregistré au catalogue.
+    component: gauge_3d
 ```
+
+Le hook enregistre `gauge_3d` au catalogue des composants ; l'objet
+gère le rendu Web, PDF, Word, Excel, Email (D566). L'usage est de
+première classe (D65) ; si le composant échoue, le repli sur le
+composant par défaut du type (D68).
 
 ### 3. Le hook d'opération (D570, D594–D601)
 
@@ -524,16 +563,24 @@ fonction libre.
 **L'exemple** — la regex aux groupes nommés (D593) :
 
 ```yaml
-# la déclaration du hook (la signature — le code au langage de Syncytium)
+# La déclaration du hook : la signature, le code au langage de Syncytium.
 functions:
   extract_name:
+    # Les paramètres typés.
     parameters: { raw: text }
-    result: { prenom: text, nom: text }   # les valeurs nommées (D593)
 
-# l'usage — un seul calcul, deux champs (le graphe D592)
+    # Le résultat : des valeurs nommées, un seul calcul nourrit plusieurs champs.
+    result: { prenom: text, nom: text }
+```
+
+L'usage, un seul calcul pour deux champs :
+
+```yaml
+# Les deux champs nourris par le même appel.
 fields:
   prenom: { formula: extract_name(raw).prenom }
-  nom:    { formula: extract_name(raw).nom }
+
+  nom: { formula: extract_name(raw).nom }
 ```
 
 ### 5. Le hook de connecteur (D603–D642)

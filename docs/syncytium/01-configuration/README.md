@@ -25,7 +25,7 @@ décisions citées entre parenthèses renvoient au
    `environments/`, `versions/`, `version.yml` ; puis
    **[ce que la version porte](version.md)** — `settings.yml` et la règle
    des paramètres, `groups.yml`, le module et son menu, l'entité,
-   `hooks/` et `reprise/` — et **[l'inventaire des défauts du
+   `hooks/`, le mécanisme des hooks, et `reprise/` — et **[l'inventaire des défauts du
    socle](defauts.md)**.
 4. **[Les règles](regles.md)** — les cascades, le plus proche l'emporte ;
    l'ingestion, ce qui est refusé et ce qui alerte.
@@ -206,4 +206,7 @@ D1071, D1074–D1075, D1082–D1086, D1088–D1092, D1094–D1098, D1101,
 D1113–D1115, D1151, D1174–D1175, D1181, D1239, D1291, D1355, D1361, D1384,
 D1427–D1428, D1444, D1465–D1466, D1473–D1474, D1498, D1500, D1511–D1513,
 D1517, D1528–D1532, D1535–D1538, D1541. Chacune se lit dans [le
-registre](../../conception.md).
+registre](../../conception.md). Le mécanisme des hooks, § 3.9 de
+[version.md](version.md), repose sur les décisions de la famille des
+hooks (D1692) ; elles rejoindront cette liste à la dissolution de
+`hooks.md` (D1673).

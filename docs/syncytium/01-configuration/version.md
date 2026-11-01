@@ -15,7 +15,12 @@ groupes, le module et son menu, l'entité, les hooks et la reprise.*
   - [`menu.yml` — une carte d'entrées nommées (D1237)](#menuyml--une-carte-dentrées-nommées-d1237)
 - [3.8 L'entité, les champs, les surfaces](#38-lentité-les-champs-les-surfaces)
 - [3.9 `hooks/` et `reprise/`](#39-hooks-et-reprise)
-  - [`hooks/`](#hooks)
+  - [`hooks/` — le mécanisme des hooks](#hooks--le-mécanisme-des-hooks)
+  - [La chaîne à deux étages](#la-chaîne-à-deux-étages)
+  - [La fiche du hook](#la-fiche-du-hook)
+  - [La description, un fichier Markdown par langue](#la-description-un-fichier-markdown-par-langue)
+  - [Les traces codifiées, `errors:`](#les-traces-codifiées-errors)
+  - [Ce qu'un hook ne contourne pas](#ce-quun-hook-ne-contourne-pas)
   - [`reprise/`](#reprise)
 
 ## 3.5 `settings.yml` — la maison des types et des réglages (D359, D360, D991–D993)
@@ -282,12 +287,239 @@ vit dans trois chapitres :
 
 ## 3.9 `hooks/` et `reprise/`
 
-### `hooks/`
+### `hooks/` — le mécanisme des hooks
 
-`hooks.yml` déclare les familles ; chaque famille liste ses fiches par
-pattern ; chaque fiche porte `name`, `description` (un fichier md par
-langue), `code` (le source) et `properties` (D777, D809). Le détail dans
-[hooks.md](../../hooks.md).
+> **Un hook** est un prolongement par code : un type, un composant, une
+> opération, une fonction ou un connecteur, écrit contre le contrat de
+> Syncytium. Il rend transparent l'usage d'un développement propre au
+> projet. Syncytium en fournit déjà un ensemble : ses types, ses
+> composants et ses opérations sont des hooks
+> ([glossaire](../../glossaire.md)).
+
+Un hook ajoute un nom à un catalogue de Syncytium. Ce nom s'emploie
+ensuite comme un nom du socle : le mot « hook » n'apparaît jamais dans
+la configuration (D408). Les types, les composants et les opérations
+que Syncytium embarque sont eux-mêmes des hooks : « tous les types
+proposés sont finalement des hooks qui appartiennent à Syncytium »
+(D408). Ce que Syncytium embarque et ce que le concepteur ajoute passent
+par la même porte (D37, D52).
+
+Il y a cinq familles (D1671, D1672). Chacune se décrit à la fin du
+chapitre de ses composants (D1673) :
+
+- **le type**, au chapitre 2, [le modèle](../02-modele/README.md) ;
+- **la fonction**, une méthode d'un type, au chapitre 2 aussi (D1674,
+  D1676) ;
+- **le composant**, au chapitre 4, [les composants](../04-composants/README.md) ;
+- **le connecteur**, au chapitre 5, les connecteurs ;
+- **l'opération**, au chapitre 6, les opérations (D1675).
+
+Le style et la langue ne sont pas des hooks. Le socle impose l'affichage
+de ses composants et propose quelques styles (D1672). Une langue se
+déclare par son code dans `languages:` (D1671, voir [l'arbre](arbre.md)).
+
+Un hook ajouté a les mêmes droits qu'un élément du socle (D65) : il se
+règle en défaut de type, il se surcharge au champ. S'il échoue, le
+moteur se replie sur l'élément par défaut (D68). Un doublon de nom entre
+un hook et le socle est une erreur d'ingestion (D344, D396). Un hook de
+code définit une signature et un code dans le langage que Syncytium
+exploite (D570). Ce langage et sa sandbox relèvent de l'architecture
+technique, qui n'est pas posée (D602, D1669). Ce qui suit est donc la
+déclaration du hook dans la configuration. Les règles de chaque famille
+se complèteront à l'implémentation (D1684).
+
+### La chaîne à deux étages
+
+Les hooks de l'application vivent à la racine de la version, dans le
+dossier `hooks/` (D644). `version.yml` les déclare par une clé, `hooks:`
+(D805) :
+
+```yaml
+# Les hooks de la version
+hooks: ~{hooks/hooks.yml}
+```
+
+La chaîne a deux étages, sur le patron des modules (D777) :
+
+- `hooks.yml` référence un fichier par famille ;
+- le fichier de famille liste ses fiches, une à une ou par un motif
+  (D806).
+
+Les chemins sont relatifs au fichier qui les cite (D768). Un dossier par
+hook ou tout dans un fichier : l'organisation est libre (D807). Dans le
+cas 4 (banque), `hooks/hooks.yml` :
+
+```yaml
+# Les familles de hooks
+# Une famille par fichier ; le projet n'a que des opérations.
+operations: ~{operations/operations.yml}
+```
+
+`hooks/operations/operations.yml` :
+
+```yaml
+# Les opérations du projet
+# Un dossier par opération, listés par le motif : le fichier au nom de l'opération, sa documentation et son code.
+operations:
+  - ~{.*/.*\.yml}
+```
+
+Le motif `.*/.*\.yml` prend chaque fichier YAML d'un sous-dossier : une
+fiche par opération.
+
+### La fiche du hook
+
+Une fiche porte quatre clés (D809) :
+
+- `name`, le nom que le hook ajoute au catalogue ;
+- `description`, sa documentation, un fichier Markdown par langue ;
+- `code`, son fichier source ;
+- `properties`, ses paramètres.
+
+Dans le cas 4, `hooks/operations/dupliquer/dupliquer.yml` :
+
+```yaml
+# L'opération dupliquer
+# La duplication d'une écriture entre deux dates, au pas choisi.
+name: dupliquer
+
+# La description
+# La documentation de l'opération, en Markdown, une par langue de la version.
+description:
+  fr: ~{documentation.fr.md}
+  en: ~{documentation.en.md}
+  es: ~{documentation.es.md}
+
+# Le code
+code: ~{source.txt}
+
+# Les propriétés
+# Aucune.
+properties: { }
+```
+
+Les `properties:` sont les paramètres du hook : le mode, le nom, le
+type, la valeur par défaut (D1535). Ils suivent la règle des paramètres,
+ci-dessus : la configuration en surcharge la valeur, le socle garde le
+reste. Deux clés s'ajoutent quand le hook en a besoin (D1667) :
+
+- `dependencies`, les bibliothèques qu'il embarque, chacune par son nom,
+  sa version et sa licence (D1432) ; absente, le hook n'en embarque
+  aucune ;
+- `errors`, ses traces codifiées, `~{errors.yml}` (D1461) ; absente, le
+  hook n'émet aucune trace propre.
+
+Les dossiers `types/`, `components/`, `functions/` et `connectors/`
+suivent la même forme. Ce qu'une famille déclare en plus est au chapitre
+de sa famille.
+
+### La description, un fichier Markdown par langue
+
+Chaque hook s'accompagne d'un fichier Markdown par langue qu'il supporte
+(D778, D1403). La fiche le référence par `description:`. Ce fichier dit
+ce que le hook fait, pour qui, avec quel résultat. C'est la brique
+humaine de la documentation générée : la documentation fonctionnelle le
+reprend comme la description de l'opération, dans la section de son
+entité (D1196, D1227). Des gabarits y insèrent les paramètres et la
+déclaration du hook (D562).
+
+Trois règles :
+
+- le fichier est une configuration : il ne cite ni décision ni histoire
+  du cas (D1085) ;
+- un hook ajouté porte les langues de la version ; une langue qui manque
+  est une erreur d'ingestion (D1162, D1163) ;
+- Syncytium décrit ses propres hooks de même, une section par famille,
+  une par implémentation (D1403).
+
+### Les traces codifiées, `errors:`
+
+Un hook qui émet ses propres traces les codifie dans un fichier, la clé
+`errors:` de sa fiche (D1461). Chaque entrée a un code, un niveau et un
+message, un gabarit par langue. Une erreur porte en plus de quoi la
+résoudre : la famille du dépannage, la position de sécurité, qui résout,
+et un arbre de résolution, une analyse et des branches (D1462). Le
+détail croît avec le niveau : une trace `debug` n'a que son code et son
+message, une `error` le détail entier (D1463). L'exemple est inventé,
+aucun cas n'en porte ; `hooks/operations/virer/errors.yml` :
+
+```yaml
+# Les traces du hook, par code : le détail croît avec le niveau.
+
+# Une trace : le code, le niveau et le message suffisent.
+D001:
+  # Le niveau de la trace.
+  level: debug
+
+  # Le message, un gabarit par langue.
+  message: { fr: "Virement de {montant} vers {compte} : les deux écritures créées" }
+
+# Une erreur : le détail entier, l'arbre de résolution compris.
+E001:
+  # Le niveau de la trace ; le journal le reprend.
+  level: error
+
+  # La famille du dépannage : le démarrage, un connecteur, la reprise, une version…
+  family: connector
+
+  # La position de sécurité : l'annulation, la page de maintenance, le mode safe.
+  safety: cancel
+
+  # Rejouable telle quelle, ou à corriger avant.
+  retry: true
+
+  # Qui résout, l'administrateur, le concepteur ou l'intégrateur, et son canal.
+  resolver: administrator
+
+  # Les paramètres typés du gabarit.
+  parameters: { compte: text, date: date, montant: amount }
+
+  # Le renvoi à une fiche du guide d'exploitation, s'il y en a une.
+  procedure: restaurer_enregistrement
+
+  # Le gabarit du journal, par langue.
+  message:
+    fr: "Le compte cible {compte} est clos depuis le {date}"
+    en: "Target account {compte} has been closed since {date}"
+
+  # La description, facultative, par langue.
+  description:
+    fr: Le virement vise un compte que son titulaire a fermé.
+
+  # L'arbre de résolution : des nœuds, acyclique ; une analyse, des branches, une action à chaque feuille.
+  resolution:
+    # Un nœud : une analyse, le gabarit résolu.
+    check: { fr: "Le compte {compte} est-il réellement clos ?" }
+
+    # Les cas ; une feuille porte une action.
+    branches:
+      oui: { action: { fr: "Choisir un autre compte cible et relancer le virement de {montant}." } }
+      non: { action: { fr: "Rouvrir le compte {compte} depuis sa fiche, puis relancer." } }
+```
+
+Le niveau est celui du journal (D737), la famille celle du dépannage
+(D1456), le message un gabarit du journal (D562). Le guide
+d'exploitation reprend ces entrées, code par code.
+
+### Ce qu'un hook ne contourne pas
+
+Un hook est un citoyen du moteur, jamais un super-utilisateur :
+
+- il lit le modèle par la librairie d'exploration, par les noms
+  logiques, jamais par le stockage, et il écrit dans la transaction
+  (D572, D599) ; les droits, la confidentialité, la validation et la
+  concurrence par champ ne se contournent pas (D196, D25, D364, D307,
+  D111) ;
+- il ne lit ni variable d'environnement ni fichier que sa fiche et la
+  configuration ne référencent : rien hors de la configuration (D1440,
+  D1429) ;
+- sa signature se vérifie à l'ingestion, comme le typage statique (D330,
+  D344, D581) : l'erreur ne passe jamais l'ingestion ;
+- un hook d'interface est le seul code tiers au navigateur : il ne
+  reçoit jamais `private`, il relève de l'ergonomie, jamais de la
+  sécurité, et la documentation générée le liste (D918, D645).
+
+Ce que l'ingestion refuse est dans [les règles](regles.md).
 
 ### `reprise/`
 

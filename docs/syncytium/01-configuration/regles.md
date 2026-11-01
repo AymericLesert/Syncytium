@@ -36,6 +36,7 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - un doublon de nom, entité, type ou hook (D344, D396, D408) ;
 - un cycle de groupes (D414), de calculés (D592) ou de types dérivés
   (D992) ;
+- un hook de type sans ses règles de stockage (D681, D1690) ;
 - un module d'application dont le nom commence par `_`, le préfixe des
   modules internes du socle, `_migration`, `_administration`, `_chat`
   (D1029) ;

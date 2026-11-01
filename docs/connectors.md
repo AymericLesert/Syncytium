@@ -626,8 +626,8 @@ nombre limité de familles ; il n'existe pas de hook de famille »
 
 ### `llm` (D957)
 
-*(La famille née avec le module `chat` du socle — la forme du contrat
-est mienne, en proposition.)* **Le rôle** : répondre à la question
+La famille est née avec le module `chat` du socle (D957) ; le contrat,
+confirmé (D1718), se complétera à l'implémentation (D1684). **Le rôle** : répondre à la question
 d'un utilisateur « en se basant sur la somme des connaissances de
 l'instance » — les données et leur description, **dans la limite des
 autorisations accordées à l'utilisateur sur la consultation des
@@ -653,8 +653,9 @@ seconde couche.
   ce qui revient à l'utilisateur** : les données de son profil
   connecté, et ce que ses droits lui ouvrent — **aucun droit propre au
   chat** : « les droits ne sont pas sur chat mais sur les composantes
-  de la description du modèle » (D885/D886, D25) ; le champ que ses
-  droits ne lui ouvrent pas part anonymisé plutôt qu'omis (mien) ;
+  de la description du modèle » (D885/D886, D25) ; ce que ses
+  droits ne lui ouvrent pas n'est pas décrit au modèle, il est omis
+  (D958) ;
 - **la trace, avant l'affichage** : chaque question et chaque
   réponse s'écrit dans les entités du module `chat` — **`session`**
   (l'utilisateur, le module, l'ouverture, le connecteur et le modèle,

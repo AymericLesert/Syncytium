@@ -99,8 +99,8 @@ Le mécanisme et la déclaration dans la configuration vont au chapitre 1,
 chaque famille à la fin de son chapitre — les types et les fonctions, les
 méthodes des types, au 2 (D1674), les composants au 4, les connecteurs
 au 5, les opérations au 6.
-La lecture de `hooks.md` (17 points, D1657) est en cours : trois points
-faits (D1667–D1669), quatorze restent ; la distribution suit.
+La lecture de `hooks.md` (17 points, D1657) est en cours : dix points
+faits (D1667–D1669, D1677–D1683), sept restent ; la distribution suit.
 
 Hors des familles : `glossaire.md` va à `syncytium/glossaire.md` avec le
 premier chapitre ; `etude-comparative-20260718.md` à

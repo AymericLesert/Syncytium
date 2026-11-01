@@ -25,7 +25,10 @@ point jusque-là.
 
 ## La doctrine
 
-- **Un seul mécanisme, dedans comme dehors** (D52) : les hooks, les
+- **Un seul mécanisme, dedans comme dehors** (D52 ; l'origine, D37 :
+  une extension déployée en même temps que la description, en trois
+  modes — le calcul d'un champ, la tâche, le comportement de
+  l'interface) : les hooks, les
   connecteurs et les composants relèvent d'un mécanisme uniforme —
   ce que Syncytium embarque et ce que le concepteur ajoute passent
   par la même porte ;
@@ -317,7 +320,8 @@ fields:
 
 ### 3. Le hook d'opération (D570, D594–D601)
 
-Ajoute **une opération** — « une opération ne se construit pas dans
+Ajoute **une opération** — une tâche et son déclencheur, matérialisée
+en bouton (D148) ; « une opération ne se construit pas dans
 la configuration : elle se construit toujours à l'aide d'un hook de
 code » (D570). Les 20 opérations de socle (D574, `migrate` D667,
 `anonymize` D697, `reset_coverage` D881) sont les hooks embarqués :
@@ -391,7 +395,9 @@ d'appel** (`form:` — D775 : les champs du formulaire sont les
 paramètres du hook, **la validation du formulaire est l'opération** ;
 la symétrie avec le confirm D600 — le formulaire aux deux bouts), et
 **le mode de déclenchement quand il n'est pas lié à l'IHM** : `when:
-<expression>` (D428), `every: continuous` (D435 — sur une mise à
+<expression>` (D428 ; l'événement `generated`, émis à toute
+génération, D796 — `creer_releve` de la banque s'y déclenche),
+`every: continuous` (D435 — sur une mise à
 jour), le calendaire (D434), **l'événement de connecteur** (les
 webhooks, l'import automatique à la réception d'un fichier —
 `when: <connecteur>[.<point d'entrée>]`, **un abonnement posé à
@@ -646,7 +652,8 @@ styles de mise en forme et/ou de couleurs. » Le style n'est donc pas
 une famille de hooks (D755 amendée, D754 amendée). Le socle impose
 l'affichage de ses composants graphiques ; il propose quelques styles
 (D752), des couleurs ou des mises en forme, que le concepteur combine
-dans un thème (D753) et que l'utilisateur choisit à son profil. Leurs
+dans un thème (D63, D753) — la couche de marque, par-dessus le rendu
+par défaut — et que l'utilisateur choisit à son profil. Leurs
 noms et ce qu'ils règlent se fixent au domaine 7. Le hook de
 composant demeure : il ajoute un composant, avec son rendu
 (D64–D68, D566).

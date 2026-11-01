@@ -304,18 +304,20 @@ classDiagram
     class Connecteur {
         <<déclaré à l'environnement>>
         nom
-        type : la famille
-        class : la classe
-        parameters : les valeurs
+        type, la famille
+        class, la classe
+        parameters, les valeurs
         connection, pool, retry, timeout, onerror, every
         rgpd.countries
     }
     class SocleCommun {
         <<contrat, toute classe>>
-        initialize() release()
-        connect() disconnect()
-        ping() : statut
-        onerror() : mock ou maintenance
+        initialize()
+        release()
+        connect()
+        disconnect()
+        ping() statut
+        onerror() mock ou maintenance
         describe()
     }
     class Famille {
@@ -324,7 +326,7 @@ classDiagram
     }
     class Classe {
         <<implémentation>>
-        les paramètres exposés : nom, type, défaut, secret
+        les paramètres exposés, nom, type, défaut, secret
         les propriétés spécifiques
     }
     class HookDeConnecteur {
@@ -344,10 +346,21 @@ Les neuf familles, leurs méthodes et leurs classes :
 classDiagram
     direction TB
     class storage {
-        begin() commit() rollback()
-        create_instance() get_instance() duplicate_instance() rename_instance() delete_instance()
-        create_entity() update_entity() delete_entity()
-        create() read() update() delete()
+        begin()
+        commit()
+        rollback()
+        create_instance()
+        get_instance()
+        duplicate_instance()
+        rename_instance()
+        delete_instance()
+        create_entity()
+        update_entity()
+        delete_entity()
+        create()
+        read()
+        update()
+        delete()
         describe(model)
     }
     class smtp {
@@ -358,11 +371,13 @@ classDiagram
         commit(fichier)
     }
     class directory {
-        get_users() get_users_from_group() get_groups()
+        get_users()
+        get_users_from_group()
+        get_groups()
     }
     class location {
-        geocode(adresse) : geolocation
-        reverse(geolocation) : adresse
+        geocode(adresse) geolocation
+        reverse(geolocation) adresse
     }
     class authentication {
         challenge()
@@ -372,11 +387,15 @@ classDiagram
         verify(siren)
     }
     class webhook {
-        entries : les points d'entrée servis
+        entries, les points d'entrée servis
     }
     class llm {
-        ask(session, outils) : message
+        ask(session, outils) message
     }
+    class none_smtp["none"]
+    class azure_ad_directory["azure_ad"]
+    class none_auth["none"]
+    class local_llm["local"]
     storage <|.. postgresql
     storage <|.. sqlserver
     storage <|.. mysql
@@ -388,20 +407,20 @@ classDiagram
     storage <|.. xml
     storage <|.. json
     smtp <|.. smtp_std
-    smtp <|.. none_smtp["none"]
+    smtp <|.. none_smtp
     file <|.. file_std
-    directory <|.. azure_ad_directory["azure_ad"]
+    directory <|.. azure_ad_directory
     location <|.. ban
     location <|.. nominatim
     authentication <|.. local
     authentication <|.. azure_ad
     authentication <|.. sso
     authentication <|.. keycloak
-    authentication <|.. none_auth["none"]
+    authentication <|.. none_auth
     siren <|.. sirene
     webhook <|.. webhook_std
     llm <|.. api
-    llm <|.. local_llm["local"]
+    llm <|.. local_llm
 ```
 
 Les spécificités d'une classe se lisent à sa déclaration : la carte

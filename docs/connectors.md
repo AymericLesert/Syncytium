@@ -288,6 +288,128 @@ démarrer uniquement si l'envoi de mail à l'administrateur est
 possible » — le canal d'alerte avant tout, le smtp vérifié au
 démarrage.
 
+## Le diagramme — le connecteur, la famille, la classe (D1715)
+
+Trois notions, à ne pas confondre (D1715) : **le connecteur**, déclaré à
+l'environnement par son nom ; **la famille**, le contrat que `type:`
+nomme ; **la classe**, l'implémentation que `class:` nomme et qui
+remplit le contrat de sa famille. Le socle commun vaut pour toute
+classe ; la famille ajoute ses méthodes ; la classe ajoute ses
+paramètres et ses propriétés spécifiques. Un hook de connecteur ajoute
+une classe à une famille, jamais une famille.
+
+```mermaid
+classDiagram
+    direction LR
+    class Connecteur {
+        <<déclaré à l'environnement>>
+        nom
+        type : la famille
+        class : la classe
+        parameters : les valeurs
+        connection, pool, retry, timeout, onerror, every
+        rgpd.countries
+    }
+    class SocleCommun {
+        <<contrat, toute classe>>
+        initialize() release()
+        connect() disconnect()
+        ping() : statut
+        onerror() : mock ou maintenance
+        describe()
+    }
+    class Famille {
+        <<contrat, neuf familles>>
+        les méthodes de la famille
+    }
+    class Classe {
+        <<implémentation>>
+        les paramètres exposés : nom, type, défaut, secret
+        les propriétés spécifiques
+    }
+    class HookDeConnecteur {
+        <<le projet>>
+        ajoute une classe à une famille
+    }
+    SocleCommun <|-- Famille : étend
+    Famille <|.. Classe : remplit le contrat
+    Connecteur --> Famille : type
+    Connecteur --> Classe : class
+    HookDeConnecteur ..> Classe : livre
+```
+
+Les neuf familles, leurs méthodes et leurs classes :
+
+```mermaid
+classDiagram
+    direction TB
+    class storage {
+        begin() commit() rollback()
+        create_instance() get_instance() duplicate_instance() rename_instance() delete_instance()
+        create_entity() update_entity() delete_entity()
+        create() read() update() delete()
+        describe(model)
+    }
+    class smtp {
+        send(message, pièces, destinataires)
+    }
+    class file {
+        files(motif)
+        commit(fichier)
+    }
+    class directory {
+        get_users() get_users_from_group() get_groups()
+    }
+    class location {
+        geocode(adresse) : geolocation
+        reverse(geolocation) : adresse
+    }
+    class authentication {
+        challenge()
+        verify(preuve)
+    }
+    class siren {
+        verify(siren)
+    }
+    class webhook {
+        entries : les points d'entrée servis
+    }
+    class llm {
+        ask(session, outils) : message
+    }
+    storage <|.. postgresql
+    storage <|.. sqlserver
+    storage <|.. mysql
+    storage <|.. oracle
+    storage <|.. sqlite
+    storage <|.. memory
+    storage <|.. csv
+    storage <|.. xlsx
+    storage <|.. xml
+    storage <|.. json
+    smtp <|.. smtp_std
+    smtp <|.. none_smtp["none"]
+    file <|.. file_std
+    directory <|.. azure_ad_directory["azure_ad"]
+    location <|.. ban
+    location <|.. nominatim
+    authentication <|.. local
+    authentication <|.. azure_ad
+    authentication <|.. sso
+    authentication <|.. keycloak
+    authentication <|.. none_auth["none"]
+    siren <|.. sirene
+    webhook <|.. webhook_std
+    llm <|.. api
+    llm <|.. local_llm["local"]
+```
+
+Les spécificités d'une classe se lisent à sa déclaration : la carte
+`entities:` et les entêtes d'un storage de format (D828, D845), la
+`convention:` de nommage d'un storage de reprise, les paramètres que
+chaque classe expose (D1711). Le reste de ce chapitre détaille le
+contrat de chaque famille.
+
 ## Les contrats par famille
 
 ### `storage` (D629, D631–D632, D680–D681 ; refondé D1294–D1297)

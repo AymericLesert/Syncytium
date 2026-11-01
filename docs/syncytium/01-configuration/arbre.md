@@ -501,10 +501,12 @@ Le projet peut apporter une langue (D1465). La commande
 items du core, codifiés (D1160), avec leurs textes de référence en `fr`,
 et lui seul (D1466). Le concepteur le traduit item par item.
 
-- **La langue est un hook**, la septième famille (D1467) :
-  `hooks/languages/pt/`, sa fiche, son catalogue, et ce qui est propre à
-  la langue, le fuseau, les formats, le sens d'écriture (D217, D1471).
-  Voir [hooks.md](../../hooks.md).
+- **La langue n'est pas un hook** (D1671) : c'est un composant de
+  langue porté par le socle. Le projet en apporte une par son code,
+  dans `languages:` ; tout ce qui porte du texte en dépend. Son
+  catalogue et ce qui est propre à la langue, le fuseau, les formats,
+  le sens d'écriture (D217, D1471), vivent dans `languages/pt/` à la
+  racine de la version, en proposition.
 - **Il doit être complet** : un item manquant est une erreur d'ingestion
   (D1468) ; la même règle que pour les textes du projet (D1474). Un hook
   du core sans cette langue est complété par l'application dans sa

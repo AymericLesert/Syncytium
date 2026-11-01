@@ -526,9 +526,11 @@ validations, filtres, gabarits.
 projet apporte : son catalogue, complet, construit par `syncytium
 language` depuis une langue de référence et traduit item par item —
 le catalogue du core seul, les textes du projet la portent comme toute
-langue de la version (D1101) ; **un hook de langue**, la septième
-famille, `hooks/languages/<code>/` ; incomplet, une erreur
-d'ingestion ; elle peut être la langue technique. *(D1465–D1467)*
+langue de la version (D1101) ; **pas un hook** : un composant de
+langue porté par le socle, déclaré par son code, son catalogue dans
+`languages/<code>/` (en proposition) ; incomplet, une erreur
+d'ingestion ; elle peut être la langue technique. *(D1465–D1466,
+D1671)*
 
 **Langue technique** — La langue des journaux, des traces et du
 catalogue des erreurs techniques d'une instance : définie à la

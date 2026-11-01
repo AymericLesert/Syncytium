@@ -63,23 +63,51 @@ versions/<statut>/<version>/
 *(Le nommage et l'organisation restent libres — D807 : l'arbre
 ci-dessus est la convention du cas 4.)*
 
-```yaml
-# hooks/hooks.yml — l'étage des familles (D777)
-operations: ~{operations/operations.yml}   # la référence explicite (D956)
+Dans le cas 4 (banque), `hooks/hooks.yml`, l'étage des familles (D777) :
 
-# hooks/operations/operations.yml — la liste des fiches (le pattern D806)
+```yaml
+# Les familles de hooks
+# Une famille par fichier ; le projet n'a que des opérations.
+operations: ~{operations/operations.yml}
+```
+
+`hooks/operations/operations.yml`, la liste des fiches par le motif (D806) :
+
+```yaml
+# Les opérations du projet
+# Un dossier par opération, listés par le motif : le fichier au nom de l'opération, sa documentation et son code.
 operations:
   - ~{.*/.*\.yml}
-
-# hooks/operations/dupliquer/dupliquer.yml — la fiche du hook (D809)
-name: dupliquer
-description: documentation.md        # → le md du fonctionnement (D778) — un md par langue, comme les autres textes
-                                     #   (D1403, D1405) : description: { fr: ~{documentation.fr.md}, en: ~{documentation.en.md} }
-code: source.txt                     # → le code — le langage du domaine 7 (D570)
-properties: { }                      # les paramètres du hook : le mode, le nom, le type, la valeur par défaut (D1535)
-dependencies: [ ]                    # les bibliothèques embarquées — le nom, la version, la licence (D1432) ; absente = aucune
-errors: ~{errors.yml}                # les traces codifiées du hook (D1461, D1463) — le niveau, le message à gabarit, et selon le niveau = aucune
 ```
+
+`hooks/operations/dupliquer/dupliquer.yml`, la fiche du hook (D809) :
+
+```yaml
+# L'opération dupliquer
+# La duplication d'une écriture entre deux dates, au pas choisi.
+name: dupliquer
+
+# La description
+# La documentation de l'opération, en Markdown, une par langue de la version.
+description:
+  fr: ~{documentation.fr.md}
+  en: ~{documentation.en.md}
+  es: ~{documentation.es.md}
+
+# Le code
+code: ~{source.txt}
+
+# Les propriétés
+# Aucune.
+properties: { }
+```
+
+Les `properties:` sont les paramètres du hook : le mode, le nom, le
+type, la valeur par défaut (D1535). Deux clés s'ajoutent à la fiche
+quand le hook en a besoin (D1667) : `dependencies:`, les bibliothèques
+embarquées — le nom, la version, la licence (D1432) —, et `errors:`,
+les traces codifiées du hook, `~{errors.yml}` (D1461, D1463). Absentes,
+le hook n'embarque aucune bibliothèque et n'émet aucune trace propre.
 
 **Chaque hook s'accompagne d'un fichier md par langue qu'il supporte**
 (D778 — la fiche le référence par `description:`, D809 ; D1403 — un md

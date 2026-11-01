@@ -675,31 +675,14 @@ seconde couche.
   n'est pas disponible, un message d'erreur sera présenté et les
   questions ne seront pas possibles » — jamais une réponse inventée.
 
-## Les déclencheurs et les échanges
+## Les déclencheurs et la migration — les renvois
 
-- **l'entrant par le fichier** (D604) : le guetteur détecte, relit —
-  la porte d'entrée ;
-- **le déclenchement d'opération par connecteur** (D609) : « utile
-  pour traiter des webhooks ou pour déclencher automatiquement un
-  process d'import » — `when: <nom du connecteur>` *(en
-  proposition)* sur l'opération déclarée :
-
-```yaml
-operations:
-  archive_and_notify:
-    when: incoming_orders          # l'événement du connecteur (D609)
-    operations: [ import, notify ] # la liste d'opérations du socle (D609)
-    commit: auto
-  import_order:
-    when: orders_api.new_order     # l'abonnement au point d'entrée (D641)
-    operations: [ import ]
-    commit: auto
-```
-
-- **le `when:` en abonnement** (D641) : posé à l'initialisation de
-  l'application — le connecteur et éventuellement le point d'entrée
-  attendu ; l'appel entrant (webhook) ou l'événement détecté (file)
-  déclenche.
+Le déclenchement d'une opération par un connecteur — l'événement d'un
+fichier détecté, l'appel d'un point d'entrée, `when: <connecteur>` ou
+`when: <connecteur>.<entrée>` (D604, D609, D641) — est un déclencheur
+d'opération : le chapitre 6, les opérations (D1689, D1720). Ce chapitre
+garde l'écoute du connecteur `file` (D635) et les entrées servies du
+`webhook`, abonnées à l'initialisation (D641).
 
 ## La migration et la transformation
 

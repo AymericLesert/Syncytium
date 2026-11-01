@@ -543,6 +543,33 @@ cascade application → module → entité, le dynamique ajusté au module
 d'administration — D573). La fonction lit le contexte **en lecture
 seule** (D571).
 
+**Les déclencheurs par connecteur** — depuis connectors.md, en attente
+du chapitre 6 (D1720) :
+
+- **l'entrant par le fichier** (D604) : le guetteur détecte, relit —
+  la porte d'entrée ;
+- **le déclenchement d'opération par connecteur** (D609) : « utile
+  pour traiter des webhooks ou pour déclencher automatiquement un
+  process d'import » — `when: <nom du connecteur>` *(en
+  proposition)* sur l'opération déclarée :
+
+```yaml
+operations:
+  archive_and_notify:
+    when: incoming_orders          # l'événement du connecteur
+    operations: [ import, notify ] # la liste d'opérations du socle
+    commit: auto
+  import_order:
+    when: orders_api.new_order     # l'abonnement au point d'entrée
+    operations: [ import ]
+    commit: auto
+```
+
+- **le `when:` en abonnement** (D641) : posé à l'initialisation de
+  l'application — le connecteur et éventuellement le point d'entrée
+  attendu ; l'appel entrant (webhook) ou l'événement détecté (file)
+  déclenche.
+
 ### 4. Le hook de fonction (D571, D592–D593)
 
 **La famille n'existe plus** (D1702) : une fonction est une méthode de

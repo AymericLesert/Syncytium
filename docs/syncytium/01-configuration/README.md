@@ -12,30 +12,48 @@ reprise, les droits, l'administration, la sécurité, la documentation. Les
 décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).
 
-## Le sommaire
 
-1. **La nature** — ci-dessous : YAML, de petits fichiers, une seule
-   grammaire ; les règles d'écriture face à YAML et des exemples.
-2. **[Les mécanismes transverses](mecanismes.md)** — la référence de
-   fichier `~{…}`, le pattern, le cumul, les variables `${…}`, la
-   marque `*`, l'adressage par le point, le langage d'expression, la
-   forme courte et le bloc, la liste et la substitution, les défauts du
-   poste informatique.
-3. **L'arbre des fichiers** — du sommet à la feuille, en trois fichiers :
-   - **[L'arbre](arbre.md)** — 3.1 `syncytium.yml`, le projet ;
-     3.2 `environments/`, la configuration technique ; 3.3 `versions/`,
-     le cycle de vie en dossiers ; 3.4 `version.yml`, l'entrée de la
-     version et ses langues.
-   - **[La version — ce qu'elle porte](version.md)** — 3.5 `settings.yml`,
-     la maison des types et des réglages, la règle des paramètres et
-     celle des défauts ; 3.6 `groups.yml`, les groupes ; 3.7 le module et
-     son menu ; 3.8 l'entité, les champs, les surfaces ; 3.9 `hooks/`, le
-     mécanisme des hooks, et `reprise/`.
-   - **[L'inventaire des défauts du socle](defauts.md)** — les paramètres
-     que Syncytium décrit, le bloc `rgpd:`, ce qui est hors de
-     l'inventaire.
-4. **[Les règles](regles.md)** — les cascades, le plus proche l'emporte ;
-   l'ingestion, ce qui est refusé et ce qui alerte.
+1. [La nature — YAML, de petits fichiers, une seule grammaire](#1-la-nature--yaml-de-petits-fichiers-une-seule-grammaire)
+   - [Du YAML, et rien d'autre](#du-yaml-et-rien-dautre)
+   - [De petits fichiers plutôt qu'un seul](#de-petits-fichiers-plutôt-quun-seul)
+   - [Deux langues, chacune à sa place](#deux-langues-chacune-à-sa-place)
+   - [Une description partout](#une-description-partout)
+   - [Le dépôt du client](#le-dépôt-du-client)
+   - [Le core en tête](#le-core-en-tête)
+   - [Les règles d'écriture face à YAML](#les-règles-décriture-face-à-yaml)
+   - [Les règles d'écriture des exemples](#les-règles-décriture-des-exemples)
+2. [Les mécanismes transverses](mecanismes.md)
+   - [2.1 La référence de fichier — `~{<fichier>}` (D956)](mecanismes.md#21-la-référence-de-fichier--fichier-d956)
+   - [2.2 Le pattern — la liste par expression régulière (D806)](mecanismes.md#22-le-pattern--la-liste-par-expression-régulière-d806)
+   - [2.3 Le cumul de fichiers sous une carte (D968)](mecanismes.md#23-le-cumul-de-fichiers-sous-une-carte-d968)
+   - [2.4 Les variables — `${…}` (D321)](mecanismes.md#24-les-variables---d321)
+   - [2.5 La marque `*` — la clé confidentielle (D944)](mecanismes.md#25-la-marque---la-clé-confidentielle-d944)
+   - [2.6 L'adressage logique — le point (D363)](mecanismes.md#26-ladressage-logique--le-point-d363)
+   - [2.7 Le langage d'expression dans les valeurs (D90–D92)](mecanismes.md#27-le-langage-dexpression-dans-les-valeurs-d90d92)
+   - [2.8 La forme courte et le bloc (D356)](mecanismes.md#28-la-forme-courte-et-le-bloc-d356)
+   - [2.9 Les deux formes d'une collection — la liste et la substitution (D1113)](mecanismes.md#29-les-deux-formes-dune-collection--la-liste-et-la-substitution-d1113)
+   - [2.10 Les défauts du poste informatique (D1114)](mecanismes.md#210-les-défauts-du-poste-informatique-d1114)
+3. L'arbre des fichiers
+   - [L'arbre](arbre.md)
+     - [3.1 `syncytium.yml` — le projet](arbre.md#31-syncytiumyml--le-projet)
+     - [3.2 `environments/` — la configuration technique commune (D325, D342)](arbre.md#32-environments--la-configuration-technique-commune-d325-d342)
+     - [3.3 `versions/` — le cycle de vie en dossiers](arbre.md#33-versions--le-cycle-de-vie-en-dossiers)
+     - [3.4 `version.yml` — l'entrée de la version](arbre.md#34-versionyml--lentrée-de-la-version)
+   - [La version — ce qu'elle porte](version.md)
+     - [3.5 `settings.yml` — la maison des types et des réglages (D359, D360, D991–D993)](version.md#35-settingsyml--la-maison-des-types-et-des-réglages-d359-d360-d991d993)
+     - [3.6 `groups.yml` — les groupes (D414)](version.md#36-groupsyml--les-groupes-d414)
+     - [3.7 Le module — `<module>.yml` (D765, D416)](version.md#37-le-module--moduleyml-d765-d416)
+     - [3.8 L'entité, les champs, les surfaces](version.md#38-lentité-les-champs-les-surfaces)
+     - [3.9 `hooks/` et `reprise/`](version.md#39-hooks-et-reprise)
+       - [`hooks/` — le mécanisme des hooks](version.md#hooks--le-mécanisme-des-hooks)
+   - [L'inventaire des défauts du socle](defauts.md)
+     - [Les décisions de l'inventaire](defauts.md#les-décisions-de-linventaire)
+     - [Le bloc `rgpd:` des settings (D1323)](defauts.md#le-bloc-rgpd-des-settings-d1323)
+     - [Hors de l'inventaire](defauts.md#hors-de-linventaire)
+4. [Les règles](regles.md)
+   - [4. Les cascades — le plus proche l'emporte](regles.md#4-les-cascades--le-plus-proche-lemporte)
+   - [5. L'ingestion — ce qui est refusé](regles.md#5-lingestion--ce-qui-est-refusé)
+5. [Les décisions](#les-décisions)
 
 ## 1. La nature — YAML, de petits fichiers, une seule grammaire
 

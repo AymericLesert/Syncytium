@@ -501,11 +501,12 @@ fields:
 
 Ajoute **une classe de connecteur** — la passerelle globale, déclarée
 à l'environnement (`environments/<env>.yml` — D603/D617, aucune
-déclinaison). **Les huit familles sont closes** (D619/D623/D692) :
-`storage` (les bases — et les formats csv/xml/json des exports et
-imports, D636), `smtp`, `file` (le guetteur), `directory` (l'AD
+déclinaison). **Les neuf familles sont closes** (D619, D623, D692,
+D957) : `storage` (les bases — et les formats csv/xml/json des exports
+et imports, D636), `smtp`, `file` (le guetteur), `directory` (l'AD
 Azure), `location` (le géocodage), `webhook` (les entrées servies),
-`siren`, **`authentication`** (D692 — le contrat
+`siren`, `llm` (le modèle de langage du module `chat`, D957),
+**`authentication`** (D692 — le contrat
 `challenge()`/`verify(preuve)` aux deux visages, l'utilisateur et
 l'API ; les classes `local`/`azure_ad`/`sso` ; la session et le
 rapprochement du compte au moteur — D82/D686) — « il n'existe pas de
@@ -551,23 +552,57 @@ la translation déclarative (le primitif aux quatre usages), **en
 instantané ou en différentiel** — le différentiel rejoignant la
 réplication passive du PCA-PRA (D112–D114).
 
-**L'exemple** — la déclaration à l'environnement (D603/D617) :
+**L'exemple** — la déclaration à l'environnement, dans le fichier que
+l'environnement cite (D603, D617, D1529). Dans le cas 4 (banque),
+`environments/home/connectors.yml` :
 
 ```yaml
-# environments/production.yml — chaque environnement les siens (D617)
-connectors:
-  location:                        # le nom = le type (D612–D613)
-    class: ban            # l'implémentation compatible (D294/D604/D613)
-    parameters:
-      url: https://api-adresse.data.gouv.fr
-      api_key*: ${BAN_API_KEY}     # la marque * (D944) — la référence seule,
-                                   # la variable chiffrée (D603/D902)
-  incoming_orders:
-    type: file                     # le type — le contrat de famille (D605/D613)
-    class: file_std
-    parameters: { path: /exchange/in, format: csv }
-    every: 5min                    # le guetteur — détecté, relu (D604)
+# Les connecteurs de l'environnement : la base, l'authentification, le mail et le dossier du legacy. Chaque connecteur
+# porte sa famille (type), son implémentation (class) et, au besoin, les paramètres de l'implémentation ; quand le nom
+# du connecteur est sa famille, le type ne s'écrit pas. Les chemins viennent des variables du .env de l'environnement.
+
+# La base du foyer
+# Le natif du domestique : un fichier SQLite, sans paramètre.
+database:
+  type: storage
+  class: sqlite
+
+# L'authentification
+# Pas de secrets dans la famille : aucune.
+authentication:
+  class: none
+
+# Le mail sortant
+# Muet, assumé.
+smtp:
+  class: none
+
+# Le legacy
+# La base d'origine de la reprise : les fichiers CSV d'un dossier hors du dépôt, une entité sur un ou plusieurs fichiers
+# du même format.
+legacy:
+  type: storage
+  class: csv
+
+  # Les paramètres du dossier
+  # Le chemin, l'encodage et le séparateur des fichiers.
+  parameters:
+    directory: ${SYNCYTIUM_LEGACY_DIRECTORY}
+    encoding: windows-1252
+    separator: ";"
+
+  # La carte des entités vers les fichiers
+  # Par défaut, la première ligne du fichier porte les entêtes, qui nomment les colonnes de l'entité source ; un fichier
+  # qui s'en écarte se déclare en objet — files, headers (l'entête de substitution), skipheader (sans entête). L'entité
+  # budget lit deux fichiers : l'union de leurs lignes.
+  entities:
+    budget: [budget.txt, budget-clos.txt]
 ```
+
+Une classe ajoutée par un hook se déclare de même : `type:` sa famille,
+`class:` son nom, `parameters:` ce qu'elle attend (D612–D613). Ce
+qu'elle livre — le socle commun et le contrat de sa famille — est
+dans [connectors.md](connectors.md).
 
 ### Ce qui n'est pas un hook
 

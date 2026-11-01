@@ -100,10 +100,11 @@ chaque famille à la fin de son chapitre — les types et leurs méthodes au 2
 (D1674, D1702), les composants au 4, les connecteurs
 au 5, les opérations au 6.
 La lecture de `hooks.md` (17 points, D1657) est faite (D1667–D1691) ;
-la distribution est en cours : le mécanisme au chapitre 1, validé
-(D1692, D1697), le type et ses méthodes au chapitre 2, validés (D1698,
-D1704), le composant au chapitre 4 (D1705) ; le connecteur et
-l'opération viendront avec les chapitres 5 et 6.
+la distribution l'est aussi, validée chapitre par chapitre : le mécanisme
+au chapitre 1 (D1692, D1697), le type et ses méthodes au chapitre 2
+(D1698, D1704), le composant au chapitre 4 (D1705, D1706). Le connecteur
+et l'opération viendront avec les chapitres 5 et 6 ; `hooks.md` se
+dissout alors.
 
 Hors des familles : `glossaire.md` va à `syncytium/glossaire.md` avec le
 premier chapitre ; `etude-comparative-20260718.md` à

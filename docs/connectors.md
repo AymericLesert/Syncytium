@@ -161,7 +161,8 @@ déclaration, le câblage, le socle et le contrat de chaque famille.
 ## La déclaration — `environments/<env>/connectors.yml`
 
 Chaque environnement porte ses connecteurs (D616, D617) : le staging les
-siens, la production les siens, le passif sa réplique ; l'ingestion
+siens, la production les siens, le passif sa réplique, la sandbox ceux
+de son environnement (D911) ; l'ingestion
 vérifie que tous les connecteurs sont décrits dans chaque environnement.
 Un dossier par environnement (D342) : le fichier de l'environnement cite
 le fichier des connecteurs et désigne le storage du modèle (D1094). Dans
@@ -251,7 +252,8 @@ smtp:
   classe, la marque dit la confidentialité, jamais en clair dans un
   journal, la valeur est la référence seule d'une variable chiffrée
   (D603, D902) ; le dépôt versionné ne porte jamais une valeur en clair
-  (D336) ;
+  (D336) ; un secret laissé en clair, `unencrypted:`, se voit chaque
+  jour (D901) ;
 - **`rgpd: countries:`** — les pays du stockage ou de la destination, une
   liste (D1345) ;
 - **`every:`** — le rythme du connecteur (D604 ; la grammaire des durées
@@ -475,6 +477,11 @@ storage — définie, construite et maintenue par Syncytium, la version
 en paramètre système — lue et écrite par le `read`/`update`
 standard.
 
+**Le connecteur porte la facette des types** (D876) : la description
+d'un modèle lu dans un storage étranger référence des types dont le
+connecteur porte la facette ; le `counter` surchargé et le champ `file`
+lu par son connecteur en relèvent (D883).
+
 **La conversion au type** (D681–D682 — le patron visiteur) : le
 contrat d'un type inclut ses règles de conversion vers un storage —
 la classe visite le type, le type se décrit, la classe rend la forme
@@ -520,6 +527,13 @@ quel que soit le format** ; **l'expéditeur est configuré dans les
 propriétés du connecteur**. Les paramètres de `smtp_std`, écrits au cas 5 — `host`, `port`,
 `address_from`, `password*` — sont confirmés par les cas (D945, D1093,
 D1714).
+
+**Les canaux de notification sont des connecteurs** (D108) : les canaux
+autorisés se déclarent dans la description (D109) ; une notification est
+persistée d'abord, une entité du méta-modèle, puis remise (D110),
+localisée (D218) ; la notification in-app est le défaut, le mail un
+setting (D836). **Les mails du socle** partent par `smtp` (D723) : le
+changement de mail (D721), le mail des faits marquants (D733, D748).
 
 ### `directory` (D633)
 
@@ -611,6 +625,7 @@ précisée — posé à l'`initialize` (D621), l'appel entrant déclenche
 l'opération déclarée (D609).
 
 ```yaml
+# Les connecteurs : un webhook aux deux points d'entrée servis
 connectors:
   orders_api:
     type: webhook

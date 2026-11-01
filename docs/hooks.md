@@ -554,6 +554,7 @@ du chapitre 6 (D1720) :
   proposition)* sur l'opération déclarée :
 
 ```yaml
+# Les opérations déclenchées par un connecteur
 operations:
   archive_and_notify:
     when: incoming_orders          # l'événement du connecteur

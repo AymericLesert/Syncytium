@@ -132,6 +132,21 @@ environment:
     notify: <à la promotion>
     publish: <selon visibility>
 
+# Le connecteur : les propriétés du socle de tout connecteur, en proposition jusqu'à l'implémentation
+connector:
+  # La connexion : à l'appel
+  connection: on_demand
+
+  # Le pool : une connexion
+  pool: 1
+
+  # La reprise sur erreur : aucune relance, un délai par famille
+  retry: 0
+  timeout: <par famille>
+
+  # L'erreur : la page de maintenance pour le storage du modèle, le smtp et l'authentication, le mock pour les autres
+  onerror: <maintenance ou mock, selon la famille>
+
 # L'application : les réglages dynamiques
 application:
   # La sandbox : sa rétention
@@ -171,6 +186,8 @@ application:
 - les surfaces : `default` (D186, D438), `breadcrumb` (D549), `size`
   (D533, D549) ;
 - l'environnement : `storage` (D1114), `documentation` (D1167) ;
+- le connecteur : `connection` (D621), `pool` (D622), `retry` et `timeout`
+  (D625), `onerror` (D627) — confirmés D1712, les défauts en proposition ;
 - l'application : `sandbox.retention` (D912), `logging.throttle` (D926),
   `telemetry.values` (D1290, D1291).
 

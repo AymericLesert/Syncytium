@@ -213,6 +213,12 @@ def chapitres(plan):
     return out
 
 
+def ancre(titre):
+    """L'ancre GitHub d'un titre : minuscules, la ponctuation retirée, les espaces en tirets."""
+    t = re.sub(r"[^\w\s-]", "", titre.lower()).strip()
+    return re.sub(r"\s", "-", t)
+
+
 def table(lignes):
     out = ["| # | Le titre | L'état | La fin |", "|---|---|---|---|"]
     for n, titre, etat, d in lignes:
@@ -245,6 +251,8 @@ def main():
         "- [Les huit domaines](#les-huit-domaines)",
         "- [Les rangs du chantier de la documentation](#les-rangs-du-chantier-de-la-documentation)",
         "- [Les étapes des rangs](#les-étapes-des-rangs)",
+        *[f"  - [Le rang {r['n']} — {r['titre']}](#{ancre('Le rang ' + str(r['n']) + ' — ' + r['titre'])})"
+          for r in rangs],
         "- [Les quatorze chapitres du rang 10](#les-quatorze-chapitres-du-rang-10)",
         "",
         "## Les huit domaines",
@@ -268,8 +276,9 @@ def main():
         "Chaque étape est un arbitrage. Sa date de fin est celle de la clôture de",
         "son rang ; pour le rang en cours, celle de sa dernière décision.",
         "",
-        table([(f"{e['rang']}.{e['n']}", e["titre"], e["etat"], e["fin"]) for e in etapes]),
-        "",
+        *[ligne for r in rangs for ligne in (
+            f"### Le rang {r['n']} — {r['titre']}", "",
+            table([(e["n"], e["titre"], e["etat"], e["fin"]) for e in etapes if e["rang"] == r["n"]]), "")],
         "## Les quatorze chapitres du rang 10",
         "",
         "Un chapitre se fait en trois temps : la lecture, la réorganisation, la",

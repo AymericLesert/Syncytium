@@ -665,7 +665,7 @@ le 24/10/2026 — D1424.**)*
 >
 > *Aucune extension* : aucun hook, aucun type ni composant
 > personnalisé. **La référence de Syncytium-1.0** — écrire un hook, les
-> six familles — est embarquée entière (D1411).
+> cinq familles (D1671, D1672) — est embarquée entière (D1411).
 >
 > ## 3. Enrichir
 >

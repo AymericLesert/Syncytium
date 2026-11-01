@@ -684,100 +684,12 @@ d'opération : le chapitre 6, les opérations (D1689, D1720). Ce chapitre
 garde l'écoute du connecteur `file` (D635) et les entrées servies du
 `webhook`, abonnées à l'initialisation (D641).
 
-## La migration et la transformation
-
-Le détail — la description de la source, la grammaire des règles et
-les exemples — vit dans **[mapping.md](mapping.md)** (D661).
-
-- **les deux fonctions essentielles du mapping** (D646) : **la
-  migration entre 2 versions** (à chaud — et la mécanique de la
-  compatibilité ascendante/descendante, le pilier P3) et **la
-  migration entre 2 schémas storage** (le système existant vers le
-  nouveau — les interfaces de Syncytium offrent une vue sur les
-  données migrées et validées) ;
-- **« Syncytium peut convertir ou transférer des données d'un
-  connecteur à l'autre »** (D606) — la translation déclarative, le
-  primitif aux quatre usages ;
-- **le `from:`** (D610) : « pour les migrations/transformations, un
-  connecteur d'entrée et éventuellement un connecteur de sortie » —
-  `connector: { storage: main_db, from: legacy_db }` ;
-- **l'instantané ou le différentiel** (D606) — le changement de
-  moteur par la translation, le différentiel rejoignant la
-  réplication passive du PCA-PRA (D112–D114) ;
-- **le mapping automatique de la migration à chaud** (D632) : entre
-  deux versions du méta-schéma, la translation déclarative dérive les
-  correspondances — le concepteur n'écrit rien ;
-- **l'écriture unifiée (D647–D649)** : **l'usage 1 est implicite**
-  (le `from:` = la version précédente, porté par Syncytium ; ne
-  s'écrivent que le renommage — l'ancien nom gardé —, la
-  **dépréciation inscrite** sur champs/entités/modules, et le
-  changement de type par **les conversions que chaque type porte**
-  D579/D584 ; les règles de création/suppression D11–D13
-  persistent) ; **l'usage 2 parle le même langage** : le `from:`
-  tire le storage d'origine (`get_instance` — D680), **l'exhaustivité** des
-  tables, colonnes, dépendances et contraintes — tout est couvert ou
-  **déclaré ignoré** (D176 étendu), la traduction par les fonctions
-  et conversions du langage unique ;
-- **la dépréciation et le renommage (D650–D651)** : la dépréciation
-  en trois temps — l'intention, l'acte (l'élément répond encore), la
-  suppression par une version — **à documentation obligatoire** (le
-  remplacement ou l'abandon) ; le renommage d'un champ, d'une entité
-  ou d'un module s'assure par **`from: <ancien nom>`** (D1111) ;
-- **les deux maisons (D652–D653)** : **`source/`** — le modèle
-  d'origine décrit **dans la grammaire du méta-modèle**, table par
-  table et colonne par colonne (Syncytium s'assure de la complétude
-  du modèle contre `get_instance`) ; **`mapping/`** — les règles de
-  conversion table par table, aux origines multiples possibles ;
-- **la construction et la clé fonctionnelle (D654)** : le mapping
-  construit l'enregistrement avant sa validation (D177) ; la clé
-  fonctionnelle (D142/D398) l'identifie — le rejeu sans doublon, et
-  la construction des agrégats (compositions/associations) ;
-- **le sens de la règle (D655)** : la lecture **de la table source
-  vers la table cible** — chaque table source déclare où vont ses
-  colonnes ; les origines multiples se rejoignent **par la clé
-  fonctionnelle** (la jointure n'est pas une syntaxe, c'est la clé) ;
-- **la normalisation à la source (D660)** : le champ calculé sur la
-  description de l'entité source (`formula:` — source/ parle toute
-  la grammaire), consommé par le mapping comme une colonne ;
-- **au-delà du 1-1 (D658–D659)** : **le référentiel par valeurs
-  distinctes** — la destination prend les valeurs distinctes d'un
-  champ ou d'une liste de champs, la valeur devient la clé
-  fonctionnelle (`distinct:` validé) ; **les composés par la
-  fonction du type** — `geolocation(lat, lng)`,
-  `amount(montant, devise)` (D579/D584) ;
-- **la forme de la règle (D656)** — la règle au nom de la table
-  source :
-
-```yaml
-# source/order_lines.yml — le modèle d'origine, la même grammaire (D652)
-order_lines:
-  identity: [order_no, line_no]
-  fields:
-    order_no:   text[10]
-    line_no:    integer
-    item_code:  text[8]
-    qty:        integer
-    updated_by: ignored       # le champ ignoré, comme un type (D657)
-
-# source/audit_log.yml — l'entité attendue mais non développée (D657)
-audit_log: ignored
-
-# mapping/order_lines.yml — la règle, de la source vers la cible (D655)
-order_lines:
-  to: sales.order.lines       # la cible — entité ou agrégat
-  key: [order_no, line_no]    # la clé fonctionnelle (D654)
-  parent: order_no            # la clé du possesseur (composition D399)
-  fields:
-    item:     item_code       # les expressions du langage unique
-    quantity: qty
-```
-
-- **le dry-run du `from:` à deux modes (D649)** : **absolu** —
-  tout-ou-rien, la bascule d'un système A vers une application
-  Syncytium ; **relatif** — l'entrepôt : les conformes portés, les
-  erreurs isolées et le rapport à l'administrateur, **la vue sur le
-  taux de couverture** par rapport à la source d'origine (la reprise
-  D175–D179 = ce mode ; les deux postures D180 incarnées).
+La migration et la transformation — le mapping, ses deux maisons
+`source/` et `mapping/`, le sens de la règle, la dépréciation, le
+dry-run (D646–D660) — sont la reprise : le chapitre 8, par
+[mapping.md](mapping.md) (D1721). Ce chapitre garde `from:`, au câblage,
+et la migration à chaud du storage, `duplicate_instance` et
+`rename_instance` (D631, D674).
 
 ## Les points ouverts
 

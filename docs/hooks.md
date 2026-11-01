@@ -412,30 +412,58 @@ ceux qui voient l'entité, D334). **La documentation** d'une opération
 composée est la liste de ses étapes, chacune avec la description de
 son hook (D1227).
 
-**L'exemple** — le fil `sales.order` :
+**L'exemple** — la déclaration, dans l'entité, référence le hook par
+son nom (D432, D609). Dans le cas 4 (banque),
+`banque/ecriture/operations.yml` :
 
 ```yaml
-# sales/entities/order.yml — la déclaration référence le hook par son nom
-operations:
-  invoice:
-    scope: selection               # les cinq portées (D570)
-    cooldown: 10s                  # l'API seule — fin → début (D58/D904) ; défaut : le setting
-    retention: 30d                 # le résultat consultable (D55/D906) ; défaut : le setting
-    uses:                          # le lien attendu → déclaré (D913)
-      documents: archive           #   le connecteur `archive` de l'environnement (D617)
-      mailer: company_smtp
-    commit:
-      mode: confirm                # auto | confirm (D596)
-      form: default                # la relecture au formulaire (D600)
-      message: { fr: "{nb_creations} factures créées" }   # les valeurs nommées (D598)
+# Les opérations de l'écriture. Chacune porte son libellé (label), le formulaire d'appel qui recueille ses paramètres
+# (form) et son mode de validation (commit — confirm pour la relecture avant le scellé, auto sans relecture).
+
+# La duplication entre deux dates
+# Le pas et les deux dates ; la relecture affiche le nombre de créations.
+dupliquer:
+  label: { fr: Dupliquer, en: Duplicate, es: Duplicar }
+  form: duplication
+  commit: confirm
+
+# La propagation aux similaires
+# Le nouveau libellé et le nouveau montant, puis la liste, la sélection, la masse.
+propager:
+  label: { fr: Propager, en: Propagate, es: Propagar }
+  form: propagation
+  commit: confirm
+
+# Le virement
+# Le compte cible et le montant : les deux écritures liées.
+virer:
+  label: { fr: Virer, en: Transfer, es: Transferir }
+  form: virement
+  commit: confirm
+
+# La tâche du relevé
+# Déclenchée par toute génération ; elle pose la date d'impression sur les écritures générées, sans relecture.
+creer_releve:
+  when: generated
+  commit: auto
 ```
 
-Le hook `invoice` (le code) déclare à son contrat `connectors: {
-documents: file, mailer: smtp }` (D913) ; `execute` crée les factures
-**dans la transaction tenue ouverte** ; `confirm` laisse le moteur présenter le
-formulaire et le message ; `commit` scelle et retourne l'issue
-(`download` du PDF, par exemple) ; `rollback` défait si l'utilisateur
-annule.
+Le `commit:` a une forme riche, `{ mode:, form:, message: }` (D600,
+D1606) : `mode:`, `auto` ou `confirm` ; `form:`, le formulaire de la
+relecture ; `message:`, un gabarit nourri des valeurs nommées que
+l'opération rend (D598), `{nb_creations} factures créées`.
+`commit: confirm` en est le raccourci ; sans `form:` ni `message:`, le
+formulaire par défaut, `record`, s'ouvre en lecture seule (D1645). Le
+wizard porte le même `commit:` (D1652). La déclaration porte encore,
+au besoin, `scope:`, l'une des cinq portées (D570) ; `uses:`, les
+connecteurs de l'environnement que le hook attend sous les noms de son
+contrat (D913, D617) ; `cooldown:` et `retention:`, l'anti-rejeu de
+l'API et la durée de consultation du résultat, dont les défauts sont
+des paramètres d'administration (D904, D906). Le hook `dupliquer`
+(le code) exécute dans la transaction tenue ouverte ; `confirm`
+laisse le moteur présenter le formulaire et le message ; `commit`
+scelle et retourne l'issue ; `rollback` défait si l'utilisateur
+annule (D594–D595).
 
 **Le wizard, la même transaction** (D546–D547/D594) : les steps qui
 portent une `operation:` s'exécutent **dans la transaction du

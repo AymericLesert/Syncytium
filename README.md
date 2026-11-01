@@ -105,14 +105,15 @@ Les chapitres, dans l'ordre du plan :
 3. [Le langage d'expression](docs/syncytium/03-langage/README.md) — réécrit.
 4. [Les surfaces et les composants](docs/syncytium/04-composants/README.md) — réécrit.
 5. Les connecteurs.
-6. Les droits et la sécurité.
-7. La reprise et le mapping.
-8. L'administration et l'exploitation.
-9. La télémétrie.
-10. La documentation générée.
-11. Les API et les échanges.
-12. Les cas d'usage.
-13. La méthode et le projet.
+6. Les opérations.
+7. Les droits et la sécurité.
+8. La reprise et le mapping.
+9. L'administration et l'exploitation.
+10. La télémétrie.
+11. La documentation générée.
+12. Les API et les échanges.
+13. Les cas d'usage.
+14. La méthode et le projet.
 
 Les hooks n'ont pas de chapitre : chaque famille se décrit à la fin du
 chapitre de ses composants, le mécanisme au chapitre 1 (D1673).

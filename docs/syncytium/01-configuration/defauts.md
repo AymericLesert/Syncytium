@@ -132,7 +132,8 @@ environment:
     notify: <à la promotion>
     publish: <selon visibility>
 
-# Le connecteur : les propriétés du socle de tout connecteur, en proposition jusqu'à l'implémentation
+# Le connecteur : les propriétés du socle de tout connecteur, minimales ; une classe en compte d'autres, selon son
+# implémentation ; les défauts, en proposition jusqu'à l'implémentation
 connector:
   # La connexion : à l'appel
   connection: on_demand

@@ -253,7 +253,11 @@ lecture, le file, le webhook.)*
 | `describe()` — `describe(model)` pour le storage (D1299) | « générer de la documentation en markdown/html pour la documentation automatique de l'instance » (D630) — la règle de **tous** les hooks (D645), la doc technique assemblée version par version |
 
 **Les propriétés du socle** (D621–D627, confirmées D1712) — tout
-connecteur les porte, un cas n'écrit que ce qu'il surcharge ; leurs
+connecteur les porte, un cas n'écrit que ce qu'il surcharge ; elles sont
+minimales : « un connecteur peut compter plus de propriétés et cela
+dépendra de leur implémentation » (D1713), les propriétés spécifiques
+d'une classe, la carte `entities:` d'un storage de format, la
+`convention:` d'un storage de reprise ; leurs
 défauts sont à l'inventaire du chapitre 1, en proposition jusqu'à
 l'implémentation :
 

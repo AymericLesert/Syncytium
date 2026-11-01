@@ -141,7 +141,7 @@ plusieurs se décrit par la liste de ses étapes, chacune avec sa
 description (D1227). Le md est une configuration : il ne cite ni
 décision ni histoire du cas (D1085).
 
-**Les traces codifiées** (D1461–D1463 ; la forme en proposition — le
+**Les traces codifiées** (D1461–D1463, la forme confirmée, D1685 — le
 gabarit sur le message, la description et chaque nœud ; l'arbre en
 nœuds, une analyse et des branches, acyclique par construction ; **le
 raccourci selon le niveau** : une trace `debug` n'a que son code et son
@@ -413,7 +413,7 @@ l'orchestration de références est déclarative, et la séquence
 s'exécute **dans la même transaction tenue ouverte** (D594). **Le
 `notify` sans destinataire remonte à tout le monde, dans la zone des
 notifications de l'application ; le relais par mail est le choix de
-chacun, dans son profil** (D1228 — ma lecture : « tout le monde » =
+chacun, dans son profil** (D1228, la lecture confirmée D1685 — « tout le monde » =
 ceux qui voient l'entité, D334). **La documentation** d'une opération
 composée est la liste de ses étapes, chacune avec la description de
 son hook (D1227).

@@ -112,8 +112,11 @@ La fiche suit la forme commune du chapitre 1 (D809) : `name`,
 `description`, `code`, `properties`. Le code livre la signature et le
 composant. L'exemple est inventé, aucun cas n'en porte : un type `isbn`,
 l'identifiant d'un livre, que le catalogue n'a pas, alors qu'il a `iban`
-(D391). Le code livre la conversion `isbn(x)`, l'égalité, le tri, la clé
-vérifiée, les parties `.group`, `.publisher` et `.title`, la déclinaison
+(D391). L'ISBN est l'identifiant international du livre, à dix ou treize
+chiffres, dont le dernier est une clé de contrôle
+([AFNIL](https://www.afnil.org/isbn/)). Le code livre la conversion
+`isbn(x)`, l'égalité, le tri, la clé vérifiée par sa méthode `check`,
+ci-dessous, les parties `.group`, `.publisher` et `.title`, la déclinaison
 en `text[..17]` (D1298) et le composant `isbn` (D458).
 `hooks/types/isbn/isbn.yml` :
 
@@ -172,8 +175,8 @@ isbn: isbn
 Une fonction est une méthode d'un type (D1674). Le hook de fonction est
 porté par le type qui expose ses fonctions (D1676) : « le hook de
 fonction est porté par le type qui exposera ses fonctions ». Le hook qui
-ajoute une fonction dit donc quel type l'expose, `text` pour
-`extract_name`, et un type apporté par un hook liste ses fonctions dans
+ajoute une fonction dit donc quel type l'expose, `isbn` pour
+`check`, et un type apporté par un hook liste ses fonctions dans
 sa propre fiche. La clé qui le dit, `type:`, reste en proposition.
 
 Le hook de fonction se complétera à l'implémentation (D1684) : « ça
@@ -204,26 +207,46 @@ besoin ». Elles sont décrites au chapitre 3,
 
 ### La déclaration et l'usage
 
-L'exemple est inventé, aucun cas n'en porte (D1681) : une fonction
-`extract_name`, l'expression régulière à groupes nommés (D593).
+L'exemple est inventé, aucun cas n'en porte : la méthode `check` du type
+`isbn`, ci-dessus, qui valide la clé de contrôle de l'identifiant. Le
+type porte la validation de l'identifiant et ses méthodes (D1699) ;
+`check` en est une. La fiche nomme le type qui l'expose.
+`hooks/functions/check/check.yml` :
 
 ```yaml
-# La déclaration du hook : la signature, le code au langage de Syncytium.
-functions:
-  extract_name:
-    # Les paramètres typés.
-    parameters: { raw: text }
+# La méthode check du type isbn
+# Vraie quand la clé de contrôle est juste : à dix chiffres, la somme pondérée de 10 à 1 est un multiple de 11,
+# X valant dix ; à treize chiffres, la somme pondérée 1, 3, 1, 3… est un multiple de 10.
+name: check
 
-    # Le résultat : des valeurs nommées, un seul calcul nourrit plusieurs champs.
-    result: { prenom: text, nom: text }
+# Le type qui expose la méthode
+type: isbn
+
+# La description
+# La documentation de la méthode, en Markdown, une par langue de la version.
+description:
+  fr: ~{documentation.fr.md}
+  en: ~{documentation.en.md}
+
+# Le code
+# La signature, un booléen sans paramètre, et le calcul de la clé.
+code: ~{source.txt}
+
+# Les propriétés
+# Aucune.
+properties: { }
 ```
 
-L'usage, un seul calcul pour deux champs :
+L'usage est celui d'une fonction du type, dans toute expression. Une
+règle de validation l'appelle, et le projet choisit la sévérité : un
+livre ancien porte parfois une clé mal imprimée, la règle demande
+confirmation plutôt que de bloquer.
 
 ```yaml
-# Les deux champs nourris par le même appel.
-fields:
-  prenom: { formula: extract_name(raw).prenom }
-
-  nom: { formula: extract_name(raw).nom }
+# La cohérence des données
+validation:
+  # La clé de l'ISBN est juste ; une clé fausse se confirme
+  - rule: check(isbn)
+    severity: confirm
+    message: La clé de contrôle de l'ISBN {isbn} est fausse.
 ```

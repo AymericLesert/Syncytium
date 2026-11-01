@@ -247,20 +247,64 @@ mots par langue), et l'enregistrement en paramètre
 (`label(mon_nom, customer)` — « le nom des champs devient les
 paramètres »).
 
-**L'exemple** — le fondateur des échanges (« définir un type
-progression… puis un champ avancement de type progression ») :
+**Un dérivé ou un hook ?** Le type `progression` — « définir un type
+progression… puis un champ avancement de type progression » — est un
+`integer[0..100]` rendu par le composant `fuel`. Il ne demande aucun
+code : c'est un type dérivé (D359, D992), déclaré dans les settings sous
+`field:` (D1239) et décrit au chapitre 2
+([types.md](syncytium/02-modele/types.md), « Les types dérivés »). Le
+hook de type sert quand le catalogue n'a pas le type : il apporte un
+type nouveau, avec sa signature complète (D1668).
+
+**L'exemple** — un type `iban`, l'identifiant d'un compte bancaire,
+que le catalogue n'a pas : la fiche `hooks/types/iban/iban.yml` suit
+la forme de D809, comme celle de `dupliquer` ; le code livre la
+signature — la conversion `iban(x)`, l'égalité, le tri, la clé
+vérifiée, les parties `.country`, `.bank` et `.account`, la
+déclinaison en `text[..34]` (D1298), le composant `iban` (D458) :
 
 ```yaml
-# le type déclaré au setting (l'instance, le module ou l'entité)
-settings:
-  types:
-    progression:
-      type: integer[0..100]        # le socle du type (le chaînage possible)
-      component: fuel              # son visage (D459)
+# Le type iban
+# Un identifiant de compte bancaire, vérifié par sa clé ; ses parties : le pays, la banque, le compte.
+name: iban
 
-# l'usage — comme un type du socle (D408 : le mot hook n'apparaît pas)
-fields:
-  avancement: progression
+# La description
+# La documentation du type, en Markdown, une par langue de la version.
+description:
+  fr: ~{documentation.fr.md}
+  en: ~{documentation.en.md}
+
+# Le code
+# La signature du type et son composant.
+code: ~{source.txt}
+
+# Les propriétés
+# Les pays admis, en codes à deux lettres ; vide, tous les pays le sont.
+properties:
+  countries:
+    mode: static
+    type: list of text[2]
+    value: [ ]
+```
+
+L'usage est celui d'un type du socle (D408 : le mot hook n'apparaît
+pas) ; les défauts se règlent sous `field:`, comme ceux de tout type
+(D991, D1239) :
+
+```yaml
+# Les champs
+field:
+
+  # Le type iban
+  # Les comptes de la zone euro seulement.
+  iban:
+    countries: [ FR, DE, ES, IT ]
+```
+
+```yaml
+# Le compte du tiers
+# Son identifiant bancaire, vérifié à la saisie.
+compte: iban
 ```
 
 **Le pivot avec le storage** (D1297 — le 15/10/2026) : « Le storage

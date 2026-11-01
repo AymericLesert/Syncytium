@@ -11,7 +11,8 @@ qui ne change pas d'un champ à l'autre : sa validation, son tri, ses
 opérateurs, ses fonctions, son composant d'écran, sa forme en base. Ce
 fichier décrit ce que tous les types partagent, puis les types simples.
 Les types composés et les liens ont leurs propres fichiers,
-[composes.md](composes.md) et [liens.md](liens.md).
+[composes.md](composes.md) et [liens.md](liens.md) ; les types qu'un hook
+ajoute, [hooks.md](hooks.md).
 
 ## Le sommaire
 
@@ -112,7 +113,7 @@ storage rend sa forme native. Le contrat couvre trois choses :
 - **l'identification** : le type se reconnaît dans la structure native,
   à l'introspection (D684).
 
-Le hook de type fournit ce contrat ([liens.md](liens.md)).
+Le hook de type fournit ce contrat ([les hooks du modèle](hooks.md)).
 
 ### Les types dérivés
 

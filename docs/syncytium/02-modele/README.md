@@ -52,12 +52,14 @@ entre parenthèses renvoient au [registre](../../conception.md).
    - [Les collections et les plages](liens.md#les-collections-et-les-plages)
    - [Les liens](liens.md#les-liens)
    - [Les générés et le contexte](liens.md#les-générés-et-le-contexte)
-   - [Les types ajoutés par un hook](liens.md#les-types-ajoutés-par-un-hook)
-8. [Ce que le modèle livre à la documentation](documentation.md)
+8. [Les hooks du modèle — le type et la fonction](hooks.md)
+   - [Le hook de type](hooks.md#le-hook-de-type)
+   - [Le hook de fonction](hooks.md#le-hook-de-fonction)
+9. [Ce que le modèle livre à la documentation](documentation.md)
    - [L'entité dans le diagramme](documentation.md#lentité-dans-le-diagramme)
    - [La facette de l'entité et du champ](documentation.md#la-facette-de-lentité-et-du-champ)
    - [La facette du type](documentation.md#la-facette-du-type)
-9. [Les décisions](#les-décisions)
+10. [Les décisions](#les-décisions)
 
 ## La doctrine
 
@@ -133,4 +135,7 @@ D388–D392, D394–D402, D404–D405, D409, D412, D420–D421, D427, D496–D49
 D585–D586, D589, D638, D682, D687, D761, D771, D773, D894, D941, D961, D972,
 D974–D976, D981, D983–D984, D987–D988, D991–D992, D998–D999, D1001, D1009,
 D1016, D1035, D1039, D1277, D1304–D1305, D1550, D1553–D1561. Chacune se lit
-dans [le registre](../../conception.md).
+dans [le registre](../../conception.md). Les hooks du modèle,
+[hooks.md](hooks.md), reposent sur les décisions de la famille des hooks
+(D1698) ; elles rejoindront cette liste à la dissolution de `hooks.md`
+(D1673).

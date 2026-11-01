@@ -3,7 +3,8 @@
 Un champ ne porte pas toujours une seule valeur. Il peut porter une
 liste, une plage, ou pointer vers d'autres enregistrements. Il peut
 aussi être produit par Syncytium : un numéro, un calcul, un statut. Ce
-fichier décrit ces types, puis ceux qu'un hook ajoute.
+fichier décrit ces types ; ceux qu'un hook ajoute sont dans
+[les hooks du modèle](hooks.md).
 
 ## Le sommaire
 
@@ -22,7 +23,6 @@ fichier décrit ces types, puis ceux qu'un hook ajoute.
   - [Le champ calculé, `formula:`](#le-champ-calculé-formula)
   - [Le statut, `states:`](#le-statut-states)
   - [L'entité `context`](#lentité-context)
-- [Les types ajoutés par un hook](#les-types-ajoutés-par-un-hook)
 
 ## Les collections et les plages
 
@@ -234,39 +234,3 @@ Le moteur, en lecture seule (D254, D588–D591). Ses parties :
 
 Une entité de l'application nommée `context` prend le pas ; l'ingestion
 le signale par un avertissement.
-
-## Les types ajoutés par un hook
-
-> **Un hook** prolonge Syncytium par du code, écrit contre son contrat.
-> Il y en a cinq familles : le type, le composant, l'opération, la
-> fonction, le connecteur ([glossaire](../../glossaire.md)).
-
-Tout type ajouté suit le contrat de la famille, décrit dans
-[les hooks](../../hooks.md).
-
-- **La signature complète** : la conversion, les opérateurs, les
-  comparateurs, les fonctions dédiées, le tri ([types.md](types.md)).
-- **La représentation obligatoire** : le registre le dit, « aucun type
-  sans visage » (D459).
-
-L'exemple fondateur est le type `progression`, un `integer[0..100]`
-rendu par le composant `fuel`, employé par `avancement: progression`.
-
-**Le storage influe sur le hook de type** (D1297). Le registre le dit :
-« le storage influe le hook des types pour définir les propriétés ou les
-éléments à couvrir ». Le type fournit sa forme native, ses gestes, son
-identification, ses index, sa partition ; le storage les exploite au
-mieux.
-
-**Tout type se décline en types élémentaires** (D1298, D1300), le format
-pivot :
-
-- **en un élémentaire** : booléen, entier, long, décimal, texte…, avec
-  ses propriétés génériques ; `text[..40]` a sa longueur maximale ;
-- **ou en une liste nommée d'élémentaires** : `measure` devient
-  `{ valeur: decimal, unite: enum }`, `amount` devient
-  `{ valeur: decimal, devise: text[3] }` ;
-- **un énuméré** se décline en entier, l'indice, ou en texte, le code.
-
-Le storage ne convertit que des élémentaires : c'est ce qui rend le
-modèle extensible.

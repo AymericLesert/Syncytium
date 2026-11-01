@@ -34,62 +34,139 @@ renvoient à la [conception](conception.md).
 - **La sobriété** (D612) : « quelques connecteurs suffiront au bon
   fonctionnement de l'application ».
 
-## La déclaration — `environments/<env>.yml`
+## La déclaration — `environments/<env>/connectors.yml`
 
-La déclaration « décrit la liste des connecteurs disponibles pour le
-fonctionnement de l'application » (D610/D612) — **portée par chaque
-environnement** (D616–D617 : le staging les siens, la production les
-siens, le passif sa réplique ; la complétude vérifiée à
-l'ingestion) :
+Chaque environnement porte ses connecteurs (D616, D617) : le staging les
+siens, la production les siens, le passif sa réplique ; l'ingestion
+vérifie que tous les connecteurs sont décrits dans chaque environnement.
+Un dossier par environnement (D342) : le fichier de l'environnement cite
+le fichier des connecteurs et désigne le storage du modèle (D1094). Dans
+le cas 5 (entrepôt), `environments/production/production.yml` :
 
 ```yaml
-# environments/staging.yml
-connectors:
-  main_db:
-    type: storage
-    class: postgresql
-    parameters:
-      password*: ${DB_PASSWORD}       # la marque * (D944) — la variable chiffrée (D902)
-  smtp:    { class: smtp_std }        # le simple : le nom = le type (D612)
-  location:
-    class: ban                        # le géocodage (D294/D604)
-    parameters:
-      url: https://api-adresse.data.gouv.fr
-      api_key*: ${BAN_API_KEY}        # la marque * (D944)
-  incoming_orders:
-    type: file
-    class: file_std
-  legacy:
-    type: storage
-    class: csv
-    parameters: { directory: ${LEGACY_DIR}, encoding: windows-1252, separator: ";" }
-    entities:                         # la carte entités → fichiers (D828/D845) — au même
-      budget: [budget.*\.txt]        #   niveau que parameters ; liste ou pattern (D806) ;
-      # le défaut : la 1re ligne = les entêtes existantes (D845) ; les écarts
-      # à l'objet — files: + headers: [..] (la substitution, l'ordre des
-      # colonnes) + skipheader: false (le fichier sans entête)
-    parameters: { path: /exchange/in, format: csv }
-    every: 5min                                # le guetteur (D603–D604)
+# La description de l'environnement de production — la vie courante de l'application
+description: ~{README.md}
+
+# L'adresse et le port servis
+# Par les variables du déploiement : un changement du réseau ne fait pas une nouvelle version.
+listen:
+  url: ${SYNCYTIUM_URL}
+  port: ${SYNCYTIUM_PORT}
+
+# La base de l'application
+# Le connecteur storage qui porte le modèle et ses données ; les autres storages de l'environnement servent la reprise.
+storage: entrepot
+
+# La journalisation
+# Le niveau des traces, leur format et le fichier du journal de l'environnement.
+logging: ~{logging.yml}
+
+# Le nettoyage des fichiers
+# Les règles de rétention de l'environnement : le journal, le détail des migrations, les dépôts des watchers.
+cleanup: ~{cleanup.yml}
+
+# Les connecteurs
+# Les bases, les services et les annuaires que l'application utilise dans cet environnement ; leurs paramètres viennent
+# des variables du .env de l'environnement, les secrets y sont chiffrés.
+connectors: ~{connectors.yml}
 ```
 
-- **`type:`** — la famille-contrat ; « pour les cas les plus simples,
-  le type est le nom du connecteur » (D612) ;
-- **`class:`** — la classe qui remplit le contrat (D613/D615) ; le
-  mot `hook` ne paraît pas dans la configuration (D408) ;
-- **`parameters:`** — les propriétés (la forme des settings — D588) ;
-- **les secrets : le paramètre marqué `*`** (D944 — la forme
-  validée, la liste `secrets:` de D603 effacée) : `password*:
-  ${CEGID_PASSWORD}` dans `parameters:` — le nom du paramètre est le
-  contrat de la classe, la marque dit la confidentialité (jamais en
-  clair dans un journal), la valeur est **la référence seule** : « les
-  secrets peuvent faire référence à une variable d'environnement, et
-  la variable peut être cryptée via une clé construite en fonction de
-  l'environnement et de la machine d'exécution » (D603) — le dépôt
-  versionné (D336) ne porte jamais une valeur en clair ;
-- **`every:`** — la grammaire D434/D476, « pour les connecteurs qui
-  ont besoin d'être régulièrement rafraîchis **ou testés** — par
-  exemple un file watcher : la détection de présence d'un fichier, le
-  fichier mis à jour et relu » (D604).
+`environments/production/connectors.yml`, la base de l'application et le
+mail sortant (D1708) :
+
+```yaml
+# L'entrepôt
+# La base de l'application : un schéma PostgreSQL.
+entrepot:
+  type: storage
+  class: postgresql
+  parameters:
+    host: ${ENTREPOT_HOST}
+    database: ${ENTREPOT_DATABASE}
+    schema: entrepot
+    user: ${ENTREPOT_USER}
+    password*: ${ENTREPOT_PASSWORD}
+
+  # Le réglementaire
+  # Le stockage est en France.
+  rgpd:
+    countries: [FR]
+
+# Le mail sortant
+# Le relais de messagerie de l'entreprise : les rapports de la migration et les alertes partent par lui.
+smtp:
+  class: smtp_std
+  parameters:
+    host: ${SMTP_HOST}
+    port: 587
+    address_from: ${SMTP_FROM}
+    password*: ${SMTP_PASSWORD}
+
+  # Le réglementaire
+  # Le relais de messagerie est en France.
+  rgpd:
+    countries: [FR]
+```
+
+- **`type:`** — la famille, le contrat ; omis quand le nom du connecteur
+  est sa famille, écrit quand plusieurs connecteurs partagent une
+  famille (D612, D1093) ;
+- **`class:`** — la classe qui remplit le contrat (D613, D615) ; le mot
+  « hook » ne paraît pas dans la configuration (D408) ;
+- **`parameters:`** — les propriétés de la classe, par les variables du
+  `.env` de l'environnement (D588, D321) ;
+- **le secret, le paramètre marqué `*`** (D944) : `password*:
+  ${ENTREPOT_PASSWORD}` — le nom du paramètre est le contrat de la
+  classe, la marque dit la confidentialité, jamais en clair dans un
+  journal, la valeur est la référence seule d'une variable chiffrée
+  (D603, D902) ; le dépôt versionné ne porte jamais une valeur en clair
+  (D336) ;
+- **`rgpd: countries:`** — les pays du stockage ou de la destination, une
+  liste (D1345) ;
+- **`every:`** — le rythme du connecteur (D604) : la fréquence du
+  `ping()` (D621) et, pour un connecteur `file`, le thread d'écoute du
+  dossier (D635) ; l'événement détecté déclenche l'opération déclarée par
+  son `when:`, au chapitre 6 (D609, D1689). Aucun cas n'en porte ; un
+  dossier de commandes surveillé s'écrirait :
+
+```yaml
+# Les commandes entrantes
+# Le dossier surveillé : le connecteur l'écoute toutes les cinq minutes, et l'opération déclarée se déclenche.
+incoming_orders:
+  type: file
+  class: file_std
+  parameters:
+    directory: ${ORDERS_DIRECTORY}
+  every: 5min
+```
+
+La base d'origine d'une reprise est un connecteur comme les autres. Dans
+le cas 4 (banque), `environments/home/connectors.yml`, les fichiers CSV
+du legacy et la carte des entités vers les fichiers, une liste ou un
+motif (D828, D845, D806) :
+
+```yaml
+# Le legacy
+# La base d'origine de la reprise : les fichiers CSV d'un dossier hors du dépôt, une entité sur un ou plusieurs fichiers
+# du même format.
+legacy:
+  type: storage
+  class: csv
+
+  # Les paramètres du dossier
+  # Le chemin, l'encodage et le séparateur des fichiers.
+  parameters:
+    directory: ${SYNCYTIUM_LEGACY_DIRECTORY}
+    encoding: windows-1252
+    separator: ";"
+
+  # La carte des entités vers les fichiers
+  # Par défaut, la première ligne du fichier porte les entêtes, qui nomment les colonnes de l'entité source ; un fichier
+  # qui s'en écarte se déclare en objet — files, headers (l'entête de substitution), skipheader (sans entête). L'entité
+  # budget lit deux fichiers : l'union de leurs lignes.
+  entities:
+    budget: [budget.txt, budget-clos.txt]
+```
 
 ## Le câblage — les rôles nommés
 

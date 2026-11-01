@@ -91,7 +91,9 @@ cours de réécriture**, chapitre par chapitre : chaque chapitre est relu
 contre les décisions qui le fondent, découpé en documents courts, puis
 réécrit pour être didactique, illustré d'exemples et lisible dans GitHub.
 Le plan et l'avancement, chapitre par chapitre, sont dans
-[docs/README.md](docs/README.md).
+[docs/README.md](docs/README.md) ; le plan complet de la conception — les
+domaines, les rangs, les étapes, les chapitres, chacun avec son état et sa
+date de fin — est dans [docs/histoire/plan.md](docs/histoire/plan.md).
 
 Les mots du projet, de l'agrégat au type, sont définis dans
 [le glossaire](docs/glossaire.md).

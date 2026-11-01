@@ -9,4 +9,6 @@ décisions une à une, les questions ouvertes et closes, et le journal
 des échanges. Les chapitres de Syncytium, eux, disent ce qui est.
 
 En attendant, tout se lit dans le registre :
-[`conception.md`](../conception.md).
+[`conception.md`](../conception.md). Une page est déjà là : [le plan de la
+conception](plan.md), les domaines, les rangs, les étapes et les
+chapitres, chacun avec son état et sa date de fin (D1660).

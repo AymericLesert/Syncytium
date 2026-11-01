@@ -11,4 +11,7 @@ des échanges. Les chapitres de Syncytium, eux, disent ce qui est.
 En attendant, tout se lit dans le registre :
 [`conception.md`](../conception.md). Une page est déjà là : [le plan de la
 conception](plan.md), les domaines, les rangs, les étapes et les
-chapitres, chacun avec son état et sa date de fin (D1660).
+chapitres, chacun avec son état et sa date de fin (D1660). Une seconde
+page dit [la collaboration](collaboration.md) : la nature des échanges,
+l'organisation du travail, l'enrichissement mutuel, et les posts
+LinkedIn qui racontent les phases (D1664).

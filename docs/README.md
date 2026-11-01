@@ -32,6 +32,7 @@ docs/
 ├── histoire/              partie 2 : ce qui a été
 │   ├── README.md          le résumé du cheminement, juin → octobre 2026
 │   ├── plan.md            le plan de la conception : les domaines, les rangs, les étapes, les chapitres (D1660)
+│   ├── collaboration.md   la collaboration : les échanges, l'organisation, l'enrichissement mutuel, les posts (D1664)
 │   ├── decisions/         une décision par fichier, un sous-dossier par famille, l'index généré
 │   ├── questions.md       les questions ouvertes et closes
 │   ├── journal/           le journal des échanges, un fichier par mois

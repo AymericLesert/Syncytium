@@ -379,9 +379,9 @@ porte le nom du type. *(D456, D458)*
 « Beta vx.y.z.w » par défaut, personnalisable ou absente. *(D1145)*
 
 **Fonction** — Une opération du langage qui prend des valeurs en arguments et
-rend une valeur, ou plusieurs valeurs nommées. Le catalogue est en anglais ;
-chaque type emmène les siennes, un hook de type en ajoute, par ses méthodes,
-`methods:`.
+rend une valeur, ou plusieurs valeurs nommées. Toute fonction est une
+méthode d'un type (D1674). Le catalogue est en anglais ; chaque type emmène
+les siennes, un hook de type en ajoute, par ses méthodes, `methods:`.
 *Ex. : `left(code, 3)`, `ifnull(remise, 0)`.* *(D301, D571, D579, D593)*
 
 **Fonction d'agrégation** — Une méthode d'une collection qui en résume
@@ -611,6 +611,12 @@ d'un tableau de bord ; un sous-menu porte ses entrées.
 **Méta-schéma** — La description complète d'un modèle de données —
 modules, entités, champs — **et la grammaire utilisée** pour les
 écrire. Chaque version porte un méta-schéma. *(D322)*
+
+**Méthode** — Une fonction qu'un type expose sur ses valeurs :
+`isbn.check()`, `stock.sum(quantity)`. Toute fonction du langage est une
+méthode de son type ; un type ajouté par un hook décrit les siennes dans
+sa fiche, sous `methods:`, une par clé, chacune avec sa signature, sa
+documentation et son code. *(D1674, D1676, D1700, D1702)*
 
 **Migration** — Deux sens voisins. Le passage d'une version de
 configuration à la suivante, sans arrêter l'application : la base, les

@@ -187,9 +187,9 @@ isbn: isbn
 
 ## Les méthodes d'un type
 
-> **Une fonction** est une opération du langage qui prend des valeurs
-> en arguments et rend une valeur, ou plusieurs valeurs nommées. Chaque
-> type emmène les siennes, un hook de type en ajoute, par ses méthodes
+> **Une méthode** est une fonction qu'un type expose sur ses valeurs,
+> `isbn.check()`. Toute fonction du langage est une méthode de son
+> type ; un type ajouté par un hook décrit les siennes dans sa fiche
 > ([glossaire](../../glossaire.md)).
 
 Une fonction est une méthode d'un type (D1674) ; la fonction n'est pas

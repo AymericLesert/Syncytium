@@ -66,10 +66,13 @@ citées entre parenthèses renvoient au [registre](../../conception.md).
    - [`dashboard`](surfaces.md#dashboard)
    - [`template`](surfaces.md#template)
    - [`chat`](surfaces.md#chat)
-7. [L'assistance et la documentation](documentation.md)
+7. [Le hook de composant](hooks.md)
+   - [Le composant ajouté](hooks.md#le-composant-ajouté)
+   - [Ce qui n'est pas un hook](hooks.md#ce-qui-nest-pas-un-hook)
+8. [L'assistance et la documentation](documentation.md)
    - [L'assistance — les trois groupes d'une surface](documentation.md#lassistance--les-trois-groupes-dune-surface)
    - [La documentation — la facette des composants graphiques et des surfaces](documentation.md#la-documentation--la-facette-des-composants-graphiques-et-des-surfaces)
-8. [Les décisions](#les-décisions)
+9. [Les décisions](#les-décisions)
 
 ## Le nœud
 
@@ -244,7 +247,8 @@ Tout nœud de l'arbre d'une surface a la même signature, en sept traits
    (D307).
 7. **Le hook** ajoute au catalogue, pour un nom donné, un objet qui gère
    le composant et son rendu dans chaque format : le Web, le PDF, le
-   Word, l'Excel, l'email (D408, D452 ; les destinations, D564).
+   Word, l'Excel, l'email (D408, D452 ; les destinations, D564) ; sa fiche
+   et son usage sont dans [le hook de composant](hooks.md).
 
 ## Les décisions
 
@@ -259,4 +263,7 @@ D566–D569, D600–D601, D737, D752, D774–D775, D780, D782–D783, D785–D78
 D788, D792–D795, D806, D875, D935, D957, D980, D1024, D1036, D1062, D1170,
 D1193, D1237, D1263, D1308, D1339–D1340, D1372, D1374, D1590, D1593–D1614,
 D1616–D1618, D1620, D1622, D1624–D1629, D1631–D1643, D1645.
-Chacune se lit dans [le registre](../../conception.md).
+Chacune se lit dans [le registre](../../conception.md). Le hook de
+composant, [hooks.md](hooks.md), repose sur les décisions de la famille
+des hooks (D1705) ; elles rejoindront cette liste à la dissolution de
+`hooks.md` (D1673).

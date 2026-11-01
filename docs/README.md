@@ -102,7 +102,8 @@ au 5, les opérations au 6.
 La lecture de `hooks.md` (17 points, D1657) est faite (D1667–D1691) ;
 la distribution est en cours : le mécanisme au chapitre 1, validé
 (D1692, D1697), le type et ses méthodes au chapitre 2, validés (D1698,
-D1704), puis le composant au chapitre 4.
+D1704), le composant au chapitre 4 (D1705) ; le connecteur et
+l'opération viendront avec les chapitres 5 et 6.
 
 Hors des familles : `glossaire.md` va à `syncytium/glossaire.md` avec le
 premier chapitre ; `etude-comparative-20260718.md` à

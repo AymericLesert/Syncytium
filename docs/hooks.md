@@ -12,7 +12,7 @@ décrire à la fin de chaque chapitre où pouvons en avoir ». Le
 mécanisme et la déclaration vont au chapitre 1, chaque famille à la fin
 du chapitre de ses composants — les types et leurs méthodes au 2
 (D1674, D1702), les composants au 4, les connecteurs au 5, les opérations au
-6 (D1675) ; la lecture en cours prépare cette distribution. **Le mécanisme est écrit au chapitre 1** (D1692), [version.md](syncytium/01-configuration/version.md) § 3.9 ; **le type et ses méthodes au chapitre 2** (D1698), [02-modele/hooks.md](syncytium/02-modele/hooks.md) ; la doctrine, la maison et les fiches ci-dessous restent jusqu'à la dissolution.
+6 (D1675) ; la lecture en cours prépare cette distribution. **Le mécanisme est écrit au chapitre 1** (D1692), [version.md](syncytium/01-configuration/version.md) § 3.9 ; **le type et ses méthodes au chapitre 2** (D1698), [02-modele/hooks.md](syncytium/02-modele/hooks.md) ; **le composant au chapitre 4** (D1705), [04-composants/hooks.md](syncytium/04-composants/hooks.md) ; la doctrine, la maison et les fiches ci-dessous restent jusqu'à la dissolution.
 
 **Le périmètre** (D1669) : la déclaration d'un hook dans
 la configuration — les familles, la chaîne des fichiers, la fiche et

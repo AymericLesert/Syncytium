@@ -299,8 +299,9 @@ démarrage.
    qu'il attend d'un type (la forme native, les gestes, l'identification,
    les index qu'il sait porter, la partition), le type le fournit, le
    storage en tire le meilleur parti ; un type qui ne couvre pas un
-   élément est dégradé (une colonne texte), jamais refusé *(D1300 ;
-   le contrat du hook de type, [hooks.md](hooks.md))*.
+   élément attendu est refusé à l'ingestion, jamais dégradé *(D1690 ;
+   le contrat du hook de type,
+   [les hooks du modèle](syncytium/02-modele/hooks.md))*.
 
 **Le contrat parle le langage du méta-modèle** (D680) — l'instance,
 l'entité, le champ ; jamais le vocabulaire du moteur (le schema

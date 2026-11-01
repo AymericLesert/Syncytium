@@ -87,6 +87,12 @@ question et chaque réponse sont tracées dans une **session
 d'échanges**, adossée à un module — une session par module et par
 utilisateur. *(D957–D959)*
 
+**Classe de connecteur** (`class`) — L'implémentation d'une famille :
+`postgresql`, `ban`, `smtp_std`… Elle remplit le contrat de sa famille,
+expose ses paramètres, le nom, le type, le défaut, la marque du secret,
+et peut compter des propriétés propres. Le socle en fournit, un hook de
+connecteur en ajoute. *(D613, D1711, D1713, D1714)*
+
 **Clé fonctionnelle** (`identity`) — Identifie un enregistrement
 aux yeux du métier de façon unique : un code client, un numéro de facture. Elle peut
 changer un jour ; l'identité technique, elle, jamais. Toute entité
@@ -146,16 +152,17 @@ est fausse. *Ex. : `"cloture" if date_fin is not null else "actif"`.* *(D580, D1
 donnée : `public` (partout), `protected` (l'interface et les tâches),
 `private` (les tâches seulement) — resserrable par groupes. *(D25)*
 
-**Connecteur** (`environments/<env>.yml`) — Une passerelle entre
+**Connecteur** (`environments/<env>/connectors.yml`) — Une passerelle entre
 Syncytium et un système tiers : une base de données, un annuaire, des
 fichiers, un géocodeur, un serveur de mail… Le connecteur décrit ses
 entrants et ses sortants — la lecture et l'écriture selon les
 spécificités de sa famille. Il est **global** (aucune déclinaison par
 module ni entité) et **déclaré à l'environnement** : chaque
 environnement les siens, la complétude vérifiée à l'ingestion. **Son
-type est sa famille — et son contrat** : huit familles closes
-(`storage`, `smtp`, `file`, `directory`, `location`, `webhook`,
-`siren`, `authentication`) dont chacune contraint les méthodes ; sa **classe**
+type est sa famille — et son contrat** : neuf familles, définies par le
+socle (`storage`, `smtp`, `file`, `directory`, `location`,
+`authentication`, `siren`, `webhook`, `llm`) dont chacune contraint les
+méthodes ; sa **classe**
 (`postgresql`, `ban`, `smtp_std`…) remplit le contrat. Toute classe
 implémente le socle commun : `initialize`/`release`,
 `connect`/`disconnect`, `ping()` (le statut, la fréquence à
@@ -164,16 +171,15 @@ implémente le socle commun : `initialize`/`release`,
 paramètrent (pas de contexte — il naît au démarrage du projet) ; ses
 secrets référencent des variables d'environnement (chiffrables) ; le
 câblage nomme les rôles : l'environnement désigne le storage du modèle
-(`storage: entrepot`), la migration sa base d'origine (`from:`) —
-optionnel au simple : le nom = le type ; `when:
+(`storage: entrepot`), la migration sa base d'origine (`from:`) — le
+socle par le nom, le hook par `uses:` (D1710) ; `when:
 <connecteur>[.<entrée>]` abonne une opération à ses événements.
 L'application ne démarre que si le mail à l'administrateur est
 possible — le canal d'alerte avant tout. Le stockage des entités est
 lui-même un connecteur — et Syncytium sait convertir ou transférer
-d'un connecteur à l'autre. *(D79, D603–D642)*
+d'un connecteur à l'autre. *(D79, D603–D642, D1708–D1716)*
 
-Exemple : `location: { class: ban, parameters: { url: … },
-secrets: [api_key] }`.
+Exemple : `location: { class: ban, parameters: { url: … } }`.
 
 **Constructeur** — La fonction au nom d'un type, qui fabrique une valeur
 de ce type à partir de ses parties. *Ex. : `amount(ARCNPMP)`,
@@ -370,6 +376,12 @@ explicite, se cumulent en branches. *(D144–D147, D353–D355, D424)*
 vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ CSV. Par
 extension, un des visages d'un composant ou d'une surface dans chaque document : la
 documentation est une facette de tous les composants. *(D119, D1158)*
+
+**Famille de connecteurs** (`type`) — Le contrat d'un connecteur, défini
+par le socle : neuf familles, `storage`, `smtp`, `file`, `directory`,
+`location`, `authentication`, `siren`, `webhook`, `llm`, chacune avec ses
+méthodes. Le concepteur n'en ajoute pas, il ajoute une classe.
+*(D605, D619, D1716)*
 
 **Feuille** — Un composant qui rend un champ : la saisie d'une valeur,
 le choix ou le regard d'un objet. Le composant par défaut d'un type

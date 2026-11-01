@@ -11,7 +11,7 @@ documentation (Q58, le domaine 6 — D602), après
 son élément apporte à la documentation** — l'entité et ses champs dans
 [entity.md](syncytium/02-modele/entite.md), les hooks et leur `describe` dans
 [hooks.md](hooks.md), les connecteurs dans
-[connectors.md](connectors.md), les dépendances dans
+[connectors.md](syncytium/05-connecteurs/README.md), les dépendances dans
 [security.md](security.md), les rapports de la reprise dans
 [migration.md](migration.md). Les décisions citées renvoient à la
 [conception](conception.md). Les sections marquées *en proposition*
@@ -404,7 +404,7 @@ décisions, D1170–D1238.)*
   6. le modèle physique : **acquis le 15/10/2026 (D1292–D1300)** — le
      storage refondé (D1294–D1297), le format pivot (D1298),
      `describe(model)` et `get_instance()` (D1299), les index, les
-     partitions ; le contenu dans [connectors.md](connectors.md) ;
+     partitions ; le contenu dans [connectors.md](syncytium/05-connecteurs/README.md) ;
   7. les règles, l'historique, les volumes : **placés** (D1254, D1257,
      D1265) — le contenu avec les étapes 3 et 5 ;
   8. la reprise des données : **acquis le 15/10/2026 (D1302)** — le
@@ -424,7 +424,7 @@ décisions, D1170–D1238.)*
   les points arbitrés D1304–D1313.
 - **Livrables** : **acquis** — §4, §5, §8, §9 ; [entity.md](syncytium/02-modele/entite.md)
   (la correspondance, les groupes, `partition:`), [types.md](syncytium/02-modele/types.md)
-  (la facette du type, la déclinaison), [connectors.md](connectors.md)
+  (la facette du type, la déclinaison), [connectors.md](syncytium/05-connecteurs/README.md)
   (le storage refondé, `describe(model)`, les index, les partitions),
   [telemetry.md](telemetry.md) (les indicateurs),
   [migration.md](migration.md) (le chapitre 4.1), [hooks.md](hooks.md)
@@ -546,7 +546,7 @@ décisions, D1170–D1238.)*
   [usecases/01_tiny.md](../usecases/01_tiny.md),
   [usecases/04_banque.md](../usecases/04_banque.md)).
 - **Livrables** : §10 validé ; [hooks.md](hooks.md),
-  [connectors.md](connectors.md) ; le sort de `docs/` dans
+  [connectors.md](syncytium/05-connecteurs/README.md) ; le sort de `docs/` dans
   l'application ; la colonne 3 de la matrice dans les onze artefacts et
   la matrice d'ensemble (D1425).
 - **Dépendances** : la forme du contrat d'API au domaine 7.
@@ -579,7 +579,7 @@ décisions, D1170–D1238.)*
   `listen:` écrits dans la configuration ;
   [usecases/05_entrepot.md](../usecases/05_entrepot.md)).
 - **Livrables** : une section « Le D.A.T. » (§28, les quatre chapitres
-  acquis) ; [connectors.md](connectors.md), [security.md](security.md),
+  acquis) ; [connectors.md](syncytium/05-connecteurs/README.md), [security.md](security.md),
   [administration.md](administration.md), [hooks.md](hooks.md),
   [configuration.md](syncytium/01-configuration/README.md) ; la colonne 4 de la matrice dans
   les onze artefacts et la matrice d'ensemble (D1435).
@@ -2308,7 +2308,7 @@ et des implémentations se généraliseront.
    composant** — une rubrique « La documentation » dans
    [entity.md](syncytium/02-modele/entite.md), [types.md](syncytium/02-modele/types.md) (type par type),
    [les composants](syncytium/04-composants/README.md) (fiche par fiche), [hooks.md](hooks.md),
-   [connectors.md](connectors.md), [mapping.md](mapping.md),
+   [connectors.md](syncytium/05-connecteurs/README.md), [mapping.md](mapping.md),
    [rights.md](rights.md), [administration.md](administration.md),
    [migration.md](migration.md) — ; documentation.md garde les principes
    et la matrice d'ensemble.

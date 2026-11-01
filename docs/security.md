@@ -7,7 +7,7 @@ chiffré, ce qui survit à une panne. Il ne remplace aucun artefact :
 [rights.md](rights.md) porte le détail des droits (le sujet 2 de la
 passe de complétude), [administration.md](administration.md) les
 actes d'administration, [telemetry.md](telemetry.md) la détection,
-[connectors.md](connectors.md) les contrats des familles. Il les
+[connectors.md](syncytium/05-connecteurs/README.md) les contrats des familles. Il les
 **relie** — la carte du pilier P8 (« la sécurité et la confidentialité
 par construction ») étendue aux décisions qui, sans porter le mot,
 font la sécurité de l'ensemble. Les décisions citées renvoient à la
@@ -54,21 +54,21 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 | le domaine | l'acquis | les décisions | le détail |
 |---|---|---|---|
 | **L'identité** | quatre types de comptes étanches, l'UUID interne, la clé d'unicité par connecteur | D28, D77, D82, D142 | [rights.md](rights.md), §5.6 |
-| **L'authentification** | la famille `authentication`, cinq classes, le secours et le mode safe | D29–D33, D78, D80–D81, D692, D713, D716, D718, D759 | [connectors.md](connectors.md), [administration.md](administration.md) |
+| **L'authentification** | la famille `authentication`, cinq classes, le secours et le mode safe | D29–D33, D78, D80–D81, D692, D713, D716, D718, D759 | [connectors.md](syncytium/05-connecteurs/README.md), [administration.md](administration.md) |
 | **La session et l'API** | l'inactivité et la borne absolue ; l'API au porteur, la clé rotative, le rate limiting | D15, D98, D105, D107, D693–D694, D917–D918 | [rights.md](rights.md) |
 | **La confidentialité** | trois niveaux emboîtés × les groupes, l'héritage fail-closed, les profils nommés | D25–D27, D102, D144, D170, D364, D885, D923 | [rights.md](rights.md), §5.5 |
 | **L'audience** | l'accès au niveau ligne par appartenance, l'anti-IDOR, l'écriture unique | D70–D76, D153 | [rights.md](rights.md), §5.7 |
 | **Les droits d'action** | `allow` à deux foyers et quatre étages, les opérations couvertes, le passe-droit tracé | D196, D421–D427, D691, D700, D835, D886 | [rights.md](rights.md) |
 | **Les degrés** | user / manager / administrator au contrat, portés par le groupe, l'appartenance obligatoire | D697, D699–D701, D746, D881, D900, D903 | [rights.md](rights.md) |
 | **Les groupes et les modules** | la configuration déclare, la base affecte ; la double entrée administrateur ; la délégation | D34, D96, D190, D341, D414–D416, D712, D715, D717, D747, D749 | [administration.md](administration.md) |
-| **Les frontières d'extension** | le hook citoyen, la tâche à portée propre, l'interface sans `private`, le connecteur gardé | D52–D53, D58–D59, D66, D599, D603, D626, D633, D642, D904–D906, D913–D914 | [hooks.md](hooks.md), [connectors.md](connectors.md) |
+| **Les frontières d'extension** | le hook citoyen, la tâche à portée propre, l'interface sans `private`, le connecteur gardé | D52–D53, D58–D59, D66, D599, D603, D626, D633, D642, D904–D906, D913–D914 | [hooks.md](hooks.md), [connectors.md](syncytium/05-connecteurs/README.md) |
 | **L'intégrité** | la concurrence par champ, l'estampille fail-closed, le registre des versions, l'ingestion qui refuse | D93, D111, D326, D330, D344, D920, D927 | §4, §3.2c |
 | **La traçabilité** | l'historisation = la trace, la provenance persistante, le motif d'audit, les deux comptes | D62, D169, D178, D182, D238, D411–D413, D429 | §3.11 |
 | **L'audit et la détection** | l'audit des lectures, les refus journalisés, le modèle de risque et ses seuils | D41–D43, D47, D50–D51, D97, D702–D704, D740–D741, D925–D926 | [telemetry.md](telemetry.md), §6.4 |
 | **Le RGPD** | le client responsable, le marquage `rgpd:`, l'anonymisation, la rétention, le registre | D16, D137, D139, D695–D698, D703 | [rights.md](rights.md), §6.6 |
 | **Les secrets et le chiffrement** | la marque `*` (D944), l'empreinte jamais le clair, le `.env` chiffré, HTTPS sans dérogation, le type chiffrant | D33, D463, D603, D705–D708, D730, D901–D902, D915–D916, D919 | [rights.md](rights.md) |
 | **La disponibilité** | les fusibles (timeout, rate limiting, cooldown), la condition indispensable, le passif, la sauvegarde | D58, D104–D105, D112–D114, D164, D626–D627, D724–D729, D745, D907–D912, D915, D921–D922, D928 | [administration.md](administration.md), §7.3 |
-| **Le chat** | la connaissance sous les droits du demandeur (aucun droit propre au chat), l'anonymisation avant tout envoi sauf le profil connecté, la session par module tracée jusqu'à sa réinitialisation | D957–D960 | [connectors.md](connectors.md), [la surface `chat`](syncytium/04-composants/surfaces.md) |
+| **Le chat** | la connaissance sous les droits du demandeur (aucun droit propre au chat), l'anonymisation avant tout envoi sauf le profil connecté, la session par module tracée jusqu'à sa réinitialisation | D957–D960 | [connectors.md](syncytium/05-connecteurs/README.md), [la surface `chat`](syncytium/04-composants/surfaces.md) |
 
 ## L'identité et les comptes
 

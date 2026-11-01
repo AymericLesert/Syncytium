@@ -6,7 +6,7 @@ règles de migration — le sixième artefact préparatoire de la
 documentation (Q58, le domaine 6 — D602), après le
 [glossaire](glossaire.md), les [composants](syncytium/04-composants/README.md), les
 [hooks](hooks.md), les [types](syncytium/02-modele/types.md) et les
-[connecteurs](connectors.md). Les décisions citées renvoient à la
+[connecteurs](syncytium/05-connecteurs/README.md). Les décisions citées renvoient à la
 [conception](conception.md).
 
 ## Le cadre — les deux fonctions essentielles (D646)

@@ -320,7 +320,7 @@ connectors: ~{connectors.yml}
 - **`connectors:`** : les connecteurs de l'environnement,
   `~{connectors.yml}`, chacun par son rôle nommé (D617) : `type:` la
   famille, `class:` l'implémentation, `parameters:` avec les secrets
-  marqués `*`. Le détail dans [connectors.md](../../connectors.md).
+  marqués `*`. Le détail dans [les connecteurs](../05-connecteurs/README.md).
 - **`settings:`** : facultatif, les réglages techniques propres à
   l'environnement, valables pour toutes ses versions (D342, D1095).
   Aucun des cinq cas ne l'écrit.

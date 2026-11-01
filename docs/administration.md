@@ -5,7 +5,7 @@ d'exploitation consignés** — le neuvième artefact préparatoire de la
 documentation (Q58, le domaine 6 — D602), après le
 [glossaire](glossaire.md), les [composants](syncytium/04-composants/README.md), les
 [hooks](hooks.md), les [types](syncytium/02-modele/types.md), les
-[connecteurs](connectors.md), le [mapping](mapping.md) et les
+[connecteurs](syncytium/05-connecteurs/README.md), le [mapping](mapping.md) et les
 [droits](rights.md). Les décisions citées renvoient à la
 [conception](conception.md). Il consolide l'acquis épars et porte
 les points du chantier ouvert (le sujet 3 — le dernier de la passe

@@ -5,7 +5,7 @@ consignés sur la sécurité et les droits** — le huitième artefact
 préparatoire de la documentation (Q58, le domaine 6 — D602), après le
 [glossaire](glossaire.md), les [composants](syncytium/04-composants/README.md), les
 [hooks](hooks.md), les [types](syncytium/02-modele/types.md), les
-[connecteurs](connectors.md) et le [mapping](mapping.md). Les
+[connecteurs](syncytium/05-connecteurs/README.md) et le [mapping](mapping.md). Les
 décisions citées renvoient à la [conception](conception.md). Il
 consolide l'acquis (le pilier P8 — la sécurité par construction) et
 porte les points du chantier ouvert (le sujet 2 de la passe de
@@ -208,7 +208,7 @@ standard », D1208 ; l'utilisateur par défaut y appartient.)*
 
 La passerelle (D418) a son visage ; le multi-connecteurs sert
 l'étanchéité par canal (D77). Voir le contrat détaillé dans
-[connectors.md](connectors.md).
+[connectors.md](syncytium/05-connecteurs/README.md).
 
 ## La session (D693–D694)
 

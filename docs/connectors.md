@@ -791,8 +791,9 @@ qu'elles sont stockées, pour tout outil de BI qui se connecte à la base
 sans passer par Syncytium — la facette stockage de chaque type (D683),
 assemblée par le storage.
 
-**Le contenu du `describe(model)` du storage** (l'étape 6 du rang 2,
-acquise D1300 — D1292, D1299 : « description du modèle de données couvert par le modèle
+**Le contenu du `describe(model)` du storage** — la facette
+documentation du storage, gardée au chapitre 5, le chapitre 11 y renvoie
+(D1722) — (D1292, D1299, D1300 : « description du modèle de données couvert par le modèle
 défini en paramètre - tel que les données doivent être stockées ») : la
 classe applique ses règles de transcription (D1296, D1298) au modèle
 qu'on lui donne et rend ce qu'elles produisent, dans son propre vocabulaire — par exception à D680,

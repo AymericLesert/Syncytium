@@ -136,8 +136,7 @@ comme la description de l'opération** — « ce qu'elle fait », dans la
 section de l'entité (D1196/D1227) ; une opération qui en enchaîne
 plusieurs se décrit par la liste de ses étapes, chacune avec sa
 description (D1227). Le md est une configuration : il ne cite ni
-décision ni histoire du cas (D1085) — les md des hooks du véhicule et
-de la banque sont à nettoyer sur ce point.
+décision ni histoire du cas (D1085).
 
 **Les traces codifiées** (D1461–D1463 ; la forme en proposition — le
 gabarit sur le message, la description et chaque nœud ; l'arbre en

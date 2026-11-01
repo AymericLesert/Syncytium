@@ -14,6 +14,7 @@ depuis août, à deux voix (D1664).*
   - [Le tableau de bord](#le-tableau-de-bord)
 - [Les phases, et les posts qui les racontent](#les-phases-et-les-posts-qui-les-racontent)
 - [L'enrichissement mutuel](#lenrichissement-mutuel)
+- [Et le Spec-Driven Development ?](#et-le-spec-driven-development-)
 - [La série des posts](#la-série-des-posts)
 
 ## La nature des échanges
@@ -257,6 +258,46 @@ lui-même : il n'y aura pas d'IA dans le moteur, la génération sera
 déterministe (D1226). « L'IA rédige, l'humain relit, Syncytium range. »
 Claude l'a trouvée juste : ce qui doit être reproductible ne doit pas
 dépendre de lui.
+
+## Et le Spec-Driven Development ?
+
+Depuis 2025, une démarche se répand sous le nom de *Spec-Driven
+Development* : écrire la spécification avant le code, en faire la source
+de vérité, et laisser une IA produire le code à partir d'elle. Des outils
+l'outillent, Spec Kit chez GitHub, Kiro chez AWS, avec une suite en
+quatre temps : spécifier, planifier, découper en tâches, implémenter.
+Syncytium partage le point de départ : la spécification d'abord, la
+conception avant le code, l'IA qui rédige et l'humain qui arbitre. Il
+s'en écarte sur quatre points.
+
+- **L'objet.** Le Spec-Driven Development spécifie un logiciel,
+  fonctionnalité par fonctionnalité, pour qu'une IA le code aussitôt.
+  Syncytium spécifie un moteur qui, lui-même, produira des applications
+  à partir d'une description. La spécification porte sur la grammaire
+  de cette description, pas sur des écrans à livrer.
+- **Le rythme.** Le Spec-Driven Development boucle vite : une
+  spécification, un plan, des tâches, du code, puis la suivante.
+  Syncytium a choisi la conception entière avant la première ligne :
+  seize cents décisions en quatre mois et demi, et zéro code (D313,
+  D314). La vitesse viendra après, à l'implémentation.
+- **La forme.** Une spécification du Spec-Driven Development est un
+  document vivant, réécrit en place. Le registre de Syncytium est une
+  suite de décisions numérotées, datées, liées — l'une précise, amende
+  ou remplace l'autre —, où les mots de l'auteur restent tels quels.
+  L'histoire ne s'efface pas : elle se date. La forme est celle des
+  *architecture decision records*, pas celle d'un cahier des charges.
+- **La preuve.** Le Spec-Driven Development se prouve par le code
+  produit et ses tests. Syncytium se prouve, avant tout code, par ses
+  cas d'usage : cinq configurations écrites contre le registre, sur des
+  données vraies, vérifiées par les outils du dépôt ; et par la
+  documentation que le moteur générera, spécifiée elle aussi.
+
+Les deux démarches se rejoindront au moment de l'implémentation. Les
+chapitres de la documentation et les cinq cas sont alors la
+spécification dont le code se déduit, et chaque item recevra sa
+traduction technique et sa représentation (D1661). Ce que Syncytium
+ajoute au Spec-Driven Development, c'est le temps long de la conception,
+et un registre qui garde pourquoi.
 
 ## La série des posts
 

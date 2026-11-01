@@ -94,8 +94,9 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 
 **Les hooks n'ont pas de chapitre** (D1673) : `hooks.md` se dissout.
 Le mécanisme et la déclaration dans la configuration vont au chapitre 1,
-chaque famille à la fin de son chapitre — les types au 2, les fonctions
-au 3, les opérations au 2, les composants au 4, les connecteurs au 5.
+chaque famille à la fin de son chapitre — les types et les fonctions, les
+méthodes des types, au 2 (D1674), les composants au 4, les connecteurs
+au 5, les opérations au 6.
 La lecture de `hooks.md` (17 points, D1657) est en cours : trois points
 faits (D1667–D1669), quatorze restent ; la distribution suit.
 

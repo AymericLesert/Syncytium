@@ -497,8 +497,12 @@ type (D1674) ; le hook qui l'ajoute dit quel type l'expose — *en
 proposition*, `type:` dans sa fiche, `text` pour `extract_name`, et un
 type apporté par un hook liste ses fonctions dans sa propre fiche. La
 forme de la fiche suit D809 ; l'exemple ci-dessous est conservé —
-« je ne vois pas d'écart » (D1681) — ; `type:` s'y ajoutera si la
-proposition est confirmée.
+« je ne vois pas d'écart » (D1681). **Le hook de fonction se
+complétera à l'implémentation** (D1684) : « ça assurera le lien entre
+le socle et les composants ajoutés. En fonction de l'architecture
+technique et des composants techniques, les règles peuvent être revues
+et corrigées. Pour le moment, ça couvre le besoin et ça reste vrai. »
+`type:` (D1676) reste en proposition jusque-là.
 
 Ajoute **une fonction** — le calcul pur : une valeur (ou une liste)
 aux types du modèle, ou **des valeurs nommées** (D593 — la regex à

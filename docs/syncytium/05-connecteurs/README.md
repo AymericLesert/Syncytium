@@ -31,7 +31,6 @@ renvoient au [registre](../../conception.md).
 4. [Les neuf familles](familles.md)
    - [Les familles et le catalogue des classes (D604, D623, D692, D957)](familles.md#les-familles-et-le-catalogue-des-classes-d604-d623-d692-d957)
    - [`storage`](familles.md#storage)
-   - [Les contrats par famille](familles.md#les-contrats-par-famille)
    - [`smtp` (D628)](familles.md#smtp-d628)
    - [`directory` (D633)](familles.md#directory-d633)
    - [`file` (D634–D635, D972–D973)](familles.md#file-d634d635-d972d973)

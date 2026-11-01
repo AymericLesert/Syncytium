@@ -7,7 +7,6 @@ de chacune ; le storage, développé à part, y a son résumé.*
 
 - [Les familles et le catalogue des classes (D604, D623, D692, D957)](#les-familles-et-le-catalogue-des-classes-d604-d623-d692-d957)
 - [`storage`](#storage)
-- [Les contrats par famille](#les-contrats-par-famille)
 - [`smtp` (D628)](#smtp-d628)
 - [`directory` (D633)](#directory-d633)
 - [`file` (D634–D635, D972–D973)](#file-d634d635-d972d973)
@@ -51,8 +50,6 @@ les entités, les enregistrements ; `describe(model)` rend le modèle tel
 qu'il est stocké (D1299). Le développement, les quatre énoncés, la
 conversion au type, la migration à chaud, les storages de format, est
 dans [le storage](storage.md).
-
-## Les contrats par famille
 
 ## `smtp` (D628)
 

@@ -11,6 +11,13 @@ le 01/11/2026 (D1660).*
 ## Le sommaire
 
 - [Les huit domaines](#les-huit-domaines)
+- [Les étapes des domaines](#les-étapes-des-domaines)
+  - [Le domaine 1 — L'organisation et l'arborescence d'une application](#le-domaine-1--lorganisation-et-larborescence-dune-application)
+  - [Le domaine 2 — La donnée, sa structure et les droits](#le-domaine-2--la-donnée-sa-structure-et-les-droits)
+  - [Le domaine 3 — Le méta-schéma](#le-domaine-3--le-méta-schéma)
+  - [Le domaine 4 — Les surfaces](#le-domaine-4--les-surfaces)
+  - [La passe de complétude](#la-passe-de-complétude)
+  - [Le domaine 5 — Les cas d'usage](#le-domaine-5--les-cas-dusage)
 - [Les rangs du chantier de la documentation](#les-rangs-du-chantier-de-la-documentation)
 - [Les étapes des rangs](#les-étapes-des-rangs)
   - [Le rang 0 — le socle de la génération](#le-rang-0--le-socle-de-la-génération)
@@ -42,6 +49,77 @@ décision du domaine.
 | 6 | La documentation | En cours | — |
 | 7 | Le choix de l'architecture technique | À couvrir | — |
 | 8 | L'implémentation | Après tout le reste | — |
+
+## Les étapes des domaines
+
+Les domaines 1 à 5 ont eu chacun leur plan : les phases de Q16, les blocs et
+les types, les points, les fiches, les morceaux et les lots des cas. La passe
+de complétude, entre les domaines 4 et 5, a parcouru quatre sujets
+transversaux (D602–D743). Ces plans sont relus au journal (D1663). Le domaine 6
+est le chantier de la documentation, ci-dessous.
+
+### Le domaine 1 — L'organisation et l'arborescence d'une application
+
+| # | Le titre | L'état | La fin |
+|---|---|---|---|
+| 1 | la phase 3 de Q16, la forme concrète : YAML, multi-fichiers, l'interpolation | acquise | 19/07/2026 |
+| 2 | la phase 2 de Q16, le versionnement et le dossier des versions | acquise | 19/07/2026 |
+| 3 | la phase 1 de Q16, l'arborescence d'une application, le domaine clos | acquise | 19/07/2026 |
+| 4 | les compléments : les ressources, le logging, les settings | acquise | 19/07/2026 |
+
+### Le domaine 2 — La donnée, sa structure et les droits
+
+| # | Le titre | L'état | La fin |
+|---|---|---|---|
+| 1 | le bloc `fields`, sa forme | acquise | 23/07/2026 |
+| 2 | les types clos un à un : integer, decimal, boolean, les temporels, file, enum, image, communication | acquise | 26/07/2026 |
+| 3 | la référence et le stockage | acquise | 02/08/2026 |
+| 4 | la contre-passe du bloc `fields` et son artefact de clôture | acquise | 02/08/2026 |
+| 5 | la visibilité, la lecture à date, les droits | acquise | 11/08/2026 |
+
+### Le domaine 3 — Le méta-schéma
+
+| # | Le titre | L'état | La fin |
+|---|---|---|---|
+| 1 | les états et leurs droits | acquise | 12/08/2026 |
+| 2 | le `when` et l'opération | acquise | 12/08/2026 |
+| 3 | le calendaire et les notifications | acquise | 12/08/2026 |
+| 4 | Q60, le contrat des hooks | acquise | 15/08/2026 |
+
+### Le domaine 4 — Les surfaces
+
+| # | Le titre | L'état | La fin |
+|---|---|---|---|
+| 1 | le point 1, l'ancrage, le bloc `gui` | acquise | 12/08/2026 |
+| 2 | le point 2, le menu et le dictionnaire | acquise | 12/08/2026 |
+| 3 | la liste | acquise | 12/08/2026 |
+| 4 | le formulaire, la grammaire commune, la signature des nœuds | acquise | 13/08/2026 |
+| 5 | les fiches des feuilles | acquise | 13/08/2026 |
+| 6 | les conteneurs, les actes, les graphiques | acquise | 14/08/2026 |
+| 7 | la passe des surfaces : list, form, summary, widget, wizard, dashboard | acquise | 14/08/2026 |
+| 8 | les templates et le paragraphe, la signature du nœud | acquise | 14/08/2026 |
+
+### La passe de complétude
+
+| # | Le titre | L'état | La fin |
+|---|---|---|---|
+| 1 | les connecteurs et les échanges | acquise | 16/08/2026 |
+| 2 | la sécurité et les droits | acquise | 16/08/2026 |
+| 3 | l'administration et l'exploitation | acquise | 17/08/2026 |
+| 4 | la migration et les versions | acquise | 16/08/2026 |
+
+### Le domaine 5 — Les cas d'usage
+
+| # | Le titre | L'état | La fin |
+|---|---|---|---|
+| 1 | le cadrage, les cinq cas et leur maison | acquise | 18/08/2026 |
+| 2 | la banque, ses morceaux et sa reprise | acquise | 27/08/2026 |
+| 3 | le véhicule, cinq morceaux | acquise | 30/08/2026 |
+| 4 | le tiny et l'enquête | acquise | 31/08/2026 |
+| 5 | l'entrepôt, cinq morceaux et quatre lots | acquise | 21/09/2026 |
+| 6 | la relecture de la migration, les bases du module `_migration` | acquise | 27/09/2026 |
+| 7 | la relecture des exemples, la promotion, la validation | acquise | 04/10/2026 |
+| 8 | les cinq cas seuls, la banque en trois langues, le domaine livré | acquise | 26/10/2026 |
 
 ## Les rangs du chantier de la documentation
 

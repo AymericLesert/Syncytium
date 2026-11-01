@@ -34,6 +34,57 @@ ACQUISE = re.compile(r"\*\*acquis|\*\*fait|\*\*placé|\*\*soldé|\*\(tombée", r
 TOMBEE = re.compile(r"\*\(tombée", re.I)
 EN_COURS = re.compile(r"en cours", re.I)
 
+# Les plans des domaines 1 à 5 et de la passe de complétude, relus au journal du registre et validés par l'auteur
+# (D1663) : le titre de chaque étape et ses décisions ; la date de fin est celle de sa dernière décision.
+ETAPES_DOMAINES = {
+    1: [
+        ("la phase 3 de Q16, la forme concrète : YAML, multi-fichiers, l'interpolation", "D320–D321"),
+        ("la phase 2 de Q16, le versionnement et le dossier des versions", "D322–D332"),
+        ("la phase 1 de Q16, l'arborescence d'une application, le domaine clos", "D333–D341"),
+        ("les compléments : les ressources, le logging, les settings", "D342–D346"),
+    ],
+    2: [
+        ("le bloc `fields`, sa forme", "D356–D358"),
+        ("les types clos un à un : integer, decimal, boolean, les temporels, file, enum, image, communication",
+         "D372–D393"),
+        ("la référence et le stockage", "D394–D398"),
+        ("la contre-passe du bloc `fields` et son artefact de clôture", "D399–D410"),
+        ("la visibilité, la lecture à date, les droits", "D411–D419"),
+    ],
+    3: [
+        ("les états et leurs droits", "D420–D424"),
+        ("le `when` et l'opération", "D425–D432"),
+        ("le calendaire et les notifications", "D433–D436"),
+        ("Q60, le contrat des hooks", "D570–D601"),
+    ],
+    4: [
+        ("le point 1, l'ancrage, le bloc `gui`", "D437–D438"),
+        ("le point 2, le menu et le dictionnaire", "D439–D440"),
+        ("la liste", "D441–D448"),
+        ("le formulaire, la grammaire commune, la signature des nœuds", "D449–D455"),
+        ("les fiches des feuilles", "D456–D500"),
+        ("les conteneurs, les actes, les graphiques", "D501–D529"),
+        ("la passe des surfaces : list, form, summary, widget, wizard, dashboard", "D530–D558"),
+        ("les templates et le paragraphe, la signature du nœud", "D559–D569"),
+    ],
+    5: [
+        ("le cadrage, les cinq cas et leur maison", "D756–D758"),
+        ("la banque, ses morceaux et sa reprise", "D759–D825"),
+        ("le véhicule, cinq morceaux", "D826–D855"),
+        ("le tiny et l'enquête", "D856"),
+        ("l'entrepôt, cinq morceaux et quatre lots", "D857–D1020"),
+        ("la relecture de la migration, les bases du module `_migration`", "D1021–D1080"),
+        ("la relecture des exemples, la promotion, la validation", "D1081–D1117"),
+        ("les cinq cas seuls, la banque en trois langues, le domaine livré", "D1518–D1525"),
+    ],
+}
+PASSE = [
+    ("les connecteurs et les échanges", "D603–D672"),
+    ("la sécurité et les droits", "D690–D708"),
+    ("l'administration et l'exploitation", "D709–D743"),
+    ("la migration et les versions", "D644–D689"),
+]
+
 
 def lire(chemin):
     with open(chemin, encoding="utf-8") as f:
@@ -213,6 +264,10 @@ def chapitres(plan):
     return out
 
 
+def etapes_domaine(liste, dates):
+    return [(i, titre, "acquise", fin(refs, dates)) for i, (titre, refs) in enumerate(liste, 1)]
+
+
 def ancre(titre):
     """L'ancre GitHub d'un titre : minuscules, la ponctuation retirée, les espaces en tirets."""
     t = re.sub(r"[^\w\s-]", "", titre.lower()).strip()
@@ -235,6 +290,13 @@ def main():
     rangs, etapes = rangs_et_etapes(doc, dates, clotures(registre, dates))
     chaps = chapitres(plan)
     aujourd_hui = fr(date.today().isoformat())
+    titre_dom = {n: t for n, t, _, _ in doms}
+    blocs_domaines = []
+    for n, liste in ETAPES_DOMAINES.items():
+        blocs_domaines.append((f"Le domaine {n} — {titre_dom[str(n)]}", etapes_domaine(liste, dates)))
+        if n == 4:
+            blocs_domaines.append(("La passe de complétude", etapes_domaine(PASSE, dates)))
+    titres_domaines = [t for t, _ in blocs_domaines]
     parties = [
         "# Le plan de la conception",
         "",
@@ -249,6 +311,8 @@ def main():
         "## Le sommaire",
         "",
         "- [Les huit domaines](#les-huit-domaines)",
+        "- [Les étapes des domaines](#les-étapes-des-domaines)",
+        *[f"  - [{t}](#{ancre(t)})" for t in titres_domaines],
         "- [Les rangs du chantier de la documentation](#les-rangs-du-chantier-de-la-documentation)",
         "- [Les étapes des rangs](#les-étapes-des-rangs)",
         *[f"  - [Le rang {r['n']} — {r['titre']}](#{ancre('Le rang ' + str(r['n']) + ' — ' + r['titre'])})"
@@ -263,6 +327,15 @@ def main():
         "",
         table(doms),
         "",
+        "## Les étapes des domaines",
+        "",
+        "Les domaines 1 à 5 ont eu chacun leur plan : les phases de Q16, les blocs et",
+        "les types, les points, les fiches, les morceaux et les lots des cas. La passe",
+        "de complétude, entre les domaines 4 et 5, a parcouru quatre sujets",
+        "transversaux (D602–D743). Ces plans sont relus au journal (D1663). Le domaine 6",
+        "est le chantier de la documentation, ci-dessous.",
+        "",
+        *[ligne for t, lignes in blocs_domaines for ligne in (f"### {t}", "", table(lignes), "")],
         "## Les rangs du chantier de la documentation",
         "",
         "Le chantier de la documentation générée (D1118, D1136) occupe le domaine 6.",

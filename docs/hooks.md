@@ -28,8 +28,8 @@ point jusque-là.
   premier client du mécanisme ;
 - **Le mot « hook » n'apparaît jamais dans la configuration**
   (D408) : un hook ajoute **un nom** au catalogue concerné (un type,
-  un composant, une opération, une fonction, un connecteur, un
-  style — D755) — et ce
+  un composant, une opération, une fonction, un connecteur — cinq
+  familles, D1671, D1672) — et ce
   nom s'emploie comme un nom du socle ; le doublon de nom = une
   erreur d'ingestion (D344/D396) ;
 - **La première classe** (D65/D68) : un élément ajouté a les mêmes
@@ -63,8 +63,7 @@ versions/<statut>/<version>/
 │   ├── hooks.yml                   # → les fichiers de famille (D777)
 │   ├── operations/operations.yml   # → les fiches (le pattern — D806)
 │   │   └── <verbe>/                #   la fiche, le md, le source (D809)
-│   ├── types/ · components/ · functions/ · connectors/
-│   └── styles/                     # la sixième famille (D755)
+│   └── types/ · components/ · functions/ · connectors/
 └── <modules>/
 ```
 
@@ -599,28 +598,23 @@ connectors:
     every: 5min                    # le guetteur — détecté, relu (D604)
 ```
 
-### 6. Le hook de style (D752–D755)
-
-Ajoute **un style** au catalogue — « au même titre que les
-composants graphiques, Syncytium propose un ou plusieurs styles »
-(D752) : le socle fournit les siens, le hook en apporte d'autres
-(le comportement des hooks — D52/D408, le repli D68).
-
-**Le contrat (D754–D755)** : le style décrit **le cadre technique**,
-porté par le langage de Syncytium (comme les hooks de code — D570) ;
-pour le Web, **la représentation HTML des types (le hook
-d'affichage — D566.7) est complétée par un CSS3 (le style)** — le
-découpage net par type : la structure d'un côté, la présentation de
-l'autre. **Le hook de style complète l'affichage aux côtés du hook
-d'affichage** ; la structure des styles **ne se généralise pas
-forcément** — pas de schéma unique imposé.
-
-**Le thème n'est pas un hook** : c'est **une combinaison de styles**
-(D755) — déclaré dans `themes/` (D753), il assemble et surcharge ;
-l'utilisateur le choisit à son profil, les droits s'y appliquent
-(un objet comme les autres).
-
 ### Ce qui n'est pas un hook
+
+**Le style** (D1672) : « Les styles se déclinent pour un thème. Un
+style est soit des couleurs, soit des mises en forme spécifiques ...
+on pourrait décider de représenter une zone de saisie de texte
+différente en fonction d'un hook de saisie. Ici, je crains que cela
+soit trop compliqué à mettre en oeuvre. Par conséquent, ça oblige le
+socle à imposer l'affichage des composants graphiques et à permettre
+au concepteur ou aux utilisateurs de pouvoir jouer avec quelques
+styles de mise en forme et/ou de couleurs. » Le style n'est donc pas
+une famille de hooks (D755 amendée, D754 amendée). Le socle impose
+l'affichage de ses composants graphiques ; il propose quelques styles
+(D752), des couleurs ou des mises en forme, que le concepteur combine
+dans un thème (D753) et que l'utilisateur choisit à son profil. Leurs
+noms et ce qu'ils règlent se fixent au domaine 7. Le hook de
+composant demeure : il ajoute un composant, avec son rendu
+(D64–D68, D566).
 
 **La langue** (D1671) : « Les langues ne me semblent pas un hook.
 C'est un composant de langue porté par le socle. Le hook se fait par
@@ -790,7 +784,7 @@ l'agrégat, le champ calculé que les séquences d'appels font émerger
 opération entre dans la plaquette par le scénario du persona qui la
 déclenche (D1498) ; dans la démonstration (D1503), les hooks tournent
 comme ailleurs, leurs connecteurs mockés ; dans la promotionnelle de
-Syncytium, les sept familles de hooks sont l'argument de l'ouverture
-(D1509, D52, D1467).
+Syncytium, les cinq familles de hooks sont l'argument de l'ouverture
+(D1509, D52).
 
 **Les neuf colonnes sont écrites.**

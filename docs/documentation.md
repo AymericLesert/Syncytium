@@ -4015,10 +4015,9 @@ consignes pour l'IA (D1224).
 **Deux faces** : **l'inventaire**, ce que cette version a ajouté au
 socle, calculé depuis la configuration ; **la référence**, comment
 écrire un hook, un type, un composant — la documentation de Syncytium,
-que l'étape 3 placera, embarquée ou liée. Les sept familles de
+que l'étape 3 placera, embarquée ou liée. Les cinq familles de
 [hooks.md](hooks.md) — le type, le composant, l'opération, la fonction,
-le connecteur, le style, et la septième, la langue (D1467) — et les
-autres points d'extension.
+le connecteur (D1671, D1672) — et les autres points d'extension.
 
 **La description d'un hook est déclarée, non générée** (D1403 : « la
 méthode describe() du hook est probablement décorrellée par rapport à

@@ -238,9 +238,8 @@ le signale par un avertissement.
 ## Les types ajoutés par un hook
 
 > **Un hook** prolonge Syncytium par du code, écrit contre son contrat.
-> Il y en a sept familles : le type, le composant, l'opération, la
-> fonction, le connecteur, le style, la langue
-> ([glossaire](../../glossaire.md)).
+> Il y en a cinq familles : le type, le composant, l'opération, la
+> fonction, le connecteur ([glossaire](../../glossaire.md)).
 
 Tout type ajouté suit le contrat de la famille, décrit dans
 [les hooks](../../hooks.md).

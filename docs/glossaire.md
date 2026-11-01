@@ -480,7 +480,7 @@ tout (`perpetual`), une période (`temporal[365]`), les dernières
 modifications (`update[10]`), rien (`false`). *(D168/D411)*
 
 **Hook** — Le prolongement par code : un type, un composant graphique ou une
-fonction sur mesure, écrits contre le contrat de Syncytium. Le hook rend transparent l'usage de développements spécifiques à un projet. De façon homogène, Syncytium fournit un cadre d'exécution et pour ne pas à avoir à tout recréer, Syncytium fournit déjà un ensemble de Hooks.Les types de champ, les composants graphiques, les écrans de saisie, les formats CSV ou Excel fournis avec Syncytium sont des hooks. Sept familles : le type, le composant, l'opération, la fonction, le connecteur, le style, la langue. *(D52/D408, D755, D1467)*
+fonction sur mesure, écrits contre le contrat de Syncytium. Le hook rend transparent l'usage de développements spécifiques à un projet. De façon homogène, Syncytium fournit un cadre d'exécution et pour ne pas à avoir à tout recréer, Syncytium fournit déjà un ensemble de Hooks.Les types de champ, les composants graphiques, les écrans de saisie, les formats CSV ou Excel fournis avec Syncytium sont des hooks. Cinq familles : le type, le composant, l'opération, la fonction, le connecteur ; le style et la langue n'en sont pas. *(D52/D408, D1671, D1672)*
 
 **Horodatage** (`datetime[timestamp]`) — Un instant absolu, stocké en
 temps universel et affiché à l'heure de chacun. S'oppose à la valeur
@@ -895,14 +895,12 @@ d'une reprise, ou l'application de démonstration, avec un ratio
 d'espace, rien sur le disque. *(D629, D680–D684, D1045, D1294–D1297,
 D1507–D1508)*
 
-**Style** — Le cadre technique du rendu, fourni par Syncytium (« au
-même titre que les composants graphiques, Syncytium propose un ou
-plusieurs styles ») ou apporté par un hook de style — la sixième
-famille. Porté par le langage de Syncytium ; pour le Web, la
-représentation HTML des types (le hook d'affichage) est complétée
-par un CSS3 — la structure d'un côté, la présentation de l'autre.
-La structure des styles ne se généralise pas forcément.
-*(D752, D754–D755)*
+**Style** — Des couleurs ou des mises en forme, proposées par le socle
+(« au même titre que les composants graphiques, Syncytium propose un
+ou plusieurs styles »), parmi lesquelles le concepteur et les
+utilisateurs choisissent. Le socle impose l'affichage de ses
+composants graphiques ; le style ne le change pas, et n'est pas un
+hook. Les styles se déclinent pour un thème. *(D752, D1672)*
 
 **Surface** — Un écran généré et nommé, que le menu adresse : la liste,
 le formulaire, le résumé, le widget, le wizard, le tableau de bord, le

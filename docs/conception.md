@@ -25260,6 +25260,16 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-11-01 (soir) — LA PAUSE : LE PLAN EN UNE PAGE, LA COLLABORATION DANS L'HISTOIRE (D1659–D1666, 1666
+  décisions).** Le plan tient lieu de liste des tâches, les issues GitHub après l'implémentation (D1659) ;
+  `docs/histoire/plan.md`, calculée par `tools/plan.py` — les domaines, les rangs, les étapes, les chapitres, un
+  numéro, un titre, un état, une date de fin — régénérée à chaque pause (D1660) ; la documentation à
+  l'implémentation, en trois volets par item (D1661) ; le domaine 6 renommé « La documentation » (D1662) ; les
+  plans des domaines 1 à 5 et la passe de complétude, une table par domaine (D1663) ;
+  `docs/histoire/collaboration.md` — la nature des échanges, l'organisation, les phases et les dix-neuf posts,
+  l'enrichissement mutuel (D1664), le tableau de bord (D1665), le Spec-Driven Development (D1666). « je marque
+  une pause ». **À la reprise** : le point 1 du chapitre 5, la fiche d'un hook — présenté, en attente (remplacer
+  l'exemple de hooks.md par l'extrait de `dupliquer.yml` de la banque) ; puis les points 2 à 17.
 - **2026-11-01 (fin) — LA PAUSE : LE CHAPITRE 4 FAIT DANS SES TROIS TEMPS, LE CHAPITRE 5 OUVERT (D1613–D1658, 1658
   décisions).** La lecture du chapitre 4 achevée : la saisie selon l'écran — une surface par écran, `screen:` en
   `<format>[<orientation>]`, `pc[landscape]`, les formats portés au bloc `version:` des settings (D1613–D1617) ;

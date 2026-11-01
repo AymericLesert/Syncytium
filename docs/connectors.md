@@ -7,6 +7,130 @@ de la documentation (Q58, le domaine 6 — D602), après le
 [hooks](hooks.md) et les [types](syncytium/02-modele/types.md). Les décisions citées
 renvoient à la [conception](conception.md).
 
+## Le diagramme — `Connector`, les familles, les classes (D1715–D1717)
+
+Trois notions, à ne pas confondre : **le connecteur**, déclaré à
+l'environnement par son nom, qui nomme sa famille par `type:` et sa
+classe par `class:` ; **la famille**, le contrat ; **la classe**,
+l'implémentation qui remplit ce contrat. L'arbre a une racine,
+`Connector`, le socle commun de tout connecteur : ses méthodes et ses
+propriétés minimales (D621–D627, D1712, D1713). **Les familles sont
+définies par le socle lui-même** (D619, D1716) : « il ne sera pas
+possible pour le concepteur d'ajouter une nouvelle famille, sauf à
+faire évoluer le socle lui-même ». Chaque famille hérite de `Connector`
+et ajoute ses méthodes ; chaque classe hérite de sa famille et expose
+ses paramètres et ses propriétés spécifiques (D1711). Le concepteur
+ajoute une classe à une famille, par un hook de connecteur, jamais une
+famille.
+
+```mermaid
+classDiagram
+    direction TB
+    class Connector {
+        <<le socle commun>>
+        initialize()
+        release()
+        connect()
+        disconnect()
+        ping() statut
+        onerror() mock ou maintenance
+        describe()
+        connection, pool, retry, timeout, onerror, every
+        rgpd.countries
+    }
+    class storage {
+        begin()
+        commit()
+        rollback()
+        create_instance()
+        get_instance()
+        duplicate_instance()
+        rename_instance()
+        delete_instance()
+        create_entity()
+        update_entity()
+        delete_entity()
+        create()
+        read()
+        update()
+        delete()
+        describe(model)
+    }
+    class smtp {
+        send(message, pièces, destinataires)
+    }
+    class file {
+        files(motif)
+        commit(fichier)
+    }
+    class directory {
+        get_users()
+        get_users_from_group()
+        get_groups()
+    }
+    class location {
+        geocode(adresse) geolocation
+        reverse(geolocation) adresse
+    }
+    class authentication {
+        challenge()
+        verify(preuve)
+    }
+    class siren {
+        verify(siren)
+    }
+    class webhook {
+        entries, les points d'entrée servis
+    }
+    class llm {
+        ask(session, outils) message
+    }
+    class none_smtp["none"]
+    class azure_ad_directory["azure_ad"]
+    class none_auth["none"]
+    class local_llm["local"]
+    Connector <|-- storage
+    Connector <|-- smtp
+    Connector <|-- file
+    Connector <|-- directory
+    Connector <|-- location
+    Connector <|-- authentication
+    Connector <|-- siren
+    Connector <|-- webhook
+    Connector <|-- llm
+    storage <|-- postgresql
+    storage <|-- sqlserver
+    storage <|-- mysql
+    storage <|-- oracle
+    storage <|-- sqlite
+    storage <|-- memory
+    storage <|-- csv
+    storage <|-- xlsx
+    storage <|-- xml
+    storage <|-- json
+    smtp <|-- smtp_std
+    smtp <|-- none_smtp
+    file <|-- file_std
+    directory <|-- azure_ad_directory
+    location <|-- ban
+    location <|-- nominatim
+    authentication <|-- local
+    authentication <|-- azure_ad
+    authentication <|-- sso
+    authentication <|-- keycloak
+    authentication <|-- none_auth
+    siren <|-- sirene
+    webhook <|-- webhook_std
+    llm <|-- api
+    llm <|-- local_llm
+```
+
+Les spécificités d'une classe se lisent à sa déclaration : la carte
+`entities:` et les entêtes d'un storage de format (D828, D845), la
+`convention:` de nommage d'un storage de reprise, les paramètres que
+chaque classe expose (D1711). Le reste de ce document détaille la
+déclaration, le câblage, le socle et le contrat de chaque famille.
+
 ## La nature
 
 - **Une passerelle entre Syncytium et un système tiers** (D79) — une
@@ -287,130 +411,6 @@ passer sur une page de maintenance et une alerte doit être émise »
 démarrer uniquement si l'envoi de mail à l'administrateur est
 possible » — le canal d'alerte avant tout, le smtp vérifié au
 démarrage.
-
-## Le diagramme — `Connector`, les familles, les classes (D1715, D1716)
-
-Trois notions, à ne pas confondre : **le connecteur**, déclaré à
-l'environnement par son nom, qui nomme sa famille par `type:` et sa
-classe par `class:` ; **la famille**, le contrat ; **la classe**,
-l'implémentation qui remplit ce contrat. L'arbre a une racine,
-`Connector`, le socle commun de tout connecteur : ses méthodes et ses
-propriétés minimales (D621–D627, D1712, D1713). **Les familles sont
-définies par le socle lui-même** (D619, D1716) : « il ne sera pas
-possible pour le concepteur d'ajouter une nouvelle famille, sauf à
-faire évoluer le socle lui-même ». Chaque famille hérite de `Connector`
-et ajoute ses méthodes ; chaque classe hérite de sa famille et expose
-ses paramètres et ses propriétés spécifiques (D1711). Le concepteur
-ajoute une classe à une famille, par un hook de connecteur, jamais une
-famille.
-
-```mermaid
-classDiagram
-    direction TB
-    class Connector {
-        <<le socle commun>>
-        initialize()
-        release()
-        connect()
-        disconnect()
-        ping() statut
-        onerror() mock ou maintenance
-        describe()
-        connection, pool, retry, timeout, onerror, every
-        rgpd.countries
-    }
-    class storage {
-        begin()
-        commit()
-        rollback()
-        create_instance()
-        get_instance()
-        duplicate_instance()
-        rename_instance()
-        delete_instance()
-        create_entity()
-        update_entity()
-        delete_entity()
-        create()
-        read()
-        update()
-        delete()
-        describe(model)
-    }
-    class smtp {
-        send(message, pièces, destinataires)
-    }
-    class file {
-        files(motif)
-        commit(fichier)
-    }
-    class directory {
-        get_users()
-        get_users_from_group()
-        get_groups()
-    }
-    class location {
-        geocode(adresse) geolocation
-        reverse(geolocation) adresse
-    }
-    class authentication {
-        challenge()
-        verify(preuve)
-    }
-    class siren {
-        verify(siren)
-    }
-    class webhook {
-        entries, les points d'entrée servis
-    }
-    class llm {
-        ask(session, outils) message
-    }
-    class none_smtp["none"]
-    class azure_ad_directory["azure_ad"]
-    class none_auth["none"]
-    class local_llm["local"]
-    Connector <|-- storage
-    Connector <|-- smtp
-    Connector <|-- file
-    Connector <|-- directory
-    Connector <|-- location
-    Connector <|-- authentication
-    Connector <|-- siren
-    Connector <|-- webhook
-    Connector <|-- llm
-    storage <|-- postgresql
-    storage <|-- sqlserver
-    storage <|-- mysql
-    storage <|-- oracle
-    storage <|-- sqlite
-    storage <|-- memory
-    storage <|-- csv
-    storage <|-- xlsx
-    storage <|-- xml
-    storage <|-- json
-    smtp <|-- smtp_std
-    smtp <|-- none_smtp
-    file <|-- file_std
-    directory <|-- azure_ad_directory
-    location <|-- ban
-    location <|-- nominatim
-    authentication <|-- local
-    authentication <|-- azure_ad
-    authentication <|-- sso
-    authentication <|-- keycloak
-    authentication <|-- none_auth
-    siren <|-- sirene
-    webhook <|-- webhook_std
-    llm <|-- api
-    llm <|-- local_llm
-```
-
-Les spécificités d'une classe se lisent à sa déclaration : la carte
-`entities:` et les entêtes d'un storage de format (D828, D845), la
-`convention:` de nommage d'un storage de reprise, les paramètres que
-chaque classe expose (D1711). Le reste de ce chapitre détaille le
-contrat de chaque famille.
 
 ## Les contrats par famille
 

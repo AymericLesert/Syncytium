@@ -1,6 +1,6 @@
 # La version — ce qu'elle porte
 
-*Les sous-chapitres 3.5 à 3.9 de l'[arbre](arbre.md) : les réglages, les
+*Les sous-chapitres 3.5 à 3.10 de l'[arbre](arbre.md) : les réglages, les
 groupes, le module et son menu, l'entité, les hooks et la reprise.*
 
 ## Le sommaire
@@ -14,14 +14,13 @@ groupes, le module et son menu, l'entité, les hooks et la reprise.*
 - [3.7 Le module — `<module>.yml` (D765, D416)](#37-le-module--moduleyml-d765-d416)
   - [`menu.yml` — une carte d'entrées nommées (D1237)](#menuyml--une-carte-dentrées-nommées-d1237)
 - [3.8 L'entité, les champs, les surfaces](#38-lentité-les-champs-les-surfaces)
-- [3.9 `hooks/` et `reprise/`](#39-hooks-et-reprise)
-  - [`hooks/` — le mécanisme des hooks](#hooks--le-mécanisme-des-hooks)
+- [3.9 `hooks/` — le mécanisme des hooks](#39-hooks--le-mécanisme-des-hooks)
   - [La chaîne à deux étages](#la-chaîne-à-deux-étages)
   - [La fiche du hook](#la-fiche-du-hook)
   - [La description, un fichier Markdown par langue](#la-description-un-fichier-markdown-par-langue)
   - [Les traces codifiées, `errors:`](#les-traces-codifiées-errors)
   - [Ce qu'un hook ne contourne pas](#ce-quun-hook-ne-contourne-pas)
-  - [`reprise/`](#reprise)
+- [3.10 `reprise/` — la reprise de données](#310-reprise--la-reprise-de-données)
 
 ## 3.5 `settings.yml` — la maison des types et des réglages (D359, D360, D991–D993)
 
@@ -285,9 +284,7 @@ vit dans trois chapitres :
   `templates`, et `dashboards` au module, dans
   [les surfaces](../04-composants/surfaces.md).
 
-## 3.9 `hooks/` et `reprise/`
-
-### `hooks/` — le mécanisme des hooks
+## 3.9 `hooks/` — le mécanisme des hooks
 
 > **Un hook** est un prolongement par code : un type, un composant, une
 > opération, une fonction ou un connecteur, écrit contre le contrat de
@@ -521,7 +518,7 @@ Un hook est un citoyen du moteur, jamais un super-utilisateur :
 
 Ce que l'ingestion refuse est dans [les règles](regles.md).
 
-### `reprise/`
+## 3.10 `reprise/` — la reprise de données
 
 Le nom est celui du cas 5 ; l'organisation est libre. Trois sortes de
 fichiers décrivent une reprise de données :

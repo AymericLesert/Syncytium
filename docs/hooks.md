@@ -263,17 +263,18 @@ code : c'est un type dérivé (D359, D992), déclaré dans les settings sous
 hook de type sert quand le catalogue n'a pas le type : il apporte un
 type nouveau, avec sa signature complète (D1668).
 
-**L'exemple** — un type `iban`, l'identifiant d'un compte bancaire,
-que le catalogue n'a pas : la fiche `hooks/types/iban/iban.yml` suit
-la forme de D809, comme celle de `dupliquer` ; le code livre la
-signature — la conversion `iban(x)`, l'égalité, le tri, la clé
-vérifiée, les parties `.country`, `.bank` et `.account`, la
-déclinaison en `text[..34]` (D1298), le composant `iban` (D458) :
+**L'exemple** — un type `isbn`, l'identifiant d'un livre, que le
+catalogue n'a pas (`iban`, lui, y est, D391) : la fiche
+`hooks/types/isbn/isbn.yml` suit la forme de D809, comme celle de
+`dupliquer` ; le code livre la signature — la conversion `isbn(x)`,
+l'égalité, le tri, la clé vérifiée, les parties `.group`,
+`.publisher` et `.title`, la déclinaison en `text[..17]` (D1298), le
+composant `isbn` (D458) :
 
 ```yaml
-# Le type iban
-# Un identifiant de compte bancaire, vérifié par sa clé ; ses parties : le pays, la banque, le compte.
-name: iban
+# Le type isbn
+# Un identifiant de livre, vérifié par sa clé ; ses parties : le groupe, l'éditeur, le titre.
+name: isbn
 
 # La description
 # La documentation du type, en Markdown, une par langue de la version.
@@ -286,11 +287,11 @@ description:
 code: ~{source.txt}
 
 # Les propriétés
-# Les pays admis, en codes à deux lettres ; vide, tous les pays le sont.
+# Les formes admises, à dix ou treize chiffres ; vide, les deux le sont.
 properties:
-  countries:
+  lengths:
     mode: static
-    type: list of text[2]
+    type: list of integer
     value: [ ]
 ```
 
@@ -302,16 +303,16 @@ pas) ; les défauts se règlent sous `field:`, comme ceux de tout type
 # Les champs
 field:
 
-  # Le type iban
-  # Les comptes de la zone euro seulement.
-  iban:
-    countries: [ FR, DE, ES, IT ]
+  # Le type isbn
+  # La forme à treize chiffres seulement.
+  isbn:
+    lengths: [ 13 ]
 ```
 
 ```yaml
-# Le compte du tiers
-# Son identifiant bancaire, vérifié à la saisie.
-compte: iban
+# L'identifiant du livre
+# Son ISBN, vérifié à la saisie.
+isbn: isbn
 ```
 
 **Le pivot avec le storage** (D1297 — le 15/10/2026) : « Le storage

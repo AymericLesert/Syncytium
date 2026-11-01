@@ -583,11 +583,11 @@ d'`azure_ad`, écrits au cas 5 — `tenant`, `client_id`, `client_secret*`
 
 `verify(siren) : {}` — « retourne les informations de l'entreprise si
 le SIREN est vérifié » : la vérification et l'enrichissement en un
-geste, le formulaire client pré-rempli. *(Flagué : l'inventaire des
+geste, le formulaire client pré-rempli. L'inventaire des
 champs disponibles via l'API Sirene de l'INSEE — la dénomination, la
 forme juridique, le code NAF, l'adresse du siège, les
-établissements/SIRET, l'état actif/cessé… — à arrêter à
-l'implémentation de la classe.)*
+établissements/SIRET, l'état actif/cessé… — s'arrête à
+l'implémentation de la classe `sirene` (D1724).
 
 ### `webhook` (D640–D641)
 
@@ -692,16 +692,6 @@ dry-run (D646–D660) — sont la reprise : le chapitre 8, par
 [mapping.md](mapping.md) (D1721). Ce chapitre garde `from:`, au câblage,
 et la migration à chaud du storage, `duplicate_instance` et
 `rename_instance` (D631, D674).
-
-## Les points ouverts
-
-- **le mapping du `from:`** — la configuration de la procédure (le
-  chantier nommé, D610) ;
-- **les champs de l'API Sirene** (D639) — l'inventaire à
-  l'implémentation ;
-- **l'authentification** (la passerelle D418, la garde du webhook
-  D642) — au chantier sécurité ;
-
 
 ## La documentation — la facette du connecteur (D1158–D1159)
 

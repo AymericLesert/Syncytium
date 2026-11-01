@@ -658,7 +658,7 @@ instantané ou en différentiel** — le différentiel rejoignant la
 réplication passive du PCA-PRA (D112–D114).
 
 **L'exemple** — la déclaration à l'environnement, dans le fichier que
-l'environnement cite (D603, D617, D1529). Dans le cas 4 (banque),
+l'environnement cite (D603, D617, D342). Dans le cas 4 (banque),
 `environments/home/connectors.yml` :
 
 ```yaml

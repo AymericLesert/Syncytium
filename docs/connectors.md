@@ -288,30 +288,27 @@ démarrer uniquement si l'envoi de mail à l'administrateur est
 possible » — le canal d'alerte avant tout, le smtp vérifié au
 démarrage.
 
-## Le diagramme — le connecteur, la famille, la classe (D1715)
+## Le diagramme — `Connector`, les familles, les classes (D1715, D1716)
 
-Trois notions, à ne pas confondre (D1715) : **le connecteur**, déclaré à
-l'environnement par son nom ; **la famille**, le contrat que `type:`
-nomme ; **la classe**, l'implémentation que `class:` nomme et qui
-remplit le contrat de sa famille. Le socle commun vaut pour toute
-classe ; la famille ajoute ses méthodes ; la classe ajoute ses
-paramètres et ses propriétés spécifiques. Un hook de connecteur ajoute
-une classe à une famille, jamais une famille.
+Trois notions, à ne pas confondre : **le connecteur**, déclaré à
+l'environnement par son nom, qui nomme sa famille par `type:` et sa
+classe par `class:` ; **la famille**, le contrat ; **la classe**,
+l'implémentation qui remplit ce contrat. L'arbre a une racine,
+`Connector`, le socle commun de tout connecteur : ses méthodes et ses
+propriétés minimales (D621–D627, D1712, D1713). **Les familles sont
+définies par le socle lui-même** (D619, D1716) : « il ne sera pas
+possible pour le concepteur d'ajouter une nouvelle famille, sauf à
+faire évoluer le socle lui-même ». Chaque famille hérite de `Connector`
+et ajoute ses méthodes ; chaque classe hérite de sa famille et expose
+ses paramètres et ses propriétés spécifiques (D1711). Le concepteur
+ajoute une classe à une famille, par un hook de connecteur, jamais une
+famille.
 
 ```mermaid
 classDiagram
-    direction LR
-    class Connecteur {
-        <<déclaré à l'environnement>>
-        nom
-        type, la famille
-        class, la classe
-        parameters, les valeurs
-        connection, pool, retry, timeout, onerror, every
-        rgpd.countries
-    }
-    class SocleCommun {
-        <<contrat, toute classe>>
+    direction TB
+    class Connector {
+        <<le socle commun>>
         initialize()
         release()
         connect()
@@ -319,32 +316,9 @@ classDiagram
         ping() statut
         onerror() mock ou maintenance
         describe()
+        connection, pool, retry, timeout, onerror, every
+        rgpd.countries
     }
-    class Famille {
-        <<contrat, neuf familles>>
-        les méthodes de la famille
-    }
-    class Classe {
-        <<implémentation>>
-        les paramètres exposés, nom, type, défaut, secret
-        les propriétés spécifiques
-    }
-    class HookDeConnecteur {
-        <<le projet>>
-        ajoute une classe à une famille
-    }
-    SocleCommun <|-- Famille : étend
-    Famille <|.. Classe : remplit le contrat
-    Connecteur --> Famille : type
-    Connecteur --> Classe : class
-    HookDeConnecteur ..> Classe : livre
-```
-
-Les neuf familles, leurs méthodes et leurs classes :
-
-```mermaid
-classDiagram
-    direction TB
     class storage {
         begin()
         commit()
@@ -396,31 +370,40 @@ classDiagram
     class azure_ad_directory["azure_ad"]
     class none_auth["none"]
     class local_llm["local"]
-    storage <|.. postgresql
-    storage <|.. sqlserver
-    storage <|.. mysql
-    storage <|.. oracle
-    storage <|.. sqlite
-    storage <|.. memory
-    storage <|.. csv
-    storage <|.. xlsx
-    storage <|.. xml
-    storage <|.. json
-    smtp <|.. smtp_std
-    smtp <|.. none_smtp
-    file <|.. file_std
-    directory <|.. azure_ad_directory
-    location <|.. ban
-    location <|.. nominatim
-    authentication <|.. local
-    authentication <|.. azure_ad
-    authentication <|.. sso
-    authentication <|.. keycloak
-    authentication <|.. none_auth
-    siren <|.. sirene
-    webhook <|.. webhook_std
-    llm <|.. api
-    llm <|.. local_llm
+    Connector <|-- storage
+    Connector <|-- smtp
+    Connector <|-- file
+    Connector <|-- directory
+    Connector <|-- location
+    Connector <|-- authentication
+    Connector <|-- siren
+    Connector <|-- webhook
+    Connector <|-- llm
+    storage <|-- postgresql
+    storage <|-- sqlserver
+    storage <|-- mysql
+    storage <|-- oracle
+    storage <|-- sqlite
+    storage <|-- memory
+    storage <|-- csv
+    storage <|-- xlsx
+    storage <|-- xml
+    storage <|-- json
+    smtp <|-- smtp_std
+    smtp <|-- none_smtp
+    file <|-- file_std
+    directory <|-- azure_ad_directory
+    location <|-- ban
+    location <|-- nominatim
+    authentication <|-- local
+    authentication <|-- azure_ad
+    authentication <|-- sso
+    authentication <|-- keycloak
+    authentication <|-- none_auth
+    siren <|-- sirene
+    webhook <|-- webhook_std
+    llm <|-- api
+    llm <|-- local_llm
 ```
 
 Les spécificités d'une classe se lisent à sa déclaration : la carte

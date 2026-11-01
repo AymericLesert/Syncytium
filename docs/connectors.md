@@ -113,8 +113,15 @@ smtp:
   famille (D612, D1093) ;
 - **`class:`** — la classe qui remplit le contrat (D613, D615) ; le mot
   « hook » ne paraît pas dans la configuration (D408) ;
-- **`parameters:`** — les propriétés de la classe, par les variables du
-  `.env` de l'environnement (D588, D321) ;
+- **`parameters:`** — les paramètres que la classe expose à son contrat,
+  le nom, le type, la marque du secret (D1535, D1711) ; leurs défauts
+  viennent en cascade, « portés par l'implémentation du connecteur, par
+  les settings, ... » (D1711), puis l'environnement écrit les valeurs,
+  par les variables du `.env` (D321) ; le plus proche l'emporte (D461) ;
+  tous sont statiques, le connecteur se définit au démarrage (D603).
+  *En proposition* : la section `connector:` des settings, la classe
+  puis le paramètre (D1239) ; un paramètre que la classe n'expose pas
+  est une erreur d'ingestion ;
 - **le secret, le paramètre marqué `*`** (D944) : `password*:
   ${ENTREPOT_PASSWORD}` — le nom du paramètre est le contrat de la
   classe, la marque dit la confidentialité, jamais en clair dans un

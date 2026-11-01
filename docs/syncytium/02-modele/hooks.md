@@ -200,7 +200,9 @@ par un hook décrit donc ses méthodes dans sa propre fiche, sous la clé
 (D1700). L'appel s'écrit `isbn.check()`, la forme des méthodes. Une
 méthode ajoutée à un type du socle, `text` par exemple, se déclarera de
 même, dans une fiche au nom du type — *en proposition*, la forme se
-précisera à l'implémentation.
+précisera à l'implémentation. Une fonction déclarée par sa signature hors
+de tout type, comme l'ancien exemple `extract_name`, « décrit plutôt un
+hook d'opérations » (D1701).
 
 Le hook de fonction se complétera à l'implémentation (D1684) : « ça
 assurera le lien entre le socle et les composants ajoutés. En fonction

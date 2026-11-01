@@ -333,7 +333,11 @@ facettes que le contrat du hook de type livre à la documentation — à
 Ajoute **un composant graphique** au catalogue — une feuille, un
 conteneur, une surface (D455 : « une facette = un hook »).
 
-**Le contrat (D566.7)** : « un objet qui se chargera de gérer le
+**Le contrat (D69, D566.7)** : un composant est une fonction pure,
+de la configuration vers une description de rendu, et le moteur
+réalise le HTML — aucun accès au DOM, la technologie de rendu
+interchangeable (D69, cohérente avec D1672 : le socle impose
+l'affichage) ; « un objet qui se chargera de gérer le
 composant **et son rendu dans les différents formats — Web, PDF,
 Word, Excel, Email…** » (les destinations D564). Le composant
 personnalisé est **un nœud comme les autres** (D452) — la signature

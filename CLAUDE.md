@@ -100,5 +100,6 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   voie », la consigner fidèlement.
 - Ne pas alléger la charge de travail de soi-même ; ne pas relancer un sujet
   mis en attente (les questions de l'assistance, SEQUITUR) sans qu'il l'ouvre.
-- À chaque pause : journal de pause dans le registre, tout committé et
-  poussé (le verbe est « committer », jamais « commettre »).
+- À chaque pause : journal de pause dans le registre, la page du plan
+  régénérée (`python tools/plan.py`, D1660), tout committé et poussé (le
+  verbe est « committer », jamais « commettre »).

@@ -527,8 +527,8 @@ D1714).
 (les utilisateurs d'un groupe) · `get_groups` (tous les groupes) —
 **« uniquement de la lecture », aucun pendant en écriture** : la
 synchronisation des comptes et des groupes, les affectations restant
-des actes d'administration (D341/D210). *(L'authentification — la
-passerelle D418 — flaguée pour le chantier sécurité.)*
+des actes d'administration (D341/D210). L'authentification est une
+famille à part, ci-dessous (D692).
 
 ### `file` (D634–D635, D972–D973)
 
@@ -564,7 +564,8 @@ propre ; `ban`/`nominatim` (D294) les implémentent.
 
 Tous les chemins finissent en **une identité vérifiée**, rapprochée
 du compte (D82 — la clé d'unicité par connecteur) ; **la session,
-l'écran de connexion et l'orchestration vivent au moteur** (D686) ;
+l'écran de connexion et l'orchestration vivent au moteur** (D686), au
+chapitre 7, la sécurité (D1723) ;
 l'API ne porte pas de session — chaque requête porte sa preuve (le
 compte technique D77). **La garde du webhook (D642) appelle ce même
 `verify`** — rien de dédié. Les classes : `local` (le haché, les
@@ -603,7 +604,8 @@ sert**. Chaque point d'entrée porte :
 monte les routes, contrôle les paramètres, reçoit. **Le
 déclenchement passe par une authentification obligatoire** (D642) :
 aucune entrée anonyme — la garde est d'office sur la route, le
-mécanisme (clé, jeton, signature…) au chantier sécurité (D418). **Le `when:` est
+mécanisme, la clé, le jeton ou la signature, au chapitre 7, la sécurité
+(D418, D1723). **Le `when:` est
 un abonnement** : `when: <connecteur>` (toute entrée) ou l'entrée
 précisée — posé à l'`initialize` (D621), l'appel entrant déclenche
 l'opération déclarée (D609).

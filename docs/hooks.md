@@ -491,8 +491,9 @@ type qui exposera ses fonctions ». Une fonction est une méthode d'un
 type (D1674) ; le hook qui l'ajoute dit quel type l'expose — *en
 proposition*, `type:` dans sa fiche, `text` pour `extract_name`, et un
 type apporté par un hook liste ses fonctions dans sa propre fiche. La
-forme de la fiche suit D809 ; l'exemple ci-dessous, antérieur, se
-réécrira à la distribution.
+forme de la fiche suit D809 ; l'exemple ci-dessous est conservé —
+« je ne vois pas d'écart » (D1681) — ; `type:` s'y ajoutera si la
+proposition est confirmée.
 
 Ajoute **une fonction** — le calcul pur : une valeur (ou une liste)
 aux types du modèle, ou **des valeurs nommées** (D593 — la regex à

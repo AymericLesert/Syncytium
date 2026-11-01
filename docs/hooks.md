@@ -216,7 +216,9 @@ graphe de conversion).
 
 **Ce qu'un type ajouté livre** (D1677) — chaque item est décrit à sa
 fiche du chapitre 2 ou du chapitre 3 ; un type sans l'un d'eux est
-incomplet, et l'ingestion refuse un type sans ses règles de stockage :
+incomplet, et l'ingestion refuse un type sans ses règles de stockage
+— le refus, jamais la dégradation en colonne texte, « pour plus de
+cohérence » (D1690) :
 
 - **sa signature** (D579–D584) : la conversion au nom du type, la table
   des opérateurs, les comparateurs, le tri, ses fonctions — ses
@@ -319,7 +321,9 @@ couvrir. Au storage de faire le nécessaire pour exploiter au mieux ces
 données. » — le storage énonce la liste de ce qu'il attend d'un type ;
 le type la couvre par sa déclinaison en types élémentaires — un
 élémentaire ou une liste nommée d'élémentaires, le format pivot
-(D1298) — et ses règles de transcription (D1296) ; la forme en
+(D1298) — et ses règles de transcription (D1296) ; un type qui ne
+couvre pas un élément attendu est refusé à l'ingestion, jamais dégradé
+(D1690) ; la forme en
 clair, les indicateurs (D1288) et la règle de stockage sont les trois
 facettes que le contrat du hook de type livre à la documentation — à
 écrire à l'étape 9 du rang 2.

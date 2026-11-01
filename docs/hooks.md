@@ -7,6 +7,15 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
 [conception](conception.md) ; les composants graphiques au
 [catalogue](syncytium/04-composants/README.md).
 
+**Le périmètre du chapitre** (D1669) : la déclaration d'un hook dans
+la configuration — les familles, la chaîne des fichiers, la fiche et
+ses clés, les paramètres, les traces, la description par langue, les
+défauts et l'usage du nom ajouté. Ce que le code d'un hook livre, et
+comment il l'écrit — le langage, la sandbox, la forme technique de la
+signature, l'API appelée — relève de l'architecture (le domaine 7,
+D570, D602), qui n'est pas posée : le chapitre reste partiel sur ce
+point jusque-là.
+
 ## La doctrine
 
 - **Un seul mécanisme, dedans comme dehors** (D52) : les hooks, les

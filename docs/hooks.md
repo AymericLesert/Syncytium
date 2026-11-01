@@ -10,9 +10,9 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
 **Cet artefact n'a pas de chapitre** (D1673) : « les hooks sont meme à
 décrire à la fin de chaque chapitre où pouvons en avoir ». Le
 mécanisme et la déclaration vont au chapitre 1, chaque famille à la fin
-du chapitre de ses composants — les types et les fonctions au 2
-(D1674), les composants au 4, les connecteurs au 5, les opérations au
-6 (D1675) ; la lecture en cours prépare cette distribution. **Le mécanisme est écrit au chapitre 1** (D1692), [version.md](syncytium/01-configuration/version.md) § 3.9 ; **le type et la fonction au chapitre 2** (D1698), [02-modele/hooks.md](syncytium/02-modele/hooks.md) ; la doctrine, la maison et les fiches ci-dessous restent jusqu'à la dissolution.
+du chapitre de ses composants — les types et leurs méthodes au 2
+(D1674, D1702), les composants au 4, les connecteurs au 5, les opérations au
+6 (D1675) ; la lecture en cours prépare cette distribution. **Le mécanisme est écrit au chapitre 1** (D1692), [version.md](syncytium/01-configuration/version.md) § 3.9 ; **le type et ses méthodes au chapitre 2** (D1698), [02-modele/hooks.md](syncytium/02-modele/hooks.md) ; la doctrine, la maison et les fiches ci-dessous restent jusqu'à la dissolution.
 
 **Le périmètre** (D1669) : la déclaration d'un hook dans
 la configuration — les familles, la chaîne des fichiers, la fiche et
@@ -38,8 +38,8 @@ point jusque-là.
   premier client du mécanisme ;
 - **Le mot « hook » n'apparaît jamais dans la configuration**
   (D408) : un hook ajoute **un nom** au catalogue concerné (un type,
-  un composant, une opération, une fonction, un connecteur — cinq
-  familles, D1671, D1672) — et ce
+  un composant, une opération, un connecteur — quatre
+  familles, D1671, D1672, D1702) — et ce
   nom s'emploie comme un nom du socle ; le doublon de nom = une
   erreur d'ingestion (D344/D396) ;
 - **La première classe** (D65/D68) : un élément ajouté a les mêmes
@@ -73,7 +73,7 @@ versions/<statut>/<version>/
 │   ├── hooks.yml                   # → les fichiers de famille (D777)
 │   ├── operations/operations.yml   # → les fiches (le pattern — D806)
 │   │   └── <verbe>/                #   la fiche, le md, le source (D809)
-│   └── types/ · components/ · functions/ · connectors/
+│   └── types/ · components/ · connectors/
 └── <modules>/
 ```
 
@@ -545,6 +545,10 @@ seule** (D571).
 
 ### 4. Le hook de fonction (D571, D592–D593)
 
+**La famille n'existe plus** (D1702) : une fonction est une méthode de
+son type, décrite dans la fiche du type ; la section reste jusqu'à la
+dissolution.
+
 **Porté par un type** (D1676) : « le hook de fonction est porté par le
 type qui exposera ses fonctions ». Une fonction est une méthode d'un
 type (D1674) ; le hook qui l'ajoute dit quel type l'expose — *en
@@ -830,7 +834,7 @@ lecteur voit ce que chaque hook livre par sa facette : **le hook de
 type**, la forme en clair, la déclinaison, les indicateurs, l'exemple, le
 marquage (D1301) ; **le hook d'opération**, la description de
 l'opération (D1227) et son contrat au chapitre 4.3 — ce qu'elle lit, ce
-qu'elle écrit, ses effets (D1262) ; **le hook de fonction**, le texte des
+qu'elle écrit, ses effets (D1262) ; **les méthodes des types**, le texte des
 formules dans les règles de l'entité (D1254) ; **le hook de connecteur
 storage**, le chapitre 3 par `describe(model)` (D1299) ; les hooks de
 composant et de style, rien. L'inventaire des hooks câblés et comment en
@@ -892,7 +896,7 @@ l'agrégat, le champ calculé que les séquences d'appels font émerger
 opération entre dans la plaquette par le scénario du persona qui la
 déclenche (D1498) ; dans la démonstration (D1503), les hooks tournent
 comme ailleurs, leurs connecteurs mockés ; dans la promotionnelle de
-Syncytium, les cinq familles de hooks sont l'argument de l'ouverture
+Syncytium, les quatre familles de hooks sont l'argument de l'ouverture
 (D1509, D52).
 
 **Les neuf colonnes sont écrites.**

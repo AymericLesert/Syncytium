@@ -380,7 +380,8 @@ porte le nom du type. *(D456, D458)*
 
 **Fonction** — Une opération du langage qui prend des valeurs en arguments et
 rend une valeur, ou plusieurs valeurs nommées. Le catalogue est en anglais ;
-chaque type emmène les siennes, un hook de fonction en ajoute.
+chaque type emmène les siennes, un hook de type en ajoute, par ses méthodes,
+`methods:`.
 *Ex. : `left(code, 3)`, `ifnull(remise, 0)`.* *(D301, D571, D579, D593)*
 
 **Fonction d'agrégation** — Une méthode d'une collection qui en résume
@@ -480,7 +481,7 @@ tout (`perpetual`), une période (`temporal[365]`), les dernières
 modifications (`update[10]`), rien (`false`). *(D168/D411)*
 
 **Hook** — Le prolongement par code : un type, un composant graphique ou une
-fonction sur mesure, écrits contre le contrat de Syncytium. Le hook rend transparent l'usage de développements spécifiques à un projet. De façon homogène, Syncytium fournit un cadre d'exécution et pour ne pas à avoir à tout recréer, Syncytium fournit déjà un ensemble de Hooks.Les types de champ, les composants graphiques, les écrans de saisie, les formats CSV ou Excel fournis avec Syncytium sont des hooks. Cinq familles : le type, le composant, l'opération, la fonction, le connecteur ; le style et la langue n'en sont pas. *(D52/D408, D1671, D1672)*
+fonction sur mesure, écrits contre le contrat de Syncytium. Le hook rend transparent l'usage de développements spécifiques à un projet. De façon homogène, Syncytium fournit un cadre d'exécution et pour ne pas à avoir à tout recréer, Syncytium fournit déjà un ensemble de Hooks.Les types de champ, les composants graphiques, les écrans de saisie, les formats CSV ou Excel fournis avec Syncytium sont des hooks. Quatre familles : le type, le composant, l'opération, le connecteur ; la fonction est une méthode du type, le style et la langue ne sont pas des hooks. *(D52/D408, D1671, D1672, D1702)*
 
 **Horodatage** (`datetime[timestamp]`) — Un instant absolu, stocké en
 temps universel et affiché à l'heure de chacun. S'oppose à la valeur

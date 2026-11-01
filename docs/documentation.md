@@ -168,7 +168,7 @@ les identités.
 l'authentification des comptes techniques (D28), l'épinglage (D98), la
 pagination et les lots (D22), les tâches asynchrones (D24), les champs
 exposés (D20), les erreurs (le 426 — D94), des exemples d'appel ;
-*étendre* — les cinq familles de hooks ([hooks.md](hooks.md)) : écrire
+*étendre* — les quatre familles de hooks ([hooks.md](hooks.md)) : écrire
 un hook, son md (D778), la librairie d'exploration (D572/D599), le hook
 d'interface listé (D918) ; les types et les composants personnalisés
 (D359, D452) ; *enrichir* — la syntaxe de la configuration et le dépôt
@@ -525,7 +525,7 @@ décisions, D1170–D1238.)*
      (D1393–D1402)** — chaque version publiée, le contrat aux seuls
      droits du compte, le chapitre en tête, la console interactive, les
      écarts, les trois lieux ;
-  2. étendre : les cinq familles de hooks — écrire un hook, son md
+  2. étendre : les quatre familles de hooks — écrire un hook, son md
      (D778), `describe()`, la librairie d'exploration, le hook
      d'interface listé (D918) ; les types et composants personnalisés :
      **acquis le 24/10/2026 (D1403–D1409)** — la description par md et
@@ -4015,9 +4015,9 @@ consignes pour l'IA (D1224).
 **Deux faces** : **l'inventaire**, ce que cette version a ajouté au
 socle, calculé depuis la configuration ; **la référence**, comment
 écrire un hook, un type, un composant — la documentation de Syncytium,
-que l'étape 3 placera, embarquée ou liée. Les cinq familles de
-[hooks.md](hooks.md) — le type, le composant, l'opération, la fonction,
-le connecteur (D1671, D1672) — et les autres points d'extension.
+que l'étape 3 placera, embarquée ou liée. Les quatre familles de
+[hooks.md](hooks.md) — le type, le composant, l'opération, le
+connecteur (D1671, D1672, D1702) — et les autres points d'extension.
 
 **La description d'un hook est déclarée, non générée** (D1403 : « la
 méthode describe() du hook est probablement décorrellée par rapport à

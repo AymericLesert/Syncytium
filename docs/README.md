@@ -96,12 +96,12 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 
 **Les hooks n'ont pas de chapitre** (D1673) : `hooks.md` se dissout.
 Le mécanisme et la déclaration dans la configuration vont au chapitre 1,
-chaque famille à la fin de son chapitre — les types et les fonctions, les
-méthodes des types, au 2 (D1674), les composants au 4, les connecteurs
+chaque famille à la fin de son chapitre — les types et leurs méthodes au 2
+(D1674, D1702), les composants au 4, les connecteurs
 au 5, les opérations au 6.
 La lecture de `hooks.md` (17 points, D1657) est faite (D1667–D1691) ;
 la distribution est en cours : le mécanisme au chapitre 1, validé
-(D1692, D1697), le type et la fonction au chapitre 2 (D1698), puis le
+(D1692, D1697), le type et ses méthodes au chapitre 2 (D1698), puis le
 chapitre 4.
 
 Hors des familles : `glossaire.md` va à `syncytium/glossaire.md` avec le

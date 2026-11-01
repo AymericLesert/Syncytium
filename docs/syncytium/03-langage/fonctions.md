@@ -131,5 +131,6 @@ Une fonction définie calcule un champ (D571) :
   fixe le graphe d'exécution ;
 - elle ne déclenche aucune opération : elle est pure.
 
-Une fonction qui n'existe pas au catalogue s'écrit en code, par un hook
-de fonction ([les hooks du modèle](../02-modele/hooks.md#le-hook-de-fonction)).
+Une fonction qui n'existe pas au catalogue s'écrit en code, comme une
+méthode du type qui l'expose
+([les hooks du modèle](../02-modele/hooks.md#les-méthodes-dun-type)).

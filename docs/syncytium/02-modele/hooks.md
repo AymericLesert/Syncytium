@@ -1,9 +1,9 @@
-# Les hooks du modèle — le type et la fonction
+# Les hooks du modèle — le type et ses méthodes
 
 Le catalogue des types et des fonctions est celui de Syncytium. Quand il
 manque un type ou une fonction, le projet l'ajoute par du code : un hook.
 Ce fichier dit ce qu'un hook de type livre, comment il se déclare et
-s'emploie, puis ce qu'est un hook de fonction. Le mécanisme commun, la
+s'emploie, puis comment il expose ses méthodes. Le mécanisme commun, la
 maison `hooks/`, la fiche, la description par langue, les traces, est au
 chapitre 1,
 [la version](../01-configuration/version.md#39-hooks--le-mécanisme-des-hooks).
@@ -15,7 +15,7 @@ chapitre 1,
   - [Ce qu'un type ajouté livre](#ce-quun-type-ajouté-livre)
   - [Le pivot avec le storage](#le-pivot-avec-le-storage)
   - [La fiche et l'usage](#la-fiche-et-lusage)
-- [Le hook de fonction](#le-hook-de-fonction)
+- [Les méthodes d'un type](#les-méthodes-dun-type)
   - [Le contrat](#le-contrat)
   - [La déclaration et l'usage](#la-déclaration-et-lusage)
 
@@ -185,14 +185,15 @@ Un champ l'emploie par son nom :
 isbn: isbn
 ```
 
-## Le hook de fonction
+## Les méthodes d'un type
 
 > **Une fonction** est une opération du langage qui prend des valeurs
 > en arguments et rend une valeur, ou plusieurs valeurs nommées. Chaque
-> type emmène les siennes, un hook de fonction en ajoute
+> type emmène les siennes, un hook de type en ajoute, par ses méthodes
 > ([glossaire](../../glossaire.md)).
 
-Une fonction est une méthode d'un type (D1674). Le hook de fonction est
+Une fonction est une méthode d'un type (D1674) ; la fonction n'est pas
+une famille de hooks (D1702). Le hook de fonction est
 porté par le type qui expose ses fonctions (D1676) : « le hook de
 fonction est porté par le type qui exposera ses fonctions ». Un type apporté
 par un hook décrit donc ses méthodes dans sa propre fiche, sous la clé
@@ -204,7 +205,7 @@ précisera à l'implémentation. Une fonction déclarée par sa signature hors
 de tout type, comme l'ancien exemple `extract_name`, « décrit plutôt un
 hook d'opérations » (D1701).
 
-Le hook de fonction se complétera à l'implémentation (D1684) : « ça
+Les méthodes se complèteront à l'implémentation (D1684) : « ça
 assurera le lien entre le socle et les composants ajoutés. En fonction
 de l'architecture technique et des composants techniques, les règles
 peuvent être revues et corrigées. Pour le moment, ça couvre le besoin et
@@ -212,7 +213,7 @@ peuvent être revues et corrigées. Pour le moment, ça couvre le besoin et
 
 ### Le contrat
 
-Une fonction ajoutée est un calcul pur (D571) :
+Une méthode ajoutée est un calcul pur (D571) :
 
 - elle rend une valeur, une liste, ou des valeurs nommées, aux types du
   modèle ; une expression régulière à groupes nommés nourrit plusieurs
@@ -225,9 +226,10 @@ Une fonction ajoutée est un calcul pur (D571) :
   modifié ; le graphe est acyclique, un cycle est une erreur d'ingestion
   (D592).
 
-Les fonctions libres, `min`, `max`, `sum`, `avg` (D583, D587), sont la
-porte des hooks de fonction libre : « le catalogue s'enrichira, si
-besoin ». Elles sont décrites au chapitre 3,
+Les fonctions libres, `min`, `max`, `sum`, `avg` (D583, D587), restent
+au catalogue de Syncytium : « le catalogue s'enrichira, si besoin ». Le
+projet n'en ajoute pas, une fonction du projet est une méthode (D1702).
+Elles sont décrites au chapitre 3,
 [le catalogue des fonctions](../03-langage/fonctions.md).
 
 ### La déclaration et l'usage

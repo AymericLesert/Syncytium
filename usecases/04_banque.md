@@ -753,7 +753,7 @@ configuration le 24/10/2026 — D1424.**)*
 >
 > ## La référence de Syncytium-1.0
 >
-> Embarquée entière (D1411) : les cinq familles (D1671, D1672), le contrat de chacune,
+> Embarquée entière (D1411) : les quatre familles (D1671, D1672, D1702), le contrat de chacune,
 > ce que le moteur fournit, la maison, essayer en sandbox, la forme du
 > code au domaine 7.
 

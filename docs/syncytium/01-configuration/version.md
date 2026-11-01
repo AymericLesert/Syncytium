@@ -301,12 +301,11 @@ proposés sont finalement des hooks qui appartiennent à Syncytium »
 (D408). Ce que Syncytium embarque et ce que le concepteur ajoute passent
 par la même porte (D37, D52).
 
-Il y a cinq familles (D1671, D1672). Chacune se décrit à la fin du
-chapitre de ses composants (D1673) :
+Il y a quatre familles (D1671, D1672, D1702). Chacune se décrit à la
+fin du chapitre de ses composants (D1673) :
 
-- **le type**, au chapitre 2, [le modèle](../02-modele/README.md) ;
-- **la fonction**, une méthode d'un type, au chapitre 2 aussi (D1674,
-  D1676) ;
+- **le type**, avec ses méthodes (D1674, D1700), au chapitre 2,
+  [le modèle](../02-modele/README.md) ;
 - **le composant**, au chapitre 4, [les composants](../04-composants/README.md) ;
 - **le connecteur**, au chapitre 5, les connecteurs ;
 - **l'opération**, au chapitre 6, les opérations (D1675).
@@ -406,7 +405,7 @@ reste. Deux clés s'ajoutent quand le hook en a besoin (D1667) :
 - `errors`, ses traces codifiées, `~{errors.yml}` (D1461) ; absente, le
   hook n'émet aucune trace propre.
 
-Les dossiers `types/`, `components/`, `functions/` et `connectors/`
+Les dossiers `types/`, `components/` et `connectors/`
 suivent la même forme. Ce qu'une famille déclare en plus est au chapitre
 de sa famille.
 

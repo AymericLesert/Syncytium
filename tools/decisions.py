@@ -256,6 +256,17 @@ for _fam, _nums in {
 # la file, la supervision et l'audit au chapitre 9.
 RELECTURE.update({53: "operations", 54: "operations", 87: "operations", 88: "operations", 106: "operations",
                   56: "administration", 61: "administration", 62: "administration"})
+# Le chapitre 5, les connecteurs (D1728, le 02/11/2026) : quinze sorties, et l'ouverture du chapitre à la méthode.
+for _fam, _nums in {
+    "modele": [411, 985],
+    "surfaces": [564],
+    "administration": [745],
+    "reprise": [819, 828],
+    "cas": [860, 1004, 1022, 1107, 1552],
+    "documentation": [1255],
+    "methode": [614, 1435, 1670, 1707],
+}.items():
+    RELECTURE.update({_n: _fam for _n in _nums})
 
 
 

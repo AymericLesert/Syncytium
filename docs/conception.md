@@ -13617,6 +13617,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Les fonctions, méthodes des types (D1674).** « Les fonctions (méthodes des types) me semblent plus appropriées dans le modèle et ses types. Cela porte des actions sur les types dont l'usage se déclinera dans le langage d'expression. Pour une liste, les méthodes sum, avg, min, max, ... permettent de manipuler les éléments simplement. Ces méthodes sont définies à chaque type (comme si un type était une classe et ses fonctions des méthodes). » — le hook de fonction au chapitre 2.
 
+**Le chapitre des opérations (D1675).** « Les opérations du socle sont à positionner dans un chapitre dédié (après les connecteurs, ça me semble pertinent). » — le chapitre 6, quatorze chapitres.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que

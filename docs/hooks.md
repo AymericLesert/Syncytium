@@ -10,8 +10,9 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
 **Cet artefact n'a pas de chapitre** (D1673) : « les hooks sont meme à
 décrire à la fin de chaque chapitre où pouvons en avoir ». Le
 mécanisme et la déclaration vont au chapitre 1, chaque famille à la fin
-du chapitre de ses composants ; la lecture en cours prépare cette
-distribution.
+du chapitre de ses composants — les types et les fonctions au 2
+(D1674), les composants au 4, les connecteurs au 5, les opérations au
+6 (D1675) ; la lecture en cours prépare cette distribution.
 
 **Le périmètre** (D1669) : la déclaration d'un hook dans
 la configuration — les familles, la chaîne des fichiers, la fiche et

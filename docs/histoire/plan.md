@@ -279,11 +279,12 @@ réécriture (D1521, D1543). Il est fait quand les trois le sont.
 | 3 | Le langage d'expression | fait | 31/10/2026 |
 | 4 | Les surfaces et les composants | fait | 01/11/2026 |
 | 5 | Les connecteurs | à faire | — |
-| 6 | Les droits et la sécurité | à faire | — |
-| 7 | La reprise et le mapping | à faire | — |
-| 8 | L'administration et l'exploitation | à faire | — |
-| 9 | La télémétrie | à faire | — |
-| 10 | La documentation | à faire | — |
-| 11 | Les API et les échanges | à faire | — |
-| 12 | Les cas d'usage | à faire | — |
-| 13 | La méthode et le projet | à faire | — |
+| 6 | Les opérations | à faire | — |
+| 7 | Les droits et la sécurité | à faire | — |
+| 8 | La reprise et le mapping | à faire | — |
+| 9 | L'administration et l'exploitation | à faire | — |
+| 10 | La télémétrie | à faire | — |
+| 11 | La documentation | à faire | — |
+| 12 | Les API et les échanges | à faire | — |
+| 13 | Les cas d'usage | à faire | — |
+| 14 | La méthode et le projet | à faire | — |

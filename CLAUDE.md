@@ -82,8 +82,9 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   entre.
 - **Chaque fichier porte un sommaire dans son introduction** (D1658) :
   `## Le sommaire`, avant le premier titre, les titres `##` et `###` du
-  fichier en liens vers leurs ancres ; le README d'un chapitre porte le
-  sommaire de ses fichiers.
+  fichier en liens vers leurs ancres ; **le sommaire est une table des
+  matières** (D1694, D1695) : le README d'un chapitre liste chaque
+  fichier et ses sections `##` en titres liés, sans description.
 - **Un chapitre se fait en trois temps** (D1521, D1543) : la lecture — l'audit
   par famille, les écarts arbitrés point par point —, la réorganisation —
   le découpage vérifié, l'histoire sortie, les liens —, puis la

@@ -11,24 +11,53 @@ entre parenthèses renvoient au [registre](../../conception.md).
 
 ## Le sommaire
 
-1. **La doctrine** — ci-dessous : où vit une entité, comment elle se
-   documente.
-2. **[L'entité](entite.md)** — l'en-tête de son fichier, sa validation et
-   ses trois sévérités, ses opérations et sa présentation par renvoi.
-3. **[Les champs](champs.md)** — la forme courte et le bloc, les groupes,
-   les propriétés d'un champ, l'ordre du fichier.
-4. **[La vie d'un enregistrement](vie.md)** — l'héritage, la suppression
-   et la réactivation, l'historisation.
-5. **[Les types](types.md)** — le socle commun à tous les types, les types
-   simples, les fonctions du texte.
-6. **[Les types composés](composes.md)** — le montant, la mesure, la
-   durée, la géolocalisation, la période…
-7. **[Les collections, les liens, les générés](liens.md)** — les listes et
-   les plages, la référence, la composition, l'association, le compteur,
-   le calculé, le contexte, les types ajoutés par un hook.
-8. **[Ce que le modèle livre à la documentation](documentation.md)** — le
-   diagramme, et ce que l'entité, le champ et le type apportent à chaque
-   documentation générée.
+1. [La doctrine](#la-doctrine)
+   - [Le module déclare ses entités](#le-module-déclare-ses-entités)
+   - [Un fichier ou plusieurs, au choix](#un-fichier-ou-plusieurs-au-choix)
+   - [L'entité se documente elle-même](#lentité-se-documente-elle-même)
+2. [L'entité](entite.md)
+   - [Le nom et les textes](entite.md#le-nom-et-les-textes)
+   - [L'identité](entite.md#lidentité)
+   - [Le cycle de vie, l'héritage, l'historique](entite.md#le-cycle-de-vie-lhéritage-lhistorique)
+   - [Les champs, les opérations, la présentation, la partition](entite.md#les-champs-les-opérations-la-présentation-la-partition)
+   - [La validation](entite.md#la-validation)
+   - [Les opérations — le renvoi](entite.md#les-opérations--le-renvoi)
+   - [La présentation — le renvoi](entite.md#la-présentation--le-renvoi)
+   - [L'exemple fil rouge](entite.md#lexemple-fil-rouge)
+3. [Les champs](champs.md)
+   - [La forme courte et le bloc](champs.md#la-forme-courte-et-le-bloc)
+   - [Les groupes de champs](champs.md#les-groupes-de-champs)
+   - [Les propriétés d'un champ](champs.md#les-propriétés-dun-champ)
+   - [L'ordre du fichier](champs.md#lordre-du-fichier)
+4. [La vie d'un enregistrement](vie.md)
+   - [L'héritage](vie.md#lhéritage)
+   - [La suppression et la réactivation](vie.md#la-suppression-et-la-réactivation)
+   - [L'historisation](vie.md#lhistorisation)
+5. [Les types](types.md)
+   - [Le socle commun](types.md#le-socle-commun)
+   - [Les types simples](types.md#les-types-simples)
+   - [Les fonctions du texte](types.md#les-fonctions-du-texte)
+6. [Les types composés](composes.md)
+   - [`amount`, le montant](composes.md#amount-le-montant)
+   - [`percentage`, le pourcentage](composes.md#percentage-le-pourcentage)
+   - [`measure`, la mesure](composes.md#measure-la-mesure)
+   - [`duration`, la durée](composes.md#duration-la-durée)
+   - [`phone`, le téléphone](composes.md#phone-le-téléphone)
+   - [`geolocation`, la géolocalisation](composes.md#geolocation-la-géolocalisation)
+   - [`period`, la période](composes.md#period-la-période)
+   - [Les identifiants contrôlés](composes.md#les-identifiants-contrôlés)
+   - [`communication`, le fil](composes.md#communication-le-fil)
+   - [`label`, le libellé nommé](composes.md#label-le-libellé-nommé)
+7. [Les collections, les liens, les générés](liens.md)
+   - [Les collections et les plages](liens.md#les-collections-et-les-plages)
+   - [Les liens](liens.md#les-liens)
+   - [Les générés et le contexte](liens.md#les-générés-et-le-contexte)
+   - [Les types ajoutés par un hook](liens.md#les-types-ajoutés-par-un-hook)
+8. [Ce que le modèle livre à la documentation](documentation.md)
+   - [L'entité dans le diagramme](documentation.md#lentité-dans-le-diagramme)
+   - [La facette de l'entité et du champ](documentation.md#la-facette-de-lentité-et-du-champ)
+   - [La facette du type](documentation.md#la-facette-du-type)
+9. [Les décisions](#les-décisions)
 
 ## La doctrine
 

@@ -14,17 +14,33 @@ décisions citées entre parenthèses renvoient au
 
 ## Le sommaire
 
-1. **Le langage** — ci-dessous : où il s'emploie, ses mots, ses
-   garde-fous.
-2. **[L'écriture d'une expression](ecriture.md)** — les littéraux, les
-   opérateurs et leur priorité, la conversion, le conditionnel, le
-   `select`, le nul, le gabarit.
-3. **[Les collections](collections.md)** — les fonctions d'agrégation,
-   l'appartenance, la projection, les opérations ensemblistes, l'accès
-   par la clé.
-4. **[Le catalogue des fonctions](fonctions.md)** — les fonctions du
-   texte, les fonctions libres et l'arrondi, les valeurs nommées, la
-   fonction définie.
+1. Le langage
+   - [Où il s'emploie](#où-il-semploie)
+   - [Les mots du langage](#les-mots-du-langage)
+   - [L'expression multivaluée](#lexpression-multivaluée)
+   - [Les garde-fous](#les-garde-fous)
+2. [L'écriture d'une expression](ecriture.md)
+   - [Les littéraux](ecriture.md#les-littéraux)
+   - [Les opérateurs](ecriture.md#les-opérateurs)
+   - [La conversion](ecriture.md#la-conversion)
+   - [Ce qu'un type apporte](ecriture.md#ce-quun-type-apporte)
+   - [Le conditionnel](ecriture.md#le-conditionnel)
+   - [Le `select`](ecriture.md#le-select)
+   - [Le nul](ecriture.md#le-nul)
+   - [La concaténation et le gabarit](ecriture.md#la-concaténation-et-le-gabarit)
+3. [Les collections](collections.md)
+   - [Les fonctions d'agrégation](collections.md#les-fonctions-dagrégation)
+   - [L'appartenance et la projection](collections.md#lappartenance-et-la-projection)
+   - [Les opérations ensemblistes](collections.md#les-opérations-ensemblistes)
+   - [La liste littérale et `list(…)`](collections.md#la-liste-littérale-et-list)
+   - [La source d'une reprise, une collection](collections.md#la-source-dune-reprise-une-collection)
+   - [L'accès par la clé](collections.md#laccès-par-la-clé)
+4. [Le catalogue des fonctions](fonctions.md)
+   - [Les fonctions du texte](fonctions.md#les-fonctions-du-texte)
+   - [Les fonctions libres](fonctions.md#les-fonctions-libres)
+   - [Les valeurs nommées](fonctions.md#les-valeurs-nommées)
+   - [La fonction définie](fonctions.md#la-fonction-définie)
+5. [Les décisions](#les-décisions)
 
 ## Où il s'emploie
 

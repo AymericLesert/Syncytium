@@ -39,7 +39,7 @@ décision du domaine.
 | 3 | Le méta-schéma | Livré | 15/08/2026 |
 | 4 | Les surfaces | Livré | 14/08/2026 |
 | 5 | Les cas d'usage | Livré | 26/10/2026 |
-| 6 | La rédaction de la documentation synthétique et détaillée | En cours | — |
+| 6 | La documentation | En cours | — |
 | 7 | Le choix de l'architecture technique | À couvrir | — |
 | 8 | L'implémentation | Après tout le reste | — |
 

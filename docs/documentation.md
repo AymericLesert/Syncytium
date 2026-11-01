@@ -896,6 +896,18 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
   `docs/decisions/` et son index (D1392) ; la PR vers `develop`.
 - **Dépendances** : les neuf autres rangs — le rang 10 les clôt.
 
+#### Après le rang 10 — la documentation à l'implémentation (D1661)
+
+« Lors de l'implémentation, une mise à jour de la documentation sera à
+réaliser en incluant dans chaque item : la configuration, la traduction
+technique dans l'interface avec le choix technique de l'implémentation
+et une représentation graphique du résultat » (l'auteur, le 01/11/2026).
+Trois volets par item, donc : la configuration, telle que les chapitres
+la décrivent ; sa traduction technique dans l'interface, avec le choix
+d'implémentation retenu ; une représentation graphique du résultat. Ce
+rang attend le domaine 7, l'architecture technique, et s'exécute au
+domaine 8.
+
 ## 1. Le principe — trois documentations, trois sources, une seule version
 
 **« La description et l'autogénération de la documentation sont un

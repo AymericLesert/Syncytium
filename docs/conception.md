@@ -25428,6 +25428,25 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-11-02 — LA PAUSE : LA LECTURE DES HOOKS SOLDÉE, LES HOOKS DISTRIBUÉS, LE CHAPITRE 5 LU ET RÉORGANISÉ
+  (D1681–D1730, 1730 décisions).** La lecture de hooks.md achevée, les points 7 et 9 à 17 validés en masse
+  (D1681–D1688), puis les trois arbitrages à part : les tâches entre les chapitres 6 et 9 (D1689), le refus d'un type
+  sans règle de stockage (D1690), D69 au contrat du hook de composant (D1691). **La distribution** : le mécanisme au
+  chapitre 1, version.md § 3.9 (D1692, validé D1697, séparé de la reprise D1696) ; le type et ses méthodes au
+  chapitre 2, `02-modele/hooks.md` (D1698, validé D1704) — la méthode `check` du type `isbn`, `isbn.check()`, la clé
+  `methods:` dans la fiche du type (D1699–D1700) ; **quatre familles de hooks**, la fonction n'étant qu'une méthode
+  du type (D1701–D1702) ; l'entrée Méthode au glossaire (D1703) ; le composant au chapitre 4,
+  `04-composants/hooks.md` (D1705, validé D1706). Les sommaires des chapitres sont des tables des matières liées
+  (D1693–D1695). **Le chapitre 5** : la lecture en dix-huit points (D1707–D1729) — la déclaration par les extraits
+  des cas, `every:` au connecteur (D1708) ; le socle par le nom, le hook par `uses:` (D1710) ; les paramètres
+  exposés par la classe (D1711) ; les propriétés du socle confirmées, minimales, leurs défauts à l'inventaire
+  (D1712–D1713) ; le catalogue des classes en union, le llm inclus (D1714) ; **l'arbre `Connector`, les familles
+  définies par le socle, les classes**, en Mermaid, validé, en introduction (D1715–D1717) ; le contrat llm confirmé
+  (D1718) ; les déclencheurs vers hooks.md § 3 pour le chapitre 6, la migration vers mapping.md (D1720–D1721) ; le
+  registre soldé (D1725–D1729) — ; puis **la réorganisation** en sept fichiers, `docs/syncytium/05-connecteurs/`,
+  connectors.md retiré, le glossaire enrichi (D1730). « Je marque une pause ». **À la reprise** : la réécriture du
+  chapitre 5, fichier par fichier, dans la forme didactique (D1542), puis sa relecture ; ensuite le chapitre 6, les
+  opérations — hooks.md § 3 et les déclencheurs, les tâches de juin (D1689) —, où hooks.md se dissout.
 - **2026-11-01 (nuit) — LA PAUSE : LES HOOKS SANS CHAPITRE, SIX POINTS DE LA LECTURE SOLDÉS (D1667–D1680, 1680
   décisions).** La lecture de hooks.md reprise : la fiche d'un hook par l'extrait de la banque (D1667) ; le dérivé
   distingué du hook de type, l'exemple `isbn` (D1668, corrigé) ; le chapitre borné à la déclaration dans la

@@ -123,7 +123,8 @@ smtp:
   (D336) ;
 - **`rgpd: countries:`** — les pays du stockage ou de la destination, une
   liste (D1345) ;
-- **`every:`** — le rythme du connecteur (D604) : la fréquence du
+- **`every:`** — le rythme du connecteur (D604 ; la grammaire des durées
+  et du calendaire, D434, D476) : la fréquence du
   `ping()` (D621) et, pour un connecteur `file`, le thread d'écoute du
   dossier (D635) ; l'événement détecté déclenche l'opération déclarée par
   son `when:`, au chapitre 6 (D609, D1689). Aucun cas n'en porte ; un

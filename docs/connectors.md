@@ -226,15 +226,15 @@ contrat** (D620), la conformité d'une classe vérifiée au chargement :
 
 | le type (la famille) | le rôle | les classes consignées | l'acquis |
 |---|---|---|---|
-| `storage` | les bases de données — le stockage du modèle et les échanges ; **les formats structurés pour les exports et les imports** (D636) | postgresql, sqlserver, mysql, oracle… — **et csv, xml, json…** ; **memory** (D1045 — le modèle tenu en mémoire, la base miroir d'une reprise, `buffer:` ; **et le stockage de l'application en mémoire seule, avec un ratio d'espace, aucune place sur le disque, une suppression facile : la démonstration de Syncytium et le mode démo d'une application** — D1507–D1508) | D604/D606/D613/D636, D1508 |
+| `storage` | les bases de données — le stockage du modèle et les échanges ; **les formats structurés pour les exports et les imports** (D636) | postgresql, sqlserver, mysql, oracle, sqlite (le natif du domestique, D1114) — **et csv, xlsx, xml, json…** (D636) ; **memory** (D1045 — le modèle tenu en mémoire, la base miroir d'une reprise, `buffer:` ; **et le stockage de l'application en mémoire seule, avec un ratio d'espace, aucune place sur le disque, une suppression facile : la démonstration de Syncytium et le mode démo d'une application** — D1507–D1508) | D604/D606/D613/D636, D1508 |
 | `smtp` | le mail sortant | smtp_std, **none** (D763 — le mock : send toujours vrai, aucun envoi — la condition indispensable D626 satisfaite, le silence assumé du domestique) | D564/D574/D763 |
 | `file` | les fichiers — le dépôt, le guetteur, l'acquittement (le format se lit par un storage — D636) | file_std | D604/D634–D635 |
-| `directory` | l'annuaire — l'authentification, les comptes | l'AD Azure | D418/D604 |
+| `directory` | l'annuaire — le provisionnement des identités, les comptes et les groupes (D29) | azure_ad — le même produit que l'authentification, chacun dans sa famille (D1714) | D29/D418/D604 |
 | `location` | le géocodage | ban (Addok), nominatim | D294 |
-| `webhook` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete (D609) | — | D623–D624 |
-| `siren` | la vérification des identifiants | — | D611/D623 |
+| `webhook` | **« un point d'entrée dans les différents appels d'api versionnés »** — get, put, post, delete (D609) | webhook_std (D1714) | D623–D624 |
+| `siren` | la vérification des identifiants | sirene — l'API Sirene de l'INSEE, à l'implémentation (D1714) | D611/D623 |
 | `authentication` | l'identité — l'utilisateur et l'API (D692) | local, azure_ad, sso, keycloak (D716), **none** (D759 — le domestique : l'utilisateur par défaut au degré administrator) | D418/D692/D716/D759 |
-| `llm` | le modèle de langage du module `chat` (D957) — la question de l'utilisateur, la connaissance de l'instance sous ses droits ; **et l'IA de la démonstration de Syncytium** (D1510) — d'une phrase, une configuration unique | — *(les classes à consigner : un service en ligne, un modèle local)* | D957 |
+| `llm` | le modèle de langage du module `chat` (D957) — la question de l'utilisateur, la connaissance de l'instance sous ses droits ; **et l'IA de la démonstration de Syncytium** (D1510) — d'une phrase, une configuration unique | api — un service en ligne —, local — un modèle local (D1714 ; les deux noms, en proposition) | D957 |
 
 *(La reprise n'est pas une famille : le connecteur de reprise
 (D175–D179) s'appuie sur les familles existantes — le storage en
@@ -393,9 +393,9 @@ vers un storage de format, l'import (D234–D238) en lit.
 HTML** (le template `mail` D562/D564 : le mustache + markdown rendu
 en HTML fait le corps), **les pièces jointes : une liste de fichiers,
 quel que soit le format** ; **l'expéditeur est configuré dans les
-propriétés du connecteur**. *(Les paramètres de `smtp_std` écrits au
-cas 5 — `host`, `port`, `from`, `password*` — sont en proposition,
-D945.)*
+propriétés du connecteur**. Les paramètres de `smtp_std`, écrits au cas 5 — `host`, `port`,
+`address_from`, `password*` — sont confirmés par les cas (D945, D1093,
+D1714).
 
 ### `directory` (D633)
 
@@ -450,9 +450,9 @@ le visage concret du volet SSO), **`none`** (D759 — aucun défi :
 l'utilisateur et le groupe par défaut au degré administrator, le
 mono-poste domestique — les invariants D699 pré-remplis) — chaque
 classe déclare ce qu'elle sait vérifier ; le multi-connecteurs sert l'étanchéité par canal (D77 —
-l'AD pour les internes, le local pour les clients). *(Les paramètres
-d'`azure_ad` écrits au cas 5 — `tenant`, `client_id`, `client_secret*`
-— sont en proposition, D945.)*
+l'AD pour les internes, le local pour les clients). Les paramètres
+d'`azure_ad`, écrits au cas 5 — `tenant`, `client_id`, `client_secret*`
+— sont confirmés par les cas (D945, D1714).
 
 ### `siren` (D639)
 

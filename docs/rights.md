@@ -287,9 +287,9 @@ que la déclaration ne peut abaisser. **Les quatre valeurs** : `reader`
 · `user` · `manager` · `administrator`. **Le degré `reader`** (D1140) :
 « les documentations mises à disposition sans possibilité d'accéder au
 détail » — le lecteur lit la documentation que la confidentialité de
-son groupe ouvre, il ne manipule aucune donnée ; aucune opération ne
-l'a pour plancher (*ma lecture* : le décideur, le DPO, l'auditeur,
-l'hébergeur ; le détail = les données). **Le groupe d'utilisateurs
+son groupe ouvre (le décideur, le DPO, l'auditeur, l'hébergeur ; le
+détail = les données) ; **une opération peut l'avoir pour plancher**
+(D1680 — `degree:` admet les quatre valeurs). **Le groupe d'utilisateurs
 porte le degré** (`degree:` dans groups.yml — validé D900, défaut
 `user`) ; l'utilisateur atteint le degré de son meilleur groupe
 (D414) ; **l'appartenance à un groupe est obligatoire** — le compte

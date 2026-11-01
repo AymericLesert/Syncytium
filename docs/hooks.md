@@ -329,7 +329,8 @@ code » (D570). Les 20 opérations de socle (D574, `migrate` D667,
 entité remise au départ — le `migrate` suivant relit la totalité,
 rien du module n'est effacé, D1030). **Chaque
 opération porte un degré intrinsèque d'autorisation, déclaré à son
-contrat** (D697/D699 — `user` | `manager` | `administrator`, le
+contrat** (D697/D699 — `reader` | `user` | `manager` |
+`administrator`, le quatrième degré compris (D1140, D1680), le
 plancher que la déclaration ne peut abaisser ; le groupe
 d'utilisateurs porte le degré, l'appartenance à un groupe est
 obligatoire ; `allow:` précise les groupes autorisés — D700, le plus
@@ -351,7 +352,7 @@ hook » (D699, D904–D905) ; la liste reste ouverte :
 
 | la propriété | le sens |
 |---|---|
-| `degree: user \| manager \| administrator` | le plancher d'autorisation (D697/D699) |
+| `degree: reader \| user \| manager \| administrator` | le plancher d'autorisation (D697/D699) ; les quatre degrés, `reader` compris (D1140, D1680) |
 | `execution: once` | **l'exécution unique** (D57) — pas de rollback des effets, pas de rejeu automatique ; la relance est manuelle, depuis la supervision |
 | `deterministic: true \| false` | **l'opération est déterministe ou pas — « elle ne peut pas changer sans faire changer son code »** (D59/D904) : l'assertion du code — un doublon (même opération, mêmes paramètres) dans la fenêtre reçoit **le résultat mémorisé**, sans ré-exécution ni effet répété |
 | `deterministic_duration: <durée>` | **la fenêtre de mémoïsation** (D59) — « cela dépendra éventuellement de la façon dont elle sera implémentée » : le hook la porte, la configuration ne la surcharge jamais |

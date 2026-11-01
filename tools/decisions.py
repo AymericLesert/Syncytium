@@ -252,6 +252,10 @@ for _fam, _nums in {
     "operations": [148, 354],
 }.items():
     RELECTURE.update({_n: _fam for _n in _nums})
+# Les tâches et leur supervision (D1689, le 01/11/2026) : les déclencheurs, les droits et la relance au chapitre 6,
+# la file, la supervision et l'audit au chapitre 9.
+RELECTURE.update({53: "operations", 54: "operations", 87: "operations", 88: "operations", 106: "operations",
+                  56: "administration", 61: "administration", 62: "administration"})
 
 
 

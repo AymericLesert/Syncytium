@@ -360,7 +360,14 @@ composant par défaut du type (D68).
 ### 3. Le hook d'opération (D570, D594–D601)
 
 Ajoute **une opération** — une tâche et son déclencheur, matérialisée
-en bouton (D148) ; « une opération ne se construit pas dans
+en bouton (D148). L'infrastructure des tâches se décrit en deux
+chapitres (D1689) : au chapitre 6, les opérations — les cinq
+déclencheurs (D54), le dossier surveillé (D106), les droits de la
+tâche (D53), l'écriture par un connecteur, une tâche (D87), le droit
+de relance (D88) — ; au chapitre 9, l'administration — la file et ses
+contrôles globaux (D61), la supervision, annuler, reporter,
+reprioriser, le journal (D56), l'audit avec motif (D62). « Une
+opération ne se construit pas dans
 la configuration : elle se construit toujours à l'aide d'un hook de
 code » (D570). Les 20 opérations de socle (D574, `migrate` D667,
 `anonymize` D697, `reset_coverage` D881) sont les hooks embarqués :

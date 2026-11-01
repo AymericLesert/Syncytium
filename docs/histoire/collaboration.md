@@ -11,6 +11,7 @@ depuis août, à deux voix (D1664).*
 
 - [La nature des échanges](#la-nature-des-échanges)
 - [L'organisation du travail](#lorganisation-du-travail)
+  - [Le tableau de bord](#le-tableau-de-bord)
 - [Les phases, et les posts qui les racontent](#les-phases-et-les-posts-qui-les-racontent)
 - [L'enrichissement mutuel](#lenrichissement-mutuel)
 - [La série des posts](#la-série-des-posts)
@@ -105,10 +106,38 @@ présentation en quatre parties, les phrases courtes.
 
 **La mesure** complète la consigne. Le 17 octobre, l'auteur a organisé
 Claude comme il organise Syncytium : un dossier, une mémoire, une
-consigne par projet, et un tableau de bord qui lit le registre — les
-décisions, les questions ouvertes, les rangs, les chapitres, les séances.
-« Les outils sont là pour simplifier nos échanges » : ce qui est écrit
-n'a plus à être redit.
+consigne par projet, et un tableau de bord qui lit le registre. « Les
+outils sont là pour simplifier nos échanges » : ce qui est écrit n'a
+plus à être redit.
+
+### Le tableau de bord
+
+Le tableau de bord est un panneau qui reste ouvert à côté de la
+conversation, dans l'application où Claude travaille. Il a été construit
+le 17 octobre, à la demande de l'auteur, comme une extension de Claude
+Code (le « mod » `tableau-de-bord`). Il ne vit pas dans le dépôt : il
+est au poste informatique de l'auteur, et chaque projet le décline par
+un fichier de description. Celui de Syncytium dit où lire :
+
+- **le registre** : le nombre de décisions et la dernière, les questions
+  ouvertes, l'état des huit domaines ;
+- **le plan du chantier** (`documentation.md`) : les rangs, leurs
+  étapes, l'état de chacune — acquise, en cours, à venir ;
+- **le plan de la documentation** (`docs/README.md`) : les quatorze
+  chapitres du rang 10 et leurs trois temps ;
+- **les décisions de l'étape en cours**, par l'outil des familles :
+  trois tuiles, le total, les décisions traitées, celles du chapitre en
+  cours ; elles s'effaceront au passage à l'étape suivante ;
+- **les séances** : leur nombre, les interactions, les jetons consommés,
+  semaine par semaine, depuis les transcriptions des sessions, celles de
+  juin comprises ;
+- **les posts LinkedIn** : leur nombre et la date du dernier.
+
+Il se décline à l'identique pour les autres projets de l'auteur, chacun
+avec ses compteurs. Le principe est celui de Syncytium : un projet se
+décrit dans un fichier, et le tableau suit. Il a grandi avec le chantier
+— les étapes « en cours » le 24 octobre, les chapitres le 28, les
+décisions de l'étape le 31 — et il est vérifié par ses propres tests.
 
 **Le rythme** est celui de l'auteur. Le projet avance vite quand il a du
 temps, cinq documentations en deux jours fin octobre, et s'étale quand le

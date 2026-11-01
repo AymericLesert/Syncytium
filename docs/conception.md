@@ -25302,6 +25302,22 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-11-01 (nuit) — LA PAUSE : LES HOOKS SANS CHAPITRE, SIX POINTS DE LA LECTURE SOLDÉS (D1667–D1680, 1680
+  décisions).** La lecture de hooks.md reprise : la fiche d'un hook par l'extrait de la banque (D1667) ; le dérivé
+  distingué du hook de type, l'exemple `isbn` (D1668, corrigé) ; le chapitre borné à la déclaration dans la
+  configuration, partiel jusqu'au domaine 7 (D1669). Puis la structure revue par l'auteur : les hooks après les
+  connecteurs (D1670) ; la langue n'est pas un hook (D1671) ; le style n'est pas un hook, le socle impose
+  l'affichage (D1672) ; **les hooks n'ont pas de chapitre, chaque famille à la fin du chapitre de ses composants, le
+  mécanisme au chapitre 1** (D1673) ; les fonctions, méthodes des types, au chapitre 2 (D1674) ; **les opérations
+  du socle ont leur chapitre, le 6, après les connecteurs** (D1675) ; le hook de fonction porté par le type qui
+  expose ses fonctions (D1676). Cinq familles : le type, le composant, l'opération, la fonction, le connecteur.
+  La lecture continue dans ce cadre : la fiche du hook de type réduite aux cinq livraisons, `exists` disparu
+  (D1677, les points 3 et 8) ; neuf familles de connecteurs et l'extrait de la banque (D1678, le point 4) ;
+  l'opération par l'extrait de la banque, `form: default` disparu (D1679, le point 5) ; `degree:` aux quatre
+  valeurs, `reader` compris (D1680, le point 6). Quatorze chapitres, renumérotés dans les README et le plan.
+  « Je marque une pause ». **À la reprise** : le point 7 de la lecture de hooks.md, le hook de fonction — son
+  exemple en `functions:`, à réécrire dans la forme de D809 avec `type:` (D1676) —, puis les points 9 à 17 ; puis
+  la distribution : les parties « Les hooks » des chapitres 1, 2 et 4 ; puis le chapitre 5, les connecteurs.
 - **2026-11-01 (soir) — LA PAUSE : LE PLAN EN UNE PAGE, LA COLLABORATION DANS L'HISTOIRE (D1659–D1666, 1666
   décisions).** Le plan tient lieu de liste des tâches, les issues GitHub après l'implémentation (D1659) ;
   `docs/histoire/plan.md`, calculée par `tools/plan.py` — les domaines, les rangs, les étapes, les chapitres, un

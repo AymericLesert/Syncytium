@@ -21,12 +21,19 @@ décisions citées entre parenthèses renvoient au
    marque `*`, l'adressage par le point, le langage d'expression, la
    forme courte et le bloc, la liste et la substitution, les défauts du
    poste informatique.
-3. **[L'arbre](arbre.md)** — du sommet à la feuille : `syncytium.yml`,
-   `environments/`, `versions/`, `version.yml` ; puis
-   **[ce que la version porte](version.md)** — `settings.yml` et la règle
-   des paramètres, `groups.yml`, le module et son menu, l'entité,
-   `hooks/`, le mécanisme des hooks, et `reprise/` — et **[l'inventaire des défauts du
-   socle](defauts.md)**.
+3. **L'arbre des fichiers** — du sommet à la feuille, en trois fichiers :
+   - **[L'arbre](arbre.md)** — 3.1 `syncytium.yml`, le projet ;
+     3.2 `environments/`, la configuration technique ; 3.3 `versions/`,
+     le cycle de vie en dossiers ; 3.4 `version.yml`, l'entrée de la
+     version et ses langues.
+   - **[La version — ce qu'elle porte](version.md)** — 3.5 `settings.yml`,
+     la maison des types et des réglages, la règle des paramètres et
+     celle des défauts ; 3.6 `groups.yml`, les groupes ; 3.7 le module et
+     son menu ; 3.8 l'entité, les champs, les surfaces ; 3.9 `hooks/`, le
+     mécanisme des hooks, et `reprise/`.
+   - **[L'inventaire des défauts du socle](defauts.md)** — les paramètres
+     que Syncytium décrit, le bloc `rgpd:`, ce qui est hors de
+     l'inventaire.
 4. **[Les règles](regles.md)** — les cascades, le plus proche l'emporte ;
    l'ingestion, ce qui est refusé et ce qui alerte.
 

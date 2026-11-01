@@ -46,11 +46,10 @@ docs/
 │   ├── 03-langage/        le langage d'expression : la grammaire, le nul, les fonctions, les agrégats
 │   ├── 04-composants/     le catalogue des composants graphiques
 │   ├── 05-connecteurs/    les connecteurs et leurs contrats
-│   ├── 06-hooks/          les hooks et leurs familles
-│   ├── 07-securite/       la sécurité et les droits
-│   ├── 08-reprise/        le mapping et le module de migration
-│   ├── 09-administration/ l'administration, l'exploitation, la télémétrie
-│   ├── 11-documentation/  la documentation que Syncytium génère
+│   ├── 06-securite/       la sécurité et les droits
+│   ├── 07-reprise/        le mapping et le module de migration
+│   ├── 08-administration/ l'administration, l'exploitation, la télémétrie
+│   ├── 10-documentation/  la documentation que Syncytium génère
 │   └── outils.md          les outils du dépôt
 ├── cas-d-usage/           partie 4 : les cinq cas, chacun avec sa configuration et ses documents
 └── etudes/                partie 5 : les études comparatives, datées
@@ -84,15 +83,21 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 | 3 | **Le langage d'expression** | le registre ; `syncytium/02-modele/types.md` (la signature des types) ; `syncytium/01-configuration/mecanismes.md` §2.7 | `syncytium/03-langage/` | fait le 31/10/2026 (13 points, D1565–D1584) | fait le 31/10/2026 (quatre fichiers, D1586) ; réécrite le 31/10/2026 |
 | 4 | **Les surfaces et les composants** | `composants.md` | `syncytium/04-composants/` | fait le 01/11/2026 (21 points, D1593–D1645) | fait le 01/11/2026 (sept fichiers, D1646) ; réécrite le 01/11/2026, relue (D1647–D1656) |
 | 5 | **Les connecteurs** | `connectors.md` | `syncytium/05-connecteurs/` | — | — |
-| 6 | **Les hooks** | `hooks.md` | `syncytium/06-hooks/` | en cours (17 points, D1657 ; la déclaration dans la configuration, partiel jusqu'au domaine 7, D1669 ; après les connecteurs, D1670) | — |
-| 7 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/07-securite/` | — | — |
-| 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/08-reprise/` | — | — |
-| 9 | **L'administration et l'exploitation** | `administration.md` | `syncytium/09-administration/` | — | — |
-| 10 | **La télémétrie** | `telemetry.md` | `syncytium/09-administration/telemetrie.md` | — | — |
-| 11 | **La documentation** | `documentation.md` | `syncytium/11-documentation/` ; `histoire/chantier-documentation.md` | — | — |
-| 12 | **Les API et les échanges** | `documentation.md` §10 et §27 | `syncytium/11-documentation/developpeur.md` | — | — |
-| 13 | **Les cas d'usage** | `../usecases/*.md` | `cas-d-usage/` (partie 4) | — | — |
-| 14 | **La méthode et le projet** | `conception.md`, `../README.md` | `syncytium/README.md`, `histoire/` (parties 0 et 2) | — | — |
+| 6 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/06-securite/` | — | — |
+| 7 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/07-reprise/` | — | — |
+| 8 | **L'administration et l'exploitation** | `administration.md` | `syncytium/08-administration/` | — | — |
+| 9 | **La télémétrie** | `telemetry.md` | `syncytium/08-administration/telemetrie.md` | — | — |
+| 10 | **La documentation** | `documentation.md` | `syncytium/10-documentation/` ; `histoire/chantier-documentation.md` | — | — |
+| 11 | **Les API et les échanges** | `documentation.md` §10 et §27 | `syncytium/10-documentation/developpeur.md` | — | — |
+| 12 | **Les cas d'usage** | `../usecases/*.md` | `cas-d-usage/` (partie 4) | — | — |
+| 13 | **La méthode et le projet** | `conception.md`, `../README.md` | `syncytium/README.md`, `histoire/` (parties 0 et 2) | — | — |
+
+**Les hooks n'ont pas de chapitre** (D1673) : `hooks.md` se dissout.
+Le mécanisme et la déclaration dans la configuration vont au chapitre 1,
+chaque famille à la fin de son chapitre — les types au 2, les fonctions
+au 3, les opérations au 2, les composants au 4, les connecteurs au 5.
+La lecture de `hooks.md` (17 points, D1657) est en cours : trois points
+faits (D1667–D1669), quatorze restent ; la distribution suit.
 
 Hors des familles : `glossaire.md` va à `syncytium/glossaire.md` avec le
 premier chapitre ; `etude-comparative-20260718.md` à

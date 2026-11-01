@@ -7,7 +7,13 @@ mécanisme unique d'extension de Syncytium. Il prépare la documentation
 [conception](conception.md) ; les composants graphiques au
 [catalogue](syncytium/04-composants/README.md).
 
-**Le périmètre du chapitre** (D1669) : la déclaration d'un hook dans
+**Cet artefact n'a pas de chapitre** (D1673) : « les hooks sont meme à
+décrire à la fin de chaque chapitre où pouvons en avoir ». Le
+mécanisme et la déclaration vont au chapitre 1, chaque famille à la fin
+du chapitre de ses composants ; la lecture en cours prépare cette
+distribution.
+
+**Le périmètre** (D1669) : la déclaration d'un hook dans
 la configuration — les familles, la chaîne des fichiers, la fiche et
 ses clés, les paramètres, les traces, la description par langue, les
 défauts et l'usage du nom ajouté. Ce que le code d'un hook livre, et

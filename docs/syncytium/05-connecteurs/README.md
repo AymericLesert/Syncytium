@@ -180,30 +180,30 @@ déclaration, le câblage, le socle et le contrat de chaque famille.
 
 ## La nature
 
-- **Une passerelle entre Syncytium et un système tiers** (D79) — une
-  base de données, un annuaire, des fichiers, un géocodeur, un
-  serveur de mail… ; **le connecteur décrit ses entrants et ses
-  sortants** (D606) ;
-- **Global** (D603/D617) : « il ne trouve pas de déclinaison dans
-  les modules, ni les entités » — et **déclaré à l'environnement**
-  (`environments/<env>.yml`) : « chaque environnement doit disposer
-  de ses propres connecteurs » (D616), l'ingestion vérifiant que
-  **tous les connecteurs sont décrits dans chaque environnement**
-  (D617) ;
-- **Sans contexte** (D603) : « les paramètres d'un connecteur sont
-  juste les propriétés du connecteur — il se définit au démarrage du
-  projet » — hors de la pile des contextes (D553), l'exception
-  assumée ;
-- **Le type et l'implémentation** (D613) : **le type** (`storage`,
-  `smtp`, `location`, `siren`…) **est la famille — et le contrat**
-  (D605 : « chaque famille a ses propres méthodes et fonctions ») ;
-  **l'implémentation** (`postgresql`, `sqlserver`, `mysql`, `oracle`,
-  `ban`, `smtp_std`…) le remplit — la compatibilité se juge au type ;
-- **Le stockage est un connecteur** (D606) : « les entités sont liées
-  à un connecteur de base de données » — les bases du catalogue
-  portent l'instance, pas seulement l'échange ;
-- **La sobriété** (D612) : « quelques connecteurs suffiront au bon
-  fonctionnement de l'application ».
+Un connecteur est une passerelle entre Syncytium et un système tiers
+(D79) : une base de données, un annuaire, des fichiers, un géocodeur, un
+serveur de mail. Il décrit ses entrants et ses sortants (D606). Cinq
+traits le définissent.
+
+- **Il est global** (D603). Un connecteur ne se décline ni par module ni
+  par entité. Toute l'application le partage.
+- **Il est déclaré à l'environnement** (D616, D617). Chaque environnement
+  a ses propres connecteurs : le staging les siens, la production les
+  siens. L'ingestion vérifie que chaque environnement les décrit tous.
+- **Il est sans contexte** (D603). Ses paramètres sont ses propriétés,
+  fixées au démarrage de l'application. Il est hors de la pile des
+  contextes (D553), l'exception assumée.
+- **Sa famille est son contrat, sa classe l'implémente** (D605, D613).
+  `type:` nomme la famille, `storage`, `smtp`, `location` ; chaque
+  famille a ses propres méthodes. `class:` nomme l'implémentation,
+  `postgresql`, `ban`, `smtp_std` ; la compatibilité se juge à la
+  famille.
+- **Le stockage est un connecteur** (D606). Les entités sont liées à un
+  connecteur de base de données : le storage porte l'instance, pas
+  seulement l'échange.
+
+Quelques connecteurs suffisent au bon fonctionnement d'une application
+(D612) : la banque en déclare quatre, l'entrepôt sept.
 
 ## Les décisions
 

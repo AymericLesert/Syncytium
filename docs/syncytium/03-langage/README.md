@@ -8,7 +8,7 @@ Une valeur peut se calculer, se vérifier ou se transformer. Syncytium le
 dit dans une seule langue, partout (D90). Ce chapitre dit où elle
 s'emploie, comment s'écrit une expression, ce qu'on fait d'une
 collection, et quelles fonctions existent. Ce qu'un type porte en propre
-reste à sa fiche, dans [le modèle](../02-modele/types.md) (D1583). Les
+reste à sa fiche, dans [le modèle](../02-modele/05-types.md) (D1583). Les
 décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).
 
@@ -19,27 +19,27 @@ décisions citées entre parenthèses renvoient au
    - [Les mots du langage](#les-mots-du-langage)
    - [L'expression multivaluée](#lexpression-multivaluée)
    - [Les garde-fous](#les-garde-fous)
-2. [L'écriture d'une expression](ecriture.md)
-   - [Les littéraux](ecriture.md#les-littéraux)
-   - [Les opérateurs](ecriture.md#les-opérateurs)
-   - [La conversion](ecriture.md#la-conversion)
-   - [Ce qu'un type apporte](ecriture.md#ce-quun-type-apporte)
-   - [Le conditionnel](ecriture.md#le-conditionnel)
-   - [Le `select`](ecriture.md#le-select)
-   - [Le nul](ecriture.md#le-nul)
-   - [La concaténation et le gabarit](ecriture.md#la-concaténation-et-le-gabarit)
-3. [Les collections](collections.md)
-   - [Les fonctions d'agrégation](collections.md#les-fonctions-dagrégation)
-   - [L'appartenance et la projection](collections.md#lappartenance-et-la-projection)
-   - [Les opérations ensemblistes](collections.md#les-opérations-ensemblistes)
-   - [La liste littérale et `list(…)`](collections.md#la-liste-littérale-et-list)
-   - [La source d'une reprise, une collection](collections.md#la-source-dune-reprise-une-collection)
-   - [L'accès par la clé](collections.md#laccès-par-la-clé)
-4. [Le catalogue des fonctions](fonctions.md)
-   - [Les fonctions du texte](fonctions.md#les-fonctions-du-texte)
-   - [Les fonctions libres](fonctions.md#les-fonctions-libres)
-   - [Les valeurs nommées](fonctions.md#les-valeurs-nommées)
-   - [La fonction définie](fonctions.md#la-fonction-définie)
+2. [L'écriture d'une expression](02-ecriture.md)
+   - [Les littéraux](02-ecriture.md#les-littéraux)
+   - [Les opérateurs](02-ecriture.md#les-opérateurs)
+   - [La conversion](02-ecriture.md#la-conversion)
+   - [Ce qu'un type apporte](02-ecriture.md#ce-quun-type-apporte)
+   - [Le conditionnel](02-ecriture.md#le-conditionnel)
+   - [Le `select`](02-ecriture.md#le-select)
+   - [Le nul](02-ecriture.md#le-nul)
+   - [La concaténation et le gabarit](02-ecriture.md#la-concaténation-et-le-gabarit)
+3. [Les collections](03-collections.md)
+   - [Les fonctions d'agrégation](03-collections.md#les-fonctions-dagrégation)
+   - [L'appartenance et la projection](03-collections.md#lappartenance-et-la-projection)
+   - [Les opérations ensemblistes](03-collections.md#les-opérations-ensemblistes)
+   - [La liste littérale et `list(…)`](03-collections.md#la-liste-littérale-et-list)
+   - [La source d'une reprise, une collection](03-collections.md#la-source-dune-reprise-une-collection)
+   - [L'accès par la clé](03-collections.md#laccès-par-la-clé)
+4. [Le catalogue des fonctions](04-fonctions.md)
+   - [Les fonctions du texte](04-fonctions.md#les-fonctions-du-texte)
+   - [Les fonctions libres](04-fonctions.md#les-fonctions-libres)
+   - [Les valeurs nommées](04-fonctions.md#les-valeurs-nommées)
+   - [La fonction définie](04-fonctions.md#la-fonction-définie)
 5. [Les décisions](#les-décisions)
 
 ## Où il s'emploie

@@ -1,6 +1,6 @@
 # La version — ce qu'elle porte
 
-*Les sous-chapitres 3.5 à 3.10 de l'[arbre](arbre.md) : les réglages, les
+*Les sous-chapitres 3.5 à 3.10 de l'[arbre](03-arbre.md) : les réglages, les
 groupes, le module et son menu, l'entité, les hooks et la reprise.*
 
 ## Le sommaire
@@ -80,7 +80,7 @@ dernier mot, par ses propriétés directes.
 Un hook décrit par son contrat la liste de ses paramètres : le mode, le
 nom, le type, la valeur par défaut. Ce sont les `properties` de sa fiche
 (D809). Le socle a les siens, décrits par Syncytium : l'inventaire est
-dans [defauts.md](defauts.md). Trois cas se présentent.
+dans [05-defauts.md](05-defauts.md). Trois cas se présentent.
 
 - **Un paramètre connu, surchargé par la configuration**, exploite les
   informations connues du paramètre : seule la valeur se réécrit.
@@ -188,7 +188,7 @@ Les décisions de ces clés : D1120 pour `name:` et `title:`, D886 pour la
 cascade de `allow:`, D765 pour la liste des entités, D351 pour le menu,
 D359 pour les réglages, D1530 pour les ressources (la déclaration, ma
 lecture). Les tableaux de bord du module, `dashboards:`, sont décrits
-dans [les surfaces](../04-composants/surfaces.md).
+dans [les surfaces](../04-composants/06-surfaces.md).
 
 Déclarer un module, c'est l'activer (D350) : présent, il est actif ;
 retiré par une nouvelle version, il est désactivé.
@@ -207,7 +207,7 @@ Le menu est une carte, dans l'ordre d'affichage. Chaque entrée porte son
 
 Ce que le menu fait à l'écran — le défaut, les droits, la
 documentation qu'il ordonne — est décrit à sa fiche, parmi les surfaces
-(D1604, [les surfaces](../04-composants/surfaces.md)).
+(D1604, [les surfaces](../04-composants/06-surfaces.md)).
 
 Un sous-menu porte `items:`, la carte de ses entrées. Le menu de la
 banque (le cas 4), le premier au dépôt (D1230), tel qu'il est écrit :
@@ -276,13 +276,13 @@ vit dans trois chapitres :
 
 - l'en-tête de l'entité, `name`, `description`, `label`, `identity`,
   `inheritance`, `states`, `history`, `fields:`, `validation:`,
-  `operations:`, `gui:`, `allow:`, dans [entity.md](../02-modele/entite.md) ;
-- les champs et leurs facettes dans [types.md](../02-modele/types.md), dont
+  `operations:`, `gui:`, `allow:`, dans [entity.md](../02-modele/02-entite.md) ;
+- les champs et leurs facettes dans [05-types.md](../02-modele/05-types.md), dont
   `sort:` et `group:` sur une association dérivée (D1016, D1017) et
   `unit:` sur une mesure empruntée à une référence (D1009) ;
 - les surfaces, `lists`, `forms`, `summary`, `widgets`, `wizards`,
   `templates`, et `dashboards` au module, dans
-  [les surfaces](../04-composants/surfaces.md).
+  [les surfaces](../04-composants/06-surfaces.md).
 
 ## 3.9 `hooks/` — le mécanisme des hooks
 
@@ -312,7 +312,7 @@ fin du chapitre de ses composants (D1673) :
 
 Le style et la langue ne sont pas des hooks. Le socle impose l'affichage
 de ses composants et propose quelques styles (D1672). Une langue se
-déclare par son code dans `languages:` (D1671, voir [l'arbre](arbre.md)).
+déclare par son code dans `languages:` (D1671, voir [l'arbre](03-arbre.md)).
 
 Un hook ajouté a les mêmes droits qu'un élément du socle (D65) : il se
 règle en défaut de type, il se surcharge au champ. S'il échoue, le
@@ -515,7 +515,7 @@ Un hook est un citoyen du moteur, jamais un super-utilisateur :
   reçoit jamais `private`, il relève de l'ergonomie, jamais de la
   sécurité, et la documentation générée le liste (D918, D645).
 
-Ce que l'ingestion refuse est dans [les règles](regles.md).
+Ce que l'ingestion refuse est dans [les règles](06-regles.md).
 
 ## 3.10 `reprise/` — la reprise de données
 

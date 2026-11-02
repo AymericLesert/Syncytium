@@ -100,7 +100,7 @@ l'encadrent.
   par l'entité, la clé des parents en tête, `transport.consommation[…]`
   (D842).
 - **L'unicité ne vaut que parmi les actifs** (D141) : un enregistrement
-  supprimé ne bloque pas sa clé ([vie.md](vie.md)).
+  supprimé ne bloque pas sa clé ([04-vie.md](04-vie.md)).
 - Écrite `identity:`, l'identité se nomme « identity » (D1304).
 
 **Plusieurs identités.** Une entité peut en porter plusieurs, nommées,
@@ -130,20 +130,20 @@ identities:
 
 - **`states:`** désigne le champ énuméré qui porte le cycle de vie,
   `states: statut` (D424). Ses valeurs portent les droits par état et le
-  graphe des passages ([champs.md](champs.md), `values:`).
+  graphe des passages ([03-champs.md](03-champs.md), `values:`).
 - **`inheritance:`** déclare le parent ; ce que l'enfant reçoit et
   comment un enregistrement change de niveau sont dans
-  [la vie d'un enregistrement](vie.md).
+  [la vie d'un enregistrement](04-vie.md).
 - **`history:`** allume l'historisation : inactive par défaut, elle se
   règle en cascade, de la version au module puis à l'entité, et s'éteint
   par `history: false` (D168, D1174). Ce que l'historique contient est
-  dans [la vie d'un enregistrement](vie.md). Sans historique, la
+  dans [la vie d'un enregistrement](04-vie.md). Sans historique, la
   documentation l'écrit en clair, « pas d'historique » (D1173).
 
 ## Les champs, les opérations, la présentation, la partition
 
 - **`fields:`** porte les champs, en place ou par fichier (D767) ; ils
-  sont décrits dans [les champs](champs.md).
+  sont décrits dans [les champs](03-champs.md).
 - **`operations:`** porte les opérations, dans l'ordre des boutons (D432).
 - **`gui:`** porte la présentation (D767).
 - **`partition:`** découpe physiquement la table selon un ou plusieurs
@@ -153,7 +153,7 @@ identities:
 
 Une propriété qui porte une carte peut cumuler plusieurs fichiers, dans
 l'ordre (D968) : c'est un mécanisme de la
-[configuration](../01-configuration/mecanismes.md).
+[configuration](../01-configuration/02-mecanismes.md).
 
 ## La validation
 

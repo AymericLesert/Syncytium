@@ -56,7 +56,7 @@ contrat parle le langage du méta-modèle, l'instance, l'entité, le champ
 les entités, les enregistrements ; `describe(model)` rend le modèle tel
 qu'il est stocké (D1299). Le développement, les quatre énoncés, la
 conversion au type, la migration à chaud, les storages de format, est
-dans [le storage](storage.md).
+dans [le storage](05-storage.md).
 
 ## `smtp`
 

@@ -12,7 +12,7 @@ décrire à la fin de chaque chapitre où pouvons en avoir ». Le
 mécanisme et la déclaration vont au chapitre 1, chaque famille à la fin
 du chapitre de ses composants — les types et leurs méthodes au 2
 (D1674, D1702), les composants au 4, les connecteurs au 5, les opérations au
-6 (D1675) ; la lecture en cours prépare cette distribution. **Le mécanisme est écrit au chapitre 1** (D1692), [version.md](syncytium/01-configuration/version.md) § 3.9 ; **le type et ses méthodes au chapitre 2** (D1698), [02-modele/hooks.md](syncytium/02-modele/hooks.md) ; **le composant au chapitre 4** (D1705), [04-composants/hooks.md](syncytium/04-composants/hooks.md) ; la doctrine, la maison et les fiches ci-dessous restent jusqu'à la dissolution.
+6 (D1675) ; la lecture en cours prépare cette distribution. **Le mécanisme est écrit au chapitre 1** (D1692), [04-version.md](syncytium/01-configuration/04-version.md) § 3.9 ; **le type et ses méthodes au chapitre 2** (D1698), [02-modele/hooks.md](syncytium/02-modele/08-hooks.md) ; **le composant au chapitre 4** (D1705), [04-composants/hooks.md](syncytium/04-composants/07-hooks.md) ; la doctrine, la maison et les fiches ci-dessous restent jusqu'à la dissolution.
 
 **Le périmètre** (D1669) : la déclaration d'un hook dans
 la configuration — les familles, la chaîne des fichiers, la fiche et
@@ -259,7 +259,7 @@ progression… puis un champ avancement de type progression » — est un
 `integer[0..100]` rendu par le composant `fuel`. Il ne demande aucun
 code : c'est un type dérivé (D359, D992), déclaré dans les settings sous
 `field:` (D1239) et décrit au chapitre 2
-([types.md](syncytium/02-modele/types.md), « Les types dérivés »). Le
+([05-types.md](syncytium/02-modele/05-types.md), « Les types dérivés »). Le
 hook de type sert quand le catalogue n'a pas le type : il apporte un
 type nouveau, avec sa signature complète (D1668).
 
@@ -632,7 +632,7 @@ fields:
 
 ### 5. Le hook de connecteur (D603–D642)
 
-**Écrit au chapitre 5** (D1730), [05-connecteurs/hooks.md](syncytium/05-connecteurs/hooks.md).
+**Écrit au chapitre 5** (D1730), [05-connecteurs/hooks.md](syncytium/05-connecteurs/06-hooks.md).
 
 ### Ce qui n'est pas un hook
 
@@ -669,7 +669,7 @@ complété par la commande sur un catalogue existant (D1470), vit
 version, avec ce qui est propre à la langue, le fuseau, les formats,
 le sens d'écriture (D217, D1471). Elle peut être la langue
 technique de l'instance (D1460, D1473). Le détail est au chapitre 1
-([arbre.md](syncytium/01-configuration/arbre.md), « Une langue que
+([03-arbre.md](syncytium/01-configuration/03-arbre.md), « Une langue que
 le core ne porte pas »).
 
 ### Les autres points d'extension consignés

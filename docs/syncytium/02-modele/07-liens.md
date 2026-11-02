@@ -4,7 +4,7 @@ Un champ ne porte pas toujours une seule valeur. Il peut porter une
 liste, une plage, ou pointer vers d'autres enregistrements. Il peut
 aussi être produit par Syncytium : un numéro, un calcul, un statut. Ce
 fichier décrit ces types ; ceux qu'un hook ajoute sont dans
-[les hooks du modèle](hooks.md).
+[les hooks du modèle](08-hooks.md).
 
 ## Le sommaire
 
@@ -39,7 +39,7 @@ fichier décrit ces types ; ceux qu'un hook ajoute sont dans
 
 **La collection est un type** : elle porte ses fonctions d'agrégation en méthodes, et
 le langage la combine, l'interroge, l'adresse par la clé (D580). Tout cela est décrit
-dans [les collections](../03-langage/collections.md).
+dans [les collections](../03-langage/03-collections.md).
 
 ### `range of <type>`, la plage
 
@@ -125,7 +125,7 @@ niveaux:
   description: L'accès retour aux niveaux du dépôt, nommé en vue dérivée.
 ```
 
-Elle admet `sort:` et `group:` ([champs.md](champs.md)) :
+Elle admet `sort:` et `group:` ([03-champs.md](03-champs.md)) :
 
 ```yaml
 # Les mouvements par article : la vue dérivée, groupée par article
@@ -205,7 +205,7 @@ numero:
 - **Le rejeu** retrouve l'enregistrement par son identité, jamais par une
   nouvelle allocation (D930).
 - **Dans une identité**, le compteur fait une identité acquise (D1171,
-  [entite.md](entite.md)) : le champ n'est pas obligatoire, et l'identité
+  [02-entite.md](02-entite.md)) : le champ n'est pas obligatoire, et l'identité
   ne vaut qu'une fois le compteur attribué.
 
 ### Le champ calculé, `formula:`

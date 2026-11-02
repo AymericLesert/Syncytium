@@ -914,7 +914,7 @@ Les huit choix tranchés, mot pour mot :
 
 ### La couverture des types par le modèle (la vérification demandée)
 
-*Le catalogue de [types.md](../docs/syncytium/02-modele/types.md), type par type, avec
+*Le catalogue de [05-types.md](../docs/syncytium/02-modele/05-types.md), type par type, avec
 le champ qui le porte et la colonne réelle de PMI ; les absents en
 fin.*
 

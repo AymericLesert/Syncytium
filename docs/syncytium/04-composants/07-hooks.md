@@ -7,7 +7,7 @@ fichier dit ce qu'un composant ajouté livre, comment il se déclare et
 s'emploie, et ce qui n'est pas un hook. Le mécanisme commun, la maison
 `hooks/`, la fiche, la description par langue, les traces, est au
 chapitre 1,
-[la version](../01-configuration/version.md#39-hooks--le-mécanisme-des-hooks).
+[la version](../01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks).
 
 ## Le sommaire
 
@@ -42,7 +42,7 @@ le tracé d'une route (D514) sont des hooks. Un composant de saisie
 détaillée qu'aucun élément de base ne rend en est un (D452).
 
 Ce que le composant ajouté livre à la documentation est dans
-[l'assistance et la documentation](documentation.md#la-documentation--la-facette-des-composants-graphiques-et-des-surfaces) :
+[l'assistance et la documentation](08-documentation.md#la-documentation--la-facette-des-composants-graphiques-et-des-surfaces) :
 sa fiche à l'inventaire, son visage, ses modes, les types qu'il rend,
 le RGAA critère par critère (D1406, D1407).
 
@@ -59,7 +59,7 @@ composants (D1672) ; le composant ajouté décrit, le moteur rend.
 
 Un hook d'interface, celui qui porte du code au navigateur, suit les
 règles du chapitre 1,
-[ce qu'un hook ne contourne pas](../01-configuration/version.md#ce-quun-hook-ne-contourne-pas) :
+[ce qu'un hook ne contourne pas](../01-configuration/04-version.md#ce-quun-hook-ne-contourne-pas) :
 seul code tiers au navigateur, jamais `private`, l'ergonomie et jamais
 la sécurité, listé par la documentation générée (D918, D645).
 

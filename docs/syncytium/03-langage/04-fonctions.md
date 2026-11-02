@@ -7,8 +7,8 @@
 
 Chaque type emmène ses fonctions : ses parties au point, ses
 constructeurs, ses conversions. Elles sont décrites à sa fiche, dans
-[les types](../02-modele/types.md) et
-[les types composés](../02-modele/composes.md) (D579, D838). Ce fichier
+[les types](../02-modele/05-types.md) et
+[les types composés](../02-modele/06-composes.md) (D579, D838). Ce fichier
 décrit les autres : celles du texte, les fonctions libres, et les
 fonctions que le concepteur ajoute.
 
@@ -86,7 +86,7 @@ Deux règles complètent les fonctions du texte :
   (D581, D934).
 
 La concaténation, par `+` ou par le gabarit, est décrite dans
-[l'écriture d'une expression](ecriture.md).
+[l'écriture d'une expression](02-ecriture.md).
 
 ## Les fonctions libres
 
@@ -133,4 +133,4 @@ Une fonction définie calcule un champ (D571) :
 
 Une fonction qui n'existe pas au catalogue s'écrit en code, comme une
 méthode du type qui l'expose
-([les hooks du modèle](../02-modele/hooks.md#les-méthodes-dun-type)).
+([les hooks du modèle](../02-modele/08-hooks.md#les-méthodes-dun-type)).

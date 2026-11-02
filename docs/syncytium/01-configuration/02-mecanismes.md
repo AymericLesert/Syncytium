@@ -305,4 +305,4 @@ déclare que son modèle et un environnement ; le reste vient des défauts :
 - **la première clé** : `from: Syncytium-1.0` reste écrite (D1083).
 
 L'inventaire complet des défauts du socle est dans
-[defauts.md](defauts.md).
+[05-defauts.md](05-defauts.md).

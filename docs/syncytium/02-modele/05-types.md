@@ -11,8 +11,8 @@ qui ne change pas d'un champ à l'autre : sa validation, son tri, ses
 opérateurs, ses fonctions, son composant d'écran, sa forme en base. Ce
 fichier décrit ce que tous les types partagent, puis les types simples.
 Les types composés et les liens ont leurs propres fichiers,
-[composes.md](composes.md) et [liens.md](liens.md) ; les types qu'un hook
-ajoute, [hooks.md](hooks.md).
+[06-composes.md](06-composes.md) et [07-liens.md](07-liens.md) ; les types qu'un hook
+ajoute, [08-hooks.md](08-hooks.md).
 
 ## Le sommaire
 
@@ -64,7 +64,7 @@ Certaines valent pour tous les types (D391) :
   leur abréviation pour la tablette et le smartphone (D265, D1619) ;
 - **`description:`** et **`hint:`**, l'aide et l'infobulle (D209, D258) ;
 - **`validation:`**, les règles, une expression booléenne et son message
-  ([entite.md](entite.md)) ;
+  ([02-entite.md](02-entite.md)) ;
 - **`values:`**, les valeurs d'un énuméré : la clé stockée, les
   libellés, la description, l'icône ; une valeur intercalée demande de
   l'attention en migration ;
@@ -72,7 +72,7 @@ Certaines valent pour tous les types (D391) :
   `normalized`, `similarity[0.8]`, `range`, `mutualizable[<nom>]` ;
 - **`default:`**, la valeur de naissance (D424) ;
 - **`unchanged:`**, le champ que la migration n'écrit pas (D941,
-  [champs.md](champs.md)) ;
+  [03-champs.md](03-champs.md)) ;
 - **`mask:`**, le masque de saisie et de lecture ;
 - **`report:`**, l'apparition dans les rapports, `no` par défaut (D406) ;
 - **`confidentiality:`**, le niveau de confidentialité (D25, D364) ;
@@ -98,7 +98,7 @@ toujours en premier (D391).
 
 Tout type déclare ce que le langage peut faire de ses valeurs : sa conversion,
 ses opérateurs, ses comparateurs, son `select`, ses fonctions (D579–D584). Le
-langage la décrit, dans [l'écriture d'une expression](../03-langage/ecriture.md) ; le
+langage la décrit, dans [l'écriture d'une expression](../03-langage/02-ecriture.md) ; le
 typage statique et les garde-fous sont dans [le langage](../03-langage/README.md).
 
 ### La conversion vers le stockage
@@ -113,7 +113,7 @@ storage rend sa forme native. Le contrat couvre trois choses :
 - **l'identification** : le type se reconnaît dans la structure native,
   à l'introspection (D684).
 
-Le hook de type fournit ce contrat ([les hooks du modèle](hooks.md)).
+Le hook de type fournit ce contrat ([les hooks du modèle](08-hooks.md)).
 
 ### Les types dérivés
 
@@ -193,7 +193,7 @@ dérivé sans description. Chaque type livre au dictionnaire des données
 sa ligne : le type en clair, ses contraintes, son exemple (D1215). Le
 registre le dit : « le dictionnaire de données est construit par
 Syncytium à partir d'informations qui sont fournies par chaque item ».
-Le détail est dans [documentation.md](documentation.md).
+Le détail est dans [09-documentation.md](09-documentation.md).
 
 ### Le composant par défaut
 
@@ -432,4 +432,4 @@ Le tri : sur l'entier, le nul en premier.
 ## Les fonctions du texte
 
 Le type `text` emmène ses fonctions : `trim`, `upper`, `left`, `lpad`, `mid`,
-`extract`… (D934). Elles sont décrites dans [le catalogue des fonctions](../03-langage/fonctions.md).
+`extract`… (D934). Elles sont décrites dans [le catalogue des fonctions](../03-langage/04-fonctions.md).

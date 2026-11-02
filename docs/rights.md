@@ -4,7 +4,7 @@ Ce document rassemble **la nature et les exemples des échanges
 consignés sur la sécurité et les droits** — le huitième artefact
 préparatoire de la documentation (Q58, le domaine 6 — D602), après le
 [glossaire](glossaire.md), les [composants](syncytium/04-composants/README.md), les
-[hooks](hooks.md), les [types](syncytium/02-modele/types.md), les
+[hooks](hooks.md), les [types](syncytium/02-modele/05-types.md), les
 [connecteurs](syncytium/05-connecteurs/README.md) et le [mapping](mapping.md). Les
 décisions citées renvoient à la [conception](conception.md). Il
 consolide l'acquis (le pilier P8 — la sécurité par construction) et

@@ -7,7 +7,7 @@ connecteur. Ce fichier dit ce qu'une classe ajoutée livre, ce qu'elle
 reçoit, comment elle se déclare. Le mécanisme commun, la maison
 `hooks/`, la fiche, la description par langue, les traces, est au
 chapitre 1,
-[la version](../01-configuration/version.md#39-hooks--le-mécanisme-des-hooks).
+[la version](../01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks).
 
 ## Le sommaire
 
@@ -34,9 +34,9 @@ n'apparaît jamais dans la configuration (D408).
 La classe implémente deux contrats, vérifiés au chargement (D605,
 D620) :
 
-- [le socle commun](socle.md), les sept méthodes et les propriétés de
+- [le socle commun](03-socle.md), les sept méthodes et les propriétés de
   tout connecteur ;
-- le contrat de sa famille, dans [les neuf familles](familles.md).
+- le contrat de sa famille, dans [les neuf familles](04-familles.md).
 
 ## Ce que la classe reçoit
 

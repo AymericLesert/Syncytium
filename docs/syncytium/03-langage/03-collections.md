@@ -4,7 +4,7 @@
 > composition, une association ([glossaire](../../glossaire.md)).
 
 Les types des collections, `list of` et `range of`, sont décrits dans
-[le modèle](../02-modele/liens.md). Ce fichier dit ce que le langage en
+[le modèle](../02-modele/07-liens.md). Ce fichier dit ce que le langage en
 fait : les résumer, les interroger, les combiner, les adresser par la
 clé.
 
@@ -97,7 +97,7 @@ formula: 'mouvements.group(emplacement, article).sum(sens.select(entree: quantit
 ```
 
 `group` et `sort` ont aussi leur propriété sur une association dérivée,
-`group:` et `sort:` (D1016, D1017, [les champs](../02-modele/champs.md)).
+`group:` et `sort:` (D1016, D1017, [les champs](../02-modele/03-champs.md)).
 
 ## L'appartenance et la projection
 

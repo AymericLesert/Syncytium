@@ -3,7 +3,7 @@
 Le storage est la famille la plus riche : il porte le modèle et ses
 données, il lit les bases étrangères d'une reprise, il écrit les
 exports. Ce fichier développe son contrat, résumé dans
-[les neuf familles](familles.md).
+[les neuf familles](04-familles.md).
 
 ## Le sommaire
 
@@ -45,7 +45,7 @@ Quatre énoncés de l'auteur fondent la famille (D1294–D1297).
    porter, la partition ; le type le fournit ; le storage en tire le
    meilleur parti. Un type qui ne couvre pas un élément attendu est
    refusé à l'ingestion, jamais dégradé (D1690) ; le contrat du hook de
-   type est dans [les hooks du modèle](../02-modele/hooks.md).
+   type est dans [les hooks du modèle](../02-modele/08-hooks.md).
 
 Le format pivot fait l'extensibilité (D1298) : un type se décline en un
 type élémentaire, booléen, entier, long, décimal, texte, ou en une liste
@@ -138,7 +138,7 @@ sont des classes de la famille, au contrat borné à ce que le format sait
 faire. L'export écrit vers un storage de format (D445, D530) ; l'import
 en lit (D234–D238). Un storage de format porte la carte des entités vers
 les fichiers, `entities:` (D828, D845), montrée dans
-[la déclaration](declaration.md).
+[la déclaration](02-declaration.md).
 
 `memory` tient le modèle en mémoire (D1045) : la base miroir d'une
 reprise, `buffer:`, et le stockage de l'application en mémoire seule,

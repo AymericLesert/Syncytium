@@ -18,7 +18,7 @@ fichier compte sept fiches :
 
 Un hook étend la famille, `chart.radar` par exemple (D239). La jauge
 n'est pas un graphique : c'est la feuille `gauge`
-([les feuilles](feuilles.md)).
+([les feuilles](02-feuilles.md)).
 
 Les cinq `chart.*` partagent les mêmes propriétés, les mêmes modes et les
 mêmes interactions. Ce socle est décrit une fois, ci-dessous. Chaque

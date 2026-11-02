@@ -5,7 +5,7 @@
 > exécute ([glossaire](../../glossaire.md)).
 
 Les opérations d'une entité sont déclarées dans son bloc `operations:`
-([le modèle](../02-modele/entite.md)). L'acte est la façon de les
+([le modèle](../02-modele/02-entite.md)). L'acte est la façon de les
 appeler depuis une surface. Il n'a qu'une fiche : `operation`.
 
 ## `operation`

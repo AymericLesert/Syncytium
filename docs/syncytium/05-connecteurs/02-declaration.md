@@ -116,7 +116,7 @@ smtp:
 
 Les propriétés du socle, `connection:`, `pool:`, `retry:`, `timeout:`,
 `onerror:`, valent pour tout connecteur ; un cas n'écrit que ce qu'il
-surcharge. Elles sont dans [le socle commun](socle.md).
+surcharge. Elles sont dans [le socle commun](03-socle.md).
 
 ### Les paramètres et leurs défauts
 
@@ -245,7 +245,7 @@ Le nom du rôle est disponible au contexte d'exécution,
 sont pas exclus : « dans le cas de l'affichage d'une carte, nous pouvons
 définir plusieurs connecteurs et, en fonction de l'écran, utiliser l'un
 ou l'autre » (D612). Le hook de connecteur, lui, ajoute une classe à une
-famille : [le hook de connecteur](hooks.md).
+famille : [le hook de connecteur](06-hooks.md).
 
 ## Les renvois
 

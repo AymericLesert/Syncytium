@@ -32,46 +32,46 @@ citées entre parenthèses renvoient au [registre](../../conception.md).
      - [Les composés](#les-composés)
      - [Les liens et les générés](#les-liens-et-les-générés)
    - [La signature du nœud](#la-signature-du-nœud)
-2. [Les feuilles](feuilles.md)
-   - [La saisie d'une valeur](feuilles.md#la-saisie-dune-valeur)
-   - [Le choix et le regard d'un objet](feuilles.md#le-choix-et-le-regard-dun-objet)
-   - [Le texte et l'image fixes](feuilles.md#le-texte-et-limage-fixes)
-   - [La couleur et les codes](feuilles.md#la-couleur-et-les-codes)
-3. [Les conteneurs](conteneurs.md)
-   - [`sections`](conteneurs.md#sections)
-   - [`section`](conteneurs.md#section)
-   - [`tabs`](conteneurs.md#tabs)
-   - [`tab`](conteneurs.md#tab)
-   - [`pages`](conteneurs.md#pages)
-   - [`page`](conteneurs.md#page)
-   - [`header` / `footer`](conteneurs.md#header--footer)
-4. [L'acte](actes.md)
-   - [`operation`](actes.md#operation)
-5. [Les graphiques](graphiques.md)
-   - [Le socle commun](graphiques.md#le-socle-commun)
-   - [`chart.line`](graphiques.md#chartline)
-   - [`chart.bars`](graphiques.md#chartbars)
-   - [`chart.pie`](graphiques.md#chartpie)
-   - [`chart.scatter`](graphiques.md#chartscatter)
-   - [`chart.combo`](graphiques.md#chartcombo)
-   - [`kpi`](graphiques.md#kpi)
-   - [`pivot`](graphiques.md#pivot)
-6. [Les surfaces](surfaces.md)
-   - [`menu`](surfaces.md#menu)
-   - [`list` (la surface)](surfaces.md#list-la-surface)
-   - [`form`](surfaces.md#form)
-   - [`summary`](surfaces.md#summary)
-   - [`widget`](surfaces.md#widget)
-   - [`wizard`](surfaces.md#wizard)
-   - [`dashboard`](surfaces.md#dashboard)
-   - [`template`](surfaces.md#template)
-   - [`chat`](surfaces.md#chat)
-7. [Le hook de composant](hooks.md)
-   - [Le composant ajouté](hooks.md#le-composant-ajouté)
-   - [Ce qui n'est pas un hook](hooks.md#ce-qui-nest-pas-un-hook)
-8. [L'assistance et la documentation](documentation.md)
-   - [L'assistance — les trois groupes d'une surface](documentation.md#lassistance--les-trois-groupes-dune-surface)
-   - [La documentation — la facette des composants graphiques et des surfaces](documentation.md#la-documentation--la-facette-des-composants-graphiques-et-des-surfaces)
+2. [Les feuilles](02-feuilles.md)
+   - [La saisie d'une valeur](02-feuilles.md#la-saisie-dune-valeur)
+   - [Le choix et le regard d'un objet](02-feuilles.md#le-choix-et-le-regard-dun-objet)
+   - [Le texte et l'image fixes](02-feuilles.md#le-texte-et-limage-fixes)
+   - [La couleur et les codes](02-feuilles.md#la-couleur-et-les-codes)
+3. [Les conteneurs](03-conteneurs.md)
+   - [`sections`](03-conteneurs.md#sections)
+   - [`section`](03-conteneurs.md#section)
+   - [`tabs`](03-conteneurs.md#tabs)
+   - [`tab`](03-conteneurs.md#tab)
+   - [`pages`](03-conteneurs.md#pages)
+   - [`page`](03-conteneurs.md#page)
+   - [`header` / `footer`](03-conteneurs.md#header--footer)
+4. [L'acte](04-actes.md)
+   - [`operation`](04-actes.md#operation)
+5. [Les graphiques](05-graphiques.md)
+   - [Le socle commun](05-graphiques.md#le-socle-commun)
+   - [`chart.line`](05-graphiques.md#chartline)
+   - [`chart.bars`](05-graphiques.md#chartbars)
+   - [`chart.pie`](05-graphiques.md#chartpie)
+   - [`chart.scatter`](05-graphiques.md#chartscatter)
+   - [`chart.combo`](05-graphiques.md#chartcombo)
+   - [`kpi`](05-graphiques.md#kpi)
+   - [`pivot`](05-graphiques.md#pivot)
+6. [Les surfaces](06-surfaces.md)
+   - [`menu`](06-surfaces.md#menu)
+   - [`list` (la surface)](06-surfaces.md#list-la-surface)
+   - [`form`](06-surfaces.md#form)
+   - [`summary`](06-surfaces.md#summary)
+   - [`widget`](06-surfaces.md#widget)
+   - [`wizard`](06-surfaces.md#wizard)
+   - [`dashboard`](06-surfaces.md#dashboard)
+   - [`template`](06-surfaces.md#template)
+   - [`chat`](06-surfaces.md#chat)
+7. [Le hook de composant](07-hooks.md)
+   - [Le composant ajouté](07-hooks.md#le-composant-ajouté)
+   - [Ce qui n'est pas un hook](07-hooks.md#ce-qui-nest-pas-un-hook)
+8. [L'assistance et la documentation](08-documentation.md)
+   - [L'assistance — les trois groupes d'une surface](08-documentation.md#lassistance--les-trois-groupes-dune-surface)
+   - [La documentation — la facette des composants graphiques et des surfaces](08-documentation.md#la-documentation--la-facette-des-composants-graphiques-et-des-surfaces)
 9. [Les décisions](#les-décisions)
 
 ## Le nœud
@@ -248,7 +248,7 @@ Tout nœud de l'arbre d'une surface a la même signature, en sept traits
 7. **Le hook** ajoute au catalogue, pour un nom donné, un objet qui gère
    le composant et son rendu dans chaque format : le Web, le PDF, le
    Word, l'Excel, l'email (D408, D452 ; les destinations, D564) ; sa fiche
-   et son usage sont dans [le hook de composant](hooks.md).
+   et son usage sont dans [le hook de composant](07-hooks.md).
 
 ## Les décisions
 
@@ -264,6 +264,6 @@ D788, D792–D795, D806, D875, D935, D957, D980, D1024, D1036, D1062, D1170,
 D1193, D1237, D1263, D1308, D1339–D1340, D1372, D1374, D1590, D1593–D1614,
 D1616–D1618, D1620, D1622, D1624–D1629, D1631–D1643, D1645.
 Chacune se lit dans [le registre](../../conception.md). Le hook de
-composant, [hooks.md](hooks.md), repose sur les décisions de la famille
+composant, [07-hooks.md](07-hooks.md), repose sur les décisions de la famille
 des hooks (D1705) ; elles rejoindront cette liste à la dissolution de
 `hooks.md` (D1673).

@@ -7,7 +7,7 @@
 > ([glossaire](../../glossaire.md)).
 
 Un composé reçoit les facettes communes à tous les types
-([types.md](types.md)), sa validation intégrée et ses facettes propres
+([05-types.md](05-types.md)), sa validation intégrée et ses facettes propres
 (D391). Trois règles valent pour tous.
 
 - **Le nul se trie en premier.**

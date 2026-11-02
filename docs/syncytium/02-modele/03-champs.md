@@ -80,10 +80,10 @@ Le groupe implicite occupe l'en-tête de l'écran, au-dessus des onglets.
 
 ### Le type et les liens
 
-- **`type:`** est le type du champ, pris au [catalogue](types.md), ses
+- **`type:`** est le type du champ, pris au [catalogue](05-types.md), ses
   bornes au nom : `text[..40]`, `integer[0..]`, `date[yyyy-mm]` (D362,
   D366). Trois types sont des liens vers une autre entité
-  ([liens.md](liens.md)) :
+  ([07-liens.md](07-liens.md)) :
   - **la référence**, le nom d'une entité, `transport.revision` (D394) ;
   - **la composition**, `list of <entité>` : le parent déclare, l'enfant
     ne déclare rien, il atteint son possesseur par `owner` (D399, D760) ;
@@ -133,8 +133,8 @@ Le groupe implicite occupe l'en-tête de l'écran, au-dessus des onglets.
   recherche texte globale ne porte, elle aussi, que sur les champs qui
   ont `searchable:` (D1632).
 - **Les facettes propres à un type**, `currencies:`, `units:`,
-  `decimals:`, sont décrites à sa fiche ([types.md](types.md),
-  [composes.md](composes.md)).
+  `decimals:`, sont décrites à sa fiche ([05-types.md](05-types.md),
+  [06-composes.md](06-composes.md)).
 
 ### Le calcul et les valeurs
 

@@ -6,7 +6,7 @@ Ce fichier dit ce qu'un hook de type livre, comment il se déclare et
 s'emploie, puis comment il expose ses méthodes. Le mécanisme commun, la
 maison `hooks/`, la fiche, la description par langue, les traces, est au
 chapitre 1,
-[la version](../01-configuration/version.md#39-hooks--le-mécanisme-des-hooks).
+[la version](../01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks).
 
 ## Le sommaire
 
@@ -32,7 +32,7 @@ types du catalogue sont eux-mêmes des hooks qui appartiennent à
 Syncytium (D408). Le type `label` montre la voie (D585, D586) : l'accès
 au catalogue des libellés, les gabarits nommés, l'enregistrement en
 paramètre ; sa fiche est dans
-[les types composés](composes.md#label-le-libellé-nommé).
+[les types composés](06-composes.md#label-le-libellé-nommé).
 
 ### Un dérivé ou un hook ?
 
@@ -40,7 +40,7 @@ Avant d'écrire du code, une question : le catalogue a-t-il déjà le
 type ? Un type `progression`, un entier de 0 à 100 rendu par le
 composant `fuel`, ne demande aucun code. C'est un type dérivé (D359,
 D992), déclaré dans les settings sous `field:` (D1239) et décrit dans
-[les types](types.md#les-types-dérivés). Le hook de type sert quand le
+[les types](05-types.md#les-types-dérivés). Le hook de type sert quand le
 catalogue n'a pas le type : il apporte un type nouveau, avec sa
 signature complète (D1668).
 
@@ -53,30 +53,30 @@ stockage, l'ingestion le refuse (D681, D1690).
 - **Sa signature** (D579–D584) : la conversion au nom du type, la table
   des opérateurs, les comparateurs, le tri, ses fonctions, qui sont ses
   méthodes (D1674), et pour un composé l'accès à ses parties (D772,
-  D773). Voir [la signature d'un type](types.md#la-signature-dun-type).
+  D773). Voir [la signature d'un type](05-types.md#la-signature-dun-type).
 - **Sa représentation** (D458, D459) : « aucun type sans visage », le
   composant d'écran au nom du type et le rendu de document. Voir
-  [le composant par défaut](types.md#le-composant-par-défaut).
+  [le composant par défaut](05-types.md#le-composant-par-défaut).
 - **Ses règles de stockage** (D681–D684, D1296–D1298) : la déclinaison
   en types élémentaires, la forme pivot, l'identification, les trois
   gestes du champ, dont la modification, l'altération et le transcodage
   (D647, D673). Voir
-  [la conversion vers le stockage](types.md#la-conversion-vers-le-stockage)
+  [la conversion vers le stockage](05-types.md#la-conversion-vers-le-stockage)
   et le pivot, ci-dessous.
 - **Sa facette documentation** (D1301) : la forme en clair, la
   déclinaison, les indicateurs, l'exemple, le marquage, et les mots du
   catalogue par langue (D1160, D1163). Voir
-  [les cinq livraisons du hook de type](documentation.md#les-cinq-livraisons-du-hook-de-type).
+  [les cinq livraisons du hook de type](09-documentation.md#les-cinq-livraisons-du-hook-de-type).
 - **Ses facettes** (D368 et suivantes) : le tri et le nul, la
   recherche, le masque. Voir
-  [les facettes communes](types.md#les-facettes-communes).
+  [les facettes communes](05-types.md#les-facettes-communes).
 
 La collection est un type comme les autres. Ses méthodes, `sum`,
 `count`, `avg`, `min`, `max`, `first`, `last`, `any`, `all`, `group`,
 `sort`, sont à sa fiche,
-[les collections et les plages](liens.md#les-collections-et-les-plages) ;
+[les collections et les plages](07-liens.md#les-collections-et-les-plages) ;
 leur usage est au chapitre 3,
-[les collections](../03-langage/collections.md) (D580, D1015–D1017,
+[les collections](../03-langage/03-collections.md) (D580, D1015–D1017,
 D1576).
 
 ### Le pivot avec le storage
@@ -230,7 +230,7 @@ Les fonctions libres, `min`, `max`, `sum`, `avg` (D583, D587), restent
 au catalogue de Syncytium : « le catalogue s'enrichira, si besoin ». Le
 projet n'en ajoute pas, une fonction du projet est une méthode (D1702).
 Elles sont décrites au chapitre 3,
-[le catalogue des fonctions](../03-langage/fonctions.md).
+[le catalogue des fonctions](../03-langage/04-fonctions.md).
 
 ### La déclaration et l'usage
 

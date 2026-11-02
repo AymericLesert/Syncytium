@@ -44,7 +44,7 @@ Ce fichier porte neuf fiches, dans l'ordre du catalogue : `menu`,
 chaque module : un menu par module fonctionnel, hiérarchique (D193).
 Il s'écrit dans `menu.yml`. Le module le référence ; il est facultatif
 (D351). Le fichier et sa grammaire sont décrits au chapitre de la
-configuration ([version.md](../01-configuration/version.md)).
+configuration ([04-version.md](../01-configuration/04-version.md)).
 
 **Rôle.** Conduire l'utilisateur à une surface. Le menu est « une carte
 d'entrées nommées, dans l'ordre d'affichage » (D1237). Le logo mène à
@@ -405,7 +405,7 @@ Le menu adresse la liste en valeur de `link:`, `sales.order[pending]`
 premier formulaire déclaré est le formulaire par défaut (D438). Sans
 déclaration, le formulaire du socle suit les groupes de champs de
 l'entité (D1273, D1279 ; les groupes se déclarent dans `fields:`,
-[champs.md](../02-modele/champs.md)) :
+[03-champs.md](../02-modele/03-champs.md)) :
 
 - un onglet par groupe ;
 - les champs hors groupe en en-tête, au-dessus de tous les onglets ;

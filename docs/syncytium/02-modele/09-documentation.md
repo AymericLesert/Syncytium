@@ -311,7 +311,7 @@ marques : l'italique pour le calculé, « * » pour `rgpd:` (D1213, D1215).
   contraintes, son exemple, dans chaque langue du moteur (D1162). Le
   registre le dit : « les hooks de type devront être adaptés pour que
   cela s'intègre parfaitement » (D1215). Le contrat est dans
-  [les hooks du modèle](hooks.md).
+  [les hooks du modèle](08-hooks.md).
 - **Dans le dictionnaire de la donnée, le type en clair est le type tel
   qu'appliqué** (D1253). Le registre le dit : « les settings deviennent
   invisibles car intégrés au type ». La facette résout les trois niveaux

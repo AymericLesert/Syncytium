@@ -31,7 +31,7 @@ Deux règles traversent toutes les fiches.
 
 Le formulaire est lui-même un `pages` qui ne se déclare pas (D509) : ses
 clés `header:`, `page:` et `footer:` sont les conteneurs de cette fiche.
-La surface est décrite dans [les surfaces](surfaces.md).
+La surface est décrite dans [les surfaces](06-surfaces.md).
 
 ## Le sommaire
 
@@ -642,4 +642,4 @@ forms:
 
 Sans entête ni pied, le formulaire d'une seule page écrit son contenu
 sous `items:` : le raccourci de la page unique, décrit dans
-[les surfaces](surfaces.md) (D1594).
+[les surfaces](06-surfaces.md) (D1594).

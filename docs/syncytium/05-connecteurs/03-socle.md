@@ -38,7 +38,7 @@ Toute classe implémente sept méthodes (D621, D627, D630) :
 
 Tout connecteur porte les mêmes propriétés (D621–D627, D1712). Un cas
 n'écrit que ce qu'il surcharge. Leurs défauts sont à l'inventaire du
-chapitre 1, [les défauts du socle](../01-configuration/defauts.md), en
+chapitre 1, [les défauts du socle](../01-configuration/05-defauts.md), en
 proposition jusqu'à l'implémentation.
 
 - **`connection: permanent | on_demand | idle[15min]`**, la connexion

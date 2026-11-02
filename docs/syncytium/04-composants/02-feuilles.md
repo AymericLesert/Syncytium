@@ -4,7 +4,7 @@
 > valeur, le choix ou le regard d'un objet. Le composant par défaut d'un
 > type porte le nom du type ([glossaire](../../glossaire.md)).
 
-Chaque champ du modèle ([le modèle](../02-modele/champs.md)) se montre
+Chaque champ du modèle ([le modèle](../02-modele/03-champs.md)) se montre
 par une feuille. Le type du champ choisit la feuille par défaut (D458).
 Le concepteur en choisit une autre par `component:`, à trois étages
 (D461) :

@@ -43,7 +43,7 @@ versions/
 
 Ce chapitre descend les quatre premiers étages : le projet, les
 environnements, les versions, l'entrée d'une version. Ce que la version
-contient est dans [version.md](version.md). Les décisions qui fondent
+contient est dans [04-version.md](04-version.md). Les décisions qui fondent
 l'arbre : D346 et D1529 pour `resources/`, D603 et D617 pour les
 connecteurs, D343 et D830 pour la journalisation, D1073 pour le
 nettoyage, D414 pour les groupes, D803 et D1530 pour les ressources
@@ -158,7 +158,7 @@ le mode d'installation de Syncytium », ou une langue apportée (D1465).
 
 Un profil nomme une fois le niveau (D25) et les groupes qui voient (D26).
 Les champs le référencent par l'interpolation, `${confidentiality.<profil>}`
-([mecanismes.md](mecanismes.md) §2.4). Les profils ne sont pas des
+([02-mecanismes.md](02-mecanismes.md) §2.4). Les profils ne sont pas des
 settings : ils vivent ici, hors des versions, « à la racine de
 Syncytium » (D885, D1536).
 

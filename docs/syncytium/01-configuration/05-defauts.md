@@ -1,6 +1,6 @@
 # L'inventaire des défauts du socle
 
-*La suite du [sous-chapitre 3.5](version.md) : ce que Syncytium décide
+*La suite du [sous-chapitre 3.5](04-version.md) : ce que Syncytium décide
 quand la configuration ne dit rien (D1175).*
 
 Chaque défaut du socle a une propriété, une valeur, un étage, et un

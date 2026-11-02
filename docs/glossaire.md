@@ -900,6 +900,13 @@ fonctions. *(D579–D584)*
 le moteur, ses types, ses composants, ses hooks, ses modules internes, ses
 défauts. *(D1175)*
 
+**Socle commun (des connecteurs)** — Ce que toute classe de connecteur
+implémente et porte, quelle que soit sa famille : sept méthodes,
+`initialize`, `release`, `connect`, `disconnect`, `ping`, `onerror`,
+`describe` ; des propriétés minimales, `connection`, `pool`, `retry`,
+`timeout`, `onerror`, `every`, `rgpd.countries` ; une position de
+sécurité, la page de maintenance ou le mock. *(D621–D627, D1712, D1713)*
+
 **Storage** (`storage`, une famille de connecteurs) — Le lien entre
 les données manipulées par Syncytium, leur manipulation, son
 optimisation et le stockage physique. Il traite l'unitaire et la masse ;

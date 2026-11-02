@@ -278,8 +278,8 @@ réécriture (D1521, D1543). Il est fait quand les trois le sont.
 | 2 | Le modèle et les types | fait | 30/10/2026 |
 | 3 | Le langage d'expression | fait | 31/10/2026 |
 | 4 | Les surfaces et les composants | fait | 01/11/2026 |
-| 5 | Les connecteurs | en cours | — |
-| 6 | Les opérations | à faire | — |
+| 5 | Les connecteurs | fait | 02/11/2026 |
+| 6 | Les opérations | en cours | — |
 | 7 | Les droits et la sécurité | à faire | — |
 | 8 | La reprise et le mapping | à faire | — |
 | 9 | L'administration et l'exploitation | à faire | — |

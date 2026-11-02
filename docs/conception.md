@@ -25450,6 +25450,21 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-11-02 (suite) — LA PAUSE : LE CHAPITRE 5 RÉÉCRIT, LES FICHIERS PRÉFIXÉS, LE CHAPITRE 6 OUVERT
+  (D1731–D1742, 1742 décisions).** La réécriture du chapitre 5, fichier par fichier, dans la forme didactique
+  (D1731–D1737 : le README et la nature en cinq traits ; la déclaration et le câblage ; le socle commun, entré au
+  glossaire ; les neuf familles ; le storage ; le hook de connecteur, la classe inventée `sftp`, `family:` en
+  proposition ; la documentation, la facette entrée au glossaire) ; les décisions perdues contrôlées et remises.
+  **Les fichiers d'un chapitre sont préfixés de leur rang dans la table des matières**, `02-declaration.md`, le
+  README sans préfixe ; les cinq chapitres renommés, 283 renvois corrigés, le titre du sommaire du chapitre 1
+  rétabli (D1738). **Le chapitre 6 ouvert** (D1739, seize points en cinq groupes) : la famille `operations`
+  constituée de cinquante-cinq décisions, quarante-huit entrées (D1740) ; les sources, hooks.md § 3, rights.md,
+  administration.md, les chapitres 2 et 4 (D1741) ; **vingt et une opérations du socle**, la famille `rgpd`,
+  `rgpd.extract` et `rgpd.anonymize`, une fiche par opération (D1742). « je marque une pause ». **À la reprise** :
+  le point 4 du chapitre 6, le contrat du hook d'opération — présenté, en attente : les quatre fonctions, cinq
+  propriétés closes jusqu'à l'implémentation, `rollback` défait la transaction jamais les effets, `execution: once`
+  par défaut et `repeatable` en proposition — ; puis les points 5 à 16 ; puis la réorganisation de
+  `06-operations/`, où hooks.md se dissout ; le chapitre 5 reste à relire par l'auteur.
 - **2026-11-02 — LA PAUSE : LA LECTURE DES HOOKS SOLDÉE, LES HOOKS DISTRIBUÉS, LE CHAPITRE 5 LU ET RÉORGANISÉ
   (D1681–D1730, 1730 décisions).** La lecture de hooks.md achevée, les points 7 et 9 à 17 validés en masse
   (D1681–D1688), puis les trois arbitrages à part : les tâches entre les chapitres 6 et 9 (D1689), le refus d'un type

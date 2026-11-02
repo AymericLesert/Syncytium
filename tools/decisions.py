@@ -267,6 +267,13 @@ for _fam, _nums in {
     "methode": [614, 1435, 1670, 1707],
 }.items():
     RELECTURE.update({_n: _fam for _n in _nums})
+# Le chapitre 6, les opérations (D1740, le 02/11/2026) : quarante-huit entrées, la famille constituée avant l'audit.
+RELECTURE.update({_n: "operations" for _n in [
+    55, 57, 58, 59, 60, 434, 435, 595, 596, 776, 796, 904, 905, 913, 1679, 1689,   # depuis les hooks
+    428, 436, 553, 570, 574, 594, 597, 598, 609, 667, 797, 906,                   # depuis l'administration
+    697, 699, 701, 1331, 1333, 1680,                                              # depuis la sécurité
+    433, 600, 601, 1606, 1607,                                                    # depuis les surfaces
+    430, 432, 24, 881, 1318, 104, 914, 1228, 427]})
 
 
 

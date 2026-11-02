@@ -60,7 +60,8 @@ dans [le storage](storage.md).
 
 ## `smtp`
 
-Un geste, `send(message, pièces, destinataires)` (D628) :
+Un geste, `send(message, pièces, destinataires)` (D628), celui de
+l'opération `send` du socle (D574) :
 
 - le message est au format HTML ; le template `mail` fait le corps, du
   Markdown rendu en HTML (D562, D564) ;
@@ -222,7 +223,7 @@ seconde couche.
   historisées ; l'événement va au journal de sécurité (D925).
 - **La lecture seule** (D958) : les outils tendus sont les primitives
   de lecture de la librairie d'exploration, lire, interroger, naviguer,
-  agréger. « Le chat répond aux questions et fournit les données. Les
+  agréger (D571, D599). « Le chat répond aux questions et fournit les données. Les
   mises à jour se feront via les interfaces proposées par l'application.
   Le chat proposera des liens vers les interfaces assurant la mise à
   jour qui peut être demandée. » La boucle d'outils vit au moteur, le

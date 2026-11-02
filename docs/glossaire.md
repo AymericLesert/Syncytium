@@ -377,6 +377,11 @@ vraie), le stockage physique, l'affichage, la forme d'API ou la nature du champ 
 extension, un des visages d'un composant ou d'une surface dans chaque document : la
 documentation est une facette de tous les composants. *(D119, D1158)*
 
+**Facette documentation** — Ce qu'un composant livre à chaque
+documentation générée : la documentation est une facette des
+composants, chaque type de composant décline dans chaque type de
+document, Syncytium assemble. *(D1158, D1159)*
+
 **Famille de connecteurs** (`type`) — Le contrat d'un connecteur, défini
 par le socle : neuf familles, `storage`, `smtp`, `file`, `directory`,
 `location`, `authentication`, `siren`, `webhook`, `llm`, chacune avec ses

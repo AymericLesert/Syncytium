@@ -1,73 +1,130 @@
 # Le hook de connecteur
 
-*Ce que le projet ajoute par du code : une classe dans une famille,
-jamais une famille. Le mécanisme commun est au chapitre 1,
-[la version](../01-configuration/version.md#39-hooks--le-mécanisme-des-hooks).*
+Le catalogue des classes est celui de Syncytium. Quand il manque une
+classe, un dossier distant, une base que le socle ne connaît pas, un
+service en ligne, le projet l'ajoute par du code : un hook de
+connecteur. Ce fichier dit ce qu'une classe ajoutée livre, ce qu'elle
+reçoit, comment elle se déclare. Le mécanisme commun, la maison
+`hooks/`, la fiche, la description par langue, les traces, est au
+chapitre 1,
+[la version](../01-configuration/version.md#39-hooks--le-mécanisme-des-hooks).
 
 ## Le sommaire
 
-- [Une classe dans une famille (D603–D642)](#une-classe-dans-une-famille-d603d642)
-- [La déclaration](#la-déclaration)
+- [Une classe dans une famille](#une-classe-dans-une-famille)
+- [Ce que la classe reçoit](#ce-que-la-classe-reçoit)
+- [La fiche et la déclaration](#la-fiche-et-la-déclaration)
 
-## Une classe dans une famille (D603–D642)
+## Une classe dans une famille
 
-Ajoute **une classe de connecteur** — la passerelle globale, déclarée
-à l'environnement (`environments/<env>.yml` — D603/D617, aucune
-déclinaison). **Les neuf familles sont closes** (D619, D623, D692,
-D957) : `storage` (les bases — et les formats csv/xml/json des exports
-et imports, D636), `smtp`, `file` (le guetteur), `directory` (l'AD
-Azure), `location` (le géocodage), `webhook` (les entrées servies),
-`siren`, `llm` (le modèle de langage du module `chat`, D957),
-**`authentication`** (D692 — le contrat
-`challenge()`/`verify(preuve)` aux deux visages, l'utilisateur et
-l'API ; les classes `local`/`azure_ad`/`sso` ; la session et le
-rapprochement du compte au moteur — D82/D686) — « il n'existe pas de
-hook de famille : le hook porte sur l'implémentation d'une famille »
-(une classe, jamais un contrat neuf ; `route` attend une version
-ultérieure du moteur).
+> **Une classe de connecteur** est l'implémentation d'une famille :
+> `postgresql`, `ban`, `smtp_std`. Elle remplit le contrat de sa
+> famille, expose ses paramètres et peut compter des propriétés propres.
+> Le socle en fournit, un hook de connecteur en ajoute
+> ([glossaire](../../glossaire.md)).
 
-**Le contrat par famille (D605/D620)** : « chaque famille a ses
-propres méthodes et fonctions » — la famille contraint le contrat, la
-conformité de la classe se vérifie au chargement. **Et le socle
-commun d'abord** (D621–D630) : toute classe reçoit **sa déclaration
-entière à l'initialisation** — les `parameters:` (les secrets y sont
-les paramètres marqués `*`, D944) et,
-pour les storages sources, **la carte `entities:`** (D828/D829 — le
-mapping entités ↔ fichiers, les options de lecture D845–D848 ;
-optionnelle, les familles sans fichiers l'ignorent) ; **le
-connecteur porte les informations système `connector.*`** (D849) —
-`connector.filename`, `connector.path`, `connector.line`
-(l'identifiant de la ligne **par rapport à la zone**, la ligne
-vivante — jamais la ligne réelle du fichier), la liste extensible —
-offertes aux sources et au mapping ; toute classe implémente
-`initialize`/`release`, `connect`/`disconnect`, `ping()` (le statut
-error/initialized/disconnected/connected/closed, la fréquence à
-`every:`), `onerror` (le mock ou la page de maintenance — D627) et
-`describe()` (la documentation markdown/html de l'instance — D630).
-Les contrats détaillés — storage (la transaction, l'instance —
-`get_instance`/`duplicate_instance`/`rename_instance` —, les
-entités et les enregistrements composés des types-visiteurs
-(D680–D689 : l'écriture en lots, la lecture au curseur), la
-migration à chaud orchestrée par le moteur), smtp (`send`), file
-(`get_files`/`get_file`/`commit`), directory (la lecture seule),
-location (`geocode`/`reverse`), webhook (les entrées, l'abonnement,
-l'authentification obligatoire), siren (`verify`) — sont dans
-[les familles](familles.md). Les propriétés paramètrent (pas de contexte — le démarrage du projet),
-**les secrets par paramètre marqué `*` et variable d'environnement
-chiffrée** (D603/D944), les
-deux sens décrits (D606) — et **le stockage des entités est lui-même
-un connecteur** (D606) : les bases du catalogue portent l'instance,
-pas seulement l'échange. **La migration inter-connecteurs** (D606) :
-« Syncytium peut convertir ou transférer des données d'un connecteur
-à l'autre » — le changement de moteur (SQLServer → PostgreSQL…) par
-la translation déclarative (le primitif aux quatre usages), **en
-instantané ou en différentiel** — le différentiel rejoignant la
-réplication passive du PCA-PRA (D112–D114).
+Un hook de connecteur ajoute une classe au catalogue (D603). La classe
+entre dans une famille existante : « il n'existe pas de hook de
+famille : le hook porte sur l'implémentation d'une famille » (D619).
+Les neuf familles sont définies par le socle lui-même ; le concepteur
+n'en ajoute pas, « sauf à faire évoluer le socle lui-même » (D1716).
+Une classe ajoutée se nomme comme une classe du socle : le mot « hook »
+n'apparaît jamais dans la configuration (D408).
 
-## La déclaration
+La classe implémente deux contrats, vérifiés au chargement (D605,
+D620) :
 
-L'exemple — la déclaration à l'environnement, dans le fichier que
-l'environnement cite (D603, D617, D342). Dans le cas 4 (banque),
+- [le socle commun](socle.md), les sept méthodes et les propriétés de
+  tout connecteur ;
+- le contrat de sa famille, dans [les neuf familles](familles.md).
+
+## Ce que la classe reçoit
+
+Toute classe reçoit sa déclaration entière à l'initialisation :
+
+- ses `parameters:`, les valeurs des paramètres qu'elle expose, les
+  secrets marqués `*` (D944, D1711) ;
+- pour un storage source, la carte `entities:`, les entités vers les
+  fichiers et les options de lecture, les entêtes, le fichier sans
+  entête (D828, D829, D845–D848) ; les familles sans fichiers
+  l'ignorent ;
+- les informations système `connector.*` (D849), `connector.filename`,
+  `connector.path`, `connector.line`, l'identifiant de la ligne par
+  rapport à la zone lue, offertes aux sources et au mapping d'une
+  reprise.
+
+## La fiche et la déclaration
+
+La fiche suit la forme commune du chapitre 1 (D809) : `name`,
+`description`, `code`, `properties`. Les `properties:` sont les
+paramètres que la classe expose, le nom, le type, la valeur par
+défaut, la marque du secret (D1535, D1711). L'exemple est inventé,
+aucun cas n'en porte : une classe `sftp` de la famille `file`, un
+dossier distant lu par SFTP. La clé qui nomme la famille, `family:`,
+est en proposition. `hooks/connectors/sftp/sftp.yml` :
+
+```yaml
+# La classe sftp
+# Un dossier distant, lu et acquitté par SFTP ; la famille file, ses deux gestes files et commit.
+name: sftp
+
+# La famille
+family: file
+
+# La description
+# La documentation de la classe, en Markdown, une par langue de la version.
+description:
+  fr: ~{documentation.fr.md}
+  en: ~{documentation.en.md}
+
+# Le code
+# Le socle commun et le contrat de la famille file.
+code: ~{source.txt}
+
+# Les propriétés
+# Les paramètres que la classe expose ; l'environnement en écrit les valeurs.
+properties:
+  host:
+    mode: static
+    type: text
+
+  port:
+    mode: static
+    type: integer
+    value: 22
+
+  user:
+    mode: static
+    type: text
+
+  password*:
+    mode: static
+    type: text
+
+  directory:
+    mode: static
+    type: text
+    value: /
+```
+
+L'environnement déclare un connecteur de cette classe comme un
+connecteur du socle : `type:` sa famille, `class:` son nom,
+`parameters:` les valeurs (D612, D613) :
+
+```yaml
+# Les plans des articles
+# Le dossier distant des plans : la reprise y lit le fichier que la fiche article désigne.
+plans:
+  type: file
+  class: sftp
+  parameters:
+    host: ${PLANS_HOST}
+    user: ${PLANS_USER}
+    password*: ${PLANS_PASSWORD}
+    directory: /plans
+```
+
+Les classes du socle se déclarent de même. Dans le cas 4 (banque),
 `environments/home/connectors.yml` :
 
 ```yaml
@@ -112,8 +169,3 @@ legacy:
   entities:
     budget: [budget.txt, budget-clos.txt]
 ```
-
-Une classe ajoutée par un hook se déclare de même : `type:` sa famille,
-`class:` son nom, `parameters:` ce qu'elle attend (D612–D613). Ce
-qu'elle livre — le socle commun et le contrat de sa famille — est
-dans [les familles](familles.md).

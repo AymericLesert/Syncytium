@@ -299,8 +299,9 @@ technique sur sollicitation (D17).
 
 Les planchers `administrator` : **`restore`** (la restauration par
 renommage — le geste inverse de la bascule, D174/D678),
-**`migrate`** (D667), **`anonymize`** (D697) ; les planchers
-`manager` : **`import`** (D211/D238), **`report`**.
+**`migrate`** (D667), **`rgpd.anonymize`** (D697, D1333) ; les planchers
+`manager` : **`import`** (D211/D238), **`report`**, **`rgpd.extract`** (D1331,
+D1333).
 
 ## L'exploitation consignée
 

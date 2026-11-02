@@ -377,14 +377,16 @@ contrôles globaux (D61), la supervision, annuler, reporter,
 reprioriser, le journal (D56), l'audit avec motif (D62). « Une
 opération ne se construit pas dans
 la configuration : elle se construit toujours à l'aide d'un hook de
-code » (D570). Les 20 opérations de socle (D574, `migrate` D667,
-`anonymize` D697, `reset_coverage` D881) sont les hooks embarqués :
+code » (D570). Les vingt et une opérations du socle (D574, `migrate` D667,
+`rgpd.anonymize` D697 et D1333, `reset_coverage` D881, `rgpd.extract`
+D1331 et D1333 ; D1742) sont les hooks embarqués :
 `create`, `read`, `update`, `delete`, `duplicate`, `promote`,
 `demote`, `generate`, `download`, `print`, `send`, `export`,
 `import`, `report`, `restore`, `notify`, `refresh`, `migrate`,
-`anonymize`, `reset_coverage` (la dernière valeur parcourue d'une
+`reset_coverage` (la dernière valeur parcourue d'une
 entité remise au départ — le `migrate` suivant relit la totalité,
-rien du module n'est effacé, D1030). **Chaque
+rien du module n'est effacé, D1030), et la famille `rgpd` des opérations
+réglementaires, `rgpd.extract` et `rgpd.anonymize` (D1333). **Chaque
 opération porte un degré intrinsèque d'autorisation, déclaré à son
 contrat** (D697/D699 — `reader` | `user` | `manager` |
 `administrator`, le quatrième degré compris (D1140, D1680), le

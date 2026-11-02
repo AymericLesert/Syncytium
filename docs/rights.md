@@ -296,14 +296,15 @@ porte le degré** (`degree:` dans groups.yml — validé D900, défaut
 sans groupe n'entre pas (le fail-closed jusqu'à la porte). Et
 **`allow:` complète en précisant les groupes autorisés** (D700) :
 
-**L'inventaire des vingt planchers** (D701 — validé ; la vingtième,
-`reset_coverage` D881, au plancher `administrator` par D900) :
+**L'inventaire des vingt et un planchers** (D701 — validé ; la vingtième,
+`reset_coverage` D881, au plancher `administrator` par D900 ; la vingt et
+unième, `rgpd.extract`, au plancher `manager`, D1331, D1333, D1742) :
 
 | le degré | les opérations |
 |---|---|
 | `user` | `create` · `read` · `update` · `delete` · `duplicate` · `promote` · `demote` · `generate` · `download` · `print` · `send` · `export` · `notify` · `refresh` |
-| `manager` | `import` · `report` |
-| `administrator` | `restore` · `migrate` · `anonymize` · `reset_coverage` |
+| `manager` | `import` · `report` · `rgpd.extract` |
+| `administrator` | `restore` · `migrate` · `rgpd.anonymize` · `reset_coverage` |
 
 **Hors catalogue — la réactivation d'un enregistrement désactivé**
 (D903) : « une opération exceptionnelle… l'action d'un
@@ -340,7 +341,7 @@ operations:
     allow: [managers, admins]              # le droit de déclencher (D691/D700)
     commit: confirm
   purge_customer:
-    operations: [ anonymize ]              # la 19e (D697) — plancher administrator
+    operations: [ rgpd.anonymize ]         # la 19e (D697, D1333) — plancher administrator
     # un allow: [managers] serait sans effet : le plancher l'emporte (D700)
 
 # sales/entities/customer.yml — LA FORME LIBRE (D423), exclusive du cycle

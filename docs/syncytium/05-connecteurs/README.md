@@ -51,8 +51,8 @@ renvoient au [registre](../../conception.md).
    - [Ce que la classe reçoit](hooks.md#ce-que-la-classe-reçoit)
    - [La fiche et la déclaration](hooks.md#la-fiche-et-la-déclaration)
 7. [Ce que le connecteur livre à la documentation](documentation.md)
-   - [La facette du connecteur (D1158–D1159)](documentation.md#la-facette-du-connecteur-d1158d1159)
-   - [Le `describe(model)` du storage (D1292, D1299, D1300, D1722)](documentation.md#le-describemodel-du-storage-d1292-d1299-d1300-d1722)
+   - [La facette du connecteur](documentation.md#la-facette-du-connecteur)
+   - [Le `describe(model)` du storage](documentation.md#le-describemodel-du-storage)
 8. [Les décisions](#les-décisions)
 
 ## Le diagramme — `Connector`, les familles, les classes (D1715–D1717)

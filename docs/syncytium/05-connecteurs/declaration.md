@@ -1,23 +1,37 @@
 # La déclaration et le câblage
 
-*Où un connecteur se déclare, par environnement, avec ses paramètres et
-ses secrets ; comment le socle et les hooks le trouvent.*
+Un connecteur se déclare une fois par environnement, sous son nom, avec
+sa famille, sa classe et ses paramètres. Ce fichier dit où et comment,
+ce que sont les secrets et le rythme, puis comment le socle et les hooks
+trouvent le connecteur qu'ils emploient.
 
 ## Le sommaire
 
-- [La déclaration — `environments/<env>/connectors.yml`](#la-déclaration--environmentsenvconnectorsyml)
-- [Le câblage — le socle par le nom, le hook par `uses:`](#le-câblage--le-socle-par-le-nom-le-hook-par-uses)
-- [Les renvois — les déclencheurs et la migration](#les-renvois--les-déclencheurs-et-la-migration)
+- [La déclaration par environnement](#la-déclaration-par-environnement)
+  - [Les clés d'un connecteur](#les-clés-dun-connecteur)
+  - [Les paramètres et leurs défauts](#les-paramètres-et-leurs-défauts)
+  - [Les secrets](#les-secrets)
+  - [Le rythme, `every:`](#le-rythme-every)
+  - [La base d'origine d'une reprise](#la-base-dorigine-dune-reprise)
+- [Le câblage](#le-câblage)
+  - [Le socle, par le nom](#le-socle-par-le-nom)
+  - [Le hook, par `uses:`](#le-hook-par-uses)
+- [Les renvois](#les-renvois)
 
-## La déclaration — `environments/<env>/connectors.yml`
+## La déclaration par environnement
 
-Chaque environnement porte ses connecteurs (D616, D617) : le staging les
-siens, la production les siens, le passif sa réplique, la sandbox ceux
-de son environnement (D911) ; l'ingestion
-vérifie que tous les connecteurs sont décrits dans chaque environnement.
-Un dossier par environnement (D342) : le fichier de l'environnement cite
-le fichier des connecteurs et désigne le storage du modèle (D1094). Dans
-le cas 5 (entrepôt), `environments/production/production.yml` :
+> **Un environnement** est un cadre d'exécution hermétique : le staging,
+> la production, le passif, chacun avec ses connecteurs, son journal et
+> ses variables ([glossaire](../../glossaire.md)).
+
+Chaque environnement porte ses connecteurs (D616, D617). Le staging a
+les siens, la production les siens, le passif sa réplique ; la sandbox
+prend ceux de son environnement (D911). L'ingestion vérifie que chaque
+environnement décrit tous les connecteurs.
+
+Un environnement est un dossier (D342). Son fichier cite le fichier des
+connecteurs et désigne le storage du modèle (D1094). Dans le cas 5
+(entrepôt), `environments/production/production.yml` :
 
 ```yaml
 # La description de l'environnement de production — la vie courante de l'application
@@ -47,6 +61,7 @@ cleanup: ~{cleanup.yml}
 connectors: ~{connectors.yml}
 ```
 
+Le fichier des connecteurs déclare chacun sous son nom. Dans
 `environments/production/connectors.yml`, la base de l'application et le
 mail sortant (D1708) :
 
@@ -84,35 +99,60 @@ smtp:
     countries: [FR]
 ```
 
-- **`type:`** — la famille, le contrat ; omis quand le nom du connecteur
-  est sa famille, écrit quand plusieurs connecteurs partagent une
-  famille (D612, D1093) ;
-- **`class:`** — la classe qui remplit le contrat (D613, D615) ; le mot
-  « hook » ne paraît pas dans la configuration (D408) ;
-- **`parameters:`** — les paramètres que la classe expose à son contrat,
-  le nom, le type, la marque du secret (D1535, D1711) ; leurs défauts
-  viennent en cascade, « portés par l'implémentation du connecteur, par
-  les settings, ... » (D1711), puis l'environnement écrit les valeurs,
-  par les variables du `.env` (D321) ; le plus proche l'emporte (D461) ;
-  tous sont statiques, le connecteur se définit au démarrage (D603).
-  *En proposition* : la section `connector:` des settings, la classe
-  puis le paramètre (D1239) ; un paramètre que la classe n'expose pas
-  est une erreur d'ingestion ;
-- **le secret, le paramètre marqué `*`** (D944) : `password*:
-  ${ENTREPOT_PASSWORD}` — le nom du paramètre est le contrat de la
-  classe, la marque dit la confidentialité, jamais en clair dans un
-  journal, la valeur est la référence seule d'une variable chiffrée
-  (D603, D902) ; le dépôt versionné ne porte jamais une valeur en clair
-  (D336) ; un secret laissé en clair, `unencrypted:`, se voit chaque
-  jour (D901) ;
-- **`rgpd: countries:`** — les pays du stockage ou de la destination, une
-  liste (D1345) ;
-- **`every:`** — le rythme du connecteur (D604 ; la grammaire des durées
-  et du calendaire, D434, D476) : la fréquence du
-  `ping()` (D621) et, pour un connecteur `file`, le thread d'écoute du
-  dossier (D635) ; l'événement détecté déclenche l'opération déclarée par
-  son `when:`, au chapitre 6 (D609, D1689). Aucun cas n'en porte ; un
-  dossier de commandes surveillé s'écrirait :
+### Les clés d'un connecteur
+
+- **`type:`**, la famille, le contrat. Elle s'omet quand le nom du
+  connecteur est sa famille, `smtp`. Elle s'écrit quand plusieurs
+  connecteurs partagent une famille : `entrepot` et `cegid` sont deux
+  `storage` (D612, D1093).
+- **`class:`**, la classe qui remplit le contrat (D613, D615). Le mot
+  « hook » ne paraît jamais dans la configuration : une classe ajoutée
+  par un hook se nomme comme une classe du socle (D408).
+- **`parameters:`**, les valeurs des paramètres de la classe. Les
+  paramètres sont exposés par la classe, ci-dessous.
+- **`rgpd: countries:`**, les pays du stockage ou de la destination, une
+  liste, pour le registre des traitements (D1345).
+- **`every:`**, le rythme du connecteur, ci-dessous.
+
+Les propriétés du socle, `connection:`, `pool:`, `retry:`, `timeout:`,
+`onerror:`, valent pour tout connecteur ; un cas n'écrit que ce qu'il
+surcharge. Elles sont dans [le socle commun](socle.md).
+
+### Les paramètres et leurs défauts
+
+Une classe expose ses paramètres : le nom, le type, la valeur par
+défaut, la marque du secret (D1535, D1711). Les défauts viennent en
+cascade, « portés par l'implémentation du connecteur, par les
+settings » (D1711) ; l'environnement écrit les valeurs, et le plus
+proche l'emporte (D461). Les valeurs viennent des variables du `.env`
+de l'environnement (D321). Tous les paramètres sont statiques : le
+connecteur se définit au démarrage (D603).
+
+Deux lectures restent en proposition : une section `connector:` des
+settings, la classe puis le paramètre, sur le patron des trois niveaux
+(D1239) ; et le refus à l'ingestion d'un paramètre que la classe
+n'expose pas.
+
+### Les secrets
+
+Un paramètre confidentiel porte la marque `*` à son nom, `password*`
+(D944). Le nom est celui du contrat de la classe ; la marque dit la
+confidentialité. La valeur n'est jamais écrite en clair : elle est la
+référence d'une variable d'environnement, `${ENTREPOT_PASSWORD}`, et la
+variable est chiffrée par une clé propre à l'environnement et à la
+machine (D603, D902). Un secret ne paraît jamais en clair dans un
+journal. Le dépôt versionné ne porte aucune valeur en clair (D336). Un
+secret laissé en clair est signalé chaque jour, `unencrypted:` (D901).
+
+### Le rythme, `every:`
+
+`every:` donne le rythme d'un connecteur (D604), dans la grammaire des
+durées et du calendaire, `5min`, `daily[02:00]` (D434, D476). Il fixe la
+fréquence du `ping()` (D621). Pour un connecteur `file`, il fixe le
+rythme du thread d'écoute du dossier (D635) : un fichier détecté
+déclenche l'opération déclarée par son `when:`, au chapitre 6 (D609,
+D1689). Aucun cas n'en porte. Un dossier de commandes surveillé
+s'écrirait :
 
 ```yaml
 # Les commandes entrantes
@@ -125,10 +165,12 @@ incoming_orders:
   every: 5min
 ```
 
-La base d'origine d'une reprise est un connecteur comme les autres. Dans
-le cas 4 (banque), `environments/home/connectors.yml`, les fichiers CSV
-du legacy et la carte des entités vers les fichiers, une liste ou un
-motif (D828, D845, D806) :
+### La base d'origine d'une reprise
+
+La base d'origine d'une reprise est un connecteur comme les autres. Un
+storage de format, `csv` ou `xlsx`, porte une carte des entités vers les
+fichiers, une liste ou un motif (D828, D845, D806). Dans le cas 4
+(banque), `environments/home/connectors.yml` :
 
 ```yaml
 # Le legacy
@@ -153,14 +195,25 @@ legacy:
     budget: [budget.txt, budget-clos.txt]
 ```
 
-## Le câblage — le socle par le nom, le hook par `uses:`
+## Le câblage
 
-**Le socle trouve ses connecteurs par le nom** (D612, D1710) :
+Un connecteur déclaré doit être trouvé par ce qui l'emploie. Deux
+règles (D1710) : le socle lie par le nom, le hook par `uses:`.
+
+### Le socle, par le nom
+
+Le socle trouve ses connecteurs par le nom (D612, D1710) :
 
 - le storage du modèle est désigné par le fichier de l'environnement,
   `storage: entrepot` (D1094) ;
 - la base d'origine d'une reprise, par `from:` dans la migration
-  (D1087) ; dans le cas 5 (entrepôt), `reprise/reprise.yml` :
+  (D1087) ;
+- le mail sortant est le connecteur `smtp`, le géocodage `location`,
+  l'identité `authentication` : le connecteur nommé comme sa famille
+  (D612, D1093).
+
+Dans le cas 5 (entrepôt), `reprise/reprise.yml` désigne la base
+d'origine :
 
 ```yaml
 # La migration cegid
@@ -172,39 +225,40 @@ cegid:
   from: cegid
 ```
 
-- le mail sortant est le connecteur `smtp`, le géocodage `location`,
-  l'identité `authentication` : le connecteur nommé comme sa famille
-  (D612, D1093) ; l'entrepôt géocode l'adresse de livraison par le
-  constructeur `geolocation("…")` en formule, et le connecteur
-  `location` se trouve par son nom (D1004).
+L'entrepôt géocode l'adresse de livraison par le constructeur
+`geolocation("…")` en formule ; le connecteur `location` se trouve par
+son nom (D1004).
 
-**Le hook lie par `uses:`** (D913, D914) : le contrat d'un hook
-d'opération déclare dans `connectors:` les connecteurs qu'il attend,
-nommés et typés ; la déclaration de l'opération lie chacun à un
-connecteur de l'environnement par `uses:`, toujours écrit — aucune
-liaison implicite, même quand l'environnement n'offre qu'un candidat de
-la famille ; l'erreur d'ingestion nomme alors l'attendu, sa famille et
-le candidat unique. La surcharge locale par une propriété au nom du
-rôle (D611) est ce `uses:`. Le nom du rôle est disponible au contexte
-d'exécution, `context.connector.<rôle>` (D612) ; plusieurs connecteurs
-par item ne sont pas exclus, « dans le cas de l'affichage d'une carte,
-nous pouvons définir plusieurs connecteurs et, en fonction de l'écran,
-utiliser l'un ou l'autre » (D612). Le hook de connecteur, lui, ajoute
-une classe à une famille ; la partie « Les hooks » de ce chapitre le
-dit.
+### Le hook, par `uses:`
 
-## Les renvois — les déclencheurs et la migration
+Le contrat d'un hook d'opération déclare dans `connectors:` les
+connecteurs qu'il attend, nommés et typés (D913). La déclaration de
+l'opération lie chacun à un connecteur de l'environnement par `uses:`,
+toujours écrit (D914). Il n'y a aucune liaison implicite, même quand
+l'environnement n'offre qu'un candidat de la famille : l'erreur
+d'ingestion nomme alors l'attendu, sa famille et le candidat unique. La
+surcharge locale par une propriété au nom du rôle (D611) est ce
+`uses:`.
 
-Le déclenchement d'une opération par un connecteur — l'événement d'un
-fichier détecté, l'appel d'un point d'entrée, `when: <connecteur>` ou
-`when: <connecteur>.<entrée>` (D604, D609, D641) — est un déclencheur
+Le nom du rôle est disponible au contexte d'exécution,
+`context.connector.<rôle>` (D612). Plusieurs connecteurs par item ne
+sont pas exclus : « dans le cas de l'affichage d'une carte, nous pouvons
+définir plusieurs connecteurs et, en fonction de l'écran, utiliser l'un
+ou l'autre » (D612). Le hook de connecteur, lui, ajoute une classe à une
+famille : [le hook de connecteur](hooks.md).
+
+## Les renvois
+
+Le déclenchement d'une opération par un connecteur, un fichier détecté,
+un point d'entrée appelé, `when: <connecteur>` ou
+`when: <connecteur>.<entrée>` (D604, D609, D641), est un déclencheur
 d'opération : le chapitre 6, les opérations (D1689, D1720). Ce chapitre
 garde l'écoute du connecteur `file` (D635) et les entrées servies du
 `webhook`, abonnées à l'initialisation (D641).
 
-La migration et la transformation — le mapping, ses deux maisons
+La migration et la transformation, le mapping, ses deux maisons
 `source/` et `mapping/`, le sens de la règle, la dépréciation, le
-dry-run (D646–D660) — sont la reprise : le chapitre 8, par
-[mapping.md](../../mapping.md) (D1721). Ce chapitre garde `from:`, au câblage,
-et la migration à chaud du storage, `duplicate_instance` et
+dry-run (D646–D660), sont la reprise : le chapitre 8, par
+[mapping.md](../../mapping.md) (D1721). Ce chapitre garde `from:` au
+câblage et la migration à chaud du storage, `duplicate_instance` et
 `rename_instance` (D631, D674).

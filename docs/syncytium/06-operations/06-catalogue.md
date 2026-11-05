@@ -1,65 +1,203 @@
 # Le catalogue des opérations du socle
 
-*Les vingt et une opérations du socle, leur plancher, et les opérations dédiées du module d'administration ; une
-fiche par opération à la réécriture (D1742).*
+Syncytium embarque ses opérations comme il embarque ses types : des
+hooks du socle, employés sous leur nom. Ce fichier donne le catalogue,
+une fiche par opération, groupées par plancher, puis les opérations
+dédiées du module d'administration.
 
 ## Le sommaire
 
-- [Les vingt et une opérations et leur plancher](#les-vingt-et-une-opérations-et-leur-plancher)
+- [Le catalogue et les planchers](#le-catalogue-et-les-planchers)
+- [Le quotidien, au plancher `user`](#le-quotidien-au-plancher-user)
+  - [`create`, `read`, `update`, `delete`](#create-read-update-delete)
+  - [`duplicate`](#duplicate)
+  - [`promote` et `demote`](#promote-et-demote)
+  - [`generate`](#generate)
+  - [`download` et `print`](#download-et-print)
+  - [`send`](#send)
+  - [`export`](#export)
+  - [`notify`](#notify)
+  - [`refresh`](#refresh)
+- [Le responsable métier, au plancher `manager`](#le-responsable-métier-au-plancher-manager)
+  - [`import`](#import)
+  - [`report`](#report)
+  - [`rgpd.extract`](#rgpdextract)
+- [L'administrateur, au plancher `administrator`](#ladministrateur-au-plancher-administrator)
+  - [`restore`](#restore)
+  - [`migrate`](#migrate)
+  - [`reset_coverage`](#reset_coverage)
+  - [`rgpd.anonymize`](#rgpdanonymize)
 - [Les opérations dédiées du module d'administration](#les-opérations-dédiées-du-module-dadministration)
 
-## Les vingt et une opérations et leur plancher
+## Le catalogue et les planchers
 
-Ajoute **une opération** — une tâche et son déclencheur, matérialisée
-en bouton (D148). L'infrastructure des tâches se décrit en deux
-chapitres (D1689) : au chapitre 6, les opérations — les cinq
-déclencheurs (D54), le dossier surveillé (D106), les droits de la
-tâche (D53), l'écriture par un connecteur, une tâche (D87), le droit
-de relance (D88) — ; au chapitre 9, l'administration — la file et ses
-contrôles globaux (D61), la supervision, annuler, reporter,
-reprioriser, le journal (D56), l'audit avec motif (D62). « Une
-opération ne se construit pas dans
-la configuration : elle se construit toujours à l'aide d'un hook de
-code » (D570). Les vingt et une opérations du socle (D574, `migrate` D667,
-`rgpd.anonymize` D697 et D1333, `reset_coverage` D881, `rgpd.extract`
-D1331 et D1333 ; D1742) sont les hooks embarqués :
-`create`, `read`, `update`, `delete`, `duplicate`, `promote`,
-`demote`, `generate`, `download`, `print`, `send`, `export`,
-`import`, `report`, `restore`, `notify`, `refresh`, `migrate`,
-`reset_coverage` (la dernière valeur parcourue d'une
-entité remise au départ — le `migrate` suivant relit la totalité,
-rien du module n'est effacé, D1030), et la famille `rgpd` des opérations
-réglementaires, `rgpd.extract` et `rgpd.anonymize` (D1333). **Chaque
-opération porte un degré intrinsèque d'autorisation, déclaré à son
-contrat** (D697/D699 — `reader` | `user` | `manager` |
-`administrator`, le quatrième degré compris (D1140, D1680), le
-plancher que la déclaration ne peut abaisser ; le groupe
-d'utilisateurs porte le degré, l'appartenance à un groupe est
-obligatoire ; `allow:` précise les groupes autorisés — D700, le plus
-exigeant l'emporte).
+> **Une opération** du socle est un hook embarqué par Syncytium : elle
+> s'emploie comme une opération du projet, sous son nom, avec son
+> plancher ([glossaire](../../glossaire.md)).
+
+Le socle embarque vingt et une opérations (D570, D574, D667, D697, D881,
+D1331, D1333, D1742) : dix-neuf verbes nus et la famille `rgpd` des
+opérations réglementaires. Chacune porte un degré intrinsèque
+d'autorisation, déclaré à son contrat, le plancher que la déclaration ne
+peut abaisser (D697, D699) ; `allow:` ajoute des groupes, et le plus
+exigeant l'emporte (D700). Les quatre degrés sont `reader`, `user`,
+`manager`, `administrator` (D1140, D1680). Le degré des groupes,
+l'appartenance obligatoire et l'inventaire par plancher sont au
+chapitre 7, [les droits](../../rights.md) (D1749).
+
+Chaque fiche donne le rôle, le plancher, la portée, les paramètres,
+l'issue et les décisions ; ce qui attend l'implémentation est dit tel
+quel.
+
+## Le quotidien, au plancher `user`
+
+### `create`, `read`, `update`, `delete`
+
+Les quatre gestes de base d'un enregistrement (D570). Ils sont servis
+par les surfaces, le bouton de création, le double-clic, la suppression
+confirmée (D445), et par l'API. Leur droit se déclare par état, `allow:`
+sur la valeur du statut (D422). Portée : l'enregistrement, ou la
+sélection pour `delete`.
+
+### `duplicate`
+
+La duplication d'un enregistrement (D574). Portée : l'enregistrement.
+La banque n'emploie pas le verbe du socle : son `dupliquer` est un hook
+du projet, la duplication d'une écriture entre deux dates (D776).
+
+### `promote` et `demote`
+
+Le passage d'un enregistrement à l'état suivant, ou précédent, de son
+graphe (D425, D426). Le changement d'état est une opération du
+catalogue, l'opération par défaut qu'un passage invoque sans autre
+précision (D433). Le graphe, le triptyque du `when` et le cliquet sont
+au chapitre 2, [les champs](../02-modele/03-champs.md) (D1755). Portée :
+l'enregistrement.
+
+### `generate`
+
+La génération d'un document depuis un gabarit, vers le PDF, le Word,
+l'Excel ou le mail (D564). L'issue est le document ; l'événement
+`generated` est émis à toute génération, et une opération peut s'y
+déclencher (D796) : `creer_releve` de la banque. Portée :
+l'enregistrement, la liste, la sélection.
+
+### `download` et `print`
+
+Le téléchargement et l'impression sont deux issues d'une opération
+(D570), et deux verbes du socle : télécharger un fichier, imprimer une
+liste ou un document en PDF (D187). Portée : l'enregistrement, la
+liste, la sélection.
+
+### `send`
+
+L'envoi d'un message par le connecteur `smtp` : le corps, un gabarit
+rendu en HTML, les pièces jointes (D562, D564, D628). Portée :
+l'enregistrement, la sélection. Connecteur attendu : `smtp`, trouvé par
+son nom (D1710).
+
+### `export`
+
+L'export d'une liste vers un format, `csv`, `excel[<modèle>]`,
+`word[<modèle>]`, `pdf` (D445, D530, D1602), écrit par un storage de
+format (D636). Portée : la liste, la sélection. L'écran le déclare par
+`exports:` (chapitre 4).
+
+### `notify`
+
+« Générer une information de notification aux utilisateurs » (D574).
+Les canaux sont des connecteurs ; la notification est persistée puis
+remise, localisée (D108, D109, D110, D218). Sans destinataire, elle
+remonte à tous ceux qui voient l'entité, dans la zone des notifications ;
+le relais par mail est le choix de chacun (D1228, D836). C'est aussi un
+effet (D1745).
+
+### `refresh`
+
+« Déclencher un recalcul d'un graphique ou d'un champ calculé » (D574).
+Portée : l'enregistrement, la liste, l'application.
+
+## Le responsable métier, au plancher `manager`
+
+### `import`
+
+L'import d'exploitation : un fichier CSV déposé dans l'écran dédié du
+module, un fichier par entité, le dry-run puis l'import, qui n'est
+possible que si toutes les valeurs sont acceptées, sinon le rapport
+exact (D211, D234, D238). La provenance est l'opérateur (D238). Portée :
+le module.
+
+### `report`
+
+Le rapport des non-conformités : la liste de ce qui ne respecte plus
+une règle de lien, le filtre qui a changé, la donnée qui a dérivé ; à la
+demande, à la migration ou en continu, adressé à qui de droit ; il
+couvre aussi les modifications faites à la base sans Syncytium (D395,
+D406, D574). Portée : le module, l'application.
+
+### `rgpd.extract`
+
+`rgpd.extract(identity)` : l'extraction des traitements et des
+informations qui concernent une personne, cherchée sur les champs
+`rgpd: identity` ; une édition à cartouche, journalisée (D1149, D1331,
+D1333). Portée : l'application.
+
+## L'administrateur, au plancher `administrator`
+
+### `restore`
+
+Le retour d'un enregistrement à un instantané de son historique, sous
+condition, tracé ; la restauration est elle-même une modification,
+historisée (D171). La restauration d'une instance entière est une
+procédure du guide d'exploitation, par renommage, le geste inverse de la
+bascule (D678, D1450).
+
+### `migrate`
+
+L'exécution d'une migration déclarée (D667). Elle se déclenche comme
+toute opération, le bouton, `when:`, `every:`, l'API ; la relance est
+la ré-exécution, le rejeu par la clé fonctionnelle (D654) ; le dry-run
+absolu est le preview suspendu avant le commit (D594). Un seul passage
+à la fois par migration ; l'administrateur peut interrompre, sauf
+pendant la bascule (D1077). Le chapitre 8, la reprise, détaille.
+
+### `reset_coverage`
+
+`reset_coverage(module, entité)` efface l'état de couverture d'une
+entité, la dernière valeur parcourue et les empreintes : le `migrate`
+suivant relit la totalité, rien n'est effacé (D881, D1030). Planifiable
+par `every:` : le delta en semaine, la relecture complète le dimanche.
+Elle attend le passage en cours ou l'interrompt, selon une option
+(D1079).
+
+### `rgpd.anonymize`
+
+L'anonymisation par algorithme : la valeur construite à règle
+aléatoire, jamais dérivée de l'origine, les enregistrements et les
+historiques modifiés (D696, D697, D1333). La rétention échue s'anonymise
+d'office (D698). L'entrepôt l'appelle en action, avec son expression en
+paramètre, `rgpd.anonymize(owner.actif = false and …)`.
 
 ## Les opérations dédiées du module d'administration
 
-- les surfaces : **les utilisateurs** et **les groupes** en listes
-  standard ;
-- **`renew`** — le changement (ou le changement forcé) du mot de
-  passe : le lien de réinitialisation, jamais la valeur ;
-- **`ban`** — le bannissement **sans suppression** (masquer, jamais
-  détruire) ; la liste des opérations reste ouverte ;
-- **la réactivation d'un enregistrement désactivé** (D903) — « une
-  opération exceptionnelle… l'action d'un administrateur… pas une
-  fonction exploitable par la configuration (pas de hook) » : **ni
-  une opération du socle, ni un hook** — une fonctionnalité des
-  écrans d'administration, au degré `administrator` ; la garde de
-  l'unicité sur les actifs (D141 — refus si un enregistrement actif
-  porte la même clé fonctionnelle), l'identité conservée (D142),
-  l'acte tracé par l'historisation (D429) ;
-- **la délégation** (D715/D749) : agir **à la place** d'un
-  utilisateur — les droits joués sont ceux de l'emprunté, **chaque
-  trace porte les deux comptes**. Les règles (D749) : **le même
-  degré** (jamais une élévation par délégation), **le don, jamais la
-  prise** (le délégant ou un administrateur définissent — le
-  destinataire ne se sert pas), l'usage type : l'absence prolongée ;
-  **l'exception** : seul un administrateur peut s'octroyer les
-  droits d'un utilisateur quelconque — la traçabilité toujours
-  assurée.
+Le module d'administration, interne, au degré `administrator` (D710), a
+ses opérations propres, hors catalogue, que le concepteur n'appelle pas
+(D714, D1757) :
+
+- **`renew`**, le changement, ou le changement forcé, du mot de passe :
+  le lien de réinitialisation, jamais la valeur ;
+- **`ban`**, le bannissement sans suppression : masquer, jamais
+  détruire ; la liste reste ouverte ;
+- **`rotate`**, la rotation des clés : la duplication d'une sandbox la
+  déclenche, la sandbox ayant sa propre clé (D915) ; le re-chiffrement
+  à l'initialisation reste à préciser à l'implémentation ;
+- **la délégation**, agir à la place d'un utilisateur (D715, D749) : les
+  droits joués sont ceux de l'emprunté, chaque trace porte les deux
+  comptes ; le même degré, jamais une élévation ; le don, jamais la
+  prise ; seul un administrateur peut s'octroyer les droits d'un
+  utilisateur quelconque.
+
+La réactivation d'un enregistrement désactivé n'est ni une opération du
+socle ni un hook (D903) : une fonctionnalité des écrans
+d'administration, sous la garde de l'unicité sur les actifs (D141),
+l'identité conservée (D142), tracée par l'historisation (D429).

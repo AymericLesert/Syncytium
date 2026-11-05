@@ -440,6 +440,21 @@ dynamique (`90d`), la surcharge `retention:` à la déclaration, le
 résultat échu purgé. Le partage de juin est complet : quatre
 propriétés au contrat, deux paramètres à l'administration.
 
+**Les tâches** (D53–D55, D87, D88, D436, D1748) : une tâche est
+l'exécution d'une opération ; toute exécution passe par la file, avec
+son état, sa progression et son résultat, retenu `retention:` (D906).
+`mode:` se déclare, `synchronous` par défaut, l'interface en pause avec
+sa progression, `asynchronous`, enregistrée dans la file, `await[…]`, le
+décalage avant le lancement (D436). Qui déclenche est dit par `allow:`
+et le plancher ; le déclencheur lit le résultat ; l'opération s'exécute
+avec les droits de son contrat (D53). La relance : le déclencheur pour
+une opération `repeatable` en échec terminal, l'administrateur pour
+tout, depuis la supervision (D88). Les effets `webhook` et `actions`
+sont des tâches ; leur anomalie est tracée et notifiée au déclencheur
+par son canal, in-app depuis l'interface, webhook depuis l'API (D87).
+L'API déclenche et suit, le 202 et sa ressource de suivi, au
+chapitre 12 (D24).
+
 Les cinq portées (D570) : l'enregistrement, la liste, la sélection,
 le module, l'application. `commit: auto | confirm` à la déclaration
 (D596). L'opération voit **la pile des contextes** (D553) et peut

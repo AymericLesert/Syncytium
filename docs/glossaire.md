@@ -938,6 +938,13 @@ le formulaire, le résumé, le widget, le wizard, le tableau de bord, le
 template, le chat. Elle se déclare dans le bloc `gui:` de l'entité, le
 tableau de bord au module. *(D437, D456, D1639)*
 
+**Tâche** — L'exécution d'une opération. Toute exécution passe par la
+file, non bloquante, avec son état, sa progression et son résultat,
+retenu une durée réglée ; `mode:` la déclare synchrone, l'interface en
+pause, asynchrone, enregistrée, ou différée, `await[…]`. La relance est
+au déclencheur pour une opération `repeatable`, à l'administrateur pour
+tout. *(D53–D55, D436, D1748)*
+
 **Table des clés d'origine** — Ce que le module `_migration` garde de
 chaque ligne d'une source : sa clé, sa partition, un hash, le statut
 de son dernier traitement — jamais la clé de destination. *(D1047–D1050)*

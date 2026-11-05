@@ -503,8 +503,8 @@ d'autres opérations, « à engager après la réalisation de l'action »,
 exécutées de façon asynchrone, chacune une tâche de la file (D55).
 La clé de la suite est `actions:` (D1751) ; **`effects:` reste, à l'action**
 (D1752) : « pour une action, nous pouvons définir un effect qui se
-déclenche sur la bonne exécution de l'action ». *Ma lecture, en
-proposition* : l'opération porte ses propres `effects:`, ceux de son hook ;
+déclenche sur la bonne exécution de l'action ». La forme est acquise
+(D1753) : l'opération porte ses propres `effects:`, ceux de son hook ;
 chaque action listée porte les siens ; `notify`, `document` et `set` s'exécutent au
 commit, dans la transaction tenue ouverte (D594) ; une opération
 appelée en action part après le commit, dans sa transaction, avec son
@@ -520,7 +520,7 @@ ceux qui voient l'entité, D334). **La documentation** d'une opération
 composée est la liste de ses étapes, chacune avec la description de
 son hook (D1227).
 
-**L'extrait, inventé, en proposition** (D1752) — une opération, ses
+**L'extrait, inventé, validé** (D1752, D1753) — une opération, ses
 effets, ses actions et leurs effets :
 
 ```yaml

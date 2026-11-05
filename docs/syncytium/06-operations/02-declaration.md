@@ -19,9 +19,10 @@ portées, le commit, et montre l'exemple de la banque.
 > une tâche ([glossaire](../../glossaire.md)).
 
 Une opération « ne se construit pas dans la configuration : elle se
-construit toujours à l'aide d'un hook de code » (D570). Le hook **est**
-l'opération ; la déclaration, dans le bloc `operations:` de l'entité, en
-décrit l'usage (D432, D609). Le hook et la déclaration portent le même
+construit toujours à l'aide d'un hook de code » (D570). Le hook porte le
+code de l'opération ; l'opération est sa déclaration, dans le bloc
+`operations:` de l'entité, une suite d'actions dont l'exécution du hook
+est la première (D432, D609, D1771). Le hook et la déclaration portent le même
 nom, un verbe (D797). Une opération est disponible partout par défaut,
 l'écran et l'API, sauf exclusion déclarée (D432).
 

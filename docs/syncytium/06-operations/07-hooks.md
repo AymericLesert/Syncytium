@@ -21,8 +21,10 @@ et sa fiche.
 > ([glossaire](../../glossaire.md)).
 
 « Une opération ne se construit pas dans la configuration : elle se
-construit toujours à l'aide d'un hook de code » (D570). Le hook **est**
-l'opération ; la déclaration en décrit l'usage (D609). Les deux portent
+construit toujours à l'aide d'un hook de code » (D570). Le hook porte le
+code de l'opération ; l'opération est sa déclaration, une suite
+d'actions dont l'exécution du hook est la première (D609, D1771). Les
+deux portent
 le même nom, un verbe (D797). Les vingt et une opérations du socle sont
 des hooks embarqués ; celles du projet sont des hooks ajoutés, écrits
 contre le même contrat.

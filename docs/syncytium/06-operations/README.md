@@ -61,10 +61,11 @@ citées entre parenthèses renvoient au [registre](../../conception.md).
 Une opération est un verbe déclaré sur une entité, au-delà du
 créer-modifier-supprimer : dupliquer, virer, expédier. Elle ne se
 construit pas dans la configuration : « elle se construit toujours à
-l'aide d'un hook de code » (D570), et le hook **est** l'opération
-(D609). Sa déclaration, dans le bloc `operations:` de l'entité, en décrit
-l'usage : le libellé, le formulaire d'appel, le `commit:`, le déclencheur,
-la suite d'actions (D432, D1750). Son exécution, suite à un déclencheur,
+l'aide d'un hook de code » (D570). Le hook porte le code de l'opération ;
+l'opération est sa déclaration, dans le bloc `operations:` de l'entité,
+une suite d'actions dont l'exécution du hook est la première : le
+libellé, le formulaire d'appel, le `commit:`, le déclencheur, les actions
+et leurs effets (D432, D609, D1750, D1771). Son exécution, suite à un déclencheur,
 est une tâche, qui passe par la file (D1748).
 
 Quatre mots, chacun à sa place (D1750) : `operation`, la déclaration

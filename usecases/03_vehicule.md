@@ -832,3 +832,5 @@ est écrit : ils disent ce que le concepteur n'a pas décrit, jamais un défaut 
 Aucun orphelin.
 
 **Le 05/11/2026, D1751** : la clé `effects:` devient `actions:` dans `transport/revision/revision.yml`, l'opération automatique `notifier` ; une opération se déclare comme une suite d'actions (D1750).
+
+**Le 05/11/2026, D1771** : le commentaire de tête de `transport/vehicule/operations.yml` dit « le hook porte le code de l'opération », non plus « le hook est l'opération ».

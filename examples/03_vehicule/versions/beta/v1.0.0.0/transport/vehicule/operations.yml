@@ -1,7 +1,7 @@
 # Les opérations du véhicule : le cycle de vie de l'échéancier, deux automatismes et un bouton. Une opération
 # automatique porte son déclencheur (when), une expression évaluée à chaque mise à jour de l'entité et déclenchée à la
 # première vraie, comme un cliquet ; le bouton n'a pas de when, et sa garde (if) le grise. La validation (commit) est
-# auto, sans relecture, ou confirm, avec. Le hook est l'opération.
+# auto, sans relecture, ou confirm, avec. Le hook porte le code de l'opération.
 
 # La création de l'échéancier
 # À la validation du financement : la validation est l'opération.

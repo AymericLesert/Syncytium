@@ -219,8 +219,10 @@ signalées dans la réponse.
 > sous droits, et peut déclencher un changement d'état
 > ([glossaire](../../glossaire.md)).
 
-Une opération est un hook d'opération employé par l'entité ; le hook
-**est** l'opération (D609). Le bloc `operations:` le déclare (D432) :
+Une opération est un verbe de l'entité, porté par un hook d'opération :
+le hook porte le code, l'opération est sa déclaration, une suite
+d'actions dont l'exécution du hook est la première (D609, D1771). Le
+bloc `operations:` la déclare (D432) :
 
 - **un verbe sans `when:`** est un bouton : sa garde `if` (D430), son
   `label:`, son `commit:`, `auto` ou `confirm` (D596), son formulaire

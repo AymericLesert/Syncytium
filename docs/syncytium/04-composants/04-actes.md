@@ -22,7 +22,11 @@ d'une étape.
 **Types servis.** Les opérations du bloc `operations:` (D432). Une
 opération sans `when:` est un bouton et une fonction de l'API (D428). Le
 changement d'état du graphe en est une aussi, servie par le catalogue
-par défaut (D425–D427, D433).
+par défaut (D425–D427, D433). Dès qu'un écran est déclaré, une opération
+n'y apparaît que là où un acte la place : `operation[<nom>]` dans les
+items d'un formulaire, son nom nu dans les colonnes d'une liste ; sans
+déclaration, elle n'apparaît pas (D1772). La banque place `dupliquer`,
+`propager` et `virer` au pied de son formulaire et dans ses listes.
 
 **Contexte consommé.** L'acte lit :
 

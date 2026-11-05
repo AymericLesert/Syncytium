@@ -34,6 +34,11 @@ forms:
       - field[cheque]: { visible: mode = autre }
       - field[lieu]
 
+      # Les opérations de l'écriture, en boutons au pied du formulaire
+      - operation[dupliquer]
+      - operation[propager]
+      - operation[virer]
+
   # L'appel de dupliquer
   # Le pas et les deux dates.
   duplication:
@@ -90,7 +95,7 @@ lists:
       - owner: { searchable: strict, select: mono, required: true }
       - date_operation
       - recherche
-    columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
+    columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde, dupliquer, propager, virer]
     sort: [date_operation, numero]
     selection: multiple
     actions: [copy]
@@ -108,7 +113,7 @@ lists:
       - owner: { searchable: strict, select: mono, required: true }
       - date_comptable
       - recherche
-    columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
+    columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde, dupliquer, propager, virer]
     sort: [date_comptable, montant, numero]
     selection: multiple
     actions: [copy]

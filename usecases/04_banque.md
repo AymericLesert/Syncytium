@@ -805,3 +805,5 @@ est écrit : ils disent ce que le concepteur n'a pas décrit, jamais un défaut 
 **Les orphelins** — 68 fichiers atteints depuis `syncytium.yml`, 68 fichiers dans le dossier ; un orphelin n'entre pas dans le taux : c'est peut-être un oubli — un texte écrit, jamais référencé.
 
 Aucun orphelin.
+
+**Le 05/11/2026, D1772** : les opérations `dupliquer`, `propager` et `virer` sont placées dans `banque/ecriture/gui.yml`, en boutons au pied du formulaire `record` et en colonnes des listes `par_operation` et `par_comptable` ; une opération n'apparaît dans un écran que là où un acte la place.

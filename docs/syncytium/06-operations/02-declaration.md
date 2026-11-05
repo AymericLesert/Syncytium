@@ -23,8 +23,10 @@ construit toujours à l'aide d'un hook de code » (D570). Le hook porte le
 code de l'opération ; l'opération est sa déclaration, dans le bloc
 `operations:` de l'entité, une suite d'actions dont l'exécution du hook
 est la première (D432, D609, D1771). Le hook et la déclaration portent le même
-nom, un verbe (D797). Une opération est disponible partout par défaut,
-l'écran et l'API, sauf exclusion déclarée (D432).
+nom, un verbe (D797). Dans un écran, une opération n'apparaît que là où
+un acte la place, `operation[<nom>]` dans un formulaire, son nom en
+colonne d'une liste ; sans déclaration, elle n'apparaît pas (D1772).
+L'API l'expose d'office (D428).
 
 La déclaration porte :
 

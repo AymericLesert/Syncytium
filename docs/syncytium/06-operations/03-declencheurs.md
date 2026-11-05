@@ -100,6 +100,9 @@ Dans le cas 5 (entrepôt), `tiers/contact/contact.yml` planifie
 l'anonymisation chaque mois :
 
 ```yaml
+# Les opérations
+# L'anonymisation des contacts des tiers inactifs depuis trois ans, chaque mois : le traitement d'appui du RGPD ; le
+# responsable et la base légale viennent du projet, la finalité est la sienne.
 operations:
 
   # L'anonymisation

@@ -144,6 +144,14 @@ ecritures:
       link: banque.ecriture[par_comptable]
     rapprochement:
       link: banque.ecriture[pointage]
+
+    # Le relevé, l'opération appelée depuis le menu
+    releve:
+      label:
+        fr: Créer le relevé
+        en: Create the statement
+        es: Crear el extracto
+      link: banque.ecriture.creer_releve
 ```
 
 ## `list` (la surface)
@@ -345,7 +353,7 @@ lists:
       - owner: { searchable: strict, select: mono, required: true }
       - date_comptable
       - recherche
-    columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde]
+    columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde, dupliquer, propager, virer]
     sort: [date_comptable, montant, numero]
     selection: multiple
     actions: [copy]

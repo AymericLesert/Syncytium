@@ -60,6 +60,7 @@ anglais, `created`, `updated`, `deleted`, `generated`, `imported`,
 Dans le cas 3 (véhicule), `transport/vehicule/operations.yml` déclare
 trois automatismes et un bouton :
 
+```yaml
 # Les opérations du véhicule : le cycle de vie de l'échéancier, deux automatismes et un bouton. Une opération
 # automatique porte son déclencheur (when), une expression évaluée à chaque mise à jour de l'entité et déclenchée à la
 # première vraie, comme un cliquet ; le bouton n'a pas de when, et sa garde (if) le grise. La validation (commit) est
@@ -89,6 +90,7 @@ clore_echeancier:
 finaliser_vehicule:
   when: migrated
   commit: auto
+```
 
 `creer_echeancier` et `clore_echeancier` se déclenchent sur une
 expression, au cliquet ; `finaliser_vehicule` sur l'événement nommé

@@ -116,7 +116,8 @@ operations:
 ## Les déclencheurs par connecteur
 
 Un connecteur `file` écoute un dossier au rythme de son `every:` ; un
-connecteur `webhook` sert des points d'entrée (D604, D609, D641). Dans
+connecteur `webhook` sert des points d'entrée (D604, D609, D641, D1720).
+Dans
 les deux cas, l'opération déclare son abonnement par `when:`. Aucun cas
 n'en porte ; l'exemple est inventé :
 

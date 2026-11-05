@@ -38,7 +38,7 @@ l'utilisateur ne déclenche pas, `migrated`, `generated`, figurent parce
 qu'elles transforment ce qu'il voit (D1209). Sans `label:`, le nom
 (D1181). Le md est une configuration : ni décision ni histoire du cas
 (D1085). La notification sans destinataire remonte à tout le monde ;
-la section le dit ainsi (D1228).
+la section le dit ainsi (D1228, D1685).
 
 ### La réglementation
 

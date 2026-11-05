@@ -278,6 +278,8 @@ RELECTURE.update({_n: "operations" for _n in [
 RELECTURE.update({_n: "surfaces" for _n in [546, 547, 548, 549, 551, 552]})
 # Le graphe des états (D1755, le 05/11/2026) : le cliquet et le triptyque du when retournent au modèle.
 RELECTURE.update({354: "modele", 427: "modele"})
+# Les opérations d'administration, dédiées comprises (D1757, le 05/11/2026) : au chapitre 6.
+RELECTURE.update({_n: "operations" for _n in [714, 715, 749, 903, 915]})
 
 
 

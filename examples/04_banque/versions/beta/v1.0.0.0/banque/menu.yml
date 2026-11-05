@@ -33,6 +33,14 @@ ecritures:
     rapprochement:
       link: banque.ecriture[pointage]
 
+    # Le relevé, l'opération appelée depuis le menu
+    releve:
+      label:
+        fr: Créer le relevé
+        en: Create the statement
+        es: Crear el extracto
+      link: banque.ecriture.creer_releve
+
 # Les référentiels
 referential:
   items:

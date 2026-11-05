@@ -62,8 +62,10 @@ l'implémentation (D1743) :
   (D59) ; le hook la porte, la configuration ne la surcharge jamais ;
 - **`connectors: { <nom>: <famille> }`**, les connecteurs attendus,
   nommés et typés par leur famille, `documents: file`, `mailer: smtp`
-  (D913) ; la déclaration les lie par `uses:`, toujours écrit (D914) ;
-  tout connecteur non attendu est hors de portée (D599).
+  (D913) ; la déclaration les lie par `uses:` au connecteur de
+  l'environnement (D617), toujours écrit, tout lien s'écrit (D914,
+  D805) ; l'ingestion vérifie la liaison et la famille (D613) ; tout
+  connecteur non attendu est hors de portée (D599).
 
 Toutes paraissent au `describe` (D645). Le hook déclare, le moteur
 exploite (D905) : le cache de mémoïsation est tenu pour l'opération

@@ -28,6 +28,10 @@ dédiées du module d'administration.
   - [`reset_coverage`](#reset_coverage)
   - [`rgpd.anonymize`](#rgpdanonymize)
 - [Les opérations dédiées du module d'administration](#les-opérations-dédiées-du-module-dadministration)
+  - [`renew`](#renew)
+  - [`ban`](#ban)
+  - [`rotate`](#rotate)
+  - [La délégation](#la-délégation)
 
 ## Le catalogue et les planchers
 
@@ -181,21 +185,44 @@ paramètre, `rgpd.anonymize(owner.actif = false and …)`.
 ## Les opérations dédiées du module d'administration
 
 Le module d'administration, interne, au degré `administrator` (D710), a
-ses opérations propres, hors catalogue, que le concepteur n'appelle pas
-(D714, D1757) :
+ses opérations propres, hors catalogue, que le concepteur n'appelle pas ;
+la liste reste ouverte (D714, D1757). Chacune a sa fiche.
 
-- **`renew`**, le changement, ou le changement forcé, du mot de passe :
-  le lien de réinitialisation, jamais la valeur ;
-- **`ban`**, le bannissement sans suppression : masquer, jamais
-  détruire ; la liste reste ouverte ;
-- **`rotate`**, la rotation des clés : la duplication d'une sandbox la
-  déclenche, la sandbox ayant sa propre clé (D915) ; le re-chiffrement
-  à l'initialisation reste à préciser à l'implémentation ;
-- **la délégation**, agir à la place d'un utilisateur (D715, D749) : les
-  droits joués sont ceux de l'emprunté, chaque trace porte les deux
-  comptes ; le même degré, jamais une élévation ; le don, jamais la
-  prise ; seul un administrateur peut s'octroyer les droits d'un
-  utilisateur quelconque.
+### `renew`
+
+Le changement, ou le changement forcé, du mot de passe d'un utilisateur
+(D714). L'opération envoie un lien de réinitialisation, jamais la
+valeur. Plancher : `administrator` ; l'utilisateur peut renouveler le
+sien. Portée : le compte, la liste des utilisateurs du module.
+
+### `ban`
+
+Le bannissement d'un utilisateur sans suppression : masquer, jamais
+détruire (D714). Le compte ne peut plus entrer ; ses traces demeurent.
+Plancher : `administrator`. Portée : le compte, la liste des
+utilisateurs.
+
+### `rotate`
+
+La rotation des clés qui chiffrent les secrets d'un environnement
+(D730, D915). La duplication d'une sandbox la déclenche d'office, la
+sandbox ayant sa propre clé, dérivée de l'environnement et de la
+machine ; le re-chiffrement des valeurs copiées à l'initialisation reste
+à préciser à l'implémentation. Plancher : `administrator`. Portée :
+l'environnement. La rotation des secrets est aussi une procédure du
+guide d'exploitation (D1450).
+
+### La délégation
+
+Agir à la place d'un utilisateur (D715, D749). Les droits joués sont
+ceux de l'emprunté ; chaque trace porte les deux comptes. Les règles :
+le même degré, jamais une élévation par la délégation ; le don, jamais
+la prise, le délégant ou un administrateur définissent, le destinataire
+ne se sert pas ; l'usage type est l'absence prolongée ; seul un
+administrateur peut s'octroyer les droits d'un utilisateur quelconque,
+la traçabilité toujours assurée. Plancher : `administrator` pour
+l'octroi, l'utilisateur pour le don. Portée : le compte. Le verbe reste
+à nommer à l'implémentation.
 
 La réactivation d'un enregistrement désactivé n'est ni une opération du
 socle ni un hook (D903) : une fonctionnalité des écrans

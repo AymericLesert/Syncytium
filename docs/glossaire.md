@@ -10,6 +10,11 @@ place manque, comme la colonne étroite d'une liste. Sans elle, le
 libellé. *Ex. : `abbreviation: { fr: Ouv., en: Opened }`.*
 *(D265, D1619, D1622)*
 
+**Action** — Une étape d'une opération : l'exécution du hook, une
+notification, une édition, une mise à jour, un webhook sortant, ou une
+autre opération. Une opération se déclare comme une suite d'actions.
+*(D1745, D1750)*
+
 **Acte** — Le composant qui déclenche une opération : le bouton, l'icône,
 le passage d'étape d'un wizard. L'utilisateur acte, Syncytium exécute.
 *(D432, D444, D456)*
@@ -696,9 +701,11 @@ ce qui n'est que d'un seul côté. Le résultat retire ses doublons. À ne pas c
 avec l'opération d'une entité. *Ex. : `lignes.article.except(depot.niveaux.article)`.*
 *(D1575)*
 
-**Opération** — Une action déclarée sur une entité, au-delà du
-créer-modifier-supprimer : valider, envoyer, clôturer. Sous droits, et
-déclencheur possible d'un changement d'état. *(D148)*
+**Opération** — Un verbe déclaré sur une entité, au-delà du
+créer-modifier-supprimer : valider, envoyer, clôturer. Sa déclaration
+est une suite d'actions ; son exécution, suite à un déclencheur, est une
+tâche. Sous droits, et déclencheur possible d'un changement d'état.
+*(D148, D1750)*
 
 **Orphelin** — Un fichier de la configuration qu'aucune clé ne cite par
 `~{…}`. Le traceur `tools/orphans.py` les liste. *(D956, D1240)*
@@ -762,7 +769,14 @@ composition ; l'enfant l'atteint par `owner`. *Ex. : `owner.km_initial`.*
 **Post-zone** — La partie qui suit la zone de saisie d'un champ : la
 devise, le `%`, une unité, une icône. *(D265, D271)*
 
-**Profil de confidentialité** — Une déclaration nommée, dans
+**Procédure** (`procedure`) — Une fiche du guide d'exploitation : quand
+et qui, le geste ou la commande, ce qui se passe, ce qui est tracé, ce
+qui peut mal tourner et la position de sécurité ; treize fiches, la
+promotion, la sauvegarde, la restauration, la rotation… Une trace
+codifiée y renvoie par `procedure:`. Jamais une opération. *(D1450,
+D1464, D1750)*
+
+**Profil**  Une déclaration nommée, dans
 `syncytium.yml`, sous `confidentiality:`, que les champs citent par
 interpolation au lieu de répéter leur niveau.
 *Ex. : `${confidentiality.financier}`.* *(D885, D1536)*
@@ -938,7 +952,8 @@ le formulaire, le résumé, le widget, le wizard, le tableau de bord, le
 template, le chat. Elle se déclare dans le bloc `gui:` de l'entité, le
 tableau de bord au module. *(D437, D456, D1639)*
 
-**Tâche** — L'exécution d'une opération. Toute exécution passe par la
+**Tâche** (`task`) — L'exécution d'une opération, suite à un
+déclencheur. Toute exécution passe par la
 file, non bloquante, avec son état, sa progression et son résultat,
 retenu une durée réglée ; `mode:` la déclare synchrone, l'interface en
 pause, asynchrone, enregistrée, ou différée, `await[…]`. La relance est

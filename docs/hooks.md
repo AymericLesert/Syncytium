@@ -490,21 +490,26 @@ déclaration (le bouton, la colonne, les actions, le step, le menu).
 **Et la composition déclarative** : « une opération peut être une
 liste d'opérations disponibles dans le socle » (D609) ; « ne se
 construit pas dans la configuration » signifie *pas de code*.
-**`effects:` diffuse le résultat** (D432, D1745) — quatre natures :
-`notify`, l'information des utilisateurs ; `document`, l'édition ;
-`set`, la mise à jour de données ; `actions`, « une liste d'actions à
-engager après la réalisation de l'action », des opérations exécutées
-de façon asynchrone, chacune une tâche de la file (D55) ; `webhook`,
-« pour déclencher une action sur une application distante » (D1746),
-par un connecteur `webhook` sortant. *Ma lecture,
-en proposition* : `notify`, `document` et `set` s'exécutent au commit,
-dans la transaction tenue ouverte (D594) ; les `actions` partent après
-le commit, chacune dans sa transaction et avec son `execution:` ; les
-valeurs nommées que l'opération rend (D598) nourrissent les gabarits
-des effets et les paramètres des actions ; une action qui échoue ne
-défait pas l'opération, la supervision la relance (D88). `function`
-quitte les effets : une fonction est une méthode d'un type (D1702),
-elle s'appelle dans une formule. **Le
+**Le vocabulaire** (D1750) : « on garde "operation:" pour la
+déclaration d'une suite d'actions, "action:" pour une étape d'une
+opération, "task" pour une tâche exécutée suite à un déclencheur,
+"procedure" pour les fiches de procédure ». **Une opération se déclare
+comme une suite d'actions** : l'exécution de son hook, puis les effets
+qui diffusent le résultat (D432, D1745, D1746) — `notify`,
+l'information des utilisateurs ; `document`, l'édition ; `set`, la mise
+à jour de données ; `webhook`, « pour déclencher une action sur une
+application distante », par un connecteur `webhook` sortant — et
+d'autres opérations, « à engager après la réalisation de l'action »,
+exécutées de façon asynchrone, chacune une tâche de la file (D55).
+*Ma lecture, en proposition* : la clé de la suite est `actions:`, qui
+remplace `effects:` ; `notify`, `document` et `set` s'exécutent au
+commit, dans la transaction tenue ouverte (D594) ; une opération
+appelée en action part après le commit, dans sa transaction, avec son
+`execution:` ; les valeurs nommées que l'opération rend (D598)
+nourrissent les gabarits et les paramètres des actions ; une action
+asynchrone qui échoue ne défait pas l'opération, la supervision la
+relance (D88). `function` n'est pas une action : une fonction est une
+méthode d'un type (D1702), elle s'appelle dans une formule. **Le
 `notify` sans destinataire remonte à tout le monde, dans la zone des
 notifications de l'application ; le relais par mail est le choix de
 chacun, dans son profil** (D1228, la lecture confirmée D1685 — « tout le monde » =

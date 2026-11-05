@@ -602,7 +602,8 @@ laisse le moteur présenter le formulaire et le message ; `commit`
 scelle et retourne l'issue ; `rollback` défait si l'utilisateur
 annule (D594–D595). `dupliquer` est le clone en hook (D776, D797).
 
-**Le wizard, la même transaction** (D546–D547/D594) : les steps qui
+**Le wizard, la même transaction** (D546–D547/D594 ; le wizard est décrit
+au chapitre 4, ce chapitre n'en dit que l'opération, D1754) : les steps qui
 portent une `operation:` s'exécutent **dans la transaction du
 wizard, tenue ouverte au fil des étapes** — « la transformation
 n'aura lieu qu'à la validation définitive du wizard » ; la

@@ -274,6 +274,8 @@ RELECTURE.update({_n: "operations" for _n in [
     697, 699, 701, 1331, 1333, 1680,                                              # depuis la sécurité
     433, 600, 601, 1606, 1607,                                                    # depuis les surfaces
     430, 432, 24, 881, 1318, 104, 914, 1228, 427]})
+# Le wizard (D1754, le 05/11/2026) : six décisions de la documentation aux surfaces, le chapitre 4.
+RELECTURE.update({_n: "surfaces" for _n in [546, 547, 548, 549, 551, 552]})
 
 
 

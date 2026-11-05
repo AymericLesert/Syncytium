@@ -26,6 +26,8 @@ citées entre parenthèses renvoient au [registre](../../conception.md).
    - [L'exemple de la banque](02-declaration.md#lexemple-de-la-banque)
 3. [Les déclencheurs](03-declencheurs.md)
    - [Les six déclencheurs](03-declencheurs.md#les-six-déclencheurs)
+   - [L'exemple du véhicule](03-declencheurs.md#lexemple-du-véhicule)
+   - [L'exemple de l'entrepôt](03-declencheurs.md#lexemple-de-lentrepôt)
    - [Les déclencheurs par connecteur](03-declencheurs.md#les-déclencheurs-par-connecteur)
 4. [La composition](04-composition.md)
    - [La suite d'actions et les effets](04-composition.md#la-suite-dactions-et-les-effets)

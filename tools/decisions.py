@@ -280,6 +280,8 @@ RELECTURE.update({_n: "surfaces" for _n in [546, 547, 548, 549, 551, 552]})
 RELECTURE.update({354: "modele", 427: "modele"})
 # Les opérations d'administration, dédiées comprises (D1757, le 05/11/2026) : au chapitre 6.
 RELECTURE.update({_n: "operations" for _n in [714, 715, 749, 903, 915]})
+# Le registre du chapitre 6 (D1761, le 05/11/2026) : les garde-fous des fonctions retournent au langage.
+RELECTURE.update({104: "langage"})
 
 
 

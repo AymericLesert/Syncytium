@@ -418,9 +418,9 @@ l'implémentation (D1743) :
 | `deterministic_duration: <durée>` | **la fenêtre de mémoïsation** (D59) — « cela dépendra éventuellement de la façon dont elle sera implémentée » : le hook la porte, la configuration ne la surcharge jamais |
 | `connectors: { <nom>: <famille> }` | **les connecteurs attendus pour l'exécution** (D913) — « le hook décrit les types de connecteurs utilisés (comme des paramètres d'exécution) » : nommés et typés par leur famille (`documents: file`, `mailer: smtp`) ; **la déclaration les lie par `uses:`** au connecteur de l'environnement (D617) ; l'ingestion vérifie la liaison, la famille (D613) et la complétude par environnement ; tout connecteur non attendu est hors de portée (D599) ; **aucune liaison implicite** (D914 — `uses:` s'écrit toujours, D805 ; l'erreur d'ingestion nomme le candidat unique) |
 
-Toutes paraissent au `describe` (D645) ; les noms de juin
-(`deterministe`, `determinisme_duree`) prennent la graphie anglaise
-du catalogue, la sémantique intacte (D905). **Le hook déclare, le
+Toutes paraissent au `describe` (D645) ; leurs noms sont ceux du
+catalogue, en anglais, `deterministic`, `deterministic_duration`
+(D905). **Le hook déclare, le
 moteur exploite** (D905) : « ces paramètres doivent être exploités
 par Syncytium pour mieux gérer le déterminisme avec un cache ou
 pas » — Syncytium lit le contrat et en tire sa conduite : le cache
@@ -437,8 +437,8 @@ l'appel suivant, le rappel refusé et journalisé (D43). **La
 rétention du résultat** de même (D55/D906 — « un paramètre
 d'administration, je valide ») : `operation.retention` en setting
 dynamique (`90d`), la surcharge `retention:` à la déclaration, le
-résultat échu purgé. Le partage de juin est complet : quatre
-propriétés au contrat, deux paramètres à l'administration.
+résultat échu purgé. Quatre propriétés sont au contrat, deux
+paramètres à l'administration (D904–D906).
 
 **Les tâches** (D53–D55, D87, D88, D436, D1748) : une tâche est
 l'exécution d'une opération ; toute exécution passe par la file, avec

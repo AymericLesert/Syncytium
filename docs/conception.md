@@ -25520,6 +25520,23 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-11-05 — LA PAUSE : LE CHAPITRE 6 FAIT, LES CHAPITRES 5 ET 6 RELUS, SIX CHAPITRES FAITS (D1743–D1780,
+  1780 décisions).** La lecture du chapitre 6 achevée, points 4 à 16 : le contrat du hook d'opération, cinq propriétés
+  closes, `execution: irreversible | once | repeatable` avec `try:` et `delay:` (D1743–D1744) ; la composition —
+  `effects:` en cinq natures, `notify`, `document`, `set`, `webhook`, les `actions:` asynchrones (D1745–D1746), puis
+  **le vocabulaire** : `operation` la suite d'actions déclarée, `action` une étape, `task` la tâche exécutée,
+  `procedure` la fiche du guide (D1750) ; `actions:` la suite, `effects:` à l'action sur sa bonne exécution, l'extrait
+  de l'expédition validé (D1751–D1753) ; six déclencheurs (D1747) ; les tâches (D1748) ; les planchers, le wizard, le
+  graphe des états, le réglementaire, les opérations d'administration dédiées comprises, la supervision — les
+  frontières (D1749, D1754–D1758) ; les exemples des cas, l'entrepôt passé à `actions:` (D1759) ; la facette
+  (D1760) ; le registre soldé (D1761). **La réorganisation** : `docs/syncytium/06-operations/`, huit fichiers,
+  hooks.md dissous (D1762). **La réécriture**, sept fichiers (D1763–D1769). **La relecture** : « L'opération » en titre,
+  « le hook porte le code de l'opération » à la place de « le hook est l'opération » (D1770–D1771) ; **les opérations se
+  positionnent explicitement dans un écran déclaré**, `except:` tombé, la banque complétée, `creer_releve` au menu,
+  `copy` devenu `duplicate` (D1772–D1774) ; les listes à puces, les fiches des dédiées, l'extrait du véhicule encadré
+  (D1775–D1778) ; la relecture validée, le chapitre 5 avec (D1779–D1780). « Je marque une pause ». **À la reprise** :
+  le chapitre 7, les droits et la sécurité — rights.md et security.md, la famille de cent dix-huit décisions, l'audit,
+  les points un à un —, puis sa réorganisation dans `07-securite/` et sa réécriture.
 - **2026-11-02 (suite) — LA PAUSE : LE CHAPITRE 5 RÉÉCRIT, LES FICHIERS PRÉFIXÉS, LE CHAPITRE 6 OUVERT
   (D1731–D1742, 1742 décisions).** La réécriture du chapitre 5, fichier par fichier, dans la forme didactique
   (D1731–D1737 : le README et la nature en cinq traits ; la déclaration et le câblage ; le socle commun, entré au

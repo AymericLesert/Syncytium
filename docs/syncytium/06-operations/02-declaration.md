@@ -6,12 +6,12 @@ portées, le commit, et montre l'exemple de la banque.
 
 ## Le sommaire
 
-- [Le hook est l'opération](#le-hook-est-lopération)
+- [L'opération](#lopération)
 - [Les portées](#les-portées)
 - [Le commit](#le-commit)
 - [L'exemple de la banque](#lexemple-de-la-banque)
 
-## Le hook est l'opération
+## L'opération
 
 > **Une opération** est un verbe déclaré sur une entité, au-delà du
 > créer-modifier-supprimer : valider, envoyer, clôturer. Sa déclaration

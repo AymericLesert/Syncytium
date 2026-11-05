@@ -20,7 +20,7 @@ citées entre parenthèses renvoient au [registre](../../conception.md).
 1. L'opération
    - [La nature](#la-nature)
 2. [La déclaration](02-declaration.md)
-   - [Le hook est l'opération](02-declaration.md#le-hook-est-lopération)
+   - [L'opération](02-declaration.md#lopération)
    - [Les portées](02-declaration.md#les-portées)
    - [Le commit](02-declaration.md#le-commit)
    - [L'exemple de la banque](02-declaration.md#lexemple-de-la-banque)

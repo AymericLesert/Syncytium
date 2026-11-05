@@ -462,12 +462,21 @@ l'initialisation de l'application** — D641 ; le webhook entrant
 s'authentifie obligatoirement — D642). L'IHM lie sans
 déclaration (le bouton, la colonne, les actions, le step, le menu).
 **Et la composition déclarative** : « une opération peut être une
-liste d'opérations disponibles dans le socle » — les effets de D432
-sont **des références aux hooks** (`notify` → notify, `document` →
-generate, `set` → update, `function` → une fonction) ; « ne se
-construit pas dans la configuration » signifie *pas de code* —
-l'orchestration de références est déclarative, et la séquence
-s'exécute **dans la même transaction tenue ouverte** (D594). **Le
+liste d'opérations disponibles dans le socle » (D609) ; « ne se
+construit pas dans la configuration » signifie *pas de code*.
+**`effects:` diffuse le résultat** (D432, D1745) — quatre natures :
+`notify`, l'information des utilisateurs ; `document`, l'édition ;
+`set`, la mise à jour de données ; `actions`, « une liste d'actions à
+engager après la réalisation de l'action », des opérations exécutées
+de façon asynchrone, chacune une tâche de la file (D55). *Ma lecture,
+en proposition* : `notify`, `document` et `set` s'exécutent au commit,
+dans la transaction tenue ouverte (D594) ; les `actions` partent après
+le commit, chacune dans sa transaction et avec son `execution:` ; les
+valeurs nommées que l'opération rend (D598) nourrissent les gabarits
+des effets et les paramètres des actions ; une action qui échoue ne
+défait pas l'opération, la supervision la relance (D88). `function`
+quitte les effets : une fonction est une méthode d'un type (D1702),
+elle s'appelle dans une formule. **Le
 `notify` sans destinataire remonte à tout le monde, dans la zone des
 notifications de l'application ; le relais par mail est le choix de
 chacun, dans son profil** (D1228, la lecture confirmée D1685 — « tout le monde » =
@@ -561,12 +570,15 @@ du chapitre 6 (D1720) :
 operations:
   archive_and_notify:
     when: incoming_orders          # l'événement du connecteur
-    operations: [ import, notify ] # la liste d'opérations du socle
     commit: auto
+    effects:
+      - actions: [ import ]        # l'import, une tâche après le commit
+      - notify                     # l'information des utilisateurs
   import_order:
     when: orders_api.new_order     # l'abonnement au point d'entrée
-    operations: [ import ]
     commit: auto
+    effects:
+      - actions: [ import ]
 ```
 
 - **le `when:` en abonnement** (D641) : posé à l'initialisation de

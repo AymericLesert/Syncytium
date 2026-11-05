@@ -90,7 +90,20 @@ lecture seule (D1645). Le wizard porte le même `commit:` (D1652).
 ## L'exemple de la banque
 
 Dans le cas 4 (banque), `banque/ecriture/operations.yml` déclare quatre
-opérations, chacune portée par un hook du projet :
+opérations, chacune portée par un hook du projet.
+
+- **`dupliquer`** : la duplication d'une écriture entre deux dates, au
+  pas choisi ; le formulaire `duplication` recueille le pas et les deux
+  dates ; `commit: confirm`, la relecture affiche le nombre de créations.
+  C'est le clone en hook (D776, D797).
+- **`propager`** : le nouveau libellé et le nouveau montant, propagés
+  aux écritures similaires ; le formulaire `propagation` ; la relecture
+  avant le scellé.
+- **`virer`** : le virement vers un compte cible, les deux écritures
+  liées ; le formulaire `virement` ; la relecture.
+- **`creer_releve`** : la tâche du relevé, sans bouton ni formulaire ;
+  l'événement `generated` la déclenche, elle pose la date d'impression
+  sur les écritures générées, `commit: auto`, sans relecture.
 
 ```yaml
 # Les opérations de l'écriture. Chacune porte son libellé (label), le formulaire d'appel qui recueille ses paramètres
@@ -124,9 +137,9 @@ creer_releve:
   commit: auto
 ```
 
-Le hook `dupliquer` exécute dans la transaction tenue ouverte ;
+Pour chacune, le hook exécute dans la transaction tenue ouverte ;
 `confirm` laisse le moteur présenter le formulaire et le message ;
-`commit` scelle et retourne l'issue ; `rollback` défait si
-l'utilisateur annule (D594, D595). `dupliquer` est le clone en hook
-(D776, D797). `creer_releve` n'a pas de bouton : l'événement
-`generated` la déclenche, sans relecture.
+`commit` scelle et retourne l'issue ; `rollback` défait si l'utilisateur
+annule (D594, D595). Les trois premières sont placées au pied du
+formulaire de l'écriture et en colonnes de ses listes ; la quatrième est
+au menu (D1772, D1773).

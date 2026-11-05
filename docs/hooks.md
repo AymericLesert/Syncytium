@@ -501,8 +501,11 @@ l'information des utilisateurs ; `document`, l'édition ; `set`, la mise
 application distante », par un connecteur `webhook` sortant — et
 d'autres opérations, « à engager après la réalisation de l'action »,
 exécutées de façon asynchrone, chacune une tâche de la file (D55).
-La clé de la suite est `actions:`, qui remplace `effects:` (D1751).
-*Ma lecture, en proposition* : `notify`, `document` et `set` s'exécutent au
+La clé de la suite est `actions:` (D1751) ; **`effects:` reste, à l'action**
+(D1752) : « pour une action, nous pouvons définir un effect qui se
+déclenche sur la bonne exécution de l'action ». *Ma lecture, en
+proposition* : l'opération porte ses propres `effects:`, ceux de son hook ;
+chaque action listée porte les siens ; `notify`, `document` et `set` s'exécutent au
 commit, dans la transaction tenue ouverte (D594) ; une opération
 appelée en action part après le commit, dans sa transaction, avec son
 `execution:` ; les valeurs nommées que l'opération rend (D598)
@@ -516,6 +519,35 @@ chacun, dans son profil** (D1228, la lecture confirmée D1685 — « tout le mon
 ceux qui voient l'entité, D334). **La documentation** d'une opération
 composée est la liste de ses étapes, chacune avec la description de
 son hook (D1227).
+
+**L'extrait, inventé, en proposition** (D1752) — une opération, ses
+effets, ses actions et leurs effets :
+
+```yaml
+# Les opérations de la commande de vente
+# Chacune est une suite d'actions ; une action porte ses effets, déclenchés sur sa bonne exécution.
+
+# L'expédition
+# Le hook expedier sort les articles du stock ; sur sa bonne exécution, la commande passe à expédiée et le bon de
+# livraison s'édite ; puis la facturation s'engage, après le commit, et, sur sa bonne exécution, le client et le
+# transporteur sont prévenus.
+expedier:
+  label: { fr: Expédier, en: Ship }
+  form: expedition
+  commit: confirm
+
+  # Les effets de l'opération elle-même, sur sa bonne exécution
+  effects:
+    set: { statut: expediee }
+    document: bon_de_livraison
+
+  # Les actions qui suivent, après le commit, chacune avec ses effets
+  actions:
+    - facturer:
+        effects:
+          notify: { to: client, message: { fr: "Votre commande {numero} est expédiée." } }
+          webhook: transporteur
+```
 
 **L'exemple** — la déclaration, dans l'entité, référence le hook par
 son nom (D432, D609). Dans le cas 4 (banque),

@@ -3296,3 +3296,5 @@ présentation ni plan. Une plaquette avait été esquissée sur la
 structure seule — quatre modules, le modèle, « quoi de neuf », et deux
 chapitres non disponibles faute de persona et de sandbox — ; « plus
 d'intérêt » (D1514) : elle n'est pas conservée.
+
+**Le 05/11/2026, D1759** : sous l'opération `anonymiser` de `tiers/contact/contact.yml`, la composition s'écrit `actions:` et non plus `operations:`, dans les deux versions (D1750, D1751) ; l'action `rgpd.anonymize(…)` porte son expression en paramètre.

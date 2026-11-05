@@ -137,9 +137,15 @@ creer_releve:
   commit: auto
 ```
 
-Pour chacune, le hook exécute dans la transaction tenue ouverte ;
-`confirm` laisse le moteur présenter le formulaire et le message ;
-`commit` scelle et retourne l'issue ; `rollback` défait si l'utilisateur
-annule (D594, D595). Les trois premières sont placées au pied du
-formulaire de l'écriture et en colonnes de ses listes ; la quatrième est
-au menu (D1772, D1773).
+Pour chacune, le cycle est le même (D594, D595) :
+
+- `execute` : le hook remplit la transaction tenue ouverte ;
+- `confirm` : le moteur présente le formulaire et le message ;
+- `commit` : la transaction se scelle, l'issue est retournée ;
+- `rollback` : la transaction se défait si l'utilisateur annule.
+
+Et chacune a sa place dans les écrans (D1772, D1773) :
+
+- `dupliquer`, `propager` et `virer`, au pied du formulaire de
+  l'écriture et en colonnes de ses listes ;
+- `creer_releve`, au menu, l'entrée `releve` du sous-menu des écritures.

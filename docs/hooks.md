@@ -407,12 +407,13 @@ exigeant l'emporte).
 **Les propriétés intrinsèques du contrat** — « une opération
 s'exécute et elle possède aussi des propriétés » : ce qui tient au
 code, « pas exposable dans la configuration mais dans le contrat du
-hook » (D699, D904–D905) ; la liste reste ouverte :
+hook » (D699, D904–D905) ; cinq propriétés, closes jusqu'à
+l'implémentation (D1743) :
 
 | la propriété | le sens |
 |---|---|
 | `degree: reader \| user \| manager \| administrator` | le plancher d'autorisation (D697/D699) ; les quatre degrés, `reader` compris (D1140, D1680) |
-| `execution: once` | **l'exécution unique** (D57) — pas de rollback des effets, pas de rejeu automatique ; la relance est manuelle, depuis la supervision |
+| `execution: irreversible \| repeatable`, `try:`, `delay:` | **le mode d'exécution** (D57, D1743) : `irreversible` — « not undo », le mot en proposition —, les effets ne se défont pas, le mail parti ne se rappelle pas, aucun rejeu automatique, la relance manuelle depuis la supervision ; `repeatable`, l'opération peut être rejouée, `try:` le nombre d'essais, 1 par défaut, `delay:` le délai entre deux essais, en millisecondes ou en secondes, 0 par défaut ; `rollback` défait la transaction, jamais les effets |
 | `deterministic: true \| false` | **l'opération est déterministe ou pas — « elle ne peut pas changer sans faire changer son code »** (D59/D904) : l'assertion du code — un doublon (même opération, mêmes paramètres) dans la fenêtre reçoit **le résultat mémorisé**, sans ré-exécution ni effet répété |
 | `deterministic_duration: <durée>` | **la fenêtre de mémoïsation** (D59) — « cela dépendra éventuellement de la façon dont elle sera implémentée » : le hook la porte, la configuration ne la surcharge jamais |
 | `connectors: { <nom>: <famille> }` | **les connecteurs attendus pour l'exécution** (D913) — « le hook décrit les types de connecteurs utilisés (comme des paramètres d'exécution) » : nommés et typés par leur famille (`documents: file`, `mailer: smtp`) ; **la déclaration les lie par `uses:`** au connecteur de l'environnement (D617) ; l'ingestion vérifie la liaison, la famille (D613) et la complétude par environnement ; tout connecteur non attendu est hors de portée (D599) ; **aucune liaison implicite** (D914 — `uses:` s'écrit toujours, D805 ; l'erreur d'ingestion nomme le candidat unique) |

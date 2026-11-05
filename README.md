@@ -105,7 +105,7 @@ Les chapitres, dans l'ordre du plan :
 3. [Le langage d'expression](docs/syncytium/03-langage/README.md) — réécrit.
 4. [Les surfaces et les composants](docs/syncytium/04-composants/README.md) — réécrit.
 5. [Les connecteurs](docs/syncytium/05-connecteurs/README.md) — réécrit.
-6. Les opérations.
+6. [Les opérations](docs/syncytium/06-operations/README.md) — réorganisé.
 7. Les droits et la sécurité.
 8. La reprise et le mapping.
 9. L'administration et l'exploitation.

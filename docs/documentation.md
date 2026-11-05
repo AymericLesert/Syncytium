@@ -10,7 +10,7 @@ documentation (Q58, le domaine 6 — D602), après
 (D1118). **Il centralise les principes ; chaque artefact garde ce que
 son élément apporte à la documentation** — l'entité et ses champs dans
 [entity.md](syncytium/02-modele/02-entite.md), les hooks et leur `describe` dans
-[hooks.md](hooks.md), les connecteurs dans
+[hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks), les connecteurs dans
 [connectors.md](syncytium/05-connecteurs/README.md), les dépendances dans
 [security.md](security.md), les rapports de la reprise dans
 [migration.md](migration.md). Les décisions citées renvoient à la
@@ -168,7 +168,7 @@ les identités.
 l'authentification des comptes techniques (D28), l'épinglage (D98), la
 pagination et les lots (D22), les tâches asynchrones (D24), les champs
 exposés (D20), les erreurs (le 426 — D94), des exemples d'appel ;
-*étendre* — les quatre familles de hooks ([hooks.md](hooks.md)) : écrire
+*étendre* — les quatre familles de hooks ([hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks)) : écrire
 un hook, son md (D778), la librairie d'exploration (D572/D599), le hook
 d'interface listé (D918) ; les types et les composants personnalisés
 (D359, D452) ; *enrichir* — la syntaxe de la configuration et le dépôt
@@ -412,7 +412,7 @@ décisions, D1170–D1238.)*
      [migration.md](migration.md) ;
   9. le contrat du hook de type : **acquis le 15/10/2026 (D1301)** —
      les cinq livraisons (la forme en clair, la déclinaison, les
-     indicateurs, l'exemple, le marquage), dans [hooks.md](hooks.md) et
+     indicateurs, l'exemple, le marquage), dans [hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks) et
      [05-types.md](syncytium/02-modele/05-types.md) ;
   10. la lisibilité de l'index 5.1 (D1263) — à la déclinaison ;
   11. la colonne 2 de la matrice (§13) dans les artefacts : **acquise
@@ -427,7 +427,7 @@ décisions, D1170–D1238.)*
   (la facette du type, la déclinaison), [connectors.md](syncytium/05-connecteurs/README.md)
   (le storage refondé, `describe(model)`, les index, les partitions),
   [telemetry.md](telemetry.md) (les indicateurs),
-  [migration.md](migration.md) (le chapitre 4.1), [hooks.md](hooks.md)
+  [migration.md](migration.md) (le chapitre 4.1), [hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks)
   (le contrat du hook de type), [configuration.md](syncytium/01-configuration/README.md)
   (les groupes, les réglages), [rights.md](rights.md),
   [administration.md](administration.md), [les composants](syncytium/04-composants/README.md),
@@ -545,7 +545,7 @@ décisions, D1170–D1238.)*
   hooks) — **faite** (D1424 — les md par langue écrits dans la banque ;
   [usecases/01_tiny.md](../usecases/01_tiny.md),
   [usecases/04_banque.md](../usecases/04_banque.md)).
-- **Livrables** : §10 validé ; [hooks.md](hooks.md),
+- **Livrables** : §10 validé ; [hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks),
   [connectors.md](syncytium/05-connecteurs/README.md) ; le sort de `docs/` dans
   l'application ; la colonne 3 de la matrice dans les onze artefacts et
   la matrice d'ensemble (D1425).
@@ -580,7 +580,7 @@ décisions, D1170–D1238.)*
   [usecases/05_entrepot.md](../usecases/05_entrepot.md)).
 - **Livrables** : une section « Le D.A.T. » (§28, les quatre chapitres
   acquis) ; [connectors.md](syncytium/05-connecteurs/README.md), [security.md](security.md),
-  [administration.md](administration.md), [hooks.md](hooks.md),
+  [administration.md](administration.md), [hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks),
   [configuration.md](syncytium/01-configuration/README.md) ; la colonne 4 de la matrice dans
   les onze artefacts et la matrice d'ensemble (D1435).
 - **Dépendances** : les choix techniques (D1025).
@@ -622,7 +622,7 @@ décisions, D1170–D1238.)*
   `security_advisories:` et le texte d'exploitation non écrits — « Il
   n'est pas nécessaire de les compléter ».
 - **Livrables** : §17 validé (les quatre chapitres acquis) ;
-  [administration.md](administration.md), [hooks.md](hooks.md) ; la
+  [administration.md](administration.md), [hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks) ; la
   colonne 9 de la matrice dans les onze artefacts et la matrice
   d'ensemble (validée le 25/10/2026, D1477).
 - **Dépendances** : les choix techniques (D1025), le D.A.T.
@@ -1853,7 +1853,7 @@ d'enregistrements historisés ; les compteurs de lecture et d'écriture
 
 **Qui livre quoi** (D1288) : **le hook de type livre ses indicateurs**
 comme il livre sa forme en clair — une clause de son contrat
-([hooks.md](hooks.md), [05-types.md](syncytium/02-modele/05-types.md), l'étape 9) ;
+([hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks), [05-types.md](syncytium/02-modele/05-types.md), l'étape 9) ;
 [telemetry.md](telemetry.md) porte la liste, le dictionnaire la
 consomme ; le tableau de bord « telemetry » du module d'administration
 (D736) montre les mêmes chiffres, à sa manière. Cette source nourrit
@@ -2307,7 +2307,7 @@ et des implémentations se généraliseront.
    l'instance. **La cellule se spécifie dans l'artefact du
    composant** — une rubrique « La documentation » dans
    [entity.md](syncytium/02-modele/02-entite.md), [05-types.md](syncytium/02-modele/05-types.md) (type par type),
-   [les composants](syncytium/04-composants/README.md) (fiche par fiche), [hooks.md](hooks.md),
+   [les composants](syncytium/04-composants/README.md) (fiche par fiche), [hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks),
    [connectors.md](syncytium/05-connecteurs/README.md), [mapping.md](mapping.md),
    [rights.md](rights.md), [administration.md](administration.md),
    [migration.md](migration.md) — ; documentation.md garde les principes
@@ -2524,7 +2524,7 @@ fournit chaque item** : l'entité, le champ, le type, le hook livrent
 leur ligne et leur figure par leur facette documentation (D1158) ;
 **le contrat du hook de type gagne cette facette** — le type en clair,
 ses contraintes, son exemple, dans chaque langue du moteur (D1162) —
-à écrire au rang 2 dans [hooks.md](hooks.md) et [05-types.md](syncytium/02-modele/05-types.md).
+à écrire au rang 2 dans [hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks) et [05-types.md](syncytium/02-modele/05-types.md).
 
 **Où il se lit** *(ma lecture)* : l'annexe de la fonctionnelle (D1183)
 en porte la version lisible, dans la langue du lecteur, bornée à ce
@@ -4016,7 +4016,7 @@ consignes pour l'IA (D1224).
 socle, calculé depuis la configuration ; **la référence**, comment
 écrire un hook, un type, un composant — la documentation de Syncytium,
 que l'étape 3 placera, embarquée ou liée. Les quatre familles de
-[hooks.md](hooks.md) — le type, le composant, l'opération, le
+[hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks) — le type, le composant, l'opération, le
 connecteur (D1671, D1672, D1702) — et les autres points d'extension.
 
 **La description d'un hook est déclarée, non générée** (D1403 : « la

@@ -137,5 +137,4 @@ D974–D976, D981, D983–D984, D987–D988, D991–D992, D998–D999, D1001, D1
 D1016, D1035, D1039, D1277, D1304–D1305, D1550, D1553–D1561. Chacune se lit
 dans [le registre](../../conception.md). Les hooks du modèle,
 [08-hooks.md](08-hooks.md), reposent sur les décisions de la famille des hooks
-(D1698) ; elles rejoindront cette liste à la dissolution de `hooks.md`
-(D1673).
+(D1698), listées au chapitre 1 (D1762).

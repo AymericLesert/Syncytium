@@ -265,5 +265,4 @@ D1193, D1237, D1263, D1308, D1339–D1340, D1372, D1374, D1590, D1593–D1614,
 D1616–D1618, D1620, D1622, D1624–D1629, D1631–D1643, D1645.
 Chacune se lit dans [le registre](../../conception.md). Le hook de
 composant, [07-hooks.md](07-hooks.md), repose sur les décisions de la famille
-des hooks (D1705) ; elles rejoindront cette liste à la dissolution de
-`hooks.md` (D1673).
+des hooks (D1705), listées au chapitre 1 (D1762).

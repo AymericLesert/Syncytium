@@ -234,5 +234,5 @@ D1427–D1428, D1444, D1465–D1466, D1473–D1474, D1498, D1500, D1511–D1513,
 D1517, D1528–D1532, D1535–D1538, D1541. Chacune se lit dans [le
 registre](../../conception.md). Le mécanisme des hooks, § 3.9 de
 [04-version.md](04-version.md), repose sur les décisions de la famille des
-hooks (D1692) ; elles rejoindront cette liste à la dissolution de
-`hooks.md` (D1673).
+hooks (D1692), relues à la dissolution de `hooks.md` (D1762). Elles sont
+93 au registre : D37, D52, D63–D66, D68–D69, D459, D562, D565, D572, D592, D607, D613, D615, D619, D644, D683, D685, D754–D755, D777, D809, D918, D1254, D1297, D1301, D1403, D1405, D1430, D1432, D1440, D1458, D1460–D1464, D1467–D1471, D1667–D1669, D1671–D1673, D1675–D1678, D1681–D1688, D1690–D1692, D1697–D1706, D1730, D1736, D1739, D1741–D1748, D1750–D1754, D1760–D1761.

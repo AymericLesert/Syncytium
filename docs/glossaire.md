@@ -214,6 +214,13 @@ vérifie, puis la fait vivre. *(D336)*
 La configuration peut se décomposé par étage (la version, le module, l'entité) et diffusés en cascade à ce qu'il
 contient : le plus proche l'emporte. *(D348/D360)*
 
+**Déclencheur** — Ce qui lance une opération : l'acte de l'utilisateur,
+l'appel de l'API, le calendrier par `every:`, l'événement de données par
+`when:`, une expression ou un événement nommé, l'événement de connecteur
+par `when: <connecteur>[.<entrée>]`, l'enchaînement par `actions:` ou le
+wizard. Six déclencheurs ; la relance depuis la supervision n'en est pas
+un. *(D54, D106, D1747)*
+
 **Défaut du socle** — Une valeur que Syncytium applique quand rien n'est
 déclaré : le libellé `${name}`, `reset: never`, l'historisation éteinte.
 Les settings le surchargent ; une clé qui ne nomme aucun défaut connu est

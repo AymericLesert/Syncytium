@@ -230,7 +230,7 @@ Une opération est un hook d'opération employé par l'entité ; le hook
 - **les `actions:`** composent la suite (D1750, D1751) : `notify`,
   `document`, `set`, `webhook`, ou une autre opération, après le commit.
 
-La famille entière est dans [les hooks](../../hooks.md).
+La famille entière est au chapitre 6, [les opérations](../06-operations/README.md).
 
 ## La présentation — le renvoi
 

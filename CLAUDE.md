@@ -29,7 +29,7 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   se reporte dans l'artefact de l'élément ; les principes de la génération
   de la documentation vont dans `docs/documentation.md`. Au rang 10, un
   chapitre réorganisé vit dans `docs/syncytium/<nn>-<chapitre>/`, préfixé du numéro du chapitre (D1591) (la
-  configuration depuis D1541, le modèle depuis D1561, le langage depuis D1586, les composants depuis D1646, les connecteurs depuis D1730) ; **dans un chapitre, chaque fichier
+  configuration depuis D1541, le modèle depuis D1561, le langage depuis D1586, les composants depuis D1646, les connecteurs depuis D1730, les opérations depuis D1762 ; hooks.md dissous) ; **dans un chapitre, chaque fichier
   est préfixé de son rang dans la table des matières**, `02-declaration.md`, le README sans
   préfixe (D1738) ; `docs/README.md` tient l'arborescence et
   l'avancement ; `python tools/links.py docs usecases README.md` vérifie

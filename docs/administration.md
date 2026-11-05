@@ -4,7 +4,7 @@ Ce document rassemble **les actes d'administration et les éléments
 d'exploitation consignés** — le neuvième artefact préparatoire de la
 documentation (Q58, le domaine 6 — D602), après le
 [glossaire](glossaire.md), les [composants](syncytium/04-composants/README.md), les
-[hooks](hooks.md), les [types](syncytium/02-modele/05-types.md), les
+[hooks](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks), les [types](syncytium/02-modele/05-types.md), les
 [connecteurs](syncytium/05-connecteurs/README.md), le [mapping](mapping.md) et les
 [droits](rights.md). Les décisions citées renvoient à la
 [conception](conception.md). Il consolide l'acquis épars et porte
@@ -184,29 +184,8 @@ settings:
 
 ### Les opérations dédiées et la délégation (D714–D715)
 
-- les surfaces : **les utilisateurs** et **les groupes** en listes
-  standard ;
-- **`renew`** — le changement (ou le changement forcé) du mot de
-  passe : le lien de réinitialisation, jamais la valeur ;
-- **`ban`** — le bannissement **sans suppression** (masquer, jamais
-  détruire) ; la liste des opérations reste ouverte ;
-- **la réactivation d'un enregistrement désactivé** (D903) — « une
-  opération exceptionnelle… l'action d'un administrateur… pas une
-  fonction exploitable par la configuration (pas de hook) » : **ni
-  une opération du socle, ni un hook** — une fonctionnalité des
-  écrans d'administration, au degré `administrator` ; la garde de
-  l'unicité sur les actifs (D141 — refus si un enregistrement actif
-  porte la même clé fonctionnelle), l'identité conservée (D142),
-  l'acte tracé par l'historisation (D429) ;
-- **la délégation** (D715/D749) : agir **à la place** d'un
-  utilisateur — les droits joués sont ceux de l'emprunté, **chaque
-  trace porte les deux comptes**. Les règles (D749) : **le même
-  degré** (jamais une élévation par délégation), **le don, jamais la
-  prise** (le délégant ou un administrateur définissent — le
-  destinataire ne se sert pas), l'usage type : l'absence prolongée ;
-  **l'exception** : seul un administrateur peut s'octroyer les
-  droits d'un utilisateur quelconque — la traçabilité toujours
-  assurée.
+Décrites au chapitre 6, [le catalogue des opérations](syncytium/06-operations/06-catalogue.md),
+les opérations dédiées du module d'administration comprises (D1757).
 
 ### Les comptes et les affectations
 
@@ -301,7 +280,8 @@ Les planchers `administrator` : **`restore`** (la restauration par
 renommage — le geste inverse de la bascule, D174/D678),
 **`migrate`** (D667), **`rgpd.anonymize`** (D697, D1333) ; les planchers
 `manager` : **`import`** (D211/D238), **`report`**, **`rgpd.extract`** (D1331,
-D1333).
+D1333). Chaque opération a sa fiche au chapitre 6,
+[le catalogue des opérations](syncytium/06-operations/06-catalogue.md) (D1742, D1757).
 
 ## L'exploitation consignée
 

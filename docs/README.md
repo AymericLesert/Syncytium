@@ -84,7 +84,7 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 | 3 | **Le langage d'expression** | le registre ; `syncytium/02-modele/types.md` (la signature des types) ; `syncytium/01-configuration/mecanismes.md` §2.7 | `syncytium/03-langage/` | fait le 31/10/2026 (13 points, D1565–D1584) | fait le 31/10/2026 (quatre fichiers, D1586) ; réécrite le 31/10/2026 |
 | 4 | **Les surfaces et les composants** | `composants.md` | `syncytium/04-composants/` | fait le 01/11/2026 (21 points, D1593–D1645) | fait le 01/11/2026 (sept fichiers, D1646) ; réécrite le 01/11/2026, relue (D1647–D1656) |
 | 5 | **Les connecteurs** | `connectors.md` | `syncytium/05-connecteurs/` | faite le 02/11/2026 (18 points, D1707–D1729) | faite le 02/11/2026 (sept fichiers, D1730) ; réécrite le 02/11/2026 (D1731–D1737) |
-| 6 | **Les opérations** | `hooks.md` §3, le registre — les tâches, D53, D54, D87, D88, D106 (D1689) | `syncytium/06-operations/` | faite le 05/11/2026 (16 points, D1739–D1761) | — |
+| 6 | **Les opérations** | `hooks.md` §3, le registre — les tâches, D53, D54, D87, D88, D106 (D1689) | `syncytium/06-operations/` | faite le 05/11/2026 (16 points, D1739–D1761) | faite le 05/11/2026 (huit fichiers, D1762) |
 | 7 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/07-securite/` | — | — |
 | 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/08-reprise/` | — | — |
 | 9 | **L'administration et l'exploitation** | `administration.md`, le registre — la supervision des tâches, D56, D61, D62 (D1689) | `syncytium/09-administration/` | — | — |
@@ -94,7 +94,7 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 | 13 | **Les cas d'usage** | `../usecases/*.md` | `cas-d-usage/` (partie 4) | — | — |
 | 14 | **La méthode et le projet** | `conception.md`, `../README.md` | `syncytium/README.md`, `histoire/` (parties 0 et 2) | — | — |
 
-**Les hooks n'ont pas de chapitre** (D1673) : `hooks.md` se dissout.
+**Les hooks n'ont pas de chapitre** (D1673) : `hooks.md` est dissous (D1762).
 Le mécanisme et la déclaration dans la configuration vont au chapitre 1,
 chaque famille à la fin de son chapitre — les types et leurs méthodes au 2
 (D1674, D1702), les composants au 4, les connecteurs
@@ -103,8 +103,8 @@ La lecture de `hooks.md` (17 points, D1657) est faite (D1667–D1691) ;
 la distribution l'est aussi, validée chapitre par chapitre : le mécanisme
 au chapitre 1 (D1692, D1697), le type et ses méthodes au chapitre 2
 (D1698, D1704), le composant au chapitre 4 (D1705, D1706). Le connecteur
-est au chapitre 5 (D1730) ; l'opération viendra avec le chapitre 6, où
-`hooks.md` se dissout.
+est au chapitre 5 (D1730), l'opération au chapitre 6 (D1762), où
+`hooks.md` s'est dissous.
 
 Hors des familles : `glossaire.md` va à `syncytium/glossaire.md` avec le
 premier chapitre ; `etude-comparative-20260718.md` à

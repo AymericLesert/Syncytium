@@ -227,8 +227,8 @@ Une opération est un hook d'opération employé par l'entité ; le hook
   d'appel `form:` (D775) ;
 - **un verbe avec `when:`** est un automatisme, déclenché quand
   l'expression devient vraie (D354, D428) ;
-- **les `effects:`** composent les opérations du socle, `notify`,
-  `document`, `set`, `function`.
+- **les `actions:`** composent la suite (D1750, D1751) : `notify`,
+  `document`, `set`, `webhook`, ou une autre opération, après le commit.
 
 La famille entière est dans [les hooks](../../hooks.md).
 

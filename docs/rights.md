@@ -341,8 +341,7 @@ operations:
     allow: [managers, admins]              # le droit de déclencher (D691/D700)
     commit: confirm
   purge_customer:
-    effects:
-      - actions: [ rgpd.anonymize ]      # la 19e (D697, D1333) — plancher administrator
+    actions: [ rgpd.anonymize ]            # la 19e (D697, D1333) — plancher administrator
     # un allow: [managers] serait sans effet : le plancher l'emporte (D700)
 
 # sales/entities/customer.yml — LA FORME LIBRE (D423), exclusive du cycle

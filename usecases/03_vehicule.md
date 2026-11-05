@@ -830,3 +830,5 @@ est écrit : ils disent ce que le concepteur n'a pas décrit, jamais un défaut 
 **Les orphelins** — 65 fichiers atteints depuis `syncytium.yml`, 65 fichiers dans le dossier ; un orphelin n'entre pas dans le taux : c'est peut-être un oubli — un texte écrit, jamais référencé.
 
 Aucun orphelin.
+
+**Le 05/11/2026, D1751** : la clé `effects:` devient `actions:` dans `transport/revision/revision.yml`, l'opération automatique `notifier` ; une opération se déclare comme une suite d'actions (D1750).

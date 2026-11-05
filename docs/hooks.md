@@ -463,7 +463,7 @@ appeler une fonction — jamais l'inverse (D571).
 **Six déclencheurs** (D54, D106, D1747) : l'acte, l'API, le calendrier
 par `every:`, l'événement de données par `when:`, une expression ou un
 événement nommé, l'événement de connecteur par
-`when: <connecteur>[.<entrée>]`, l'enchaînement par `effects: actions`
+`when: <connecteur>[.<entrée>]`, l'enchaînement par `actions:`
 ou le wizard ; `every: continuous` est un événement de données, à
 chaque mise à jour (D435) ; la relance depuis la supervision est le
 geste de l'administrateur, pas un déclencheur (D88). *En proposition* :
@@ -501,8 +501,8 @@ l'information des utilisateurs ; `document`, l'édition ; `set`, la mise
 application distante », par un connecteur `webhook` sortant — et
 d'autres opérations, « à engager après la réalisation de l'action »,
 exécutées de façon asynchrone, chacune une tâche de la file (D55).
-*Ma lecture, en proposition* : la clé de la suite est `actions:`, qui
-remplace `effects:` ; `notify`, `document` et `set` s'exécutent au
+La clé de la suite est `actions:`, qui remplace `effects:` (D1751).
+*Ma lecture, en proposition* : `notify`, `document` et `set` s'exécutent au
 commit, dans la transaction tenue ouverte (D594) ; une opération
 appelée en action part après le commit, dans sa transaction, avec son
 `execution:` ; les valeurs nommées que l'opération rend (D598)
@@ -604,14 +604,13 @@ operations:
   archive_and_notify:
     when: incoming_orders          # l'événement du connecteur
     commit: auto
-    effects:
-      - actions: [ import ]        # l'import, une tâche après le commit
+    actions:
+      - import                     # l'import, une tâche après le commit
       - notify                     # l'information des utilisateurs
   import_order:
     when: orders_api.new_order     # l'abonnement au point d'entrée
     commit: auto
-    effects:
-      - actions: [ import ]
+    actions: [ import ]
 ```
 
 - **le `when:` en abonnement** (D641) : posé à l'initialisation de

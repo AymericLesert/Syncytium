@@ -106,9 +106,9 @@ operations:
       mode: confirm
       message: { fr: "{invoices} factures seront créées" }
 
-    # Les effets : la fonction qui crée les factures
-    effects:
-      - function: create_invoices
+    # Les actions : l'opération qui crée les factures, après le commit
+    actions:
+      - create_invoices
 
 # L'interface : le bouton au pied du formulaire, l'icône en colonne de la liste
 gui:

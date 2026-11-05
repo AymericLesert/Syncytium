@@ -20,11 +20,11 @@ fields: ~{fields.yml}
 operations:
 
   # La notification à l'échéance
-  # L'automatisme : l'effet est le hook notify du socle.
+  # L'automatisme : l'action est le hook notify du socle.
   notifier:
     when: echue
     commit: auto
-    effects:
+    actions:
       - notify
 
 # La cohérence des données

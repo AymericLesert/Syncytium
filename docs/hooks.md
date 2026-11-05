@@ -468,7 +468,9 @@ construit pas dans la configuration » signifie *pas de code*.
 `notify`, l'information des utilisateurs ; `document`, l'édition ;
 `set`, la mise à jour de données ; `actions`, « une liste d'actions à
 engager après la réalisation de l'action », des opérations exécutées
-de façon asynchrone, chacune une tâche de la file (D55). *Ma lecture,
+de façon asynchrone, chacune une tâche de la file (D55) ; `webhook`,
+« pour déclencher une action sur une application distante » (D1746),
+par un connecteur `webhook` sortant. *Ma lecture,
 en proposition* : `notify`, `document` et `set` s'exécutent au commit,
 dans la transaction tenue ouverte (D594) ; les `actions` partent après
 le commit, chacune dans sa transaction et avec son `execution:` ; les

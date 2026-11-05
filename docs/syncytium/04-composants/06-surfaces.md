@@ -356,7 +356,7 @@ lists:
     columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde, dupliquer, propager, virer]
     sort: [date_comptable, montant, numero]
     selection: multiple
-    actions: [copy]
+    actions: [duplicate]
     exports: [ pdf ]
 ```
 

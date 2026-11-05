@@ -98,7 +98,7 @@ lists:
     columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde, dupliquer, propager, virer]
     sort: [date_operation, numero]
     selection: multiple
-    actions: [copy]
+    actions: [duplicate]
 
   # Par date comptable
   # Les écritures pointées seules ; le tri, partagé avec le relevé, va de la dépense à la ressource ; l'export PDF prend
@@ -116,7 +116,7 @@ lists:
     columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde, dupliquer, propager, virer]
     sort: [date_comptable, montant, numero]
     selection: multiple
-    actions: [copy]
+    actions: [duplicate]
     exports: [ pdf ]
 
   # Le pointage

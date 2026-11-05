@@ -809,3 +809,5 @@ Aucun orphelin.
 **Le 05/11/2026, D1772** : les opérations `dupliquer`, `propager` et `virer` sont placées dans `banque/ecriture/gui.yml`, en boutons au pied du formulaire `record` et en colonnes des listes `par_operation` et `par_comptable` ; une opération n'apparaît dans un écran que là où un acte la place.
 
 **Le 05/11/2026, D1773** : `creer_releve` est au menu, l'entrée `releve` du sous-menu des écritures, `link: banque.ecriture.creer_releve`, avec son libellé en trois langues ; l'opération se déclenche aussi par `generated`.
+
+**Le 05/11/2026, D1774** : les listes de l'écriture écrivent `actions: [duplicate]`, le verbe du catalogue, et non plus `copy`.

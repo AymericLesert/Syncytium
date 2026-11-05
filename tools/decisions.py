@@ -276,6 +276,8 @@ RELECTURE.update({_n: "operations" for _n in [
     430, 432, 24, 881, 1318, 104, 914, 1228, 427]})
 # Le wizard (D1754, le 05/11/2026) : six décisions de la documentation aux surfaces, le chapitre 4.
 RELECTURE.update({_n: "surfaces" for _n in [546, 547, 548, 549, 551, 552]})
+# Le graphe des états (D1755, le 05/11/2026) : le cliquet et le triptyque du when retournent au modèle.
+RELECTURE.update({354: "modele", 427: "modele"})
 
 
 

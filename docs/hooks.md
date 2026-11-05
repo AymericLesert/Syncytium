@@ -445,6 +445,17 @@ le module, l'application. `commit: auto | confirm` à la déclaration
 (D596). L'opération voit **la pile des contextes** (D553) et peut
 appeler une fonction — jamais l'inverse (D571).
 
+**Six déclencheurs** (D54, D106, D1747) : l'acte, l'API, le calendrier
+par `every:`, l'événement de données par `when:`, une expression ou un
+événement nommé, l'événement de connecteur par
+`when: <connecteur>[.<entrée>]`, l'enchaînement par `effects: actions`
+ou le wizard ; `every: continuous` est un événement de données, à
+chaque mise à jour (D435) ; la relance depuis la supervision est le
+geste de l'administrateur, pas un déclencheur (D88). *En proposition* :
+les événements nommés sont les issues des opérations du socle, au
+participe, `created`, `updated`, `deleted`, `generated`, `imported`,
+`migrated`, `promoted`.
+
 **Le pont hook/déclaration (D609)** : le hook **est** l'opération ;
 la déclaration (`operations:` — D432) en décrit **l'usage** — le nom,
 les paramètres, le `commit:`, la garde `if` (D430), **le formulaire

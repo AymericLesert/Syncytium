@@ -13824,6 +13824,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Les exemples des cas (D1759).** « A, les cas » — la banque, le véhicule, l'entrepôt passé à `actions:` ; deux extraits inventés gardés ; mes deux erreurs sur l'entrepôt corrigées ; le point 14.
 
+**La facette de l'opération (D1760).** « A » — un fichier au chapitre 6, colonne par colonne ; le point 15.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que

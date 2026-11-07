@@ -318,8 +318,10 @@ fields:
   plancher que la déclaration ne peut abaisser) ; l'inventaire des
   degrés est flagué ;
 - **la rétention** (D698) : la donnée marquée dont la rétention
-  échoit **s'anonymise d'office** — la profondeur de l'historique
-  (D411) est une autre chose, de l'exploitation (D1811) ; deux
+  échoit s'anonymise — par la règle de `rgpd.anonymize` que le
+  concepteur déclare, jamais d'office ; sans déclaration, rien, et le
+  registre dit « rétention non précisée » (D1813) — la profondeur de
+  l'historique (D411) est une autre chose, de l'exploitation (D1811) ; deux
   rétentions (D1810) — celle des journaux et des
   fichiers, `cleanup.yml`, relève de l'exploitation, le chapitre 10 ;
   celle des données personnelles, l'anonymisation déclarée avec sa

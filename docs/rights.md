@@ -80,7 +80,7 @@ delete]` ; l'acte vers un booléen, `allow: { create: true, update: true,
 delete: true }` ; l'acte vers sa règle, `allow: { create: { enable:
 true, group: [all], when: true }, … }`. `false` vaut `{ enable: false }`,
 l'expression seule vaut `{ when: … }`, la liste de groupes au verbe
-(D700) vaut `{ group: [...] }` (mes lectures).
+(D700) vaut `{ group: [...] }`, à l'opération aussi (D1797).
 
 L'absence = tout permis ; `read` absent = l'état masque. C'est par là
 qu'un enregistrement se fige : la facture validée — son numéro

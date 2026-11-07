@@ -121,8 +121,8 @@ le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 |---|---|---|
 | 1 | **La déclaration des groupes**, `groups.yml` : ses clés (`label`, `description`, `persona`, `groups`, `degree`), la composition (D1099), l'association à l'annuaire (D31, D713, D717), les affectations en base | clos (D1788–D1793) |
 | 2 | **Les degrés** : quatre valeurs (D1140, D1680), un groupe au degré `reader`, l'appartenance obligatoire, les vingt et un planchers comme vue des droits (D1749) | clos (D1794) |
-| 3 | **Les droits d'action, `allow:`** : trois écritures et l'étage de l'application (D886), qu'aucun cas n'écrit | clos (D1795–D1796) |
-| 4 | **La confidentialité** : le niveau seul, le profil interpolé (D1536), la forme longue niveau + groupes (D26), l'héritage (D102), la `visibility:` de l'historique (D170, D413) ; la facette au chapitre 2 | à traiter |
+| 3 | **Les droits d'action, `allow:`** : trois écritures et l'étage de l'application (D886), qu'aucun cas n'écrit | clos (D1795–D1797) |
+| 4 | **La confidentialité** : le niveau seul, le profil interpolé (D1536), la forme longue niveau + groupes (D26), l'héritage (D102), la `visibility:` de l'historique (D170, D413) ; la facette au chapitre 2 | présenté |
 | 5 | **La session et le compte** : le cookie et le porteur (D917), les clés d'API et le « pour le compte de » (D107, D1723), les réglages `duration`, `limit`, `lockout`, `cooldown`, `invitation` (D588, D693, D720) | à traiter |
 | 6 | **Le marquage `rgpd:`** : `identity` en proposition (D1332) que l'entrepôt écrit (D1344), le type qui le porte (D1178) | à traiter |
 | 7 | **Le registre des traitements et le bloc `rgpd:`** : `controller:` en proposition (D1320), les quatre niveaux (D1323–D1325) | à traiter |

@@ -475,7 +475,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   survit. `anonymize` = la dix-neuvième opération, plancher
   `administrator` (D697) ; le fichier anonymisé = le contenu détruit,
   les mots-clés cohérents (Q39).
-- **La rétention** (D698, D411, D1328, D1334) : le nettoyage
+- **La rétention** (D698, D411, D1328, D1334) : deux rétentions
+  (D1810) — celle des journaux et des fichiers à l'exploitation, celle
+  des données personnelles ici ; le nettoyage
   (`cleanup.yml`) reste aux fichiers et aux traces ; l'anonymisation
   des enregistrements porte sa règle et sa fréquence (`rgpd.anonymize`
   avec `every:`) ; la rétention d'une donnée est la plus longue période

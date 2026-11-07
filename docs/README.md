@@ -126,7 +126,7 @@ le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 | 5 | **La session et le compte** : le cookie et le porteur (D917), les clés d'API et le « pour le compte de » (D107, D1723), les réglages `duration`, `limit`, `lockout`, `cooldown`, `invitation` (D588, D693, D720) | clos (D1801–D1805) |
 | 6 | **Le marquage `rgpd:`** : `identity` en proposition (D1332) que l'entrepôt écrit (D1344), le type qui le porte (D1178) | clos (D1806–D1807) |
 | 7 | **Le registre des traitements et le bloc `rgpd:`** : `controller:` en proposition (D1320), les quatre niveaux (D1323–D1325) | clos (D1808–D1809) |
-| 8 | **La rétention** : l'historisation (D411) dans rights.md, l'anonymisation avec sa règle et `cleanup.yml` dans le registre (D1334) | présenté |
+| 8 | **La rétention** : l'historisation (D411) dans rights.md, l'anonymisation avec sa règle et `cleanup.yml` dans le registre (D1334) | présenté — les journaux à l'exploitation (D1810) |
 | 9 | **Ce que la sécurité enregistre** : l'audit des lectures et `trace:` (D702–D704), les événements de sécurité du journal et le throttling (D925–D926) ; la déduction des risques au chapitre 11 | à traiter |
 | 10 | **Les exemples** : les six blocs inventés de rights.md remplacés par les extraits des cas (D1545) ; les clés qu'aucun cas n'écrit | à traiter |
 | 11 | **La facette documentation** : les deux rubriques fusionnent ; « les douze principes de security.md » (D1338) face aux six principes et seize invariants | à traiter |

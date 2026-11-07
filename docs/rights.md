@@ -319,7 +319,10 @@ fields:
   degrés est flagué ;
 - **la rétention** (D698) : la donnée marquée dont la rétention
   échoit (l'écriture de l'historisation — D411) **s'anonymise
-  d'office** ;
+  d'office** ; deux rétentions (D1810) — celle des journaux et des
+  fichiers, `cleanup.yml`, relève de l'exploitation, le chapitre 10 ;
+  celle des données personnelles, l'anonymisation déclarée avec sa
+  règle et sa fréquence (D1334), est de ce chapitre ;
 - **le registre des traitements auto-documenté** (D698 —
   D333/D645) : une ligne par traitement — une opération ou une suite
   impliquant un champ `rgpd:` (D1317–D1318) —, **son responsable, un

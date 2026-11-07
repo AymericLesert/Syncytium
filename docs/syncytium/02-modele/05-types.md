@@ -75,7 +75,11 @@ Certaines valent pour tous les types (D391) :
   [03-champs.md](03-champs.md)) ;
 - **`mask:`**, le masque de saisie et de lecture ;
 - **`report:`**, l'apparition dans les rapports, `no` par défaut (D406) ;
-- **`confidentiality:`**, le niveau de confidentialité (D25, D364) ;
+- **`confidentiality:`**, le niveau de confidentialité (D25, D364), en
+  trois écritures : le nom d'un profil déclaré à la racine du projet,
+  `financier` ; un niveau seul, `public`, `protected` ou `private` ; la
+  forme longue, `{ level: , groups: [..] }` (D26, D1798, D1800) ; la
+  règle est au chapitre 7 ;
 - **`rgpd:`**, le marquage réglementaire, `personal`, `sensitive` ou
   `consent` (D695) ; l'anonymisation en découle (D696) ;
 - **`trace:`**, la trace des lectures, `audit` ou `limited` (D703) ; un

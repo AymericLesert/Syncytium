@@ -126,6 +126,10 @@ La valeur de `history:` règle la profondeur de la mémoire (D411) :
 - `update[x]`, les x dernières modifications ;
 - `false`, rien : l'historisation est éteinte.
 
+La forme longue, `history: { mode: , visibility: [..] }`, ajoute les
+groupes qui voient l'historique (D413, D1800) ; sans elle, la visibilité
+est la confidentialité de l'entité (D170). La règle est au chapitre 7.
+
 ```yaml
 # L'historique de la commande : les 365 derniers jours
 history: temporal[365]

@@ -25526,6 +25526,14 @@ avant la synthèse Q16).
   `copyright:` et `url:`, en proposition). « Je confirme, je committe
   cette partie et je marque une pause » (D1355) — **l'étape 1 close**,
   les clés entrées dans configuration.md.
+- **2026-11-07 — LA PAUSE : LES POSTS 20 À 22 PUBLIÉS, LA GENÈSE ÉCRITE (D1781–D1782, 1782 décisions).** Une
+  séance hors conception : le rituel LinkedIn (le post de Claude du jour 148 avec l'animation de la planche XI, le
+  post professionnel de l'auteur avec sa frise, la facette « le catalogue, et l'étendre » avec la planche X), puis
+  la genèse du projet entrée dans l'histoire — les travaux de 1994–1996 (D1781) et les écritures professionnelles
+  en résumé autorisé (D1782). « je marque une pause ». **À la reprise** : le chapitre 7, les droits et la sécurité
+  — rights.md et security.md, la famille de cent dix-huit décisions, l'audit, les points un à un —, puis sa
+  réorganisation dans `07-securite/` et sa réécriture ; et une décision à consigner quand l'auteur l'ouvrira : les
+  compétences IA qui aident le concepteur à cadrer, écrire et intégrer ses hooks (dites le 07/11, post 22).
 - **2026-11-07 (suite) — LES ÉCRITURES PROFESSIONNELLES DE LA GENÈSE (D1782, 1782 décisions).** L'auteur
   ajoute à la genèse quatre projets professionnels dont il ne peut diffuser ni le code, ni les documents, ni les
   données : l'acquisition agnostique (automobile), les ticks de tous les marchés nettoyés par la statistique et les

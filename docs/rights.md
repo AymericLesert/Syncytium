@@ -145,7 +145,11 @@ version) ; la voie déclarée demeure le `demote` d'une version.
   être actif dans le système d'authentification, présent dans le groupe
   de l'application et dans l'un des groupes de l'application : désactivé,
   ou privé du droit de l'application, il n'entre pas, même présent dans
-  un autre groupe ; sans aucun groupe, il est un utilisateur sans groupe ;
+  un autre groupe ; sans aucun groupe, il est un utilisateur sans groupe,
+  un `reader` (D1793) ; **le groupe de l'application est une porte
+  d'entrée**, géré par le connecteur, sans rôle dans l'application ; **les
+  trois conditions sont contrôlées par le connecteur d'authentification**,
+  non par le socle (D1793) ;
 - **le groupe `administrator` par défaut** (D712) — fourni par le
   socle, **à nom réservé** : Syncytium refuse la déclaration d'un groupe
   `administrator`, une erreur d'ingestion (D1790) ; un groupe déclaré peut
@@ -307,8 +311,9 @@ détail = les données) ; **une opération peut l'avoir pour plancher**
 (D1680 — `degree:` admet les quatre valeurs). **Le groupe d'utilisateurs
 porte le degré** (`degree:` dans groups.yml — validé D900, défaut
 `user`) ; l'utilisateur atteint le degré de son meilleur groupe
-(D414) ; **l'appartenance à un groupe est obligatoire** — le compte
-sans groupe n'entre pas (le fail-closed jusqu'à la porte). Et
+(D414) ; **le compte sans groupe entre au degré `reader`** (D1793, qui
+amende D699 — « l'appartenance obligatoire ») : il lit la documentation
+`public`, rien du détail (D1140). Et
 **`allow:` complète en précisant les groupes autorisés** (D700) :
 
 **L'inventaire des vingt et un planchers** (D701 — validé ; la vingtième,
@@ -374,8 +379,8 @@ allow:
 | un membre de `managers` (manager) | **oui** — dans l'`allow`, le plancher `user` de l'opération déclarée est couvert | non — le plancher `administrator` l'emporte sur tout `allow` | non — l'`allow` exige `admins` |
 | un membre de `admins` (administrator) | **oui** | **oui** — le plancher atteint | **oui** — et l'expression `update: locked = false` continue de gouverner la modification |
 
-— et dans tous les cas, un compte **sans groupe n'entre pas** (D699,
-le fail-closed jusqu'à la porte) ; la vérification joue **au début**
+— et dans tous les cas, un compte **sans groupe est un `reader`** (D1793,
+qui amende D699) ; la vérification joue **au début**
 de l'opération, servie par le cache de droits (D694).
 
 ## L'audit des lectures (D702–D704)

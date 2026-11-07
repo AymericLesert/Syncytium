@@ -46,7 +46,7 @@ d'autorisation, déclaré à son contrat, le plancher que la déclaration ne
 peut abaisser (D697, D699) ; `allow:` ajoute des groupes, et le plus
 exigeant l'emporte (D700). Les quatre degrés sont `reader`, `user`,
 `manager`, `administrator` (D1140, D1680). Le degré des groupes,
-l'appartenance obligatoire et l'inventaire par plancher sont au
+le compte sans groupe, un `reader` (D1793), et l'inventaire par plancher sont au
 chapitre 7, [les droits](../../rights.md) (D1749).
 
 Chaque fiche donne le rôle, le plancher, la portée, les paramètres,

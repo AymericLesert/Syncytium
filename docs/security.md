@@ -24,7 +24,8 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
    que la description déclare.
 2. **Fail-closed** (D34, D71, D93, D102, D699) : le non-exposé est le
    défaut, la ligne sans propriétaire est invisible, le groupe absent
-   ferme le champ, le compte sans groupe n'entre pas, la donnée en
+   ferme le champ, le compte sans groupe n'est qu'un `reader` (D1793),
+   la donnée en
    avance sur le moteur est refusée. En cas de doute, la donnée se
    protège — elle ne s'expose pas.
 3. **L'anti-oracle** (D126, D144, D153, D193) : l'interdit ne se
@@ -126,7 +127,10 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   l'entrée** (D1792) : actif dans le système d'authentification, présent
   dans le groupe de l'application, présent dans l'un des groupes de
   l'application ; une association pour chaque groupe nommé, une pour
-  `administrator`, une pour le groupe de l'application. **Le
+  `administrator`, une pour le groupe de l'application — **contrôlées par
+  le connecteur d'authentification, non par le socle** (D1793) ; le
+  groupe de l'application est une porte d'entrée, sans rôle dans
+  l'application. **Le
   `directory` est en lecture seule** (D633) et coopère avec
   l'authentification (D713) : les comptes synchronisés sont en
   lecture seule dans Syncytium, sauf `admin`, `modules`, `status`.
@@ -597,8 +601,8 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 
 Ce que toute implémentation devra prouver, décision par décision :
 
-1. un compte sans groupe n'entre pas (D699) — tous types confondus
-   (D746) ;
+1. un compte sans groupe est un `reader` (D1793, qui amende D699 et
+   D746) — il lit la documentation `public`, rien du détail ;
 2. le serveur arbitre ; l'interface et l'injection comportementale
    ne portent aucune sécurité (D25, D66) ;
 3. `private` ne quitte jamais le serveur autrement que par une tâche

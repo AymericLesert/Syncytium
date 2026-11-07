@@ -2964,7 +2964,8 @@ D1434.**)*
 > dans le tenant, avec son secret ; dans Entra, un groupe par groupe de
 > l'entrepôt, un pour `administrator` et un pour l'entrepôt lui-même,
 > associés par leur GUID dans le module d'authentification (D1788,
-> D1792) ; un compte d'envoi SMTP ; un compte
+> D1792) ; Entra contrôle l'entrée, le socle reçoit l'identité et les
+> groupes (D1793) ; un compte d'envoi SMTP ; un compte
 > de lecture sur la base PMI. *Qui les détient, comment on les
 > renouvelle : à écrire.* **Le certificat** : *à écrire* ; l'auto-signé
 > de Syncytium à défaut (D919). **Le DNS, le pare-feu** : *à écrire*,

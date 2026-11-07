@@ -158,7 +158,9 @@ application (D1788). Ses valeurs s'enregistrent dans le module
 groupe nommé de l'application, une pour `administrator` et une pour le
 groupe de l'application : l'utilisateur qui se connecte doit être actif
 dans le système, présent dans le groupe de l'application et dans l'un
-de ses groupes (D1792).
+de ses groupes (D1792) ; c'est le connecteur qui contrôle ces trois
+conditions, non le socle, et le groupe de l'application n'est qu'une
+porte d'entrée, sans rôle dans l'application (D1793).
 
 ## `siren`
 

@@ -200,7 +200,7 @@ les opérations dédiées du module d'administration comprises (D1757).
   des comptes ;
 - **les affectations** utilisateur↔groupes et utilisateur↔modules
   (D341/D414–D416) — en base, par l'administrateur ; le groupe porte
-  le degré (D699), **l'appartenance à un groupe est obligatoire** ;
+  le degré (D699), **un compte sans groupe est un `reader`** (D1793) ;
 - **le provisionnement** : les utilisateurs associés par le
   concepteur ou par la passerelle d'authentification (D418/D692 —
   la famille `authentication`, la synchronisation par le

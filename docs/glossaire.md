@@ -487,7 +487,7 @@ modèle reste plat, les noms de champs s'adressent sans le groupe. Le diagramme 
 section, le formulaire par défaut un onglet ; les champs hors groupe
 forment le groupe implicite, en en-tête de l'écran. *(D1273, D1279)*
 
-**Groupe de l'application** — Le groupe du système d'authentification qui donne le droit d'entrer dans l'application, associé dans le module d'authentification comme les groupes nommés et `administrator`. Un utilisateur qui se connecte doit être actif dans le système, présent dans ce groupe et dans l'un des groupes de l'application ; privé de ce droit, il n'entre pas, même présent dans un autre groupe. *(D1792)*
+**Groupe de l'application** — Le groupe du système d'authentification qui donne le droit d'entrer dans l'application, associé dans le module d'authentification comme les groupes nommés et `administrator`. Un utilisateur qui se connecte doit être actif dans le système, présent dans ce groupe et dans l'un des groupes de l'application ; privé de ce droit, il n'entre pas, même présent dans un autre groupe. Le groupe est géré par le connecteur d'authentification, qui contrôle ces conditions ; il est une porte d'entrée, sans rôle dans l'application. *(D1792, D1793)*
 
 **Groupe d'utilisateurs** (`group`, `groups.yml`) — Un ensemble nommé de personnes,
 brique des droits : la confidentialité, la visibilité d'un historique,
@@ -496,8 +496,8 @@ un membre du groupe contenant voit tout ce que voient les groupes qui le
 composent. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un concepteur ou par une passerelle avec un système d'authentification. L'association d'un groupe à un groupe du système d'authentification — le GUID d'un groupe Entra — se saisit dans une interface du module d'authentification, dans les propriétés que fournit le connecteur, jamais dans la configuration (D1788) ; ses valeurs s'enregistrent dans le module `_administration` du méta-modèle (D1789).
 Le groupe porte **le degré d'autorisation** (`degree:` — `reader`,
 `user`, `manager` ou `administrator`, D699/D1140 — le `reader` lit la
-documentation sans accéder au détail) ; l'appartenance à un groupe est
-**obligatoire** pour utiliser l'application. Le groupe `administrator` est fourni par le socle ; son nom est réservé, sa déclaration refusée (D712, D1790).
+documentation sans accéder au détail) ; un compte sans groupe est un
+`reader` (D1793, qui amende D699). Le groupe `administrator` est fourni par le socle ; son nom est réservé, sa déclaration refusée (D712, D1790).
 *Ex. : `managers: { degree: manager, groups: [accounting, sales_team] }`.* *(D26/D414/D699)*
 
 **Héritage** (`inheritance:`) — Le lien qui fait d'une entité l'enfant

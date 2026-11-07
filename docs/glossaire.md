@@ -401,6 +401,13 @@ l'utilisateur remplit lui-même, avec les widgets de son choix. *(D556)*
 commande. Il a son identité fonctionnelle, celle que l'entité déclare,
 et son identité technique, invisible. *(D141, D142)*
 
+**Entrée** — Le passage d'un utilisateur dans l'application : le
+connecteur d'authentification vérifie qui il est et ses groupes, le moteur
+ouvre une session de l'interface ; l'API n'a pas de session, chaque
+requête porte sa preuve. Trois conditions, contrôlées par le connecteur :
+actif, dans le groupe de l'application, dans l'un de ses groupes. *(D692,
+D917, D1792, D1793)*
+
 **Entité** (`entity`) — Un objet du métier ou une table dans un modèle relationnel : le
 client, la commande, le produit. Chaque entité a ses
 champs, ses règles, sa représentation, ... *(D347)*

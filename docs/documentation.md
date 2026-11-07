@@ -2982,7 +2982,8 @@ leur nom, jamais leur valeur (D944), le chiffrement au repos et en
 transit (D707, D902) ; **les mesures de sécurité du registre renvoient
 à ce chapitre** ; **Syncytium ne qualifie pas la sécurité** — des
 faits, ni verdict ni note (D1319) ; **la structure** (D1338) : une
-section par principe — les douze de [security.md](security.md) —,
+section par principe — les lignes de la carte du chapitre 7, « les
+douze » de [security.md](security.md) à l'époque (D1819) —,
 chacune en trois paragraphes, le socle, la configuration, l'instance ;
 en tête, un sommaire des douze avec un mot d'état — déclaré, vérifié,
 absent. **L'accessibilité** (D1339–D1341) : « Syncytium va s'appuyer sur

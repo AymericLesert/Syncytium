@@ -758,8 +758,9 @@ personnes** — `rgpd.extract(identity)` depuis les champs `identity`,
 mentions** — `rgpd.notice` générée, ancrée par le concepteur, le manque
 notifié sinon (D1335) ; **la journalisation des accès** — l'audité, le
 journalisé, qui consulte, la rétention de l'audit (D1336) ; **le
-chapitre de la sécurité** — les douze principes de ce document, une
-section chacun en trois paragraphes, le socle, la configuration,
+chapitre de la sécurité** — une section par ligne de la carte du
+chapitre 7, recalculée après le recentrage (D1819 ; « les douze » de
+D1338), chacune en trois paragraphes, le socle, la configuration,
 l'instance, un sommaire d'état en tête (D1337–D1338) : les dépendances
 (D924), le code tiers (D918), les secrets par leur nom (D944) ; aucun
 verdict (D1319) ; **l'accessibilité** — les critères du RGAA testés à

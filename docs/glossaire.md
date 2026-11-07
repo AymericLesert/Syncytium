@@ -49,7 +49,9 @@ d'administration. `trace: audit` sur un module, une entité ou un champ
 l'allume ; `trace: limited` exclut un champ de toute trace ; un champ
 `rgpd: sensitive` est audité d'office. La ligne porte l'identifiant de
 l'enregistrement et, pour un champ, son nom, jamais sa valeur, que
-l'historique donne à la date. *(D702–D704, D1814)*
+l'historique donne à la date ; une ligne par enregistrement lu, un
+stockage « intelligent » à envisager pour le volume. *(D702–D704,
+D1814, D1815)*
 
 **Audience** — Le public d'une donnée : l'interne (les collaborateurs)
 ou l'externe (les clients, par un portail). *(D70)*

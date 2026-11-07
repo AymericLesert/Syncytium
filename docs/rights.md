@@ -433,11 +433,13 @@ de l'opération, servie par le cache de droits (D694).
 
 ## L'audit des lectures (D702–D704)
 
-- **le grain : l'acte, jamais l'enregistrement** (D702) — une ligne
-  d'audit **par lecture en masse de l'entité parente ou par
-  transaction** : qui, quand, quoi (l'entité, le périmètre), par où
-  (l'écran, l'export, l'impression, l'API, le connecteur), et **le
-  nombre d'éléments concernés** — la volumétrie limitée ;
+- **le grain : l'enregistrement** (D1815, qui amende D702 — « l'acte,
+  jamais l'enregistrement ») — une ligne d'audit par enregistrement lu :
+  qui, quand, quoi (le module, l'entité, l'identifiant de
+  l'enregistrement, le champ), par où (l'écran, l'export, l'impression,
+  l'API, le connecteur) ; le requêtage est simple, le filtre facile ; sur
+  de très grandes requêtes fréquentes, un stockage « intelligent » est à
+  envisager, qui garde la granularité avec un espace ajusté ;
 - **le défaut automatique** (D703) : ce qui est `rgpd: sensitive`
   (D695) s'audite d'office — rien à écrire ;
 - **la propriété `trace:`** (D703) — les deux compléments :

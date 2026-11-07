@@ -408,9 +408,10 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 
 ## L'audit et la détection
 
-- **L'audit des lectures** (D702–D704) : le grain de **l'acte** (une
-  ligne par lecture en masse ou par transaction — qui, quand, quoi,
-  par où, combien), jamais une ligne par enregistrement ; le
+- **L'audit des lectures** (D702–D704, D1815) : le grain de
+  **l'enregistrement** (une ligne par enregistrement lu — qui, quand,
+  quoi, par où ; un stockage « intelligent » à envisager pour le
+  volume ; D702 amendée) ; le
   `rgpd: sensitive` audité d'office ; `trace: audit` en opt-in,
   **`trace: limited`** en exclusion totale (le mot de passe, la clé —
   D463/D603) ; l'entité d'audit au module d'administration, ses

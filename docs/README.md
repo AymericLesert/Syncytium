@@ -119,7 +119,7 @@ le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 
 | # | Le point | L'état |
 |---|---|---|
-| 1 | **La déclaration des groupes**, `groups.yml` : ses clés (`label`, `description`, `persona`, `groups`, `degree`), la composition (D1099), l'association à l'annuaire (D31, D713, D717), les affectations en base | présenté — la question 1 close (D1788, D1789) |
+| 1 | **La déclaration des groupes**, `groups.yml` : ses clés (`label`, `description`, `persona`, `groups`, `degree`), la composition (D1099), l'association à l'annuaire (D31, D713, D717), les affectations en base | présenté — les trois questions tranchées (D1788–D1790) |
 | 2 | **Les degrés** : quatre valeurs (D1140, D1680), un groupe au degré `reader`, l'appartenance obligatoire, les vingt et un planchers comme vue des droits (D1749) | à traiter |
 | 3 | **Les droits d'action, `allow:`** : trois écritures et l'étage de l'application (D886), qu'aucun cas n'écrit | à traiter |
 | 4 | **La confidentialité** : le niveau seul, le profil interpolé (D1536), la forme longue niveau + groupes (D26), l'héritage (D102), la `visibility:` de l'historique (D170, D413) ; la facette au chapitre 2 | à traiter |

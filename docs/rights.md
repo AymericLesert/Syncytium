@@ -129,8 +129,8 @@ version) ; la voie déclarée demeure le `demote` d'une version.
   l'inverse ; **le groupe porte `description:` et, pour la
   documentation, `persona:`** (D1200) — le lecteur type du groupe : un
   prénom fictif, un rôle, une description qui, à défaut, est celle du
-  groupe et, présente, la surcharge (les clés `name:`/`role:` sont
-  miennes) ; ses scénarios sont les fonctionnalités de bout en bout
+  groupe et, présente, la surcharge (les clés `name:` et `role:`,
+  confirmées, D1790) ; ses scénarios sont les fonctionnalités de bout en bout
   que ses droits permettent (documentation.md §22) ;
 - **les affectations vivent en base** — l'acte d'administration
   (D341), jamais dans le dépôt ; **l'association à un groupe du système
@@ -141,7 +141,8 @@ version) ; la voie déclarée demeure le `demote` d'une version.
   enregistrées dans le module `_administration` du méta-modèle (D1789) ;
   réorganiser les droits ne redéploie pas l'application ;
 - **le groupe `administrator` par défaut** (D712) — fourni par le
-  socle ; **l'accès administrateur à double entrée** : le groupe
+  socle, **à nom réservé** : Syncytium refuse la déclaration d'un groupe
+  `administrator`, une erreur d'ingestion (D1790) ; **l'accès administrateur à double entrée** : le groupe
   **et** la désignation individuelle de l'utilisateur ;
 - **la délégation** (D715/D749) : agir à la place d'un utilisateur —
   les droits de l'emprunté, la trace aux deux comptes ; **le même

@@ -495,7 +495,7 @@ composent. Syncytium ne gère pas dans sa configuration les liens directs avec l
 Le groupe porte **le degré d'autorisation** (`degree:` — `reader`,
 `user`, `manager` ou `administrator`, D699/D1140 — le `reader` lit la
 documentation sans accéder au détail) ; l'appartenance à un groupe est
-**obligatoire** pour utiliser l'application.
+**obligatoire** pour utiliser l'application. Le groupe `administrator` est fourni par le socle ; son nom est réservé, sa déclaration refusée (D712, D1790).
 *Ex. : `managers: { degree: manager, groups: [accounting, sales_team] }`.* *(D26/D414/D699)*
 
 **Héritage** (`inheritance:`) — Le lien qui fait d'une entité l'enfant
@@ -747,7 +747,7 @@ disponible à la demande de l'utilisateur, joué dans l'application.
 **Persona** (`persona:`) — Un lecteur type, un par groupe
 d'utilisateurs, dont les scénarios sont des fonctionnalités de bout en
 bout, appuyés sur les wizards ; déclaré dans le groupe de `groups.yml`
-— un prénom fictif, un rôle, et une description qui, à défaut, est
+— un prénom fictif (`name:`), un rôle (`role:`, D1790), et une description qui, à défaut, est
 celle du groupe. *(D1127/D1130, D1200)*
 
 **Picker** (`picker.*`) — La famille des feuilles qui choisissent un

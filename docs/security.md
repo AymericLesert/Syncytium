@@ -277,7 +277,8 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   se saisit dans l'interface, jamais dans la configuration (D1788)
   ; **la base porte les affectations** — l'acte d'administration,
   jamais le dépôt.
-- **Le groupe `administrator` d'office** (D712, D717), **l'accès
+- **Le groupe `administrator` d'office** (D712, D717), à nom réservé :
+  la déclaration d'un groupe `administrator` est refusée (D1790) ; **l'accès
   administrateur à double entrée** : le groupe **et** la désignation
   individuelle. Le module d'administration exige le degré (D710) —
   l'affectation ne suffit pas.

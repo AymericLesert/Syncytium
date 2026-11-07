@@ -14,8 +14,7 @@ invariants, et ce que tout cela livre à la documentation. Le démarrage d'une
 version, les secrets et le chiffrement sont au chapitre 9, le moteur ; les
 journaux et la rétention à l'exploitation, le chapitre 10 ; la détection à la
 télémétrie, le chapitre 11 (D1786). Les décisions citées entre parenthèses renvoient au
-[registre](../../conception.md). Le texte vient des deux artefacts
-préparatoires, déplacé à la réorganisation ; la réécriture suit.
+[registre](../../conception.md).
 
 ## Le sommaire
 

@@ -106,7 +106,7 @@ Les chapitres, dans l'ordre du plan :
 4. [Les surfaces et les composants](docs/syncytium/04-composants/README.md) — réécrit.
 5. [Les connecteurs](docs/syncytium/05-connecteurs/README.md) — réécrit.
 6. [Les opérations](docs/syncytium/06-operations/README.md) — réécrit.
-7. [Les droits et la sécurité](docs/syncytium/07-securite/README.md) — réorganisé.
+7. [Les droits et la sécurité](docs/syncytium/07-securite/README.md) — réécrit.
 8. La reprise et le mapping.
 9. Le fonctionnement du moteur.
 10. L'administration et l'exploitation.

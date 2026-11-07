@@ -317,7 +317,7 @@ def main():
         "- [Les étapes des rangs](#les-étapes-des-rangs)",
         *[f"  - [Le rang {r['n']} — {r['titre']}](#{ancre('Le rang ' + str(r['n']) + ' — ' + r['titre'])})"
           for r in rangs],
-        "- [Les quinze chapitres du rang 10](#les-quatorze-chapitres-du-rang-10)",
+        "- [Les quinze chapitres du rang 10](#les-quinze-chapitres-du-rang-10)",
         "",
         "## Les huit domaines",
         "",

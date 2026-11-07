@@ -31,7 +31,7 @@ le 07/11/2026 (D1660).*
   - [Le rang 8 — la maintenance, les risques, les améliorations](#le-rang-8--la-maintenance-les-risques-les-améliorations)
   - [Le rang 9 — la promotionnelle](#le-rang-9--la-promotionnelle)
   - [Le rang 10 — Syncytium lui-même, et docs/ consultable sur GitHub](#le-rang-10--syncytium-lui-même-et-docs-consultable-sur-github)
-- [Les quinze chapitres du rang 10](#les-quatorze-chapitres-du-rang-10)
+- [Les quinze chapitres du rang 10](#les-quinze-chapitres-du-rang-10)
 
 ## Les huit domaines
 

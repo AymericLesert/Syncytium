@@ -55,7 +55,8 @@ La déclaration porte :
   `when`, est au chapitre 7 (D1795) ;
 - **`rgpd:`**, le traitement au sens du RGPD, sa finalité `purpose:`,
   qui tient lieu de description, son responsable, sa base légale
-  (D1317, D1322, D1487).
+  (D1317, D1322, D1487) ; les cinq clés du bloc et ses quatre niveaux
+  sont au chapitre 7 (D1809).
 
 ## Les portées
 

@@ -866,6 +866,17 @@ respecte plus une règle de lien — le filtre a changé, la donnée a
 dérivé. Produit à la demande, à la migration ou en continu, adressé à
 qui de droit. Ce rapport permet également de couvrir les modifications directes à la base de données par un outil tiers sans passer par Syncytiium. *(D395/D406)*
 
+**Registre des traitements** — La documentation générée, jamais rédigée,
+qui liste les traitements au sens du RGPD, groupés par module soumis :
+une ligne par traitement, une suite comptant pour un, avec le
+responsable, la base légale, la finalité, les champs marqués, leur
+confidentialité, leur rétention, leurs connecteurs sortants. Ce que le
+modèle ne dit pas, le bloc `rgpd:` l'écrit, à quatre niveaux — les
+settings du projet, du module, de l'entité, et le traitement —, le plus
+proche l'emportant : `controller`, un groupe ; `legal`, six valeurs
+fermées ; `purpose`, par langue ; `contact` ; `dpo`. Une propriété
+absente partout est « non précisée ». *(D698, D1317–D1329, D1809)*
+
 **Réactivation** — Le retour d'un enregistrement inactif parmi les
 actifs : un acte exceptionnel de l'administrateur, sous contrôle de
 collision des clés. *(D140, D903)*

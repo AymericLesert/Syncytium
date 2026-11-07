@@ -200,7 +200,8 @@ statiques.
 ## Le bloc `rgpd:` des settings (D1323)
 
 Le bloc `rgpd:` est à la racine des settings. Il porte les défauts
-réglementaires de tout traitement du projet.
+réglementaires de tout traitement du projet ; ses cinq clés, ses quatre
+niveaux et le registre qui le lit sont au chapitre 7 (D1809).
 
 ```yaml
 # Le réglementaire : les défauts de tout traitement du projet
@@ -208,8 +209,8 @@ rgpd:
   # Qui répond des traitements : un groupe
   controller: direction
 
-  # La base légale et la finalité
-  legal: L'exécution du contrat
+  # La base légale, une valeur fermée, et la finalité
+  legal: contract
   purpose: La gestion des commandes
 
   # Le contact et le délégué à la protection des données, au projet

@@ -250,8 +250,9 @@ l'étanchéité par canal (D77). Voir le contrat détaillé dans
 **Deux items** (D1801) : ce qui tient à la session interactive — les
 bornes, le verrouillage, l'invitation — relève du connecteur
 d'authentification, chaque classe déclarant les siens (ma lecture, à
-confirmer) ; ce qui tient aux API — la clé, sa rotation, le porteur, le
-« pour le compte de » — se définit aux settings. Les API deviennent un
+confirmer) ; ce qui tient aux API — la clé, sa rotation, le porteur —
+se définit aux settings ; le « pour le compte de » n'y est pas, c'est un
+paramètre de l'appel d'API du client (D1803). Les API deviennent un
 connecteur, en proposition (D1802) : un mode exposition et un mode
 sollicitation, REST et JSON par défaut. L'écriture ci-dessous est celle
 d'avant D1801 :

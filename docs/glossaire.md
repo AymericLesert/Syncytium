@@ -570,8 +570,10 @@ rangée dans l'historique. On la consulte, on ne la modifie pas.
 *(D169)*
 
 **Interpolation** (`${…}`) — L'écriture qui cite une déclaration nommée
-de la configuration à la place d'une valeur.
-*Ex. : `confidentiality: ${confidentiality.financier}`.* *(D885, D1536)*
+de la configuration à la place d'une valeur : une variable de
+l'environnement, un chemin de la structure ; un profil de
+confidentialité se cite par son nom, sans interpolation (D1798).
+*Ex. : `host: ${ENTREPOT_HOST}`.* *(D321, D802)*
 
 **Langage d'expression** — La langue unique des formules : calculs,
 validations, filtres, gabarits.
@@ -810,8 +812,8 @@ D1464, D1750)*
 
 **Profil**  Une déclaration nommée, dans
 `syncytium.yml`, sous `confidentiality:`, que les champs citent par
-interpolation au lieu de répéter leur niveau.
-*Ex. : `${confidentiality.financier}`.* *(D885, D1536)*
+son nom au lieu de répéter leur niveau et leurs groupes.
+*Ex. : `confidentiality: financier`.* *(D885, D1536, D1798)*
 
 **Promotion** — Le passage d'un enregistrement au niveau suivant de sa
 hiérarchie d'héritage, son identité gardée : le tiers devient client à sa

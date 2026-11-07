@@ -36,7 +36,7 @@ home: ~{documentation/home.md}
 
 # Les profils de confidentialité
 # Un niveau et les groupes qui voient le champ, nommés une fois et référencés au champ ; chaque profil porte son
-# niveau (level) et ses groupes (groups) : confidentiality: ${confidentiality.financier}.
+# niveau (level) et ses groupes (groups) : confidentiality: financier.
 confidentiality:
 
   # Le profil financier

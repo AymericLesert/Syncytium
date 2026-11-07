@@ -63,6 +63,6 @@ fields:
   valeur:
     type: amount
     formula: niveaux.sum(valeur)
-    confidentiality: ${confidentiality.financier}
+    confidentiality: financier
     label: Valeur du stock
     hint: La valeur du stock du dépôt — réservée aux achats et à la direction.

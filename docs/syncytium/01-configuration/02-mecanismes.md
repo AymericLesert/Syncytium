@@ -126,14 +126,9 @@ handlers:
     filename: ${SYNCYTIUM_LOG_DIRECTORY}/${.....name}-${now:yyyy-mm-dd}.log
 ```
 
-L'interpolation lit aussi la racine du projet (D885, D1536). Un profil de
-confidentialité, nommé une fois dans `syncytium.yml`, se référence depuis
-un champ :
-
-```yaml
-# La confidentialité du champ : le profil financier, déclaré à la racine du projet
-confidentiality: ${confidentiality.financier}
-```
+Un profil de confidentialité, nommé une fois dans `syncytium.yml`, ne
+s'interpole pas : le champ le cite par son nom, `confidentiality:
+financier` (D1798 ; [03-arbre.md](03-arbre.md) §3.1).
 
 ### Rien hors de la configuration (D1440)
 

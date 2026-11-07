@@ -1385,8 +1385,8 @@ prix de l'article sans colonne de devise par le constructeur à un
 argument, `amount(ARCNPRS)`) et
 les trois profils de confidentialité — `financier` (les achats et
 la direction), `direction`, `commercial` — que les champs
-référencent par `${confidentiality.<profil>}` (à la racine du projet
-depuis D1536) ; le lien
+citent par leur nom, `confidentiality: financier` (à la racine du
+projet depuis D1536, le nom seul depuis D1798) ; le lien
 depuis `version.yml` viendra avec le morceau 1.
 
 **Le morceau 4 — le mapping** (ouvert le 19/09/2026 ; les lots 1 et
@@ -1677,7 +1677,8 @@ morceaux** ; restent la relecture complète des fichiers par l'auteur
   remplacés par leur référence, le niveau et le qui écrits une fois.
   *Le 29/10/2026, D1536 : la section quitte `settings.yml` pour la
   racine, `syncytium.yml` ; les références deviennent
-  `${confidentiality.<profil>}`.*
+  `${confidentiality.<profil>}`. Le 07/11/2026, D1798 : le nom seul,
+  `confidentiality: financier`.*
 - **M4 — l'entrepôt en lecture seule, entité par entité** —
   **tranché par D886**. Le bloc `allow:` libre (D423) se répétait
   seize fois. L'auteur : « un allow au niveau du module me convient.

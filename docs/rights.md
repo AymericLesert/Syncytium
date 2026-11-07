@@ -35,7 +35,10 @@ complétude).
 Le niveau d'exposition d'une donnée : **`public`** (partout),
 **`protected`** (l'interface et les tâches), **`private`** (les
 tâches seulement) — **resserrable par groupes**, déclarable à
-l'entité et **au champ** (D364) :
+l'entité et **au champ** (D364) ; **un profil nommé à la racine du
+projet se cite par son nom**, `confidentiality: financier`, la forme
+courte, et la forme longue, `{ level: , groups: [..] }`, s'écrit au
+champ sans profil (D885, D1536, D1798) :
 
 ```yaml
 fields:

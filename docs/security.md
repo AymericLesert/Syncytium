@@ -203,8 +203,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   les groupes déclarés dans la description et versionnés avec elle.
   **Les deux se composent** au champ (D364) ; **les profils nommés**
   (D885 — le cas 5) écrivent une fois le niveau et le qui à la racine
-  du projet, dans `syncytium.yml` (D1536), et se référencent par
-  interpolation (`confidentiality: ${confidentiality.financier}`).
+  du projet, dans `syncytium.yml` (D1536), et se citent par leur nom,
+  `confidentiality: financier`, la forme courte ; la forme longue,
+  `{ level: , groups: [..] }`, s'écrit au champ sans profil (D1798).
 - **Changer un niveau = une migration de contrat** (§5.5) : passer un
   champ de `public` à `protected` est une suppression pour l'API —
   le mécanisme de dépréciation D13 s'applique, rien de nouveau.

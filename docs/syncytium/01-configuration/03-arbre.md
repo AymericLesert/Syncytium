@@ -88,7 +88,7 @@ language: fr
 
 # Les profils de confidentialité
 # Un niveau et les groupes qui voient le champ, nommés une fois et référencés au champ ; chaque profil porte son
-# niveau (level) et ses groupes (groups) : confidentiality: ${confidentiality.financier}.
+# niveau (level) et ses groupes (groups) : confidentiality: financier.
 confidentiality:
   financier:
     level: protected
@@ -157,8 +157,9 @@ le mode d'installation de Syncytium », ou une langue apportée (D1465).
 ### `confidentiality:` — les profils de confidentialité
 
 Un profil nomme une fois le niveau (D25) et les groupes qui voient (D26).
-Les champs le référencent par l'interpolation, `${confidentiality.<profil>}`
-([02-mecanismes.md](02-mecanismes.md) §2.4). Les profils ne sont pas des
+Le champ le cite par son nom, `confidentiality: financier`, la forme
+courte ; la forme longue, `confidentiality: { level: , groups: [..] }`,
+s'écrit au champ sans profil (D1798). Les profils ne sont pas des
 settings : ils vivent ici, hors des versions, « à la racine de
 Syncytium » (D885, D1536).
 

@@ -142,7 +142,9 @@ version) ; la voie déclarée demeure le `demote` d'une version.
   réorganiser les droits ne redéploie pas l'application ;
 - **le groupe `administrator` par défaut** (D712) — fourni par le
   socle, **à nom réservé** : Syncytium refuse la déclaration d'un groupe
-  `administrator`, une erreur d'ingestion (D1790) ; **l'accès administrateur à double entrée** : le groupe
+  `administrator`, une erreur d'ingestion (D1790) ; un groupe déclaré peut
+  porter le degré `administrator`, la double entrée vaut alors pour lui
+  (D1791) ; **l'accès administrateur à double entrée** : le groupe
   **et** la désignation individuelle de l'utilisateur ;
 - **la délégation** (D715/D749) : agir à la place d'un utilisateur —
   les droits de l'emprunté, la trace aux deux comptes ; **le même

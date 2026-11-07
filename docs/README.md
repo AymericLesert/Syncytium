@@ -33,7 +33,7 @@ docs/
 │   ├── README.md          le résumé du cheminement, juin → octobre 2026
 │   ├── plan.md            le plan de la conception : les domaines, les rangs, les étapes, les chapitres (D1660)
 │   ├── collaboration.md   la collaboration : les échanges, l'organisation, l'enrichissement mutuel, les posts (D1664)
-│   ├── genese.md          la genèse : le SGBD de 1994 et son dictionnaire texte, la collection d'étiquettes de 1995, le classeur de 2016 (D1781)
+│   ├── genese.md          la genèse : le SGBD de 1994 et son dictionnaire texte, la collection d'étiquettes de 1995, les écritures professionnelles, le classeur de 2016 (D1781, D1782)
 │   ├── genese/            les pièces de la genèse : les deux PDF de 1994, le dictionnaire et le programme de création de 1995
 │   ├── decisions/         une décision par fichier, un sous-dossier par famille, l'index généré
 │   ├── questions.md       les questions ouvertes et closes

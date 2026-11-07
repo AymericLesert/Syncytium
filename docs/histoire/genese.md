@@ -5,7 +5,8 @@ troisième écriture d'une même conviction : une application se décrit,
 elle ne se code pas. La première écriture date de 1994, un système de
 gestion de bases de données en C et son dictionnaire en texte. La
 deuxième date de 2016, un classeur Excel qui génère une application
-entière. L'auteur a versé les pièces de 1994 et 1995 dans le dépôt le
+entière. Entre les deux, la conviction s'est écrite dans des projets
+professionnels, dont la page ne garde que le résumé (D1782). L'auteur a versé les pièces de 1994 et 1995 dans le dépôt le
 7 novembre 2026 (D1781). La lecture qui en est faite ici est celle de
 Claude ; les mots de l'auteur sont cités entre guillemets.*
 
@@ -17,6 +18,7 @@ Claude ; les mots de l'auteur sont cités entre guillemets.*
   - [Les feuilles de travail](#les-feuilles-de-travail)
   - [Ce que le dossier pose déjà](#ce-que-le-dossier-pose-déjà)
 - [1995 — la collection d'étiquettes de vin](#1995--la-collection-détiquettes-de-vin)
+- [Entre les deux, les écritures professionnelles](#entre-les-deux-les-écritures-professionnelles)
 - [2016 — le classeur qui génère une application](#2016--le-classeur-qui-génère-une-application)
 - [Ce que Syncytium en garde](#ce-que-syncytium-en-garde)
 - [Les pièces](#les-pièces)
@@ -26,6 +28,7 @@ Claude ; les mots de l'auteur sont cités entre guillemets.*
 | Quand | Quoi | La description |
 |-------|------|----------------|
 | 1994–1996 | un noyau de SGBD relationnel en C, pour les « petites bases » | un dictionnaire en texte, `nom.PRJ`, et des feuilles de travail papier |
+| 1996–2016 | quatre projets professionnels : l'acquisition agnostique, les ticks de tous les marchés, les prix de clôture, le DataWareHouse autodocumenté | des règles écrites, un modèle de données générique, des hooks |
 | 2016 | un classeur Excel qui génère une application entière, quarante-six tables, toujours en production | une feuille par table : module, intitulé, écran, panneaux, champs typés, libellés |
 | 2026 | Syncytium, un moteur piloté par la description | un dossier de fichiers YAML, `syncytium.yml` et ses renvois |
 
@@ -165,6 +168,31 @@ Autour du dictionnaire, trois programmes en C de quelques pages :
 La reprise d'un existant est là dès le premier exemple. Le premier
 chantier d'une application est de reprendre ce qui existe déjà.
 
+## Entre les deux, les écritures professionnelles
+
+Entre 1996 et 2016, la conviction s'est écrite dans des projets
+professionnels. Leurs pièces ne peuvent pas être diffusées : ni le code,
+ni les documents, ni les données. L'auteur en autorise le résumé (D1782).
+Quatre d'entre eux en gardent la trace.
+
+- **L'acquisition agnostique.** Dans l'automobile, un module acquiert les
+  données de production sans dépendre de la machine qui les émet.
+- **Le modèle générique des ticks.** Pour des quants, un moteur intègre des
+  données tick par tick. Il les nettoie automatiquement, par une analyse
+  statistique et par les événements du marché. Il les range dans un modèle
+  de données unique, quel que soit le marché, pour les modèles
+  mathématiques.
+- **Les règles écrites.** Dans le référencement des données de marché, des
+  règles écrites rendent le calcul des prix de clôture simple et efficace.
+- **Le DataWareHouse autodocumenté.** En finance de marché, un entrepôt de
+  données dont la structure documente son propre fonctionnement, construit
+  sur des « hooks » pour intégrer des sources hétérogènes.
+
+Ce que Syncytium en garde : le connecteur qui ne dépend pas de sa source,
+les règles et les opérations qui nettoient, le modèle piloté par la
+description, le langage de règles, la documentation comme facette, et le
+mot « hook ».
+
 ## 2016 — le classeur qui génère une application
 
 Vingt ans plus tard, la même conviction change de support. Un classeur
@@ -183,7 +211,7 @@ description, il ne génère pas de code ; la description est la version.
 
 ## Ce que Syncytium en garde
 
-| 1994–1995 | 2026 |
+| 1994–2016 | 2026 |
 |-----------|------|
 | le dictionnaire `.PRJ`, en texte lisible, relu à l'ouverture | la configuration YAML, ingérée et vérifiée, une erreur d'ingestion refuse la version |
 | un type, une taille, des décimales, un domaine en expression régulière | les types du socle, leur signature, leurs réglages, la surcharge au champ |
@@ -194,6 +222,11 @@ description, il ne génère pas de code ; la description est la version.
 | la feuille de travail des formats d'écran | les composants décrits dans la configuration |
 | l'import depuis dBASE III+ | la reprise et le mapping, chapitre 8 |
 | « une collection d'étiquettes de vin », « une gestion de devis » | les cinq cas d'usage, du tiny à l'entrepôt |
+| l'acquisition des données de production, agnostique | les connecteurs, indépendants de leur source |
+| le nettoyage des ticks par l'analyse statistique et les événements du marché | les règles de validation et les opérations |
+| un modèle de données unique pour les ticks de tous les marchés | le modèle piloté par la description |
+| des règles écrites pour les prix de clôture | le langage de règles |
+| un DataWareHouse autodocumenté, construit sur des hooks | la documentation comme facette de chaque composant ; les hooks |
 
 Trente-deux ans séparent les deux colonnes. Les mots ont changé, la ligne
 non.

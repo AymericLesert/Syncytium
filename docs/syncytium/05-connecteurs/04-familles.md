@@ -149,7 +149,11 @@ et le bearer Entra ; `sso`, l'OIDC et la signature du jeton ;
 `keycloak`, l'IdP OIDC open source (D716) ; `none`, aucun défi,
 l'utilisateur et le groupe par défaut au degré administrator, le
 mono-poste domestique (D759, D699). Chaque classe déclare ce qu'elle
-sait vérifier. Plusieurs connecteurs servent l'étanchéité par canal,
+sait vérifier, et les réglages de la session interactive qu'elle porte
+en paramètres — les bornes `duration` et `limit`, le verrouillage
+`lockout` et `cooldown`, l'invitation `invitation` : `local` tous, `sso`
+et `azure_ad` les deux bornes que l'IdP peut primer, `none` aucun
+(D1801, D1805) ; la règle est au chapitre 7. Plusieurs connecteurs servent l'étanchéité par canal,
 l'annuaire pour les internes, le local pour les clients (D77). Les
 paramètres d'`azure_ad` sont `tenant`, `client_id` et `client_secret*`
 (D945, D1714).

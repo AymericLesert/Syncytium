@@ -936,6 +936,15 @@ il se déploie depuis une référence. Il n'existe que déclaré.
 nombre, la jauge, le curseur. Elle se choisit par `component:`.
 *(D272, D461)*
 
+**Session** — Le temps pendant lequel un utilisateur connecté agit sans
+se ré-authentifier : `duration`, l'inactivité au glissement, et `limit`,
+la borne absolue, des paramètres du connecteur d'authentification, avec
+le verrouillage et l'invitation du compte local. La session de
+l'interface voyage dans un cookie inaccessible au script ; l'API n'a pas
+de session, chaque requête porte sa preuve. Elle ne fige jamais des
+droits : ils se vérifient au début de chaque acte. *(D693, D694, D917,
+D1801, D1805)*
+
 **Sévérité** (`severity:`) — Ce que fait une validation en échec :
 `error`, le défaut, bloque ; `confirm` demande une confirmation, tracée ;
 `info` signale sans bloquer. *(D157, D1559)*

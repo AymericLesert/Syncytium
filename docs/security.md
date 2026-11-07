@@ -157,8 +157,11 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 ## La session et l'API
 
 - **La session** (D693–D694) : `duration` (l'inactivité, défaut 8h)
-  et `limit` (l'absolu, défaut 7d) — au connecteur d'authentification
-  depuis D1801, l'item des API aux settings ; la borne
+  et `limit` (l'absolu, défaut 7d) — des paramètres du connecteur
+  d'authentification, chaque classe déclarant les siens, depuis D1801
+  et D1805 ; l'item des API aux settings, `application.api`, en
+  proposition ; le principe de la clé d'API au chapitre 7, les en-têtes
+  au chapitre 13 (D1805) ; la borne
   de l'IdP prime en SSO ; les sessions simultanées libres (D15), la
   révocation par l'administrateur, les sessions visibles ; **la
   session ne fige jamais des droits** — la vérification joue **au

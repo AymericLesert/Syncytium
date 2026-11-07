@@ -249,10 +249,16 @@ l'étanchéité par canal (D77). Voir le contrat détaillé dans
 
 **Deux items** (D1801) : ce qui tient à la session interactive — les
 bornes, le verrouillage, l'invitation — relève du connecteur
-d'authentification, chaque classe déclarant les siens (ma lecture, à
-confirmer) ; ce qui tient aux API — la clé, sa rotation, le porteur —
-se définit aux settings ; le « pour le compte de » n'y est pas, c'est un
-paramètre de l'appel d'API du client (D1803). Un connecteur d'endpoint
+d'authentification, en paramètres à l'environnement, chaque classe
+déclarant les siens — `local` tous, `sso` et `azure_ad` les deux bornes
+que l'IdP peut primer, `none` aucun (D1805) ; ce qui tient aux API — la clé, sa rotation, le porteur —
+se définit aux settings, le bloc `application:`, sous `api:` en
+proposition (D1805) ; le « pour le compte de » n'y est pas, c'est un
+paramètre de l'appel d'API du client (D1803). Le chapitre 7 dit le
+principe de la clé d'API — le porteur seul, la clé rotative, le compte
+technique aux groupes, la délégation bornée au périmètre du sujet — et
+renvoie au chapitre 13 pour les en-têtes, le 401 et la rotation du côté
+du technicien (D1805). Un connecteur d'endpoint
 d'entrée, qui porterait ses paramètres d'authentification, est une idée
 d'évolution, hors des versions à venir (D1802, D1804). L'écriture ci-dessous est celle
 d'avant D1801 :

@@ -25,8 +25,10 @@ s'historisent et disparaissent ensemble. À ne pas confondre avec la fonction
 d'agrégation, `sum` ou `count`. *(D101, D1564)*
 
 **Anonymisation** — L'effacement des données personnelles d'un
-enregistrement, qui garde son squelette : les liens et l'historique
-tiennent, le contenu s'efface. *(D139)*
+enregistrement, qui garde son squelette : les liens tiennent, le
+contenu s'efface, la fiche et son historique ensemble ; la valeur de
+remplacement est construite au hasard, jamais dérivée de l'origine.
+*(D139, D696, D1812)*
 
 **Assistance** (`_assistance`, module interne) — La
 F.A.Q. vivante du socle : l'utilisateur pose une question depuis un
@@ -852,6 +854,13 @@ adresse, paramétrée au besoin (filtrer une liste, affecter des valeurs)
 lue (le chapitre), vécue (le wizard), imprimée (la planche).
 *Ex. : `scenarios: { foyer: { virement: { title: Faire un virement,
 description: ~{…/virement.md} } } }`.* *(D1127/D1130, D1201–D1205)*
+
+**Rétention d'une donnée personnelle** — La durée d'une fiche sans
+mouvement ni mise à jour, au-delà de laquelle les informations
+personnelles ne sont pas à conserver ; la règle de `rgpd.anonymize`
+l'écrit, le registre des traitements la lit. *Ex. : l'entrepôt anonymise
+les contacts des tiers inactifs depuis trois ans.* *(D1328, D1334,
+D1812)*
 
 **Rétention des fichiers** (`cleanup.yml`) — Les règles qui
 suppriment, dans un dossier, les fichiers d'un pattern au-delà d'une

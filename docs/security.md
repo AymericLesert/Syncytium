@@ -477,7 +477,10 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   les mots-clés cohérents (Q39).
 - **La rétention** (D698, D411, D1328, D1334) : deux rétentions
   (D1810) — celle des journaux et des fichiers à l'exploitation, celle
-  des données personnelles ici ; le nettoyage
+  des données personnelles ici : la durée d'une fiche sans mouvement ni
+  mise à jour, au-delà de laquelle les informations personnelles ne sont
+  pas à conserver, la fiche et son historique anonymisés ensemble
+  (D1812) ; le nettoyage
   (`cleanup.yml`) reste aux fichiers et aux traces ; l'anonymisation
   des enregistrements porte sa règle et sa fréquence (`rgpd.anonymize`
   avec `every:`) ; la rétention d'une donnée est la plus longue période

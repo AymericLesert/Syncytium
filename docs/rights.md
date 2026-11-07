@@ -323,7 +323,11 @@ fields:
   rétentions (D1810) — celle des journaux et des
   fichiers, `cleanup.yml`, relève de l'exploitation, le chapitre 10 ;
   celle des données personnelles, l'anonymisation déclarée avec sa
-  règle et sa fréquence (D1334), est de ce chapitre ;
+  règle et sa fréquence (D1334), est de ce chapitre ; **la rétention
+  d'une donnée personnelle est la durée d'une fiche sans mouvement ni
+  mise à jour, au-delà de laquelle les informations personnelles ne sont
+  pas à conserver ; la fiche et son historique s'anonymisent ensemble**
+  (D1812) ;
 - **le registre des traitements auto-documenté** (D698 —
   D333/D645) : une ligne par traitement — une opération ou une suite
   impliquant un champ `rgpd:` (D1317–D1318) —, **son responsable, un

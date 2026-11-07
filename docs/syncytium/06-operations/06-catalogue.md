@@ -178,9 +178,12 @@ Elle attend le passage en cours ou l'interrompt, selon une option
 
 L'anonymisation par algorithme : la valeur construite à règle
 aléatoire, jamais dérivée de l'origine, les enregistrements et les
-historiques modifiés (D696, D697, D1333). La rétention échue s'anonymise
-d'office (D698). L'entrepôt l'appelle en action, avec son expression en
-paramètre, `rgpd.anonymize(owner.actif = false and …)`.
+historiques modifiés (D696, D697, D1333) : la fiche et son historique
+s'anonymisent ensemble. La rétention d'une donnée personnelle est la
+durée d'une fiche sans mouvement ni mise à jour, au-delà de laquelle les
+informations personnelles ne sont pas à conserver (D1812) ; la règle de
+l'opération l'écrit. L'entrepôt l'appelle en action, avec son expression
+en paramètre, `rgpd.anonymize(owner.actif = false and …)`.
 
 ## Les opérations dédiées du module d'administration
 

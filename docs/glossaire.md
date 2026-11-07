@@ -487,6 +487,8 @@ modèle reste plat, les noms de champs s'adressent sans le groupe. Le diagramme 
 section, le formulaire par défaut un onglet ; les champs hors groupe
 forment le groupe implicite, en en-tête de l'écran. *(D1273, D1279)*
 
+**Groupe de l'application** — Le groupe du système d'authentification qui donne le droit d'entrer dans l'application, associé dans le module d'authentification comme les groupes nommés et `administrator`. Un utilisateur qui se connecte doit être actif dans le système, présent dans ce groupe et dans l'un des groupes de l'application ; privé de ce droit, il n'entre pas, même présent dans un autre groupe. *(D1792)*
+
 **Groupe d'utilisateurs** (`group`, `groups.yml`) — Un ensemble nommé de personnes,
 brique des droits : la confidentialité, la visibilité d'un historique,
 les destinataires d'un rapport. Un groupe peut en contenir d'autres :

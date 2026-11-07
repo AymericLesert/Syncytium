@@ -139,7 +139,13 @@ version) ; la voie déclarée demeure le `demote` d'une version.
   fournit le connecteur — le GUID pour Entra, aucune pour un connecteur
   intégré, plusieurs pour d'autres, leurs valeurs parfois énumérées ;
   enregistrées dans le module `_administration` du méta-modèle (D1789) ;
-  réorganiser les droits ne redéploie pas l'application ;
+  réorganiser les droits ne redéploie pas l'application ; **une
+  association par groupe nommé, une pour `administrator`, une pour le
+  groupe de l'application** (D1792) — l'utilisateur qui se connecte doit
+  être actif dans le système d'authentification, présent dans le groupe
+  de l'application et dans l'un des groupes de l'application : désactivé,
+  ou privé du droit de l'application, il n'entre pas, même présent dans
+  un autre groupe ; sans aucun groupe, il est un utilisateur sans groupe ;
 - **le groupe `administrator` par défaut** (D712) — fourni par le
   socle, **à nom réservé** : Syncytium refuse la déclaration d'un groupe
   `administrator`, une erreur d'ingestion (D1790) ; un groupe déclaré peut

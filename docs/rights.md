@@ -457,7 +457,13 @@ de l'opération, servie par le cache de droits (D694).
   et, pour une trace sur un champ, le nom du champ — jamais la valeur,
   que l'on recoupe par l'historique de l'entité à la date, s'il est
   actif sur la période ; l'identifiant d'une trace suit le module,
-  l'entité et l'id de l'enregistrement, le nom du champ.
+  l'entité et l'id de l'enregistrement, le nom du champ ;
+- **les actes privilégiés s'y tracent aussi** (D1817) : le passe-outre
+  d'un `allow:`, le passe-droit du statut, la délégation, le secours, le
+  mode safe, la rotation, la réactivation, la supervision — avec leur
+  motif (D62), que l'entité touchée ait ou non un historique ; « sans
+  historique, pas de trace » (D429) ne vaut que pour les actes
+  ordinaires.
 
 ```yaml
 fields:

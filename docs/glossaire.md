@@ -50,8 +50,9 @@ l'allume ; `trace: limited` exclut un champ de toute trace ; un champ
 `rgpd: sensitive` est audité d'office. La ligne porte l'identifiant de
 l'enregistrement et, pour un champ, son nom, jamais sa valeur, que
 l'historique donne à la date ; une ligne par enregistrement lu, un
-stockage « intelligent » à envisager pour le volume. *(D702–D704,
-D1814, D1815)*
+stockage « intelligent » à envisager pour le volume. Les actes
+privilégiés s'y tracent aussi, avec leur motif. *(D702–D704, D1814,
+D1815, D1817)*
 
 **Audience** — Le public d'une donnée : l'interne (les collaborateurs)
 ou l'externe (les clients, par un portail). *(D70)*

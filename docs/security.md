@@ -404,7 +404,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   changement de statut hors graphe (D835), le changement de mail par
   l'administrateur (D721), l'activation du secours (D81), le mode
   safe (D718), la rotation des clés (D730) — **jamais un acte
-  privilégié sans trace**.
+  privilégié sans trace** : ils se tracent dans l'entité d'audit du
+  module `_administration`, avec leur motif, que l'entité touchée ait ou
+  non un historique (D1817).
 
 ## L'audit et la détection
 

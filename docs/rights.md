@@ -133,7 +133,12 @@ version) ; la voie déclarée demeure le `demote` d'une version.
   miennes) ; ses scénarios sont les fonctionnalités de bout en bout
   que ses droits permettent (documentation.md §22) ;
 - **les affectations vivent en base** — l'acte d'administration
-  (D341), jamais dans le dépôt ;
+  (D341), jamais dans le dépôt ; **l'association à un groupe du système
+  d'authentification aussi** (D1788) : une interface du module
+  d'authentification la saisit, par groupe, dans les propriétés que
+  fournit le connecteur — le GUID pour Entra, aucune pour un connecteur
+  intégré, plusieurs pour d'autres, leurs valeurs parfois énumérées ;
+  réorganiser les droits ne redéploie pas l'application ;
 - **le groupe `administrator` par défaut** (D712) — fourni par le
   socle ; **l'accès administrateur à double entrée** : le groupe
   **et** la désignation individuelle de l'utilisateur ;

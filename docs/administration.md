@@ -132,7 +132,6 @@ groups:
   managers:
     degree: manager                    # D699
     groups: [sales_team, accounting]   # la composition acyclique (D414)
-    directory: ["GRP-AD-Managers"]     # l'association aux groupes AD (D713/D717)
 ```
 
 **Les régimes** : la fiche synchronisée en **lecture seule** (D713 —
@@ -140,8 +139,10 @@ sauf `admin`, `modules`, `status` : les propriétés hors annuaire) ;
 l'UUID interne hors déclaration (D142) ; l'entité **historisée**
 (qui a donné quel droit, quand), ses lectures à l'audit. **La ligne
 de partage** : la configuration déclare la structure (les groupes,
-les degrés, `directory:`), la base porte les appartenances —
-l'écran du groupe montre les deux faces.
+les degrés), la base porte les appartenances et l'association aux
+groupes du système d'authentification — saisie dans les propriétés que
+le connecteur fournit, le GUID pour Entra (D1788) ; l'écran du groupe
+montre les deux faces.
 
 ### Le quotidien du compte local (D720–D722)
 

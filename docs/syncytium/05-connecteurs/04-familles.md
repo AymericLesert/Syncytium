@@ -147,6 +147,14 @@ l'annuaire pour les internes, le local pour les clients (D77). Les
 paramètres d'`azure_ad` sont `tenant`, `client_id` et `client_secret*`
 (D945, D1714).
 
+Une classe fournit aussi les propriétés qui associent un groupe de
+l'application à un groupe de son système : le GUID du groupe pour
+Entra, aucune pour `local` et `none`, plusieurs pour d'autres, leurs
+valeurs parfois énumérées. L'association se saisit dans une interface
+du module d'authentification, jamais dans la configuration : les
+administrateurs réorganisent les droits sans déployer une nouvelle
+application (D1788).
+
 ## `siren`
 
 Un geste, `verify(siren)` (D639) : il « retourne les informations de

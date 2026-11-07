@@ -118,7 +118,10 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   premier login, les groupes arrivent dans le jeton à chaque
   connexion — un retrait dans l'annuaire prend effet à la connexion
   suivante ; l'association groupe AD ↔ groupe de la description se
-  gère **dans l'interface**, pas dans la description. **Le
+  gère **dans l'interface**, pas dans la description : une interface du
+  module d'authentification la saisit, par groupe, dans les propriétés
+  que fournit le connecteur — le GUID pour Entra, aucune pour un
+  connecteur intégré (D1788). **Le
   `directory` est en lecture seule** (D633) et coopère avec
   l'authentification (D713) : les comptes synchronisés sont en
   lecture seule dans Syncytium, sauf `admin`, `modules`, `status`.
@@ -269,7 +272,8 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 
 - **La ligne de partage** (D27, D341, D414) : la configuration
   déclare les groupes (`groups.yml` — acyclique, « un groupe est
-  constitué d'autres groupes », le degré, l'association `directory:`)
+  constitué d'autres groupes », le degré) ; l'association à l'annuaire
+  se saisit dans l'interface, jamais dans la configuration (D1788)
   ; **la base porte les affectations** — l'acte d'administration,
   jamais le dépôt.
 - **Le groupe `administrator` d'office** (D712, D717), **l'accès

@@ -2,7 +2,7 @@
 
 Une opération déclarée une fois donne mille tâches. Ce fichier dit ce
 qu'est une tâche, la file qui la porte, son mode, son exécution et ses
-essais, ses droits et sa relance ; la supervision est au chapitre 9.
+essais, ses droits et sa relance ; la supervision est au chapitre 10.
 
 ## Le sommaire
 
@@ -26,7 +26,7 @@ compteur, un total et un message, et un résultat enregistré, que le
 déclencheur consulte pendant la durée `retention:`, dont le défaut est
 un paramètre d'administration, `operation.retention`, quatre-vingt-dix
 jours (D906). L'API déclenche une tâche et suit son avancée, le 202 et
-sa ressource de suivi, au chapitre 12 (D24).
+sa ressource de suivi, au chapitre 13 (D24).
 
 ## Le mode
 
@@ -82,5 +82,5 @@ l'exécution au début de l'appel suivant, le rappel refusé et journalisé
 La file et ses contrôles globaux, tout annuler, tout mettre en pause,
 tout relancer (D61) ; la supervision des tâches, annuler, reporter,
 reprioriser, le journal des exécutions (D56) ; l'audit de chaque action
-de supervision, avec son motif (D62) : tout cela est au chapitre 9,
+de supervision, avec son motif (D62) : tout cela est au chapitre 10,
 l'administration (D1689, D1758).

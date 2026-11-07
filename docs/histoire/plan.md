@@ -31,7 +31,7 @@ le 07/11/2026 (D1660).*
   - [Le rang 8 — la maintenance, les risques, les améliorations](#le-rang-8--la-maintenance-les-risques-les-améliorations)
   - [Le rang 9 — la promotionnelle](#le-rang-9--la-promotionnelle)
   - [Le rang 10 — Syncytium lui-même, et docs/ consultable sur GitHub](#le-rang-10--syncytium-lui-même-et-docs-consultable-sur-github)
-- [Les quatorze chapitres du rang 10](#les-quatorze-chapitres-du-rang-10)
+- [Les quinze chapitres du rang 10](#les-quatorze-chapitres-du-rang-10)
 
 ## Les huit domaines
 
@@ -267,7 +267,7 @@ son rang ; pour le rang en cours, celle de sa dernière décision.
 | 7 | la partie 5, les études | à venir | — |
 | 8 | le nettoyage | à venir | — |
 
-## Les quatorze chapitres du rang 10
+## Les quinze chapitres du rang 10
 
 Un chapitre se fait en trois temps : la lecture, la réorganisation, la
 réécriture (D1521, D1543). Il est fait quand les trois le sont.
@@ -280,11 +280,12 @@ réécriture (D1521, D1543). Il est fait quand les trois le sont.
 | 4 | Les surfaces et les composants | fait | 01/11/2026 |
 | 5 | Les connecteurs | fait | 05/11/2026 |
 | 6 | Les opérations | fait | 05/11/2026 |
-| 7 | Les droits et la sécurité | à faire | — |
+| 7 | Les droits et la sécurité | en cours | — |
 | 8 | La reprise et le mapping | à faire | — |
-| 9 | L'administration et l'exploitation | à faire | — |
-| 10 | La télémétrie | à faire | — |
-| 11 | La documentation | à faire | — |
-| 12 | Les API et les échanges | à faire | — |
-| 13 | Les cas d'usage | à faire | — |
-| 14 | La méthode et le projet | à faire | — |
+| 9 | Le fonctionnement du moteur | à faire | — |
+| 10 | L'administration et l'exploitation | à faire | — |
+| 11 | La télémétrie | à faire | — |
+| 12 | La documentation | à faire | — |
+| 13 | Les API et les échanges | à faire | — |
+| 14 | Les cas d'usage | à faire | — |
+| 15 | La méthode et le projet | à faire | — |

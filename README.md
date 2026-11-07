@@ -108,12 +108,13 @@ Les chapitres, dans l'ordre du plan :
 6. [Les opérations](docs/syncytium/06-operations/README.md) — réécrit.
 7. Les droits et la sécurité.
 8. La reprise et le mapping.
-9. L'administration et l'exploitation.
-10. La télémétrie.
-11. La documentation générée.
-12. Les API et les échanges.
-13. Les cas d'usage.
-14. La méthode et le projet.
+9. Le fonctionnement du moteur.
+10. L'administration et l'exploitation.
+11. La télémétrie.
+12. La documentation générée.
+13. Les API et les échanges.
+14. Les cas d'usage.
+15. La méthode et le projet.
 
 Les hooks n'ont pas de chapitre : chaque famille se décrit à la fin du
 chapitre de ses composants, le mécanisme au chapitre 1 (D1673).

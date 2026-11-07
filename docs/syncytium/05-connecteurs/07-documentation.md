@@ -141,7 +141,7 @@ parce que la BI lit la base sans Syncytium. C'est une fonction pure de
 la configuration (D645), calculée au dépôt, la même que `create_entity`
 exécute. Servie par une instance, `get_instance()` lit la base et
 vérifie qu'elle correspond au modèle (D801). Cette facette reste à ce
-chapitre ; le chapitre 11 y renvoie (D1722).
+chapitre ; le chapitre 12 y renvoie (D1722).
 
 Par entité :
 

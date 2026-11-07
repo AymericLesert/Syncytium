@@ -50,6 +50,7 @@ FAMILLES = {
     "operations": ("les opérations", []),  # le chapitre 6 (D1675) — hooks.md, §3, jusqu'à la distribution
     "reprise": ("la reprise et le mapping", ["mapping.md", "migration.md"]),
     "administration": ("l'administration et l'exploitation", ["administration.md"]),
+    "moteur": ("le fonctionnement du moteur", []),  # le chapitre 9 (D1784–D1785) — la famille à constituer à sa lecture
     "telemetrie": ("la télémétrie", ["telemetry.md"]),
     "configuration": ("la configuration et son écriture", ["configuration.md"]),
     "documentation": ("la documentation", ["documentation.md"]),
@@ -253,7 +254,7 @@ for _fam, _nums in {
 }.items():
     RELECTURE.update({_n: _fam for _n in _nums})
 # Les tâches et leur supervision (D1689, le 01/11/2026) : les déclencheurs, les droits et la relance au chapitre 6,
-# la file, la supervision et l'audit au chapitre 9.
+# la file, la supervision et l'audit au chapitre 9 — le 10 depuis D1785.
 RELECTURE.update({53: "operations", 54: "operations", 87: "operations", 88: "operations", 106: "operations",
                   56: "administration", 61: "administration", 62: "administration"})
 # Le chapitre 5, les connecteurs (D1728, le 02/11/2026) : quinze sorties, et l'ouverture du chapitre à la méthode.

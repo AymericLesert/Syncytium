@@ -51,8 +51,9 @@ docs/
 │   ├── 06-operations/     les opérations du socle, leur degré, leur relecture
 │   ├── 07-securite/       la sécurité et les droits
 │   ├── 08-reprise/        le mapping et le module de migration
-│   ├── 09-administration/ l'administration, l'exploitation, la télémétrie
-│   ├── 11-documentation/  la documentation que Syncytium génère
+│   ├── 09-moteur/         le fonctionnement du moteur : le démarrage d'une version, l'ingestion, ce qui tourne
+│   ├── 10-administration/ l'administration, l'exploitation, la télémétrie
+│   ├── 12-documentation/  la documentation que Syncytium génère
 │   └── outils.md          les outils du dépôt
 ├── cas-d-usage/           partie 4 : les cinq cas, chacun avec sa configuration et ses documents
 └── etudes/                partie 5 : les études comparatives, datées
@@ -68,9 +69,9 @@ relecture de sa famille :
 python tools/decisions.py docs/conception.md --numeros <famille>
 ```
 
-## L'avancement des quatorze chapitres
+## L'avancement des quinze chapitres
 
-Un chapitre par famille de décisions (D1526). Avant d'être réorganisé, un
+Un chapitre par famille de décisions (D1526) ; le chapitre 9, le fonctionnement du moteur, ajouté le 07/11/2026 (D1784–D1785), a fait glisser les suivants d'un rang. Avant d'être réorganisé, un
 chapitre est *lu* : la classification de sa famille relue, les décisions
 amendées ou remplacées confrontées à son texte, ses marques « en
 proposition » soldées (D1521) ; puis il est *réorganisé* : déplacé, découpé,
@@ -89,12 +90,13 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 | 6 | **Les opérations** | `hooks.md` §3, le registre — les tâches, D53, D54, D87, D88, D106 (D1689) | `syncytium/06-operations/` | faite le 05/11/2026 (16 points, D1739–D1761) | faite le 05/11/2026 (huit fichiers, D1762) ; réécrite le 05/11/2026 (D1763–D1769), relue le 05/11/2026 (D1770–D1779) |
 | 7 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/07-securite/` | en cours depuis le 07/11/2026 (19 points, D1783) | — |
 | 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/08-reprise/` | — | — |
-| 9 | **L'administration et l'exploitation** | `administration.md`, le registre — la supervision des tâches, D56, D61, D62 (D1689) | `syncytium/09-administration/` | — | — |
-| 10 | **La télémétrie** | `telemetry.md` | `syncytium/09-administration/telemetrie.md` | — | — |
-| 11 | **La documentation** | `documentation.md` | `syncytium/11-documentation/` ; `histoire/chantier-documentation.md` | — | — |
-| 12 | **Les API et les échanges** | `documentation.md` §10 et §27 | `syncytium/11-documentation/developpeur.md` | — | — |
-| 13 | **Les cas d'usage** | `../usecases/*.md` | `cas-d-usage/` (partie 4) | — | — |
-| 14 | **La méthode et le projet** | `conception.md`, `../README.md` | `syncytium/README.md`, `histoire/` (parties 0 et 2) | — | — |
+| 9 | **Le fonctionnement du moteur** | `security.md`, « L'intégrité » et « La disponibilité et la continuité » ; le registre — l'ingestion, l'estampille, le registre des versions (D1784) | `syncytium/09-moteur/` | — | — |
+| 10 | **L'administration et l'exploitation** | `administration.md`, le registre — la supervision des tâches, D56, D61, D62 (D1689) | `syncytium/10-administration/` | — | — |
+| 11 | **La télémétrie** | `telemetry.md` | `syncytium/10-administration/telemetrie.md` | — | — |
+| 12 | **La documentation** | `documentation.md` | `syncytium/12-documentation/` ; `histoire/chantier-documentation.md` | — | — |
+| 13 | **Les API et les échanges** | `documentation.md` §10 et §27 | `syncytium/12-documentation/developpeur.md` | — | — |
+| 14 | **Les cas d'usage** | `../usecases/*.md` | `cas-d-usage/` (partie 4) | — | — |
+| 15 | **La méthode et le projet** | `conception.md`, `../README.md` | `syncytium/README.md`, `histoire/` (parties 0 et 2) | — | — |
 
 **Les hooks n'ont pas de chapitre** (D1673) : `hooks.md` est dissous (D1762).
 Le mécanisme et la déclaration dans la configuration vont au chapitre 1,

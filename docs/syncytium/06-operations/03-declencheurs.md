@@ -27,7 +27,7 @@ s'écrivent sur l'opération, par `every:`, `when:` ou `actions:`.
   composant du chapitre 4, [l'acte](../04-composants/04-actes.md).
 - **L'API.** Toute opération sans `when:` est aussi une fonction de
   l'API (D428). L'API déclenche et suit, le 202 et sa ressource de
-  suivi, au chapitre 12 (D24).
+  suivi, au chapitre 13 (D24).
 - **Le calendrier.** `every:` planifie, dans la grammaire des durées et
   du calendaire, `5min`, `daily[02:00]`, `weekly[tuesday at 15:30]`,
   `monthly[1 at 03:00]` (D434, D476).

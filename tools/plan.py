@@ -6,7 +6,7 @@ La page porte quatre tables, chacune aux quatre colonnes « numéro, titre, éta
 - les huit domaines (le registre, §1.2) ;
 - les rangs du chantier de la documentation (documentation.md, §5) ;
 - leurs étapes (la liste « Étapes » de chaque rang) ;
-- les quatorze chapitres du rang 10 (docs/README.md, la table).
+- les quinze chapitres du rang 10 (docs/README.md, la table).
 La date de fin d'un domaine ou d'une étape est celle de sa dernière décision : la date de naissance de chaque
 décision est lue dans l'historique git du registre — le premier commit qui porte sa ligne — et mise en cache dans
 tools/plan-dates.json, que chaque exécution complète des commits nouveaux.
@@ -317,7 +317,7 @@ def main():
         "- [Les étapes des rangs](#les-étapes-des-rangs)",
         *[f"  - [Le rang {r['n']} — {r['titre']}](#{ancre('Le rang ' + str(r['n']) + ' — ' + r['titre'])})"
           for r in rangs],
-        "- [Les quatorze chapitres du rang 10](#les-quatorze-chapitres-du-rang-10)",
+        "- [Les quinze chapitres du rang 10](#les-quatorze-chapitres-du-rang-10)",
         "",
         "## Les huit domaines",
         "",
@@ -352,7 +352,7 @@ def main():
         *[ligne for r in rangs for ligne in (
             f"### Le rang {r['n']} — {r['titre']}", "",
             table([(e["n"], e["titre"], e["etat"], e["fin"]) for e in etapes if e["rang"] == r["n"]]), "")],
-        "## Les quatorze chapitres du rang 10",
+        "## Les quinze chapitres du rang 10",
         "",
         "Un chapitre se fait en trois temps : la lecture, la réorganisation, la",
         "réécriture (D1521, D1543). Il est fait quand les trois le sont.",

@@ -60,7 +60,7 @@ L'API déclenche et suit, le 202 et sa ressource de suivi (D24).
 ### Le guide d'exploitation
 
 Une opération périodique figure au calendrier des opérations (D943).
-Les tâches et leur supervision sont au chapitre 9.
+Les tâches et leur supervision sont au chapitre 10.
 
 ### La maintenance, les risques et les améliorations
 

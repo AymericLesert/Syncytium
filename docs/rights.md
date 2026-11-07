@@ -318,8 +318,9 @@ fields:
   plancher que la déclaration ne peut abaisser) ; l'inventaire des
   degrés est flagué ;
 - **la rétention** (D698) : la donnée marquée dont la rétention
-  échoit (l'écriture de l'historisation — D411) **s'anonymise
-  d'office** ; deux rétentions (D1810) — celle des journaux et des
+  échoit **s'anonymise d'office** — la profondeur de l'historique
+  (D411) est une autre chose, de l'exploitation (D1811) ; deux
+  rétentions (D1810) — celle des journaux et des
   fichiers, `cleanup.yml`, relève de l'exploitation, le chapitre 10 ;
   celle des données personnelles, l'anonymisation déclarée avec sa
   règle et sa fréquence (D1334), est de ce chapitre ;

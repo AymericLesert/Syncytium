@@ -54,8 +54,10 @@ stockage « intelligent » à envisager pour le volume. Les actes
 privilégiés s'y tracent aussi, avec leur motif. *(D702–D704, D1814,
 D1815, D1817)*
 
-**Audience** — Le public d'une donnée : l'interne (les collaborateurs)
-ou l'externe (les clients, par un portail). *(D70)*
+**Audience** — Le public d'une donnée : l'interne, les collaborateurs,
+par leurs groupes ; l'externe, les clients, par l'appartenance de la
+ligne — directe, indirecte, ouverte ou non exposée, le défaut —, fermée
+par défaut. *(D70, D71)*
 
 **Base miroir** (`buffer:`) — La base, à l'image de la destination,
 où une reprise de données se construit et se contrôle avant d'être

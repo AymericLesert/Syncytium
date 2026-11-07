@@ -283,6 +283,22 @@ RELECTURE.update({354: "modele", 427: "modele"})
 RELECTURE.update({_n: "operations" for _n in [714, 715, 749, 903, 915]})
 # Le registre du chapitre 6 (D1761, le 05/11/2026) : les garde-fous des fonctions retournent au langage.
 RELECTURE.update({104: "langage"})
+# Le chapitre 7, les droits et la sécurité (D1820, le 07/11/2026) : cinquante-neuf sorties, dix-neuf entrées — D699 et
+# D1680 reviennent du chapitre 6 (D1740) ; le recentrage du chapitre (D1786) envoie les secrets aux chapitres 9 et 10.
+for _fam, _nums in {
+    "surfaces": [393, 469, 493, 514, 520, 527, 528, 536, 753, 960],
+    "modele": [370, 413, 1108, 1273, 1275, 1279, 1280, 1281, 1289],
+    "reprise": [406, 811, 882, 1065, 1067],
+    "configuration": [358, 807],
+    "moteur": [705, 902],
+    "administration": [706, 708, 730, 738, 748, 916],
+    "connecteurs": [32, 80],
+    "documentation": [1249, 1311, 1338, 1346, 1349, 1352, 1443, 1450, 1490, 1495],
+    "operations": [1749, 1756, 1759, 1767, 1776, 1777],
+    "methode": [1592, 1732, 1735, 1738, 1783, 1786, 1787],
+    "securite": [25, 26, 144, 153, 170, 421, 429, 642, 699, 703, 704, 917, 1320, 1327, 1536, 1680, 1801, 1807, 1816],
+}.items():
+    RELECTURE.update({_n: _fam for _n in _nums})
 
 
 

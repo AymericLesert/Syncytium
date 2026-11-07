@@ -121,7 +121,8 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   gère **dans l'interface**, pas dans la description : une interface du
   module d'authentification la saisit, par groupe, dans les propriétés
   que fournit le connecteur — le GUID pour Entra, aucune pour un
-  connecteur intégré (D1788). **Le
+  connecteur intégré (D1788) —, enregistrées dans le module
+  `_administration` du méta-modèle (D1789). **Le
   `directory` est en lecture seule** (D633) et coopère avec
   l'authentification (D713) : les comptes synchronisés sont en
   lecture seule dans Syncytium, sauf `admin`, `modules`, `status`.

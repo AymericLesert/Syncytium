@@ -138,6 +138,7 @@ version) ; la voie déclarée demeure le `demote` d'une version.
   d'authentification la saisit, par groupe, dans les propriétés que
   fournit le connecteur — le GUID pour Entra, aucune pour un connecteur
   intégré, plusieurs pour d'autres, leurs valeurs parfois énumérées ;
+  enregistrées dans le module `_administration` du méta-modèle (D1789) ;
   réorganiser les droits ne redéploie pas l'application ;
 - **le groupe `administrator` par défaut** (D712) — fourni par le
   socle ; **l'accès administrateur à double entrée** : le groupe

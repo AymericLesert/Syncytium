@@ -491,7 +491,7 @@ forment le groupe implicite, en en-tête de l'écran. *(D1273, D1279)*
 brique des droits : la confidentialité, la visibilité d'un historique,
 les destinataires d'un rapport. Un groupe peut en contenir d'autres :
 un membre du groupe contenant voit tout ce que voient les groupes qui le
-composent. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un concepteur ou par une passerelle avec un système d'authentification. L'association d'un groupe à un groupe du système d'authentification — le GUID d'un groupe Entra — se saisit dans une interface du module d'authentification, dans les propriétés que fournit le connecteur, jamais dans la configuration (D1788).
+composent. Syncytium ne gère pas dans sa configuration les liens directs avec les utilisateurs. Syncytium manipule dans sa configuration des groupes. Les utilisateurs sont associés par un concepteur ou par une passerelle avec un système d'authentification. L'association d'un groupe à un groupe du système d'authentification — le GUID d'un groupe Entra — se saisit dans une interface du module d'authentification, dans les propriétés que fournit le connecteur, jamais dans la configuration (D1788) ; ses valeurs s'enregistrent dans le module `_administration` du méta-modèle (D1789).
 Le groupe porte **le degré d'autorisation** (`degree:` — `reader`,
 `user`, `manager` ou `administrator`, D699/D1140 — le `reader` lit la
 documentation sans accéder au détail) ; l'appartenance à un groupe est

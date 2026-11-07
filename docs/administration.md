@@ -141,7 +141,8 @@ l'UUID interne hors déclaration (D142) ; l'entité **historisée**
 de partage** : la configuration déclare la structure (les groupes,
 les degrés), la base porte les appartenances et l'association aux
 groupes du système d'authentification — saisie dans les propriétés que
-le connecteur fournit, le GUID pour Entra (D1788) ; l'écran du groupe
+le connecteur fournit, le GUID pour Entra (D1788), enregistrées dans le
+module `_administration` du méta-modèle (D1789) ; l'écran du groupe
 montre les deux faces.
 
 ### Le quotidien du compte local (D720–D722)

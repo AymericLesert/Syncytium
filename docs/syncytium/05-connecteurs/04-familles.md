@@ -153,7 +153,8 @@ Entra, aucune pour `local` et `none`, plusieurs pour d'autres, leurs
 valeurs parfois énumérées. L'association se saisit dans une interface
 du module d'authentification, jamais dans la configuration : les
 administrateurs réorganisent les droits sans déployer une nouvelle
-application (D1788).
+application (D1788). Ses valeurs s'enregistrent dans le module
+`_administration` du méta-modèle (D1789).
 
 ## `siren`
 

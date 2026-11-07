@@ -1,11 +1,14 @@
 # Les invariants, la liste de contrôle
 
-Treize invariants, recalculés après le recentrage du chapitre (D1823) : ce
-que toute implémentation devra prouver.
+> **Un invariant de sécurité** est une règle que toute implémentation de
+> Syncytium devra prouver, décision par décision : ce que le socle
+> garantit quoi que la configuration déclare
+> ([glossaire](../../glossaire.md)).
 
-Les décisions citées entre parenthèses renvoient au
-[registre](../../conception.md). Le texte vient des deux artefacts
-préparatoires, déplacé à la réorganisation ; la réécriture suit.
+Treize invariants, recalculés après le recentrage du chapitre (D1823).
+Chacun renvoie aux décisions qui le fondent, et aux fichiers du chapitre
+qui le détaillent. Les décisions citées entre parenthèses renvoient au
+[registre](../../conception.md).
 
 ## Le sommaire
 

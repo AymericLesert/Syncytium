@@ -585,6 +585,11 @@ l'effacement réel est une purge distincte. *(D137–D141)*
 configuration en une entrée dans le moteur exploitable par toutes les
 composantes de l'application (API, Écrans, CSV, ...). *(D330)*
 
+**Invariant de sécurité** — Une règle que toute implémentation de
+Syncytium devra prouver, décision par décision : ce que le socle garantit
+quoi que la configuration déclare. Treize, la liste de contrôle du
+chapitre 7. *(D1823)*
+
 **Instance** — L'installation d'un client. Elle regroupe tous les éléments nécessaires au fonctionnement de l'application : son moteur, ses environnements, sa base, sa
 description. Une par TPE. *(D16)*
 

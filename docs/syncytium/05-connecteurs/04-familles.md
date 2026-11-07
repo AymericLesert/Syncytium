@@ -30,7 +30,12 @@ s'ouvre par décision : la neuvième, `llm`, est entrée avec le module
 `chat` du socle (D957). La famille contraint le contrat (D620) : la
 conformité d'une classe se vérifie au chargement. Le catalogue des
 classes est l'union du registre et des cas (D1714) ; les noms `sirene`,
-`api` et `local` restent en proposition jusqu'à l'implémentation.
+`api` et `local` restent en proposition jusqu'à l'implémentation. Une
+dixième famille est en proposition, `api` (D1802) : les API de
+l'application comme connecteur, un mode exposition à la manière de
+Swagger et un mode sollicitation, REST et JSON par défaut, d'autres
+classes pour un automate ou une application dédiée ; le chapitre 13 la
+précisera.
 
 | la famille | le rôle | les classes |
 |---|---|---|

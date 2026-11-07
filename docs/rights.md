@@ -247,8 +247,14 @@ l'étanchéité par canal (D77). Voir le contrat détaillé dans
 
 ## La session (D693–D694)
 
-Les réglages aux settings de l'application (D588), en mode
-`dynamic` :
+**Deux items** (D1801) : ce qui tient à la session interactive — les
+bornes, le verrouillage, l'invitation — relève du connecteur
+d'authentification, chaque classe déclarant les siens (ma lecture, à
+confirmer) ; ce qui tient aux API — la clé, sa rotation, le porteur, le
+« pour le compte de » — se définit aux settings. Les API deviennent un
+connecteur, en proposition (D1802) : un mode exposition et un mode
+sollicitation, REST et JSON par défaut. L'écriture ci-dessous est celle
+d'avant D1801 :
 
 ```yaml
 settings:

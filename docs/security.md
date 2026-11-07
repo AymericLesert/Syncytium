@@ -463,7 +463,7 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   construction ; **la sécurité du SI reste une finalité légitime**
   pour tracer les tentatives nominatives (§6.4).
 - **Le marquage** (D695) : `rgpd: personal | sensitive | consent` — et
-  `identity` en proposition (D1332 — l'identité civile, le point de
+  `identity`, acquise (D1332, D1806 — l'identité civile, la clé d'association de l'enregistrement à une personne, sans unicité, le point de
   départ de l'extraction `rgpd.extract(identity)`, D1331/D1333) — le
   modèle sait ce qui est personnel ; le `sensitive` (l'article 9)
   audité d'office (D703).

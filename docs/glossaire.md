@@ -634,6 +634,16 @@ devient la composition. *(D166/D362)*
 enregistrements en tableau ou en widgets, la recherche, le tri, les
 opérations. À ne pas confondre avec la Liste (type). *(D486, D492)*
 
+**Marquage RGPD** (`rgpd:`) — La facette d'un champ, ou du type qui le
+porte, qui dit ce qui relève du règlement : `personal`, la donnée
+personnelle ; `sensitive`, l'article 9, auditée d'office ; `consent`, le
+traitement au consentement ; `identity`, l'identité civile d'une
+personne, le nom, le prénom, la clé d'association de l'enregistrement à
+ses données personnelles, sans unicité. Quatre valeurs, aucune forme
+courte. Le registre des traitements, l'anonymisation et l'extraction s'en
+déduisent. *Ex. : `nom: { type: text[..40], rgpd: identity }`.* *(D695,
+D1178, D1332, D1806, D1807)*
+
 **Masque d'explication** — L'aide en ligne tissée dans l'application :
 la documentation fonctionnelle de l'écran servie en place — la
 description de la surface, puis, pour chaque champ qui en a, son

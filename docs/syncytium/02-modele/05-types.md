@@ -80,8 +80,11 @@ Certaines valent pour tous les types (D391) :
   `financier` ; un niveau seul, `public`, `protected` ou `private` ; la
   forme longue, `{ level: , groups: [..] }` (D26, D1798, D1800) ; la
   règle est au chapitre 7 ;
-- **`rgpd:`**, le marquage réglementaire, `personal`, `sensitive` ou
-  `consent` (D695) ; l'anonymisation en découle (D696) ;
+- **`rgpd:`**, le marquage réglementaire, en quatre valeurs : `personal`,
+  `sensitive`, `consent` (D695) et `identity`, l'identité civile d'une
+  personne, la clé d'association de l'enregistrement à ses données
+  personnelles, sans unicité (D1332, D1806) ; l'anonymisation en découle
+  (D696) ; la règle est au chapitre 7 ;
 - **`trace:`**, la trace des lectures, `audit` ou `limited` (D703) ; un
   champ `sensitive` est audité d'office ;
 - **`component:`**, **`style:`**, **`size:`**, la présentation, en
@@ -175,9 +178,10 @@ Six règles encadrent les dérivés.
 - **Un dérivé ne redéfinit jamais un type du catalogue** (D408).
 - **Un dérivé ne porte pas de graphe de conversion** : il reste la base
   qu'il dérive.
-- **Un dérivé porte aussi les facettes de sens** (D1178) : `rgpd:`, le
-  profil de confidentialité (D885), `hint:`, `description:`. Le champ qui
-  l'emploie en hérite, et le marquage se généralise par le type :
+- **Un dérivé porte aussi les facettes de sens** (D1178) : `rgpd:`, l'une
+  des quatre valeurs, jamais `true` (D1807), le profil de confidentialité
+  (D885), `hint:`, `description:`. Le champ qui l'emploie en hérite, peut
+  surcharger, et le marquage se généralise par le type :
 
 ```yaml
 # Le nom d'une personne : un dérivé qui porte le marquage ; tout champ de ce type en hérite

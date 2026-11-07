@@ -27,7 +27,7 @@ surface est au degré `user`. La clé est *en proposition*, sa forme se
 précisera à l'implémentation. Une surface, ou un composant de l'écran,
 porte aussi ses droits d'action, `allow:`, l'étage le plus près de
 l'utilisateur (D1796). Les degrés et les droits sont au chapitre 7,
-[les droits](../../rights.md).
+[les droits](../07-securite/02-groupes.md).
 
 Ce fichier porte neuf fiches, dans l'ordre du catalogue : `menu`,
 `list`, `form`, `summary`, `widget`, `wizard`, `dashboard`, `template`,

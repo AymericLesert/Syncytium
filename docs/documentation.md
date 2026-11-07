@@ -12,7 +12,7 @@ son élément apporte à la documentation** — l'entité et ses champs dans
 [entity.md](syncytium/02-modele/02-entite.md), les hooks et leur `describe` dans
 [hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks), les connecteurs dans
 [connectors.md](syncytium/05-connecteurs/README.md), les dépendances dans
-[security.md](security.md), les rapports de la reprise dans
+[security.md](syncytium/07-securite/README.md), les rapports de la reprise dans
 [migration.md](migration.md). Les décisions citées renvoient à la
 [conception](conception.md). Les sections marquées *en proposition*
 sont miennes, jusqu'à leur arbitrage.
@@ -372,7 +372,7 @@ décisions, D1170–D1238.)*
   dans `examples/` (2bcc1da, D1230, D1237). *(Le plan d'origine disait
   :)* §6, §7, §14–§16, §19, §22, §24 validés ;
   [entity.md](syncytium/02-modele/02-entite.md), [les surfaces](syncytium/04-composants/06-surfaces.md) (le wizard
-  comme scénario), [rights.md](rights.md) (les personas et les
+  comme scénario), [rights.md](syncytium/07-securite/README.md) (les personas et les
   groupes) ; `usecases/01_tiny.md` amendé ; une déclinaison dans
   `usecases/05_entrepot.md`.
 - **Dépendances** : aucune.
@@ -429,7 +429,7 @@ décisions, D1170–D1238.)*
   [telemetry.md](telemetry.md) (les indicateurs),
   [migration.md](migration.md) (le chapitre 4.1), [hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks)
   (le contrat du hook de type), [configuration.md](syncytium/01-configuration/README.md)
-  (les groupes, les réglages), [rights.md](rights.md),
+  (les groupes, les réglages), [rights.md](syncytium/07-securite/README.md),
   [administration.md](administration.md), [les composants](syncytium/04-composants/README.md),
   [mapping.md](mapping.md), le glossaire ; la colonne 2 de la matrice
   (D1303) ; les groupes de champs dans la configuration du cas 5.
@@ -469,9 +469,9 @@ décisions, D1170–D1238.)*
 - **Déclinaison** : **faite** (D1344) — le tiny (aucun traitement), la
   banque (le mono-poste sans marquage), l'entrepôt (le registre complet,
   ses blocs `rgpd:` écrits dans la configuration).
-- **Livrables** : §18 acquis (D1317–D1344) ; [security.md](security.md)
+- **Livrables** : §18 acquis (D1317–D1344) ; [security.md](syncytium/07-securite/README.md)
   (la rubrique « La documentation », le registre, le chapitre de la
-  sécurité), [rights.md](rights.md) ; la colonne 5 de la matrice dans
+  sécurité), [rights.md](syncytium/07-securite/README.md) ; la colonne 5 de la matrice dans
   les dix artefacts et la matrice d'ensemble.
 - **Dépendances** : aucune pour le registre ; l'instance pour les
   accès journalisés.
@@ -579,7 +579,7 @@ décisions, D1170–D1238.)*
   `listen:` écrits dans la configuration ;
   [usecases/05_entrepot.md](../usecases/05_entrepot.md)).
 - **Livrables** : une section « Le D.A.T. » (§28, les quatre chapitres
-  acquis) ; [connectors.md](syncytium/05-connecteurs/README.md), [security.md](security.md),
+  acquis) ; [connectors.md](syncytium/05-connecteurs/README.md), [security.md](syncytium/07-securite/README.md),
   [administration.md](administration.md), [hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks),
   [configuration.md](syncytium/01-configuration/README.md) ; la colonne 4 de la matrice dans
   les onze artefacts et la matrice d'ensemble (D1435).
@@ -2309,7 +2309,7 @@ et des implémentations se généraliseront.
    [entity.md](syncytium/02-modele/02-entite.md), [05-types.md](syncytium/02-modele/05-types.md) (type par type),
    [les composants](syncytium/04-composants/README.md) (fiche par fiche), [hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks),
    [connectors.md](syncytium/05-connecteurs/README.md), [mapping.md](mapping.md),
-   [rights.md](rights.md), [administration.md](administration.md),
+   [rights.md](syncytium/07-securite/README.md), [administration.md](administration.md),
    [migration.md](migration.md) — ; documentation.md garde les principes
    et la matrice d'ensemble.
 3. **Syncytium assemble.** Chaque type de document a son plan (§4, §6,
@@ -2983,7 +2983,7 @@ transit (D707, D902) ; **les mesures de sécurité du registre renvoient
 à ce chapitre** ; **Syncytium ne qualifie pas la sécurité** — des
 faits, ni verdict ni note (D1319) ; **la structure** (D1338) : une
 section par principe — les lignes de la carte du chapitre 7, « les
-douze » de [security.md](security.md) à l'époque (D1819) —,
+douze » de [security.md](syncytium/07-securite/README.md) à l'époque (D1819) —,
 chacune en trois paragraphes, le socle, la configuration, l'instance ;
 en tête, un sommaire des douze avec un mot d'état — déclaré, vérifié,
 absent. **L'accessibilité** (D1339–D1341) : « Syncytium va s'appuyer sur
@@ -3779,7 +3779,7 @@ d'`author:` et `contact:`), `authors:` à la version ; pour les
 ressources, le `credit:` de D803 suffit (D1384) —
 [configuration.md](syncytium/01-configuration/README.md) §3.1 et §3.4. Les droits
 d'accès restent à la documentation des droits
-([rights.md](rights.md)). **Les
+([rights.md](syncytium/07-securite/README.md)). **Les
 passages** : les transitions de D344–D345 — beta vers production,
 production vers dépréciée ou interdite, beta vers interdite ; **les
 dates d'ingestion et de promotion, lues au registre des versions de

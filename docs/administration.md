@@ -6,7 +6,7 @@ documentation (Q58, le domaine 6 — D602), après le
 [glossaire](glossaire.md), les [composants](syncytium/04-composants/README.md), les
 [hooks](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks), les [types](syncytium/02-modele/05-types.md), les
 [connecteurs](syncytium/05-connecteurs/README.md), le [mapping](mapping.md) et les
-[droits](rights.md). Les décisions citées renvoient à la
+[droits](syncytium/07-securite/README.md). Les décisions citées renvoient à la
 [conception](conception.md). Il consolide l'acquis épars et porte
 les points du chantier ouvert (le sujet 3 — le dernier de la passe
 de complétude).
@@ -665,3 +665,234 @@ promotionnels de Syncytium seul (D1509) ; `visibility:` au projet
 (D1498).
 
 **Les neuf colonnes sont écrites.**
+
+## Reçu du chapitre 7, pour les chapitres 9 et 10 (D1824)
+
+Le recentrage du chapitre 7 sur les privilèges et l'intégrité en fonctionnement
+(D1784, D1786) envoie au moteur et à l'exploitation ce qui suit, déplacé sans
+réécriture depuis `rights.md` et `security.md` ; les chapitres 9 et 10 le
+liront.
+
+### Les connecteurs et la sécurité (D603, D626)
+
+- **les secrets** : le paramètre marqué `*` (D944 — `password*:
+  ${VAR}`), la référence à une variable d'environnement chiffrable
+  par une clé environnement+machine (D603) — le dépôt ne porte jamais
+  une valeur en clair, le journal non plus ;
+- **la condition indispensable** (D626) : l'application ne démarre
+  que si le mail à l'administrateur est possible — le canal d'alerte
+  avant tout ;
+
+### Le chiffrement (D705–D706)
+
+- **en transit** (D705) : ce que Syncytium **sert** (l'IHM, les API,
+  les routes webhook) est **HTTPS sans dérogation** ; ce qu'il
+  **appelle** (les huit familles) est chiffré **par défaut** —
+  l'exception déclarée au connecteur (`unencrypted:` — validé
+  D901), signalée par l'ingestion, visible au `describe()`, **et
+  rappelée chaque jour** : le dashboard de santé (D731) et le mail
+  des faits marquants (D733) portent la dérogation ;
+- **au repos** (D706) : le chiffrement du storage (TDE, disque)
+  **n'est pas de la responsabilité de Syncytium** — l'infrastructure
+  et la classe ; et le chiffrement d'une valeur est **un pouvoir de
+  type** (comme `password` — D463) : pas de facette `encrypted:` —
+  le type qui a le pouvoir chiffre par ses fonctions de valeur
+  (D683) et déclare ce qu'il sait encore faire (la recherche
+  stricte au mieux, le tri perdu — la signature du type D579/D582).
+
+### Les clés — le patron unique des secrets (D603/D707)
+
+**Les clés sont obligatoirement chiffrées** (D707 — le
+« chiffrable » de D603 durci) :
+
+1. **la maison** : les variables d'environnement (le `.env`) —
+   **jamais versionnées** (D336), exploitées par Syncytium ;
+2. **la création** : **les commandes propres à Syncytium** chiffrent
+   la valeur *avant* son enregistrement dans l'environnement (la clé
+   dérivée environnement + machine — D603) ; *(flagué :
+   l'automatisation de ce geste)* ;
+3. **l'usage** : Syncytium déchiffre à l'usage — la valeur en clair
+   ne vit qu'en mémoire, le temps de l'appel ;
+4. **le périmètre** : les clés d'API, les mots de passe de
+   connecteurs, les clés des types chiffrants (D706) — un seul
+   patron pour tout ce qui est secret.
+
+**Les deux commandes** (D708) :
+
+```bash
+# chiffre la clé et l'enregistre dans .env (ou un autre fichier si nécessaire)
+syncytium encrypt DB_PASSWORD "le-mot-de-passe"
+
+# retourne la valeur chiffrée — le débogage, la vérification d'un service
+syncytium decrypt DB_PASSWORD
+```
+
+La clé de chiffrement étant dérivée de l'environnement **et de la
+machine** (D603), un `.env` copié ailleurs reste muet — le `decrypt`
+n'est utile qu'à qui a déjà la machine.
+
+### Les frontières d'extension
+
+- **Le mécanisme uniforme** (D52) : un built-in et un externe passent
+  par la même frontière déclarée ; aucun raccourci caché. **Le hook
+  est déployé, versionné, validé avec la description** (§8.1) — un
+  hook qui plante bloque la migration.
+- **Les trois modes** (§8.2) : le calcul est **pur** (aucun effet, un
+  délai maximal, ses seules `sources` déclarées) ; la tâche a des
+  effets, dans sa portée ; **le comportement d'interface s'exécute
+  dans le navigateur** — `public` et `protected` seulement, filtré
+  par les groupes, **jamais `private`** ; l'injection
+  comportementale relève de l'UX, **jamais de la sécurité** (D66 — le
+  serveur arbitre) ; **le hook d'interface est le seul code tiers au
+  navigateur** (D918) — listé par la documentation générée, sous la
+  responsabilité du concepteur.
+- **La librairie d'exploration** (D572, D599) : le hook lit le modèle
+  par les noms logiques, jamais le stockage, écrit dans la
+  transaction — les droits, la confidentialité, la validation, la
+  concurrence ne se contournent pas.
+- **Les opérations appelées par l'API** : le cooldown par opération
+  + paramètres (D58 — « protège le hook comme point d'attaque »),
+  **un paramètre d'administration** (D904 — le setting dynamique
+  `operation.cooldown`, la surcharge à la déclaration, l'API seule,
+  le refus journalisé) ; **le déterminisme et sa fenêtre au contrat
+  du hook** (D59/D904 — « une opération est déterministe ou pas,
+  elle ne peut pas changer sans faire changer son code » : le
+  garde-fou vit dans le code, la configuration ne le surcharge
+  jamais), l'invalidation par l'administrateur (D60) ;
+  l'exécution unique sans rejeu automatique (D57) — **trois
+  propriétés d'exécution au contrat du hook** (D905 :
+  `execution`, `deterministic`, `deterministic_duration`), jamais
+  exposées à la configuration ; **la rétention du résultat à
+  l'administration** comme le cooldown (D906 — `operation.retention`,
+  le résultat échu purgé) ; **les connecteurs attendus au contrat**
+  (D913 — `connectors:` nommés et typés par la famille, liés par
+  `uses:` à la déclaration, vérifiés à l'ingestion : le hook ne
+  touche que ce qu'il a annoncé).
+- **Les connecteurs** : les secrets par paramètre marqué `*` (D944)
+  et référence à une variable d'environnement (D603 — jamais de valeur
+  en clair au dépôt ni au journal), les
+  valeurs à l'environnement (D617), **la condition indispensable**
+  (D626 — l'application ne démarre que si le mail à l'administrateur
+  est possible), `onerror` gradué (D627 — le mock ou la page de
+  maintenance), `directory` en lecture seule (D633), le webhook gardé
+  (D642), l'appel chiffré par défaut (D705).
+
+### L'intégrité
+
+- **La concurrence par champ** (D111) : le compare-and-swap
+  état-avant/état-après, unique IHM + API ; le conflit rejette
+  l'agrégat (409), la suppression première rend 410 ; l'ABA bénin
+  par construction.
+- **L'estampille fail-closed** (D93) : la base porte la version de
+  description et la version de moteur ; en retard → la migration ;
+  en avance → **le refus** ; absente ou corrompue → l'initialisation
+  ou le refus.
+- **L'ingestion refuse** (D330, D344) : le format descendant est
+  rejeté sur la seule lecture de l'en-tête ; les incohérences du
+  dossier des versions sont des erreurs ; **le registre des versions
+  essayées** (D326) interdit l'acharnement — pas de retry sans bump ;
+  **l'identité de la version** (D920, D927) : le couple environnement
+  + numéro de version, la clé du registre ; l'empreinte du dossier
+  ingéré consignée avec elle ; **une version ingérée l'est une
+  fois** — la configuration modifiée sous le même numéro n'est pas
+  relue, l'empreinte recalculée à chaque chargement **trace l'écart**
+  et dit au concepteur de changer de numéro ; la sandbox seule se
+  recharge (D922).
+- **La migration transactionnelle** (D9) après dry-run sur données
+  réelles ; le retour arrière gratuit avant bascule, la grâce après
+  (D674–D675).
+- **Les identifiants** (D142) : la technique invariante à vie, la
+  fonctionnelle sur les actifs seuls ; **l'intégrité référentielle
+  survit à l'effacement** (D138–D139).
+
+### Les secrets et le chiffrement
+
+- **L'empreinte jamais le clair** — dès D33 (le compte d'amorçage
+  dans un fichier versionné) ; **le type `password`** (D463) :
+  write-only (« défini / non défini » en lecture), la saisie masquée
+  et double, jamais en liste, recherche, export ni conversion,
+  l'empreinte seule aux instantanés, la force par `validation`.
+- **Le patron unique des secrets** (D603, D707–D708, D944) : la clé
+  de configuration marquée `*` porte la valeur confidentielle (jamais
+  en clair dans un journal) et référence la variable ; les variables
+  d'environnement (`.env`) **jamais versionnées** (D336 — le dépôt
+  du client est distinct), **obligatoirement chiffrées** par la clé
+  dérivée **environnement + machine** ; `syncytium encrypt <VAR>
+  <valeur>` chiffre avant l'enregistrement, `syncytium decrypt <VAR>`
+  ne sert qu'à qui a la machine ; la valeur en clair ne vit qu'en
+  mémoire, le temps de l'appel. Le périmètre : les clés d'API, les
+  mots de passe de connecteurs, les clés des types chiffrants.
+  **Le wizard d'initialisation chiffre lui-même** les secrets qu'il
+  demande, et **une valeur en clair dans le `.env`, pour une variable
+  référencée par une clé marquée `*`, vaut refus de démarrer**, la
+  raison et la commande données (D902/D944).
+- **La rotation** (D730) : `syncytium rotate` re-chiffre le `.env`
+  et les champs des types chiffrants — au patron de `migrate`,
+  tracé ; **déclenchée à chaque restauration** (la machine change, la
+  clé aussi) **et à chaque duplication d'une sandbox** (D915 — la
+  sandbox est un environnement, donc une clé : la copie de l'origine
+  re-chiffrée sous la sienne). **`rotate` est le geste unique de tout
+  ce qui re-chiffre ou rehache** (D916) : toute empreinte porte
+  l'identifiant de son algorithme — changer d'algorithme ne casse
+  aucun compte —, et le passage à l'algorithme courant ne se fait que
+  par `rotate`, en masse et tracé, jamais en silence à la
+  vérification.
+- **En transit** (D705) : ce que Syncytium **sert** est **HTTPS sans
+  dérogation** — **la boucle locale comprise** (D919 : aucune
+  exemption ; le certificat relève de l'infrastructure et se déclare
+  à l'environnement, fourni ou terminé par un proxy ; à défaut,
+  **Syncytium engendre un certificat auto-signé** à l'initialisation ;
+  servi en clair = refus de démarrer, la raison donnée) ; ce qu'il
+  **appelle** est chiffré par défaut,
+  l'exception `unencrypted:` déclarée, signalée à l'ingestion,
+  visible au `describe()` — **et rappelée chaque jour** au dashboard
+  de santé et au mail des faits marquants (D901).
+- **Au repos** (D706) : le chiffrement du storage (TDE, disque)
+  relève de l'infrastructure, pas de Syncytium ; le chiffrement
+  d'une valeur est **un pouvoir de type** (comme `password`) — pas de
+  facette : le type chiffre par ses fonctions de valeur et déclare
+  ce qu'il sait encore faire (la recherche stricte au mieux, le tri
+  perdu) ; **le fichier SQLite du détail d'une migration** est chiffré
+  — nativement si possible, sinon après sa création — et `rotate` le
+  re-chiffre avec les autres (D1067) ; `syncytium copy
+  --with-storage` le re-chiffre sous les clés de la cible (D1080).
+
+### La disponibilité et la continuité
+
+- **Les fusibles** : interne — le timeout des fonctions complexes
+  (D104), le heartbeat des tâches (D55), le délai maximal des
+  calculs ; externe — le rate limiting (D105) ; par tâche — le
+  cooldown (D58). La détection a posteriori (D43) est distincte.
+- **La position de sécurité** (D625–D627, D745) : l'erreur → la page
+  de maintenance + l'alerte ; l'application ne démarre que si elle
+  peut alerter (D626), sauf en mode safe ; le refus de démarrer
+  s'explique.
+- **Les environnements** (D112–D114, D616–D617) : la production, les
+  stagings éphémères, la passive du PCA/PRA — chacun ses connecteurs
+  et ses secrets ; **la sandbox** (D907–D908) : l'évaluation de la
+  description en cours et de ses hooks **dans un environnement
+  fermé** — un statut de `versions/` dont chaque version nomme son
+  origine par `from:` (`beta/v1.0.0.0`, ou une autre sandbox — la
+  transitivité), dupliquée à l'initialisation puis migrée ; les
+  connecteurs de son environnement (D911 — la fermeture est l'œuvre
+  du concepteur, le mock comme pour beta), l'origine jamais
+  touchée ; la promotion vers `beta` ou `production` par un geste
+  de fichier (D910) — **`from:` retiré à la promotion, sinon une
+  erreur avant l'ingestion ; l'origine promue casse le lien des
+  sandboxes qui la citaient, une erreur** (D928 — tout lien s'écrit,
+  aucun ne se devine) ; **l'instance survit à l'arrêt, la suppression
+  est un geste** (D912 — la commande ou la rétention d'inactivité,
+  le registre des instances à la vue de santé) ; **son ingestion est
+  un acte d'administration** (D921 — le dossier posé ne fait rien,
+  l'administrateur déclenche, tracé) ; **la recharge** (D922 —
+  l'ingestion rejouée, réservée au statut sandbox) ; la synchronisation porte **la base et les
+  fichiers** (D164) ; actif et passif **aux mêmes versions et
+  configurations** (D744) ; le retard surveillé, l'alerte au seuil.
+- **La sauvegarde** (D727–D729) : l'instance dupliquée + les fichiers
+  + la configuration vers une destination, la rétention en jours ;
+  **la restauration est une commande hors application** (D751) — une
+  image à sa propre vie, la rotation des clés enchaînée.
+- **Les migrations** : le dry-run sur données réelles, la fenêtre
+  d'affluence, la transaction, la file de tâches drainée pendant la
+  migration (D24) ; la montée de version **sans redémarrage** (D801).
+

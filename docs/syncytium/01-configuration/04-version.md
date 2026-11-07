@@ -146,7 +146,7 @@ La hiérarchie est sans lien parent et acyclique ; un membre d'un groupe
 voit ce que voient les groupes qu'il nomme (D414, D1099). Le degré est
 porté par le groupe (D699, D701). Les affectations des personnes aux
 groupes vivent en base, pas dans la configuration (D27, D341). Le détail
-dans [rights.md](../../rights.md).
+dans [les droits](../07-securite/README.md).
 
 ## 3.7 Le module — `<module>.yml` (D765, D416)
 

@@ -1955,6 +1955,7 @@ Q58) :
 | D1821 | **Le registre du chapitre 7 est soldé : les lectures anciennes que le registre a tranchées depuis et celles de la semaine que les réponses suivantes ont tranchées sont levées en bloc ; six restent ouvertes jusqu'à l'implémentation ; l'anonymisation d'un fichier entre au chapitre** (lève les lectures de D421, D1149, D1172, D1264, D1317, D1319, D1322, D1323, D1324, D1325, D1328, D1536, D1789, D1792, D1793, D1801, D1812, D1814 ; garde ouvertes D1788 — la forme de la liste des propriétés d'une classe —, D1794 — `degree: reader` sur une surface —, D1805 — la clé `api:` —, D1815 — le stockage « intelligent » de l'audit —, D1802 et D1804 — l'endpoint d'entrée ; reporte D163 et D165 — l'anonymisation d'un fichier et la déduplication par empreinte — dans rights.md ; D690, la création de rights.md, reste à l'histoire ; la lecture du chapitre 7, le point 13, clos) : « A, les listes ». | L'usage des chapitres précédents (D1761). Voir §3.2c. |
 | D1822 | **Ce qu'un chapitre sort vers le registre est l'historique, non l'histoire : les deux termes ne signifient pas la même chose** (précise D1521, D1543 — « l'histoire reste au registre » ; le vocabulaire ; la lecture du chapitre 7, le point 14) : « tu parles de "l'histoire" mais c'est l'historique. Les 2 termes ne signifient pas la même chose. » | Ma lecture, à confirmer : l'historique d'un document, ce qu'il a été — ses points ouverts, ses « tranché par », ses marques —, sort vers le registre ; l'histoire est le récit du projet, la partie 2 de la documentation, `docs/histoire/`, la genèse, la collaboration, qui garde son nom ; dans Syncytium, l'historique est aussi la mémoire d'un enregistrement, `history:`. CLAUDE.md corrigé aux deux lignes de la méthode des chapitres, le point 14 renommé ; « l'histoire du registre » (la règle de ne pas réécrire) à confirmer. Voir §3.2c. |
 | D1823 | **La lecture du chapitre 7 est close, quatorze points, D1783–D1823 : l'historique des deux artefacts — les sections « Les points ouverts », les « tranché par », les « flagué » — sort vers le registre à la réorganisation ; le chapitre garde la doctrine, six principes, la carte, onze lignes recalculées après le recentrage — l'identité et les comptes, l'entrée, la session et l'API, la confidentialité, l'audience, les droits d'action, les degrés, les groupes et la délégation, la traçabilité et l'audit, le RGPD, le chat —, en tête du README comme sommaire d'état, et les invariants, treize, la liste de contrôle ; les lectures de la semaine encore ouvertes sont levées** (clôt D1783 — le chapitre ouvert, D1786 — les quatorze points ; précise D1819 — la carte, sommaire du chapitre de la sécurité de la réglementation, D1822 — l'historique ; lève les lectures de D1791, D1796, D1799, D1803, D1806, D1810, D1811 ; la lecture du chapitre 7, le point 14, clos) : « A, lecture close ». | La doctrine : le second principe dit « le compte sans groupe est un reader » et perd « la donnée en avance sur le moteur est refusée », du moteur. La carte perd l'intégrité, les frontières d'extension, les secrets et le chiffrement, la disponibilité, et recentre l'audit. Les invariants perdent le 10, HTTPS, le 14, l'estampille, le 15, le seuil d'alerte ; le 1 devient « un compte sans groupe est un reader », le 9 ne garde des secrets que « jamais tracé ». La réorganisation suit, le découpage proposé. Voir §3.2c. |
+| D1824 | **Le chapitre 7 est réorganisé : `docs/syncytium/07-securite/`, dix fichiers — le README avec la définition, la doctrine, la carte en onze lignes et les décisions, puis les groupes et les degrés, l'identité et l'entrée, la confidentialité, l'audience, les droits d'action, le réglementaire, ce que la sécurité enregistre, les invariants, la facette — ; le texte des deux artefacts déplacé sans réécriture, l'historique au journal, ce qui part aux chapitres 9, 10 et 11 reçu par administration.md et telemetry.md ; rights.md et security.md retirés, les renvois redirigés** (applique D1521, D1543 — les trois temps, D1591, D1738 — les préfixes, D1658, D1694 — les sommaires, D1784, D1786 — le recentrage, D1819 — la facette, D1823 — la lecture close ; la réorganisation du chapitre 7) : « Oui, dix fichiers ». | L'intégrité, les frontières d'extension, les secrets, le chiffrement, la disponibilité et la condition indispensable dans administration.md, « Reçu du chapitre 7 » ; le modèle de risque, les seuils et qui voit dans telemetry.md ; les sections « Les points ouverts » des deux artefacts au journal, ce jour. La réécriture suit, fichier par fichier. Voir §3.2c. |
 | D1198 | **Les liens de la documentation sont ceux que l'ingestion garantit — les références et les associations entre entités et champs, dans les traitements et les opérations ; ils montrent les relations, disent à quoi sert un champ et mesurent l'impact d'une modification du modèle** (précise D1186 ; s'appuie sur D330/D344 — l'ingestion, D394/D405, D90, D1112 ; le rang 1 et le rang 2) : « je confirme — les associations utilisées dans les traitements / les opérations / ... font référence entre les entités et les champs. Tous ces liens permettent de visualiser les liens et de mesurer l'impact de la modification du modèle. Lors de l'ingestion, le moteur de Syncytium garantit la validité des références et des associations. Les mettre dans la documentation permet de montrer les relations et d'expliquer à quoi sert un champ (propriété ou calculé). » — la documentation reprend le graphe que l'ingestion a validé : pour chaque champ, propriété ou calculé, **où il sert** — les formules qui le lisent, les validations, les opérations et leurs effets, les règles de reprise, les rapports, les écrans ; pour chaque entité, qui la référence et qui elle référence ; aux deux bouts (D1186). | Mes lectures, en proposition : dans la fonctionnelle, « à quoi sert ce champ » en langage d'usager (« entre dans le calcul du montant TTC », « déclenche la validation de la facture ») ; dans la documentation de l'information (le rang 2), le graphe complet des dépendances et **l'analyse d'impact** — ce qu'un changement de ce champ ou de cette entité touche (l'écho des écarts calculés D1112) ; la matrice gagne une colonne de contenu sur la ligne du champ. Voir §3.2c. |
 
 ---
@@ -13975,6 +13976,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **La lecture du chapitre 7 close (D1823).** « A, lecture close » — quatorze points, D1783–D1823 ; l'historique sort, la doctrine, la carte en onze lignes et treize invariants restent ; la réorganisation suit.
 
+**Le chapitre 7 réorganisé (D1824).** « Oui, dix fichiers » — `07-securite/`, le texte déplacé sans réécriture, l'historique au journal ; la réécriture suit.
+
 **La carte entités → fichiers au connecteur (D828 — valide l'option
 A, amende l'écriture de D819).** **« Je valide l'option A avec une
 variante. La liste des entités est à définir au même niveau que
@@ -25650,6 +25653,96 @@ avant la synthèse Q16).
   l'entrée, les secrets, le navigateur et l'API), les écarts (les degrés, `allow:`, la confidentialité, le
   marquage et le registre RGPD, la rétention, la session, `trace:`, `groups.yml`), les exemples et la facette, le
   registre. Le point 1 présenté.
+- **2026-11-07 (réorganisation) — L'HISTORIQUE DE RIGHTS.MD ET SECURITY.MD, SORTI À LA RÉORGANISATION DU
+  CHAPITRE 7 (D1824).** Les deux sections « Les points ouverts », telles qu'elles étaient dans les artefacts,
+  gardées ici pour trace.
+
+  **rights.md, « Les points ouverts — le chantier du sujet 2 »**
+
+  Aucun point consigné — la clôture du sujet 2 attend la relecture de
+  l'auteur (le flag mineur : l'automatisation de la commande de
+  chiffrement, D707).
+
+  **security.md, « Les points ouverts »**
+
+  **Tranchés le 13/09/2026** (à la relecture de ce document) :
+  `degree:` et le plancher de `reset_coverage` (D900), `unencrypted:`
+  visible chaque jour (D901), le chiffrement automatisé et le clair
+  refusé au démarrage (D902), la réactivation d'un enregistrement
+  désactivé — l'acte exceptionnel de l'administrateur, hors socle et
+  hors hook (D903) ; le déterminisme au contrat du hook et le
+  cooldown à l'administration (D904 — le reliquat de Q31 soldé), les
+  propriétés d'exécution de juin reprises au contrat du hook (D905),
+  la rétention du résultat à l'administration (D906).
+
+  **Renvoyé :**
+
+  - la question 10 du cadrage du cas 5 (l'authentification de
+    l'entreprise, les groupes et les strates « de l'opérateur aux
+    dirigeants ») **reste au cas** — usecases/05_entrepot.md, « nous
+    verrons sur le cas 3 [5] en cours de description ».
+
+  **Jamais abordés — le domaine 7 (l'architecture technique, Q7) :**
+
+  - ~~la sandbox des hooks~~ — **tranché par D907–D911** : la sandbox
+    est **un statut de `versions/`** lié à son environnement, `from:
+    <statut>/<version>` dans chaque `version.yml`, la transitivité,
+    la promotion vers `beta` ou `production` par un geste de fichier,
+    les connecteurs à l'environnement (le mock comme pour beta),
+    l'instance qui survit à l'arrêt et la suppression par commande ou
+    rétention (D912) — non une cage autour du code ; **et D913** : le
+    hook déclare à son contrat les connecteurs qu'il attend
+    (`connectors:`, nommés et typés par la famille), la déclaration
+    les lie (`uses:` — toujours écrit, aucune liaison implicite,
+    D914), l'ingestion vérifie, tout connecteur non attendu est hors
+    de portée ; le langage du code des hooks reste à Q7 ;
+  - ~~l'algorithme de hachage et la dérivation de clé~~ — **tranché
+    par D916** : l'empreinte porte l'identifiant de son algorithme ;
+    le rehachage et le re-chiffrement par `rotate` seul, jamais en
+    silence à la vérification ; le choix des algorithmes reste à Q7
+    sous une exigence : des standards publiés, jamais un algorithme
+    maison ;
+  - ~~la protection du navigateur~~ — **tranché par D917–D918** : le
+    cookie inaccessible au script, l'API au porteur seul, `cors:` à
+    l'environnement, les valeurs en texte, les templates échappés, le
+    hook d'interface seul code tiers, la page qui n'autorise que ses
+    scripts ; les en-têtes exacts (le cookie, la politique de contenu)
+    restent à Q7 ;
+  - ~~la gestion des certificats TLS et la terminaison HTTPS~~ —
+    **tranché par D919** : le certificat à l'infrastructure, déclaré à
+    l'environnement (fourni ou proxy), l'auto-signé engendré par
+    Syncytium à défaut, HTTPS vérifié au démarrage sans exemption ;
+    l'en-tête du proxy et la forme de l'auto-signé à Q7 ;
+  - ~~la sécurité du dépôt de configuration du client~~ — **tranché
+    par D920** : le dépôt est un dossier, sa synchronisation et ses
+    droits sont hors Syncytium (git ou autre) ; l'ingestion calcule
+    l'empreinte du dossier de la version et la consigne au registre
+    sous la clé environnement + numéro de version ; la signature d'une
+    version reste différée ;
+  - ~~la sécurité des fichiers hors base~~ — **tranché par D923** : le
+    dossier au moteur, jamais servi directement ; tout accès sous la
+    confidentialité du champ et l'appartenance de la ligne ; les noms
+    opaques ; les droits du dossier à l'infrastructure ;
+  - ~~les dépendances et leur veille~~ — **tranché par D924** : la
+    documentation générée liste les dépendances du moteur et leurs
+    versions ; les failles sont identifiées par le dépôt ou une action
+    extérieure, jamais par le moteur ;
+  - ~~la journalisation des accès web~~ — **tranché par D925–D926** :
+    le journal d'accès reste au proxy ; le journal du moteur porte les
+    événements de sécurité à leur niveau, jamais un secret ; le
+    throttling des traces contre la saturation.
+
+  **Le domaine 7 est couvert en huit principes (D907–D926).** Ce qui
+  reste à Q7 est le moyen — les algorithmes, les en-têtes du cookie
+  et de la politique de contenu, l'en-tête du proxy, la forme de
+  l'auto-signé, le langage du code des hooks —, jamais le principe.
+
+  **Le volet sécurité est clos le 13/09/2026** (D900–D928, 928
+  décisions) : « dans cette session, je clos le point sécurité.
+  Peut-être ajouterons-nous d'autres points, si nécessaire. » Ce
+  document reste la vue vivante : toute décision nouvelle qui touche
+  la sécurité s'y reporte, comme au §1.2 de la conception.
+
 - **2026-11-07 — LA PAUSE : LES POSTS 20 À 22 PUBLIÉS, LA GENÈSE ÉCRITE (D1781–D1782, 1782 décisions).** Une
   séance hors conception : le rituel LinkedIn (le post de Claude du jour 148 avec l'animation de la planche XI, le
   post professionnel de l'auteur avec sa frise, la facette « le catalogue, et l'étendre » avec la planche X), puis

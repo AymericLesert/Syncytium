@@ -5,7 +5,7 @@ le dixième artefact préparatoire de la documentation (Q58, le
 domaine 6 — D602), après le [glossaire](glossaire.md), les
 [composants](syncytium/04-composants/README.md), les [hooks](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks), les
 [types](syncytium/02-modele/05-types.md), les [connecteurs](syncytium/05-connecteurs/README.md), le
-[mapping](mapping.md), les [droits](rights.md) et
+[mapping](mapping.md), les [droits](syncytium/07-securite/README.md) et
 l'[administration](administration.md). Les décisions citées
 renvoient à la [conception](conception.md). Il consolide l'acquis du
 pilier P9 (Q12–Q13, résolues en juin 2026), **la jonction avec le
@@ -295,3 +295,26 @@ tracée comme tout échange d'un connecteur `llm` (D957, D1510).
 
 **Les autres colonnes** — à leur rang : la fonctionnelle (rien — la
 télémétrie n'est pas ce que l'utilisateur fait).
+
+## Reçu du chapitre 7, la détection (D1824)
+
+Ce que la télémétrie déduit de ce que la sécurité enregistre (D1816), déplacé
+sans réécriture depuis `security.md` ; le chapitre 11 le lira.
+
+- **La finalité sécurité de la télémétrie** (D43) : **journaliser les
+  refus d'autorisation** — le carburant du canal — et les échecs
+  d'authentification (D720). **Le modèle de risque** (D47) : la pente
+  normalisée sur fenêtre glissante, le volume absolu, le détecteur
+  de pics, **l'étendue d'accès** (le balayage de toute une entité =
+  le crawl — le même signal que le N+1, la frontière étant
+  l'autorisation), la pente des refus = l'énumération.
+- **Les seuils** (D50–D51, D97, D740) : déclarés par élément
+  (endpoint, entité, fonction d'IHM — l'export massif surveillé), le
+  global en settings dynamiques, **le filet ne se tait jamais** — le
+  seuil absent = le défaut global. La calibration : fenêtre 30 j,
+  linéaire (log sur demande), pic z ≥ 3 + plancher 100 appels/jour,
+  crawl > 50 % d'une table > 1000 lignes, R² ≥ 0,5.
+- **Qui voit** (D741) : la télémétrie entière au degré
+  `administrator` ; les push (les faits marquants, la synthèse,
+  l'alerte de dépréciation) aux administrateurs, chacun à son rythme
+  (D748).

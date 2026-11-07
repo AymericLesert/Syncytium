@@ -84,7 +84,7 @@ restent lisibles sur demande, et les listes ne montrent que les actifs
 par défaut. Supprimer un agrégat inactive l'agrégat entier, la commande
 et ses lignes ensemble. Modifier un inactif est refusé. L'effacement
 réel, le droit du RGPD, est une purge distincte, un acte de
-l'administrateur ([rights.md](../../rights.md)).
+l'administrateur ([le réglementaire](../07-securite/07-rgpd.md)).
 
 Quatre règles en découlent :
 

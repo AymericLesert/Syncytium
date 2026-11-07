@@ -1001,6 +1001,13 @@ cas doivent être complets. *Ex. : `type.select(thermique: "litres", electrique:
 type : sa conversion, ses opérateurs, ses comparateurs, son `select`, ses
 fonctions. *(D579–D584)*
 
+**Sécurité (les droits et la sécurité)** — Par construction : les droits
+vivent au modèle — la confidentialité au champ, l'audience à la ligne, les
+droits d'action à l'entité, le degré au groupe et à l'opération —, le moteur
+applique ce que la configuration déclare, et ce qu'il enregistre dit qui a
+lu, écrit ou refusé. Le chapitre 7 de la documentation. *(P8, D1784,
+D1824)*
+
 **Socle** — Ce que Syncytium fournit sans que le concepteur l'écrive :
 le moteur, ses types, ses composants, ses hooks, ses modules internes, ses
 défauts. *(D1175)*

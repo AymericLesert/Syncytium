@@ -88,7 +88,7 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 | 4 | **Les surfaces et les composants** | `composants.md` | `syncytium/04-composants/` | fait le 01/11/2026 (21 points, D1593–D1645) | fait le 01/11/2026 (sept fichiers, D1646) ; réécrite le 01/11/2026, relue (D1647–D1656) |
 | 5 | **Les connecteurs** | `connectors.md` | `syncytium/05-connecteurs/` | faite le 02/11/2026 (18 points, D1707–D1729) | faite le 02/11/2026 (sept fichiers, D1730) ; réécrite le 02/11/2026 (D1731–D1737), relue le 05/11/2026 (D1780) |
 | 6 | **Les opérations** | `hooks.md` §3, le registre — les tâches, D53, D54, D87, D88, D106 (D1689) | `syncytium/06-operations/` | faite le 05/11/2026 (16 points, D1739–D1761) | faite le 05/11/2026 (huit fichiers, D1762) ; réécrite le 05/11/2026 (D1763–D1769), relue le 05/11/2026 (D1770–D1779) |
-| 7 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/07-securite/` | en cours depuis le 07/11/2026 (14 points, D1783, D1786) | — |
+| 7 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/07-securite/` | faite le 07/11/2026 (14 points, D1783–D1823) | — |
 | 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/08-reprise/` | — | — |
 | 9 | **Le fonctionnement du moteur** | `security.md`, « L'intégrité » et « La disponibilité et la continuité » ; le registre — l'ingestion, l'estampille, le registre des versions (D1784) | `syncytium/09-moteur/` | — | — |
 | 10 | **L'administration et l'exploitation** | `administration.md`, le registre — la supervision des tâches, D56, D61, D62 (D1689) | `syncytium/10-administration/` | — | — |
@@ -112,7 +112,7 @@ est au chapitre 5 (D1730), l'opération au chapitre 6 (D1762), où
 
 ## Les points de la lecture en cours
 
-Le chapitre 7, les droits et la sécurité (D1783, D1786). Les points d'un
+Le chapitre 7, les droits et la sécurité (D1783, D1786) — la lecture est close (D1823). Les points d'un
 chapitre se dégagent à son ouverture, dans l'ordre de son sujet, avec ce qui
 le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 « présenté » ou « clos (Dnnnn) » ; le tableau de bord lit cette table.
@@ -132,7 +132,7 @@ le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 | 11 | **La facette documentation** : les deux rubriques fusionnent ; « les douze principes de security.md » (D1338) face aux six principes et seize invariants | clos (D1819) |
 | 12 | **La classification** : la famille `securite` à reconstituer | clos (D1820) |
 | 13 | **Les lectures ouvertes et les non citées**, à lever ou à reporter | clos (D1821) |
-| 14 | **L'historique et les statuts** : « Les points ouverts », « le chantier du sujet 2 », les « tranché par » au registre ; les invariants gardés | présenté — l'historique, non l'histoire (D1822) |
+| 14 | **L'historique et les statuts** : « Les points ouverts », « le chantier du sujet 2 », les « tranché par » au registre ; les invariants gardés | clos (D1822–D1823) |
 
 Hors des familles : `glossaire.md` va à `syncytium/glossaire.md` avec le
 premier chapitre ; `etude-comparative-20260718.md` à

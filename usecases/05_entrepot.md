@@ -2554,7 +2554,7 @@ est marqué. **En proposition.**)*
 >
 > ### 5.2 Les droits
 >
-> **La matrice** (D1264) — les entités en lignes, les six groupes en
+> **La matrice** (D1264) — les entités en lignes, les sept groupes en
 > colonnes ; l'extrait :
 >
 > | | commercial | achats | bureau_etudes | logistique | direction | administration |
@@ -2696,7 +2696,7 @@ tel qu'il sortirait aujourd'hui, puis ce que le concepteur ajouterait.
 > *Les douze principes, une section chacun (D1338)* — les secrets :
 > quatre clés `*` (`entrepot.password`, `cegid.password`,
 > `authentication.client_secret`, `smtp.password`), chiffrées ; aucun
-> `unencrypted:` ; l'audience : six groupes, la direction composée ;
+> `unencrypted:` ; l'audience : sept groupes, la direction composée, l'audit au degré `reader` (D1818) ; le contact audité en lecture, `trace: audit` (D1818) ;
 > les frontières d'extension : aucun hook d'interface ; la
 > disponibilité : les délais de la reprise, `on_running: wait` ; le
 > chat : absent ; les dépendances, à l'instance.

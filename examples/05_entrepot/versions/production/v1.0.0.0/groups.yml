@@ -39,3 +39,19 @@ administration:
   # Le degré d'autorisation
   # Le seul groupe au degré administrator : il lance les migrations et réinitialise leur couverture.
   degree: administrator
+
+# Le groupe de l'audit
+audit:
+  label: Audit
+  description: Le délégué à la protection des données et l'auditeur — la documentation, sans le détail des données.
+
+  # Le degré d'autorisation
+  # Le degré reader : la documentation que la confidentialité du groupe ouvre, aucune liste, aucun formulaire.
+  degree: reader
+
+  # Le persona
+  # Le lecteur type du groupe : un prénom, un rôle, ce qu'elle vient lire ; sa description surcharge celle du groupe.
+  persona:
+    name: Inès
+    role: Déléguée à la protection des données
+    description: Elle lit le registre des traitements, les mentions et la journalisation des accès de l'entrepôt.

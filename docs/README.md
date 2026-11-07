@@ -128,8 +128,8 @@ le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 | 7 | **Le registre des traitements et le bloc `rgpd:`** : `controller:` en proposition (D1320), les quatre niveaux (D1323–D1325) | clos (D1808–D1809) |
 | 8 | **La rétention** : l'historisation (D411) dans rights.md, l'anonymisation avec sa règle et `cleanup.yml` dans le registre (D1334) | clos (D1810–D1813) |
 | 9 | **Ce que la sécurité enregistre** : l'audit des lectures et `trace:` (D702–D704), les événements de sécurité du journal et le throttling (D925–D926) ; la déduction des risques au chapitre 11 | clos (D1814–D1817) |
-| 10 | **Les exemples** : les six blocs inventés de rights.md remplacés par les extraits des cas (D1545) ; les clés qu'aucun cas n'écrit | présenté |
-| 11 | **La facette documentation** : les deux rubriques fusionnent ; « les douze principes de security.md » (D1338) face aux six principes et seize invariants | à traiter |
+| 10 | **Les exemples** : les six blocs inventés de rights.md remplacés par les extraits des cas (D1545) ; les clés qu'aucun cas n'écrit | clos (D1818) |
+| 11 | **La facette documentation** : les deux rubriques fusionnent ; « les douze principes de security.md » (D1338) face aux six principes et seize invariants | présenté |
 | 12 | **La classification** : la famille `securite` à reconstituer | à traiter |
 | 13 | **Les lectures ouvertes et les non citées**, à lever ou à reporter | à traiter |
 | 14 | **L'histoire et les statuts** : « Les points ouverts », « le chantier du sujet 2 », les « tranché par » au registre ; les invariants gardés | à traiter |

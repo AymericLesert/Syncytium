@@ -17,6 +17,10 @@ identity: [identifiant]
 # L'historique
 history: true
 
+# L'audit des lectures
+# Les lectures des contacts, des données personnelles, sont auditées : qui, quand, par où, l'enregistrement lu.
+trace: audit
+
 # Les champs
 fields:
 

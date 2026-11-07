@@ -313,7 +313,15 @@ porte le degré** (`degree:` dans groups.yml — validé D900, défaut
 `user`) ; l'utilisateur atteint le degré de son meilleur groupe
 (D414) ; **le compte sans groupe entre au degré `reader`** (D1793, qui
 amende D699 — « l'appartenance obligatoire ») : il lit la documentation
-`public`, rien du détail (D1140). Et
+`public`, rien du détail (D1140). **Le `reader`** (D1794) lit la
+documentation que la confidentialité de ses groupes ouvre, jamais une
+liste, un formulaire ou un enregistrement, et ne déclenche que les
+opérations au plancher `reader` que le concepteur déclare pour lui
+(D1680) ; par défaut — **un écran peut porter le degré `reader`**, pour
+une consultation autorisée, décrit par le concepteur (`degree: reader`
+sur la surface, en proposition). **Le degré ne se compose pas** : le
+meilleur groupe est le plus élevé des groupes affectés, la composition
+(D1099) ne transmet que la visibilité. Et
 **`allow:` complète en précisant les groupes autorisés** (D700) :
 
 **L'inventaire des vingt et un planchers** (D701 — validé ; la vingtième,

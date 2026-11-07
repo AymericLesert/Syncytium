@@ -21,6 +21,12 @@ Toute surface s'ouvre au-dessus de la pile des surfaces précédentes
   D1613) ; la règle complète est à la fiche `form` ;
 - `description:`, par langue, pour la documentation (D1193).
 
+Une cinquième, `degree: reader`, ouvre une surface au `reader`, pour une
+consultation autorisée que le concepteur décrit (D1794) ; sans elle, la
+surface est au degré `user`. La clé est *en proposition*, sa forme se
+précisera à l'implémentation ; les degrés sont au chapitre 7,
+[les droits](../../rights.md).
+
 Ce fichier porte neuf fiches, dans l'ordre du catalogue : `menu`,
 `list`, `form`, `summary`, `widget`, `wizard`, `dashboard`, `template`,
 `chat`. Chaque fiche suit le modèle du chapitre

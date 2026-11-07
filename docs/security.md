@@ -268,9 +268,10 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   (`restore`, `migrate`, `anonymize`, `reset_coverage` — D881, le
   plancher validé par D900). **Le groupe porte le degré** (`degree:`,
   validé D900), l'utilisateur
-  atteint celui de son meilleur groupe ; **l'appartenance à un groupe
-  est obligatoire** pour tous les types de comptes (D746) ; **le plus
-  exigeant l'emporte** — un `allow:` n'abaisse jamais un plancher.
+  atteint celui de son meilleur groupe — le plus élevé des groupes
+  affectés, la composition ne transmet que la visibilité (D1794) ; un
+  compte sans groupe est un `reader` (D1793) ; **le plus exigeant
+  l'emporte** — un `allow:` n'abaisse jamais un plancher.
 - **La tâche à portée propre** (D53) : elle s'exécute avec sa propre
   `lecture:` (l'élévation contrôlée, type SUID) ; qui déclenche peut
   lire le résultat, les lecteurs additionnels se déclarent. La tâche
@@ -602,7 +603,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 Ce que toute implémentation devra prouver, décision par décision :
 
 1. un compte sans groupe est un `reader` (D1793, qui amende D699 et
-   D746) — il lit la documentation `public`, rien du détail ;
+   D746) — il lit la documentation `public`, rien du détail ; le
+   `reader` n'ouvre un écran que si le concepteur l'a mis à son degré
+   (D1794) ;
 2. le serveur arbitre ; l'interface et l'injection comportementale
    ne portent aucune sécurité (D25, D66) ;
 3. `private` ne quitte jamais le serveur autrement que par une tâche

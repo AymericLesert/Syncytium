@@ -221,6 +221,17 @@ par `when: <connecteur>[.<entrée>]`, l'enchaînement par `actions:` ou le
 wizard. Six déclencheurs ; la relance depuis la supervision n'en est pas
 un. *(D54, D106, D1747)*
 
+**Degré d'autorisation** (`degree:`) — Le niveau d'autorisation d'un
+groupe d'utilisateurs, et le plancher d'une opération : `reader`,
+`user`, `manager`, `administrator`. Le groupe le porte dans `groups.yml`,
+`user` par défaut ; l'utilisateur atteint le degré le plus élevé des
+groupes qui lui sont affectés, la composition ne transmet que la
+visibilité ; sans groupe, il est un `reader`. Le `reader` lit la
+documentation que la confidentialité de ses groupes ouvre, jamais une
+liste, un formulaire ou un enregistrement, sauf l'écran que le
+concepteur met à son degré. *Ex. : `administration: { degree: administrator }`.*
+*(D699, D900, D1140, D1680, D1793, D1794)*
+
 **Défaut du socle** — Une valeur que Syncytium applique quand rien n'est
 déclaré : le libellé `${name}`, `reset: never`, l'historisation éteinte.
 Les settings le surchargent ; une clé qui ne nomme aucun défaut connu est

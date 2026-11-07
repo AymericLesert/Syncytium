@@ -1,139 +1,224 @@
 # Le réglementaire
 
-Le marquage des données personnelles, le registre des traitements et le bloc
-`rgpd:`, l'anonymisation, la rétention, les droits des personnes.
+> **Un traitement**, au sens du RGPD, est une opération ou une suite
+> d'opérations impliquant au moins un champ marqué `rgpd:`. L'entité qui
+> porte le champ décrit le stockage de la donnée ; le module qui la porte
+> est soumis au règlement ([glossaire](../../glossaire.md)).
 
-Les décisions citées entre parenthèses renvoient au
-[registre](../../conception.md). Le texte vient des deux artefacts
-préparatoires, déplacé à la réorganisation ; la réécriture suit.
+Le règlement général sur la protection des données demande de savoir
+quelles données sont personnelles, qui les traite et pourquoi, combien de
+temps on les garde, et comment une personne obtient les siennes ou leur
+effacement. Syncytium le sait par le modèle : le marquage des champs, le
+registre des traitements généré, l'anonymisation et sa règle, l'extraction.
+Ce fichier dit chacun. Les fiches de `rgpd.extract` et `rgpd.anonymize`
+sont au chapitre 6 ([le catalogue](../06-operations/06-catalogue.md),
+D1756). Les décisions citées entre parenthèses renvoient au
+[registre](../../conception.md).
 
 ## Le sommaire
 
-- [Le RGPD (D695–D698)](#le-rgpd-d695d698)
-- [Le RGPD](#le-rgpd)
+- [Le client responsable](#le-client-responsable)
+- [Le marquage](#le-marquage)
+- [Le registre des traitements et le bloc rgpd](#le-registre-des-traitements-et-le-bloc-rgpd)
+- [L'anonymisation](#lanonymisation)
+- [La rétention](#la-rétention)
+- [Les droits des personnes](#les-droits-des-personnes)
+- [Vos données](#vos-données)
 
-## Le RGPD (D695–D698)
+## Le client responsable
 
-- **le marquage** (D695) : la facette **`rgpd:`** aux trois valeurs —
-  `personal` (la donnée personnelle), `sensitive` (l'article 9 — le
-  régime renforcé), `consent` (le traitement au consentement) — et une
-  quatrième, **`identity`**, acquise (D1332, D1806 : l'identité civile
-  de la personne — le nom, le prénom —, non un identifiant unique ;
-  depuis ces champs, l'arbre de la donnée dit tout ce qui est lié à une
-  personne ; l'opération `rgpd.extract(identity)` du socle, D1331/D1333, part
-  d'eux) :
+L'instance est chez le client, et le client est le responsable de
+traitement : Syncytium fournit la capacité, le marquage, le registre,
+l'anonymisation, l'extraction, jamais la décision (D16). Rien ne remonte
+vers l'éditeur sans un accord explicite. Les indicateurs d'usage sont
+agrégés sur le schéma, et les seuls acteurs identifiés sont les comptes
+techniques : la surveillance des salariés est évitée par construction ;
+la sécurité du système d'information reste une finalité légitime pour
+tracer les tentatives nominatives (D43). Un projet sans aucun champ
+marqué n'est pas une anomalie : Syncytium ne décide pas de ce qui est
+réglementaire (D1319).
+
+## Le marquage
+
+La facette `rgpd:` d'un champ dit ce qui relève du règlement, en quatre
+valeurs (D695, D1806) :
+
+- `personal`, la donnée personnelle ;
+- `sensitive`, la donnée de l'article 9, au régime renforcé ; ses
+  lectures sont auditées d'office (D703) ;
+- `consent`, le traitement au consentement, que le retrait anonymise ;
+- `identity`, l'identité civile d'une personne, le nom, le prénom : le
+  champ est personnel, et il est la clé d'association de l'enregistrement
+  à une personne, le point de départ de l'extraction, sans unicité de
+  l'enregistrement.
+
+Le contact de l'entrepôt :
 
 ```yaml
-fields:
-  name:       { type: text, rgpd: personal }
-  blood_type: { type: text, rgpd: sensitive, confidentiality: private }
-  newsletter: { type: boolean, rgpd: consent }
+  nom:
+    type: text[..40]
+    required: true
+    rgpd: identity
+    searchable: mutualizable[qui]
+    label: Nom
+
+  prenom:
+    type: text[..40]
+    rgpd: identity
+    label: Prénom
 ```
 
-- **l'effacement = l'anonymisation** (D696) : la valeur de
-  remplacement est **construite par un algorithme à règle
-  aléatoire, jamais dérivée de l'origine** (l'exception admise : la
-  longueur de la chaîne) — ni un blanc, ni un haché ; la
-  modification porte **les enregistrements et les historiques**
-  (D168) — l'enregistrement demeure, la personne disparaît ; la
-  provenance (D178), technique, survit ; **un fichier s'anonymise** par
-  la destruction de son contenu, ses mots-clés rendus cohérents avec la
-  fiche, son squelette conservé (D163) ; dédupliqué par empreinte, il
-  ne s'efface qu'au dernier détenteur, toutes ses fiches anonymisées
-  (D165) ;
-- **`anonymize`, la dix-neuvième opération du socle** (D697) :
-  l'usage limité à l'administration — et le principe posé : **chaque
-  opération du socle porte un degré intrinsèque d'autorisation** (le
-  plancher que la déclaration ne peut abaisser) ; l'inventaire des
-  degrés est flagué ;
-- **la rétention** (D698) : la donnée marquée dont la rétention
-  échoit s'anonymise — par la règle de `rgpd.anonymize` que le
-  concepteur déclare, jamais d'office ; sans déclaration, rien, et le
-  registre dit « rétention non précisée » (D1813) — la profondeur de
-  l'historique (D411) est une autre chose, de l'exploitation (D1811) ; deux
-  rétentions (D1810) — celle des journaux et des
-  fichiers, `cleanup.yml`, relève de l'exploitation, le chapitre 10 ;
-  celle des données personnelles, l'anonymisation déclarée avec sa
-  règle et sa fréquence (D1334), est de ce chapitre ; **la rétention
-  d'une donnée personnelle est la durée d'une fiche sans mouvement ni
-  mise à jour, au-delà de laquelle les informations personnelles ne sont
-  pas à conserver ; la fiche et son historique s'anonymisent ensemble**
-  (D1812) ;
-- **le registre des traitements auto-documenté** (D698 —
-  D333/D645) : une ligne par traitement — une opération ou une suite
-  impliquant un champ `rgpd:` (D1317–D1318) —, **son responsable, un
-  groupe d'utilisateurs** (D1320, `controller:` ; documentaire, aucun
-  droit n'en découle, D1808), les
-  champs `rgpd:`, leur confidentialité, leur rétention, leurs
-  connecteurs sortants — généré, jamais rédigé ; un projet sans champ
-  marqué n'est pas une anomalie (D1319).
+Un type personnalisé porte le marquage, et le champ qui l'emploie en
+hérite : la RGPD se généralise par le type ; il écrit l'une des quatre
+valeurs, jamais une forme courte (D1178, D1807). L'écriture de la facette
+est au chapitre 2 ([les types](../02-modele/05-types.md)). Dès qu'un champ
+est marqué, son entité décrit le stockage de la donnée et son module est
+soumis (D1317).
 
-## Le RGPD
+## Le registre des traitements et le bloc rgpd
 
-- **Le client est responsable de traitement** (D16, §6.6) —
-  l'instance chez lui ; Syncytium fournit la capacité (la rétention,
-  l'anonymisation, l'export). La remontée vers l'éditeur serait un
-  **opt-in strict**. Les indicateurs d'usage sont agrégés sur le
-  schéma ; les acteurs identifiés ne sont que les comptes
-  techniques — la surveillance des salariés est évitée par
-  construction ; **la sécurité du SI reste une finalité légitime**
-  pour tracer les tentatives nominatives (§6.4).
-- **Le marquage** (D695) : `rgpd: personal | sensitive | consent` — et
-  `identity`, acquise (D1332, D1806 — l'identité civile, la clé d'association de l'enregistrement à une personne, sans unicité, le point de
-  départ de l'extraction `rgpd.extract(identity)`, D1331/D1333) — le
-  modèle sait ce qui est personnel ; le `sensitive` (l'article 9)
-  audité d'office (D703).
-- **L'effacement = l'anonymisation** (D137, D139, D696) : jamais une
-  suppression physique — la valeur de remplacement **construite par
-  un algorithme aléatoire, jamais dérivée de l'origine** (ni blanc ni
-  haché), sur **les enregistrements et les historiques** ;
-  l'enregistrement demeure, la personne disparaît, la provenance
-  survit. `anonymize` = la dix-neuvième opération, plancher
-  `administrator` (D697) ; le fichier anonymisé = le contenu détruit,
-  les mots-clés cohérents (Q39).
-- **La rétention** (D698, D411, D1328, D1334) : deux rétentions
-  (D1810) — celle des journaux et des fichiers à l'exploitation, celle
-  des données personnelles ici : la durée d'une fiche sans mouvement ni
-  mise à jour, au-delà de laquelle les informations personnelles ne sont
-  pas à conserver, la fiche et son historique anonymisés ensemble
-  (D1812) ; le nettoyage
-  (`cleanup.yml`) reste aux fichiers et aux traces ; l'anonymisation
-  des enregistrements porte sa règle et sa fréquence (`rgpd.anonymize`
-  avec `every:`) ; la rétention d'une donnée est la plus longue période
-  parmi ses traitements, le registre fait la somme ; l'échéance de
-  validité est portée par l'anonymisation — la donnée marquée dont la rétention
-  échoit **s'anonymise d'office** ; les pays du stockage, `countries:` dans
-  la section `rgpd:` du connecteur (D1345) ; les traces de journal à
-  rétention paramétrable et anonymisation optionnelle (D41).
-- **Le registre des traitements auto-documenté** (D698) : généré du
-  modèle — **une ligne par traitement, c'est-à-dire par opération qui
-  implique un champ `rgpd:`** (D1317 : les actes du socle, les
-  opérations déclarées, les règles de reprise, l'import et l'export, les
-  notifications et les webhooks, le LLM ; l'anonymisation et le
-  nettoyage comme traitements d'appui, avec leur fréquence et leur
-  règle) ; l'entité marquée décrit le stockage, le module marqué est le
-  périmètre soumis ; les champs `rgpd:`, leur confidentialité, leur
-  rétention, leurs connecteurs sortants ; **le responsable du traitement,
-  un groupe d'utilisateurs, propriété du traitement** (D1320 ;
-  documentaire, aucun droit n'en découle, D1808) — dans
-  **le bloc `rgpd:` du traitement** (D1322 : `controller`, `legal` — la base
-  légale à valeurs fermées, un paragraphe par valeur au catalogue,
-  D1326 —, `purpose`… ; le même bloc dans les settings du projet, du
-  module et de l'entité, D1323–D1325 — quatre niveaux, le plus proche
-  l'emporte), « non précisé » au registre quand il
-  manque ; **un projet sans aucun champ `rgpd:` n'est pas une anomalie :
-  Syncytium ne décide pas de ce qui est réglementaire** (D1319 — amende
-  D1177 : la complétude ne relève plus l'absence de marquage) ; le
-  marquage se généralise par le type personnalisé qui le porte
-  (`nom: { type: text[..40], rgpd: personal }`, D1178) — le registre se
-  lit alors par type, puis par champ.
-- **Le détail des migrations** (D1065) : les anomalies d'un passage
-  portent des valeurs de la source ; leur fichier est supprimé entier
-  à l'échéance de sa rétention (le `cleanup.yml` de l'environnement,
-  D1073) ; le rapport par mail anonymise les valeurs des champs
-  `rgpd:` (D696) ; les interfaces du module les montrent sous les
-  droits de chacun.
-- **Le staging porte des données réelles** (§7.3) : l'éphémérité et
-  l'accès restreint sont les garde-fous, à documenter chez le
-  client.
+Le registre des traitements est généré, jamais rédigé (D698, D333, D645).
+Une ligne par traitement, les traitements groupés par module soumis
+(D1321) : les actes du socle sur une entité marquée, les opérations
+déclarées, les règles de reprise, l'import et l'export, les notifications
+et les webhooks, le LLM ; l'anonymisation et le nettoyage comme
+traitements d'appui, avec leur fréquence et leur règle (D1317, D1318).
+Une suite d'opérations est un seul traitement, ses étapes listées
+(D1329). Chaque ligne porte les champs marqués, leur confidentialité,
+leur rétention, leurs connecteurs sortants, et ce que le modèle ne dit
+pas : le bloc `rgpd:`, à cinq clés (D1322, D1809) :
 
+- `controller`, le responsable du traitement, un groupe d'utilisateurs
+  (D1320) ; documentaire, aucun droit n'en découle (D1808) ;
+- `legal`, la base légale, six valeurs fermées, `consent`, `contract`,
+  `legal_obligation`, `vital_interests`, `public_task`,
+  `legitimate_interest` ; Syncytium écrit le paragraphe de chacune, dans
+  chaque langue (D1326) ;
+- `purpose`, la finalité, un texte par langue ;
+- `contact`, l'adresse du responsable ;
+- `dpo`, le délégué à la protection des données, son nom, son courriel,
+  son téléphone.
+
+Le bloc se déclare à quatre niveaux, et le plus proche l'emporte,
+propriété par propriété : les settings du projet, du module, de
+l'entité, et le traitement lui-même (D1323, D1324, D1325). Une propriété
+absente partout est « non précisée » au registre, et la complétude la
+compte ; un groupe inconnu en `controller:` est une erreur d'ingestion
+(D1327). Le bloc du projet, dans `settings.yml` de l'entrepôt :
+
+```yaml
+# Le réglementaire
+# Le bloc rgpd: du projet, hérité par les modules, les entités et les traitements : qui répond des traitements, sur
+# quelle base, pour quelle finalité ; le contact et le délégué.
+rgpd:
+
+  # Le responsable des traitements
+  # Un groupe d'utilisateurs : la direction répond de l'entrepôt.
+  controller: direction
+
+  # La base légale
+  # L'intérêt légitime de l'entreprise : tenir le miroir de son ERP.
+  legal: legitimate_interest
+
+  # La finalité
+  purpose: Tenir l'entrepôt de données de l'entreprise, miroir de l'ERP, pour le pilotage et la préparation
+
+  # Le contact
+  contact: direction@entreprise.example
+
+  # Le délégué à la protection des données
+  dpo:
+    name: Le délégué de l'entreprise
+    email: dpo@entreprise.example
+```
+
+Le bloc d'un traitement ne surcharge que ce qui lui est propre ; les
+clés de la déclaration d'une opération sont au chapitre 6. Le lieu du
+stockage vient du connecteur, `countries:` dans sa section `rgpd:`
+(D1345) :
+
+```yaml
+  # Le réglementaire
+  # Le stockage est en France.
+  rgpd:
+    countries: [FR]
+```
+
+## L'anonymisation
+
+L'effacement d'une donnée personnelle est une anonymisation, jamais une
+suppression physique (D137, D139, D696). La valeur de remplacement est
+construite par un algorithme à règle aléatoire, jamais dérivée de
+l'origine, ni un blanc, ni un haché ; la seule exception admise est la
+longueur de la chaîne. L'anonymisation porte sur les fiches, les données
+personnelles et l'historique : quand une fiche s'anonymise, la fiche et
+son historique le sont ensemble (D168, D1812) ; l'enregistrement
+demeure, la personne disparaît, la provenance de la reprise, technique,
+survit (D178). Un fichier s'anonymise par la destruction de son contenu,
+ses mots-clés rendus cohérents avec la fiche, son squelette conservé
+(D163) ; dédupliqué par empreinte, il ne s'efface qu'au dernier
+détenteur, toutes ses fiches anonymisées (D165). `rgpd.anonymize` est au
+plancher `administrator` (D697, D1333) ; le rapport d'une migration
+anonymise les valeurs des champs marqués avant de partir par mail
+(D1065).
+
+## La rétention
+
+La rétention d'une donnée personnelle est la durée d'une fiche sans
+mouvement ni mise à jour, au-delà de laquelle les informations
+personnelles ne sont pas à conserver (D1812). Elle s'écrit dans la règle
+de `rgpd.anonymize` que le concepteur déclare, avec sa fréquence
+(D1334, D1813) ; l'inactivité se mesure à la date de dernière
+modification de la fiche. L'entrepôt anonymise chaque mois les contacts
+des tiers sortis depuis trois ans :
+
+```yaml
+# Les opérations
+# L'anonymisation des contacts des tiers inactifs depuis trois ans, chaque mois : le traitement d'appui du RGPD ; le
+# responsable et la base légale viennent du projet, la finalité est la sienne.
+operations:
+
+  # L'anonymisation
+  anonymiser:
+    every: monthly[1 at 03:00]
+    actions: [ rgpd.anonymize(owner.actif = false and owner.date_modification < context.now - 3y) ]
+    rgpd:
+      purpose: Effacer l'identité des contacts des tiers sortis de l'ERP depuis plus de trois ans
+```
+
+Sans anonymisation déclarée, Syncytium ne fait rien, et le registre dit
+« rétention non précisée » (D1813). Le registre lit la rétention dans
+la règle ; quand une donnée est touchée par plusieurs traitements, sa
+rétention est la plus longue période parmi eux (D1328). Deux choses sont
+de l'exploitation, au chapitre 10 (D1810, D1811) : la rétention des
+journaux et des fichiers, `cleanup.yml`, qui supprime entier le détail
+d'une migration à son échéance (D1073), les traces de journal à
+rétention paramétrable (D41) ; et la profondeur de l'historique (D411).
+
+## Les droits des personnes
+
+Une personne demande l'ensemble de ses données : un responsable métier
+ou un administrateur exécute `rgpd.extract(identity)`, au plancher
+`manager` (D1149, D1331, D1333). L'extraction part des champs `identity`,
+exacts ou normalisés, présente les enregistrements trouvés, le
+responsable confirme, puis Syncytium suit les références et les
+compositions et réunit ce qui est lié ; le résultat est une édition à
+cartouche, journalisée (D1332). L'opposition et le retrait du
+consentement s'exercent par l'anonymisation des seuls champs `consent`
+(D1331). La limitation s'exerce par l'état de l'entité que le concepteur
+déclare, un état qui ne permet que `read` (D1172, D1331). La mention
+d'information, `rgpd.notice`, se génère depuis le registre, dans chaque
+langue ; le concepteur l'ancre où il veut, et la documentation notifie un
+manque si rien ne l'ancre (D1335). L'entrepôt l'ancre dans sa page
+d'accueil :
+
+```markdown
+# L'entrepôt de données
+
+Les données de Cegid PMI, standardisées, harmonisées et fiabilisées, de l'opérateur aux dirigeants. L'entrepôt
+est en lecture seule : la reprise de l'ERP l'alimente chaque nuit.
+
+## Vos données
+
+${rgpd.notice}
+```

@@ -1,73 +1,134 @@
 # La confidentialité
 
-Qui voit quelle donnée : les trois niveaux, les groupes, les profils, l'héritage
-des calculés, l'historique, les fichiers, partout où la donnée sort.
+> **La confidentialité** est le niveau d'exposition d'une donnée :
+> `public`, partout ; `protected`, l'interface et les tâches ; `private`,
+> les tâches seulement. Elle se resserre par groupes
+> ([glossaire](../../glossaire.md)).
 
-Les décisions citées entre parenthèses renvoient au
-[registre](../../conception.md). Le texte vient des deux artefacts
-préparatoires, déplacé à la réorganisation ; la réécriture suit.
+Qui voit quelle donnée : la confidentialité répond au champ, pour chaque
+canal et pour chaque groupe. Ce fichier dit les trois niveaux, le second
+axe, les groupes, les profils et les trois écritures, l'héritage des
+champs calculés et de l'historique, et tout ce qui suit la confidentialité
+quand la donnée sort. L'écriture de la facette au champ est au chapitre 2
+([les types](../02-modele/05-types.md), D1800). Les décisions citées
+entre parenthèses renvoient au [registre](../../conception.md).
 
 ## Le sommaire
 
-- [La confidentialité (D25–D27, D364)](#la-confidentialité-d25d27-d364)
-- [La confidentialité — qui voit quel champ](#la-confidentialité--qui-voit-quel-champ)
+- [Les trois niveaux](#les-trois-niveaux)
+- [Le second axe, les groupes](#le-second-axe-les-groupes)
+- [Les profils et les trois écritures](#les-profils-et-les-trois-écritures)
+- [L'héritage et l'historique](#lhéritage-et-lhistorique)
+- [Partout où la donnée sort](#partout-où-la-donnée-sort)
 
-## La confidentialité (D25–D27, D364)
+## Les trois niveaux
 
-Le niveau d'exposition d'une donnée : **`public`** (partout),
-**`protected`** (l'interface et les tâches), **`private`** (les
-tâches seulement) — **resserrable par groupes**, déclarable à
-l'entité et **au champ** (D364) ; **un profil nommé à la racine du
-projet se cite par son nom**, `confidentiality: financier`, la forme
-courte, et la forme longue, `{ level: , groups: [..] }`, s'écrit au
-champ sans profil (D885, D1536, D1798) ; un profil ne porte jamais le
-nom d'un niveau, `public`, `protected`, `private` (D1799) :
+Un champ a un niveau de confidentialité, `public` par défaut (D25).
+Les trois niveaux sont emboîtés : ce que l'API voit, l'interface le voit,
+et ce que l'interface voit, les tâches le voient.
+
+- `public` : l'API, l'interface et les tâches ;
+- `protected` : l'interface et les tâches, jamais l'API ;
+- `private` : les tâches seulement ; la donnée ne quitte le serveur que
+  par une tâche déclarée, le bulletin qui incorpore le salaire.
+
+Changer le niveau d'un champ est une migration de contrat pour l'API :
+passer de `public` à `protected` est une suppression pour elle, et le
+mécanisme de dépréciation s'applique (D13).
+
+## Le second axe, les groupes
+
+Le niveau dit quel canal voit ; les groupes disent qui voit (D26, D27).
+Les deux se composent au champ : un champ `protected` ouvert aux achats
+et à la direction n'est vu que par l'interface et les tâches, et, dans
+l'interface, que par les membres de ces deux groupes (D364). Un membre
+d'un groupe contenant voit ce que voient ses constituants
+([les groupes](02-groupes.md), D1099).
+
+## Les profils et les trois écritures
+
+Le niveau et les groupes s'écrivent une fois, dans un profil nommé, à la
+racine du projet, dans `syncytium.yml` (D885, D1536). L'entrepôt en
+déclare trois :
 
 ```yaml
-fields:
-  salary:
-    type: amount
-    confidentiality: protected      # le niveau (D25), resserrable (D26)
+# Les profils de confidentialité
+# Un niveau et les groupes qui voient le champ, nommés une fois et référencés au champ ; chaque profil porte son
+# niveau (level) et ses groupes (groups) : confidentiality: financier.
+confidentiality:
+
+  # Le profil financier
+  # Les prix de revient, les prix d'achat, les valeurs de stock, le bancaire.
+  financier:
+    level: protected
+    groups: [achats, direction]
+
+  # Le profil de la direction
+  # Les marges, les commissions.
+  direction:
+    level: protected
+    groups: [direction]
+
+  # Le profil commercial
+  # Les conditions commerciales.
+  commercial:
+    level: protected
+    groups: [commercial, direction]
 ```
 
-La confidentialité irrigue tout : les menus filtrés (D193), l'export
-aux colonnes visibles (D196), les widgets hérités surchargeables
-(Q53), la communication (D393) — et jusqu'aux **thèmes** (D753 : un
-objet comme les autres, le choix du profil n'offre que le visible).
+Au champ, `confidentiality:` a trois écritures (D1798, D1800) :
 
-## La confidentialité — qui voit quel champ
+- **le nom d'un profil**, la forme courte recommandée,
+  `confidentiality: financier` ;
+- **un niveau seul**, `confidentiality: private`, pour un niveau sans
+  groupe ;
+- **la forme longue**, `confidentiality: { level: , groups: [..] }`,
+  pour un cas qu'un profil n'aurait pas à nommer.
 
-- **Trois niveaux emboîtés** (D25) : `public` (l'API, l'interface,
-  les tâches), `protected` (l'interface et les tâches), `private`
-  (les tâches seulement) — l'ordre total API ⊂ interface ⊂ tâches,
-  le défaut `public`. *(Les noms d'origine `publique`/`protegee`/
-  `privee` ont pris leur forme anglaise avec le catalogue.)*
-- **Le second axe : le qui** (D26–D27) — la restriction par groupe,
-  les groupes déclarés dans la description et versionnés avec elle.
-  **Les deux se composent** au champ (D364) ; **les profils nommés**
-  (D885 — le cas 5) écrivent une fois le niveau et le qui à la racine
-  du projet, dans `syncytium.yml` (D1536), et se citent par leur nom,
-  `confidentiality: financier`, la forme courte ; la forme longue,
-  `{ level: , groups: [..] }`, s'écrit au champ sans profil (D1798).
-- **Changer un niveau = une migration de contrat** (§5.5) : passer un
-  champ de `public` à `protected` est une suppression pour l'API —
-  le mécanisme de dépréciation D13 s'applique, rien de nouveau.
-- **L'héritage fail-closed** (D102, Q23) : un champ calculé hérite
-  du niveau **le plus restrictif** de ses sources, y compris à
-  travers les relations et les `sources` des hooks ; l'abaissement
-  est **explicite et signalé** — jamais silencieux.
-- **Le troisième axe** (D144) : la visibilité d'un champ par le
-  niveau d'héritage atteint par l'enregistrement — la même
-  machinerie.
-- **L'historique** (D170, D413) : la visibilité déclarée par groupe
-  (`visibility:`), la confidentialité des champs héritée de l'entité
-  d'origine, l'anonymisation étendue aux instantanés — sinon la
-  fuite.
-- **Partout où la donnée sort** : les menus filtrés (D193), l'export
-  aux seules colonnes visibles (D196), les widgets, la
-  communication (D393), les thèmes (D753), le hook d'interface qui
-  ne reçoit **jamais `private`** (§8.2) — **et les fichiers** (D923) :
-  le dossier appartient au moteur et n'est jamais servi directement,
-  tout accès passe par le moteur sous la confidentialité du champ et
-  l'appartenance de la ligne, les noms sur disque sont opaques.
+Un profil ne porte jamais le nom d'un niveau, `public`, `protected` ou
+`private` : la forme courte se lit sans confusion, et un profil ainsi
+nommé est une erreur d'ingestion (D1799). Le client de l'entrepôt :
 
+```yaml
+  taux_representant:
+    type: percentage
+    confidentiality: direction
+    label: Commission
+    hint: Le taux de commission du représentant — réservé à la direction.
+```
+
+## L'héritage et l'historique
+
+Un champ calculé hérite du niveau le plus restrictif de ses sources, à
+travers les relations et les sources des hooks ; l'abaisser est un acte
+explicite, que la validation signale, jamais silencieux (D102). Quand une
+entité hérite d'une autre, un champ appartient à un niveau d'héritage et
+n'est visible que si l'enregistrement l'a atteint : la même machinerie
+(D144).
+
+L'historique d'une entité a sa propre visibilité : les groupes qui le
+voient, `visibility:` dans la forme longue d'`history:` ; sans elle, la
+visibilité est celle de l'entité (D170, D413). Les champs de
+l'historique gardent la confidentialité de l'entité d'origine, et
+l'anonymisation s'étend aux instantanés, sinon la donnée fuit par le
+passé (D170). L'écriture d'`history:` est au chapitre 2
+([la vie d'un enregistrement](../02-modele/04-vie.md)).
+
+## Partout où la donnée sort
+
+La confidentialité suit la donnée hors du champ :
+
+- **les menus** ne montrent que les entrées visibles (D193) ;
+- **l'export** n'écrit que les colonnes visibles (D196) ;
+- **les widgets** hérités se surchargent sans élargir (Q53) ;
+- **la communication** a la confidentialité de son entité (D393) ;
+- **les thèmes** sont des objets comme les autres : le choix n'offre que
+  le visible (D753) ;
+- **le hook d'interface**, le seul code tiers au navigateur, ne reçoit
+  jamais `private` (D66, D918) ;
+- **les fichiers** appartiennent au moteur et ne sont jamais servis
+  directement : tout accès passe par le moteur, sous la confidentialité
+  du champ et l'appartenance de la ligne ; les noms sur disque sont
+  opaques (D923) ;
+- **le dictionnaire de la donnée** montre tout champ avec son niveau,
+  seules les clés confidentielles n'y paraissent pas (D1247).

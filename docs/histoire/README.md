@@ -14,4 +14,8 @@ conception](plan.md), les domaines, les rangs, les étapes et les
 chapitres, chacun avec son état et sa date de fin (D1660). Une seconde
 page dit [la collaboration](collaboration.md) : la nature des échanges,
 l'organisation du travail, l'enrichissement mutuel, et les posts
-LinkedIn qui racontent les phases (D1664).
+LinkedIn qui racontent les phases (D1664). Une troisième page remonte
+avant le 12 juin 2026 : [la genèse](genese.md), le système de gestion de
+bases de données de 1994 et son dictionnaire en texte, la collection
+d'étiquettes de vin de 1995, le classeur de 2016 ; les pièces sont dans
+[`genese/`](genese/) (D1781).

@@ -25666,6 +25666,37 @@ avant la synthèse Q16).
   l'entrée, les secrets, le navigateur et l'API), les écarts (les degrés, `allow:`, la confidentialité, le
   marquage et le registre RGPD, la rétention, la session, `trace:`, `groups.yml`), les exemples et la facette, le
   registre. Le point 1 présenté.
+- **2026-11-08 — LA PAUSE : LE CHAPITRE 7 LU, RÉORGANISÉ ET RÉÉCRIT, LE CHAPITRE DU MOTEUR AU PLAN (D1783–D1833,
+  1833 décisions).** Une session neuve, du 07 au 08/11, pour le chapitre 7, les droits et la sécurité. **La lecture**
+  (D1783, D1786) : l'auteur recentre le chapitre sur « la gestion des privilèges et de l'intégrité des données en
+  cours de fonctionnement » (D1784) ; le démarrage d'une version relève d'un chapitre du fonctionnement du moteur,
+  qui manquait au plan — le chapitre 9, avant l'administration, quinze chapitres (D1785) ; la vision globale des
+  points à l'ouverture d'un chapitre devient la méthode, la table « Les points de la lecture en cours » de
+  docs/README.md, lue par le tableau de bord 0.4.1 (D1787). Quatorze points, D1788–D1823 : l'association d'un
+  groupe au système d'authentification saisie dans le module `_administration`, jamais dans la configuration
+  (D1788–D1789) ; `administrator` à nom réservé, la double entrée pour tout groupe de ce degré (D1790–D1791) ; le
+  groupe de l'application, les trois conditions de l'entrée contrôlées par le connecteur, le compte sans groupe =
+  `reader` (D1792–D1794) ; `allow:` = une règle `enable`, `group`, `when`, trois écritures, tous les étages,
+  l'application dans version.yml (D1795–D1797) ; le profil de confidentialité cité par son nom, sans interpolation,
+  les noms de niveau exclus (D1798–D1800) ; la session en paramètres du connecteur d'authentification, l'item des API
+  aux settings, le « pour le compte de » à l'appel, l'endpoint d'entrée idée d'évolution (D1801–D1805) ;
+  `rgpd: identity` acquis, jamais `true` (D1806–D1807) ; `controller:` documentaire, cinq clés au bloc `rgpd:`
+  (D1808–D1809) ; la rétention = la durée d'une fiche sans mouvement ni mise à jour, déclarée par `rgpd.anonymize`,
+  les journaux et la profondeur de l'historique à l'exploitation (D1810–D1813) ; l'audit par enregistrement, son
+  stockage distinct, `trace:` à trois niveaux, les actes privilégiés à l'audit de `_administration`, le partage avec
+  les chapitres 10 et 11 (D1814–D1817) ; les exemples des cas, l'entrepôt reçoit le groupe `audit` et `trace: audit`
+  (D1818) ; la facette en deux parties (D1819) ; la famille reconstituée, 59 sorties, 19 entrées (D1820) ; le
+  registre soldé (D1821) ; « l'historique », non « l'histoire » (D1822) ; la lecture close (D1823). **La
+  réorganisation** (D1824) : `07-securite/`, dix fichiers, rights.md et security.md retirés, l'historique au journal,
+  ce qui part reçu par administration.md et telemetry.md. **La réécriture** (D1825–D1833) : les dix fichiers dans
+  la forme didactique, 200 blocs YAML sans écart, 697 liens, aucune décision perdue. « Avant de me prononcer, je
+  marque une pause ». **À la reprise** : le README du chapitre 7 — la doctrine et la carte, venues de security.md,
+  ne tiennent pas au chapitre recentré : les retirer (A, ma recommandation ; le chapitre de la sécurité de la
+  documentation réglementaire suivrait alors les fichiers du chapitre, D1819 précisée) ou les réécrire (B) ; puis la
+  relecture du chapitre 7 par l'auteur ; puis le chapitre 8, la reprise et le mapping. Restent ouvertes jusqu'à
+  l'implémentation : D1788 (la forme des propriétés d'une classe), D1794 (`degree: reader` sur une surface), D1805
+  (`api:`), D1815 (le stockage « intelligent » de l'audit) ; et la décision à consigner quand l'auteur l'ouvrira,
+  les compétences IA pour les hooks (07/11, post 22).
 - **2026-11-07 (réorganisation) — L'HISTORIQUE DE RIGHTS.MD ET SECURITY.MD, SORTI À LA RÉORGANISATION DU
   CHAPITRE 7 (D1824).** Les deux sections « Les points ouverts », telles qu'elles étaient dans les artefacts,
   gardées ici pour trace.

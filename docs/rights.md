@@ -311,7 +311,11 @@ fields:
   longueur de la chaîne) — ni un blanc, ni un haché ; la
   modification porte **les enregistrements et les historiques**
   (D168) — l'enregistrement demeure, la personne disparaît ; la
-  provenance (D178), technique, survit ;
+  provenance (D178), technique, survit ; **un fichier s'anonymise** par
+  la destruction de son contenu, ses mots-clés rendus cohérents avec la
+  fiche, son squelette conservé (D163) ; dédupliqué par empreinte, il
+  ne s'efface qu'au dernier détenteur, toutes ses fiches anonymisées
+  (D165) ;
 - **`anonymize`, la dix-neuvième opération du socle** (D697) :
   l'usage limité à l'administration — et le principe posé : **chaque
   opération du socle porte un degré intrinsèque d'autorisation** (le

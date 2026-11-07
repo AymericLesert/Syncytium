@@ -323,7 +323,8 @@ fields:
 - **le registre des traitements auto-documenté** (D698 —
   D333/D645) : une ligne par traitement — une opération ou une suite
   impliquant un champ `rgpd:` (D1317–D1318) —, **son responsable, un
-  groupe d'utilisateurs** (D1320, `controller:` en proposition), les
+  groupe d'utilisateurs** (D1320, `controller:` ; documentaire, aucun
+  droit n'en découle, D1808), les
   champs `rgpd:`, leur confidentialité, leur rétention, leurs
   connecteurs sortants — généré, jamais rédigé ; un projet sans champ
   marqué n'est pas une anomalie (D1319).

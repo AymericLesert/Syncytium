@@ -493,7 +493,8 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   règle) ; l'entité marquée décrit le stockage, le module marqué est le
   périmètre soumis ; les champs `rgpd:`, leur confidentialité, leur
   rétention, leurs connecteurs sortants ; **le responsable du traitement,
-  un groupe d'utilisateurs, propriété du traitement** (D1320) — dans
+  un groupe d'utilisateurs, propriété du traitement** (D1320 ;
+  documentaire, aucun droit n'en découle, D1808) — dans
   **le bloc `rgpd:` du traitement** (D1322 : `controller`, `legal` — la base
   légale à valeurs fermées, un paragraphe par valeur au catalogue,
   D1326 —, `purpose`… ; le même bloc dans les settings du projet, du

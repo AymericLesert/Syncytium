@@ -132,7 +132,7 @@ le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 | 11 | **La facette documentation** : les deux rubriques fusionnent ; « les douze principes de security.md » (D1338) face aux six principes et seize invariants | clos (D1819) |
 | 12 | **La classification** : la famille `securite` à reconstituer | clos (D1820) |
 | 13 | **Les lectures ouvertes et les non citées**, à lever ou à reporter | clos (D1821) |
-| 14 | **L'histoire et les statuts** : « Les points ouverts », « le chantier du sujet 2 », les « tranché par » au registre ; les invariants gardés | présenté |
+| 14 | **L'historique et les statuts** : « Les points ouverts », « le chantier du sujet 2 », les « tranché par » au registre ; les invariants gardés | présenté — l'historique, non l'histoire (D1822) |
 
 Hors des familles : `glossaire.md` va à `syncytium/glossaire.md` avec le
 premier chapitre ; `etude-comparative-20260718.md` à

@@ -89,11 +89,11 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   fichier et ses sections `##` en titres liés, sans description.
 - **Un chapitre se fait en trois temps** (D1521, D1543) : la lecture — l'audit
   par famille, les écarts arbitrés point par point —, la réorganisation —
-  le découpage vérifié, l'histoire sortie, les liens —, puis la
+  le découpage vérifié, l'historique sorti, les liens —, puis la
   **réécriture** dans la forme ci-dessus, à la fin du chapitre, pour une
   relecture rapide ; la table de `docs/README.md` note les trois.
-- Un chapitre dit **ce qui est**, pas ce qui a été : l'histoire reste au
-  registre ; les décisions sont citées entre parenthèses, elles
+- Un chapitre dit **ce qui est**, pas ce qui a été : l'historique reste au
+  registre (D1822 — l'histoire est le récit du projet, `docs/histoire/`) ; les décisions sont citées entre parenthèses, elles
   renverront aux ADR.
 
 ## La manière

@@ -252,9 +252,9 @@ bornes, le verrouillage, l'invitation — relève du connecteur
 d'authentification, chaque classe déclarant les siens (ma lecture, à
 confirmer) ; ce qui tient aux API — la clé, sa rotation, le porteur —
 se définit aux settings ; le « pour le compte de » n'y est pas, c'est un
-paramètre de l'appel d'API du client (D1803). Les API deviennent un
-connecteur, en proposition (D1802) : un mode exposition et un mode
-sollicitation, REST et JSON par défaut. L'écriture ci-dessous est celle
+paramètre de l'appel d'API du client (D1803). Un connecteur d'endpoint
+d'entrée, qui porterait ses paramètres d'authentification, est une idée
+d'évolution, hors des versions à venir (D1802, D1804). L'écriture ci-dessous est celle
 d'avant D1801 :
 
 ```yaml

@@ -51,7 +51,8 @@ La déclaration porte :
   d'administration, `operation.cooldown` et `operation.retention`
   (D904, D906) ;
 - **`allow:`**, les groupes autorisés, en plus du plancher du contrat
-  (D700) ;
+  (D700) ; la règle complète d'un droit d'action, `enable`, `group`,
+  `when`, est au chapitre 7 (D1795) ;
 - **`rgpd:`**, le traitement au sens du RGPD, sa finalité `purpose:`,
   qui tient lieu de description, son responsable, sa base légale
   (D1317, D1322, D1487).

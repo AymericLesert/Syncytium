@@ -253,9 +253,12 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 
 - **`allow`, un nom, deux foyers exclusifs** (D422–D423) : le cycle
   (chaque état porte ses droits — `read` absent = l'état masque) ou
-  le bloc libre (verbe → expression ou liste de groupes, D700).
-  **Quatre étages** (D886) : l'application, le module, l'entité, le
-  champ — le plus proche l'emporte ; `update: false` au champ = la
+  le bloc libre. **Une règle à trois propriétés** (D1795) : `enable`,
+  `group` (`[all]` par défaut), `when` — trois écritures équivalentes,
+  la liste des actes, l'acte vers un booléen, l'acte vers sa règle.
+  **Tous les étages** (D886, D1796) : l'application dans `version.yml`,
+  le module, l'entité, le champ, l'écran ou un composant de l'écran, le
+  template — le plus proche l'emporte ; `update: false` au champ = la
   lecture seule.
 - **Les opérations sont des droits d'action** (D691) : le droit de
   déclencher se déclare et se contrôle comme les autres ; l'opération

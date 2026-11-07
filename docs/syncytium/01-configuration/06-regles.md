@@ -17,7 +17,7 @@ loin. Chaque cascade a ses étages.
 | Ce qui cascade | Les étages, du plus loin au plus près | Les décisions |
 |---|---|---|
 | les settings et les types | Syncytium, la version (`settings.yml`), le module, l'entité, le champ | D359, D360, D588, D991–D993 |
-| `allow:` | l'application, le module, l'entité, le champ | D886 |
+| `allow:` | l'application (`version.yml`), le module, l'entité, le champ, l'écran ou un composant de l'écran, le template | D886, D1796 |
 | la confidentialité | le niveau (D25) et les groupes (D26) ; le profil nommé à la racine du projet, référencé au champ | D885, D1536 |
 | `normalize:` | le défaut du type aux settings, puis le champ | D870, D872, D991 |
 | `history:` | `settings.yml` de la version, le module, l'entité ; l'opt-out par `history: false` ; le défaut du socle est inactif | D168, D1174 |

@@ -72,12 +72,24 @@ allow:
   delete: false
 ```
 
+**Un droit d'action est une règle à trois propriétés** (D1795) : `enable`,
+la règle générale ; `group`, les groupes qu'elle vise, `[all]` par
+défaut ; `when`, la condition d'activation. `allow:` a trois écritures
+équivalentes — la liste des actes permis, `allow: [create, update,
+delete]` ; l'acte vers un booléen, `allow: { create: true, update: true,
+delete: true }` ; l'acte vers sa règle, `allow: { create: { enable:
+true, group: [all], when: true }, … }`. `false` vaut `{ enable: false }`,
+l'expression seule vaut `{ when: … }`, la liste de groupes au verbe
+(D700) vaut `{ group: [...] }` (mes lectures).
+
 L'absence = tout permis ; `read` absent = l'état masque. C'est par là
 qu'un enregistrement se fige : la facture validée — son numéro
 attribué par l'opération de validation, une identité acquise (D1171) —
 porte `validee: { allow: [read] }`, l'acte qui promeut passant outre
 (D1172). **La cascade de l'allow** (D886 — le cas 5) : le bloc libre se déclare
-**à quatre étages** — l'application, le module, l'entité, le champ
+**à tous les étages** (D1796) — l'application dans `version.yml`, non
+dans `syncytium.yml`, le module, l'entité, le champ, l'écran ou un
+composant de l'écran, le template…
 — et **le plus proche l'emporte** (l'esprit D359) ; le module dit la
 règle de ses entités (l'entrepôt en lecture seule : `allow: {
 create: false, update: false, delete: false }` sur chaque module),

@@ -24,7 +24,7 @@ versions/
 ├── beta/
 │   ├── beta.yml                     # environment: staging ; versions: [le pattern]
 │   └── v1.0.0.0/
-│       ├── version.yml              # version, release-notes, settings:, groups:, migrations:, modules:, hooks:
+│       ├── version.yml              # version, release-notes, settings:, groups:, allow:, migrations:, modules:, hooks:
 │       ├── settings.yml             # la maison des types et des réglages
 │       ├── groups.yml               # les groupes
 │       ├── resources/               # les documents, images, logos versionnables
@@ -424,7 +424,9 @@ déclaré plus récent que le moteur est refusé (D330).
 
 Le fichier d'une version nomme ce qu'elle contient : ses langues, ses
 notes, ses réglages, ses groupes, ses migrations, ses modules, ses hooks,
-ses ressources.
+ses ressources ; et, au besoin, les droits d'action de toute
+l'application, `allow:`, l'étage le plus loin de la cascade (D1796), au
+chapitre 7.
 
 ```yaml
 # Le numéro de la version

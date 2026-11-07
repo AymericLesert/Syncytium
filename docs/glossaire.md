@@ -365,6 +365,18 @@ l'assistant ; le Markdown est le rendu humain. *(D1165)* Depuis D1245, l'annexe 
 dictionnaire de la donnée : la configuration entière et dépliée, sans
 les clés confidentielles.
 
+**Droit d'action** (`allow:`) — Qui peut créer, lire, modifier,
+supprimer un enregistrement, ou déclencher une opération. Une règle à
+trois propriétés : `enable`, la règle générale ; `group`, les groupes
+visés, `[all]` par défaut ; `when`, la condition d'activation. Trois
+écritures équivalentes : la liste des actes permis, l'acte vers un
+booléen, l'acte vers sa règle. Par état sur le champ du cycle, ou en
+bloc libre à tous les étages — l'application (`version.yml`), le module,
+l'entité, le champ, l'écran, le template — , le plus proche l'emporte ;
+absent, tout est permis ; `read` absent d'un état le masque. *Ex. :
+`allow: { update: [commercial, achats] }`.* *(D422, D423, D700, D886,
+D1795, D1796)*
+
 **Drill-down** (`drill:`) — Le clic sur un graphique, qui ouvre la liste
 des éléments derrière la valeur. Il n'existe que déclaré. *(D242, D519)*
 

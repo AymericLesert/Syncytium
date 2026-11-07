@@ -37,7 +37,8 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - un cycle de groupes (D414), de calculés (D592) ou de types dérivés
   (D992) ;
 - un groupe nommé `administrator`, le nom réservé du groupe du socle
-  (D712, D1790) ;
+  (D712, D1790) ; un profil de confidentialité nommé `public`,
+  `protected` ou `private`, les noms des niveaux (D1799) ;
 - un hook de type sans ses règles de stockage (D681, D1690) ;
 - un module d'application dont le nom commence par `_`, le préfixe des
   modules internes du socle, `_migration`, `_administration`, `_chat`

@@ -159,7 +159,9 @@ le mode d'installation de Syncytium », ou une langue apportée (D1465).
 Un profil nomme une fois le niveau (D25) et les groupes qui voient (D26).
 Le champ le cite par son nom, `confidentiality: financier`, la forme
 courte ; la forme longue, `confidentiality: { level: , groups: [..] }`,
-s'écrit au champ sans profil (D1798). Les profils ne sont pas des
+s'écrit au champ sans profil (D1798). Un profil ne porte jamais le nom
+d'un niveau, `public`, `protected`, `private` : la forme courte se lit
+sans confusion (D1799). Les profils ne sont pas des
 settings : ils vivent ici, hors des versions, « à la racine de
 Syncytium » (D885, D1536).
 

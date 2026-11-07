@@ -812,8 +812,9 @@ D1464, D1750)*
 
 **Profil**  Une déclaration nommée, dans
 `syncytium.yml`, sous `confidentiality:`, que les champs citent par
-son nom au lieu de répéter leur niveau et leurs groupes.
-*Ex. : `confidentiality: financier`.* *(D885, D1536, D1798)*
+son nom au lieu de répéter leur niveau et leurs groupes ; jamais nommé
+`public`, `protected` ou `private`, les noms des niveaux.
+*Ex. : `confidentiality: financier`.* *(D885, D1536, D1798, D1799)*
 
 **Promotion** — Le passage d'un enregistrement au niveau suivant de sa
 hiérarchie d'héritage, son identité gardée : le tiers devient client à sa

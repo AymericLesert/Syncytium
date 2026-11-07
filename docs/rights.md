@@ -38,7 +38,8 @@ tâches seulement) — **resserrable par groupes**, déclarable à
 l'entité et **au champ** (D364) ; **un profil nommé à la racine du
 projet se cite par son nom**, `confidentiality: financier`, la forme
 courte, et la forme longue, `{ level: , groups: [..] }`, s'écrit au
-champ sans profil (D885, D1536, D1798) :
+champ sans profil (D885, D1536, D1798) ; un profil ne porte jamais le
+nom d'un niveau, `public`, `protected`, `private` (D1799) :
 
 ```yaml
 fields:

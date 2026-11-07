@@ -448,7 +448,14 @@ de l'opération, servie par le cache de droits (D694).
 - **la maison** (D704) : une entité du **module d'administration**
   (porté par Syncytium — le patron D666) ; les surfaces standard la
   consultent (le degré `administrator`), la rétention de l'audit se
-  déclare comme toute historisation (D411).
+  déclare comme toute historisation (D411) ;
+- **un stockage distinct de l'historisation, pour un autre usage**
+  (D1814) : `trace:` se pose sur un module, une entité ou un champ ;
+  l'audit stocke l'identifiant de l'enregistrement, qui, quand, par où,
+  et, pour une trace sur un champ, le nom du champ — jamais la valeur,
+  que l'on recoupe par l'historique de l'entité à la date, s'il est
+  actif sur la période ; l'identifiant d'une trace suit le module,
+  l'entité et l'id de l'enregistrement, le nom du champ.
 
 ```yaml
 fields:

@@ -86,7 +86,8 @@ Certaines valent pour tous les types (D391) :
   personnelles, sans unicité (D1332, D1806) ; l'anonymisation en découle
   (D696) ; la règle est au chapitre 7 ;
 - **`trace:`**, la trace des lectures, `audit` ou `limited` (D703) ; un
-  champ `sensitive` est audité d'office ;
+  champ `sensitive` est audité d'office ; la facette se pose aussi sur
+  l'entité et sur le module (D1814) ; la règle est au chapitre 7 ;
 - **`component:`**, **`style:`**, **`size:`**, la présentation, en
   cascade : le plus proche l'emporte (D461) ; `style:` dit la
   typographie (D1608) ;

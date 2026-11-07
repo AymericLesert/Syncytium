@@ -414,7 +414,10 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
   `rgpd: sensitive` audité d'office ; `trace: audit` en opt-in,
   **`trace: limited`** en exclusion totale (le mot de passe, la clé —
   D463/D603) ; l'entité d'audit au module d'administration, ses
-  surfaces au degré `administrator`.
+  surfaces au degré `administrator` ; **un stockage distinct de
+  l'historisation** (D1814) — `trace:` sur un module, une entité ou un
+  champ ; l'identifiant de l'enregistrement, qui, quand, par où, le nom
+  du champ, jamais la valeur, recoupée par l'historique à la date.
 - **La documentation 5** (D1336) : par module soumis, le chapitre des
   mentions — `rgpd.notice` générée depuis le registre, ancrée par le
   concepteur, le manque notifié sinon (D1335) — et le chapitre de la

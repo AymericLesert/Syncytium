@@ -127,7 +127,7 @@ le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 | 6 | **Le marquage `rgpd:`** : `identity` en proposition (D1332) que l'entrepôt écrit (D1344), le type qui le porte (D1178) | clos (D1806–D1807) |
 | 7 | **Le registre des traitements et le bloc `rgpd:`** : `controller:` en proposition (D1320), les quatre niveaux (D1323–D1325) | clos (D1808–D1809) |
 | 8 | **La rétention** : l'historisation (D411) dans rights.md, l'anonymisation avec sa règle et `cleanup.yml` dans le registre (D1334) | clos (D1810–D1813) |
-| 9 | **Ce que la sécurité enregistre** : l'audit des lectures et `trace:` (D702–D704), les événements de sécurité du journal et le throttling (D925–D926) ; la déduction des risques au chapitre 11 | présenté |
+| 9 | **Ce que la sécurité enregistre** : l'audit des lectures et `trace:` (D702–D704), les événements de sécurité du journal et le throttling (D925–D926) ; la déduction des risques au chapitre 11 | présenté — l'audit précisé (D1814) |
 | 10 | **Les exemples** : les six blocs inventés de rights.md remplacés par les extraits des cas (D1545) ; les clés qu'aucun cas n'écrit | à traiter |
 | 11 | **La facette documentation** : les deux rubriques fusionnent ; « les douze principes de security.md » (D1338) face aux six principes et seize invariants | à traiter |
 | 12 | **La classification** : la famille `securite` à reconstituer | à traiter |

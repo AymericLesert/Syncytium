@@ -110,6 +110,30 @@ au chapitre 1 (D1692, D1697), le type et ses méthodes au chapitre 2
 est au chapitre 5 (D1730), l'opération au chapitre 6 (D1762), où
 `hooks.md` s'est dissous.
 
+## Les points de la lecture en cours
+
+Le chapitre 7, les droits et la sécurité (D1783, D1786). Les points d'un
+chapitre se dégagent à son ouverture, dans l'ordre de son sujet, avec ce qui
+le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
+« présenté » ou « clos (Dnnnn) » ; le tableau de bord lit cette table.
+
+| # | Le point | L'état |
+|---|---|---|
+| 1 | **La déclaration des groupes**, `groups.yml` : ses clés (`label`, `description`, `persona`, `groups`, `degree`), la composition (D1099), l'association à l'annuaire (D31, D713, D717), les affectations en base | à traiter |
+| 2 | **Les degrés** : quatre valeurs (D1140, D1680), un groupe au degré `reader`, l'appartenance obligatoire, les vingt et un planchers comme vue des droits (D1749) | à traiter |
+| 3 | **Les droits d'action, `allow:`** : trois écritures et l'étage de l'application (D886), qu'aucun cas n'écrit | à traiter |
+| 4 | **La confidentialité** : le niveau seul, le profil interpolé (D1536), la forme longue niveau + groupes (D26), l'héritage (D102), la `visibility:` de l'historique (D170, D413) ; la facette au chapitre 2 | à traiter |
+| 5 | **La session et le compte** : le cookie et le porteur (D917), les clés d'API et le « pour le compte de » (D107, D1723), les réglages `duration`, `limit`, `lockout`, `cooldown`, `invitation` (D588, D693, D720) | à traiter |
+| 6 | **Le marquage `rgpd:`** : `identity` en proposition (D1332) que l'entrepôt écrit (D1344), le type qui le porte (D1178) | à traiter |
+| 7 | **Le registre des traitements et le bloc `rgpd:`** : `controller:` en proposition (D1320), les quatre niveaux (D1323–D1325) | à traiter |
+| 8 | **La rétention** : l'historisation (D411) dans rights.md, l'anonymisation avec sa règle et `cleanup.yml` dans le registre (D1334) | à traiter |
+| 9 | **Ce que la sécurité enregistre** : l'audit des lectures et `trace:` (D702–D704), les événements de sécurité du journal et le throttling (D925–D926) ; la déduction des risques au chapitre 11 | à traiter |
+| 10 | **Les exemples** : les six blocs inventés de rights.md remplacés par les extraits des cas (D1545) ; les clés qu'aucun cas n'écrit | à traiter |
+| 11 | **La facette documentation** : les deux rubriques fusionnent ; « les douze principes de security.md » (D1338) face aux six principes et seize invariants | à traiter |
+| 12 | **La classification** : la famille `securite` à reconstituer | à traiter |
+| 13 | **Les lectures ouvertes et les non citées**, à lever ou à reporter | à traiter |
+| 14 | **L'histoire et les statuts** : « Les points ouverts », « le chantier du sujet 2 », les « tranché par » au registre ; les invariants gardés | à traiter |
+
 Hors des familles : `glossaire.md` va à `syncytium/glossaire.md` avec le
 premier chapitre ; `etude-comparative-20260718.md` à
 `etudes/comparative-2026-07-18.md` (partie 5) ; `presentation/` et le README

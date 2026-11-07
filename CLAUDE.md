@@ -98,6 +98,11 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
 
 ## La manière
 
+- **Un chapitre s'ouvre par une vision globale** (D1787) : les points ordonnés
+  par le sujet du chapitre, en groupes, ce qui le quitte vers les autres
+  chapitres ; la table « Les points de la lecture en cours » de
+  `docs/README.md` les tient à chaque point (« à traiter », « présenté »,
+  « clos (Dnnnn) »), le tableau de bord la lit.
 - Avancer **un point à la fois** ; présenter les lectures à confirmer, ne
   rien décider à la place de l'auteur ; quand il propose une « troisième
   voie », la consigner fidèlement.

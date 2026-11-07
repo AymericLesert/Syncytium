@@ -1,118 +1,112 @@
 # Ce que la sécurité enregistre
 
-Ce qui s'enregistre pour l'audit : les lectures, les écritures, les actes
-privilégiés, les refus et les événements de sécurité ; la forme du journal
-est à l'exploitation, la déduction des risques à la télémétrie (D1816).
+> **L'audit des lectures** enregistre qui a lu quoi, quand et par où,
+> dans un stockage distinct de l'historisation, une entité du module
+> d'administration. `trace:` l'allume sur un module, une entité ou un
+> champ ([glossaire](../../glossaire.md)).
 
-Les décisions citées entre parenthèses renvoient au
-[registre](../../conception.md). Le texte vient des deux artefacts
-préparatoires, déplacé à la réorganisation ; la réécriture suit.
+La sécurité ne fait pas qu'autoriser : elle enregistre, pour l'audit, ce
+qui a été lu, écrit et refusé, et par qui. Ce fichier dit les quatre
+enregistrements, l'audit des lectures, la trace des écritures, les actes
+privilégiés, les refus et les événements de sécurité. La forme du journal,
+ses niveaux, son throttling et sa rétention sont à l'exploitation, le
+chapitre 10 ; ce que l'on déduit de ces enregistrements, les risques d'un
+usage inapproprié, est à la télémétrie, le chapitre 11 (D1816). Les
+décisions citées entre parenthèses renvoient au
+[registre](../../conception.md).
 
 ## Le sommaire
 
-- [La provenance et la trace (D62, D178, D238, D429)](#la-provenance-et-la-trace-d62-d178-d238-d429)
-- [L'audit des lectures (D702–D704)](#laudit-des-lectures-d702d704)
-- [La traçabilité](#la-traçabilité)
-- [L'audit et la détection](#laudit-et-la-détection)
+- [L'audit des lectures](#laudit-des-lectures)
+- [La trace des écritures](#la-trace-des-écritures)
+- [Les actes privilégiés](#les-actes-privilégiés)
+- [Les refus et les événements de sécurité](#les-refus-et-les-événements-de-sécurité)
 
-## La provenance et la trace (D62, D178, D238, D429)
+## L'audit des lectures
 
-Toute écriture est tracée (D62) ; la provenance de la reprise
-persiste après la mort du connecteur (D178) ; l'import
-d'exploitation porte l'opérateur (D238) ; la trace des opérations
-est l'historisation elle-même (D429).
+L'audit a son stockage, distinct de l'historisation, pour un autre
+usage : l'historique dit ce qu'une fiche était, l'audit dit qui l'a lue
+(D1814). Trois régimes gouvernent ce qui s'audite (D703) :
 
-## L'audit des lectures (D702–D704)
+- **d'office**, un champ `rgpd: sensitive` est audité, rien à écrire ;
+- **`trace: audit`** allume l'audit au-delà du défaut, sur un module,
+  une entité ou un champ (D1814) ;
+- **`trace: limited`** exclut un champ de toute trace, l'audit, le
+  journal, les messages : un mot de passe, une clé ne se tracent jamais
+  (D463, D603).
 
-- **le grain : l'enregistrement** (D1815, qui amende D702 — « l'acte,
-  jamais l'enregistrement ») — une ligne d'audit par enregistrement lu :
-  qui, quand, quoi (le module, l'entité, l'identifiant de
-  l'enregistrement, le champ), par où (l'écran, l'export, l'impression,
-  l'API, le connecteur) ; le requêtage est simple, le filtre facile ; sur
-  de très grandes requêtes fréquentes, un stockage « intelligent » est à
-  envisager, qui garde la granularité avec un espace ajusté ;
-- **le défaut automatique** (D703) : ce qui est `rgpd: sensitive`
-  (D695) s'audite d'office — rien à écrire ;
-- **la propriété `trace:`** (D703) — les deux compléments :
-  `trace: audit` (l'opt-in — le champ tracé au-delà du défaut) et
-  **`trace: limited`** (l'exclusion — le champ écarté de **toute**
-  trace : « un mot de passe ou une clé ne doivent pas être tracés »,
-  l'écho de D463/D603) ;
-- **la maison** (D704) : une entité du **module d'administration**
-  (porté par Syncytium — le patron D666) ; les surfaces standard la
-  consultent (le degré `administrator`), la rétention de l'audit se
-  déclare comme toute historisation (D411) ;
-- **un stockage distinct de l'historisation, pour un autre usage**
-  (D1814) : `trace:` se pose sur un module, une entité ou un champ ;
-  l'audit stocke l'identifiant de l'enregistrement, qui, quand, par où,
-  et, pour une trace sur un champ, le nom du champ — jamais la valeur,
-  que l'on recoupe par l'historique de l'entité à la date, s'il est
-  actif sur la période ; l'identifiant d'une trace suit le module,
-  l'entité et l'id de l'enregistrement, le nom du champ ;
-- **les actes privilégiés s'y tracent aussi** (D1817) : le passe-outre
-  d'un `allow:`, le passe-droit du statut, la délégation, le secours, le
-  mode safe, la rotation, la réactivation, la supervision — avec leur
-  motif (D62), que l'entité touchée ait ou non un historique ; « sans
-  historique, pas de trace » (D429) ne vaut que pour les actes
-  ordinaires.
+Une ligne d'audit par enregistrement lu (D1815) : le module, l'entité et
+l'identifiant de l'enregistrement, qui, quand, par où, l'écran, l'export,
+l'impression, l'API, le connecteur, et, pour une trace sur un champ, le
+nom du champ. Jamais la valeur : on la recoupe par l'historique de
+l'entité à la date, s'il est actif sur la période (D1814). Le requêtage
+est simple et le filtre facile, par module, entité, champ ou
+enregistrement ; sur de très grandes requêtes fréquentes, un stockage
+« intelligent » gardera la granularité avec un espace ajusté, un choix
+d'implémentation (D1815). L'entité d'audit est dans le module
+d'administration, portée par Syncytium ; ses surfaces se consultent au
+degré `administrator` (D704, D666) ; sa rétention est de l'exploitation,
+le chapitre 10 (D411, D1811). L'entrepôt audite les lectures de ses
+contacts :
 
 ```yaml
-fields:
-  blood_type: { type: text, rgpd: sensitive }   # audité d'office (D703)
-  notes:      { type: text, trace: audit }      # l'opt-in
-  api_key:    { type: password, trace: limited } # jamais tracé — nulle part
+# L'historique
+history: true
+
+# L'audit des lectures
+# Les lectures des contacts, des données personnelles, sont auditées : qui, quand, par où, l'enregistrement lu.
+trace: audit
 ```
 
-## La traçabilité
+## La trace des écritures
 
-- **Toute écriture est tracée** (D62) : l'audit des actions de
-  supervision porte **un motif** (catégorie + note) ; l'historisation
-  photographie chaque acte — **auteur, canal, motif, horodatage**
-  (D169) ; **la trace des opérations = l'historisation** (D429),
-  sans machinerie séparée ; la rétention déclarée par `history:`
-  (D411).
-- **La provenance persiste** (D178) après la mort du connecteur ;
-  **le stock de reprise = le journal d'audit de la reprise** (D182 —
-  chaque ligne source a un destin daté et justifiable) ; l'import
-  d'exploitation porte l'opérateur (D238).
-- **L'audit à double identité** : la délégation (D76, D715), le
-  changement de statut hors graphe (D835), le changement de mail par
-  l'administrateur (D721), l'activation du secours (D81), le mode
-  safe (D718), la rotation des clés (D730) — **jamais un acte
-  privilégié sans trace** : ils se tracent dans l'entité d'audit du
-  module `_administration`, avec leur motif, que l'entité touchée ait ou
-  non un historique (D1817).
+Toute écriture est tracée (D62). L'historisation est la trace des
+écritures : chaque acte photographie l'agrégat, avec l'auteur, le canal,
+le motif, l'horodatage (D169, D429) ; sans historique, un acte ordinaire
+ne laisse pas de trace, c'est le choix du concepteur. L'écriture
+d'`history:` est au chapitre 2 ([la vie d'un enregistrement](../02-modele/04-vie.md),
+D411). La provenance d'une donnée reprise persiste après la mort du
+connecteur, le stock de reprise est le journal d'audit de la reprise, et
+l'import d'exploitation porte l'opérateur (D178, D182, D238) ; le
+chapitre 8 les décrit.
 
-## L'audit et la détection
+## Les actes privilégiés
 
-- **L'audit des lectures** (D702–D704, D1815) : le grain de
-  **l'enregistrement** (une ligne par enregistrement lu — qui, quand,
-  quoi, par où ; un stockage « intelligent » à envisager pour le
-  volume ; D702 amendée) ; le
-  `rgpd: sensitive` audité d'office ; `trace: audit` en opt-in,
-  **`trace: limited`** en exclusion totale (le mot de passe, la clé —
-  D463/D603) ; l'entité d'audit au module d'administration, ses
-  surfaces au degré `administrator` ; **un stockage distinct de
-  l'historisation** (D1814) — `trace:` sur un module, une entité ou un
-  champ ; l'identifiant de l'enregistrement, qui, quand, par où, le nom
-  du champ, jamais la valeur, recoupée par l'historique à la date.
-- **La documentation 5** (D1336) : par module soumis, le chapitre des
-  mentions — `rgpd.notice` générée depuis le registre, ancrée par le
-  concepteur, le manque notifié sinon (D1335) — et le chapitre de la
-  journalisation des accès — l'audité, le journalisé, qui consulte, la
-  rétention de l'audit, les comptes à l'instance.
-- **Les journaux** (D343, D737, D800) : par environnement, en
-  anglais, le niveau et la rétention maîtrisés, **la consultation par
-  le concepteur seul, hors IHM**. **Le journal d'accès reste au
-  proxy** (D925) ; le journal du moteur porte **les événements de
-  sécurité avec leur sens** — l'authentification en `info`, les
-  échecs, les refus d'autorisation, les refus de cooldown et les
-  429, le secours, le mode safe, le passe-droit et la délégation en
-  `warning`, les erreurs de connecteur en `error` — le compte,
-  l'origine, la ressource, la règle ; **jamais un secret**, un mot de
-  passe même erroné, une valeur `trace: limited` ou `private`.
-  **Le throttling des traces** (D926) : la première occurrence
-  tracée en entier, les suivantes agrégées dans la fenêtre —
-  l'événement, le début, la fin, le nombre — contre l'attaque qui
-  saturerait les journaux ; le nombre nourrit la détection (D43).
+Un acte privilégié agit au-delà des droits ordinaires, ou sur les droits
+eux-mêmes. Aucun n'est sans trace : il se trace dans l'entité d'audit du
+module `_administration`, avec son motif, une catégorie et une note, que
+l'entité touchée ait ou non un historique (D62, D1817). Ce sont :
 
+- le passe-outre d'un `allow:` par l'administrateur (D942) ;
+- le passe-droit du statut, le changement d'état hors du graphe (D835) ;
+- la délégation, agir à la place d'un autre, la trace aux deux comptes
+  (D76, D715) ;
+- le changement d'adresse d'un compte par l'administrateur (D721) ;
+- l'activation du secours (D81) et le mode safe (D718) ;
+- la rotation des clés (D730) ;
+- la réactivation d'un enregistrement désactivé (D903) ;
+- les actions de supervision des tâches (D62).
+
+## Les refus et les événements de sécurité
+
+Les refus d'autorisation et les échecs d'authentification se journalisent
+toujours : ils sont le carburant de la détection (D43, D720). Le journal
+du moteur porte les événements de sécurité avec leur sens (D925) :
+
+- l'authentification réussie, la déconnexion, la révocation, la rotation
+  des clés, l'ingestion et la recharge, en `info` ;
+- l'échec d'authentification et le verrouillage, le refus
+  d'autorisation, le refus de cooldown et le 429, l'activation du
+  secours, le mode safe, le passe-droit et la délégation, en `warning` ;
+- les erreurs de connecteur, en `error`.
+
+Chaque événement porte le compte, l'origine, la ressource, la règle, et
+jamais un secret : ni un mot de passe même erroné, ni une valeur
+`trace: limited` ou `private` (D925). Le journal d'accès complet, une
+ligne par requête, reste au proxy (D925). Le journal comme fichier, par
+environnement, ses niveaux, sa rétention, et le throttling qui agrège
+les occurrences répétées d'un même événement contre la saturation
+(D343, D737, D800, D926), sont au chapitre 10 ; la pente des refus, les
+pics et le modèle de risque, au chapitre 11 (D43). La documentation
+réglementaire porte, par module soumis, un chapitre de la journalisation
+des accès, l'audité, le journalisé, qui consulte, la rétention (D1336).

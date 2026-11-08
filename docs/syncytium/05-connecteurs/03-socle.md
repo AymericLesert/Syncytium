@@ -77,3 +77,25 @@ uniquement si l'envoi de mail à l'administrateur est possible ». Le
 canal d'alerte passe avant tout ; le `smtp` est vérifié au démarrage.
 Le `smtp` de classe `none` satisfait la condition : le canal existe,
 muet, assumé (D763).
+
+Un appel, et la position de sécurité quand il échoue (D620–D627) :
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant S as Syncytium
+    participant C as Le connecteur
+    participant T as Le système tiers
+    S->>C: connect()
+    C->>T: la connexion, pool, timeout
+    S->>C: une méthode de la famille, read ou send
+    C->>T: l'appel
+    alt le système répond
+        T-->>C: la réponse
+        C-->>S: le résultat, au type de Syncytium
+    else l'erreur, après retry
+        T--xC: l'échec
+        C-->>S: onerror, le mock ou la page de maintenance
+        S->>S: l'alerte à l'administrateur, le journal
+    end
+```

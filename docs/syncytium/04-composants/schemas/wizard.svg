@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="566" height="684" viewBox="16 54 566 684" font-family="Segoe UI, Arial, sans-serif">
+<defs><marker id="fleche" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#333333"/></marker></defs>
+<rect x="16" y="54" width="566" height="684" fill="#ffffff"/>
+<path d="M 205,100.0 L 205,147.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<path d="M 205,175.0 L 205,221.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<path d="M 205,249.0 L 205,281.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<path d="M 205,337.0 L 205,355.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="211" y="348.0" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Oui</text>
+<path d="M 102.5,309 L 40,309 L 40,161 L 90.0,161" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="96.5" y="302" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Non</text>
+<path d="M 205,411.0 L 205,443.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="211" y="422.0" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Oui</text>
+<path d="M 102.5,383 L 54,383 L 54,161 L 90.0,161" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="96.5" y="376" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Non</text>
+<path d="M 205,471.0 L 205,503.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<path d="M 205,559.0 L 205,591.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="211" y="570.0" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Oui</text>
+<path d="M 102.5,531 L 68,531 L 68,679 L 165.0,679" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="96.5" y="524" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Non</text>
+<path d="M 205,619.0 L 205,666.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<rect x="165.0" y="74.0" width="80" height="26" rx="13.0" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="87" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Début</text>
+<rect x="90.0" y="147.0" width="230" height="28" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="161" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">L&#x27;étape est affichée</text>
+<path d="M 320.0,161 L 360.0,161" fill="none" stroke="#333333" stroke-width="1"/>
+<rect x="360.0" y="150" width="202" height="22" fill="#ffffff" stroke="#999999" stroke-dasharray="3 3" stroke-width="1"/>
+<text x="461.0" y="161" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#333333" dominant-baseline="middle">le fil d&#x27;Ariane, breadcrumb</text>
+<rect x="90.0" y="221.0" width="230" height="28" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="235" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">L&#x27;utilisateur saisit et valide l&#x27;étape</text>
+<polygon points="205,281.0 307.5,309 205,337.0 102.5,309" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="309" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Les contrôles passent ?</text>
+<polygon points="205,355.0 307.5,383 205,411.0 102.5,383" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="383" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Dernière étape ?</text>
+<rect x="90.0" y="443.0" width="230" height="28" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="457" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">La relecture, commit confirm</text>
+<path d="M 320.0,457 L 360.0,457" fill="none" stroke="#333333" stroke-width="1"/>
+<rect x="360.0" y="446" width="202" height="22" fill="#ffffff" stroke="#999999" stroke-dasharray="3 3" stroke-width="1"/>
+<text x="461.0" y="457" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#333333" dominant-baseline="middle">auto conclut sans relecture</text>
+<polygon points="205,503.0 307.5,531 205,559.0 102.5,531" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="531" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Confirmé ?</text>
+<rect x="90.0" y="591.0" width="230" height="28" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="605" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">La transaction conclut, l&#x27;opération s&#x27;exécute</text>
+<rect x="165.0" y="666.0" width="80" height="26" rx="13.0" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="679" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Fin</text>
+<text x="299.0" y="710.0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#333333" dominant-baseline="middle">Le parcours d&#x27;un wizard</text>
+</svg>

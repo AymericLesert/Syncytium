@@ -1,0 +1,20 @@
+# Le logigramme d'un wizard
+# Le parcours guidé : les étapes s'enchaînent, chacune contrôlée, la relecture conclut, la transaction aussi.
+title: Le parcours d'un wizard
+steps:
+  - start: Début
+  - action: L'étape est affichée
+    id: etape
+    note: le fil d'Ariane, breadcrumb
+  - action: L'utilisateur saisit et valide l'étape
+  - decision: Les contrôles passent ?
+    no: {to: etape}
+  - decision: Dernière étape ?
+    no: {to: etape}
+  - action: La relecture, commit confirm
+    note: auto conclut sans relecture
+  - decision: Confirmé ?
+    no: {to: fin}
+  - action: La transaction conclut, l'opération s'exécute
+  - end: Fin
+    id: fin

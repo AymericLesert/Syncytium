@@ -21,6 +21,19 @@ Ce chapitre est leur catalogue, une fiche par composant (D455–D457). Il
 suit le vocabulaire du [glossaire](../../glossaire.md) ; les décisions
 citées entre parenthèses renvoient au [registre](../../conception.md).
 
+Les cinq familles :
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart TB
+    K["Le catalogue des composants"]
+    K --> F["les feuilles<br/>un champ : la saisie, le choix, le texte fixe, la couleur"]
+    K --> C["les conteneurs<br/>sections, tabs, pages, header et footer"]
+    K --> A["l'acte<br/>operation, le bouton d'une opération"]
+    K --> G["les graphiques<br/>chart.line, chart.bars, chart.pie, scatter, combo, kpi, pivot"]
+    K --> U["les surfaces<br/>menu, list, form, summary, widget, wizard, dashboard, template, chat"]
+```
+
 ## Le sommaire
 
 1. Le catalogue

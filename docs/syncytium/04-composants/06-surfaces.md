@@ -12,6 +12,22 @@ chaque bloc, la première surface déclarée est celle par défaut (D438).
 Le menu adresse les surfaces par le `link:` de ses entrées (D439,
 D1237). Le chat est une surface du socle (D957).
 
+La pile des surfaces, chaque surface au-dessus de la précédente (D535) :
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    M["menu<br/>les entrées du module"] --> L["list<br/>les enregistrements"]
+    L --> F["form<br/>un enregistrement"]
+    F --> R["summary<br/>la fiche en bref"]
+    F --> W["wizard<br/>le parcours guidé"]
+    F -.-> S["sections, tabs, pages<br/>les conteneurs du formulaire"]
+    D["dashboard<br/>au module"] --> L
+    M --> D
+    M --> T["template<br/>l'édition"]
+    M --> H["chat<br/>la surface du socle"]
+```
+
 Toute surface s'ouvre au-dessus de la pile des surfaces précédentes
 (D535). Quatre propriétés reviennent de fiche en fiche :
 
@@ -857,6 +873,11 @@ sens large (D546) :
 - imprimer : les menus, par exemple, la semaine, puis la liste, puis la
   diffusion ;
 - mettre à jour une tournée.
+
+<p align="center"><img src="schemas/wizard.svg" alt="Le parcours d'un wizard"></p>
+
+Le parcours : chaque étape se contrôle avant la suivante, la relecture conclut,
+la transaction aussi (D230, D546, D596, D1606).
 
 Le wizard orchestre les opérations de l'entité : les quatre de base,
 `create`, `read`, `update` et `delete`, et les opérations enrichies

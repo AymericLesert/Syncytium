@@ -81,6 +81,24 @@ article:
 - **L'accès retour** est automatique, par une liste nommée : l'entité
   pointée atteint ceux qui la pointent sans rien déclarer.
 
+La ligne de vente et son article, la cardinalité « 1 » par `required:` :
+
+```mermaid
+classDiagram
+    direction LR
+    class ligne_vente {
+        numero$
+        quantite
+        prix_net
+        montant*
+    }
+    class article {
+        code$
+        complement$
+    }
+    ligne_vente "0..*" --> "1" article : article
+```
+
 ### La composition, `list of <entité>`
 
 Le parent déclare ce qu'il possède ; l'enfant ne déclare rien (D399,
@@ -100,6 +118,26 @@ lignes:
   dont une ligne est une autre nomenclature. La récursivité est validée
   acyclique ; l'agrégat est l'arbre entier, écrit, supprimé et verrouillé
   d'un bloc.
+
+La commande de vente et ses lignes, le losange plein du côté du parent :
+
+```mermaid
+classDiagram
+    direction LR
+    class commande_vente {
+        numero$
+        indice$
+        date
+        total*
+    }
+    class ligne_vente {
+        numero$
+        quantite
+        prix_net
+        montant*
+    }
+    commande_vente *-- "0..*" ligne_vente : lignes
+```
 
 ### L'association, `association with <entité>[.<champ>]`
 
@@ -138,6 +176,32 @@ mouvements_par_article:
     emplacement.
 ```
 
+Le dépôt, ses niveaux et ses mouvements : la référence reste la vérité, la
+vue dérivée la remonte :
+
+```mermaid
+classDiagram
+    direction LR
+    class depot {
+        code$
+        libelle
+    }
+    class niveau {
+        lot$
+        quantite
+    }
+    class mouvement {
+        document$
+        date
+        sens
+        quantite
+    }
+    niveau "0..*" --> "1" depot : depot
+    mouvement "0..*" --> "0..1" depot : depot
+    depot o.. "0..*" niveau : niveaux
+    depot o.. "0..*" mouvement : mouvements
+```
+
 ### Le lien n-aire, `list of [a, b]`
 
 Chaque élément est une combinaison des entités nommées (D402). Chaque
@@ -164,12 +228,59 @@ controle_stock:
     le sens, dans l'unité de stock de l'article ; le tableau de bord la compare aux niveaux.
 ```
 
+La grille tarifaire de l'article, une structure interne : ses dimensions et
+les champs de la cellule en lignes, l'entité nommée en lien :
+
+```mermaid
+classDiagram
+    direction LR
+    class article {
+        code$
+        complement$
+    }
+    class tarifs["article.tarifs"] {
+        tranche
+        date_application
+        seuil
+        plage*
+        prix
+        forfait
+        valide
+        commentaire
+    }
+    class tiers {
+        code$
+    }
+    article *-- "0..*" tarifs : tarifs
+    tarifs "0..*" --> "1" tiers : tiers
+```
+
 ### L'accès montant, `owner`
 
 `owner` désigne le possesseur d'une composition ; il est unique (D760,
 D761). Un associé s'atteint par son champ de référence. La consommation
 du véhicule lit ainsi le kilométrage initial de son véhicule,
 `owner.km_initial`.
+
+La consommation remonte à son véhicule par `owner`, le sens inverse de la
+composition :
+
+```mermaid
+classDiagram
+    direction LR
+    class vehicule {
+        immatriculation$
+        km_initial
+    }
+    class consommation {
+        numero$
+        total_km
+        km*
+    }
+    vehicule *-- "0..*" consommation : consommations
+    consommation ..> vehicule : owner
+    note for consommation "km = total_km - owner.km_initial, à la première ligne"
+```
 
 ## Les générés et le contexte
 

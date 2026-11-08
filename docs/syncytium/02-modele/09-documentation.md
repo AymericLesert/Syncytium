@@ -64,6 +64,89 @@ D1278) :
 | `states:` | un diagramme d'états à part, un par entité qui le déclare, hérité par les dérivés (D1276) |
 | `operations:`, `history:`, `hint:`, `description:`, `placeholder:` | rien au diagramme : la table du dictionnaire (D1215) et le registre des traitements (D698) les portent |
 
+Le module `stock` de l'entrepôt, tel que le diagramme le calcule — les
+identités soulignées, les calculs en italique, les champs sécurisés marqués ✱,
+les références nommées avec leur cardinalité, les vues dérivées en
+pointillé, les deux matrices en classes internes ; l'article du module
+`technique` est réduit à son identité :
+
+```mermaid
+classDiagram
+    direction LR
+    namespace stock {
+        class depot {
+            code$
+            libelle
+            actif
+            valeur* ✱
+        }
+        class emplacement {
+            code$
+            libelle
+            actif
+        }
+        class niveau {
+            lot$
+            enregistrement$
+            quantite
+            quantite_reservee
+            quantite_en_cours
+            stock_minimum
+            prix_unitaire ✱
+            dernier_mouvement
+            peremption
+            inventaire
+            quantite_inventaire
+            disponible*
+            valeur* ✱
+            sous_minimum*
+            perime*
+        }
+        class mouvement {
+            document$
+            ligne$
+            indice$
+            composant$
+            horodatage$
+            lot
+            date
+            type
+            sens
+            quantite
+            prix_unitaire ✱
+            utilisateur ✱
+            stock_avant
+            valide*
+            valeur* ✱
+            masse*
+            stock_apres*
+        }
+        class controle_stock["depot.controle_stock"]
+        class stock_par_article["emplacement.stock_par_article"]
+    }
+    namespace technique {
+        class article {
+            code$
+            complement$
+        }
+    }
+    emplacement "0..*" --> "1" depot : depot
+    niveau "0..*" --> "1" article : article
+    niveau "0..*" --> "1" emplacement : emplacement
+    niveau "0..*" --> "1" depot : depot
+    mouvement "0..*" --> "1" article : article
+    mouvement "0..*" --> "0..1" depot : depot
+    mouvement "0..*" --> "0..1" emplacement : emplacement
+    depot o.. "0..*" niveau : niveaux
+    depot o.. "0..*" mouvement : mouvements
+    emplacement o.. "0..*" mouvement : mouvements_par_article
+    depot *-- "0..*" controle_stock : controle_stock
+    controle_stock --> "1" emplacement : emplacement
+    controle_stock --> "1" article : article
+    emplacement *-- "0..*" stock_par_article : stock_par_article
+    stock_par_article --> "1" article : article
+```
+
 Le diagramme d'états montre les valeurs du champ-statut et les passages
 permis (D422). Chaque trait porte la cible et la condition `when:` telle
 qu'écrite, et le nom de l'opération qui déclenche le passage s'il y en a

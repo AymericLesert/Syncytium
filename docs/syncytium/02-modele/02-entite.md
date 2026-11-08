@@ -264,6 +264,51 @@ Le véhicule (le cas 3, `examples/03_vehicule/`) déroule l'entité entière :
   `echeance`, en édition dans la liste, avec les formulaires par défaut ;
 - le tableau de bord d'accueil du module.
 
+L'agrégat du véhicule, l'entité et ses quatre compositions, les champs
+abrégés :
+
+```mermaid
+classDiagram
+    direction LR
+    class vehicule {
+        immatriculation$
+        nom
+        statut
+        cout_total*
+    }
+    class consommation {
+        numero$
+        date
+        total_km
+        quantite
+        km*
+    }
+    class entretien {
+        numero
+        date
+        designation
+        montant
+    }
+    class revision {
+        designation
+        pas_km
+        pas_duree
+        echue*
+    }
+    class echeance {
+        numero$
+        date
+        mensualite
+        paye*
+    }
+    vehicule *-- "0..*" consommation : consommations
+    vehicule *-- "0..*" entretien : entretiens
+    vehicule *-- "0..*" revision : revisions
+    vehicule *-- "0..*" echeance : echeances
+```
+
+Les conventions sont celles du diagramme calculé ([09-documentation.md](09-documentation.md#lentité-dans-le-diagramme)) : l'identité soulignée, le calcul en italique, le champ sécurisé marqué ✱, la référence fléchée avec son nom et sa cardinalité, la composition au losange plein, l'association dérivée au losange vide et au pointillé.
+
 La banque (le cas 4, `examples/04_banque/`) montre la recherche déclarée,
 `searchable:`, les opérations à formulaire d'appel, et les montants à
 devise, `amount`, quand la devise a un sens métier (D771).

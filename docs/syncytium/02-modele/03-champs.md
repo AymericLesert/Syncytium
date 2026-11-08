@@ -76,6 +76,57 @@ Le groupe est une vue (D1273) : un compartiment du diagramme, une
 section de la table du dictionnaire, un onglet du formulaire par défaut.
 Le groupe implicite occupe l'en-tête de l'écran, au-dessus des onglets.
 
+L'article de l'entrepôt, le groupe implicite en tête, puis un compartiment
+par groupe ; les champs qui pointent vers une entité, ceux de `stockage` et de
+`liens`, sont des liens du diagramme, pas des lignes :
+
+```mermaid
+classDiagram
+    class article {
+        code$
+        complement$
+        libelle
+        libelle_secondaire
+        commentaire
+        -- classification --
+        type
+        famille
+        sous_famille
+        perissable
+        gestion
+        matieres
+        -- unites --
+        unite_stock
+        unite_commande
+        unite
+        poids
+        longueur
+        largeur
+        epaisseur
+        volume
+        -- codes_barres --
+        ean13
+        -- stock_reference --
+        stock_minimum
+        stock_maximum
+        quantite_economique
+        -- prix --
+        prix_revient ✱
+        prix_moyen_pondere ✱
+        prix_achat ✱
+        -- vie --
+        actif
+        date_creation
+        date_modification
+        plans
+        -- stockage --
+        gere_en_stock
+        -- calcules --
+        dormant*
+        derniere_sortie*
+    }
+```
+
 ## Les propriétés d'un champ
 
 ### Le type et les liens

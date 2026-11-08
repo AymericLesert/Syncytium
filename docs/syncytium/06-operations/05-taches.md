@@ -21,8 +21,9 @@ essais, ses droits et sa relance ; la supervision est au chapitre 10.
 
 Une opération se déclare une fois ; chacune de ses exécutions est une
 tâche (D1748). Toutes les tâches passent par la file, qui borne la
-concurrence (D54, D55). Une tâche a un état, une progression, un
-compteur, un total et un message, et un résultat enregistré, que le
+concurrence (D54, D55). Une tâche a un état, une progression — un
+message, la position dans l'avancement et sa limite, 100 % — et un
+résultat enregistré, que le
 déclencheur consulte pendant la durée `retention:`, dont le défaut est
 un paramètre d'administration, `operation.retention`, quatre-vingt-dix
 jours (D906). L'API déclenche une tâche et suit son avancée, le 202 et
@@ -35,6 +36,9 @@ sa ressource de suivi, au chapitre 13 (D24).
 - **`synchronous`**, le défaut : l'interface se met en pause avec une
   barre de progression ; la tâche passe par la file comme les autres,
   le synchrone est une posture de l'écran, pas un chemin séparé (D54) ;
+  la tâche notifie son avancée au fil du traitement, et la barre la
+  représente telle qu'elle est ; à l'issue, succès ou échec, la fenêtre
+  d'attente se ferme sur le résultat ou sur l'erreur (D1861) ;
 - **`asynchronous`** : la tâche est enregistrée, l'utilisateur continue,
   le résultat l'attend ;
 - **`await[+3h]`**, **`await[+2d at 08:00]`** : la tâche est différée du
@@ -55,8 +59,9 @@ déclaration (D1743, D1744) :
 
 <p align="center"><img src="schemas/tache.svg" alt="La vie d'une tâche"></p>
 
-La vie d'une tâche, du déclenchement à l'issue : le mode, la file, l'exécution, le
-rejeu ou la relance (D54, D55, D57, D436, D1743, D1744).
+La vie d'une tâche, du déclenchement à l'issue : le mode, la file, l'exécution
+et sa progression notifiée, le rejeu ou la relance, la fenêtre d'attente
+refermée (D54, D55, D57, D436, D1743, D1744, D1861).
 
 `rollback` défait la transaction, jamais les effets (D1744). Le
 déterminisme est au contrat aussi : une opération `deterministic`

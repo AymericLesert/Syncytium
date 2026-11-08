@@ -72,7 +72,9 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   nommer, chaque règle a son exemple — en YAML quand la configuration est
   en jeu, pris dans un cas du dépôt de préférence —, une idée par phrase ;
   **des listes à puces** quand le texte décrit une liste d'actions ou de
-  valeurs (D1544) ; **un exemple YAML suit les règles des cas d'exemple**
+  valeurs (D1544) ; **une illustration schématique** quand le paragraphe,
+  la section ou le chapitre nécessite une vision schématique (D1835 ; en
+  Mermaid, comme l'arbre des connecteurs, D1715) ; **un exemple YAML suit les règles des cas d'exemple**
   ci-dessus (D1545) : l'introduction avant chaque clé, le commentaire
   collé à la clé, une ligne vide entre deux clés, aucune référence de
   décision dans l'exemple — les décisions se citent dans la prose qui

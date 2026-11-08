@@ -25,15 +25,23 @@ décisions citées entre parenthèses renvoient au
 ## L'audit des lectures
 
 L'audit a son stockage, distinct de l'historisation, pour un autre
-usage : l'historique dit ce qu'une fiche était, l'audit dit qui l'a lue
-(D1814). Trois régimes gouvernent ce qui s'audite (D703) :
+usage : l'historique dit ce qu'une fiche était, l'audit dit qui a agi
+sur elle (D1814). Ce qui s'audite se règle par la configuration, en
+cascade : `trace:` se pose dans les settings, au module, à l'entité, au
+champ, et le plus proche l'emporte ; la valeur des settings vaut pour
+tous les champs, les niveaux inférieurs portent les exceptions (D703,
+D1845). Trois valeurs :
 
-- **d'office**, un champ `rgpd: sensitive` est audité, rien à écrire ;
-- **`trace: audit`** allume l'audit au-delà du défaut, sur un module,
-  une entité ou un champ (D1814) ;
-- **`trace: limited`** exclut un champ de toute trace, l'audit, le
-  journal, les messages : un mot de passe, une clé ne se tracent jamais
+- **`sensitive`**, le défaut du socle : seuls les champs `rgpd: sensitive`
+  sont audités, rien à écrire ;
+- **`audit`** : ce qu'il marque est audité, un module, une entité, un
+  champ, ou tout le projet depuis les settings (D1814) ;
+- **`limited`** : ce qu'il marque est exclu de toute trace, l'audit, le
+  journal, les messages ; un mot de passe, une clé ne se tracent jamais
   (D463, D603).
+
+Sur une entité auditée, toute action passe par une trace dans l'audit, la
+lecture comme l'écriture (D1844).
 
 Une ligne d'audit par enregistrement lu (D1815) : le module, l'entité et
 l'identifiant de l'enregistrement, qui, quand, par où, l'écran, l'export,
@@ -88,8 +96,7 @@ Deux stockages pour deux usages : l'audit dit qui a fait quoi sur quel
 enregistrement, l'historique dit ce qu'une fiche était ; la valeur ne
 s'écrit jamais dans l'audit, on la retrouve par l'historique à la date
 (D1814, D1815) ; les actes privilégiés s'y tracent toujours, avec leur
-motif (D1817). Sur une entité auditée, toute action passe par une trace
-dans l'audit, la lecture comme l'écriture (D1844).
+motif (D1817).
 
 ## La trace des écritures
 

@@ -68,6 +68,9 @@ field:
   # La confidentialité : publique
   confidentiality: public
 
+  # L'audit : les champs sensibles seuls ; audit ou limited en cascade, des settings au champ
+  trace: sensitive
+
   # La recherche : sans searchable:, rien n'est cherchable
   searchable: none
 
@@ -178,7 +181,7 @@ application:
 - l'entité : `title` (D1120), `label` (D1181), `history` (D168), `allow`
   (D422, D886) ;
 - le champ : `required` (D373, D1170), `mode` (D364), `label` (D1181),
-  `abbreviation` (D265, D1619), `confidentiality` (D25), `searchable` (D1308), `default` et `unchanged`
+  `abbreviation` (D265, D1619), `confidentiality` (D25), `trace` (D703, D1845), `searchable` (D1308), `default` et `unchanged`
   (D941), `normalize` (D870, D991), `reset` (D409, D410), `currency`
   (D993) ;
 - l'opération : `commit` (D596), `cooldown` (D904), `retention` (D906),

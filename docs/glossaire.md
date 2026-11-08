@@ -45,9 +45,10 @@ enregistrements, sans possession : chacun vit sa vie.
 **Audit des lectures** (`trace:`) — L'enregistrement de qui a lu quoi,
 quand et par où — l'écran, l'export, l'impression, l'API, le connecteur
 —, dans un stockage distinct de l'historisation, une entité du module
-d'administration. `trace: audit` sur un module, une entité ou un champ
-l'allume ; `trace: limited` exclut un champ de toute trace ; un champ
-`rgpd: sensitive` est audité d'office. La ligne porte l'identifiant de
+d'administration. `trace:` se règle en cascade, des settings au champ, le plus proche
+l'emportant : `sensitive`, le défaut du socle, les champs sensibles seuls ;
+`audit`, tout ce qu'il marque ; `limited`, exclu de toute trace. Sur une
+entité auditée, toute action est tracée. La ligne porte l'identifiant de
 l'enregistrement et, pour un champ, son nom, jamais sa valeur, que
 l'historique donne à la date ; une ligne par enregistrement lu, un
 stockage « intelligent » à envisager pour le volume. Les actes

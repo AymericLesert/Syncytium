@@ -95,6 +95,38 @@ authentication:
   class: none
 ```
 
+La séquence d'une entrée par le SSO, du premier clic au cookie de
+session :
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor U as L'utilisateur
+    participant N as Le navigateur
+    participant S as Syncytium
+    participant A as Le connecteur authentication, classe sso
+    participant I as Le fournisseur d'identité
+    U->>N: ouvre l'application
+    N->>S: la première requête
+    S->>A: challenge()
+    A-->>N: la redirection OIDC
+    N->>I: s'authentifie chez le fournisseur
+    I-->>N: le ticket, au retour
+    N->>S: le ticket
+    S->>A: verify(ticket)
+    A->>I: valide la signature du jeton
+    A->>A: les trois conditions : actif, le groupe de l'application, un groupe nommé
+    A-->>S: l'identité vérifiée et ses groupes
+    S->>S: le compte par la clé d'unicité, puis la session (duration, limit)
+    S-->>N: le cookie de session, inaccessible au script
+```
+
+L'utilisateur ne confie jamais son secret à Syncytium ; les trois
+conditions de l'entrée sont contrôlées par le connecteur, non par le socle
+(D1792, D1793) ; le socle reçoit une identité vérifiée et ses groupes,
+rapproche le compte par la clé d'unicité (D82) et ouvre la session dans un
+cookie (D917).
+
 Deux choses ne sont pas ici. Le secours, quand l'authentification
 manque, l'amorçage, le bris de glace, le mode safe (D33, D81, D718,
 D745), est au chapitre 9, le moteur. Le quotidien du compte local,
@@ -158,6 +190,27 @@ le rate limiting et la rotation du côté du technicien sont au chapitre
 13, les API (D94, D98, D100, D103, D105). Ce que le moteur sert au
 navigateur, HTTPS, les origines autorisées, l'injection de script, est
 au chapitre 9 (D918, D919).
+
+La séquence d'un accès par l'API, sans session :
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant T as Le client d'API, un compte technique
+    participant S as Syncytium
+    participant A as Le connecteur authentication
+    T->>S: une requête sans preuve
+    S-->>T: 401, le défi : Bearer ou ApiKey
+    T->>S: la requête avec la clé d'API ou le jeton, et au besoin « pour le compte de »
+    S->>A: verify(preuve)
+    A-->>S: le compte technique et ses groupes
+    S->>S: les droits vérifiés au début de l'acte, aucune session
+    S-->>T: la réponse
+```
+
+Chaque requête porte sa preuve (D692) ; le porteur seul, jamais le cookie
+(D917) ; le « pour le compte de » est un paramètre de l'appel (D1803) ; les
+droits se vérifient à chaque acte (D694).
 
 ## La garde du webhook
 

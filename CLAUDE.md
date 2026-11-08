@@ -74,7 +74,9 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   **des listes à puces** quand le texte décrit une liste d'actions ou de
   valeurs (D1544) ; **une illustration schématique** quand le paragraphe,
   la section ou le chapitre nécessite une vision schématique (D1835 ; en
-  Mermaid, comme l'arbre des connecteurs, D1715) ; **un exemple YAML suit les règles des cas d'exemple**
+  Mermaid, comme l'arbre des connecteurs, D1715 ; la largeur avant la
+  hauteur, D1841 ; un arbre de décision en logigramme, vertical, les arcs à
+  angle droit, D1842, D1844) ; **un exemple YAML suit les règles des cas d'exemple**
   ci-dessus (D1545) : l'introduction avant chaque clé, le commentaire
   collé à la clé, une ligne vide entre deux clés, aucune référence de
   décision dans l'exemple — les décisions se citent dans la prose qui

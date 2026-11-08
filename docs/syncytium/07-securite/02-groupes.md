@@ -258,38 +258,63 @@ statut du compte et les affectations en base tiennent ces rôles ; avec
 `none`, l'utilisateur par défaut appartient à tous les groupes déclarés,
 au degré `administrator` (D759).
 
-Les associations et les trois conditions, pour l'entrepôt :
+L'association, pour l'entrepôt : les utilisateurs sont dans des groupes
+Entra, et chaque groupe Entra est associé à un groupe de l'application, à
+`administrator` ou à la porte :
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
 flowchart LR
-    subgraph E["Le système d'authentification, Entra"]
-        G1["le groupe Entra des commerciaux<br/>son GUID"]
-        G2["le groupe Entra de la logistique<br/>son GUID"]
-        GA["le groupe Entra des administrateurs<br/>son GUID"]
-        GP["le groupe Entra de l'entrepôt<br/>son GUID"]
+    subgraph U["Les utilisateurs, dans Entra"]
+        direction TB
+        u1["un commercial"]
+        u2["une logisticienne, aussi administratrice"]
+        u3["un commercial hors de l'entrepôt"]
     end
-    subgraph S["L'application"]
-        C["commercial<br/>groups.yml"]
-        L["logistique<br/>groups.yml"]
-        AD["administrator<br/>le groupe du socle"]
-        P(("la porte<br/>le groupe de l'application"))
+    subgraph E["Les groupes Entra, par leur GUID"]
+        direction TB
+        G1["les commerciaux"]
+        G2["la logistique"]
+        GA["les administrateurs"]
+        GP["l'entrepôt"]
     end
+    subgraph S["Les groupes de l'application"]
+        direction TB
+        C["commercial, groups.yml"]
+        L["logistique, groups.yml"]
+        AD["administrator, le socle"]
+        P["le groupe de l'application, la porte"]
+    end
+    u1 --> G1
+    u1 --> GP
+    u2 --> G2
+    u2 --> GA
+    u2 --> GP
+    u3 --> G1
     G1 -- "une association, saisie dans _administration" --> C
     G2 -- "une association" --> L
     GA -- "une association" --> AD
     GP -- "une association" --> P
-    U["Un utilisateur se connecte"] --> K{"actif ?<br/>dans le groupe de l'application ?<br/>dans un groupe nommé ?"}
-    K -- "inactif, ou hors du groupe de l'application" --> R["n'entre pas"]
-    K -- "dans aucun groupe nommé" --> RD["entre comme reader"]
-    K -- "les trois conditions" --> OK["entre avec ses groupes"]
 ```
 
-À gauche, les groupes du système d'authentification ; à droite, ceux de
-l'application, `groups.yml`, `administrator` du socle, et la porte ; entre
-les deux, une association par groupe, saisie dans le module
-d'administration, jamais dans la configuration (D1788, D1789, D1792) ; en
-bas, les trois conditions que le connecteur contrôle et leurs issues
-(D1793).
+Une association par groupe, saisie dans le module d'administration, jamais
+dans la configuration (D1788, D1789, D1792) ; le commercial hors du groupe
+de l'entrepôt n'entrera pas, même membre des commerciaux.
+
+L'acceptation ou le refus d'un accès, les trois conditions dans l'ordre,
+contrôlées par le connecteur (D1793) :
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart TD
+    D(["Un utilisateur se connecte"]) --> Q1{"Actif dans le système d'authentification ?"}
+    Q1 -- "non" --> R1(["Refusé"])
+    Q1 -- "oui" --> Q2{"Dans le groupe de l'application ?"}
+    Q2 -- "non" --> R2(["Refusé, même présent dans un autre groupe"])
+    Q2 -- "oui" --> Q3{"Dans un groupe nommé de l'application ?"}
+    Q3 -- "non" --> R3(["Entre comme reader"])
+    Q3 -- "oui" --> R4(["Entre avec ses groupes"])
+```
 
 ## Les modules, la délégation, le passe-droit
 

@@ -50,17 +50,17 @@ Les conditions, dans l'ordre où elles jouent, sur les champs de l'entrepôt :
 ```mermaid
 %%{init: {"flowchart": {"curve": "stepAfter"}}}%%
 flowchart TD
-    Q["Un champ est demandé"] --> N{"son niveau de<br/>confidentialité ?"}
-    N -- "public, le défaut<br/>nom, prenom, telephone" --> V1["vu par l'API,<br/>l'interface et les tâches"]
-    N -- "protected<br/>le profil financier, le profil direction" --> C{"par quel canal ?"}
-    C -- "l'API" --> M1["masqué"]
-    C -- "une tâche" --> V2["vu"]
-    C -- "l'interface" --> G{"l'utilisateur est dans<br/>un groupe du profil ?"}
-    G -- "oui : les achats, la direction" --> V3["vu"]
-    G -- "non" --> M2["masqué"]
-    N -- "private" --> C2{"par quel canal ?"}
-    C2 -- "une tâche" --> V4["vu"]
-    C2 -- "l'API, l'interface" --> M3["masqué"]
+    D(["Un champ est demandé"]) --> Q1{"Son niveau est public ?"}
+    Q1 -- "oui" --> V1(["Vu"])
+    Q1 -- "non" --> Q2{"Le canal est une tâche ?"}
+    Q2 -- "oui" --> V2(["Vu"])
+    Q2 -- "non" --> Q3{"Son niveau est private ?"}
+    Q3 -- "oui" --> M1(["Masqué"])
+    Q3 -- "non, protected" --> Q4{"Le canal est l'API ?"}
+    Q4 -- "oui" --> M2(["Masqué"])
+    Q4 -- "non, l'interface" --> Q5{"L'utilisateur est dans un groupe du profil ?"}
+    Q5 -- "oui" --> V3(["Vu"])
+    Q5 -- "non" --> M3(["Masqué"])
 ```
 
 Le niveau d'abord, le canal ensuite, les groupes enfin (D25, D26, D364).

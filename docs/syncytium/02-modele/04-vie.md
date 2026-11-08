@@ -17,6 +17,40 @@ portent : l'héritage, la suppression, l'historisation.
 > fournisseur sont des tiers ; un tiers devient client à sa première
 > commande ([glossaire](../../glossaire.md)).
 
+Le tiers de l'entrepôt, ses deux enfants et ses liens :
+
+```mermaid
+classDiagram
+    direction LR
+    class tiers {
+        les champs communs
+        list of adresse
+        list of contact
+    }
+    class client {
+        inheritance tiers
+        taux_representant
+        encours_maximum
+    }
+    class fournisseur {
+        inheritance tiers
+    }
+    class contact
+    class adresse
+    class commande_vente
+    class commande_achat
+    class article
+    tiers <|-- client : l'héritage
+    tiers <|-- fournisseur : l'héritage
+    tiers *-- contact : la composition
+    tiers *-- adresse : la composition
+    commande_vente --> client : la référence
+    commande_achat --> fournisseur : la référence
+    client ..> commande_vente : l'association dérivée
+    fournisseur ..> commande_achat : l'association dérivée
+    fournisseur ..> article : l'association dérivée
+```
+
 Une entité peut hériter d'une autre. L'enfant déclare son parent par
 `inheritance:`, et c'est sa seule référence à lui (D353). L'entrepôt en
 a deux : `article` et ses dérivés `fabrique`, `semi_fini`, `fantome` ;
@@ -129,6 +163,18 @@ La valeur de `history:` règle la profondeur de la mémoire (D411) :
 La forme longue, `history: { mode: , visibility: [..] }`, ajoute les
 groupes qui voient l'historique (D413, D1800) ; sans elle, la visibilité
 est la confidentialité de l'entité (D170). La règle est au chapitre 7.
+
+Un instantané par acte, la fiche relue à toute date (D168, D169) :
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    A1["la création<br/>par la reprise"] --> I1["l'instantané 1<br/>l'agrégat entier, l'auteur, le canal, la date"]
+    A2["une modification<br/>par un utilisateur"] --> I2["l'instantané 2"]
+    A3["une modification<br/>par une opération"] --> I3["l'instantané 3"]
+    I1 --> I2 --> I3
+    I3 --> L(("la fiche relue<br/>telle qu'elle était à une date"))
+```
 
 ```yaml
 # L'historique de la commande : les 365 derniers jours

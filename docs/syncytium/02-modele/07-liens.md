@@ -221,6 +221,21 @@ point (D593).
 hiérarchie d'héritage (D353, D421–D427). Il porte le graphe des
 passages, `promote:` et `demote:`. Une entité a un seul statut.
 
+Le statut du véhicule, trois états et deux passages, le second au cliquet
+(D422, D425–D427) :
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    creation : creation<br/>allow create, read, update, delete
+    actif : actif<br/>allow create, read, update
+    cloture : cloture<br/>allow read, l'archive
+    [*] --> creation : la naissance, le défaut
+    creation --> actif : promote
+    actif --> cloture : promote, when date_vente is not null
+    cloture --> [*]
+```
+
 ### L'entité `context`
 
 Le moteur, en lecture seule (D254, D588–D591). Ses parties :

@@ -126,6 +126,25 @@ note_interne:
     ouverte aux groupes que le droit du champ nomme, le module restant en lecture seule.
 ```
 
+La cascade, sur cet exemple :
+
+```mermaid
+flowchart TD
+    A["L'application — version.yml<br/>allow : tout permis, le défaut"]
+    M["Le module — tiers.yml<br/>allow : create false, update false, delete false"]
+    E["L'entité — tiers<br/>rien d'écrit : elle hérite du module"]
+    C["Le champ — tiers.note_interne<br/>allow : update ouvert au commercial et aux achats"]
+    S["L'écran, le composant, le template<br/>allow : l'étage le plus près de l'utilisateur"]
+    U(("L'acte<br/>le plus proche l'emporte"))
+    A --> M --> E --> C --> S --> U
+    X["Le degré administrator<br/>passe outre, tracé"] -.-> U
+```
+
+Les étages du bloc libre, de l'application à l'écran (D886, D1796) ; le
+plus proche de l'acte l'emporte (D359) ; le module ferme la modification,
+le champ possédé la rouvre à deux groupes (D941, D942) ; l'administrateur
+passe outre, toujours tracé (D942).
+
 ## Les canaux et le passe-outre
 
 `allow:` s'applique à tous les canaux : l'interface et l'API passent par

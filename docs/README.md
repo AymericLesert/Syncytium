@@ -89,7 +89,7 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 | 5 | **Les connecteurs** | `connectors.md` | `syncytium/05-connecteurs/` | faite le 02/11/2026 (18 points, D1707–D1729) | faite le 02/11/2026 (sept fichiers, D1730) ; réécrite le 02/11/2026 (D1731–D1737), relue le 05/11/2026 (D1780), illustrée le 08/11/2026 (D1857, validée D1862) |
 | 6 | **Les opérations** | `hooks.md` §3, le registre — les tâches, D53, D54, D87, D88, D106 (D1689) | `syncytium/06-operations/` | faite le 05/11/2026 (16 points, D1739–D1761) | faite le 05/11/2026 (huit fichiers, D1762) ; réécrite le 05/11/2026 (D1763–D1769), relue le 05/11/2026 (D1770–D1779), illustrée le 08/11/2026 (D1858, D1861, validée D1862) |
 | 7 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/07-securite/` | faite le 07/11/2026 (14 points, D1783–D1823) | faite le 07/11/2026 (dix fichiers, D1824) ; réécrite le 07/11/2026 (D1825–D1833), relue le 08/11/2026 (D1834–D1853) |
-| 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/08-reprise/` | — | — |
+| 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/08-reprise/` | ouverte le 08/11/2026 (21 points, D1863) | — |
 | 9 | **Le fonctionnement du moteur** | `administration.md`, « Reçu du chapitre 7 » — l'intégrité, la disponibilité, les secrets (D1824) ; le registre — l'ingestion, l'estampille, le registre des versions (D1784) | `syncytium/09-moteur/` | — | — |
 | 10 | **L'administration et l'exploitation** | `administration.md`, le registre — la supervision des tâches, D56, D61, D62 (D1689) | `syncytium/10-administration/` | — | — |
 | 11 | **La télémétrie** | `telemetry.md` | `syncytium/10-administration/telemetrie.md` | — | — |
@@ -112,35 +112,33 @@ est au chapitre 5 (D1730), l'opération au chapitre 6 (D1762), où
 
 ## Les points de la lecture en cours
 
-Le chapitre 7, les droits et la sécurité (D1783, D1786) — la lecture est close (D1823). Les points d'un
+Le chapitre 8, la reprise et le mapping (D1863) — la lecture est ouverte. Les points d'un
 chapitre se dégagent à son ouverture, dans l'ordre de son sujet, avec ce qui
 le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 « présenté » ou « clos (Dnnnn) » ; le tableau de bord lit cette table.
+Cinq groupes : le cadre (1–3), la source (4–8), les règles (9–12), le
+passage (13–18), les exemples, la facette et le registre (19–21).
 
 | # | Le point | L'état |
 |---|---|---|
-| 1 | **La déclaration des groupes**, `groups.yml` : ses clés (`label`, `description`, `persona`, `groups`, `degree`), la composition (D1099), l'association à l'annuaire (D31, D713, D717), les affectations en base | clos (D1788–D1793) |
-| 2 | **Les degrés** : quatre valeurs (D1140, D1680), un groupe au degré `reader`, l'appartenance obligatoire, les vingt et un planchers comme vue des droits (D1749) | clos (D1794) |
-| 3 | **Les droits d'action, `allow:`** : trois écritures et l'étage de l'application (D886), qu'aucun cas n'écrit | clos (D1795–D1797) |
-| 4 | **La confidentialité** : le niveau seul, le profil interpolé (D1536), la forme longue niveau + groupes (D26), l'héritage (D102), la `visibility:` de l'historique (D170, D413) ; la facette au chapitre 2 | clos (D1798–D1800) |
-| 5 | **La session et le compte** : le cookie et le porteur (D917), les clés d'API et le « pour le compte de » (D107, D1723), les réglages `duration`, `limit`, `lockout`, `cooldown`, `invitation` (D588, D693, D720) | clos (D1801–D1805) |
-| 6 | **Le marquage `rgpd:`** : `identity` en proposition (D1332) que l'entrepôt écrit (D1344), le type qui le porte (D1178) | clos (D1806–D1807) |
-| 7 | **Le registre des traitements et le bloc `rgpd:`** : `controller:` en proposition (D1320), les quatre niveaux (D1323–D1325) | clos (D1808–D1809) |
-| 8 | **La rétention** : l'historisation (D411) dans rights.md, l'anonymisation avec sa règle et `cleanup.yml` dans le registre (D1334) | clos (D1810–D1813) |
-| 9 | **Ce que la sécurité enregistre** : l'audit des lectures et `trace:` (D702–D704), les événements de sécurité du journal et le throttling (D925–D926) ; la déduction des risques au chapitre 11 | clos (D1814–D1817) |
-| 10 | **Les exemples** : les six blocs inventés de rights.md remplacés par les extraits des cas (D1545) ; les clés qu'aucun cas n'écrit | clos (D1818) |
-| 11 | **La facette documentation** : les deux rubriques fusionnent ; « les douze principes de security.md » (D1338) face aux six principes et seize invariants | clos (D1819) |
-| 12 | **La classification** : la famille `securite` à reconstituer | clos (D1820) |
-| 13 | **Les lectures ouvertes et les non citées**, à lever ou à reporter | clos (D1821) |
-| 14 | **L'historique et les statuts** : « Les points ouverts », « le chantier du sujet 2 », les « tranché par » au registre ; les invariants gardés | clos (D1822–D1823) |
-
-Hors des familles : `glossaire.md` va à `syncytium/glossaire.md` avec le
-premier chapitre ; `etude-comparative-20260718.md` à
-`etudes/comparative-2026-07-18.md` (partie 5) ; `presentation/` et le README
-de la racine s'écrivent à la partie 0 ; `conception.md` se convertit en
-dernier (partie 2).
-
-*L'ordre des parties : ce plan, puis Syncytium chapitre par chapitre, les
-cas d'usage, la présentation, l'histoire, les études à la demande, et en
-dernier le nettoyage, qui allège le texte des références aux décisions
-(D1520–D1521, D1548).*
+| 1 | **Les deux visages du mapping** (D646–D647) : la reprise d'un système existant, le sujet du chapitre ; la migration entre deux versions — le schéma à chaud, le délai de grâce, `restore` (D631, D673–D679) — vers le chapitre 9, le renommage `from:` et la dépréciation `deprecated:` (D650–D651, D1111) vers les chapitres 1 et 2, la compatibilité des API (D11–D13) vers le chapitre 13 — à arbitrer | à traiter |
+| 2 | **La migration déclarée**, `migrations:` et `reprise.yml` : `from:`, `buffer:`, `storage:`, `mode:`, `reset:`, `source:`, `mapping:`, `operations:` (D662, D664, D671, D943, D1045, D1072, D1087) ; les trois cas la déclarent | à traiter |
+| 3 | **L'ordre des étapes** : les migrations dans l'ordre déclaré, les dossiers et les fichiers numérotés, les motifs regex (D665, D806, D1103–D1104) | à traiter |
+| 4 | **La description de la source** dans la grammaire du modèle : un fichier par table, les trois états d'une colonne — lue, ignorée, non lue —, `ignored`, la colonne décrite et ses codes (D652, D657, D869, D947, D1100–D1102) | à traiter |
+| 5 | **L'identité et les références de la source** : la référence composée, nommée `TABLE[NOM].colonne`, à l'une de deux entités `A.c or B.c` — deux lectures en proposition (D995, D996) —, le `parent:` du fils (D876, D931, D1035, D1042) | à traiter |
+| 6 | **La normalisation à la source** : `formula:`, `normalize:`, la lecture d'une autre table par un calculé et son cache, l'alias (D660, D872, D965, D966, D990) | à traiter |
+| 7 | **Le périmètre et la couverture** : `filter:` hors taux, `coverage:` en forme courte et riche, la partition et la dernière valeur parcourue, l'état relu en entier (D663, D878–D880, D1013, D1050) | à traiter |
+| 8 | **Les sources fichiers** : la carte entités → fichiers au connecteur, `headers:`, `skipheader:`, le `mask` à la lecture (D816, D819–D820, D828, D845) — la frontière avec le chapitre 5 | à traiter |
+| 9 | **La forme de la règle** : `to:`, `filter:`, `distinct:`, `parent:`, `fields:`, `validation:`, `operations:`, `report:` ; les formes longues, le `message:` en gabarit, les deux formes de la validation (D655–D656, D930, D1105–D1106, D1116–D1117) | à traiter |
+| 10 | **La clé fonctionnelle et les agrégats** : l'identité de la cible alimentée par `fields:`, les origines multiples, `parent:` par les champs mappés, le parent d'une hiérarchie, l'identité partout (D654, D931, D969, D1035, D1046) | à traiter |
+| 11 | **Au-delà du 1-1** : le référentiel par `distinct:`, les composés par la fonction du type, le rapprochement par le cache `push`/`pop`, le compteur surchargé, les champs mutualisés `~{…}`, le cumul de fichiers (D658–D659, D821–D823, D883, D967–D968, D998) | à traiter |
+| 12 | **L'enrichissement et la perte** : `unchanged:`, `default:`, la source fait foi, le texte trop long refusé à l'ingestion (D581, D941, D1038) | à traiter |
+| 13 | **Le déroulé d'un passage** : les étapes, les cinq phases de contrôle, chaque phase relève toutes ses erreurs, l'échec dans une composition (D933, D1033, D1040, D1057) | à traiter |
+| 14 | **La base miroir et la comparaison** : la transaction, les cinq blocs, la suppression sur la partition relue, le différentiel champ par champ, le dry-run, `mode:` et `reset:` (D649, D671–D672, D1034, D1037, D1041–D1046, D1052) | à traiter |
+| 15 | **Ce que le module garde** : la table des clés d'origine — partition, hash, statut —, le modèle lu et ses versions, la ligne d'exécution, les trois jeux de compteurs, les indicateurs, les anomalies ; le modèle de `_migration`, en proposition depuis D1021 (D1047–D1060) | à traiter |
+| 16 | **Le détail d'un passage** : un fichier SQLite par exécution, chiffré, sa rétention par `cleanup.yml`, les données personnelles (D1065–D1076) | à traiter |
+| 17 | **Les rapports** : le `report:` de la règle et celui de l'entité source, la consolidation par destinataire, le défaut vers l'administrateur, le mail anonymisé (D406–D407, D929, D1058, D1065) | à traiter |
+| 18 | **Les opérations et le rythme** : `migrate`, `reset_coverage`, `on_running:`, l'interruption, la copie d'un environnement, la sandbox ; les surfaces du module vers le chapitre 10 (D667, D881, D943, D1077–D1080, D1078) | à traiter |
+| 19 | **Les exemples** : le véhicule — les classeurs, `absolute`, `reset` —, la banque — les fichiers, les trois phases, le cache —, l'entrepôt — PMI, `relative`, `coverage:` — ; le cas 5 en fil rouge, les extraits tels quels (D1545, D1818) | à traiter |
+| 20 | **La facette documentation** : les neuf colonnes écrites dans les deux artefacts, réunies dans le fichier de la documentation du chapitre (D1158–D1159, D1259, D1302) | à traiter |
+| 21 | **Le registre** : 35 amendées dont 11 non citées, 55 non citées à citer ou à reclasser — dont D181–D184, le stock de reprise, face au passage et à l'anomalie datée (D1032, D1059) —, 37 lectures à confirmer, 6 marques en proposition ; l'historique — Q58, « le sixième artefact », les lots du 20/09 — au journal | à traiter |

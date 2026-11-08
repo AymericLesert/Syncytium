@@ -109,8 +109,18 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
 
 ## La carte
 
-Les onze lignes de la carte sont les sections du chapitre de la sécurité de la
-documentation réglementaire (D1819, D1823).
+La carte est la vue d'ensemble du chapitre : une ligne par domaine de la
+sécurité, l'acquis en une phrase, les décisions qui le fondent, le fichier
+qui le détaille. Elle relie la doctrine, ce que Syncytium garantit, aux
+fichiers, où chaque garantie s'écrit avec ses règles et ses exemples.
+
+Elle sert aussi la documentation générée. Le chapitre de la sécurité de la
+documentation réglementaire suit ses onze lignes : une section par ligne,
+chacune en trois paragraphes, ce que le socle garantit, ce que la
+configuration déclare, ce que l'instance montre, avec un mot d'état en
+tête, déclaré, vérifié ou absent (D1337, D1338, D1819, D1823). Un lecteur
+de cette documentation retrouve ici, ligne à ligne, d'où vient chaque
+section.
 
 | le domaine | l'acquis | les décisions | le détail |
 |---|---|---|---|

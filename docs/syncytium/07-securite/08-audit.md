@@ -58,6 +58,35 @@ history: true
 trace: audit
 ```
 
+L'audit face à l'historisation, sur le contact de l'entrepôt :
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    subgraph ACTES["Ce que fait un utilisateur sur un contact de l'entrepôt"]
+        direction TB
+        L["lit la fiche<br/>l'écran, l'export, l'API"]
+        M["modifie la fiche"]
+    end
+    subgraph AUDIT["L'audit, une entité du module _administration"]
+        direction TB
+        A1["une ligne par enregistrement lu :<br/>le module tiers, l'entité contact, son identifiant,<br/>qui, quand, par où, le champ si trace sur un champ<br/>jamais la valeur"]
+    end
+    subgraph HIST["L'historisation, la mémoire de l'entité contact"]
+        direction TB
+        H1["un instantané par acte :<br/>l'agrégat entier, l'auteur, le canal, le motif,<br/>l'horodatage, les valeurs"]
+    end
+    L -- "trace : audit sur contact,<br/>ou sensitive d'office" --> A1
+    M -- "history : true" --> H1
+    A1 -. "le recoupement à la date :<br/>quelle valeur a été lue" .-> H1
+    PRIV["un acte privilégié<br/>le passe-outre, la délégation, le secours…"] -- "toujours, avec son motif" --> A1
+```
+
+Deux stockages pour deux usages : l'audit dit qui a lu quoi, l'historique
+dit ce qu'une fiche était ; la valeur ne s'écrit jamais dans l'audit, on la
+retrouve par l'historique à la date (D1814, D1815) ; les actes privilégiés
+s'y tracent toujours, avec leur motif (D1817).
+
 ## La trace des écritures
 
 Toute écriture est tracée (D62). L'historisation est la trace des

@@ -76,7 +76,9 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   la section ou le chapitre nécessite une vision schématique (D1835 ; en
   Mermaid, comme l'arbre des connecteurs, D1715 ; la largeur avant la
   hauteur, D1841 ; un arbre de décision en logigramme, vertical, les arcs à
-  angle droit, D1842, D1844) ; **un exemple YAML suit les règles des cas d'exemple**
+  angle droit, D1842, D1844 : Début et Fin en terminateurs, les actions en
+  rectangles, les décisions en losanges à Oui et Non, les commentaires
+  reliés par un trait, un tracé sobre, D1847) ; **un exemple YAML suit les règles des cas d'exemple**
   ci-dessus (D1545) : l'introduction avant chaque clé, le commentaire
   collé à la clé, une ligne vide entre deux clés, aucune référence de
   décision dans l'exemple — les décisions se citent dans la prose qui

@@ -48,19 +48,26 @@ d'un groupe contenant voit ce que voient ses constituants
 Les conditions, dans l'ordre où elles jouent, sur les champs de l'entrepôt :
 
 ```mermaid
-%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#f4f4f4", "primaryBorderColor": "#555555", "primaryTextColor": "#111111", "lineColor": "#333333", "fontSize": "12px"}, "flowchart": {"curve": "stepAfter", "padding": 6, "nodeSpacing": 25, "rankSpacing": 28}}}%%
 flowchart TD
-    D(["Un champ est demandé"]) --> Q1{"Son niveau est public ?"}
-    Q1 -- "oui" --> V1(["Vu"])
-    Q1 -- "non" --> Q2{"Le canal est une tâche ?"}
-    Q2 -- "oui" --> V2(["Vu"])
-    Q2 -- "non" --> Q3{"Son niveau est private ?"}
-    Q3 -- "oui" --> M1(["Masqué"])
-    Q3 -- "non, protected" --> Q4{"Le canal est l'API ?"}
-    Q4 -- "oui" --> M2(["Masqué"])
-    Q4 -- "non, l'interface" --> Q5{"L'utilisateur est dans un groupe du profil ?"}
-    Q5 -- "oui" --> V3(["Vu"])
-    Q5 -- "non" --> M3(["Masqué"])
+    D(["Début"]) --> A1["Un champ est demandé"]
+    A1 --> Q1{"Niveau<br/>public ?"}
+    Q1 -- "Non" --> Q2{"Par une<br/>tâche ?"}
+    Q1 -- "Oui" --> V["Vu"]
+    Q2 -- "Non" --> Q3{"Niveau<br/>private ?"}
+    Q2 -- "Oui" --> V
+    Q3 -- "Non" --> Q4{"Par<br/>l'API ?"}
+    Q3 -- "Oui" --> M["Masqué"]
+    Q4 -- "Non" --> Q5{"Groupe<br/>du profil ?"}
+    Q4 -- "Oui" --> M
+    Q5 -- "Oui" --> V
+    Q5 -- "Non" --> M
+    V --> F(["Fin"])
+    M --> F
+    Q3 --- C1["sinon protected"]
+    Q4 --- C2["sinon l'interface"]
+    classDef note fill:#ffffff,stroke:#999999,stroke-dasharray:3 3
+    class C1,C2 note
 ```
 
 Le niveau d'abord, le canal ensuite, les groupes enfin (D25, D26, D364).

@@ -906,7 +906,9 @@ Trois volets par item, donc : la configuration, telle que les chapitres
 la décrivent ; sa traduction technique dans l'interface, avec le choix
 d'implémentation retenu ; une représentation graphique du résultat. Ce
 rang attend le domaine 7, l'architecture technique, et s'exécute au
-domaine 8.
+domaine 8. Les illustrations schématiques des chapitres (D1835) sont
+provisoires : « il faudra revenir sur la documentation pour illustrer par
+le rendu réel les différentes parties » (D1836, le 08/11/2026).
 
 ## 1. Le principe — trois documentations, trois sources, une seule version
 

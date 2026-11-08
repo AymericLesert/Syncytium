@@ -304,7 +304,7 @@ de l'entrepôt n'entrera pas, même membre des commerciaux.
 L'acceptation ou le refus d'un accès, les trois conditions dans l'ordre,
 contrôlées par le connecteur (D1793) :
 
-![L'acceptation ou le refus d'un accès](schemas/acces.svg)
+<p align="center"><img src="schemas/acces.svg" alt="L'acceptation ou le refus d'un accès"></p>
 
 ## Les modules, la délégation, le passe-droit
 

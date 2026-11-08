@@ -52,6 +52,7 @@ ROW = 74                   # la hauteur d'une ligne, boîte comprise
 COL = 240                  # l'écart entre deux colonnes
 NOTE_GAP = 40
 MARGIN = 30
+PAD = 20                   # le vide gardé autour du dessin (D1849)
 FILL = "#f2f2f2"
 STROKE = "#555555"
 TEXT = "#111111"
@@ -164,8 +165,17 @@ def construire(desc):
     return noeuds, arcs
 
 
+# L'emprise du dessin : ce que les formes, les arcs et les notes occupent ; le cadre final la serre à PAD près.
+BB = [float("inf"), float("inf"), float("-inf"), float("-inf")]
+
+
+def emprise(x0, y0, x1, y1):
+    BB[0], BB[1], BB[2], BB[3] = min(BB[0], x0), min(BB[1], y0), max(BB[2], x1), max(BB[3], y1)
+
+
 def forme(n):
     x, y, w, h = n.cx - n.w / 2, n.cy - n.h / 2, n.w, n.h
+    emprise(x, y, x + w, y + h)
     style = f'fill="{FILL}" stroke="{STROKE}" stroke-width="1"'
     if n.genre in ("start", "end"):
         return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{h / 2}" {style}/>'
@@ -181,6 +191,8 @@ def texte(x, y, t, ancre="middle", taille=FONT, couleur=TEXT):
 
 
 def chemin(points, fleche=True):
+    xs, ys = [p[0] for p in points], [p[1] for p in points]
+    emprise(min(xs) - 4, min(ys) - 4, max(xs) + 4, max(ys) + 4)
     d = "M " + " L ".join(f"{x},{y}" for x, y in points)
     m = ' marker-end="url(#fleche)"' if fleche else ""
     return f'<path d="{d}" fill="none" stroke="{LINE}" stroke-width="1"{m}/>'
@@ -247,21 +259,27 @@ def tracer(noeuds, arcs, titre):
             w = largeur(n.note, 60)
             x = n.cx + n.w / 2 + NOTE_GAP + (COL if any(m.col == n.col + 1 and m.rang == n.rang for m in noeuds) else 0)
             out.append(chemin([n.bord("droite"), (x, n.cy)], fleche=False))
+            emprise(x, n.cy - 11, x + w, n.cy + 11)
             out.append(f'<rect x="{x}" y="{n.cy - 11}" width="{w}" height="22" fill="#ffffff" stroke="#999999" '
                        f'stroke-dasharray="3 3" stroke-width="1"/>')
             out.append(texte(x + w / 2, n.cy, n.note, taille=FONT - 1, couleur="#333333"))
-    largeur_totale = max(n.cx + n.w / 2 + (largeur(n.note, 60) + NOTE_GAP + COL if n.note else 0) for n in noeuds) + MARGIN
-    hauteur = max(n.cy + n.h / 2 for n in noeuds) + MARGIN + (24 if titre else 0)
+    # le titre sous le dessin, centré sur l'emprise ; puis le cadre serré à PAD autour de tout (D1849)
     if titre:
-        out.append(texte(largeur_totale / 2, hauteur - 14, titre, taille=FONT, couleur="#333333"))
-    tete = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{int(largeur_totale)}" height="{int(hauteur)}" '
-            f'viewBox="0 0 {int(largeur_totale)} {int(hauteur)}" font-family="Segoe UI, Arial, sans-serif">\n'
+        xt, yt = (BB[0] + BB[2]) / 2, BB[3] + 18
+        out.append(texte(xt, yt, titre, taille=FONT, couleur="#333333"))
+        emprise(xt - len(titre) * CHAR / 2, yt - 8, xt + len(titre) * CHAR / 2, yt + 8)
+    x0, y0 = BB[0] - PAD, BB[1] - PAD
+    w, h = BB[2] - BB[0] + 2 * PAD, BB[3] - BB[1] + 2 * PAD
+    tete = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{int(w)}" height="{int(h)}" '
+            f'viewBox="{int(x0)} {int(y0)} {int(w)} {int(h)}" font-family="Segoe UI, Arial, sans-serif">\n'
             f'<defs><marker id="fleche" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">'
-            f'<path d="M0,0 L8,4 L0,8 z" fill="{LINE}"/></marker></defs>\n<rect width="100%" height="100%" fill="#ffffff"/>\n')
+            f'<path d="M0,0 L8,4 L0,8 z" fill="{LINE}"/></marker></defs>\n'
+            f'<rect x="{int(x0)}" y="{int(y0)}" width="{int(w)}" height="{int(h)}" fill="#ffffff"/>\n')
     return tete + "\n".join(out) + "\n</svg>\n"
 
 
 def dessiner(chemin_yml):
+    BB[:] = [float("inf"), float("inf"), float("-inf"), float("-inf")]
     desc = lire(chemin_yml)
     noeuds, arcs = construire(desc)
     svg = tracer(noeuds, arcs, desc.get("title"))

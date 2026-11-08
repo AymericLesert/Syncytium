@@ -47,7 +47,7 @@ d'un groupe contenant voit ce que voient ses constituants
 
 Les conditions, dans l'ordre où elles jouent, sur les champs de l'entrepôt :
 
-![Un champ est vu ou masqué](schemas/niveaux.svg)
+<p align="center"><img src="schemas/niveaux.svg" alt="Un champ est vu ou masqué"></p>
 
 Le niveau d'abord, le canal ensuite, les groupes enfin (D25, D26, D364).
 

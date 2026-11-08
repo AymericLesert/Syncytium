@@ -75,6 +75,15 @@ Les settings se lisent du plus loin au plus près (D359, D360, D588) :
 `settings:` de l'entité. Le plus proche l'emporte. Le champ garde le
 dernier mot, par ses propriétés directes.
 
+La cascade, du plus loin au plus près :
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    A["Syncytium<br/>les défauts du socle"] --> B["settings.yml<br/>la version"] --> C["settings:<br/>le module"] --> D["settings:<br/>l'entité"] --> E["le champ<br/>ses propriétés directes"]
+    E --> F(("la valeur<br/>le plus proche l'emporte"))
+```
+
 ### La règle des paramètres (D1535)
 
 Un hook décrit par son contrat la liste de ses paramètres : le mode, le
@@ -362,6 +371,18 @@ operations:
 
 Le motif `.*/.*\.yml` prend chaque fichier YAML d'un sous-dossier : une
 fiche par opération.
+
+La chaîne, de la version au code, pour la banque :
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    V["version.yml<br/>hooks: ~#123;hooks/hooks.yml#125;"] --> H["hooks/hooks.yml<br/>une famille par fichier"]
+    H --> O["hooks/operations/operations.yml<br/>les fiches, par un motif"]
+    O --> F["la fiche, #lt;nom#gt;.yml<br/>name, description, code"]
+    F --> M["#lt;nom#gt;.#lt;langue#gt;.md<br/>la documentation"]
+    F --> C["le code<br/>le contrat de sa famille"]
+```
 
 ### La fiche du hook
 

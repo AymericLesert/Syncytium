@@ -418,6 +418,24 @@ D345) :
 - `beta` vers `forbidden` ;
 - jamais l'inverse ; une même version dans deux dossiers est une erreur.
 
+Les statuts et leurs transitions, dans un seul sens (D344, D345, D910,
+D928) :
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> sandbox : l'essai d'une description
+    [*] --> beta : la version déposée
+    sandbox --> beta : la promotion, from retiré
+    sandbox --> production : la promotion, from retiré
+    beta --> production : la promotion
+    beta --> forbidden : l'interdiction
+    production --> deprecated : la dépréciation
+    production --> forbidden : l'interdiction
+    deprecated --> [*] : conservée
+    forbidden --> [*] : conservée
+```
+
 Une version a quatre nombres croissants, `<majeure>.<mineure>.<indice>.<build>`
 (D324). Le moteur tient le registre des versions essayées (D326) : une
 version en erreur n'est pas réessayée sans incrément du build. Un format

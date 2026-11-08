@@ -55,6 +55,20 @@ l'administrateur, pas un déclencheur (D88). *En proposition* : les
 anglais, `created`, `updated`, `deleted`, `generated`, `imported`,
 `migrated`, `promoted`.
 
+Les six déclencheurs, et la tâche qu'ils engagent :
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    A["l'acte<br/>le bouton, l'icône, l'étape"] --> O(("l'opération"))
+    P["l'API<br/>toute opération sans when"] --> O
+    C["le calendrier<br/>every:"] --> O
+    E["l'événement de données<br/>when: expression ou événement nommé"] --> O
+    K["l'événement de connecteur<br/>when: connecteur"] --> O
+    N["l'enchaînement<br/>actions: d'une autre opération"] --> O
+    O --> T["une tâche de la file"]
+```
+
 ## L'exemple du véhicule
 
 Dans le cas 3 (véhicule), `transport/vehicule/operations.yml` déclare

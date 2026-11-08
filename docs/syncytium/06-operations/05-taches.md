@@ -53,6 +53,11 @@ déclaration (D1743, D1744) :
 - **`irreversible`** : les effets ne se défont pas, un mail parti ne se
   rappelle pas ; aucun rejeu, la relance manuelle depuis la supervision.
 
+<p align="center"><img src="schemas/tache.svg" alt="La vie d'une tâche"></p>
+
+La vie d'une tâche, du déclenchement à l'issue : le mode, la file, l'exécution, le
+rejeu ou la relance (D54, D55, D57, D436, D1743, D1744).
+
 `rollback` défait la transaction, jamais les effets (D1744). Le
 déterminisme est au contrat aussi : une opération `deterministic`
 rend, dans sa fenêtre, le résultat mémorisé d'un appel identique

@@ -1,0 +1,24 @@
+# Le logigramme d'une tâche
+# De l'opération déclenchée à son issue : le mode, la file, l'exécution, le rejeu ou la relance.
+title: La vie d'une tâche
+steps:
+  - start: Début
+  - action: Une opération est déclenchée
+  - decision: Mode synchronous ?
+    no: {to: file}
+  - action: L'interface attend, la barre de progression
+  - action: La tâche entre dans la file
+    id: file
+    note: await la diffère du délai dit
+  - action: Le hook s'exécute, dans sa transaction
+    id: run
+  - decision: Succès ?
+    yes:
+      side: [{action: "Le commit, puis les effets et les actions"}]
+      to: fin
+  - decision: Repeatable, un essai reste ?
+    yes: {to: run}
+    note: irreversible ne rejoue jamais
+  - action: L'échec, la relance depuis la supervision
+  - end: Fin
+    id: fin

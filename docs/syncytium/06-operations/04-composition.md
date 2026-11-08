@@ -33,6 +33,25 @@ ne défait pas l'opération : la supervision la relance (D88). Une
 fonction n'est pas une action : c'est une méthode d'un type, elle
 s'appelle dans une formule (D1702).
 
+Le cycle d'une opération, du déclencheur aux actions :
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant D as Le déclencheur
+    participant F as La file des tâches
+    participant H as Le hook de l'opération
+    participant B as La base
+    participant E as Les effets et les actions
+    D->>F: l'opération est déclenchée, une tâche
+    F->>H: run, dans une transaction
+    H->>B: lit et écrit, sous les droits
+    H-->>F: le résultat, les valeurs nommées
+    F->>B: le commit
+    F->>E: les effets, notify, document, set, webhook
+    F->>F: les actions suivantes, une tâche chacune
+```
+
 ## Les effets
 
 `effects:` diffuse le résultat d'une action, sur sa bonne exécution

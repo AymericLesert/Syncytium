@@ -198,8 +198,21 @@ def chemin(points, fleche=True):
     return f'<path d="{d}" fill="none" stroke="{LINE}" stroke-width="1"{m}/>'
 
 
+def harmoniser(noeuds):
+    """Des tailles égales par nature : les actions entre elles, les décisions, les terminateurs, les notes (D1851)."""
+    for genres in (("action",), ("decision",), ("start", "end")):
+        groupe = [n for n in noeuds if n.genre in genres]
+        if groupe:
+            w = max(n.w for n in groupe)
+            for n in groupe:
+                n.w = w
+    notes = [n for n in noeuds if n.note]
+    return max((largeur(n.note, 60) for n in notes), default=0)
+
+
 def tracer(noeuds, arcs, titre):
     out = []
+    w_note = harmoniser(noeuds)
     lanes_gauche, lanes_droite = 0, 0
     for de, vers, libelle, sortie in arcs:
         if sortie == "bas":
@@ -256,7 +269,7 @@ def tracer(noeuds, arcs, titre):
         out.append(forme(n))
         out.append(texte(n.cx, n.cy, n.texte))
         if n.note:
-            w = largeur(n.note, 60)
+            w = w_note
             x = n.cx + n.w / 2 + NOTE_GAP + (COL if any(m.col == n.col + 1 and m.rang == n.rang for m in noeuds) else 0)
             out.append(chemin([n.bord("droite"), (x, n.cy)], fleche=False))
             emprise(x, n.cy - 11, x + w, n.cy + 11)

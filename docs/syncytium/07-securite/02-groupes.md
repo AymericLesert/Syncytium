@@ -258,6 +258,39 @@ statut du compte et les affectations en base tiennent ces rôles ; avec
 `none`, l'utilisateur par défaut appartient à tous les groupes déclarés,
 au degré `administrator` (D759).
 
+Les associations et les trois conditions, pour l'entrepôt :
+
+```mermaid
+flowchart LR
+    subgraph E["Le système d'authentification, Entra"]
+        G1["le groupe Entra des commerciaux<br/>son GUID"]
+        G2["le groupe Entra de la logistique<br/>son GUID"]
+        GA["le groupe Entra des administrateurs<br/>son GUID"]
+        GP["le groupe Entra de l'entrepôt<br/>son GUID"]
+    end
+    subgraph S["L'application"]
+        C["commercial<br/>groups.yml"]
+        L["logistique<br/>groups.yml"]
+        AD["administrator<br/>le groupe du socle"]
+        P(("la porte<br/>le groupe de l'application"))
+    end
+    G1 -- "une association, saisie dans _administration" --> C
+    G2 -- "une association" --> L
+    GA -- "une association" --> AD
+    GP -- "une association" --> P
+    U["Un utilisateur se connecte"] --> K{"actif ?<br/>dans le groupe de l'application ?<br/>dans un groupe nommé ?"}
+    K -- "inactif, ou hors du groupe de l'application" --> R["n'entre pas"]
+    K -- "dans aucun groupe nommé" --> RD["entre comme reader"]
+    K -- "les trois conditions" --> OK["entre avec ses groupes"]
+```
+
+À gauche, les groupes du système d'authentification ; à droite, ceux de
+l'application, `groups.yml`, `administrator` du socle, et la porte ; entre
+les deux, une association par groupe, saisie dans le module
+d'administration, jamais dans la configuration (D1788, D1789, D1792) ; en
+bas, les trois conditions que le connecteur contrôle et leurs issues
+(D1793).
+
 ## Les modules, la délégation, le passe-droit
 
 Trois mécanismes complètent les groupes :

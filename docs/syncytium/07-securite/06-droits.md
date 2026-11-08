@@ -129,15 +129,16 @@ note_interne:
 La cascade, sur cet exemple :
 
 ```mermaid
-flowchart TD
-    A["L'application — version.yml<br/>allow : tout permis, le défaut"]
-    M["Le module — tiers.yml<br/>allow : create false, update false, delete false"]
-    E["L'entité — tiers<br/>rien d'écrit : elle hérite du module"]
-    C["Le champ — tiers.note_interne<br/>allow : update ouvert au commercial et aux achats"]
-    S["L'écran, le composant, le template<br/>allow : l'étage le plus près de l'utilisateur"]
+flowchart LR
+    A["L'application, version.yml<br/>allow : tout permis, le défaut"]
+    M["Le module, tiers.yml<br/>allow : create, update, delete à false"]
+    E["L'entité, tiers<br/>rien d'écrit, elle hérite du module"]
+    C["Le champ, tiers.note_interne<br/>allow : update au commercial et aux achats"]
+    S["L'écran, le composant, le template<br/>l'étage le plus près de l'utilisateur"]
     U(("L'acte<br/>le plus proche l'emporte"))
+    X["Le degré administrator<br/>passe outre, tracé"]
     A --> M --> E --> C --> S --> U
-    X["Le degré administrator<br/>passe outre, tracé"] -.-> U
+    X -.-> U
 ```
 
 Les étages du bloc libre, de l'application à l'écran (D886, D1796) ; le

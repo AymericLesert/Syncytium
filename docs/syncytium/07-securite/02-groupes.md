@@ -304,25 +304,7 @@ de l'entrepôt n'entrera pas, même membre des commerciaux.
 L'acceptation ou le refus d'un accès, les trois conditions dans l'ordre,
 contrôlées par le connecteur (D1793) :
 
-```mermaid
-%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#f4f4f4", "primaryBorderColor": "#555555", "primaryTextColor": "#111111", "lineColor": "#333333", "fontSize": "12px"}, "flowchart": {"curve": "stepAfter", "padding": 6, "nodeSpacing": 25, "rankSpacing": 28}}}%%
-flowchart TD
-    D(["Début"]) --> A1["Un utilisateur se connecte"]
-    A1 --> Q1{"Actif ?"}
-    Q1 -- "Oui" --> Q2{"Groupe de<br/>l'application ?"}
-    Q1 -- "Non" --> R1["Refusé"]
-    Q2 -- "Oui" --> Q3{"Groupe<br/>nommé ?"}
-    Q2 -- "Non" --> R1
-    Q3 -- "Oui" --> R4["Entre avec ses groupes"]
-    Q3 -- "Non" --> R3["Entre comme reader"]
-    R4 --> F(["Fin"])
-    R3 --> F
-    R1 --> F
-    R1 --- C1["même dans un autre groupe"]
-    Q1 --- C2["les trois contrôles sont ceux du connecteur"]
-    classDef note fill:#ffffff,stroke:#999999,stroke-dasharray:3 3
-    class C1,C2 note
-```
+![L'acceptation ou le refus d'un accès](schemas/acces.svg)
 
 ## Les modules, la délégation, le passe-droit
 

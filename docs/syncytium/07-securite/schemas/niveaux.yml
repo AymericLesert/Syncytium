@@ -1,0 +1,30 @@
+# Le logigramme des niveaux de confidentialité
+# Un champ est demandé par un canal : le niveau d'abord, le canal ensuite, le groupe enfin.
+title: Un champ est vu ou masqué
+steps:
+  - start: Début
+  - action: Un champ est demandé
+  - decision: Niveau public ?
+    yes: {to: vu}
+  - decision: Par une tâche ?
+    yes: {to: vu}
+  - decision: Niveau private ?
+    yes: {to: masque}
+    note: sinon protected
+  - decision: Par l'API ?
+    yes: {to: masque}
+    note: sinon l'interface
+  - decision: Groupe du profil ?
+    no: {to: masque}
+  - action: Vu
+    id: vu
+  - end: Fin
+    id: fin
+sides:
+  masque:
+    from: 4
+    col: 1
+    steps:
+      - action: Masqué
+        id: masque
+    to: fin

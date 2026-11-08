@@ -1,0 +1,27 @@
+# Le logigramme de l'accès
+# L'acceptation ou le refus d'un accès : les trois conditions, dans l'ordre, contrôlées par le connecteur.
+title: L'acceptation ou le refus d'un accès
+steps:
+  - start: Début
+  - action: Un utilisateur se connecte
+    note: les trois contrôles sont ceux du connecteur
+  - decision: Actif ?
+    no: {to: refus}
+  - decision: Groupe de l'application ?
+    no: {to: refus}
+  - decision: Groupe nommé ?
+    no:
+      side: [{action: Entre comme reader}]
+      to: fin
+  - action: Entre avec ses groupes
+  - end: Fin
+    id: fin
+sides:
+  refus:
+    from: 2
+    col: 2
+    steps:
+      - action: Refusé
+        id: refus
+        note: même présent dans un autre groupe
+    to: fin

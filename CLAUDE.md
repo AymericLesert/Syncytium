@@ -78,7 +78,9 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   hauteur, D1841 ; un arbre de décision en logigramme, vertical, les arcs à
   angle droit, D1842, D1844 : Début et Fin en terminateurs, les actions en
   rectangles, les décisions en losanges à Oui et Non, les commentaires
-  reliés par un trait, un tracé sobre, D1847) ; **un exemple YAML suit les règles des cas d'exemple**
+  reliés par un trait, un tracé sobre, D1847 ; **les logigrammes se
+  dessinent par `tools/logigramme.py`**, D1848 : une description YAML dans
+  `schemas/<nom>.yml` du chapitre, le SVG à côté, l'image dans le texte) ; **un exemple YAML suit les règles des cas d'exemple**
   ci-dessus (D1545) : l'introduction avant chaque clé, le commentaire
   collé à la clé, une ligne vide entre deux clés, aucune référence de
   décision dans l'exemple — les décisions se citent dans la prose qui

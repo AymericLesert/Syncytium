@@ -47,28 +47,7 @@ d'un groupe contenant voit ce que voient ses constituants
 
 Les conditions, dans l'ordre où elles jouent, sur les champs de l'entrepôt :
 
-```mermaid
-%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#f4f4f4", "primaryBorderColor": "#555555", "primaryTextColor": "#111111", "lineColor": "#333333", "fontSize": "12px"}, "flowchart": {"curve": "stepAfter", "padding": 6, "nodeSpacing": 25, "rankSpacing": 28}}}%%
-flowchart TD
-    D(["Début"]) --> A1["Un champ est demandé"]
-    A1 --> Q1{"Niveau<br/>public ?"}
-    Q1 -- "Non" --> Q2{"Par une<br/>tâche ?"}
-    Q1 -- "Oui" --> V["Vu"]
-    Q2 -- "Non" --> Q3{"Niveau<br/>private ?"}
-    Q2 -- "Oui" --> V
-    Q3 -- "Non" --> Q4{"Par<br/>l'API ?"}
-    Q3 -- "Oui" --> M["Masqué"]
-    Q4 -- "Non" --> Q5{"Groupe<br/>du profil ?"}
-    Q4 -- "Oui" --> M
-    Q5 -- "Oui" --> V
-    Q5 -- "Non" --> M
-    V --> F(["Fin"])
-    M --> F
-    Q3 --- C1["sinon protected"]
-    Q4 --- C2["sinon l'interface"]
-    classDef note fill:#ffffff,stroke:#999999,stroke-dasharray:3 3
-    class C1,C2 note
-```
+![Un champ est vu ou masqué](schemas/niveaux.svg)
 
 Le niveau d'abord, le canal ensuite, les groupes enfin (D25, D26, D364).
 

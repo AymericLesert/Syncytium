@@ -873,8 +873,10 @@ rendant consultable dans le projet Github » (l'auteur, le 19/10/2026).
      soldées, puis déplacé et découpé, puis réécrit, didactique et en
      phrases courtes (D1542–D1543) ; le README de `docs/` ouvert et
      tenu à jour ; une PR : **en cours** depuis le 28/10/2026 (D1527 — le
-     chapitre 1, la configuration ; la table des treize chapitres dans
-     `docs/README.md`, lue par le tableau de bord) ;
+     chapitre 1, la configuration ; la table des quinze chapitres dans
+     `docs/README.md`, lue par le tableau de bord) ; les illustrations
+     schématiques en Mermaid (D1835, D1837) — une passe sur les chapitres
+     1 à 6 après le chapitre 7, avant le chapitre 8 (D1838) ;
   4. la partie 4, les cinq cas d'usage — les maisons, le yaml partie par
      partie, les documents générés ; une PR ;
   5. la partie 0, la présentation — le tiny déplié clé par clé, le menu

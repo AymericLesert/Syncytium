@@ -45,6 +45,26 @@ l'interface, que par les membres de ces deux groupes (D364). Un membre
 d'un groupe contenant voit ce que voient ses constituants
 ([les groupes](02-groupes.md), D1099).
 
+Les conditions, dans l'ordre où elles jouent, sur les champs de l'entrepôt :
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart TD
+    Q["Un champ est demandé"] --> N{"son niveau de<br/>confidentialité ?"}
+    N -- "public, le défaut<br/>nom, prenom, telephone" --> V1["vu par l'API,<br/>l'interface et les tâches"]
+    N -- "protected<br/>le profil financier, le profil direction" --> C{"par quel canal ?"}
+    C -- "l'API" --> M1["masqué"]
+    C -- "une tâche" --> V2["vu"]
+    C -- "l'interface" --> G{"l'utilisateur est dans<br/>un groupe du profil ?"}
+    G -- "oui : les achats, la direction" --> V3["vu"]
+    G -- "non" --> M2["masqué"]
+    N -- "private" --> C2{"par quel canal ?"}
+    C2 -- "une tâche" --> V4["vu"]
+    C2 -- "l'API, l'interface" --> M3["masqué"]
+```
+
+Le niveau d'abord, le canal ensuite, les groupes enfin (D25, D26, D364).
+
 ## Les profils et les trois écritures
 
 Le niveau et les groupes s'écrivent une fois, dans un profil nommé, à la

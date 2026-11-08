@@ -1235,6 +1235,22 @@ paragraphe fixe, pris au dictionnaire (D440, D488). Le pied se répète
 à chaque page (D507). L'étiquette est le cas de l'impression directe
 (D252).
 
+L'arbre de la facture, le `pages` implicite du template :
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart TB
+    I["template invoice<br/>paper: A4, margin: 15mm"] --> H["header, height: 40mm<br/>répété à chaque page"]
+    I --> P["page"]
+    I --> B["footer, height: 15mm<br/>répété à chaque page"]
+    H --> H1["picture: logo"]
+    H --> H2["field#91;number#93;<br/>component: qrcode, size: 25mm"]
+    P --> P1["field#91;customer#93;"]
+    P --> P2["field#91;lines#93;<br/>la composition en tableau"]
+    P --> P3["paragraph, label: legal"]
+    B --> B1["field#91;total#93;"]
+```
+
 ## `chat`
 
 **Nom et famille.** `chat`, une surface au socle : l'écran du module

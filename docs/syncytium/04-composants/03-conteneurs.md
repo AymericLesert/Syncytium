@@ -33,6 +33,33 @@ Le formulaire est lui-même un `pages` qui ne se déclare pas (D509) : ses
 clés `header:`, `page:` et `footer:` sont les conteneurs de cette fiche.
 La surface est décrite dans [les surfaces](06-surfaces.md).
 
+L'arbre du formulaire du véhicule (le cas 3) : une page unique, des onglets,
+et dans l'onglet du bilan des sections en ligne ; les feuilles aux extrémités :
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart TB
+    F["form record<br/>le formulaire du véhicule"] --> T["tabs"]
+    T --> T1["tab Véhicule"]
+    T --> T2["tab Financement"]
+    T --> T3["tab Consommation"]
+    T --> T4["tab Entretien"]
+    T --> T5["tab Révision"]
+    T --> T6["tab Bilan"]
+    T1 --> F1["field#91;nom#93; … field#91;km_initial#93;<br/>douze feuilles"]
+    T2 --> F2["field#91;financement#93; … field#91;km_annuel#93;<br/>dix feuilles, visible: selon le financement"]
+    T2 --> O2["operation#91;ajuster_echeancier#93;"]
+    T2 --> E2["field#91;echeances#93;<br/>la composition en liste"]
+    T3 --> F3["field#91;consommations#93;"]
+    T4 --> F4["field#91;entretiens#93;"]
+    T5 --> F5["field#91;revisions#93;"]
+    T6 --> S6["sections, layout: row"]
+    T6 --> C6["chart#91;consommation.evolution_consommation#93;"]
+    S6 --> S61["section Les compteurs<br/>cinq feuilles"]
+    S6 --> S62["section Les totaux<br/>quatre feuilles"]
+    S6 --> S63["section Les prix de revient<br/>quatre feuilles"]
+```
+
 ## Le sommaire
 
 - [`sections`](#sections)

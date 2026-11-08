@@ -105,6 +105,35 @@ Une surface est un arbre. Chaque composant en est un nœud (D455) :
 Le formulaire n'est qu'un arbre parmi d'autres. L'analogie est celle des
 web components (D455).
 
+La composition des nœuds, en UML : la surface est un `pages` implicite ; une
+partie contient des feuilles ou un organisateur ; un organisateur ne contient
+que ses parties (D489, D509) :
+
+```mermaid
+classDiagram
+    direction TB
+    class Surface["la surface : form, wizard, widget, template…"]
+    class Pages["pages, implicite"]
+    class Partie
+    class Organisateur
+    class Feuille["la feuille : field, operation, chart, paragraph, picture"]
+    Surface *-- "1" Pages
+    Pages *-- "0..1" header
+    Pages *-- "1..*" page
+    Pages *-- "0..1" footer
+    Partie <|-- header
+    Partie <|-- page
+    Partie <|-- footer
+    Partie <|-- section
+    Partie <|-- tab
+    Organisateur <|-- sections
+    Organisateur <|-- tabs
+    sections *-- "1..*" section
+    tabs *-- "1..*" tab
+    Partie *-- "0..*" Feuille : items
+    Partie *-- "0..*" Organisateur : items
+```
+
 ## Le modèle de fiche
 
 Chaque fiche du catalogue suit le même plan, en dix rubriques (D457) :

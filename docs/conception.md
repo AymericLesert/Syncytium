@@ -25756,6 +25756,22 @@ avant la synthèse Q16).
   l'entrée, les secrets, le navigateur et l'API), les écarts (les degrés, `allow:`, la confidentialité, le
   marquage et le registre RGPD, la rétention, la session, `trace:`, `groups.yml`), les exemples et la facette, le
   registre. Le point 1 présenté.
+- **2026-11-08 — LA PAUSE : LE CHAPITRE 7 RELU, LES CHAPITRES 1 À 6 ILLUSTRÉS ET VALIDÉS, LE CHAPITRE 8 OUVERT (D1834–D1863, 1863 décisions).** La suite de la session du chapitre 7. **La relecture du chapitre 7** (D1834–D1853) :
+  la doctrine du README gardée, l'introduction de la carte réécrite (D1834) ; l'illustration schématique entre dans la
+  forme de la documentation (D1835), en Mermaid (D1837), la largeur avant la hauteur (D1841), les arbres de décision en
+  logigramme (D1842, D1844) dessinés comme la copie de l'auteur (D1847) par un outil du dépôt, `tools/logigramme.py`
+  (D1848), centrés à vingt pixels (D1849), aux tailles harmonisées (D1851) ; cinq schémas et deux logigrammes au
+  chapitre 7 (D1839–D1846, D1850, D1852) ; `trace:` devient un réglage en cascade à trois valeurs, `sensitive`,
+  `audit`, `limited` (D1844–D1846) ; le chapitre 7 relu (D1853). **La passe des illustrations des chapitres 1 à 6**
+  (D1854–D1858), puis, à la demande de l'auteur, le chapitre 2 en UML extrait des cas (D1859), la composition des
+  composants au chapitre 4 (D1860), la progression notifiée par la tâche — un message, la position, la limite — et
+  la fenêtre d'attente refermée (D1861) ; les pages validées, la passe close (D1862). **Le chapitre 8 s'ouvre**
+  (D1863) : la reprise et le mapping, 174 décisions, vingt et un points en cinq groupes dans la table du README ; le
+  point 1 fixe le périmètre — la migration entre deux versions vers le chapitre 9, le renommage et la dépréciation
+  vers les chapitres 1 et 2, la compatibilité des API vers le chapitre 13. **À la reprise, dans une session neuve** :
+  le point 1 du chapitre 8, puis les points dans l'ordre, un à la fois ; D181–D184, le stock de reprise, à confronter
+  au passage et à l'anomalie datée. Les lectures ouvertes jusqu'à l'implémentation restent D1788, D1794, D1805,
+  D1815, et la forme de la notification de progression (D1861).
 - **2026-11-08 — LA PAUSE : LE CHAPITRE 7 LU, RÉORGANISÉ ET RÉÉCRIT, LE CHAPITRE DU MOTEUR AU PLAN (D1783–D1833,
   1833 décisions).** Une session neuve, du 07 au 08/11, pour le chapitre 7, les droits et la sécurité. **La lecture**
   (D1783, D1786) : l'auteur recentre le chapitre sur « la gestion des privilèges et de l'intégrité des données en

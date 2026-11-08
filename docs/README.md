@@ -121,7 +121,7 @@ passage (13–18), les exemples, la facette et le registre (19–21).
 
 | # | Le point | L'état |
 |---|---|---|
-| 1 | **Les deux visages du mapping** (D646–D647) : la reprise d'un système existant, le sujet du chapitre ; la migration entre deux versions — le schéma à chaud, le délai de grâce, `restore` (D631, D673–D679) — vers le chapitre 9, le renommage `from:` et la dépréciation `deprecated:` (D650–D651, D1111) vers les chapitres 1 et 2, la compatibilité des API (D11–D13) vers le chapitre 13 — à arbitrer | à traiter |
+| 1 | **Les deux visages du mapping** (D646–D647) : la reprise d'un système existant, le sujet du chapitre ; la migration entre deux versions — le schéma à chaud, le délai de grâce, `restore` (D631, D673–D679) — vers le chapitre 9, le renommage `from:` et la dépréciation `deprecated:` (D650–D651, D1111) vers les chapitres 1 et 2, la compatibilité des API (D11–D13) vers le chapitre 13 — à arbitrer | présenté |
 | 2 | **La migration déclarée**, `migrations:` et `reprise.yml` : `from:`, `buffer:`, `storage:`, `mode:`, `reset:`, `source:`, `mapping:`, `operations:` (D662, D664, D671, D943, D1045, D1072, D1087) ; les trois cas la déclarent | à traiter |
 | 3 | **L'ordre des étapes** : les migrations dans l'ordre déclaré, les dossiers et les fichiers numérotés, les motifs regex (D665, D806, D1103–D1104) | à traiter |
 | 4 | **La description de la source** dans la grammaire du modèle : un fichier par table, les trois états d'une colonne — lue, ignorée, non lue —, `ignored`, la colonne décrite et ses codes (D652, D657, D869, D947, D1100–D1102) | à traiter |

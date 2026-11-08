@@ -25756,6 +25756,18 @@ avant la synthèse Q16).
   l'entrée, les secrets, le navigateur et l'API), les écarts (les degrés, `allow:`, la confidentialité, le
   marquage et le registre RGPD, la rétention, la session, `trace:`, `groups.yml`), les exemples et la facette, le
   registre. Le point 1 présenté.
+- **2026-11-08 (soir, suite) — LA PAUSE : LE CHAPITRE 8 REPRIS, LE POINT 1 PRÉSENTÉ (1863 décisions).** Une
+  session neuve pour le chapitre 8, la reprise et le mapping, demandée par l'auteur. La passation lue, mapping.md et
+  migration.md relus en entier, l'audit de la famille `reprise` (174 décisions : 35 amendées dont 11 non citées, 55
+  non citées, 37 lectures à confirmer, 6 marques « en proposition »), les migrations déclarées des trois cas. **Le
+  point 1, le périmètre, présenté** : ma lecture — le chapitre 8 porte la reprise d'un système existant seule ; la
+  migration entre deux versions (le schéma à chaud, le délai de grâce, `restore`, D631, D673–D679) vers le chapitre 9,
+  le renommage `from:` et `deprecated:` (D650–D651, D1111) vers les chapitres 1 et 2 — `deprecated:`, en proposition
+  depuis D650, n'a de maison dans aucun chapitre réorganisé —, la compatibilité des API (D11–D13) vers le chapitre 13,
+  la carte `entities:` du connecteur (D819, D828) déjà au chapitre 5, les surfaces du module vers le chapitre 10 ; un
+  paragraphe d'orientation en tête du chapitre nommerait les deux visages. Deux questions posées : le périmètre, et le
+  sort de `deprecated:` (décrit tel que proposé au chapitre 2, ou laissé à l'implémentation). « Je marque une pause ».
+  **À la reprise** : l'arbitrage du point 1 (D1864), puis les points 2 à 21 dans l'ordre, un à la fois.
 - **2026-11-08 — LA PAUSE : LE CHAPITRE 7 RELU, LES CHAPITRES 1 À 6 ILLUSTRÉS ET VALIDÉS, LE CHAPITRE 8 OUVERT (D1834–D1863, 1863 décisions).** La suite de la session du chapitre 7. **La relecture du chapitre 7** (D1834–D1853) :
   la doctrine du README gardée, l'introduction de la carte réécrite (D1834) ; l'illustration schématique entre dans la
   forme de la documentation (D1835), en Mermaid (D1837), la largeur avant la hauteur (D1841), les arbres de décision en

@@ -54,6 +54,8 @@ unit_price:
     to: pricing.unit_price   # le remplaçant (D1871) ; absent = l'abandon
 ```
 
+  La forme courte nomme le seul remplaçant (D1873) : `deprecation: pricing.unit_price`.
+
 - **le changement de type** — la compatibilité ou le transcodage :
   **chaque type porte sa ou ses règles de conversion** (D647,
   D579/D584) ;

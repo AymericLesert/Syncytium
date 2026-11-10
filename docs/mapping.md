@@ -39,9 +39,9 @@ la version précédente, Syncytium le porte. Les seules écritures :
   celle du format, de la migration et de la sandbox) : le journal de
   migrations en dérive la translation, la chaîne API continue de
   servir l'ancien nom ;
-- **la dépréciation en trois temps** (D650) : **l'intention**
-  (l'avertissement — l'élément vit encore, son avenir est scellé),
-  **l'acte** (déprécié mais il répond encore), **la suppression**
+- **la dépréciation en trois temps** (D650, D1870, D1872) : **l'intention**
+  (le bloc `deprecation:` — l'élément vit encore, son avenir est scellé),
+  **la validation** (la beta qui retire l'élément), **la suppression**
   (un geste de version — l'élément quitte la description, D11–D13
   prend le relais). **La documentation est obligatoire** — le
   remplacement ou l'abandon précisé, vérifié à l'ingestion :
@@ -49,8 +49,7 @@ la version précédente, Syncytium le porte. Les seules écritures :
 ```yaml
 unit_price:
   type: amount
-  deprecation:               # le bloc de l'élément (D1871) ; deprecated reste le statut d'une version
-    mode: planned            # l'intention ; le second mode, l'acte, en question (D1870–D1871)
+  deprecation:               # le bloc dit l'intention (D1871, D1872) ; deprecated reste le statut d'une version
     documentation: "Remplacé par pricing.unit_price à la 2.x."
     to: pricing.unit_price   # le remplaçant (D1871) ; absent = l'abandon
 ```

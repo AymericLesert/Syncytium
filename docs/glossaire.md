@@ -258,13 +258,13 @@ une erreur d'ingestion. *(D1175, D1239)*
 acquis. Celle d'une **version** est effective : la version est déposée dans
 `versions/deprecated/`, et le statut se déclare dans `versions.yml`. Celle
 d'un **champ, d'une table ou d'un module** est une proposition, portée par
-l'élément dans la version qui le garde : l'intention d'abord, puis l'acte —
-l'élément répond encore —, la suppression venant avec une version. Elle dit
+l'élément dans la version qui le garde : la présence du bloc dit
+l'intention, la suppression vient avec une version. Elle dit
 toujours le remplacement ou l'abandon ; une beta qui retire l'élément vaut
 validation de la dépréciation. Le bloc s'écrit `deprecation:` ; `deprecated`
-reste le statut d'une version. *Ex. : `deprecation: { mode: planned,
-documentation: "Remplacé par pricing.unit_price.", to: pricing.unit_price }`.*
-*(D340, D650, D1869, D1870, D1871)*
+reste le statut d'une version. *Ex. : `deprecation: { documentation: "Remplacé
+par pricing.unit_price.", to: pricing.unit_price }`.*
+*(D340, D650, D1869, D1870, D1871, D1872)*
 
 **Description** (`hint`, `label`, `description`) — Information plus ou moins complète permettant d'apporter du contexte à un élément du modèle de données. La description couvre plusieurs fonctions : aide à la saisie, une infobulle, une description courte (`hint` — D840) pour comprendre la nature de l'information, une description détaillée (`description`) pour construire une aide ou un masque d'aide. La description permet également à des outils tiers (comme l'IA) de s'interfacer ou de proposer des constructions de modèles ou de rapports adaptés à un usage.
 *Ex. : `hint: { fr: Le code se génère à la création }`.*

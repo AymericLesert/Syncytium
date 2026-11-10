@@ -1999,6 +1999,7 @@ Q58) :
 | D1865 | **Le journal du registre se réordonne une fois, par un script : les entrées du § 11 triées par date, le plus récent en tête, sans toucher un mot ; la consigne de `CLAUDE.md`, « le journal daté (le plus récent en tête) », devient alors vraie pour tout le journal** (précise la consigne du journal de `CLAUDE.md` ; suit D1864 — la relecture des consignes de travail au passage du projet à Claude Fable 5.2 ; trois voies présentées — A écrire en tête sans réordonner, B écrire en fin dans l'ordre du temps, C réordonner une fois) : « C » | Le constat : le § 11 porte 991 entrées en deux blocs d'ordres contraires — 929 croissantes du 10/06 au 20/10, 58 décroissantes du 07/11 au 04/10 puis deux d'août, les quatre des 07 et 08/11 entre les deux — ; l'entrée la plus récente est au milieu de la section. Le tri à blanc, hors du dépôt : 991 entrées avant et après, les ensembles identiques, 9 109 lignes non vides de part et d'autre, rien de changé avant le § 11. *Mes lectures, à confirmer* : le moment — la question « maintenant ou à la partie 2 du rang 10 » est restée sans réponse, le registre n'est pas encore réordonné — ; le départage d'un même jour — le numéro de « suite » quand il est écrit, sinon l'ordre que le fichier porte, et pour le 07/11, à cheval sur les deux blocs, le numéro de décision cité en tête ; une nouvelle entrée s'écrira sous le titre du § 11. Voir §3.2c. |
 | D1866 | **Le journal du registre est réordonné : les 991 entrées du § 11 triées par date, le plus récent en tête, sans un mot changé ; une entrée nouvelle s'écrit désormais sous le titre de la section, `CLAUDE.md` le précise** (exécute D1865 — le tri par un script ; confirme D1865 — le moment, resté ouvert, et le départage d'un même jour, présentés avec le tri à blanc) : « Oui, maintenant » | Les contrôles : 991 entrées avant et après, les ensembles identiques ; le fichier entier comparé ligne à ligne à sa version committée, 25 250 lignes non vides de part et d'autre, les mêmes ; rien de changé avant le § 11 ; les dates décroissantes d'un bout à l'autre. Cinq jours reclassés : le 14/08, le 19/08, le 09/10 et le 13/10 par le numéro de « suite » — la « suite 75 » du 14/08 et la « suite 5 » du 19/08 étaient en fin de fichier —, le 07/11 par le numéro de décision cité en tête. Le tableau de bord n'en est pas touché : il lit la date la plus ancienne du journal, et les clôtures des rangs, relues avant et après, sont les mêmes. Le script, à usage unique, reste hors du dépôt. Voir §3.2c. |
 | D1867 | **La queue du narratif § 3.2c remonte d'un bloc, sans un mot changé, là où la suite des paragraphes a repris devant elle ; le paragraphe d'une décision s'écrira alors à la fin du § 3.2c** (précise la consigne du narratif de `CLAUDE.md`, qui ne dit pas où le paragraphe s'écrit ; suit D1864 et D1866 — la relecture des consignes de travail ; deux voies présentées — A nommer l'ancre dans la consigne, B déplacer la queue) : « B, déplacer la queue » | Le constat, fait après l'arbitrage : la queue présentée — 550 lignes, dix-neuf paragraphes, de D828 à D91 — était mal décrite. Elle porte deux choses. **Les traînards**, 406 lignes : vingt-six paragraphes restés en fin de section au fil des insertions, de D829 à D329 — D828–D829, D757, D645, D630, D600–D605, D474, D463, D462, D459, D345 à D341, D337, D336, D334, D332, D329. **Le corps de l'ancien § 3.3**, 142 lignes : le titre « 3.3 Langage d'expression unique (D90–D91, résout Q6) » a été remplacé par celui du § 3.2c au commit de D320–D321 ; son texte — D90, D91, D92, D104, D301 — est resté, sans titre, à la fin du § 3.2c, et le registre renvoie vingt-deux fois à « §3.3 ». *Mes lectures, à confirmer* : les traînards remontent devant le paragraphe de D857, où la suite reprend après D827 — D828 et D829 y retrouvent leur rang, les vingt-quatre autres gardent leur ordre entre eux — ; le titre du § 3.3 se rétablit devant son corps, sans quoi le plus récent ne termine pas la section ; le narratif n'est pas encore déplacé. L'essai à blanc, hors du dépôt : 25 252 lignes non vides de part et d'autre, les mêmes, hors le titre rétabli. Voir §3.2c. |
+| D1868 | **Le narratif § 3.2c est remis en ordre : les vingt-six paragraphes restés en fin de section remontent d'un bloc devant le paragraphe de D857, sans un mot changé ; le titre « 3.3 Langage d'expression unique (D90–D91, résout Q6) », perdu au commit de D320–D321, est rétabli devant son corps ; le paragraphe d'une décision s'écrit désormais à la fin du § 3.2c, avant le titre du § 3.3, `CLAUDE.md` le précise** (exécute D1867 ; confirme D1867 — la place des traînards et le titre rétabli, présentés avec l'essai à blanc) : « Oui, les deux » | Les contrôles : le fichier entier comparé ligne à ligne à sa version committée — une seule ligne ajoutée, le titre du § 3.3, aucune retirée ; 406 lignes déplacées ; le paragraphe le plus récent termine le § 3.2c. D828 et D829 retrouvent leur rang après D827 ; les vingt-quatre autres paragraphes déplacés gardent leur ordre entre eux. Les vingt-deux renvois du registre à « §3.3 » retrouvent leur section. Relevé, non traité : D830 à D856 n'ont pas de paragraphe au narratif. Le script, à usage unique, reste hors du dépôt. Voir §3.2c. |
 | D1198 | **Les liens de la documentation sont ceux que l'ingestion garantit — les références et les associations entre entités et champs, dans les traitements et les opérations ; ils montrent les relations, disent à quoi sert un champ et mesurent l'impact d'une modification du modèle** (précise D1186 ; s'appuie sur D330/D344 — l'ingestion, D394/D405, D90, D1112 ; le rang 1 et le rang 2) : « je confirme — les associations utilisées dans les traitements / les opérations / ... font référence entre les entités et les champs. Tous ces liens permettent de visualiser les liens et de mesurer l'impact de la modification du modèle. Lors de l'ingestion, le moteur de Syncytium garantit la validité des références et des associations. Les mettre dans la documentation permet de montrer les relations et d'expliquer à quoi sert un champ (propriété ou calculé). » — la documentation reprend le graphe que l'ingestion a validé : pour chaque champ, propriété ou calculé, **où il sert** — les formules qui le lisent, les validations, les opérations et leurs effets, les règles de reprise, les rapports, les écrans ; pour chaque entité, qui la référence et qui elle référence ; aux deux bouts (D1186). | Mes lectures, en proposition : dans la fonctionnelle, « à quoi sert ce champ » en langage d'usager (« entre dans le calcul du montant TTC », « déclenche la validation de la facture ») ; dans la documentation de l'information (le rang 2), le graphe complet des dépendances et **l'analyse d'impact** — ce qu'un changement de ce champ ou de cette entité touche (l'écho des écarts calculés D1112) ; la matrice gagne une colonne de contenu sur la ligne du champ. Voir §3.2c. |
 
 ---
@@ -9551,6 +9552,412 @@ D756 est inchangé, les titres des cas se relisent (le cas 3 = le
 véhicule, le cas 4 = la banque, les cas 5 à 6 = l'échelle
 initiale).
 
+**La carte entités → fichiers au connecteur (D828 — valide l'option
+A, amende l'écriture de D819).** **« Je valide l'option A avec une
+variante. La liste des entités est à définir au même niveau que
+"parameters". »** — la déclaration du connecteur source gagne une
+section :
+
+```yaml
+legacy:
+  type: storage
+  class: csv
+  parameters:                     # le paramétrage technique de la classe
+    directory: ${SYNCYTIUM_LEGACY_DIRECTORY}
+    encoding: windows-1252
+    separator: ";"
+  entities:                       # la carte structurelle — au même niveau (D828)
+    budget: [budget.txt, budget-clos.txt]
+```
+
+— consigné :
+
+- **`entities:` est une section du connecteur**, au même niveau que
+  `parameters:` — le paramétrage technique d'un côté, la carte
+  structurelle de l'autre ;
+- **chaque entité déclare ses fichiers** — la liste ou le pattern
+  (D806) ; plusieurs fichiers = l'union des lignes (D816) ; **le cas
+  rare** (un même fichier pour plusieurs entités) = le fichier
+  répété sous chaque entité ;
+- le `file:` des parameters disparaît (l'écriture de D819 se
+  précise — le périmètre physique reste au connecteur) ;
+- **la réciprocité vérifiable à l'ingestion** : une entité déclarée
+  au connecteur sans description dans source/, ou l'inverse, est
+  une déclaration orpheline (l'esprit D805).
+
+**La carte au contrat du hook de connecteur (D829 — complète D828,
+précise D621/D685).** **« Le hook de connecteur doit être adapté
+pour avoir l'information entities qui correspond aux mappings entre
+les entités et les fichiers. »** — consigné :
+
+- **la classe reçoit sa déclaration entière à l'initialisation** :
+  les `parameters:`, les `secrets:` — et désormais **la carte
+  `entities:`** (D828) pour les classes qui portent des sources
+  (csv, xlsx…) ; la carte est optionnelle au contrat — les familles
+  qui ne lisent pas de fichiers l'ignorent ;
+- **`read_instance` s'appuie sur la carte** (D685 se précise) : les
+  items de stockage retournés = **les entités déclarées** — le
+  fichier n'est jamais un item, il n'est que le rangement (l'écho
+  D816) ;
+- **la lecture d'une entité parcourt l'union de ses fichiers**, dans
+  l'ordre de la liste — le curseur (D689) enchaîne les fichiers de
+  façon transparente.
+
+**La maison des cas d'usage (D757 — amende ma proposition).** **« Le
+cadre des cas d'usage est à consigner dans des fichiers md distincts
+et stockés dans un dossier `usecases/` au même niveau que
+`docs/`. »** — un fichier par cas, dans **`usecases/`** à la racine
+du dépôt (le nommage anglais D335, l'ordre au préfixe numérique —
+l'écho D665) : `01_domestic.md`, `02_sales_collection.md`,
+`03_cegid_conversion.md`, `04_project_management.md`,
+`05_meal_delivery.md` — les cinq squelettes créés (le contexte à
+cadrer, la forme à écrire, les manques à relever).
+
+**describe partout — la documentation technique dynamique (D645 —
+généralise D630).** **« Dans le principe de l'auto-documentation,
+tous les hooks devront contenir une méthode `describe` capable
+d'écrire la documentation à diffuser sur son fonctionnement. La
+documentation technique d'une application portera la documentation
+technique de Syncytium et les hooks seront ajoutés automatiquement à
+la documentation. La documentation technique étant construite
+dynamiquement, version par version. »** — le `describe()` proposé
+pour les connecteurs (D630) **devient la règle de tous les hooks**
+(le nom est confirmé) ; la documentation technique (D333) s'assemble
+**dynamiquement, version par version** : le socle de Syncytium + les
+hooks de la version, chacun s'auto-décrivant — la version documentée
+est exactement la version servie, rien à rédiger, rien à oublier.
+
+**La documentation au socle commun (D630).** **« Un connecteur doit
+disposer d'une méthode pour générer de la documentation en
+markdown/html, pour la documentation automatique de l'instance. »** —
+le socle commun (D621–D622, D627) s'enrichit : chaque connecteur se
+documente lui-même — la brique de l'autodocumentation (Q58/le domaine
+6, l'écho D124 « exploitables par des IA »). *(Le nom en proposition :
+`describe()` — le markdown/html retourné.)*
+
+**Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
+opérations, nous avons `confirm` qui affiche une boîte de dialogue
+avec un message. Nous pouvons le rendre plus riche avec un formulaire
+et des champs qui sont alimentés par l'exécution. Par exemple : une
+procédure simplifiée de création d'un enregistrement qui se valide en
+consultant l'enregistrement dans un formulaire en lecture seule et/ou
+en modification. »** La relecture (D431/D196) prend toute sa
+dimension : le `confirm` présente **le message (le label — D597), ou
+un formulaire nourri par la transaction active** (D594) — la lecture
+seule pour consulter, **la modification pour ajuster : les éditions
+de l'utilisateur rejoignent la transaction avant le scellé**.
+*(L'écriture en proposition : `commit: { mode: confirm, form: <nom>,
+message: … }` — le formulaire nommé de l'entité, son `mode` D453
+valant.)* La six-centième décision.
+
+**La boîte seule (D601 — précise D600).** **« Si `form:` est absent
+et si `message:` est précisé, seule une boîte de dialogue de
+validation sera affichée. »** — les deux visages du confirm : la
+boîte au message (le léger), le formulaire sur la transaction (le
+riche) ; le message accompagne le formulaire quand les deux sont
+déclarés.
+
+**Les huit domaines de Q16, enfin consignés (D602 — répare un
+manque).** Le découpage vivait dans les échanges sans être posé au
+document ; l'auteur le repose :
+
+1. **l'organisation et l'arborescence d'une application** — « revue
+   et amendée au fur et à mesure de nos explorations » ;
+2. **la donnée, sa structure et les droits** ;
+3. **le méta-schéma** ;
+4. **les surfaces** ;
+5. **les cas d'usage** ;
+6. **la rédaction de la documentation synthétique et détaillée** ;
+7. **le choix de l'architecture technique** ;
+8. **l'implémentation**.
+
+**Le recoupement des échanges** (la demande de l'auteur) : les
+domaines 1 (D335–D346, amendé au fil — les dossiers module/entité,
+gui) et 2 (D347–D419 — les types, l'historisation, les groupes, la
+confidentialité au socle) sont livrés ; le domaine 3 fut vécu sous
+l'intitulé « les règles et le comportement » (D420–D436) — sa part du
+méta-schéma — que Q60 (D570–D601, le langage et les hooks) complète ;
+le domaine 4 est soldé (D437–D569, le catalogue entier). **Les
+domaines 5–8 correspondent aux chantiers déjà nommés** : 5 = les cas
+d'usage (Q59 — les mises en situation), 6 = la documentation (Q58 —
+le glossaire, composants.md et la synthèse en préparation), 7 =
+l'architecture technique (Q7, Q47 — la spec du langage, le langage
+des hooks D570, la sandbox), 8 = l'implémentation (D314 — le code
+après la conception). **Deux réconciliations consignées** : (a)
+l'intitulé du domaine 3 — « le méta-schéma » englobe les règles, le
+comportement et le langage (D420–D436 + D570–D601) ; (b) **les
+renvois « domaine 6 » des décisions D408/D452/D459** (le contrat des
+hooks — signature, code, sandbox) furent écrits sous un découpage de
+travail antérieur : **ils se relisent** — le contrat est couvert par
+Q60 (D570–D601), le reliquat (la sandbox, le langage du code) relève
+du domaine 7.
+
+**Les connecteurs : les cinq arbitrages (D603 — la passe de
+complétude, premier sujet).** **(1) « `connectors.yml` est bien à la
+racine de la version. Il ne trouve pas de déclinaison dans les
+modules, ni les entités. Un connecteur est global. »** **(2) « Les
+connecteurs sont disponibles dans un catalogue de base offert par
+Syncytium et sont extensibles via un hook de connecteur. »**
+**(3) « Les paramètres d'un connecteur sont juste les propriétés du
+connecteur. Le connecteur n'a pas de contexte, car il se définit au
+démarrage du projet »** — hors de la pile (D553), l'exception
+assumée. **(4) « Les secrets sont définis dans la configuration…
+Les secrets peuvent faire référence à une variable d'environnement,
+et la variable peut être cryptée via une clé construite en fonction
+de l'environnement et de la machine d'exécution. »** — la
+configuration porte la référence, jamais la valeur en clair ; le
+chiffrement à la clé dérivée (l'environnement + la machine) — le
+dépôt versionné (D336) reste propre. **(5) « `every:` reprend la même
+grammaire »** (D434/D476) — « pour des hooks qui ont besoin d'être
+régulièrement rafraîchis ».
+
+**Le catalogue de base des connecteurs (D604 — complète D603).**
+**« Le catalogue de hooks regroupe : un connecteur vers les bases de
+données standard (SQLServer, MySQL, Postgre…), un connecteur vers
+l'AD Azure, un connecteur de fichiers (CSV, JSON…) — ta liste
+complète bien la mienne. »** Le catalogue de base réunit donc : **les
+bases de données standard**, **l'AD Azure** (la passerelle
+d'authentification D418 y trouve un premier visage), **les fichiers**
+(CSV, JSON…), le géocodage (`ban`/`nominatim` — D294), l'itinéraire
+(`osrm`/`valhalla` — D514), le mail sortant (`smtp` — D564/D574), la
+reprise (D175–D179). Et l'`every:` précisé : **« utilisé pour les
+connecteurs qui ont besoin d'être régulièrement rafraîchis ou
+testés — par exemple un file watcher : la détection de présence d'un
+fichier, le fichier mis à jour et relu. »** — **l'échange entrant
+naît là** : le fichier déposé, détecté, relu — la porte d'entrée par
+le connecteur de fichiers.
+
+**Le contrat par famille (D605 — solde le sujet des connecteurs).**
+**« La famille (ou le type) permet de définir les interactions avec
+Syncytium. Chaque famille a ses propres méthodes et fonctions. »** —
+le contrat du hook-connecteur n'est pas universel : **il est porté
+par la famille** (la ligne D579 — le type emmène ses fonctions,
+jusqu'aux connecteurs) : la base de données a ses méthodes, le
+fichier les siennes (la veille, la lecture), le géocodage les siennes
+(l'adresse → les coordonnées, l'inverse), le mail son envoi,
+l'annuaire son authentification, la reprise sa lecture seule (D175).
+Un hook de connecteur implémente le contrat de sa famille. **Les cinq
+manques des connecteurs sont refermés** : la déclaration (D603), les
+secrets (D603), la planification (D603–D604), les entrants (D604 —
+le watcher), le contrat (D605).
+
+**Les deux sens, le stockage-connecteur, la migration
+inter-connecteurs (D606 — élargit D603–D605).** **« Un connecteur
+décrit les sortants et les entrants. »** Et la vérification demandée
+(« il me semble que je l'avais déjà évoqué ») : oui — la translation
+déclarative fut posée dès l'origine comme **le primitif transverse
+aux quatre usages** (les migrations, les API, **les connecteurs**, la
+réplication) ; **« Syncytium peut convertir ou transférer des données
+d'un connecteur à l'autre »** en est l'exercice. Les précisions
+nouvelles : **« les entités sont liées à un connecteur de base de
+données »** — **le stockage même est un connecteur** (les bases du
+catalogue D604 ne servent pas que l'échange : elles portent
+l'instance) ; et **« nous pouvons prévoir une migration d'un
+connecteur vers un autre, en instantanée ou en différentiel »** — le
+changement de moteur (SQLServer → PostgreSQL…) par la translation,
+le différentiel rejoignant la réplication passive (D112–D114).
+
+**`selection` = le nombre, `by` = la présentation (D474 — solde
+D472).** **« La propriété `selection` définit le nombre d'éléments à
+sélectionner : `1`, `1..` ou `1..5` »** — la cardinalité, à l'écriture
+des bornes (D366), **la déduction du lien en défaut** (la référence =
+`1`, la liste et l'association = `1..` — D470) ; **« component n'est
+pas adapté ; ta proposition `by` me plaît »** — **`by:`** porte la
+matérialisation : **le nom d'une liste de la cible** → la présentation
+liste ; **le nom du champ-image de la cible** → la galerie de visages ;
+absent → la liste par défaut filtrée. *(Note : le `selection: <liste>`
+de D215 est remplacé par `by:` ; l'harmonisation du `selection:
+one | multiple` de la liste (D445) vers `1 | 1..` — en proposition.)*
+
+```yaml
+- field[product]:
+    by: catalog_photos           # le champ-image ou la liste — la présentation
+    selection: 1..5              # la cardinalité — au plus cinq
+```
+
+**Le composé `password` (D463).** La sonde de l'auteur (« avons-nous un
+type password ? ») — non ; il entre aux composés, **avec des garanties
+structurelles, jamais des options** : **(1) le stockage est
+l'empreinte, jamais le clair** (la ligne D33 — salée, l'algorithme au
+moteur) — **le champ est write-only** : il s'écrit, ne se relit jamais
+(la lecture montre « défini / non défini ») ; **(2) le composant** — la
+saisie masquée, l'œil de révélation à la saisie seulement, la double
+saisie en création ; **(3) les exclusions structurelles** — jamais en
+colonne de liste, jamais `searchable` ni `mutualizable` (la conversion
+D369 exclue), jamais exporté (CSV, Excel, template), **l'empreinte
+seule aux instantanés** (D169) — le clair n'existe nulle part ;
+**(4) la force déclarable** par la `validation` du champ (longueur,
+classes — le refus propre D307). **« La facette décrite me
+convient. »**
+
+**Les colonnes gardent le nom nu (D462).** **« Pour les colonnes d'une
+liste, l'ambiguïté n'est pas présente : ce sont des noms de champs — et
+les opérations sont des verbes en général. »** Pas de `field[…]` aux
+`columns` ; **la préconisation au concepteur** (la documentation Q58,
+jamais un contrôle — « Syncytium n'apporte pas de contrôles ») : **une
+approche cohérente, une action marquée par un verbe**. Et la règle de
+préséance : **« si un nom de champ = un nom d'opération, le nom du
+champ l'emporte. »**
+
+**Le type-hook doit se représenter (D459).** **« Un type ajouté via le
+hook doit inclure une phase de représentation graphique — ou via un
+document PDF, Word… »** Le contrat du type sur mesure comprend **ses
+rendus** : le composant d'écran et/ou le rendu de document (le
+`template`, D456) — **aucun type sans visage** (la ligne D455 : une
+facette est un hook — la facette d'affichage d'un type hooké est due).
+Le contrat détaillé au domaine 6.
+
+*(Les quatre lettres : **create** = la création d'un **sous-composant**
+— ajouter une ligne à l'agrégat ; **read** = la consultation de
+l'enregistrement — sans elle, l'état masque (la donnée se protège) ;
+**update** = la mise à jour — l'agrégat entier (D420) ; **delete** = la
+suppression-désactivation (D141). Absent = tout permis. Le même
+vocabulaire vaut pour les états hiérarchiques du bloc `states:` (D353) ;
+l'en-tête d'entité garde les formes libres symétriques
+(`update: <expression>`, D421) pour les cas hors cycle — les deux
+déclarés = erreur d'ingestion ; **les opérations passent outre**,
+inchangé.)*
+
+```yaml
+history:
+  type: communication
+  confidentiality: protected     # la visibilité du fil (D25) — le socle suffit
+  attachments: image             # false (défaut) | file | image | thumbnail
+  quota: 5MB                     # le kit du type d'attaché, à plat (D365)
+  notification: true             # opt-in — IHM ou mail (D108–D110)
+  preview: 3                     # le résumé au survol, en lignes (proposition)
+```
+
+**La conservation et l'ordre des numéros (D345).** **Les versions
+dépréciées et interdites sont conservées** — pour des questions
+**historiques** : rien ne s'efface, les dossiers `deprecated/` et
+`forbidden/` sont la mémoire du parc. Et **la règle d'ordre incrémental**
+des numéros : **`beta` > `production` > `deprecated`** — une bêta porte
+toujours un numéro supérieur aux versions de production, elles-mêmes
+supérieures aux dépréciées. **Les versions `forbidden` échappent à cette
+contrainte** — naturellement : une bêta comme une production de n'importe
+quel numéro peut y être classée.
+
+**La configuration par environnement (D342, amende D339 et précise
+D325).** **Le nom `technical/` est écarté au profit d'`environments/`** —
+avec **un dossier par environnement** : **les connecteurs, les logs, les
+settings et la documentation sont spécifiques à chaque environnement**.
+La configuration reste **commune aux versions** (D325) mais se **décline
+par environnement** ; les valeurs partagées entre environnements passent
+par les **variables** (D321/D323 — le `${environment.name}` des
+échantillons prend tout son sens).
+
+**Les journaux par environnement (D343).** Les journaux n'ont **pas la
+même configuration selon l'environnement** : **staging = debug ou
+verbose** (il faut plus de traces) ; **production active = info**, avec
+**éventuellement une redirection vers un puits de logs** ; **production
+passive = warning**. **Les fichiers de journaux sont formatés différemment
+et stockés dans des emplacements différents** selon l'environnement.
+
+**La vue consolidée du domaine 1 — l'arborescence du dépôt de
+description** (artefact de clôture, consolidé de D320–D343) :
+
+```yaml
+syncytium.yml                  # le fichier racine (D322) : identité de l'instance
+                               # (application, société, logo — D191/D254), langues
+                               # (permises, défaut, fuseaux, formats — D217–D221/D131),
+                               # compte administrateur de secours (D29/D81),
+                               # références par patterns (D320)
+resources/                     # logos, icônes, images, documents — partagés avec
+                               # toutes les versions (D346)
+environments/                  # un dossier PAR environnement (D342)
+  staging/                     #   le test
+    environment.yml            #     caractéristiques techniques (D339 — nom illustratif)
+    connectors/                #     identité (un actif, D80), données (D79),
+                               #     notifications (D108), géocodage (D294), reprise (D175)
+    logging.yml                #     debug / verbose (D343)
+    settings.yml               #     paramètres généraux (D259) : seuils, CSV, fond de carte…
+    documentation.yml          #     génération de la documentation (D333)
+  production/                  #   la production active
+    environment.yml
+    connectors/
+    logging.yml                #     info + puits de logs éventuel (D343)
+    settings.yml
+    documentation.yml
+  passive/                     #   la production passive (PCA/PRA, D113–D114)
+    environment.yml
+    connectors/
+    logging.yml                #     warning (D343)
+    settings.yml
+    documentation.yml
+versions/                      # (D324, D338, D340)
+  beta/                        #   → le staging s'instancie (D112)
+  production/                  #   → servies par l'actif + le passif
+  deprecated/                  #   → appelables jusqu'au Sunset (D12/D94)
+  forbidden/                   #   → refusées (D103)
+    # dans chacun : <maj>.<min>.<indice>.<build>.yml (entrée, en-tête = version
+    # du format) + <maj>.<min>.<indice>.<build>/ (le détail : settings.yml D360,
+    # groups.yml D414, modules.yml D415 → les modules D416 — donnée ET
+    # expérience unifiées ; IHM et configuration générale, domaines 3 à 8)
+```
+
+À granularité ouverte (contenus évoqués, fichier dédié à trancher au fil
+de l'eau — `settings.yml` ou fichiers propres) : rate limiting (D105),
+dossier des binaires + quota d'instance (D160/D162), rétentions (D110,
+D55), synchronisation actif/passif (D113–D114). Côté **projet Syncytium**
+(dépôt distinct, D336) : le dossier **`template/`** « Hello world ! »
+(D337).
+
+**Groupes et modules fonctionnels : versionnés (D341 — clôt le domaine 1
+de l'inventaire).** **Les groupes (D26–D27) et les modules fonctionnels
+(D190/D210) sont versionnés avec le schéma** — ils appartiennent au
+contenu versionné (D325) : le modèle des droits et l'expérience utilisateur
+évoluent avec le schéma qu'ils gouvernent. Les **affectations**, elles,
+restent des **actes d'administration en base** : personnes ↔ groupes
+(D27), utilisateurs ↔ modules fonctionnels (D210).
+
+**Le dépôt du client, distinct du projet (D336).** **Le dossier de
+description sera versionné par le client, dans un dépôt différent du
+projet Syncytium** — le moteur (public) et les descriptions (propres à
+chaque TPE) vivent dans des dépôts séparés ; le contrat entre les deux est
+le format versionné (D322–D332).
+
+**Le dossier « template » : Hello world ! (D337).** **Le projet Syncytium
+embarque un dossier `template/`** définissant un projet **« Hello
+world ! »** — le point de départ qui **facilite la prise en main par le
+concepteur** : une description minimale complète, clonable, dont
+l'application générée fonctionne immédiatement. Premier des exemples
+promis à la documentation (D314/Q58–Q59).
+
+**La documentation vivante et son partage élargi (D334).** La
+documentation technique **exploite aussi les données enregistrées dans la
+base** pour apporter des **informations utiles sur l'usage — ou le
+non-usage — de valeurs ou de plages de valeurs** : la télémétrie
+(D38–D51, la diversité D46/D48 en tête) devient une **troisième source**
+de la documentation, celle qui dit non pas ce que le modèle *permet* mais
+ce que l'instance *fait*. Et **certaines informations dédiées au
+concepteur pourront être partagées** — **aux utilisateurs, aux
+techniciens de parties tierces** (les consommateurs des API, dont la
+documentation générée s'enrichit) **et aux usagers**. *(Harmonisation
+naturelle : le partage s'opère sous les règles d'accès existantes —
+confidentialité D25–D27, groupes — le destinataire ne voit que ce que ses
+droits permettent.)*
+
+**Le corollaire : diffable et commentaires, questions caduques (D332 —
+clôt la phase 2).** Puisque le moteur ne réécrit jamais les enveloppes,
+il n'y a **ni problème de YAML diffable, ni sort des commentaires** : les
+fichiers restent **exactement tels que le concepteur les a écrits**,
+commentaires compris — seule la logique interne (D327/D329) change de
+forme. Si un outil d'assistance à la mise à niveau des descriptions
+voyait le jour, ce serait **un outil du concepteur, pas un geste du
+moteur**.
+
+**Le journal de migrations compilé (D329).** **Pour des questions de
+performance, le moteur traduit les descriptions en un journal de
+migrations selon un format qui lui est propre.** **La migration est gérée
+en mémoire** pour rendre les données plus rapidement. Et **en cas de
+relance du serveur, les règles de migration sont déjà prêtes à l'emploi** —
+**les traitements optimisant les temps de traitement sont déjà réalisés et
+réutilisables** : la forme compilée est **persistée**, aucune
+recompilation à la relance. C'est la pièce maîtresse de la logique interne
+(D327) — et le même journal compilé nourrit naturellement la chaîne de
+translation des API (§5.1), qui en dérive.
+
 **Le cas 5 = l'entrepôt de données — `05_entrepot` (D857 — amende
 l'échelle D827/D856).** **« renomme-le 03_reprise »**, **« Renomme
 plutôt 03_reprise en 03_dwh »**, puis **« tu as raison : "entrepot"
@@ -14093,411 +14500,9 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **La queue du narratif remonte (D1867).** « B, déplacer la queue » — les paragraphes restés en fin du § 3.2c remontent d'un bloc, le paragraphe d'une décision s'écrira à la fin de la section ; la queue portait aussi le corps de l'ancien § 3.3, dont le titre s'est perdu à D320–D321.
 
-**La carte entités → fichiers au connecteur (D828 — valide l'option
-A, amende l'écriture de D819).** **« Je valide l'option A avec une
-variante. La liste des entités est à définir au même niveau que
-"parameters". »** — la déclaration du connecteur source gagne une
-section :
+**Le narratif remis en ordre (D1868).** « Oui, les deux » — les paragraphes restés en fin de section remontés devant celui de D857, le titre du § 3.3 rétabli ; le paragraphe d'une décision s'écrit à la fin du § 3.2c.
 
-```yaml
-legacy:
-  type: storage
-  class: csv
-  parameters:                     # le paramétrage technique de la classe
-    directory: ${SYNCYTIUM_LEGACY_DIRECTORY}
-    encoding: windows-1252
-    separator: ";"
-  entities:                       # la carte structurelle — au même niveau (D828)
-    budget: [budget.txt, budget-clos.txt]
-```
-
-— consigné :
-
-- **`entities:` est une section du connecteur**, au même niveau que
-  `parameters:` — le paramétrage technique d'un côté, la carte
-  structurelle de l'autre ;
-- **chaque entité déclare ses fichiers** — la liste ou le pattern
-  (D806) ; plusieurs fichiers = l'union des lignes (D816) ; **le cas
-  rare** (un même fichier pour plusieurs entités) = le fichier
-  répété sous chaque entité ;
-- le `file:` des parameters disparaît (l'écriture de D819 se
-  précise — le périmètre physique reste au connecteur) ;
-- **la réciprocité vérifiable à l'ingestion** : une entité déclarée
-  au connecteur sans description dans source/, ou l'inverse, est
-  une déclaration orpheline (l'esprit D805).
-
-**La carte au contrat du hook de connecteur (D829 — complète D828,
-précise D621/D685).** **« Le hook de connecteur doit être adapté
-pour avoir l'information entities qui correspond aux mappings entre
-les entités et les fichiers. »** — consigné :
-
-- **la classe reçoit sa déclaration entière à l'initialisation** :
-  les `parameters:`, les `secrets:` — et désormais **la carte
-  `entities:`** (D828) pour les classes qui portent des sources
-  (csv, xlsx…) ; la carte est optionnelle au contrat — les familles
-  qui ne lisent pas de fichiers l'ignorent ;
-- **`read_instance` s'appuie sur la carte** (D685 se précise) : les
-  items de stockage retournés = **les entités déclarées** — le
-  fichier n'est jamais un item, il n'est que le rangement (l'écho
-  D816) ;
-- **la lecture d'une entité parcourt l'union de ses fichiers**, dans
-  l'ordre de la liste — le curseur (D689) enchaîne les fichiers de
-  façon transparente.
-
-**La maison des cas d'usage (D757 — amende ma proposition).** **« Le
-cadre des cas d'usage est à consigner dans des fichiers md distincts
-et stockés dans un dossier `usecases/` au même niveau que
-`docs/`. »** — un fichier par cas, dans **`usecases/`** à la racine
-du dépôt (le nommage anglais D335, l'ordre au préfixe numérique —
-l'écho D665) : `01_domestic.md`, `02_sales_collection.md`,
-`03_cegid_conversion.md`, `04_project_management.md`,
-`05_meal_delivery.md` — les cinq squelettes créés (le contexte à
-cadrer, la forme à écrire, les manques à relever).
-
-**describe partout — la documentation technique dynamique (D645 —
-généralise D630).** **« Dans le principe de l'auto-documentation,
-tous les hooks devront contenir une méthode `describe` capable
-d'écrire la documentation à diffuser sur son fonctionnement. La
-documentation technique d'une application portera la documentation
-technique de Syncytium et les hooks seront ajoutés automatiquement à
-la documentation. La documentation technique étant construite
-dynamiquement, version par version. »** — le `describe()` proposé
-pour les connecteurs (D630) **devient la règle de tous les hooks**
-(le nom est confirmé) ; la documentation technique (D333) s'assemble
-**dynamiquement, version par version** : le socle de Syncytium + les
-hooks de la version, chacun s'auto-décrivant — la version documentée
-est exactement la version servie, rien à rédiger, rien à oublier.
-
-**La documentation au socle commun (D630).** **« Un connecteur doit
-disposer d'une méthode pour générer de la documentation en
-markdown/html, pour la documentation automatique de l'instance. »** —
-le socle commun (D621–D622, D627) s'enrichit : chaque connecteur se
-documente lui-même — la brique de l'autodocumentation (Q58/le domaine
-6, l'écho D124 « exploitables par des IA »). *(Le nom en proposition :
-`describe()` — le markdown/html retourné.)*
-
-**Le confirm au formulaire (D600 — enrichit D595/D597).** **« Sur les
-opérations, nous avons `confirm` qui affiche une boîte de dialogue
-avec un message. Nous pouvons le rendre plus riche avec un formulaire
-et des champs qui sont alimentés par l'exécution. Par exemple : une
-procédure simplifiée de création d'un enregistrement qui se valide en
-consultant l'enregistrement dans un formulaire en lecture seule et/ou
-en modification. »** La relecture (D431/D196) prend toute sa
-dimension : le `confirm` présente **le message (le label — D597), ou
-un formulaire nourri par la transaction active** (D594) — la lecture
-seule pour consulter, **la modification pour ajuster : les éditions
-de l'utilisateur rejoignent la transaction avant le scellé**.
-*(L'écriture en proposition : `commit: { mode: confirm, form: <nom>,
-message: … }` — le formulaire nommé de l'entité, son `mode` D453
-valant.)* La six-centième décision.
-
-**La boîte seule (D601 — précise D600).** **« Si `form:` est absent
-et si `message:` est précisé, seule une boîte de dialogue de
-validation sera affichée. »** — les deux visages du confirm : la
-boîte au message (le léger), le formulaire sur la transaction (le
-riche) ; le message accompagne le formulaire quand les deux sont
-déclarés.
-
-**Les huit domaines de Q16, enfin consignés (D602 — répare un
-manque).** Le découpage vivait dans les échanges sans être posé au
-document ; l'auteur le repose :
-
-1. **l'organisation et l'arborescence d'une application** — « revue
-   et amendée au fur et à mesure de nos explorations » ;
-2. **la donnée, sa structure et les droits** ;
-3. **le méta-schéma** ;
-4. **les surfaces** ;
-5. **les cas d'usage** ;
-6. **la rédaction de la documentation synthétique et détaillée** ;
-7. **le choix de l'architecture technique** ;
-8. **l'implémentation**.
-
-**Le recoupement des échanges** (la demande de l'auteur) : les
-domaines 1 (D335–D346, amendé au fil — les dossiers module/entité,
-gui) et 2 (D347–D419 — les types, l'historisation, les groupes, la
-confidentialité au socle) sont livrés ; le domaine 3 fut vécu sous
-l'intitulé « les règles et le comportement » (D420–D436) — sa part du
-méta-schéma — que Q60 (D570–D601, le langage et les hooks) complète ;
-le domaine 4 est soldé (D437–D569, le catalogue entier). **Les
-domaines 5–8 correspondent aux chantiers déjà nommés** : 5 = les cas
-d'usage (Q59 — les mises en situation), 6 = la documentation (Q58 —
-le glossaire, composants.md et la synthèse en préparation), 7 =
-l'architecture technique (Q7, Q47 — la spec du langage, le langage
-des hooks D570, la sandbox), 8 = l'implémentation (D314 — le code
-après la conception). **Deux réconciliations consignées** : (a)
-l'intitulé du domaine 3 — « le méta-schéma » englobe les règles, le
-comportement et le langage (D420–D436 + D570–D601) ; (b) **les
-renvois « domaine 6 » des décisions D408/D452/D459** (le contrat des
-hooks — signature, code, sandbox) furent écrits sous un découpage de
-travail antérieur : **ils se relisent** — le contrat est couvert par
-Q60 (D570–D601), le reliquat (la sandbox, le langage du code) relève
-du domaine 7.
-
-**Les connecteurs : les cinq arbitrages (D603 — la passe de
-complétude, premier sujet).** **(1) « `connectors.yml` est bien à la
-racine de la version. Il ne trouve pas de déclinaison dans les
-modules, ni les entités. Un connecteur est global. »** **(2) « Les
-connecteurs sont disponibles dans un catalogue de base offert par
-Syncytium et sont extensibles via un hook de connecteur. »**
-**(3) « Les paramètres d'un connecteur sont juste les propriétés du
-connecteur. Le connecteur n'a pas de contexte, car il se définit au
-démarrage du projet »** — hors de la pile (D553), l'exception
-assumée. **(4) « Les secrets sont définis dans la configuration…
-Les secrets peuvent faire référence à une variable d'environnement,
-et la variable peut être cryptée via une clé construite en fonction
-de l'environnement et de la machine d'exécution. »** — la
-configuration porte la référence, jamais la valeur en clair ; le
-chiffrement à la clé dérivée (l'environnement + la machine) — le
-dépôt versionné (D336) reste propre. **(5) « `every:` reprend la même
-grammaire »** (D434/D476) — « pour des hooks qui ont besoin d'être
-régulièrement rafraîchis ».
-
-**Le catalogue de base des connecteurs (D604 — complète D603).**
-**« Le catalogue de hooks regroupe : un connecteur vers les bases de
-données standard (SQLServer, MySQL, Postgre…), un connecteur vers
-l'AD Azure, un connecteur de fichiers (CSV, JSON…) — ta liste
-complète bien la mienne. »** Le catalogue de base réunit donc : **les
-bases de données standard**, **l'AD Azure** (la passerelle
-d'authentification D418 y trouve un premier visage), **les fichiers**
-(CSV, JSON…), le géocodage (`ban`/`nominatim` — D294), l'itinéraire
-(`osrm`/`valhalla` — D514), le mail sortant (`smtp` — D564/D574), la
-reprise (D175–D179). Et l'`every:` précisé : **« utilisé pour les
-connecteurs qui ont besoin d'être régulièrement rafraîchis ou
-testés — par exemple un file watcher : la détection de présence d'un
-fichier, le fichier mis à jour et relu. »** — **l'échange entrant
-naît là** : le fichier déposé, détecté, relu — la porte d'entrée par
-le connecteur de fichiers.
-
-**Le contrat par famille (D605 — solde le sujet des connecteurs).**
-**« La famille (ou le type) permet de définir les interactions avec
-Syncytium. Chaque famille a ses propres méthodes et fonctions. »** —
-le contrat du hook-connecteur n'est pas universel : **il est porté
-par la famille** (la ligne D579 — le type emmène ses fonctions,
-jusqu'aux connecteurs) : la base de données a ses méthodes, le
-fichier les siennes (la veille, la lecture), le géocodage les siennes
-(l'adresse → les coordonnées, l'inverse), le mail son envoi,
-l'annuaire son authentification, la reprise sa lecture seule (D175).
-Un hook de connecteur implémente le contrat de sa famille. **Les cinq
-manques des connecteurs sont refermés** : la déclaration (D603), les
-secrets (D603), la planification (D603–D604), les entrants (D604 —
-le watcher), le contrat (D605).
-
-**Les deux sens, le stockage-connecteur, la migration
-inter-connecteurs (D606 — élargit D603–D605).** **« Un connecteur
-décrit les sortants et les entrants. »** Et la vérification demandée
-(« il me semble que je l'avais déjà évoqué ») : oui — la translation
-déclarative fut posée dès l'origine comme **le primitif transverse
-aux quatre usages** (les migrations, les API, **les connecteurs**, la
-réplication) ; **« Syncytium peut convertir ou transférer des données
-d'un connecteur à l'autre »** en est l'exercice. Les précisions
-nouvelles : **« les entités sont liées à un connecteur de base de
-données »** — **le stockage même est un connecteur** (les bases du
-catalogue D604 ne servent pas que l'échange : elles portent
-l'instance) ; et **« nous pouvons prévoir une migration d'un
-connecteur vers un autre, en instantanée ou en différentiel »** — le
-changement de moteur (SQLServer → PostgreSQL…) par la translation,
-le différentiel rejoignant la réplication passive (D112–D114).
-
-**`selection` = le nombre, `by` = la présentation (D474 — solde
-D472).** **« La propriété `selection` définit le nombre d'éléments à
-sélectionner : `1`, `1..` ou `1..5` »** — la cardinalité, à l'écriture
-des bornes (D366), **la déduction du lien en défaut** (la référence =
-`1`, la liste et l'association = `1..` — D470) ; **« component n'est
-pas adapté ; ta proposition `by` me plaît »** — **`by:`** porte la
-matérialisation : **le nom d'une liste de la cible** → la présentation
-liste ; **le nom du champ-image de la cible** → la galerie de visages ;
-absent → la liste par défaut filtrée. *(Note : le `selection: <liste>`
-de D215 est remplacé par `by:` ; l'harmonisation du `selection:
-one | multiple` de la liste (D445) vers `1 | 1..` — en proposition.)*
-
-```yaml
-- field[product]:
-    by: catalog_photos           # le champ-image ou la liste — la présentation
-    selection: 1..5              # la cardinalité — au plus cinq
-```
-
-**Le composé `password` (D463).** La sonde de l'auteur (« avons-nous un
-type password ? ») — non ; il entre aux composés, **avec des garanties
-structurelles, jamais des options** : **(1) le stockage est
-l'empreinte, jamais le clair** (la ligne D33 — salée, l'algorithme au
-moteur) — **le champ est write-only** : il s'écrit, ne se relit jamais
-(la lecture montre « défini / non défini ») ; **(2) le composant** — la
-saisie masquée, l'œil de révélation à la saisie seulement, la double
-saisie en création ; **(3) les exclusions structurelles** — jamais en
-colonne de liste, jamais `searchable` ni `mutualizable` (la conversion
-D369 exclue), jamais exporté (CSV, Excel, template), **l'empreinte
-seule aux instantanés** (D169) — le clair n'existe nulle part ;
-**(4) la force déclarable** par la `validation` du champ (longueur,
-classes — le refus propre D307). **« La facette décrite me
-convient. »**
-
-**Les colonnes gardent le nom nu (D462).** **« Pour les colonnes d'une
-liste, l'ambiguïté n'est pas présente : ce sont des noms de champs — et
-les opérations sont des verbes en général. »** Pas de `field[…]` aux
-`columns` ; **la préconisation au concepteur** (la documentation Q58,
-jamais un contrôle — « Syncytium n'apporte pas de contrôles ») : **une
-approche cohérente, une action marquée par un verbe**. Et la règle de
-préséance : **« si un nom de champ = un nom d'opération, le nom du
-champ l'emporte. »**
-
-**Le type-hook doit se représenter (D459).** **« Un type ajouté via le
-hook doit inclure une phase de représentation graphique — ou via un
-document PDF, Word… »** Le contrat du type sur mesure comprend **ses
-rendus** : le composant d'écran et/ou le rendu de document (le
-`template`, D456) — **aucun type sans visage** (la ligne D455 : une
-facette est un hook — la facette d'affichage d'un type hooké est due).
-Le contrat détaillé au domaine 6.
-
-*(Les quatre lettres : **create** = la création d'un **sous-composant**
-— ajouter une ligne à l'agrégat ; **read** = la consultation de
-l'enregistrement — sans elle, l'état masque (la donnée se protège) ;
-**update** = la mise à jour — l'agrégat entier (D420) ; **delete** = la
-suppression-désactivation (D141). Absent = tout permis. Le même
-vocabulaire vaut pour les états hiérarchiques du bloc `states:` (D353) ;
-l'en-tête d'entité garde les formes libres symétriques
-(`update: <expression>`, D421) pour les cas hors cycle — les deux
-déclarés = erreur d'ingestion ; **les opérations passent outre**,
-inchangé.)*
-
-```yaml
-history:
-  type: communication
-  confidentiality: protected     # la visibilité du fil (D25) — le socle suffit
-  attachments: image             # false (défaut) | file | image | thumbnail
-  quota: 5MB                     # le kit du type d'attaché, à plat (D365)
-  notification: true             # opt-in — IHM ou mail (D108–D110)
-  preview: 3                     # le résumé au survol, en lignes (proposition)
-```
-
-**La conservation et l'ordre des numéros (D345).** **Les versions
-dépréciées et interdites sont conservées** — pour des questions
-**historiques** : rien ne s'efface, les dossiers `deprecated/` et
-`forbidden/` sont la mémoire du parc. Et **la règle d'ordre incrémental**
-des numéros : **`beta` > `production` > `deprecated`** — une bêta porte
-toujours un numéro supérieur aux versions de production, elles-mêmes
-supérieures aux dépréciées. **Les versions `forbidden` échappent à cette
-contrainte** — naturellement : une bêta comme une production de n'importe
-quel numéro peut y être classée.
-
-**La configuration par environnement (D342, amende D339 et précise
-D325).** **Le nom `technical/` est écarté au profit d'`environments/`** —
-avec **un dossier par environnement** : **les connecteurs, les logs, les
-settings et la documentation sont spécifiques à chaque environnement**.
-La configuration reste **commune aux versions** (D325) mais se **décline
-par environnement** ; les valeurs partagées entre environnements passent
-par les **variables** (D321/D323 — le `${environment.name}` des
-échantillons prend tout son sens).
-
-**Les journaux par environnement (D343).** Les journaux n'ont **pas la
-même configuration selon l'environnement** : **staging = debug ou
-verbose** (il faut plus de traces) ; **production active = info**, avec
-**éventuellement une redirection vers un puits de logs** ; **production
-passive = warning**. **Les fichiers de journaux sont formatés différemment
-et stockés dans des emplacements différents** selon l'environnement.
-
-**La vue consolidée du domaine 1 — l'arborescence du dépôt de
-description** (artefact de clôture, consolidé de D320–D343) :
-
-```yaml
-syncytium.yml                  # le fichier racine (D322) : identité de l'instance
-                               # (application, société, logo — D191/D254), langues
-                               # (permises, défaut, fuseaux, formats — D217–D221/D131),
-                               # compte administrateur de secours (D29/D81),
-                               # références par patterns (D320)
-resources/                     # logos, icônes, images, documents — partagés avec
-                               # toutes les versions (D346)
-environments/                  # un dossier PAR environnement (D342)
-  staging/                     #   le test
-    environment.yml            #     caractéristiques techniques (D339 — nom illustratif)
-    connectors/                #     identité (un actif, D80), données (D79),
-                               #     notifications (D108), géocodage (D294), reprise (D175)
-    logging.yml                #     debug / verbose (D343)
-    settings.yml               #     paramètres généraux (D259) : seuils, CSV, fond de carte…
-    documentation.yml          #     génération de la documentation (D333)
-  production/                  #   la production active
-    environment.yml
-    connectors/
-    logging.yml                #     info + puits de logs éventuel (D343)
-    settings.yml
-    documentation.yml
-  passive/                     #   la production passive (PCA/PRA, D113–D114)
-    environment.yml
-    connectors/
-    logging.yml                #     warning (D343)
-    settings.yml
-    documentation.yml
-versions/                      # (D324, D338, D340)
-  beta/                        #   → le staging s'instancie (D112)
-  production/                  #   → servies par l'actif + le passif
-  deprecated/                  #   → appelables jusqu'au Sunset (D12/D94)
-  forbidden/                   #   → refusées (D103)
-    # dans chacun : <maj>.<min>.<indice>.<build>.yml (entrée, en-tête = version
-    # du format) + <maj>.<min>.<indice>.<build>/ (le détail : settings.yml D360,
-    # groups.yml D414, modules.yml D415 → les modules D416 — donnée ET
-    # expérience unifiées ; IHM et configuration générale, domaines 3 à 8)
-```
-
-À granularité ouverte (contenus évoqués, fichier dédié à trancher au fil
-de l'eau — `settings.yml` ou fichiers propres) : rate limiting (D105),
-dossier des binaires + quota d'instance (D160/D162), rétentions (D110,
-D55), synchronisation actif/passif (D113–D114). Côté **projet Syncytium**
-(dépôt distinct, D336) : le dossier **`template/`** « Hello world ! »
-(D337).
-
-**Groupes et modules fonctionnels : versionnés (D341 — clôt le domaine 1
-de l'inventaire).** **Les groupes (D26–D27) et les modules fonctionnels
-(D190/D210) sont versionnés avec le schéma** — ils appartiennent au
-contenu versionné (D325) : le modèle des droits et l'expérience utilisateur
-évoluent avec le schéma qu'ils gouvernent. Les **affectations**, elles,
-restent des **actes d'administration en base** : personnes ↔ groupes
-(D27), utilisateurs ↔ modules fonctionnels (D210).
-
-**Le dépôt du client, distinct du projet (D336).** **Le dossier de
-description sera versionné par le client, dans un dépôt différent du
-projet Syncytium** — le moteur (public) et les descriptions (propres à
-chaque TPE) vivent dans des dépôts séparés ; le contrat entre les deux est
-le format versionné (D322–D332).
-
-**Le dossier « template » : Hello world ! (D337).** **Le projet Syncytium
-embarque un dossier `template/`** définissant un projet **« Hello
-world ! »** — le point de départ qui **facilite la prise en main par le
-concepteur** : une description minimale complète, clonable, dont
-l'application générée fonctionne immédiatement. Premier des exemples
-promis à la documentation (D314/Q58–Q59).
-
-**La documentation vivante et son partage élargi (D334).** La
-documentation technique **exploite aussi les données enregistrées dans la
-base** pour apporter des **informations utiles sur l'usage — ou le
-non-usage — de valeurs ou de plages de valeurs** : la télémétrie
-(D38–D51, la diversité D46/D48 en tête) devient une **troisième source**
-de la documentation, celle qui dit non pas ce que le modèle *permet* mais
-ce que l'instance *fait*. Et **certaines informations dédiées au
-concepteur pourront être partagées** — **aux utilisateurs, aux
-techniciens de parties tierces** (les consommateurs des API, dont la
-documentation générée s'enrichit) **et aux usagers**. *(Harmonisation
-naturelle : le partage s'opère sous les règles d'accès existantes —
-confidentialité D25–D27, groupes — le destinataire ne voit que ce que ses
-droits permettent.)*
-
-**Le corollaire : diffable et commentaires, questions caduques (D332 —
-clôt la phase 2).** Puisque le moteur ne réécrit jamais les enveloppes,
-il n'y a **ni problème de YAML diffable, ni sort des commentaires** : les
-fichiers restent **exactement tels que le concepteur les a écrits**,
-commentaires compris — seule la logique interne (D327/D329) change de
-forme. Si un outil d'assistance à la mise à niveau des descriptions
-voyait le jour, ce serait **un outil du concepteur, pas un geste du
-moteur**.
-
-**Le journal de migrations compilé (D329).** **Pour des questions de
-performance, le moteur traduit les descriptions en un journal de
-migrations selon un format qui lui est propre.** **La migration est gérée
-en mémoire** pour rendre les données plus rapidement. Et **en cas de
-relance du serveur, les règles de migration sont déjà prêtes à l'emploi** —
-**les traitements optimisant les temps de traitement sont déjà réalisés et
-réutilisables** : la forme compilée est **persistée**, aucune
-recompilation à la relance. C'est la pièce maîtresse de la logique interne
-(D327) — et le même journal compilé nourrit naturellement la chaîne de
-translation des API (§5.1), qui en dérive.
+### 3.3 Langage d'expression unique (D90–D91, résout Q6)
 
 **Un seul langage d'expression** pour tout le système (D90), partagé par :
 **champs calculés** (D35–D36), **migrations** (§3.2), **compat d'API** (§5.1),

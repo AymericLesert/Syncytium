@@ -49,10 +49,10 @@ la version précédente, Syncytium le porte. Les seules écritures :
 ```yaml
 unit_price:
   type: amount
-  deprecated:
-    mode: planned            # l'intention ; true = l'acte
+  deprecation:               # le bloc de l'élément (D1871) ; deprecated reste le statut d'une version
+    mode: planned            # l'intention ; le second mode, l'acte, en question (D1870–D1871)
     documentation: "Remplacé par pricing.unit_price à la 2.x."
-    replaced_by: pricing.unit_price   # absent = l'abandon
+    to: pricing.unit_price   # le remplaçant (D1871) ; absent = l'abandon
 ```
 
 - **le changement de type** — la compatibilité ou le transcodage :

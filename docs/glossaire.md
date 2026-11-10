@@ -254,17 +254,17 @@ déclaré : le libellé `${name}`, `reset: never`, l'historisation éteinte.
 Les settings le surchargent ; une clé qui ne nomme aucun défaut connu est
 une erreur d'ingestion. *(D1175, D1239)*
 
-**Dépréciation** — Le retrait d'une version ou d'un élément, annoncé puis
+**Dépréciation** (`deprecation:`) — Le retrait d'une version ou d'un élément, annoncé puis
 acquis. Celle d'une **version** est effective : la version est déposée dans
 `versions/deprecated/`, et le statut se déclare dans `versions.yml`. Celle
 d'un **champ, d'une table ou d'un module** est une proposition, portée par
 l'élément dans la version qui le garde : l'intention d'abord, puis l'acte —
 l'élément répond encore —, la suppression venant avec une version. Elle dit
 toujours le remplacement ou l'abandon ; une beta qui retire l'élément vaut
-validation de la dépréciation. *Ex. : `deprecated: { mode: planned,
-documentation: "Remplacé par pricing.unit_price.", replaced_by:
-pricing.unit_price }` — le mot clé de l'élément reste à arrêter.*
-*(D340, D650, D1869, D1870)*
+validation de la dépréciation. Le bloc s'écrit `deprecation:` ; `deprecated`
+reste le statut d'une version. *Ex. : `deprecation: { mode: planned,
+documentation: "Remplacé par pricing.unit_price.", to: pricing.unit_price }`.*
+*(D340, D650, D1869, D1870, D1871)*
 
 **Description** (`hint`, `label`, `description`) — Information plus ou moins complète permettant d'apporter du contexte à un élément du modèle de données. La description couvre plusieurs fonctions : aide à la saisie, une infobulle, une description courte (`hint` — D840) pour comprendre la nature de l'information, une description détaillée (`description`) pour construire une aide ou un masque d'aide. La description permet également à des outils tiers (comme l'IA) de s'interfacer ou de proposer des constructions de modèles ou de rapports adaptés à un usage.
 *Ex. : `hint: { fr: Le code se génère à la création }`.*

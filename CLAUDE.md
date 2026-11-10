@@ -8,7 +8,8 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
 
 - `docs/conception.md` est la **seule source canonique** : la table des
   décisions `| Dnnnn | … |` (le numéro suit le dernier), le narratif §3.2c,
-  le journal daté (le plus récent en tête).
+  le journal daté, § 11 (le plus récent en tête : une entrée nouvelle s'écrit
+  sous le titre de la section, D1866).
 - **Chaque arbitrage de l'auteur est une décision** : ses mots sont cités
   **verbatim** entre « … » dans la décision ; ce que Claude ajoute est marqué
   *ma lecture* / *en proposition* jusqu'à validation. On ne réécrit jamais les

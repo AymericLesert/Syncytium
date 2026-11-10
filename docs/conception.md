@@ -18142,6 +18142,34 @@ avant la synthèse Q16).
 
 ## 11. Journal des échanges
 
+- **2026-11-10 — LA PAUSE : LES CONSIGNES RELUES, LA DÉPRÉCIATION CLOSE, LE PÉRIMÈTRE DU CHAPITRE 8 EN COURS
+  (D1864–D1881, 1881 décisions).** La reprise, dans la session du chapitre 8. **Le modèle** : l'auteur retient Claude
+  Fable 5.2 — « Je vais le retenir le modèle Fable 5.2 pour Syncytium » ; le trailer des commits suit. À sa demande,
+  un sondage du dépôt avant de reprendre : les contrôles passent tous, les écarts sont dans les consignes, non dans
+  les chapitres. **Les consignes relues** : `CLAUDE.md` ne liste plus les artefacts, il renvoie à la table des
+  chapitres de docs/README.md (D1864) ; le journal du § 11 trié par un script, le plus récent en tête, 991 entrées
+  sans un mot changé, une entrée nouvelle s'écrit sous le titre (D1865–D1866) ; le narratif § 3.2c remis en ordre, les
+  vingt-six paragraphes restés en fin de section remontés devant celui de D857, le titre du § 3.3, perdu à D320–D321,
+  rétabli, le paragraphe d'une décision s'écrit à la fin du § 3.2c (D1867–D1868) ; relevé, non traité : D830 à D856
+  n'ont pas de paragraphe au narratif. **Le point 1 du chapitre 8, la dépréciation** (D1869–D1878) : deux
+  dépréciations — celle d'une version, effective, au chapitre 1 ; celle d'un élément, la proposition (D1869) ; la beta
+  vaut validation (D1870) ; le bloc s'écrit `deprecation:`, `to:` nomme le remplaçant (D1871) ; pas de `mode:` (D1872)
+  ; la forme courte `deprecation: <remplaçant>` (D1873) ; « Ce n'est pas une description généraliste » : un bloc par
+  composante, personnalisé, sans renvoi (D1874–D1875) — dix sections écrites aux chapitres 2, 4, 5 et 6, le champ,
+  l'entité, le module, le type, la méthode, la surface, le graphique, le composant d'écran, la classe de connecteur,
+  l'opération ; le connecteur déclaré ne se déprécie pas, la classe si (D1875–D1876) ; les lectures validées (D1877) ;
+  la dépréciation close (D1878). **Le périmètre** (D1879–D1881) : les chapitres qui précèdent définissent les
+  propriétés, le chapitre 9 décrit toutes les conversions et l'usage de ces propriétés, non les propriétés mêmes
+  (D1879) ; les mots « reprise » et « mapping », inversés dans un message, remis à l'endroit, l'exécution d'un passage
+  au chapitre 9 « avec les conversions » (D1880) ; les rapports et le rythme aussi (D1881) : le groupe du passage, les
+  points 13 à 18, quitte le chapitre 8, quinze points restent. « Je marque une pause. A la reprise, avant de valider
+  définitivement, nous reviendrons sur la définition de "reprise", de "migration" et de "mapping". Je pense que c'est
+  important que la définition soit correcte. » **À la reprise** : d'abord les trois définitions — au glossaire, «
+  Reprise des données », « Migration » et « Mapping », cette dernière ajoutée par D1880 et à tenir pour provisoire ;
+  au registre, D3, D646–D647, D1031, D1259, D1879–D1880 — ; puis la clôture du point 1 et les lectures encore à
+  confirmer de D1879 à D1881 ; puis les points 2 à 12 et 19 à 21, un à la fois. Les dix sections de la dépréciation
+  restent à relire comme textes ; le chapitre 8 recevra la sienne à sa réorganisation. Les lectures ouvertes jusqu'à
+  l'implémentation restent D1788, D1794, D1805, D1815, et la forme de la notification de progression (D1861).
 - **2026-11-08 (soir, suite) — LA PAUSE : LE CHAPITRE 8 REPRIS, LE POINT 1 PRÉSENTÉ (1863 décisions).** Une
   session neuve pour le chapitre 8, la reprise et le mapping, demandée par l'auteur. La passation lue, mapping.md et
   migration.md relus en entier, l'audit de la famille `reprise` (174 décisions : 35 amendées dont 11 non citées, 55

@@ -6,7 +6,7 @@ niveaux : les domaines, les rangs du chantier de la documentation, leurs
 un état et une date de fin. Elle est calculée depuis le
 [registre](../conception.md), le [plan du chantier](../documentation.md)
 et le [plan de la documentation](../README.md) par `python tools/plan.py`,
-le 08/11/2026 (D1660).*
+le 10/11/2026 (D1660).*
 
 ## Le sommaire
 
@@ -274,12 +274,12 @@ réécriture (D1521, D1543). Il est fait quand les trois le sont.
 
 | # | Le titre | L'état | La fin |
 |---|---|---|---|
-| 1 | La configuration et son écriture | fait | 08/11/2026 |
-| 2 | Le modèle et les types | fait | 08/11/2026 |
+| 1 | La configuration et son écriture | fait | 10/11/2026 |
+| 2 | Le modèle et les types | fait | 10/11/2026 |
 | 3 | Le langage d'expression | fait | 31/10/2026 |
-| 4 | Les surfaces et les composants | fait | 08/11/2026 |
-| 5 | Les connecteurs | fait | 08/11/2026 |
-| 6 | Les opérations | fait | 08/11/2026 |
+| 4 | Les surfaces et les composants | fait | 10/11/2026 |
+| 5 | Les connecteurs | fait | 10/11/2026 |
+| 6 | Les opérations | fait | 10/11/2026 |
 | 7 | Les droits et la sécurité | fait | 08/11/2026 |
 | 8 | La reprise et le mapping | en cours | — |
 | 9 | Le fonctionnement du moteur | à faire | — |

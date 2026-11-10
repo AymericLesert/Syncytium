@@ -274,13 +274,12 @@ deprecation:
     en: Books are no longer referenced by their ISBN.
 ```
 
-**Ce que la dépréciation d'un type touche.** Tout ce qui repose sur lui :
+**Ce que la dépréciation d'un type touche.** Tout ce qui repose sur lui
+(D1877) :
 
 - tous les champs déclarés à ce type ;
 - les types dérivés qui le prennent pour base ;
 - les défauts réglés sous son nom aux settings.
-
-Cette liste est *en proposition*.
 
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :

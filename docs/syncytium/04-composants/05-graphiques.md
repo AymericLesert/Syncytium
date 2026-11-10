@@ -208,13 +208,12 @@ charts:
         es: El cuadro de mando del presupuesto basta, este gráfico ya no se mantiene.
 ```
 
-**Ce que la dépréciation d'un graphique touche.** Tout ce qui le montre :
+**Ce que la dépréciation d'un graphique touche.** Tout ce qui le montre
+(D1877) :
 
 - les tableaux de bord et les formulaires qui le posent ;
 - les résumés qui l'affichent ;
 - la liste que son drill-down ouvre.
-
-Cette liste est *en proposition*.
 
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :

@@ -332,13 +332,12 @@ methods:
       to: isbn.validate
 ```
 
-**Ce que la dépréciation d'une méthode touche.** Tout ce qui l'appelle :
+**Ce que la dépréciation d'une méthode touche.** Tout ce qui l'appelle
+(D1877) :
 
 - les formules des champs calculés ;
 - les règles de validation, comme `isbn.check()` ;
 - les gabarits de message qui la citent.
-
-Cette liste est *en proposition*.
 
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :

@@ -306,17 +306,14 @@ deprecation:
 ```
 
 **Ce que la dépréciation d'une entité touche.** Elle ne s'arrête pas à
-l'en-tête. Le registre le dit : « La dépréciation d'une entité va avoir
-un impact sur tous les champs de l'entité dépréciée » (D1875).
+l'en-tête (D1877). Le registre le dit : « La dépréciation d'une entité va
+avoir un impact sur tous les champs de l'entité dépréciée » (D1875).
 
 - tous les champs de l'entité, touchés avec elle ;
 - ses surfaces et ses opérations ;
 - les références, les compositions et les associations qui la visent
   depuis d'autres entités ;
 - ses enregistrements, que l'API sert encore.
-
-Le premier point vient du registre ; les trois autres sont *en
-proposition*.
 
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :

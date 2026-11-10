@@ -144,15 +144,14 @@ propager:
       es: La entrada masiva de la lista basta, la propagación ya no se ofrece.
 ```
 
-**Ce que la dépréciation d'une opération touche.** Tout ce qui la lance :
+**Ce que la dépréciation d'une opération touche.** Tout ce qui la lance
+(D1877) :
 
 - les actes qui la placent, `operation[<nom>]` dans un formulaire, son
   nom en colonne d'une liste (D1772) ;
 - ses déclencheurs, `when:` et `every:` ;
 - les opérations qui l'enchaînent dans leurs `actions:` ;
 - l'API, qui l'expose encore (D428).
-
-Cette liste est *en proposition*.
 
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :

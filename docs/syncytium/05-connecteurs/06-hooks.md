@@ -231,14 +231,12 @@ deprecation:
 ```
 
 **Ce que la dépréciation d'une classe touche.** Tout ce qui repose sur
-elle :
+elle (D1877) :
 
 - les connecteurs déclarés à cette classe, par leur `class:`, dans chaque
   environnement ;
 - le socle et les hooks qui emploient ces connecteurs ;
 - les paramètres que la classe expose, que l'environnement renseigne.
-
-Cette liste est *en proposition*.
 
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :

@@ -360,9 +360,8 @@ forms:
 ```
 
 **Ce que la dépréciation d'un composant d'écran touche.** Cet écran, et
-lui seul. Le champ, l'opération ou le graphique que le nœud montre reste
-entier ; les autres écrans qui le posent ne changent pas. Ce périmètre
-est *en proposition*.
+lui seul (D1877). Le champ, l'opération ou le graphique que le nœud montre
+reste entier ; les autres écrans qui le posent ne changent pas.
 
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :

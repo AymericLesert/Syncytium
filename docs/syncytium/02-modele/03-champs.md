@@ -282,7 +282,8 @@ reference_ancienne:
     documentation: Plus aucun document ne cite cette référence.
 ```
 
-**Ce que la dépréciation d'un champ touche.** Tout ce qui cite le champ :
+**Ce que la dépréciation d'un champ touche.** Tout ce qui cite le champ
+(D1877) :
 
 - les formules et les validations qui le lisent ;
 - les colonnes des listes et les zones des formulaires qui l'affichent ;
@@ -290,7 +291,7 @@ reference_ancienne:
 - l'API, qui le sert encore.
 
 Syncytium calcule déjà ces liens pour dire à quoi sert un champ (D1186,
-D1198). Cette liste est *en proposition*.
+D1198).
 
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :

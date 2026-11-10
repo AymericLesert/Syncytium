@@ -145,14 +145,12 @@ deprecation:
 ```
 
 **Ce que la dépréciation d'un module touche.** Toute la part de
-l'application qu'il porte :
+l'application qu'il porte (D1877) :
 
 - toutes ses entités, et par elles tous leurs champs ;
 - son menu et sa page d'accueil ;
 - ses tableaux de bord ;
 - les références que les autres modules font à ses entités.
-
-Cette liste est *en proposition*.
 
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :

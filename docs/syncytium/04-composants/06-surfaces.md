@@ -122,15 +122,14 @@ lists:
       to: list[par_operation]
 ```
 
-**Ce que la dépréciation d'une surface touche.** Tout ce qui y mène :
+**Ce que la dépréciation d'une surface touche.** Tout ce qui y mène
+(D1877) :
 
 - les entrées de menu qui l'ouvrent par leur `link:` ;
 - les tableaux de bord et les écrans qui la posent ;
 - les exports et les modèles qu'elle porte ;
 - la surface par défaut de l'entité, si elle est la première de son bloc
   (D438).
-
-Cette liste est *en proposition*.
 
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :

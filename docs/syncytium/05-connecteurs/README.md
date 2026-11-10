@@ -50,6 +50,7 @@ renvoient au [registre](../../conception.md).
    - [Une classe dans une famille](06-hooks.md#une-classe-dans-une-famille)
    - [Ce que la classe reçoit](06-hooks.md#ce-que-la-classe-reçoit)
    - [La fiche et la déclaration](06-hooks.md#la-fiche-et-la-déclaration)
+   - [La dépréciation d'une classe de connecteur](06-hooks.md#la-dépréciation-dune-classe-de-connecteur)
 7. [Ce que le connecteur livre à la documentation](07-documentation.md)
    - [La facette du connecteur](07-documentation.md#la-facette-du-connecteur)
    - [Le `describe(model)` du storage](07-documentation.md#le-describemodel-du-storage)

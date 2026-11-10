@@ -4,9 +4,9 @@ Le catalogue des classes est celui de Syncytium. Quand il manque une
 classe, un dossier distant, une base que le socle ne connaît pas, un
 service en ligne, le projet l'ajoute par du code : un hook de
 connecteur. Ce fichier dit ce qu'une classe ajoutée livre, ce qu'elle
-reçoit, comment elle se déclare. Le mécanisme commun, la maison
-`hooks/`, la fiche, la description par langue, les traces, est au
-chapitre 1,
+reçoit, comment elle se déclare, comment elle annonce son retrait. Le
+mécanisme commun, la maison `hooks/`, la fiche, la description par
+langue, les traces, est au chapitre 1,
 [la version](../01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks).
 
 ## Le sommaire
@@ -14,6 +14,7 @@ chapitre 1,
 - [Une classe dans une famille](#une-classe-dans-une-famille)
 - [Ce que la classe reçoit](#ce-que-la-classe-reçoit)
 - [La fiche et la déclaration](#la-fiche-et-la-déclaration)
+- [La dépréciation d'une classe de connecteur](#la-dépréciation-dune-classe-de-connecteur)
 
 ## Une classe dans une famille
 
@@ -169,3 +170,86 @@ legacy:
   entities:
     budget: [budget.txt, budget-clos.txt]
 ```
+
+## La dépréciation d'une classe de connecteur
+
+> **La dépréciation** d'un élément annonce son retrait. L'élément vit
+> encore ; le bloc `deprecation:` dit ce qui le remplace, ou son abandon.
+> Elle ne se confond pas avec la dépréciation d'une version, qui est
+> effective ([glossaire](../../glossaire.md)).
+
+Une classe ajoutée par un hook peut être appelée à disparaître : une
+autre classe la remplace, ou le service qu'elle atteint s'arrête. La
+configuration ne la retire pas d'un coup. Elle l'annonce d'abord, dans la
+fiche de la classe, dans la version en service (D650, D1876). Les
+connecteurs déclarés à cette classe servent comme avant.
+
+Le connecteur déclaré, lui, ne porte pas ce bloc. Il vit dans un
+environnement, non dans une version : sa dépréciation n'a pas de raison
+d'être (D1875). Seule la classe, qui vit dans les hooks d'une version, se
+déprécie.
+
+**La forme courte.** Le bloc nomme la remplaçante, rien de plus (D1873).
+La remplaçante est une autre classe, nommée par son nom (D1875).
+L'exemple est construit, aucun cas n'en porte. Une classe `ftp` céderait
+à la classe `sftp` :
+
+```yaml
+# La classe ftp
+# Un dossier distant, lu par FTP.
+name: ftp
+
+# La dépréciation
+# La classe sert encore dans cette version ; la classe sftp la remplace.
+deprecation: sftp
+```
+
+**La forme longue.** Elle porte deux clés (D1871) :
+
+- **`documentation:`**, le texte qui explique la dépréciation. C'est un
+  texte de la version : à plusieurs langues, il les porte toutes
+  (D1474) ;
+- **`to:`**, la classe remplaçante.
+
+Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
+dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
+vérifie (D650). Le bloc n'a pas de `mode:` : sa présence dit l'intention
+(D1872).
+
+```yaml
+# La classe ftp
+# Un dossier distant, lu par FTP.
+name: ftp
+
+# La dépréciation
+# La classe sert encore dans cette version ; le texte dit ce qui la remplace.
+deprecation:
+  documentation:
+    fr: Le FTP transmet en clair ; la classe sftp le remplace.
+    en: FTP transmits in clear text; the sftp class replaces it.
+  to: sftp
+```
+
+**Ce que la dépréciation d'une classe touche.** Tout ce qui repose sur
+elle :
+
+- les connecteurs déclarés à cette classe, par leur `class:`, dans chaque
+  environnement ;
+- le socle et les hooks qui emploient ces connecteurs ;
+- les paramètres que la classe expose, que l'environnement renseigne.
+
+Cette liste est *en proposition*.
+
+**De l'intention à la suppression.** Une dépréciation se joue en trois
+temps :
+
+1. **L'intention.** Le bloc est écrit. Rien ne change : les connecteurs de
+   cette classe servent comme avant (D650, D1872).
+2. **La validation.** Une beta complète la dépréciation : en retirant la
+   classe, elle la valide (D1870, D1875).
+3. **La suppression.** Elle vient avec une version : la classe quitte les
+   hooks de la version (D650).
+
+Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
+dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
+Sur une classe, le bloc s'écrit toujours `deprecation:` (D1871).

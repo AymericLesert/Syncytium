@@ -28,6 +28,7 @@ entre parenthèses renvoient au [registre](../../conception.md).
    - [La forme courte et le bloc](03-champs.md#la-forme-courte-et-le-bloc)
    - [Les groupes de champs](03-champs.md#les-groupes-de-champs)
    - [Les propriétés d'un champ](03-champs.md#les-propriétés-dun-champ)
+   - [La dépréciation d'un élément du modèle](03-champs.md#la-dépréciation-dun-élément-du-modèle)
    - [L'ordre du fichier](03-champs.md#lordre-du-fichier)
 4. [La vie d'un enregistrement](04-vie.md)
    - [L'héritage](04-vie.md#lhéritage)

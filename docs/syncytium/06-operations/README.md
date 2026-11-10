@@ -23,6 +23,7 @@ citées entre parenthèses renvoient au [registre](../../conception.md).
    - [L'opération](02-declaration.md#lopération)
    - [Les portées](02-declaration.md#les-portées)
    - [Le commit](02-declaration.md#le-commit)
+   - [La dépréciation d'une opération](02-declaration.md#la-dépréciation-dune-opération)
    - [L'exemple de la banque](02-declaration.md#lexemple-de-la-banque)
 3. [Les déclencheurs](03-declencheurs.md)
    - [Les six déclencheurs](03-declencheurs.md#les-six-déclencheurs)

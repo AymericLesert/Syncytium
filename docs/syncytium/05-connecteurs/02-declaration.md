@@ -2,8 +2,9 @@
 
 Un connecteur se déclare une fois par environnement, sous son nom, avec
 sa famille, sa classe et ses paramètres. Ce fichier dit où et comment,
-ce que sont les secrets et le rythme, puis comment le socle et les hooks
-trouvent le connecteur qu'ils emploient.
+ce que sont les secrets et le rythme, comment le socle et les hooks
+trouvent le connecteur qu'ils emploient, puis comment un connecteur
+annonce son retrait.
 
 ## Le sommaire
 
@@ -16,6 +17,10 @@ trouvent le connecteur qu'ils emploient.
 - [Le câblage](#le-câblage)
   - [Le socle, par le nom](#le-socle-par-le-nom)
   - [Le hook, par `uses:`](#le-hook-par-uses)
+- [La dépréciation d'un connecteur](#la-dépréciation-dun-connecteur)
+  - [La forme courte du bloc](#la-forme-courte-du-bloc)
+  - [La forme longue du bloc](#la-forme-longue-du-bloc)
+  - [De l'intention à la suppression](#de-lintention-à-la-suppression)
 - [Les renvois](#les-renvois)
 
 ## La déclaration par environnement
@@ -246,6 +251,104 @@ sont pas exclus : « dans le cas de l'affichage d'une carte, nous pouvons
 définir plusieurs connecteurs et, en fonction de l'écran, utiliser l'un
 ou l'autre » (D612). Le hook de connecteur, lui, ajoute une classe à une
 famille : [le hook de connecteur](06-hooks.md).
+
+## La dépréciation d'un connecteur
+
+> **La dépréciation** d'un élément annonce son retrait. L'élément vit
+> encore ; le bloc `deprecation:` dit ce qui le remplace, ou son abandon.
+> Elle ne se confond pas avec la dépréciation d'une version, qui est
+> effective ([glossaire](../../glossaire.md)).
+
+Un connecteur peut être appelé à disparaître : un autre service le
+remplace, ou l'application n'en a plus l'usage. L'environnement ne le
+retire pas d'un coup. Il l'annonce d'abord, sur le connecteur lui-même
+(D650, D1873). Le connecteur sert comme avant.
+
+Deux éléments portent ce bloc (D1873) :
+
+- le connecteur déclaré dans le `connectors.yml` d'un environnement ;
+- la classe de connecteur qu'un hook ajoute, dans sa fiche.
+
+### La forme courte du bloc
+
+Le bloc nomme le remplaçant, rien de plus (D1873). Les exemples de cette
+partie sont construits, aucun cas n'en porte. Dans l'entrepôt, le relais
+de messagerie de l'entreprise céderait à un autre connecteur,
+`messagerie` :
+
+```yaml
+# Le mail sortant
+# Le relais de messagerie de l'entreprise ; le connecteur messagerie le remplace.
+smtp:
+  class: smtp_std
+  deprecation: messagerie
+  parameters:
+    host: ${SMTP_HOST}
+    port: 587
+    address_from: ${SMTP_FROM}
+    password*: ${SMTP_PASSWORD}
+```
+
+### La forme longue du bloc
+
+La forme longue porte deux clés (D1871) :
+
+- **`documentation:`**, le texte qui explique la dépréciation. C'est un
+  texte de la version : à plusieurs langues, il les porte toutes
+  (D1474) ;
+- **`to:`**, le remplaçant.
+
+Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
+dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
+vérifie (D650).
+
+```yaml
+# Le mail sortant
+# Le relais de messagerie de l'entreprise ; le connecteur messagerie le remplace, et le texte dit pourquoi.
+smtp:
+  class: smtp_std
+  deprecation:
+    documentation: Le relais de l'entreprise s'arrête, la messagerie hébergée le remplace.
+    to: messagerie
+```
+
+Une classe ajoutée par un hook écrit le bloc dans sa fiche, parmi
+`name`, `description`, `code` et `properties`. Ici la classe `sftp`,
+abandonnée ; sa fiche est en deux langues, son texte aussi :
+
+```yaml
+# La classe sftp
+# Un dossier distant, lu et acquitté par SFTP.
+name: sftp
+
+# La dépréciation
+# La classe sert encore ; elle est abandonnée, sans remplaçante.
+deprecation:
+  documentation:
+    fr: Les dépôts passent par le dossier partagé, le SFTP n'est plus tenu.
+    en: Deposits go through the shared folder, SFTP is no longer maintained.
+```
+
+Le bloc n'a pas de `mode:` : sa présence dit l'intention (D1872).
+L'adresse du remplaçant est le nom du connecteur ou de la classe.
+
+### De l'intention à la suppression
+
+Une dépréciation se joue en trois temps :
+
+1. **L'intention.** Le bloc est écrit. Rien ne change : le connecteur sert
+   comme avant (D650, D1872).
+2. **La validation.** Une beta complète la dépréciation : en se passant du
+   connecteur, elle la valide (D1870).
+3. **La suppression.** Elle vient avec une version : le connecteur quitte
+   le `connectors.yml`, la classe quitte ses hooks (D650).
+
+Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
+dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
+Sur un élément, le bloc s'écrit toujours `deprecation:` (D1871).
+
+Un connecteur vit dans un environnement, non dans une version : la
+validation par une beta qui ne l'emploie plus est *en proposition*.
 
 ## Les renvois
 

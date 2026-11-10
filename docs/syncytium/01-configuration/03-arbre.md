@@ -388,6 +388,13 @@ dossier. Il y a cinq dossiers possibles :
 - `forbidden/`, les versions interdites, conservées ;
 - `sandbox/`, l'essai d'une description en cours (D907).
 
+Dans `deprecated/`, la dépréciation est effective : la version est
+dépréciée pour de bon, par le dépôt de son dossier et par son statut
+déclaré dans `versions.yml` (D1869). Le bloc `deprecation:` est autre
+chose : il s'écrit sur un élément d'une version en service, un champ,
+une surface, un connecteur, une opération, et annonce seulement son
+retrait (D1871).
+
 Seuls les statuts utilisés se déclarent dans `versions.yml` (D804).
 Aucun n'est obligatoire : `production` peut se déclarer sans `beta`
 (D1115). Le statut porte son environnement, et liste ses versions par un

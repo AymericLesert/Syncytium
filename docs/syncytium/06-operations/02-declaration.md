@@ -2,13 +2,17 @@
 
 Une opération se déclare sur son entité, dans le bloc `operations:`,
 sous le nom de son hook. Ce fichier dit ce que la déclaration porte, les
-portées, le commit, et montre l'exemple de la banque.
+portées, le commit, la dépréciation, et montre l'exemple de la banque.
 
 ## Le sommaire
 
 - [L'opération](#lopération)
 - [Les portées](#les-portées)
 - [Le commit](#le-commit)
+- [La dépréciation d'une opération](#la-dépréciation-dune-opération)
+  - [La forme courte du bloc](#la-forme-courte-du-bloc)
+  - [La forme longue du bloc](#la-forme-longue-du-bloc)
+  - [De l'intention à la suppression](#de-lintention-à-la-suppression)
 - [L'exemple de la banque](#lexemple-de-la-banque)
 
 ## L'opération
@@ -88,6 +92,82 @@ nourri des valeurs nommées que l'opération rend, `{nb_creations}
 factures créées` (D598). `commit: confirm` en est le raccourci. Sans
 `form:` ni `message:`, le formulaire par défaut, `record`, s'ouvre en
 lecture seule (D1645). Le wizard porte le même `commit:` (D1652).
+
+## La dépréciation d'une opération
+
+> **La dépréciation** d'un élément annonce son retrait. L'élément vit
+> encore ; le bloc `deprecation:` dit ce qui le remplace, ou son abandon.
+> Elle ne se confond pas avec la dépréciation d'une version, qui est
+> effective ([glossaire](../../glossaire.md)).
+
+Une opération peut être appelée à disparaître : une autre la remplace,
+ou le métier ne s'en sert plus. La configuration ne la retire pas d'un
+coup. Elle l'annonce d'abord, sur l'opération elle-même, dans la version
+en service (D650, D1871). Le bouton, le déclencheur et l'API la servent
+comme avant.
+
+L'élément qui porte le bloc est l'opération déclarée (D1871, D1873).
+
+### La forme courte du bloc
+
+Le bloc nomme la remplaçante, rien de plus (D1873). Les exemples de cette
+partie sont construits, aucun cas n'en porte. Dans la banque, la
+duplication céderait à une opération `recopier` :
+
+```yaml
+# La duplication entre deux dates : l'opération recopier la remplace
+dupliquer:
+  label: { fr: Dupliquer, en: Duplicate, es: Duplicar }
+  form: duplication
+  commit: confirm
+  deprecation: recopier
+```
+
+### La forme longue du bloc
+
+La forme longue porte deux clés (D1871) :
+
+- **`documentation:`**, le texte qui explique la dépréciation. C'est un
+  texte de la version : à plusieurs langues, il les porte toutes
+  (D1474) ;
+- **`to:`**, le remplaçant.
+
+Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
+dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
+vérifie (D650).
+
+La banque a trois langues : son texte les porte toutes.
+
+```yaml
+# La propagation aux similaires : abandonnée, sans remplaçante
+propager:
+  label: { fr: Propager, en: Propagate, es: Propagar }
+  form: propagation
+  commit: confirm
+  deprecation:
+    documentation:
+      fr: La saisie en masse de la liste suffit, la propagation n'est plus proposée.
+      en: Bulk entry in the list is enough, propagation is no longer offered.
+      es: La entrada masiva de la lista basta, la propagación ya no se ofrece.
+```
+
+Le bloc n'a pas de `mode:` : sa présence dit l'intention (D1872).
+L'adresse de la remplaçante est son nom, celui de son hook.
+
+### De l'intention à la suppression
+
+Une dépréciation se joue en trois temps :
+
+1. **L'intention.** Le bloc est écrit. Rien ne change : l'opération
+   s'exécute comme avant (D650, D1872).
+2. **La validation.** Une beta complète la dépréciation : en retirant
+   l'opération, elle la valide (D1870).
+3. **La suppression.** Elle vient avec une version : l'opération quitte la
+   description (D650).
+
+Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
+dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
+Sur un élément, le bloc s'écrit toujours `deprecation:` (D1871).
 
 ## L'exemple de la banque
 

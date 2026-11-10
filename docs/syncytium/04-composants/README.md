@@ -45,10 +45,7 @@ flowchart TB
      - [Les composés](#les-composés)
      - [Les liens et les générés](#les-liens-et-les-générés)
    - [La signature du nœud](#la-signature-du-nœud)
-   - [La dépréciation d'une surface ou d'un composant](#la-dépréciation-dune-surface-ou-dun-composant)
-     - [La forme courte du bloc](#la-forme-courte-du-bloc)
-     - [La forme longue du bloc](#la-forme-longue-du-bloc)
-     - [De l'intention à la suppression](#de-lintention-à-la-suppression)
+   - [La dépréciation d'un composant d'écran](#la-dépréciation-dun-composant-décran)
 2. [Les feuilles](02-feuilles.md)
    - [La saisie d'une valeur](02-feuilles.md#la-saisie-dune-valeur)
    - [Le choix et le regard d'un objet](02-feuilles.md#le-choix-et-le-regard-dun-objet)
@@ -74,6 +71,7 @@ flowchart TB
    - [`kpi`](05-graphiques.md#kpi)
    - [`pivot`](05-graphiques.md#pivot)
 6. [Les surfaces](06-surfaces.md)
+   - [La dépréciation d'une surface](06-surfaces.md#la-dépréciation-dune-surface)
    - [`menu`](06-surfaces.md#menu)
    - [`list` (la surface)](06-surfaces.md#list-la-surface)
    - [`form`](06-surfaces.md#form)
@@ -296,93 +294,89 @@ Tout nœud de l'arbre d'une surface a la même signature, en sept traits
    Word, l'Excel, l'email (D408, D452 ; les destinations, D564) ; sa fiche
    et son usage sont dans [le hook de composant](07-hooks.md).
 
-## La dépréciation d'une surface ou d'un composant
+## La dépréciation d'un composant d'écran
 
 > **La dépréciation** d'un élément annonce son retrait. L'élément vit
 > encore ; le bloc `deprecation:` dit ce qui le remplace, ou son abandon.
 > Elle ne se confond pas avec la dépréciation d'une version, qui est
 > effective ([glossaire](../../glossaire.md)).
 
-Un écran peut être appelé à disparaître : une liste en remplace une
-autre, un graphique ne sert plus. La configuration ne le retire pas d'un
-coup. Elle l'annonce d'abord, sur la surface elle-même, dans la version
-en service (D650, D1873). L'écran s'affiche comme avant.
+Un composant posé dans un écran peut être appelé à en sortir : une zone
+ne sert plus, une autre la remplace. La surface reste ; seul le nœud est
+annoncé. La configuration l'écrit sur le nœud, parmi ses propriétés,
+comme `visible:`, dans la version en service (D650, D1873). Le composant
+s'affiche comme avant.
 
-Deux sortes d'éléments portent ce bloc (D1873) :
-
-- une surface déclarée : la liste, le formulaire, le résumé, le widget,
-  le wizard, le tableau de bord, le template ;
-- un composant d'écran : un graphique déclaré sous `charts:`, un nœud
-  dans l'arbre d'une surface.
-
-### La forme courte du bloc
-
-Le bloc nomme le remplaçant, rien de plus (D1873). Les exemples de cette
-partie sont construits, aucun cas n'en porte. Dans la banque, la liste
-par date comptable céderait à la liste par date d'opération :
+**La forme courte.** Le bloc nomme le remplaçant, rien de plus (D1873). Le
+remplaçant est un autre nœud, nommé par son adresse (D1875). L'exemple est
+construit, aucun cas n'en porte. Dans le formulaire de l'écriture de la
+banque, la zone du lieu céderait à celle du budget :
 
 ```yaml
-# Les listes de l'écriture
-lists:
+# Les formulaires de l'écriture
+forms:
 
-  # Par date comptable : la liste par date d'opération la remplace
-  par_comptable:
-    title:
-      fr: Par date comptable
-      en: By posting date
-      es: Por fecha contable
-    deprecation: list[par_operation]
+  # Le formulaire de l'écriture
+  record:
+    items:
+      - field[mode]
+
+      # Le lieu : la zone du budget la remplace dans ce formulaire
+      - field[lieu]:
+          deprecation: field[budget]
 ```
 
-### La forme longue du bloc
-
-La forme longue porte deux clés (D1871) :
+**La forme longue.** Elle porte deux clés (D1871) :
 
 - **`documentation:`**, le texte qui explique la dépréciation. C'est un
   texte de la version : à plusieurs langues, il les porte toutes
   (D1474) ;
-- **`to:`**, le remplaçant.
+- **`to:`**, le nœud remplaçant.
 
 Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
 dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
-vérifie (D650).
+vérifie (D650). Le bloc n'a pas de `mode:` : sa présence dit l'intention
+(D1872).
 
 La banque a trois langues : son texte les porte toutes.
 
 ```yaml
-# Les graphiques de l'écriture
-charts:
+# Les formulaires de l'écriture
+forms:
 
-  # L'évolution des dépenses par budget : abandonnée, sans remplaçant
-  evolution_budget:
-    component: chart.line
-    deprecation:
-      documentation:
-        fr: Le tableau de bord du budget suffit, ce graphique n'est plus tenu.
-        en: The budget dashboard is enough, this chart is no longer maintained.
-        es: El cuadro de mando del presupuesto basta, este gráfico ya no se mantiene.
+  # Le formulaire de l'écriture
+  record:
+    items:
+      - field[mode]
+
+      # Le numéro de chèque : la zone quitte ce formulaire, sans remplaçante
+      - field[cheque]:
+          visible: mode = autre
+          deprecation:
+            documentation:
+              fr: Les chèques ne sont plus saisis, la zone quitte le formulaire.
+              en: Cheques are no longer entered, the zone leaves the form.
+              es: Los cheques ya no se introducen, la zona sale del formulario.
 ```
 
-Le bloc n'a pas de `mode:` : sa présence dit l'intention (D1872). Un
-nœud de l'arbre d'une surface le porte parmi ses propriétés, comme
-`visible:` ou `title:`. L'adresse du remplaçant s'écrit comme le nœud se
-nomme, `list[par_operation]` ; sa forme se précisera à
-l'implémentation, *en proposition*.
+**Ce que la dépréciation d'un composant d'écran touche.** Cet écran, et
+lui seul. Le champ, l'opération ou le graphique que le nœud montre reste
+entier ; les autres écrans qui le posent ne changent pas. Ce périmètre
+est *en proposition*.
 
-### De l'intention à la suppression
+**De l'intention à la suppression.** Une dépréciation se joue en trois
+temps :
 
-Une dépréciation se joue en trois temps :
-
-1. **L'intention.** Le bloc est écrit. Rien ne change : l'écran s'affiche
-   et sert (D650, D1872).
-2. **La validation.** Une beta complète la dépréciation : en retirant la
-   surface ou le composant, elle la valide (D1870).
-3. **La suppression.** Elle vient avec une version : la surface ou le
-   composant quitte la description (D650).
+1. **L'intention.** Le bloc est écrit. Rien ne change : le composant
+   s'affiche et sert (D650, D1872).
+2. **La validation.** Une beta complète la dépréciation : en retirant le
+   nœud, elle la valide (D1870, D1875).
+3. **La suppression.** Elle vient avec une version : le nœud quitte
+   l'arbre de la surface (D650).
 
 Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
 dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
-Sur un élément, le bloc s'écrit toujours `deprecation:` (D1871).
+Sur un nœud, le bloc s'écrit toujours `deprecation:` (D1871).
 
 ## Les décisions
 

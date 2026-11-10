@@ -18,6 +18,7 @@ chapitre 1,
 - [Les méthodes d'un type](#les-méthodes-dun-type)
   - [Le contrat](#le-contrat)
   - [La déclaration et l'usage](#la-déclaration-et-lusage)
+  - [La dépréciation d'une méthode](#la-dépréciation-dune-méthode)
 
 ## Le hook de type
 
@@ -274,3 +275,81 @@ validation:
     severity: confirm
     message: La clé de contrôle de l'ISBN {isbn} est fausse.
 ```
+
+### La dépréciation d'une méthode
+
+> **La dépréciation** d'un élément annonce son retrait. L'élément vit
+> encore ; le bloc `deprecation:` dit ce qui le remplace, ou son abandon.
+> Elle ne se confond pas avec la dépréciation d'une version, qui est
+> effective ([glossaire](../../glossaire.md)).
+
+Une méthode peut être appelée à disparaître : une autre la remplace, ou
+le calcul qu'elle rend n'a plus cours. La configuration ne la retire pas
+d'un coup. Elle l'annonce d'abord, dans la fiche de son type, sous
+`methods:`, dans la version en service (D650, D1871). Les formules qui
+l'appellent se calculent comme avant.
+
+**La forme courte.** Le bloc nomme la remplaçante, rien de plus (D1873).
+La remplaçante est une autre méthode, nommée par son type et son nom
+(D1875). L'exemple est construit, aucun cas n'en porte. La méthode `check`
+du type `isbn` céderait à une méthode `validate` :
+
+```yaml
+# Les méthodes
+methods:
+
+  # La clé de contrôle : la méthode validate la remplace
+  check:
+    parameters: { }
+    result: boolean
+    deprecation: isbn.validate
+```
+
+**La forme longue.** Elle porte deux clés (D1871) :
+
+- **`documentation:`**, le texte qui explique la dépréciation. C'est un
+  texte de la version : à plusieurs langues, il les porte toutes
+  (D1474) ;
+- **`to:`**, la méthode remplaçante.
+
+Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
+dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
+vérifie (D650). Le bloc n'a pas de `mode:` : sa présence dit l'intention
+(D1872).
+
+```yaml
+# Les méthodes
+methods:
+
+  # La clé de contrôle : la méthode validate la remplace, et le texte dit pourquoi
+  check:
+    parameters: { }
+    result: boolean
+    deprecation:
+      documentation:
+        fr: La méthode validate contrôle aussi la longueur et le préfixe de l'identifiant.
+        en: The validate method also checks the length and the prefix of the identifier.
+      to: isbn.validate
+```
+
+**Ce que la dépréciation d'une méthode touche.** Tout ce qui l'appelle :
+
+- les formules des champs calculés ;
+- les règles de validation, comme `isbn.check()` ;
+- les gabarits de message qui la citent.
+
+Cette liste est *en proposition*.
+
+**De l'intention à la suppression.** Une dépréciation se joue en trois
+temps :
+
+1. **L'intention.** Le bloc est écrit. Rien ne change : la méthode se
+   calcule comme avant (D650, D1872).
+2. **La validation.** Une beta complète la dépréciation : en retirant la
+   méthode, elle la valide (D1870, D1875).
+3. **La suppression.** Elle vient avec une version : la méthode quitte la
+   fiche de son type (D650).
+
+Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
+dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
+Sur une méthode, le bloc s'écrit toujours `deprecation:` (D1871).

@@ -23,6 +23,7 @@ ajoute, [08-hooks.md](08-hooks.md).
   - [La signature d'un type](#la-signature-dun-type)
   - [La conversion vers le stockage](#la-conversion-vers-le-stockage)
   - [Les types dérivés](#les-types-dérivés)
+  - [La dépréciation d'un type dérivé](#la-dépréciation-dun-type-dérivé)
   - [Le composant par défaut](#le-composant-par-défaut)
 - [Les types simples](#les-types-simples)
   - [`boolean`](#boolean)
@@ -203,6 +204,97 @@ sa ligne : le type en clair, ses contraintes, son exemple (D1215). Le
 registre le dit : « le dictionnaire de données est construit par
 Syncytium à partir d'informations qui sont fournies par chaque item ».
 Le détail est dans [09-documentation.md](09-documentation.md).
+
+### La dépréciation d'un type dérivé
+
+> **La dépréciation** d'un élément annonce son retrait. L'élément vit
+> encore ; le bloc `deprecation:` dit ce qui le remplace, ou son abandon.
+> Elle ne se confond pas avec la dépréciation d'une version, qui est
+> effective ([glossaire](../../glossaire.md)).
+
+Un type dérivé peut être appelé à disparaître : un autre le remplace, ou
+plus aucun champ ne doit le prendre. La configuration ne le retire pas
+d'un coup. Elle l'annonce d'abord, dans sa déclaration aux settings, dans
+la version en service (D650, D1871). Les champs qui l'emploient gardent
+leur type et leur comportement.
+
+**La forme courte.** Le bloc nomme le remplaçant, rien de plus (D1873). Le
+remplaçant est un autre type, nommé par sa clé (D1875). L'exemple est
+construit, aucun cas n'en porte. Dans l'entrepôt, le type des dates de PMI
+céderait à un type des dates de l'ERP :
+
+```yaml
+# Les champs
+field:
+
+  # Le type date_pmi : le type date_erp le remplace
+  date_pmi:
+    type: date
+    mask: yyyymmdd
+    deprecation: date_erp
+```
+
+**La forme longue.** Elle porte deux clés (D1871) :
+
+- **`documentation:`**, le texte qui explique la dépréciation. C'est un
+  texte de la version : à plusieurs langues, il les porte toutes
+  (D1474) ;
+- **`to:`**, le type remplaçant.
+
+Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
+dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
+vérifie (D650). Le bloc n'a pas de `mode:` : sa présence dit l'intention
+(D1872).
+
+```yaml
+# Les champs
+field:
+
+  # Le type date_pmi : le type date_erp le remplace, et le texte dit pourquoi
+  date_pmi:
+    type: date
+    mask: yyyymmdd
+    deprecation:
+      documentation: Le modèle ne nomme plus le système d'origine ; le type des dates suit.
+      to: date_erp
+```
+
+Un type ajouté par un hook porte le même bloc dans sa fiche, parmi
+`name`, `description`, `code` et `properties` :
+
+```yaml
+# Le type isbn
+name: isbn
+
+# La dépréciation
+# Le type sert encore ; il est abandonné, sans remplaçant.
+deprecation:
+  documentation:
+    fr: Les ouvrages ne sont plus référencés par leur ISBN.
+    en: Books are no longer referenced by their ISBN.
+```
+
+**Ce que la dépréciation d'un type touche.** Tout ce qui repose sur lui :
+
+- tous les champs déclarés à ce type ;
+- les types dérivés qui le prennent pour base ;
+- les défauts réglés sous son nom aux settings.
+
+Cette liste est *en proposition*.
+
+**De l'intention à la suppression.** Une dépréciation se joue en trois
+temps :
+
+1. **L'intention.** Le bloc est écrit. Rien ne change : les champs de ce
+   type se saisissent et se lisent (D650, D1872).
+2. **La validation.** Une beta complète la dépréciation : en retirant le
+   type, elle la valide (D1870, D1875).
+3. **La suppression.** Elle vient avec une version : le type quitte la
+   description (D650).
+
+Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
+dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
+Sur un type, le bloc s'écrit toujours `deprecation:` (D1871).
 
 ### Le composant par défaut
 

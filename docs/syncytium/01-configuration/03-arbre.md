@@ -392,7 +392,7 @@ Dans `deprecated/`, la dépréciation est effective : la version est
 dépréciée pour de bon, par le dépôt de son dossier et par son statut
 déclaré dans `versions.yml` (D1869). Le bloc `deprecation:` est autre
 chose : il s'écrit sur un élément d'une version en service, un champ,
-une surface, un connecteur, une opération, et annonce seulement son
+une entité, une surface, une opération, et annonce seulement son
 retrait (D1871).
 
 Seuls les statuts utilisés se déclarent dans `versions.yml` (D804).

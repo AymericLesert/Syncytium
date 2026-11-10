@@ -13,6 +13,7 @@ entre parenthèses renvoient au [registre](../../conception.md).
 
 1. [La doctrine](#la-doctrine)
    - [Le module déclare ses entités](#le-module-déclare-ses-entités)
+   - [La dépréciation d'un module](#la-dépréciation-dun-module)
    - [Un fichier ou plusieurs, au choix](#un-fichier-ou-plusieurs-au-choix)
    - [L'entité se documente elle-même](#lentité-se-documente-elle-même)
 2. [L'entité](02-entite.md)
@@ -23,12 +24,13 @@ entre parenthèses renvoient au [registre](../../conception.md).
    - [La validation](02-entite.md#la-validation)
    - [Les opérations — le renvoi](02-entite.md#les-opérations--le-renvoi)
    - [La présentation — le renvoi](02-entite.md#la-présentation--le-renvoi)
+   - [La dépréciation d'une entité](02-entite.md#la-dépréciation-dune-entité)
    - [L'exemple fil rouge](02-entite.md#lexemple-fil-rouge)
 3. [Les champs](03-champs.md)
    - [La forme courte et le bloc](03-champs.md#la-forme-courte-et-le-bloc)
    - [Les groupes de champs](03-champs.md#les-groupes-de-champs)
    - [Les propriétés d'un champ](03-champs.md#les-propriétés-dun-champ)
-   - [La dépréciation d'un élément du modèle](03-champs.md#la-dépréciation-dun-élément-du-modèle)
+   - [La dépréciation d'un champ](03-champs.md#la-dépréciation-dun-champ)
    - [L'ordre du fichier](03-champs.md#lordre-du-fichier)
 4. [La vie d'un enregistrement](04-vie.md)
    - [L'héritage](04-vie.md#lhéritage)
@@ -91,6 +93,80 @@ entities:
   - ~{article/article.yml}
   - ~{nomenclature/nomenclature.yml}
 ```
+
+### La dépréciation d'un module
+
+> **La dépréciation** d'un élément annonce son retrait. L'élément vit
+> encore ; le bloc `deprecation:` dit ce qui le remplace, ou son abandon.
+> Elle ne se confond pas avec la dépréciation d'une version, qui est
+> effective ([glossaire](../../glossaire.md)).
+
+Un module peut être appelé à disparaître : un autre reprend ses entités,
+ou la part de l'application qu'il porte s'arrête. La configuration ne le
+retire pas d'un coup. Elle l'annonce d'abord, dans le fichier du module,
+dans la version en service (D650, D1871). Son menu, ses écrans et ses
+entités servent comme avant.
+
+**La forme courte.** Le bloc nomme le remplaçant, rien de plus (D1873). Le
+remplaçant est un autre module, nommé par son nom (D1875). L'exemple est
+construit, aucun cas n'en porte. Dans l'entrepôt, un module de
+tarification céderait au module technique :
+
+```yaml
+# Le module tarification
+name: tarification
+
+# La dépréciation
+# Le module vit encore dans cette version ; le module technique reprend ses entités.
+deprecation: technique
+```
+
+**La forme longue.** Elle porte deux clés (D1871) :
+
+- **`documentation:`**, le texte qui explique la dépréciation. C'est un
+  texte de la version : à plusieurs langues, il les porte toutes
+  (D1474) ;
+- **`to:`**, le module remplaçant.
+
+Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
+dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
+vérifie (D650). Le bloc n'a pas de `mode:` : sa présence dit l'intention
+(D1872).
+
+```yaml
+# Le module tarification
+name: tarification
+
+# La dépréciation
+# Le module vit encore dans cette version ; le texte dit où vont ses entités.
+deprecation:
+  documentation: Les tarifs rejoignent les données techniques, avec les articles qu'ils valorisent.
+  to: technique
+```
+
+**Ce que la dépréciation d'un module touche.** Toute la part de
+l'application qu'il porte :
+
+- toutes ses entités, et par elles tous leurs champs ;
+- son menu et sa page d'accueil ;
+- ses tableaux de bord ;
+- les références que les autres modules font à ses entités.
+
+Cette liste est *en proposition*.
+
+**De l'intention à la suppression.** Une dépréciation se joue en trois
+temps :
+
+1. **L'intention.** Le bloc est écrit. Rien ne change : le module s'ouvre,
+   son menu et ses entités servent (D650, D1872).
+2. **La validation.** Une beta complète la dépréciation : en retirant le
+   module, elle la valide (D1870, D1875).
+3. **La suppression.** Elle vient avec une version : le module quitte la
+   description, et ses entités avec lui (D650).
+
+Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
+dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
+Sur un module, le bloc s'écrit toujours `deprecation:` (D1871).
 
 ### Un fichier ou plusieurs, au choix
 

@@ -36,6 +36,7 @@ reprennent une partie ; leur fiche dit laquelle.
   - [Le contexte consommé](#le-contexte-consommé)
   - [Les modes et déclinaisons](#les-modes-et-déclinaisons)
   - [Les états et interactions](#les-états-et-interactions)
+  - [La dépréciation d'un graphique](#la-dépréciation-dun-graphique)
 - [`chart.line`](#chartline)
 - [`chart.bars`](#chartbars)
 - [`chart.pie`](#chartpie)
@@ -150,6 +151,84 @@ tactile, l'élément touché montre sa valeur.
   utilisées pour le calcul » (D516). Si l'agrégat dépend d'une liste ou
   d'une association, le détail des contributions s'ouvre.
 - **La confidentialité masque** ce que l'utilisateur ne peut pas voir.
+
+### La dépréciation d'un graphique
+
+> **La dépréciation** d'un élément annonce son retrait. L'élément vit
+> encore ; le bloc `deprecation:` dit ce qui le remplace, ou son abandon.
+> Elle ne se confond pas avec la dépréciation d'une version, qui est
+> effective ([glossaire](../../glossaire.md)).
+
+Un graphique peut être appelé à disparaître : un autre le remplace, ou
+l'indicateur ne se suit plus. La configuration ne le retire pas d'un
+coup. Elle l'annonce d'abord, sur le graphique lui-même, sous `charts:`,
+dans la version en service (D650, D1873). Le graphique se dessine comme
+avant.
+
+**La forme courte.** Le bloc nomme le remplaçant, rien de plus (D1873). Le
+remplaçant est un autre graphique, nommé par son adresse (D1875).
+L'exemple est construit, aucun cas n'en porte. Dans la banque, l'évolution
+des dépenses par budget céderait à un graphique des dépenses par mois :
+
+```yaml
+# Les graphiques de l'écriture
+charts:
+
+  # L'évolution des dépenses par budget : le graphique des dépenses par mois la remplace
+  evolution_budget:
+    component: chart.line
+    deprecation: chart[depenses_par_mois]
+```
+
+**La forme longue.** Elle porte deux clés (D1871) :
+
+- **`documentation:`**, le texte qui explique la dépréciation. C'est un
+  texte de la version : à plusieurs langues, il les porte toutes
+  (D1474) ;
+- **`to:`**, le graphique remplaçant.
+
+Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
+dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
+vérifie (D650). Le bloc n'a pas de `mode:` : sa présence dit l'intention
+(D1872).
+
+La banque a trois langues : son texte les porte toutes.
+
+```yaml
+# Les graphiques de l'écriture
+charts:
+
+  # L'évolution des dépenses par budget : abandonnée, sans remplaçant
+  evolution_budget:
+    component: chart.line
+    deprecation:
+      documentation:
+        fr: Le tableau de bord du budget suffit, ce graphique n'est plus tenu.
+        en: The budget dashboard is enough, this chart is no longer maintained.
+        es: El cuadro de mando del presupuesto basta, este gráfico ya no se mantiene.
+```
+
+**Ce que la dépréciation d'un graphique touche.** Tout ce qui le montre :
+
+- les tableaux de bord et les formulaires qui le posent ;
+- les résumés qui l'affichent ;
+- la liste que son drill-down ouvre.
+
+Cette liste est *en proposition*.
+
+**De l'intention à la suppression.** Une dépréciation se joue en trois
+temps :
+
+1. **L'intention.** Le bloc est écrit. Rien ne change : le graphique se
+   dessine et se lit (D650, D1872).
+2. **La validation.** Une beta complète la dépréciation : en retirant le
+   graphique, elle la valide (D1870, D1875).
+3. **La suppression.** Elle vient avec une version : le graphique quitte
+   la description (D650).
+
+Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
+dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
+Sur un graphique, le bloc s'écrit toujours `deprecation:` (D1871).
 
 ## `chart.line`
 

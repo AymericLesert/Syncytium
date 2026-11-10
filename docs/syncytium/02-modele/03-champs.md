@@ -16,10 +16,7 @@ s'écrivent sous `fields:`, en place ou dans un fichier, `fields.yml`.
   - [La saisie](#la-saisie)
   - [Le calcul et les valeurs](#le-calcul-et-les-valeurs)
   - [La documentation du champ](#la-documentation-du-champ)
-- [La dépréciation d'un élément du modèle](#la-dépréciation-dun-élément-du-modèle)
-  - [La forme courte du bloc](#la-forme-courte-du-bloc)
-  - [La forme longue du bloc](#la-forme-longue-du-bloc)
-  - [De l'intention à la suppression](#de-lintention-à-la-suppression)
+- [La dépréciation d'un champ](#la-dépréciation-dun-champ)
 - [L'ordre du fichier](#lordre-du-fichier)
 
 ## La forme courte et le bloc
@@ -233,7 +230,7 @@ le lisent, les validations, les opérations, les règles de reprise, les
 rapports, les écrans (D1186, D1198). Rien ne se déclare : Syncytium le
 calcule depuis les liens que l'ingestion garantit.
 
-## La dépréciation d'un élément du modèle
+## La dépréciation d'un champ
 
 > **La dépréciation** d'un élément annonce son retrait. L'élément vit
 > encore ; le bloc `deprecation:` dit ce qui le remplace, ou son abandon.
@@ -243,20 +240,12 @@ calcule depuis les liens que l'ingestion garantit.
 Un champ peut être appelé à disparaître : un autre le remplace, ou le
 métier n'en veut plus. La configuration ne le retire pas d'un coup. Elle
 l'annonce d'abord, sur le champ lui-même, dans la version en service
-(D650, D1869). Le champ répond comme avant.
+(D650, D1869). Le champ se saisit, se lit et répond à l'API comme avant.
+Le bloc s'écrit parmi les propriétés du champ (D1871).
 
-Cinq éléments du modèle portent ce bloc (D1871) :
-
-- le champ ;
-- l'entité ;
-- le module ;
-- le type déclaré aux settings ;
-- la méthode d'un type.
-
-### La forme courte du bloc
-
-Le bloc nomme le remplaçant, rien de plus (D1873). Les exemples de cette
-partie sont construits, aucun cas n'en porte. Dans l'entrepôt, le prix de
+**La forme courte.** Le bloc nomme le remplaçant, rien de plus (D1873). Le
+remplaçant est un autre champ, nommé par son entité et son nom (D1875).
+L'exemple est construit, aucun cas n'en porte. Dans l'entrepôt, le prix de
 vente unique d'un article céderait à sa grille tarifaire :
 
 ```yaml
@@ -266,18 +255,17 @@ prix_vente:
   deprecation: article.tarifs
 ```
 
-### La forme longue du bloc
-
-La forme longue porte deux clés (D1871) :
+**La forme longue.** Elle porte deux clés (D1871) :
 
 - **`documentation:`**, le texte qui explique la dépréciation. C'est un
   texte de la version : à plusieurs langues, il les porte toutes
   (D1474) ;
-- **`to:`**, le remplaçant.
+- **`to:`**, le champ remplaçant.
 
 Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
 dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
-vérifie (D650).
+vérifie (D650). Le bloc n'a pas de `mode:` : sa présence dit l'intention
+(D1872).
 
 ```yaml
 # Le prix de vente : la grille tarifaire le remplace, et le texte dit pourquoi
@@ -294,46 +282,29 @@ reference_ancienne:
     documentation: Plus aucun document ne cite cette référence.
 ```
 
-Le bloc n'a pas de `mode:` : sa présence dit l'intention (D1872).
-L'adresse du remplaçant s'écrit comme l'élément se nomme,
-`article.tarifs` pour un champ ; sa forme se précisera à
-l'implémentation, *en proposition*.
+**Ce que la dépréciation d'un champ touche.** Tout ce qui cite le champ :
 
-L'entité, le module, le type et la méthode portent le même bloc, parmi
-leurs propriétés. Une entité qu'une autre absorbe l'écrit dans son
-en-tête :
+- les formules et les validations qui le lisent ;
+- les colonnes des listes et les zones des formulaires qui l'affichent ;
+- les opérations et les règles de reprise qui l'écrivent ;
+- l'API, qui le sert encore.
 
-```yaml
-# L'entité tranche
-name: tranche
+Syncytium calcule déjà ces liens pour dire à quoi sert un champ (D1186,
+D1198). Cette liste est *en proposition*.
 
-# La dépréciation
-# L'entité vit encore dans cette version ; la grille tarifaire de l'article la remplace.
-deprecation:
-  documentation: Les tranches vivent désormais dans la grille tarifaire de l'article.
-  to: technique.article
-```
+**De l'intention à la suppression.** Une dépréciation se joue en trois
+temps :
 
-Les trois autres l'écrivent de même :
-
-- le module, dans son fichier, à côté de `entities:` ;
-- le type, dans sa déclaration aux settings ;
-- la méthode, dans la fiche de son type, sous `methods:`.
-
-### De l'intention à la suppression
-
-Une dépréciation se joue en trois temps :
-
-1. **L'intention.** Le bloc est écrit. Rien ne change : l'élément vit et
-   répond (D650, D1872).
-2. **La validation.** Une beta complète la dépréciation : en retirant
-   l'élément, elle la valide (D1870).
-3. **La suppression.** Elle vient avec une version : l'élément quitte la
+1. **L'intention.** Le bloc est écrit. Rien ne change : le champ se saisit
+   et se lit (D650, D1872).
+2. **La validation.** Une beta complète la dépréciation : en retirant le
+   champ, elle la valide (D1870, D1875).
+3. **La suppression.** Elle vient avec une version : le champ quitte la
    description (D650).
 
 Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
 dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
-Sur un élément, le bloc s'écrit toujours `deprecation:` (D1871).
+Sur un champ, le bloc s'écrit toujours `deprecation:` (D1871).
 
 ## L'ordre du fichier
 

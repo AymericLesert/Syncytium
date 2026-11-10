@@ -23,7 +23,6 @@ renvoient au [registre](../../conception.md).
 2. [La déclaration et le câblage](02-declaration.md)
    - [La déclaration par environnement](02-declaration.md#la-déclaration-par-environnement)
    - [Le câblage](02-declaration.md#le-câblage)
-   - [La dépréciation d'un connecteur](02-declaration.md#la-dépréciation-dun-connecteur)
    - [Les renvois](02-declaration.md#les-renvois)
 3. [Le socle commun](03-socle.md)
    - [Les méthodes](03-socle.md#les-méthodes)

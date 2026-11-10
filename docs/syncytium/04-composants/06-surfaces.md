@@ -52,6 +52,7 @@ Ce fichier porte neuf fiches, dans l'ordre du catalogue : `menu`,
 
 ## Le sommaire
 
+- [La dépréciation d'une surface](#la-dépréciation-dune-surface)
 - [`menu`](#menu)
 - [`list` (la surface)](#list-la-surface)
 - [`form`](#form)
@@ -61,6 +62,89 @@ Ce fichier porte neuf fiches, dans l'ordre du catalogue : `menu`,
 - [`dashboard`](#dashboard)
 - [`template`](#template)
 - [`chat`](#chat)
+
+## La dépréciation d'une surface
+
+> **La dépréciation** d'un élément annonce son retrait. L'élément vit
+> encore ; le bloc `deprecation:` dit ce qui le remplace, ou son abandon.
+> Elle ne se confond pas avec la dépréciation d'une version, qui est
+> effective ([glossaire](../../glossaire.md)).
+
+Une surface peut être appelée à disparaître : une liste en remplace une
+autre, un formulaire est refondu. La configuration ne la retire pas d'un
+coup. Elle l'annonce d'abord, sur la surface elle-même, dans le bloc
+`gui:` de l'entité, dans la version en service (D650, D1873). L'écran
+s'ouvre et sert comme avant.
+
+**La forme courte.** Le bloc nomme la remplaçante, rien de plus (D1873).
+La remplaçante est une autre surface, nommée par son adresse (D1875).
+L'exemple est construit, aucun cas n'en porte. Dans la banque, la liste
+par date comptable céderait à la liste par date d'opération :
+
+```yaml
+# Les listes de l'écriture
+lists:
+
+  # Par date comptable : la liste par date d'opération la remplace
+  par_comptable:
+    title:
+      fr: Par date comptable
+      en: By posting date
+      es: Por fecha contable
+    deprecation: list[par_operation]
+```
+
+**La forme longue.** Elle porte deux clés (D1871) :
+
+- **`documentation:`**, le texte qui explique la dépréciation. C'est un
+  texte de la version : à plusieurs langues, il les porte toutes
+  (D1474) ;
+- **`to:`**, la surface remplaçante.
+
+Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
+dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
+vérifie (D650). Le bloc n'a pas de `mode:` : sa présence dit l'intention
+(D1872).
+
+La banque a trois langues : son texte les porte toutes.
+
+```yaml
+# Les listes de l'écriture
+lists:
+
+  # Par date comptable : la liste par date d'opération la remplace, et le texte dit pourquoi
+  par_comptable:
+    deprecation:
+      documentation:
+        fr: La liste par date d'opération montre aussi la date comptable et le pointage.
+        en: The list by transaction date also shows the posting date and the reconciliation.
+        es: La lista por fecha de operación muestra también la fecha contable y la conciliación.
+      to: list[par_operation]
+```
+
+**Ce que la dépréciation d'une surface touche.** Tout ce qui y mène :
+
+- les entrées de menu qui l'ouvrent par leur `link:` ;
+- les tableaux de bord et les écrans qui la posent ;
+- les exports et les modèles qu'elle porte ;
+- la surface par défaut de l'entité, si elle est la première de son bloc
+  (D438).
+
+Cette liste est *en proposition*.
+
+**De l'intention à la suppression.** Une dépréciation se joue en trois
+temps :
+
+1. **L'intention.** Le bloc est écrit. Rien ne change : l'écran s'ouvre et
+   sert (D650, D1872).
+2. **La validation.** Une beta complète la dépréciation : en retirant la
+   surface, elle la valide (D1870, D1875).
+3. **La suppression.** Elle vient avec une version : la surface quitte la
+   description (D650).
+
+Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
+dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
+Sur une surface, le bloc s'écrit toujours `deprecation:` (D1871).
 
 ## `menu`
 

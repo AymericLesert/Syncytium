@@ -58,6 +58,7 @@ validation:
   - [Les trois sévérités](#les-trois-sévérités)
 - [Les opérations — le renvoi](#les-opérations--le-renvoi)
 - [La présentation — le renvoi](#la-présentation--le-renvoi)
+- [La dépréciation d'une entité](#la-dépréciation-dune-entité)
 - [L'exemple fil rouge](#lexemple-fil-rouge)
 
 ## Le nom et les textes
@@ -252,6 +253,84 @@ courante, l'adresse se qualifie, `chart[consommation.evolution_consommation]`.
 Le module porte ses tableaux de bord, `dashboards:`, et le menu les
 adresse (D439, D554). Les fiches des composants sont dans
 [le catalogue des composants](../04-composants/README.md).
+
+## La dépréciation d'une entité
+
+> **La dépréciation** d'un élément annonce son retrait. L'élément vit
+> encore ; le bloc `deprecation:` dit ce qui le remplace, ou son abandon.
+> Elle ne se confond pas avec la dépréciation d'une version, qui est
+> effective ([glossaire](../../glossaire.md)).
+
+Une entité peut être appelée à disparaître : une autre l'absorbe, ou le
+métier ne la tient plus. La configuration ne la retire pas d'un coup.
+Elle l'annonce d'abord, dans l'en-tête de l'entité, dans la version en
+service (D650, D1871). Ses enregistrements se lisent et s'écrivent comme
+avant.
+
+**La forme courte.** Le bloc nomme la remplaçante, rien de plus (D1873).
+La remplaçante est une autre entité, nommée par son module et son nom
+(D1875). L'exemple est construit, aucun cas n'en porte. Dans l'entrepôt,
+une entité des tranches de prix céderait à l'article, qui porte la grille
+tarifaire :
+
+```yaml
+# L'entité tranche
+name: tranche
+
+# La dépréciation
+# L'entité vit encore dans cette version ; l'article la remplace, par sa grille tarifaire.
+deprecation: technique.article
+```
+
+**La forme longue.** Elle porte deux clés (D1871) :
+
+- **`documentation:`**, le texte qui explique la dépréciation. C'est un
+  texte de la version : à plusieurs langues, il les porte toutes
+  (D1474) ;
+- **`to:`**, l'entité remplaçante.
+
+Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
+dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
+vérifie (D650). Le bloc n'a pas de `mode:` : sa présence dit l'intention
+(D1872).
+
+```yaml
+# L'entité tranche
+name: tranche
+
+# La dépréciation
+# L'entité vit encore dans cette version ; le texte dit ce qui la remplace.
+deprecation:
+  documentation: Les tranches vivent désormais dans la grille tarifaire de l'article.
+  to: technique.article
+```
+
+**Ce que la dépréciation d'une entité touche.** Elle ne s'arrête pas à
+l'en-tête. Le registre le dit : « La dépréciation d'une entité va avoir
+un impact sur tous les champs de l'entité dépréciée » (D1875).
+
+- tous les champs de l'entité, touchés avec elle ;
+- ses surfaces et ses opérations ;
+- les références, les compositions et les associations qui la visent
+  depuis d'autres entités ;
+- ses enregistrements, que l'API sert encore.
+
+Le premier point vient du registre ; les trois autres sont *en
+proposition*.
+
+**De l'intention à la suppression.** Une dépréciation se joue en trois
+temps :
+
+1. **L'intention.** Le bloc est écrit. Rien ne change : l'entité vit, ses
+   enregistrements se lisent et s'écrivent (D650, D1872).
+2. **La validation.** Une beta complète la dépréciation : en retirant
+   l'entité, elle la valide (D1870, D1875).
+3. **La suppression.** Elle vient avec une version : l'entité quitte la
+   description, et ses champs avec elle (D650).
+
+Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
+dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
+Sur une entité, le bloc s'écrit toujours `deprecation:` (D1871).
 
 ## L'exemple fil rouge
 

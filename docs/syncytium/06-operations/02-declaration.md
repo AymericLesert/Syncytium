@@ -10,9 +10,6 @@ portées, le commit, la dépréciation, et montre l'exemple de la banque.
 - [Les portées](#les-portées)
 - [Le commit](#le-commit)
 - [La dépréciation d'une opération](#la-dépréciation-dune-opération)
-  - [La forme courte du bloc](#la-forme-courte-du-bloc)
-  - [La forme longue du bloc](#la-forme-longue-du-bloc)
-  - [De l'intention à la suppression](#de-lintention-à-la-suppression)
 - [L'exemple de la banque](#lexemple-de-la-banque)
 
 ## L'opération
@@ -102,17 +99,14 @@ lecture seule (D1645). Le wizard porte le même `commit:` (D1652).
 
 Une opération peut être appelée à disparaître : une autre la remplace,
 ou le métier ne s'en sert plus. La configuration ne la retire pas d'un
-coup. Elle l'annonce d'abord, sur l'opération elle-même, dans la version
-en service (D650, D1871). Le bouton, le déclencheur et l'API la servent
-comme avant.
+coup. Elle l'annonce d'abord, sur l'opération elle-même, dans le bloc
+`operations:` de l'entité, dans la version en service (D650, D1871). Le
+bouton, le déclencheur et l'API la servent comme avant.
 
-L'élément qui porte le bloc est l'opération déclarée (D1871, D1873).
-
-### La forme courte du bloc
-
-Le bloc nomme la remplaçante, rien de plus (D1873). Les exemples de cette
-partie sont construits, aucun cas n'en porte. Dans la banque, la
-duplication céderait à une opération `recopier` :
+**La forme courte.** Le bloc nomme la remplaçante, rien de plus (D1873).
+La remplaçante est une autre opération, nommée par son nom, celui de son
+hook (D1875). L'exemple est construit, aucun cas n'en porte. Dans la
+banque, la duplication céderait à une opération `recopier` :
 
 ```yaml
 # La duplication entre deux dates : l'opération recopier la remplace
@@ -123,18 +117,17 @@ dupliquer:
   deprecation: recopier
 ```
 
-### La forme longue du bloc
-
-La forme longue porte deux clés (D1871) :
+**La forme longue.** Elle porte deux clés (D1871) :
 
 - **`documentation:`**, le texte qui explique la dépréciation. C'est un
   texte de la version : à plusieurs langues, il les porte toutes
   (D1474) ;
-- **`to:`**, le remplaçant.
+- **`to:`**, l'opération remplaçante.
 
 Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
 dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
-vérifie (D650).
+vérifie (D650). Le bloc n'a pas de `mode:` : sa présence dit l'intention
+(D1872).
 
 La banque a trois langues : son texte les porte toutes.
 
@@ -151,23 +144,29 @@ propager:
       es: La entrada masiva de la lista basta, la propagación ya no se ofrece.
 ```
 
-Le bloc n'a pas de `mode:` : sa présence dit l'intention (D1872).
-L'adresse de la remplaçante est son nom, celui de son hook.
+**Ce que la dépréciation d'une opération touche.** Tout ce qui la lance :
 
-### De l'intention à la suppression
+- les actes qui la placent, `operation[<nom>]` dans un formulaire, son
+  nom en colonne d'une liste (D1772) ;
+- ses déclencheurs, `when:` et `every:` ;
+- les opérations qui l'enchaînent dans leurs `actions:` ;
+- l'API, qui l'expose encore (D428).
 
-Une dépréciation se joue en trois temps :
+Cette liste est *en proposition*.
+
+**De l'intention à la suppression.** Une dépréciation se joue en trois
+temps :
 
 1. **L'intention.** Le bloc est écrit. Rien ne change : l'opération
    s'exécute comme avant (D650, D1872).
 2. **La validation.** Une beta complète la dépréciation : en retirant
-   l'opération, elle la valide (D1870).
+   l'opération, elle la valide (D1870, D1875).
 3. **La suppression.** Elle vient avec une version : l'opération quitte la
    description (D650).
 
 Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
 dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
-Sur un élément, le bloc s'écrit toujours `deprecation:` (D1871).
+Sur une opération, le bloc s'écrit toujours `deprecation:` (D1871).
 
 ## L'exemple de la banque
 

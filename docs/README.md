@@ -89,7 +89,7 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 | 5 | **Les connecteurs** | `connectors.md` | `syncytium/05-connecteurs/` | faite le 02/11/2026 (18 points, D1707–D1729) | faite le 02/11/2026 (sept fichiers, D1730) ; réécrite le 02/11/2026 (D1731–D1737), relue le 05/11/2026 (D1780), illustrée le 08/11/2026 (D1857, validée D1862) |
 | 6 | **Les opérations** | `hooks.md` §3, le registre — les tâches, D53, D54, D87, D88, D106 (D1689) | `syncytium/06-operations/` | faite le 05/11/2026 (16 points, D1739–D1761) | faite le 05/11/2026 (huit fichiers, D1762) ; réécrite le 05/11/2026 (D1763–D1769), relue le 05/11/2026 (D1770–D1779), illustrée le 08/11/2026 (D1858, D1861, validée D1862) |
 | 7 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/07-securite/` | faite le 07/11/2026 (14 points, D1783–D1823) | faite le 07/11/2026 (dix fichiers, D1824) ; réécrite le 07/11/2026 (D1825–D1833), relue le 08/11/2026 (D1834–D1853) |
-| 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/08-reprise/` | ouverte le 08/11/2026 (21 points, D1863) | — |
+| 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/08-reprise/` | en cours depuis le 08/11/2026 (21 points, D1863) | — |
 | 9 | **Le fonctionnement du moteur** | `administration.md`, « Reçu du chapitre 7 » — l'intégrité, la disponibilité, les secrets (D1824) ; le registre — l'ingestion, l'estampille, le registre des versions (D1784) | `syncytium/09-moteur/` | — | — |
 | 10 | **L'administration et l'exploitation** | `administration.md`, le registre — la supervision des tâches, D56, D61, D62 (D1689) | `syncytium/10-administration/` | — | — |
 | 11 | **La télémétrie** | `telemetry.md` | `syncytium/10-administration/telemetrie.md` | — | — |

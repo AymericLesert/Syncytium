@@ -22,18 +22,18 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
 
 ## Les artefacts
 
-- `docs/*.md` : les artefacts préparatoires de la documentation (glossaire,
-  entity, types, composants, hooks, connectors, mapping, rights,
-  administration, telemetry, security, configuration, migration,
-  documentation). Ils sont **vivants** : une décision qui touche un élément
-  se reporte dans l'artefact de l'élément ; les principes de la génération
-  de la documentation vont dans `docs/documentation.md`. Au rang 10, un
-  chapitre réorganisé vit dans `docs/syncytium/<nn>-<chapitre>/`, préfixé du numéro du chapitre (D1591) (la
-  configuration depuis D1541, le modèle depuis D1561, le langage depuis D1586, les composants depuis D1646, les connecteurs depuis D1730, les opérations depuis D1762 ; hooks.md dissous) ; **dans un chapitre, chaque fichier
-  est préfixé de son rang dans la table des matières**, `02-declaration.md`, le README sans
-  préfixe (D1738) ; `docs/README.md` tient l'arborescence et
-  l'avancement ; `python tools/links.py docs usecases README.md` vérifie
-  les renvois.
+- `docs/` : la documentation. Un chapitre réorganisé vit dans
+  `docs/syncytium/<nn>-<chapitre>/`, préfixé du numéro du chapitre (D1591) ;
+  un chapitre qui ne l'est pas encore vit dans son artefact préparatoire,
+  `docs/<nom>.md`. La table « L'avancement des quinze chapitres » de
+  `docs/README.md` dit où vit chaque chapitre (D1864). Les deux sont
+  **vivants** : une décision qui touche un élément se reporte là où
+  l'élément est décrit, le fichier du chapitre ou l'artefact ; les principes
+  de la génération de la documentation vont dans `docs/documentation.md`.
+  **Dans un chapitre, chaque fichier est préfixé de son rang dans la table
+  des matières**, `02-declaration.md`, le README sans préfixe (D1738) ;
+  `docs/README.md` tient l'arborescence et l'avancement ;
+  `python tools/links.py docs usecases README.md` vérifie les renvois.
 - `usecases/<n>_<nom>.md` : la maison de chaque cas (1 tiny, 2 enquête,
   3 véhicule, 4 banque, 5 entrepôt — les cinq seuls, D1518) ; une décision qui touche un
   cas s'y reporte (le cas 5 en particulier). `examples/<n>_<nom>/` ne

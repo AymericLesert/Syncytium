@@ -678,6 +678,14 @@ devient la composition. *(D166/D362)*
 enregistrements en tableau ou en widgets, la recherche, le tri, les
 opérations. À ne pas confondre avec la Liste (type). *(D486, D492)*
 
+**Mapping** (`mapping/`) — La correspondance entre deux descriptions, qui
+porte les données de l'une à l'autre. Entre deux versions d'une
+application, il assure la migration : une version s'alimente par sa
+version antérieure, et Syncytium calcule les correspondances. Entre un
+système précédent et l'application, il est écrit par le concepteur, une
+règle par fichier de `mapping/` : c'est la **reprise des données**.
+*(D632, D646, D647, D1879, D1880)*
+
 **Marquage RGPD** (`rgpd:`) — La facette d'un champ, ou du type qui le
 porte, qui dit ce qui relève du règlement : `personal`, la donnée
 personnelle ; `sensitive`, l'article 9, auditée d'office ; `consent`, le

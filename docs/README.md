@@ -89,7 +89,7 @@ note à sa suite. Les deux colonnes disent « — », « en cours » ou
 | 5 | **Les connecteurs** | `connectors.md` | `syncytium/05-connecteurs/` | faite le 02/11/2026 (18 points, D1707–D1729) | faite le 02/11/2026 (sept fichiers, D1730) ; réécrite le 02/11/2026 (D1731–D1737), relue le 05/11/2026 (D1780), illustrée le 08/11/2026 (D1857, validée D1862) ; la dépréciation d'une classe de connecteur ajoutée le 10/11/2026 (D1876), à relire |
 | 6 | **Les opérations** | `hooks.md` §3, le registre — les tâches, D53, D54, D87, D88, D106 (D1689) | `syncytium/06-operations/` | faite le 05/11/2026 (16 points, D1739–D1761) | faite le 05/11/2026 (huit fichiers, D1762) ; réécrite le 05/11/2026 (D1763–D1769), relue le 05/11/2026 (D1770–D1779), illustrée le 08/11/2026 (D1858, D1861, validée D1862) ; la dépréciation d'un élément ajoutée le 10/11/2026 (D1874, D1875), à relire |
 | 7 | **Les droits et la sécurité** | `rights.md`, `security.md` | `syncytium/07-securite/` | faite le 07/11/2026 (14 points, D1783–D1823) | faite le 07/11/2026 (dix fichiers, D1824) ; réécrite le 07/11/2026 (D1825–D1833), relue le 08/11/2026 (D1834–D1853) |
-| 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/08-reprise/` | en cours depuis le 08/11/2026 (21 points, D1863 ; les points 13 à 16 au chapitre 9, D1880) | — |
+| 8 | **La reprise et le mapping** | `mapping.md`, `migration.md` | `syncytium/08-reprise/` | en cours depuis le 08/11/2026 (21 points, D1863 ; les points 13 à 18 au chapitre 9, D1880–D1881 : quinze points) | — |
 | 9 | **Le fonctionnement du moteur** | `administration.md`, « Reçu du chapitre 7 » — l'intégrité, la disponibilité, les secrets (D1824) ; le registre — l'ingestion, l'estampille, le registre des versions (D1784) ; `migration.md` — l'exécution d'un passage, et `mapping.md` — la migration entre deux versions (D1879, D1880) | `syncytium/09-moteur/` | — | — |
 | 10 | **L'administration et l'exploitation** | `administration.md`, le registre — la supervision des tâches, D56, D61, D62 (D1689) | `syncytium/10-administration/` | — | — |
 | 11 | **La télémétrie** | `telemetry.md` | `syncytium/10-administration/telemetrie.md` | — | — |
@@ -117,7 +117,9 @@ chapitre se dégagent à son ouverture, dans l'ordre de son sujet, avec ce qui
 le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 « présenté » ou « clos (Dnnnn) » ; le tableau de bord lit cette table.
 Cinq groupes : le cadre (1–3), la source (4–8), les règles (9–12), le
-passage (13–18), les exemples, la facette et le registre (19–21).
+passage (13–18), les exemples, la facette et le registre (19–21). Le
+groupe du passage est parti au chapitre 9 (D1880, D1881) : quinze points
+restent au chapitre 8.
 
 | # | Le point | L'état |
 |---|---|---|
@@ -137,8 +139,8 @@ passage (13–18), les exemples, la facette et le registre (19–21).
 | 14 | **La base miroir et la comparaison** : la transaction, les cinq blocs, la suppression sur la partition relue, le différentiel champ par champ, le dry-run, `mode:` et `reset:` (D649, D671–D672, D1034, D1037, D1041–D1046, D1052) | clos (D1880) — au chapitre 9 |
 | 15 | **Ce que le module garde** : la table des clés d'origine — partition, hash, statut —, le modèle lu et ses versions, la ligne d'exécution, les trois jeux de compteurs, les indicateurs, les anomalies ; le modèle de `_migration`, en proposition depuis D1021 (D1047–D1060) | clos (D1880) — au chapitre 9 |
 | 16 | **Le détail d'un passage** : un fichier SQLite par exécution, chiffré, sa rétention par `cleanup.yml`, les données personnelles (D1065–D1076) | clos (D1880) — au chapitre 9 |
-| 17 | **Les rapports** : le `report:` de la règle et celui de l'entité source, la consolidation par destinataire, le défaut vers l'administrateur, le mail anonymisé (D406–D407, D929, D1058, D1065) | à traiter |
-| 18 | **Les opérations et le rythme** : `migrate`, `reset_coverage`, `on_running:`, l'interruption, la copie d'un environnement, la sandbox ; les surfaces du module vers le chapitre 10 (D667, D881, D943, D1077–D1080, D1078) | à traiter |
+| 17 | **Les rapports** : le `report:` de la règle et celui de l'entité source, la consolidation par destinataire, le défaut vers l'administrateur, le mail anonymisé (D406–D407, D929, D1058, D1065) | clos (D1881) — au chapitre 9 |
+| 18 | **Les opérations et le rythme** : `migrate`, `reset_coverage`, `on_running:`, l'interruption, la copie d'un environnement, la sandbox ; les surfaces du module vers le chapitre 10 (D667, D881, D943, D1077–D1080, D1078) | clos (D1881) — au chapitre 9 |
 | 19 | **Les exemples** : le véhicule — les classeurs, `absolute`, `reset` —, la banque — les fichiers, les trois phases, le cache —, l'entrepôt — PMI, `relative`, `coverage:` — ; le cas 5 en fil rouge, les extraits tels quels (D1545, D1818) | à traiter |
 | 20 | **La facette documentation** : les neuf colonnes écrites dans les deux artefacts, réunies dans le fichier de la documentation du chapitre (D1158–D1159, D1259, D1302) | à traiter |
 | 21 | **Le registre** : 35 amendées dont 11 non citées, 55 non citées à citer ou à reclasser — dont D181–D184, le stock de reprise, face au passage et à l'anomalie datée (D1032, D1059) —, 37 lectures à confirmer, 6 marques en proposition ; l'historique — Q58, « le sixième artefact », les lots du 20/09 — au journal | à traiter |

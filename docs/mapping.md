@@ -207,7 +207,10 @@ Les règles de la forme courte (D1896) :
 **La migration référence ses fichiers par patterns** (D664 — le
 patron multi-fichiers de D320–D321) : un fichier par entité source,
 un fichier par règle de migration ; l'organisation des dossiers est
-libre, la déclaration fait foi. **Les patterns sont des regex**
+libre, la déclaration fait foi. **Un fichier peut porter plusieurs
+règles**, exécutées dans l'ordre où il les écrit ; un fichier par règle
+reste recommandé, pour la lisibilité et la maintenabilité, et le
+concepteur choisit (D1940). **Les patterns sont des regex**
 (D806 — « plus de personnalisation et de contrôle ») ; le pattern
 est une déclaration : le standard d'organisation et de nommage que
 le concepteur se fixe — partout où une liste de fichiers se déclare,

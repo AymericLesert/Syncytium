@@ -673,7 +673,10 @@ l'identité du possesseur demande une vraie conversion — une casse, un
 préfixe, un cadrage —, elle ne s'écrit ni dans la règle ni dans chaque
 `parent:` : **`normalize:`** sur la colonne de la source (D872 — la
 fonction à la frontière, surchargeable par champ : `normalize:
-right("0000" + me, 4)`) ou le calculé de la source (D660) ; la règle
+right("0000" + me, 4)` ; ici, `normalize:` est un usage, ses fonctions
+et ses méthodes sont au
+[catalogue des fonctions](syncytium/03-langage/04-fonctions.md),
+D1924) ou le calculé de la source (D660) ; la règle
 et les `parent:` lisent des colonnes déjà converties, la conversion
 n'est écrite qu'une fois, là où la donnée entre.
 

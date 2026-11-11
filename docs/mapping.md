@@ -165,6 +165,15 @@ processus, elle s'écrit entre crochets :
 legacy: fichier_csv[client]
 ```
 
+Une liste d'entités se note entre les mêmes crochets, la virgule pour
+séparateur (D1897) :
+
+```yaml
+# La migration legacy
+# La reprise de deux entités du connecteur, client et fournisseur.
+legacy: fichier_csv[client, fournisseur]
+```
+
 Les règles de la forme courte (D1896) :
 
 - **les deux absences sont indépendantes** : sans `sources:`, le

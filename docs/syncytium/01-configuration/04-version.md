@@ -550,8 +550,9 @@ antérieure, c'est la migration de version. Le dossier range les deux :
   (D1087), `mode:` et `reset:`, `relative` et `false` par défaut
   (D671, D1889), `sources:` (D1884), `mapping:`, `operations:` ; une
   reprise un pour un s'écrit en forme courte, `legacy: fichier_csv` ou
-  `legacy: fichier_csv[client]` : le connecteur se décrit, le mapping
-  est champ à champ (D1895, D1896) ;
+  `legacy: fichier_csv[client]`, les entités entre crochets séparées par
+  une virgule : le connecteur se décrit, le mapping est champ à champ
+  (D1895–D1897) ;
 - `sources/<TABLE>.yml` décrit chaque entité d'origine (D947, D966) :
   `name`, `alias`, `filter`, `identity`, `coverage`, `parent`, `fields`,
   `validation` ; une colonne typée `TABLE.colonne` est une référence,

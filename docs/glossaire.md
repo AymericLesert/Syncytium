@@ -750,10 +750,10 @@ applique un **mapping**. Un fichier, `migration.yml`, décrit et nomme les
 processus de migration, un par connecteur d'origine ; ils s'exécutent
 dans l'ordre alphabétique de leurs noms. Une reprise un pour un s'écrit en
 forme courte, `<processus>: <connecteur>` ou
-`<processus>: <connecteur>[<entité>]` : le connecteur se décrit, le
-mapping est champ à champ. La clé `migrations:`, l'opération `migrate` et
-le module interne `_migration` en portent le nom.
-*(D3, D646, D1031, D1882, D1888, D1895, D1896)*
+`<processus>: <connecteur>[<entité>]`, plusieurs entités séparées par une
+virgule : le connecteur se décrit, le mapping est champ à champ. La clé
+`migrations:`, l'opération `migrate` et le module interne `_migration` en
+portent le nom. *(D3, D646, D1031, D1882, D1888, D1895–D1897)*
 
 **Migration de version** — La migration dont l'origine est la version
 antérieure de l'application. Syncytium calcule les correspondances depuis

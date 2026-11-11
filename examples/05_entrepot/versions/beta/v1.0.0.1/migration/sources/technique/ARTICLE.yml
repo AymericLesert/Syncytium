@@ -312,9 +312,9 @@ fields:
 
   # Les compositions
   NOMENCLATURE:
-    type: 'list of NOMENC[ARKTCODART: NOKTCODPF, ARKTCOMART: NOKTCOMPF]'
+    type: 'list of NOMENC[NOKTCODPF: ARKTCODART, NOKTCOMPF: ARKTCOMART]'
     description: Les lignes de nomenclature de l'article produit ; une ligne dont le produit est inconnu est isolée.
 
   TARIFS:
-    type: 'list of TARIF[ARKTCODART: TAKTCODART, ARKTCOMART: TAKTCOMART]'
+    type: 'list of TARIF[TAKTCODART: ARKTCODART, TAKTCOMART: ARKTCOMART]'
     description: Les tarifs de l'article ; un tarif retrouve son article par le code et le complément.

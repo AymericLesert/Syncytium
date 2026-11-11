@@ -144,5 +144,5 @@ fields:
 
   # Les compositions
   LIGNES:
-    type: 'list of LCOMFOU[ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF]'
+    type: 'list of LCOMFOU[LCKTNUMERO: ECKTNUMERO, LCKTPSF: ECKTINDICE]'
     description: Les lignes de la commande ; une ligne retrouve sa commande par le numéro et l'indice.

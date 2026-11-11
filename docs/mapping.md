@@ -310,10 +310,11 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
   la table d'appartenance déclare `list of <fils>` dans un champ qui
   n'est pas une colonne ; le fils ne déclare rien. Quand la convention
   du connecteur (D876 — les colonnes d'identité aux noms identiques)
-  ne trouve pas le lien, les crochets le donnent, la colonne du
-  possesseur puis celle du fils : `LIGNES: list of
-  LCOMCLI[ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF]`. Les deux-points
-  obligent YAML aux guillemets autour de la valeur. Le `parent:` du
+  ne trouve pas le lien, les crochets le donnent : la colonne du fils,
+  puis la colonne du possesseur à laquelle elle se lie (D1915) —
+  `LIGNES: 'list of LCOMCLI[LCKTNUMERO: ECKTNUMERO, LCKTPSF:
+  ECKTINDICE]'`. Les deux-points obligent YAML aux guillemets autour
+  de la valeur. Le `parent:` du
   fils, que D931 donnait à la source, en sort : il reste le mot des
   règles de `mapping/`. Le pré-contrôle (D874) compare les valeurs
   brutes. La référence composée se déclare

@@ -11,7 +11,7 @@ LCOMCLI:
     commande_vente: { numero: numero, indice: LCKTPSF }
   fields:
     numero:  ligne
-    article: { code: LCCTCODART, complement: LCCTCOMART }
+    article: [code: LCCTCODART, complement: LCCTCOMART]
     quantite:          LCCNQTECDE
     unite:             LCCTUNICDE
     quantite_expediee: LCCNQTEEXP

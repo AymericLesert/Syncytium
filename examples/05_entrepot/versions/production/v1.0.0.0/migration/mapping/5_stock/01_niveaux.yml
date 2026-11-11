@@ -9,9 +9,9 @@ STDEPLOT:
     nuit, sans historique — les mouvements portent l'histoire, le stock à une date se reconstitue d'eux.
   to: stock.niveau
   fields:
-    article:        { code: DPKTCODART, complement: DPKTCOMART }
+    article:        [code: DPKTCODART, complement: DPKTCOMART]
     lot:            DPKTNUMLOT
-    emplacement:    { depot: DPKTDEPOT, code: DPKTCODMPL }
+    emplacement:    [depot: DPKTDEPOT, code: DPKTCODMPL]
     depot:          DPKTDEPOT
     enregistrement: DPKTCODENR
     quantite:            DPCNSTOPHY

@@ -66,10 +66,10 @@ plans:
   description: Les fichiers du plan, lus par le connecteur des plans ; la liste peut être vide.
 gere_en_stock:            ARCTGDEPOT = "O"
 depot_expedition:         ARCTCODEP
-emplacement_expedition:   { depot: ARCTCODEP, code: ARCTCODMPL }
+emplacement_expedition:   [depot: ARCTCODEP, code: ARCTCODMPL]
 depot_reception:          ARCTCODEPR
-emplacement_reception:    { depot: ARCTCODEPR, code: ARCTCOEMPR }
+emplacement_reception:    [depot: ARCTCODEPR, code: ARCTCOEMPR]
 depot_fabrication:        ARCTCODEPF
-emplacement_fabrication:  { depot: ARCTCODEPF, code: ARCTCOEMPF }
+emplacement_fabrication:  [depot: ARCTCODEPF, code: ARCTCOEMPF]
 depot_consommation:       ARCTCODEPC
-emplacement_consommation: { depot: ARCTCODEPC, code: ARCTCOEMPC }
+emplacement_consommation: [depot: ARCTCODEPC, code: ARCTCOEMPC]

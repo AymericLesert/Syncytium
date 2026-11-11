@@ -507,8 +507,9 @@ quand elle demande un complément, **sa forme longue** — `formula:` la
 formule, `description:` le complément, `message:` le texte de
 l'anomalie si l'affectation échoue. **Une validation de même** : `-
 expression` en forme courte, ou `rule:`, `description:`, `message:`.
-Une carte sans `formula:` reste la carte de clé d'une référence
-(D931) : `formula` distingue les deux.
+La clé d'une référence composée s'écrit entre crochets, une liste de
+paires : `article: [code: LCCTCODART, complement: LCCTCOMART]`. La forme
+longue reste seule à s'écrire en carte (D1941).
 **Le `message:` est un gabarit** (D1106) : les accolades du langage
 unique (D6/D90) y citent une valeur de la source — `{LCCTCODART}`, la
 colonne lue — ou une propriété de l'enregistrement construit —
@@ -540,7 +541,7 @@ LCOMFOU:
     commande_achat: { numero: numero, indice: LCKTPSF }
   fields:
     numero:  ligne
-    article: { code: LCCTCODART, complement: LCCTCOMART }   # la carte de clé : pas de formula
+    article: [code: LCCTCODART, complement: LCCTCOMART]     # la clé de la référence, entre crochets (D1941)
     quantite_recue:
       formula: LCCNQTEEXP
       description: L'expédié de PMI, reçu chez l'acheteur.
@@ -636,7 +637,7 @@ la règle du possesseur l'a construite — `parent: { <possesseur>: {
 <champ d'identité>: <expression> } }`. L'identité à un champ garde le
 raccourci (`parent: { compte: Numero_Compte }`) : l'expression seule,
 le champ implicite. **La référence par clé composée dans `fields:`
-porte la même carte.** La conversion écrite deux fois — chez le
+porte les mêmes paires, entre crochets** (D1941). La conversion écrite deux fois — chez le
 possesseur et dans chaque `parent:` — est un risque d'entretien : la
 normalisation à la source (D660/D872) fait lire aux deux règles des
 colonnes déjà converties, et `parent:` ne porte alors que des colonnes
@@ -667,9 +668,7 @@ NOMENC:
       complement: NOKTCOMPF
   fields:
     numero:    NOKNLIGNOM
-    composant:                                           # la référence par la clé composée : la même carte
-      code:       NOCTCODECP
-      complement: NOCTCOMCPT
+    composant: [code: NOCTCODECP, complement: NOCTCOMCPT]   # la référence par la clé composée, entre crochets (D1941)
     quantite:  NOCNQTECOM
 ```
 

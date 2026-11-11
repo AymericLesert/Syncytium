@@ -10,7 +10,7 @@ NOMENC:
     article: { code: NOKTCODPF, complement: NOKTCOMPF }
   fields:
     numero:      NOKNLIGNOM
-    composant:   { code: NOCTCODECP, complement: NOCTCOMCPT }
+    composant:   [code: NOCTCODECP, complement: NOCTCOMCPT]
     designation: NOCTLIBCOM
     quantite:    NOCNQTECOM
     unite:       NOCTUNITE

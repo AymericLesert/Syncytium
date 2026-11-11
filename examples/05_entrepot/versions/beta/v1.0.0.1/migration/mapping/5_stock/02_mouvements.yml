@@ -14,12 +14,12 @@ MVTSTO:
     ligne:      MVITLIGNE
     indice:     MVITINDLIG
     composant:  MVITCOMPOS
-    article:    { code: MVCTCODART, complement: MVCTCOMART }
+    article:    [code: MVCTCODART, complement: MVCTCOMART]
     horodatage:
       formula: datetime(MVCJSAI, MVCTSAI)
       description: Le jour et l'heure de la saisie, à la seconde.
     depot:       MVCTDEPOT
-    emplacement: { depot: MVCTDEPOT, code: MVCTCODMPL }
+    emplacement: [depot: MVCTDEPOT, code: MVCTCODMPL]
     lot:         MVCTNUMLOT
     date:        MVCJMVT
     type:

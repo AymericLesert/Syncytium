@@ -10,7 +10,7 @@ LCOMFOU:
     commande_achat: { numero: numero, indice: LCKTPSF }
   fields:
     numero:  ligne
-    article: { code: LCCTCODART, complement: LCCTCOMART }
+    article: [code: LCCTCODART, complement: LCCTCOMART]
     quantite:        LCCNQTECDE
     unite:           LCCTUNICDE
     quantite_recue:

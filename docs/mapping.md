@@ -264,8 +264,16 @@ décrite par le méta-modèle également. » À la racine de la version :
   table et colonne par colonne, dans la grammaire de description** ;
   **Syncytium s'assure de la complétude du modèle** : la description
   confrontée au schéma réel (`get_instance` — D629/D680), l'écart
-  signalé ; `get_instance` peut engendrer l'ossature, le concepteur
-  la raffine ;
+  signalé. **Deux régimes** (D1907) : la reprise analysée, où la
+  description est un acte du concepteur — le connecteur sert la
+  comparaison, jamais l'écriture (D868) — ; la forme courte, où le
+  connecteur se décrit (D1895). **La complétude se porte de la même
+  façon dans les deux** : en forme courte, une colonne correspond à
+  un champ d'une entité, et la complétude se mesure par les écarts
+  entre les deux, d'un CSV vers une base comme d'une base vers une
+  autre. Quand les noms diffèrent, comme entre PMI et l'entrepôt, le
+  lien ne se fait pas sans mapping : la description de l'origine se
+  mesure à la complétude de la source, pour ne rien oublier ;
 - **`mapping/`** — les règles de conversion, **table par table, aux
   origines multiples possibles**.
 
@@ -827,6 +835,20 @@ customers:
     position: geolocation(lat, lng)             # 2 colonnes → 1 champ
     total:    amount(total_cts / 100, currency) # le montant et la devise
 ```
+
+## L'usage 3 — le remplacement silencieux d'une application existante (D1907)
+
+« Dans le cas où une application écrite dans le cadre de Syncytium
+remplace silencieusement une application existante, les modules, les
+entités et les champs ont un mapping simple et Syncytium remplace par
+construction l'ancienne application sans besoin de migration. Dans ce
+cas, seul le méta-modèle sera à construire à partir de l'analyse d'une
+base de données existante afin que la migration silencieuse se fasse en
+toute transparence. »
+
+Ce mode peut faire l'objet d'une troisième section du chapitre, après la
+reprise et la migration de version. Ses points se dégageront à son
+ouverture.
 
 ## Le dry-run à deux modes (D649)
 

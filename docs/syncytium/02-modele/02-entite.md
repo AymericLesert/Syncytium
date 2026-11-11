@@ -182,7 +182,10 @@ Le message construit se compose de labels du catalogue des textes du
 moteur (D1944) :
 
 - chaque opérateur a le sien, un gabarit nommé
-  `_<opérateur>.validation` (D1945) ;
+  `_syncytium.<opérateur>.validation` (D1945, D1948) ;
+- un second label, `_syncytium.<opérateur>.description`, donne la
+  traduction littérale d'une règle : la documentation l'emploie, sans
+  montrer le code brut ;
 - `not`, `and`, `or` et `xor` assemblent les messages de leurs membres,
   à gauche et à droite (D1947) ;
 - le projet traduit ou réécrit un label sans toucher au code de

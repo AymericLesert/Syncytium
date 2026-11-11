@@ -784,10 +784,12 @@ documentation et son code. *(D1674, D1676, D1700, D1702)*
 **Message construit** — Le texte de l'anomalie d'une validation écrite
 sans `message:` : la règle citée, les valeurs qu'elle met en cause, la clé
 de l'enregistrement. Chaque opérateur a son label au catalogue des textes
-du moteur, `_<opérateur>.validation`, un gabarit que le projet peut
-traduire ou réécrire sans toucher au code de Syncytium ; `not`, `and`,
-`or` et `xor` assemblent les messages de leurs membres. Le `message:`
-d'une validation est donc facultatif. *(D1116, D1944–D1947)*
+du moteur, `_syncytium.<opérateur>.validation`, un gabarit que le projet
+peut traduire ou réécrire sans toucher au code de Syncytium ; `not`,
+`and`, `or` et `xor` assemblent les messages de leurs membres. Le
+`message:` d'une validation est donc facultatif. Un second label,
+`_syncytium.<opérateur>.description`, traduit la règle en clair pour la
+documentation. *(D1116, D1944–D1948)*
 
 **Migration** (`migrations:`, `migrate`, `_migration`) — Porter les données
 d'une description vers une autre. Elle a deux origines : la version

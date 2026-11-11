@@ -7,7 +7,7 @@ NOMENC:
     le début précède la fin.
   to: technique.nomenclature
   parent:
-    article: { code: NOKTCODPF, complement: NOKTCOMPF }
+    article: [code: NOKTCODPF, complement: NOKTCOMPF]
   fields:
     numero:      NOKNLIGNOM
     composant:   [code: NOCTCODECP, complement: NOCTCOMCPT]

@@ -13,8 +13,8 @@ composition se déclare chez le possesseur, par `list of`, le `parent:` du fils
 retiré (D1913, D1914) ; une entité alias s'écrit `alias: PARAM_EMPLACEMENTS`
 puis `name: PARAM` (D1918) ; la clé de lecture d'une source s'appelle
 `partition:`, non plus `coverage:` (D1929) ; dans une règle, la clé d'une
-référence composée s'écrit entre crochets, `article: [code: …, complement: …]`
-(D1941). Les passages datés ci-dessous gardent les noms et les
+référence composée s'écrit entre crochets, `article: [code: …, complement: …]`,
+et celle du possesseur sous `parent:` de même (D1941, D1943). Les passages datés ci-dessous gardent les noms et les
 écritures de leur date : `reprise/`, `reprise.yml`, `source/`, `source:`,
 `type: ignored`, le `parent:` d'une source, `coverage:`.*
 

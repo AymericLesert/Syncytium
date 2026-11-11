@@ -8,7 +8,7 @@ LCOMCLI:
     elle.
   to: commande.ligne_vente
   parent:
-    commande_vente: { numero: numero, indice: LCKTPSF }
+    commande_vente: [numero: numero, indice: LCKTPSF]
   fields:
     numero:  ligne
     article: [code: LCCTCODART, complement: LCCTCOMART]

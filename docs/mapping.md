@@ -541,7 +541,7 @@ LCOMFOU:
     numéro et son indice ; l'identité d'une ligne est son numéro.
   to: commande.ligne_achat
   parent:
-    commande_achat: { numero: numero, indice: LCKTPSF }
+    commande_achat: [numero: numero, indice: LCKTPSF]
   fields:
     numero:  ligne
     article: [code: LCCTCODART, complement: LCCTCOMART]     # la clé de la référence, entre crochets (D1941)
@@ -636,8 +636,9 @@ champ mappé peut être converti ou transformé avant de vérifier la
 clé. » La clé du possesseur se vérifie sur les valeurs construites :
 `parent:` nomme les champs de l'identité du possesseur, chacun avec
 l'expression qui produit, depuis la ligne fille, la valeur telle que
-la règle du possesseur l'a construite — `parent: { <possesseur>: {
-<champ d'identité>: <expression> } }`. L'identité à un champ garde le
+la règle du possesseur l'a construite — `parent: { <possesseur>:
+[<champ d'identité>: <expression>, …] }`, les paires entre crochets
+(D1943). L'identité à un champ garde le
 raccourci (`parent: { compte: Numero_Compte }`) : l'expression seule,
 le champ implicite. **La référence par clé composée dans `fields:`
 porte les mêmes paires, entre crochets** (D1941). La conversion écrite deux fois — chez le
@@ -649,8 +650,8 @@ l'identité déclarée chez le parent est partagée par ses dérivés
 (D353), le moteur retrouve l'enregistrement quelle que soit sa classe
 et attache la ligne à sa composition ; si l'enregistrement retrouvé ne
 porte pas la composition visée, la ligne est un rejet au rapport
-(D933) — le cas 5 : `parent: { article: { code: NOKTCODPF, complement:
-NOKTCOMPF } }` retrouve le fabriqué, le semi-fini ou le fantôme qui
+(D933) — le cas 5 : `parent: { article: [code: NOKTCODPF, complement:
+NOKTCOMPF] }` retrouve le fabriqué, le semi-fini ou le fantôme qui
 porte la nomenclature ; un acheté avec des composants se voit.
 
 ```yaml
@@ -666,9 +667,7 @@ ARTICLE:
 NOMENC:
   to: technique.nomenclature                             # l'entité fille, comme banque.ecriture
   parent:
-    article:                                             # le possesseur, par ses champs mappés — résolu dans la hiérarchie (D969)
-      code:       NOKTCODPF
-      complement: NOKTCOMPF
+    article: [code: NOKTCODPF, complement: NOKTCOMPF]    # le possesseur, par ses champs mappés (D969, D1943)
   fields:
     numero:    NOKNLIGNOM
     composant: [code: NOCTCODECP, complement: NOCTCOMCPT]   # la référence par la clé composée, entre crochets (D1941)

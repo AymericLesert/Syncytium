@@ -6,7 +6,7 @@ TARIF:
   to: technique.article.tarifs
   filter: TAKTGENRE = "1"
   parent:
-    article: { code: TAKTCODART, complement: TAKTCOMART }
+    article: [code: TAKTCODART, complement: TAKTCOMART]
   fields:
     tiers:            client
     tranche:          TAKTTARIF

@@ -7,7 +7,7 @@ LCOMFOU:
     statut hors de la liste est une anomalie.
   to: commande.ligne_achat
   parent:
-    commande_achat: { numero: numero, indice: LCKTPSF }
+    commande_achat: [numero: numero, indice: LCKTPSF]
   fields:
     numero:  ligne
     article: [code: LCCTCODART, complement: LCCTCOMART]

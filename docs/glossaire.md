@@ -678,13 +678,11 @@ devient la composition. *(D166/D362)*
 enregistrements en tableau ou en widgets, la recherche, le tri, les
 opérations. À ne pas confondre avec la Liste (type). *(D486, D492)*
 
-**Mapping** (`mapping/`) — La correspondance entre deux descriptions, qui
-porte les données de l'une à l'autre. Entre deux versions d'une
-application, il assure la migration : une version s'alimente par sa
-version antérieure, et Syncytium calcule les correspondances. Entre un
-système précédent et l'application, il est écrit par le concepteur, une
-règle par fichier de `mapping/` : c'est la **reprise des données**.
-*(D632, D646, D647, D1879, D1880)*
+**Mapping** (`mapping:`, `mapping/`) — Les règles de correspondance qu'une
+**migration** applique pour porter les données d'une description vers une
+autre. Syncytium les calcule pour une **migration de version** ; le
+concepteur les écrit pour une **reprise**, une règle par fichier de
+`mapping/`. *(D632, D646, D647, D1882)*
 
 **Marquage RGPD** (`rgpd:`) — La facette d'un champ, ou du type qui le
 porte, qui dit ce qui relève du règlement : `personal`, la donnée
@@ -736,13 +734,18 @@ méthode de son type ; un type ajouté par un hook décrit les siennes dans
 sa fiche, sous `methods:`, une par clé, chacune avec sa signature, sa
 documentation et son code. *(D1674, D1676, D1700, D1702)*
 
-**Migration** — Deux sens voisins. Le passage d'une version de
-configuration à la suivante, sans arrêter l'application : la base, les
-écrans et les API suivent *(D3)*. Et le nom du module interne
-`_migration` et de l'artefact migration.md, qui portent la **reprise
-des données** : la configuration dit « reprise » pour le geste, le
-module s'appelle « migration » parce qu'il vaut pour toute migration
-d'un système à Syncytium *(D1031, D1259)*.
+**Migration** (`migrations:`, `migrate`, `_migration`) — Porter les données
+d'une description vers une autre. Elle a deux origines : la version
+antérieure de l'application, c'est la **migration de version** ; une
+source, un système précédent, c'est la **reprise**. Dans les deux cas elle
+applique un **mapping**. La clé `migrations:`, l'opération `migrate` et le
+module interne `_migration` en portent le nom. *(D3, D646, D1031, D1882)*
+
+**Migration de version** — La migration dont l'origine est la version
+antérieure de l'application. Syncytium calcule les correspondances depuis
+les écarts entre les deux versions, à chaud ; le concepteur n'écrit que ce
+que le calcul ne devine pas, comme un renommage. *(D3, D5, D632, D647,
+D1882)*
 
 **Mode d'un champ** (`mode`) — Son mode d'écriture : modifiable
 (`editable`), lecture seule (`read-only`), écrit une fois pour toutes
@@ -984,13 +987,13 @@ antérieures jusqu'à la courante — pas de fichier unique à maintenir.
 active vers la passive ; `differential` ne transmet que les écarts.
 *(D724–D725, D1534)*
 
-**Reprise des données** — Le chargement, dans Syncytium, des données
-d'un système précédent : les sources lues ou ignorées, leurs colonnes,
-les règles et leurs destinataires, le refusé non enregistré, la table
-des associations ; décrite dans `reprise.yml`, portée par le module
-interne `_migration` — d'où la proximité avec **migration**. Le
-chapitre 4 du dictionnaire de la donnée en porte le nom.
-*(D1030–D1080, D1259)*
+**Reprise des données** — La **migration** dont l'origine est une source,
+un système précédent. Le concepteur la déclare sous `migrations:` : la
+source décrite, lue ou ignorée colonne par colonne, les règles du
+**mapping** et leurs destinataires. Les cas la rangent dans un dossier
+`reprise/`, décrite dans `reprise.yml` ; le module interne `_migration`
+la porte. Le chapitre 4 du dictionnaire de la donnée en a le nom.
+*(D1030–D1080, D1259, D1882)*
 
 **Ressources** (`resources/`) — Le dossier des images de la
 description : logos, icônes, fonds. Une ressource peut être également un fichier binaire, word, excel, ... En fait, cela représente tout fichier complémentaire utile au bon fonctionnement du projet (Ex : cas de fichiers modèles pour PDF, Word, Excel, ...).

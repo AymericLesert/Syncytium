@@ -105,7 +105,9 @@ l'application (D1044). Les étapes :
 
 ### La base miroir et la transaction (D1041–D1046)
 
-- **`buffer:`** nomme le connecteur de la base miroir (D1045) : un
+- **`mirror:`**, dans le fichier de l'environnement (D1890, D1891 — la clé
+  s'appelait `buffer:`, sur la migration), nomme le connecteur de la base
+  miroir (D1045) : un
   `storage` dans un schéma donné, ou un connecteur de la classe
   `memory` qui tient le modèle en mémoire ; le connecteur porte la
   facette, pas Syncytium.
@@ -561,9 +563,9 @@ legacy_erp:
       operations: [ reset_coverage(orders) ]
 ```
 
-La base miroir, `buffer:`, ne se déclare pas dans un processus : elle
-sert leur enchaînement, se nomme dans le fichier de l'environnement, et
-vaut un connecteur `memory` par défaut (D1889, D1890).
+La base miroir ne se déclare pas dans un processus : elle sert leur
+enchaînement, se nomme dans le fichier de l'environnement par `mirror:`,
+et vaut un connecteur `memory` par défaut (D1889–D1891).
 
 ## Les illustrations
 

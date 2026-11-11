@@ -141,7 +141,7 @@ les fichiers, `entities:` (D828, D845), montrée dans
 [la déclaration](02-declaration.md).
 
 `memory` tient le modèle en mémoire (D1045) : la base miroir d'une
-reprise, `buffer:`, et le stockage de l'application en mémoire seule,
+reprise, `mirror:`, et le stockage de l'application en mémoire seule,
 sans place sur le disque, effacé à l'arrêt, pour la démonstration de
 Syncytium et le mode démo d'une application (D1508). Son ratio d'espace,
 la part de la mémoire de l'hôte qu'il peut occuper, reste à préciser à

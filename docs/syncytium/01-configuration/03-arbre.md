@@ -305,9 +305,9 @@ connectors: ~{connectors.yml}
 - **`storage:`** : le nom du connecteur qui porte le modèle (D1094).
   Sans bloc `connectors:`, `storage: sqlite` désigne le connecteur
   implicite du mono-poste (D1114).
-- **`buffer:`** : le nom du connecteur de la base miroir, où les
+- **`mirror:`** : le nom du connecteur de la base miroir, où les
   migrations se construisent avant de reporter leurs différences
-  (D1044, D1890). Sans cette clé, un connecteur en mémoire ; elle se
+  (D1044, D1890, D1891). Sans cette clé, un connecteur en mémoire ; elle se
   configure pour une base très volumineuse (D1889).
 - **`logging:`** : la journalisation, `~{logging.yml}` (D343, D830). Le
   fichier porte ses clés à la racine, la clé `logging:` nomme déjà la

@@ -875,7 +875,7 @@ coverage:
   avant l'import** (le périmètre de la migration seul — le patron de
   l'exploration répétée) ; elles se définissent par processus de
   migration, **`relative` et `false` par défaut** (D1889) ;
-- **la base miroir** (D1044–D1046) : `buffer:` nomme le connecteur
+- **la base miroir** (D1044–D1046) : `mirror:` (D1891) nomme le connecteur
   où la reprise se construit à l'image de la destination — un storage
   dans un schéma donné, ou la classe `memory` ; les phases de contrôle
   et la comparaison s'y jouent, puis les différences se reportent dans

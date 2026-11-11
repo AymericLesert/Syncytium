@@ -14,7 +14,7 @@ storage: entrepot
 # La base miroir
 # Le connecteur où les migrations se construisent et se contrôlent, à l'image de l'entrepôt, avant d'y reporter leurs
 # différences ; elle est vidée à la fin de la migration. Sans cette clé, un connecteur en mémoire.
-buffer: temporaire
+mirror: temporaire
 
 # La journalisation
 # Le niveau des traces, leur format et le fichier du journal de l'environnement.

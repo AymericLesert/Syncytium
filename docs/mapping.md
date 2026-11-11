@@ -216,9 +216,11 @@ trie sur le chemin complet de ses fichiers**, dans l'ordre
 alphanumérique, et non sur le seul nom du fichier ; les fichiers triés
 s'insèrent à la position du motif dans la déclaration (D665, D1900) —
 le préfixe numérique décrit les étapes de la migration :
-`001_referentiels.yml`, `002_customers.yml`, `003_orders.yml`. Le
-câblage `from:` (D610) se relit comme le raccourci du cas à une seule
-migration.
+`001_referentiels.yml`, `002_customers.yml`, `003_orders.yml`. Le tri
+compare les caractères, non les nombres : `10_stock` passe avant
+`2_tiers` ; pour l'inverse, le concepteur écrit `02_tiers` et
+`10_stock` (D1901). Le câblage `from:` (D610) se relit comme le
+raccourci du cas à une seule migration.
 
 Une déclaration qui alterne un fichier, un motif et un fichier :
 

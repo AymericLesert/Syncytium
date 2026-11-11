@@ -529,7 +529,10 @@ La forme courte `- expression` et la forme longue `rule:` / `description:` /
 à la règle. Sans `message:`, l'échec produit un message construit qui cite la
 règle, les valeurs des champs qu'elle cite et les valeurs de la clé de
 l'enregistrement ; la `description:` n'y entre pas, un `message:` explicite
-l'emporte. **Avec plusieurs langues** (D1101), le `message:` est exigé, par
+l'emporte. Le message construit se compose d'un label par opérateur, un
+gabarit du catalogue des textes du moteur : sa mise en forme, ses
+traductions et sa réécriture par le projet se font sans toucher au code
+de Syncytium (D1944). **Avec plusieurs langues** (D1101), le `message:` est exigé, par
 langue, sur chaque validation : sinon une erreur d'ingestion, et la forme
 courte est refusée.
 

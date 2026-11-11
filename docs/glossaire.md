@@ -781,6 +781,12 @@ méthode de son type ; un type ajouté par un hook décrit les siennes dans
 sa fiche, sous `methods:`, une par clé, chacune avec sa signature, sa
 documentation et son code. *(D1674, D1676, D1700, D1702)*
 
+**Message construit** — Le texte de l'anomalie d'une validation écrite
+sans `message:` : la règle citée, les valeurs qu'elle met en cause, la clé
+de l'enregistrement. Chaque opérateur a son label au catalogue des textes
+du moteur, un gabarit que le projet peut traduire ou réécrire sans
+toucher au code de Syncytium. *(D1116, D1944)*
+
 **Migration** (`migrations:`, `migrate`, `_migration`) — Porter les données
 d'une description vers une autre. Elle a deux origines : la version
 antérieure de l'application, c'est la **migration de version** ; une

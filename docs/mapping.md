@@ -180,7 +180,8 @@ Les règles de la forme courte (D1896) :
   connecteur se décrit ; sans `mapping:`, le mapping est champ à champ.
   Le concepteur écrit `sources:` seul pour apporter une précision, un
   `mask:` par exemple ; le processus s'écrit alors en bloc, `from:`
-  nomme le connecteur ;
+  nomme le connecteur — la forme courte est l'écriture courte de ce
+  bloc quand il ne porte que `from:` (D1898) ;
 - **la conversion** est portée par le type de destination, celui du
   champ dans le modèle ; sans `mask:`, c'est lui qui convertit la
   valeur lue ;
@@ -189,7 +190,8 @@ Les règles de la forme courte (D1896) :
 - **le champ sans colonne de même nom** prend sa valeur par défaut sur
   une ligne nouvelle ; sur une ligne modifiée, il garde sa valeur ;
 - **le champ requis sans colonne** refuse une ligne nouvelle, jamais
-  une ligne modifiée ;
+  une ligne modifiée ; le refus va au rapport, en `relative` comme en
+  `absolute` (D1898) ;
 - **l'ordre des entités** est celui des dépendances du modèle.
 
 **La migration référence ses fichiers par patterns** (D664 — le

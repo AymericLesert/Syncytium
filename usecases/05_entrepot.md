@@ -11,9 +11,10 @@ déclarée `sources:` (D1883, D1884). Dans les sources, une table ou une colonne
 écartée porte `ignored: true`, non plus `type: ignored` (D1909), et la
 composition se déclare chez le possesseur, par `list of`, le `parent:` du fils
 retiré (D1913, D1914) ; une entité alias s'écrit `alias: PARAM_EMPLACEMENTS`
-puis `name: PARAM` (D1918). Les passages datés ci-dessous gardent les noms et les
+puis `name: PARAM` (D1918) ; la clé de lecture d'une source s'appelle
+`partition:`, non plus `coverage:` (D1929). Les passages datés ci-dessous gardent les noms et les
 écritures de leur date : `reprise/`, `reprise.yml`, `source/`, `source:`,
-`type: ignored`, le `parent:` d'une source.*
+`type: ignored`, le `parent:` d'une source, `coverage:`.*
 
 *Le cas est ouvert le 03/09/2026 (le cas 3 devenu le cas 5 par la
 renumérotation D1027 — le registre garde « cas 3 » dans son histoire) — la maison **`05_entrepot`**
@@ -1569,7 +1570,7 @@ second `migrate` lancé pendant ce temps est annulé et tracé (D1077).
   dans `ARTICLE` et non décrite est une anomalie de complétude, au
   concepteur ; une colonne décrite qui disparaît rend son entité
   illisible (D1053) ;
-- **la lecture** — `filter:` retient la société 100 ; `coverage:`
+- **la lecture** — `filter:` retient la société 100 ; `partition:`
   relit les trois derniers mois des mouvements (`MVCJMVT[month - 3]`)
   et les dix mille derniers numéros des commandes (`ECKTNUMERO[10000]`,
   `LCKTNUMERO[10000]`) ; les autres tables se relisent en entier (D1013)

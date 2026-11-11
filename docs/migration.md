@@ -56,7 +56,7 @@ l'application (D1044). Les étapes :
 | | l'étape | ce qu'elle fait | les décisions |
 |---|---|---|---|
 | a | **le modèle lu** | le connecteur lit le schéma réel ; Syncytium le compare à la version précédente et à la description `sources/` | D653, D1053 |
-| b | **la lecture** | par entité source : `filter:` écarte (les lignes filtrées ne sont pas conservées), `coverage:` choisit la plage relue | D663, D878–D880, D1032 |
+| b | **la lecture** | par entité source : `filter:` écarte (les lignes filtrées ne sont pas conservées), `partition:` choisit la plage relue | D663, D878–D880, D1032 |
 | 1 | **la validation des données sources** | après le filtre : chaque colonne convertie du type de stockage au type de la description, puis l'identité vérifiée, puis les liens (l'orphelin) | D1040, D1042, D1053 |
 | 2 | **la vérification des règles sources** | les `validation:` de l'entité source | D932, D1033 |
 | 3 | **le mapping** | `fields:` construit les enregistrements de destination dans la base miroir | D654, D1033 |
@@ -118,7 +118,7 @@ l'application (D1044). Les étapes :
   (D1894).
 - **La base miroir vit le temps de la migration** : le schéma est
   supprimé à la finalisation (D1044). Elle ne reçoit que ce que
-  `coverage:` relit ; l'enregistrement non relu qu'une référence
+  `partition:` relit ; l'enregistrement non relu qu'une référence
   désigne y est recopié depuis la base de l'application.
 - **La reprise est une transaction** (D1041) : la bascule s'applique en
   entier ou pas du tout ; l'erreur qui interrompt la mise à jour ramène

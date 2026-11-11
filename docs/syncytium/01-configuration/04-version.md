@@ -554,7 +554,7 @@ antérieure, c'est la migration de version. Le dossier range les deux :
   une virgule : le connecteur se décrit, le mapping est champ à champ
   (D1895–D1897) ;
 - `sources/<TABLE>.yml` décrit chaque entité d'origine (D947, D966) :
-  `alias`, `name`, `filter`, `identity`, `coverage`, `fields`,
+  `alias`, `name`, `filter`, `identity`, `partition`, `fields`,
   `validation` ; la table d'appartenance déclare ses compositions par
   `list of`, le fils ne déclare rien (D1913, D1914) ; une colonne typée `TABLE.colonne` est une référence,
   `TABLE[NOM].colonne` une référence nommée quand l'entité est visée

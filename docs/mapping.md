@@ -929,7 +929,7 @@ postures de D180 incarnées.
   une anomalie de complétude, au concepteur (D1053) ; **la couverture
   des données**, sur les compteurs de l'origine — les lignes lues sans
   erreur rapportées aux lignes lues ; le `filter:` (D663) hors taux ;
-- **la comparaison par blocs et `coverage:`** (D878 — le cas 5) :
+- **la comparaison par blocs et `partition:`** (D878 — le cas 5) :
   la migration compare **le converti** (D672 — l'enregistrement
   reconstruit, la clé fonctionnelle) à la destination, **par
   partition, en cinq blocs** (D1034) — **anomalies** (les
@@ -939,7 +939,11 @@ postures de D180 incarnées.
   avant et absent après — D1052) ; **la synthèse** — les trois jeux de
   compteurs dissociés (D1048) : par entité d'origine, par entité de
   destination, par règle ; **la lecture de l'origine**
-  se règle par `coverage:` sur l'entité source — **la clé de la
+  se règle par `partition:` sur l'entité source (D1929 — la clé
+  s'appelait `coverage:`, qui se lisait comme un taux ; le mot est
+  celui de l'entité du modèle, où `partition:` découpe la table,
+  D1293 ; à la source, le crochet porte en plus la plage relue) —
+  **la clé de la
   partition** (distincte de l'`identity:` si besoin : Syncytium
   garde, par clé d'origine, sa valeur de partition et un hash qui
   compte les lignes modifiées — D1047–D1050 —, et la dernière valeur
@@ -947,11 +951,11 @@ postures de D180 incarnées.
   période sur une date ; sur un numéro, un nombre de valeurs
   distinctes : `LCKTNUMERO[10000]` relit les dix mille derniers
   numéros distincts, non les dix mille dernières lignes, pour ne pas
-  couper une commande — D1927) ; **sans `coverage:`, la totalité est relue** —
+  couper une commande — D1927) ; **sans `partition:`, la totalité est relue** —
   **l'état se relit en entier, le journal se partitionne** (D1013 : le
   niveau de stock, « au plus 200 000 lignes… sans surcoût », sans
-  `coverage:` ni `history:`, les mouvements portant l'histoire ; les
-  mouvements, « plusieurs millions de lignes », `coverage:` et
+  `partition:` ni `history:`, les mouvements portant l'histoire ; les
+  mouvements, « plusieurs millions de lignes », `partition:` et
   `reset_coverage` à paramétrer) ; `filter:` reste le périmètre jamais lu ; **le traitement des
   écarts se lit sur la destination** — `history:` présent, ils
   complètent et l'historique les garde ; absent, ils remplacent ;
@@ -963,13 +967,13 @@ postures de D180 incarnées.
 
 ```yaml
 # sources/stock/MVTSTO.yml — la forme courte (D880)
-coverage: MVCJMVT[month - 3]          # la partition au mois, les trois derniers relus
+partition: MVCJMVT[month - 3]          # la partition au mois, les trois derniers relus
 
 # sources/commande/ECOMCLI.yml
-coverage: ECKTNUMERO[10000]           # les dix mille derniers numéros distincts (D1927)
+partition: ECKTNUMERO[10000]           # les dix mille derniers numéros distincts (D1927)
 
 # la forme riche (D879), équivalente
-coverage:
+partition:
   MVCJMVT:
     value: month
     range: 3m

@@ -152,6 +152,13 @@ composition, une association. Elle porte ses méthodes : `sum`, `count()`,
 `first`, `group`, `sort`… *Ex. : `lignes.sum(montant)`.* *(D580, D887,
 D1015–D1017)*
 
+**Complétude du schéma** — Dans une reprise, la part de la description
+d'une source qui tient encore face au modèle lu par le connecteur : les
+colonnes décrites encore présentes, au type compatible, rapportées aux
+colonnes décrites. Une colonne que la description ne cite pas reste une
+anomalie de complétude, rendue au concepteur.
+*(D862, D1053, D1056, D1060)*
+
 **Complétude (de la documentation)** — Le rapport du concepteur : ce
 qui devrait être écrit et ne l'est pas — les descriptions, les aides,
 les libellés d'énumérés, les masques, l'entité sans aucun `rgpd:`. Un
@@ -235,6 +242,11 @@ rendre de champ : `sections` et `section`, `tabs` et `tab`, `pages`,
 **Contexte** (`context`) — L'entité du moteur, en lecture seule :
 l'utilisateur, le moment, l'instance, le module, la page d'un document,
 les paramètres. *Ex. : `context.now`, `context.user`.* *(D254, D588–D591)*
+
+**Couverture des données** — Dans une reprise, le taux des lignes lues
+sans erreur, rapportées aux lignes lues ; ce que `filter:` écarte n'y
+entre pas. Ce n'est pas la clé de lecture d'une source, qui s'appelle
+`partition:`. *(D663, D862, D1056, D1929)*
 
 **Crochet** (`type[paramètre]`) — La convention d'écriture qui glisse
 un paramètre dans un nom : `text[3..10]`, `time[hh:mm]`,
@@ -863,7 +875,11 @@ point : une fonction du type. *Ex. : `montant.currency`, `date.month`,
 
 **Partition** (`partition:`) — Le découpage physique de la table d'une
 entité selon un ou plusieurs champs, par période pour une date.
-*Ex. : `partition: date_comptable[year]`.* *(D1293, D1300)*
+*Ex. : `partition: date_comptable[year]`.* Sur une entité source, le
+même mot découpe la lecture d'une reprise : le crochet porte en plus la
+plage relue à chaque passage, `partition: MVCJMVT[month - 3]`, ou
+`partition: LCKTNUMERO[10000]`, les dix mille derniers numéros distincts.
+*(D878–D880, D1293, D1300, D1927, D1929)*
 
 **Passage** — Une exécution d'une reprise de données (`migrate`) : la
 lecture, les cinq phases de contrôle, la comparaison, la bascule ; sa

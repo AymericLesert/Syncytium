@@ -120,12 +120,14 @@ storage source · descriptions des entités sources · mapping }.
 d'origine** (D1888) : `from:` le nomme, et plusieurs sources font
 plusieurs processus, que `migration.yml` décrit et nomme. **Ils
 s'exécutent dans l'ordre alphabétique de leurs noms** (D1888) ; avec
-une seule source, le nom peut être celui du connecteur. Les entités
-sources se parcourent dans l'ordre défini (le référentiel avant
-l'entité qui le référence, le possesseur avant ses lignes) : l'ordre
-de leur déclaration sous `sources:`, par la même logique que les
-règles sous `mapping:` — la liste de haut en bas, un motif trié sur le
-chemin complet de ses fichiers et inséré à sa position (D1900, D1902).
+une seule source, le nom peut être celui du connecteur. **L'ordre des
+entités sous `sources:` n'a pas d'importance** (D1903) : Syncytium
+construit le graphe de dépendance des sources. La validité du graphe
+se mesure à la fin de la lecture complète, parce que les références
+peuvent former des cycles, comme dans la nomenclature. La déclaration
+se lit par la même logique que les règles sous `mapping:` — la liste
+de haut en bas, un motif trié sur le chemin complet de ses fichiers
+(D1900, D1902) —, sans que cet ordre change le passage.
 
 ```yaml
 # migration.yml — les migrations déclarées (D662/D664)

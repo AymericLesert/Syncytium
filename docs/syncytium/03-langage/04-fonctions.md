@@ -28,7 +28,8 @@ emploient.
 
 **Nettoyer un texte** :
 
-- `trim(t)` retire les blancs de tête et de fin (D870, D872) ;
+- `trim(t)` retire les blancs de tête et de fin (D870, D872) ; il
+  s'écrit aussi en méthode de la valeur, `me.trim()` (D1919) ;
 - `upper(t)` et `lower(t)` changent la casse (D656).
 
 **Découper un texte** :

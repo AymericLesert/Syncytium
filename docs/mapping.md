@@ -343,8 +343,10 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
   source, **l'entité décrite est une collection** : un champ calculé
   lit une valeur ou une liste de valeurs dans une autre table par les
   agrégats, la doctrine D887 (« valeur if condition ») et la
-  projection D889 inchangées — `first` rend la valeur, **`list`** (le
-  seul agrégat ajouté) la liste ; la valeur est typée par la colonne
+  projection D889 inchangées — `first` rend la valeur, `list` la
+  liste : ce sont les méthodes qu'une entité porte déjà au modèle,
+  aucune fonction n'est inventée pour la source (D1919) ; la valeur
+  est typée par la colonne
   (D581), l'absence rend le nul — un fait ; **« la lecture d'une
   entité utilise le filtre défini »** (D966) — on lit l'entité
   décrite, avec son `filter:`, jamais la table nue ; **le moteur met

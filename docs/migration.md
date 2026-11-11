@@ -257,9 +257,14 @@ D1073) sont retirés.
   les valeurs des champs marqués `rgpd:` (D696) ; les interfaces du
   module montrent les valeurs complètes, sous les droits de chacun.
 
-*À reprendre à la lecture du chapitre 9* : ce que deviennent la copie
-d'un environnement `--with-storage` (D1080) et le re-chiffrement à la
-rotation des clés (D1067), qui ne visaient que ces fichiers.
+L'option `--with-storage` de la copie d'un environnement (D1080) et le
+re-chiffrement de ces fichiers à la rotation des clés (D1067) ne
+visaient que le fichier de détail : ils sont retirés avec lui (D1893).
+
+*À reprendre à la lecture du chapitre 9* : les mentions du fichier de
+détail plus bas dans ce document — le champ `fichier` du passage,
+l'en-tête de l'entité `anomalie` — et le champ `buffer` de la migration
+déclarée.
 
 ## Le modèle
 
@@ -536,8 +541,8 @@ d'administration (D711) :
   interruption, la relance est manuelle ;
 - **la copie d'un environnement** (D1078–D1080) — `syncytium copy
   <source> <cible>` emporte les données, `_migration` et `_assistance` (D1387) ;
-  `--with-storage` emporte aussi les fichiers de détail, re-chiffrés
-  sous les clés de la cible ;
+  l'option `--with-storage` est retirée avec les fichiers de détail
+  (D1893) ;
 - **la sandbox** (D921–D922) — `reload` rejoue l'ingestion et la
   migration : son `_migration` repart de zéro.
 
@@ -590,9 +595,6 @@ opérations périodiques donnent à voir dans `_migration`.
 - **le hash de la ligne d'origine** (D1049) — mes conditions : une forme
   canonique (les colonnes ordonnées par leur nom, chaque valeur
   délimitée, le nul distinct du vide), sur les colonnes lues ;
-- **le chiffrement natif du fichier SQLite** (D1067) — à fixer avec
-  l'architecture (D1025) : SQLCipher le permet sans déchiffrer le
-  fichier entier avant chaque lecture ;
 - **la forme exacte des rapports envoyés** — le `template` du catalogue
   (D559–D564), avec l'architecture.
 

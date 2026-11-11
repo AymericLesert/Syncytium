@@ -3586,7 +3586,7 @@ qu'avec l'instance — au dépôt, elle se montre vide, avec son cadre.
   lecture*, à l'architecture).
 - **La maintenance — les opérations.** Le nettoyage (D1073), la
   rotation du chiffrement (D1079/D1080), la copie d'un environnement
-  (`syncytium copy … --with-storage` — D1080), la promotion d'une
+  (`syncytium copy …` — D1080), la promotion d'une
   version (D340), la relecture complète de la reprise
   (`reset_coverage` — D943), la restauration d'un enregistrement (D171)
   ; pour chacune : quand, qui, comment, la trace.
@@ -4343,7 +4343,7 @@ environnements**, calculées : la copie de la production vers le staging
 et son mode de synchronisation (D112–D113), l'actif vers le passif
 (D114), la référence vers la sandbox (D907) ; un trait par relation sur
 le schéma, avec ce qu'elle emporte — les données, `_migration`,
-`_assistance`, les fichiers de détail avec `--with-storage` (D1080,
+`_assistance` (D1080,
 D1387). **Les flux et les ports**, par environnement et par
 connecteur : le protocole et le port de la classe, le sens, ce qui
 circule ; pour l'instance, l'adresse et le port qu'elle sert en HTTPS

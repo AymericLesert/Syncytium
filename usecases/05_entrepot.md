@@ -1601,7 +1601,7 @@ second `migrate` lancé pendant ce temps est annulé et tracé (D1077).
 - **le suivi** — la table des clés d'origine des quatorze sources (la
   clé, le mois du mouvement pour `MVTSTO`, le hash, le statut), les
   trois jeux de compteurs, les deux indicateurs ; le détail des
-  anomalies dans `2026-…-cegid.syncytium`, chiffré (D1047–D1067).
+  anomalies dans le module, partitionné par date (D1047–D1065, D1889).
 
 *Le matin — les rapports* (`when: [migration]`, `by: [notification,
 mail]` — D945) :
@@ -1652,8 +1652,7 @@ suppressions se jouent alors sur les tables entières.
 
 *Les environnements.* Le staging lit une copie de PMI et tient son
 propre `_migration` ; `syncytium copy production staging` y recopie
-l'entrepôt avec son `_migration`, `--with-storage` avec les fichiers de
-détail, re-chiffrés (D1078–D1080).
+l'entrepôt avec son `_migration` (D1078–D1080).
 
 *Ce qui reste servi par défaut* — toutes les autres entités de
 l'entrepôt (D437–D438 : la liste, le formulaire, la composition
@@ -2932,8 +2931,7 @@ D1434.**)*
 >
 > **Les relations** : la production vers le staging par
 > `syncytium copy production staging`, les données, `_migration`,
-> `_assistance`, les fichiers de détail avec `--with-storage` (D1080,
-> D1387) ; aucun passif, aucune sandbox.
+> `_assistance` (D1080, D1387) ; aucun passif, aucune sandbox.
 >
 > **Les flux et les ports** : la table du chapitre 1, la même pour le
 > staging — les mêmes connecteurs, les valeurs du staging. **L'instance
@@ -3066,8 +3064,7 @@ disponible » plutôt que « sans objet », rien à compléter.)*
 > | `anonymiser` (`tiers.contact`) | le 1er du mois à 03:00 | `rgpd.anonymize` sur les contacts échus |
 >
 > **Les commandes de cette instance** : `syncytium copy production
-> staging`, `syncytium copy production staging --with-storage`,
-> `syncytium encrypt`, `syncytium rotate`, `syncytium document
+> staging`, `syncytium encrypt`, `syncytium rotate`, `syncytium document
 > production <documentation>`, `syncytium init`.
 >
 > ## 2. Les procédures
@@ -3080,8 +3077,7 @@ disponible » plutôt que « sans objet », rien à compléter.)*
 >   la 1.0.0.0 devient une production dépassée, servie avec les en-têtes
 >   de dépréciation (D1419) ;
 > - **copier la production vers le staging** — les données,
->   `_migration`, `_assistance` ; `--with-storage` pour les fichiers de
->   détail de la reprise, re-chiffrés ;
+>   `_migration`, `_assistance` ;
 > - **relire la reprise** — `relecture_complete` attend le delta
 >   (`on_running: wait`) ; un passage s'interrompt depuis le suivi, sauf
 >   pendant la bascule (D1077) ; la relance est manuelle ;

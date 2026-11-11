@@ -442,12 +442,12 @@ syncytium rotate    # re-chiffre le .env et les champs des types chiffrants
 
 **La copie d'un environnement** (D1078–D1080) : la base de l'environnement
 source vers celui de la cible — les données et les modules internes
-`_migration` et `_assistance` avec elles (D1078, D1387) ; l'option `--with-storage` emporte aussi les fichiers de détail des
-migrations (D1066), re-chiffrés sous les clés de la cible :
+`_migration` et `_assistance` avec elles (D1078, D1387). L'option
+`--with-storage`, qui emportait les fichiers de détail des migrations,
+est retirée avec eux (D1889, D1893) :
 
 ```bash
-syncytium copy production staging                  # les données, _migration et _assistance
-syncytium copy production staging --with-storage   # + les fichiers de détail, re-chiffrés
+syncytium copy production staging   # les données, _migration et _assistance
 ```
 
 — le re-chiffrement en masse au patron de `migrate` (la transaction,
@@ -853,10 +853,9 @@ n'est utile qu'à qui a déjà la machine.
   d'une valeur est **un pouvoir de type** (comme `password`) — pas de
   facette : le type chiffre par ses fonctions de valeur et déclare
   ce qu'il sait encore faire (la recherche stricte au mieux, le tri
-  perdu) ; **le fichier SQLite du détail d'une migration** est chiffré
-  — nativement si possible, sinon après sa création — et `rotate` le
-  re-chiffre avec les autres (D1067) ; `syncytium copy
-  --with-storage` le re-chiffre sous les clés de la cible (D1080).
+  perdu) ; le détail d'une migration vit dans le module `_migration`,
+  dans la base de l'application : son fichier à part, chiffré puis
+  re-chiffré par `rotate` et par la copie, est retiré (D1889, D1893).
 
 ### La disponibilité et la continuité
 

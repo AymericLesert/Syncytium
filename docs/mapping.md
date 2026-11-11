@@ -122,7 +122,10 @@ plusieurs processus, que `migration.yml` décrit et nomme. **Ils
 s'exécutent dans l'ordre alphabétique de leurs noms** (D1888) ; avec
 une seule source, le nom peut être celui du connecteur. Les entités
 sources se parcourent dans l'ordre défini (le référentiel avant
-l'entité qui le référence, le possesseur avant ses lignes).
+l'entité qui le référence, le possesseur avant ses lignes) : l'ordre
+de leur déclaration sous `sources:`, par la même logique que les
+règles sous `mapping:` — la liste de haut en bas, un motif trié sur le
+chemin complet de ses fichiers et inséré à sa position (D1900, D1902).
 
 ```yaml
 # migration.yml — les migrations déclarées (D662/D664)

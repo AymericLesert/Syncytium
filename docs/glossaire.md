@@ -84,6 +84,12 @@ au-dessus de la surface : un message, puis confirmer ou annuler. C'est une
 fenêtre assumée. La fenêtre surgissante du navigateur, la popup, ne sert
 jamais. *(D601, D1605)*
 
+**Cache d'une migration** (`cache`) — Le mécanisme qui garde des valeurs
+le temps d'un passage. Il n'y en a qu'un, et deux façons de l'utiliser :
+le moteur s'en sert lui-même, pour la lecture d'une autre entité par un
+calculé ; le concepteur y déclare une entrée dans une règle, par
+`cache.push`, relue par `cache.pop`. *(D822, D965, D1920, D1923)*
+
 **Carrousel** (`viewer[carousel]`) — La succession des images d'une
 collection, qui défile à intervalle régulier ou à la touche.
 *(D475, D476)*

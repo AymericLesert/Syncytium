@@ -127,7 +127,9 @@ se mesure à la fin de la lecture complète, parce que les références
 peuvent former des cycles, comme dans la nomenclature. La déclaration
 se lit par la même logique que les règles sous `mapping:` — la liste
 de haut en bas, un motif trié sur le chemin complet de ses fichiers
-(D1900, D1902) —, sans que cet ordre change le passage.
+(D1900, D1902) —, sans que cet ordre change le passage. Le concepteur
+peut numéroter ses sources pour la lisibilité ; Syncytium réordonne
+les éléments de façon naturelle, par le graphe (D1904).
 
 ```yaml
 # migration.yml — les migrations déclarées (D662/D664)

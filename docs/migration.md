@@ -562,8 +562,8 @@ legacy_erp:
 ```
 
 La base miroir, `buffer:`, ne se déclare pas dans un processus : elle
-sert leur enchaînement, et vaut un connecteur `memory` par défaut
-(D1889).
+sert leur enchaînement, se nomme dans le fichier de l'environnement, et
+vaut un connecteur `memory` par défaut (D1889, D1890).
 
 ## Les illustrations
 

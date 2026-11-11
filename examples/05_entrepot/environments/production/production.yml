@@ -11,6 +11,11 @@ listen:
 # Le connecteur storage qui porte le modèle et ses données ; les autres storages de l'environnement servent la reprise.
 storage: entrepot
 
+# La base miroir
+# Le connecteur où les migrations se construisent et se contrôlent, à l'image de l'entrepôt, avant d'y reporter leurs
+# différences ; elle est vidée à la fin de la migration. Sans cette clé, un connecteur en mémoire.
+buffer: temporaire
+
 # La journalisation
 # Le niveau des traces, leur format et le fichier du journal de l'environnement.
 logging: ~{logging.yml}

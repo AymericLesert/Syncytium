@@ -1549,7 +1549,7 @@ Ce que la mise à jour de l'entrepôt produit, où cela vit, qui le lit.
 | la clé | au cas 5 | les décisions |
 |---|---|---|
 | `from:` | `cegid` — la base d'origine, le storage `sqlserver` en lecture ; la base de production lue en direct, une copie au staging | D860, D863, D945 |
-| `buffer:` | `temporaire` — la classe `memory` ; un storage dans un schéma dédié de l'entrepôt conviendrait aussi aux mouvements ; depuis le 11/11/2026 la clé ne se déclare plus dans un processus, sa place reste à dire | D1044–D1045, D1889 |
+| `buffer:` | `temporaire` — la classe `memory` ; un storage dans un schéma dédié de l'entrepôt conviendrait aussi aux mouvements ; depuis le 11/11/2026 la clé se déclare dans le fichier de l'environnement, non plus dans le processus | D1044–D1045, D1889, D1890 |
 | `storage:` | retiré le 11/11/2026 : le détail d'un passage vit dans le module `_migration`, partitionné par date, que Syncytium nettoie lui-même | D1889 |
 | `mode:`, `reset:` | `relative`, `false` — l'historique et l'enrichissement tiennent ; ce sont aussi les défauts | D671, D941, D1889 |
 | `sources:` | vingt-trois tables : quatorze lues, neuf `ignored` (les offres, le devis, les libellés, les tranches) — sur les trois cent trente objets du schéma | D947–D952 |

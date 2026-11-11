@@ -7,11 +7,6 @@ cegid:
   # Le storage de PMI, lu en lecture seule.
   from: cegid
 
-  # La base miroir
-  # La reprise s'y construit et s'y contrôle avant d'en reporter les différences dans l'entrepôt ; elle est supprimée à
-  # la fin de la migration.
-  buffer: temporaire
-
   # Le mode
   # relative : les enregistrements conformes entrent, les autres vont au rapport ; l'entrepôt se met à jour sans être
   # vidé.

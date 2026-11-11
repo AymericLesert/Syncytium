@@ -47,6 +47,11 @@ listen:
 # Le connecteur storage qui porte le modèle et ses données ; les autres storages de l'environnement servent la reprise.
 storage: entrepot
 
+# La base miroir
+# Le connecteur où les migrations se construisent et se contrôlent, à l'image de l'entrepôt, avant d'y reporter leurs
+# différences ; elle est vidée à la fin de la migration. Sans cette clé, un connecteur en mémoire.
+buffer: temporaire
+
 # La journalisation
 # Le niveau des traces, leur format et le fichier du journal de l'environnement.
 logging: ~{logging.yml}
@@ -206,6 +211,8 @@ Le socle trouve ses connecteurs par le nom (D612, D1710) :
 
 - le storage du modèle est désigné par le fichier de l'environnement,
   `storage: entrepot` (D1094) ;
+- la base miroir des migrations y est désignée de même, `buffer:
+  temporaire` ; sans cette clé, un connecteur en mémoire (D1889, D1890) ;
 - la base d'origine d'une reprise, par `from:` dans la migration
   (D1087) ;
 - le mail sortant est le connecteur `smtp`, le géocodage `location`,

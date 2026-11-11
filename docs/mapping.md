@@ -881,9 +881,9 @@ coverage:
   et la comparaison s'y jouent, puis les différences se reportent dans
   la base de l'application ; la base vit le temps de la migration ;
   **elle ne se déclare pas dans un processus de migration**, parce
-  qu'elle sert leur enchaînement ; par défaut c'est un connecteur
-  `memory`, et elle se configure pour une base très volumineuse
-  (D1889) ;
+  qu'elle sert leur enchaînement ; elle se nomme dans le fichier de
+  l'environnement (D1890) ; par défaut c'est un connecteur `memory`,
+  et elle se configure pour une base très volumineuse (D1889) ;
 - **le détail d'un passage** (D1889 — remplace `storage:` et le
   fichier SQLite de D1066–D1073) : l'état de la migration et ses
   écarts vivent dans le module `_migration`, partitionné par une

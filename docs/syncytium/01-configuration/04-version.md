@@ -563,8 +563,9 @@ antérieure, c'est la migration de version. Le dossier range les deux :
   (D1883) ; aucun cas n'en porte encore.
 
 La base miroir, `buffer:`, ne se déclare pas dans un processus : elle
-sert leur enchaînement. Par défaut, c'est un connecteur en mémoire ; elle
-se configure pour une base très volumineuse (D1889).
+sert leur enchaînement, et se nomme dans le fichier de l'environnement
+(D1890). Par défaut, c'est un connecteur en mémoire ; elle se configure
+pour une base très volumineuse (D1889).
 
 Le détail dans [mapping.md](../../mapping.md). Le pilotage et le suivi,
 les passages, les clés d'origine, le modèle lu, les anomalies, sont le

@@ -255,8 +255,9 @@ passages et leur ligne d'exécution (l'état, les horodatages,
 l'instantané, les trois jeux de compteurs, les deux indicateurs), la
 table des clés d'origine, les versions du modèle lu, les anomalies —
 **l'évolution de la qualité dans le temps** : la ligne d'exécution
-reste sans délai, le détail des anomalies vit dans un fichier SQLite
-par passage, retenu par le `cleanup.yml` de l'environnement ; la vue
+reste sans délai, le détail des anomalies vit dans le module,
+partitionné par date, gardé le temps de `retention:`, sous `mirror:`
+(D1889, D1892) ; la vue
 par les surfaces standard ; l'administrateur y lance, interrompt et
 relance les passages (D1077). Le module — le déroulé d'un passage,
 ce qu'il garde, son modèle, ses rapports, ses surfaces — est décrit

@@ -875,20 +875,24 @@ coverage:
   avant l'import** (le périmètre de la migration seul — le patron de
   l'exploration répétée) ; elles se définissent par processus de
   migration, **`relative` et `false` par défaut** (D1889) ;
-- **la base miroir** (D1044–D1046) : `mirror:` (D1891) nomme le connecteur
-  où la reprise se construit à l'image de la destination — un storage
-  dans un schéma donné, ou la classe `memory` ; les phases de contrôle
+- **la base miroir** (D1044–D1046) : `mirror:` (D1891) déclare la base
+  où la reprise se construit à l'image de la destination ; sa propriété
+  `storage:` en nomme le connecteur (D1892) — un storage dans un schéma
+  donné, ou la classe `memory` ; les phases de contrôle
   et la comparaison s'y jouent, puis les différences se reportent dans
   la base de l'application ; la base vit le temps de la migration ;
   **elle ne se déclare pas dans un processus de migration**, parce
-  qu'elle sert leur enchaînement ; elle se nomme dans le fichier de
-  l'environnement (D1890) ; par défaut c'est un connecteur `memory`,
-  et elle se configure pour une base très volumineuse (D1889) ;
+  qu'elle sert leur enchaînement ; elle se déclare dans le fichier de
+  l'environnement (D1890) ; par défaut `storage:` vaut `memory`, la
+  classe en mémoire de la famille `storage`, et il se configure pour
+  une base très volumineuse (D1889, D1892) ;
 - **le détail d'un passage** (D1889 — remplace `storage:` et le
   fichier SQLite de D1066–D1073) : l'état de la migration et ses
   écarts vivent dans le module `_migration`, partitionné par une
   date ; le nettoyage se fait par cette clé de partition, Syncytium
-  l'assure ; la ligne d'exécution reste sans délai ;
+  l'assure ; la durée gardée est `retention:`, sous `mirror:`,
+  quatre-vingt-dix jours par défaut (D1892) ; la ligne d'exécution
+  reste sans délai ;
 - **le différentiel par comparaison** (D672, précisé par D1037) :
   évalué **dans la base miroir, avant la bascule** — l'enregistrement
   reconstruit, ses compositions comprises, se compare à la cible par
@@ -1035,8 +1039,8 @@ rang 3) : **les règles de reprise qui écrivent un champ marqué sont des
 traitements** du registre (D1317), par leur source, leur cible, leur
 rapport et ses destinataires ; **la provenance** (D178) entre dans la
 mention d'information — « reprises de PMI » — et dans la documentation,
-pour le contexte (D1335) ; la rétention des fichiers de détail au
-nettoyage (D1065, D1334).
+pour le contexte (D1335) ; la rétention du détail des passages, par
+`retention:` de la base miroir (D1065, D1334, D1892).
 
 **La migration déclarée, dans le projet et le support** (la colonne 8
 — le rang 4) : rien — les règles de reprise ne sont pas des écarts

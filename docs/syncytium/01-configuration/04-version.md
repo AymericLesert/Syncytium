@@ -563,9 +563,11 @@ antérieure, c'est la migration de version. Le dossier range les deux :
   (D1883) ; aucun cas n'en porte encore.
 
 La base miroir ne se déclare pas dans un processus : elle sert leur
-enchaînement, et se nomme dans le fichier de l'environnement, par
-`mirror:` (D1890, D1891). Par défaut, c'est un connecteur en mémoire ; elle se configure
-pour une base très volumineuse (D1889).
+enchaînement, et se déclare dans le fichier de l'environnement, par
+`mirror:` (D1890, D1891). Le bloc porte son connecteur, `storage:`, et
+la rétention du détail des passages, `retention:` (D1892). Par défaut,
+c'est un connecteur en mémoire et quatre-vingt-dix jours ; le connecteur
+se configure pour une base très volumineuse (D1889).
 
 Le détail dans [mapping.md](../../mapping.md). Le pilotage et le suivi,
 les passages, les clés d'origine, le modèle lu, les anomalies, sont le

@@ -1549,7 +1549,7 @@ Ce que la mise à jour de l'entrepôt produit, où cela vit, qui le lit.
 | la clé | au cas 5 | les décisions |
 |---|---|---|
 | `from:` | `cegid` — la base d'origine, le storage `sqlserver` en lecture ; la base de production lue en direct, une copie au staging | D860, D863, D945 |
-| `mirror:` | `temporaire` — la classe `memory` ; un storage dans un schéma dédié de l'entrepôt conviendrait aussi aux mouvements ; depuis le 11/11/2026 la clé s'appelle `mirror:` et se déclare dans le fichier de l'environnement, non plus dans le processus | D1044–D1045, D1889–D1891 |
+| `mirror:` | `storage: temporaire` — la classe `memory` ; un storage dans un schéma dédié de l'entrepôt conviendrait aussi aux mouvements — et `retention: 90d`, la durée gardée du détail des passages ; depuis le 11/11/2026 la clé s'appelle `mirror:`, se déclare dans le fichier de l'environnement, non plus dans le processus, et porte un bloc | D1044–D1045, D1889–D1892 |
 | `storage:` | retiré le 11/11/2026 : le détail d'un passage vit dans le module `_migration`, partitionné par date, que Syncytium nettoie lui-même | D1889 |
 | `mode:`, `reset:` | `relative`, `false` — l'historique et l'enrichissement tiennent ; ce sont aussi les défauts | D671, D941, D1889 |
 | `sources:` | vingt-trois tables : quatorze lues, neuf `ignored` (les offres, le devis, les libellés, les tranches) — sur les trois cent trente objets du schéma | D947–D952 |
@@ -1631,7 +1631,7 @@ anonymisées (D1065). Les anomalies du modèle vont au concepteur.
 - **l'administrateur** — le tableau de bord `_migration[suivi]` : le
   dernier passage (son état, sa durée), la complétude du schéma et la
   couverture des données en `kpi`, leur courbe nuit après nuit, les
-  compteurs par entité et par règle ; les fichiers de détail des
+  compteurs par entité et par règle ; le détail des
   quatre-vingt-dix dernières nuits ; la ligne d'exécution, elle, sans
   limite (D1068).
 
@@ -2659,9 +2659,9 @@ tel qu'il sortirait aujourd'hui, puis ce que le concepteur ajouterait.
 > | la reprise des contacts | les règles `05_contacts_clients`, `06_contacts_fournisseurs` (la source `CONTACT`) | la reprise, par son privilège ; `migrate` par `delta_nocturne` | les six champs, depuis `cegid` | — | chaque nuit à deux heures |
 > | le rapport des anomalies de la reprise | le `report:` de la source et de la règle | la reprise | les valeurs anonymisées (D1065) | le groupe destinataire, par `smtp` — hors du système | à chaque passage |
 > | l'anonymisation | `rgpd.anonymize` | `administration` | les six champs | — | *non déclarée* |
-> | le nettoyage | `cleanup.yml` | l'environnement | les fichiers de détail de la reprise | — | chaque jour, 90 jours de rétention |
+> | le nettoyage | `retention:` de la base miroir | Syncytium | le détail des passages de la reprise, dans `_migration` | — | 90 jours de rétention |
 >
-> **La rétention** : les fichiers de détail, 90 jours ; les
+> **La rétention** : le détail des passages, 90 jours ; les
 > enregistrements, *non précisée* — aucune règle d'anonymisation
 > déclarée (D1334). **Le lieu** : *non précisé* — aucun `countries:` sur
 > `entrepot` ni sur `smtp`.
@@ -2943,7 +2943,7 @@ D1434.**)*
 > **Les journaux** : la production en `info`, le staging en `debug`
 > (D343) ; un fichier par jour dans `${SYNCYTIUM_LOG_DIRECTORY}`,
 > 128 Mo, dix sauvegardes ; la rétention 30 jours par le nettoyage,
-> les fichiers de détail de la reprise 90 jours.
+> le détail de la reprise 90 jours, par la base miroir.
 >
 > ## 3. Le paramétrage externe
 >
@@ -2961,7 +2961,7 @@ D1434.**)*
 > | `AZURE_CLIENT_SECRET` | l'authentification `azure_ad` | **oui** |
 > | `SMTP_HOST`, `SMTP_FROM` | le connecteur `smtp` | non |
 > | `SMTP_PASSWORD` | le connecteur `smtp` | **oui** |
-> | `SYNCYTIUM_LOG_DIRECTORY`, `SYNCYTIUM_MIGRATION_DIRECTORY` | le journal, les fichiers de la reprise | non |
+> | `SYNCYTIUM_LOG_DIRECTORY` | le journal | non |
 >
 > *Le fichier des variables est créé par `syncytium init` (D1429) ; les
 > quatre confidentielles chiffrées par le wizard (D902).*
@@ -3049,7 +3049,7 @@ disponible » plutôt que « sans objet », rien à compléter.)*
 > | `AZURE_CLIENT_SECRET` *(confidentielle)* | le secret de l'application | le prestataire ; chiffrée |
 > | `SMTP_HOST`, `SMTP_FROM`, `SMTP_PASSWORD` *(confidentielle)* | le serveur d'envoi, l'expéditeur, le mot de passe | le fournisseur de messagerie |
 > | `SYNCYTIUM_URL`, `SYNCYTIUM_PORT` | l'adresse et le port servis (`listen:`) | le déploiement |
-> | `SYNCYTIUM_LOG_DIRECTORY`, `SYNCYTIUM_MIGRATION_DIRECTORY` | le dossier du journal, celui des fichiers de la reprise | le déploiement |
+> | `SYNCYTIUM_LOG_DIRECTORY` | le dossier du journal | le déploiement |
 >
 > **Les environnements** : `production` (1.0.0.0) et `staging`
 > (1.0.0.1), la table du D.A.T. ; **la langue technique** `fr`, écrite

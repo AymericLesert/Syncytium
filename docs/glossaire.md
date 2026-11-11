@@ -64,10 +64,12 @@ par défaut. *(D70, D71)*
 où une reprise de données se construit et se contrôle avant d'être
 reportée dans la base de l'application ; elle vit le temps de la
 migration. Elle ne se déclare pas dans un processus de migration : elle
-sert leur enchaînement, et se nomme dans le fichier de l'environnement,
-par `mirror:`.
-Par défaut c'est un connecteur `memory` ; elle se configure pour une base
-très volumineuse. *(D1044, D1045, D1889, D1890, D1891)*
+sert leur enchaînement, et se déclare dans le fichier de l'environnement,
+par `mirror:`. Le bloc porte `storage:`, son connecteur — par défaut
+`memory`, la classe en mémoire de la famille `storage` ; il se configure
+pour une base très volumineuse —, et `retention:`, la durée pendant
+laquelle le détail des passages se garde — par défaut quatre-vingt-dix
+jours. *(D1044, D1045, D1889–D1892)*
 
 **Boîte de dialogue** — Une fenêtre que l'application dessine dans sa page,
 au-dessus de la surface : un message, puis confirmer ou annuler. C'est une

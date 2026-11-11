@@ -106,11 +106,13 @@ l'application (D1044). Les étapes :
 ### La base miroir et la transaction (D1041–D1046)
 
 - **`mirror:`**, dans le fichier de l'environnement (D1890, D1891 — la clé
-  s'appelait `buffer:`, sur la migration), nomme le connecteur de la base
-  miroir (D1045) : un
+  s'appelait `buffer:`, sur la migration), déclare la base miroir. Sa
+  propriété `storage:` en nomme le connecteur (D1045, D1892) : un
   `storage` dans un schéma donné, ou un connecteur de la classe
-  `memory` qui tient le modèle en mémoire ; le connecteur porte la
-  facette, pas Syncytium.
+  `memory` qui tient le modèle en mémoire, le défaut ; le connecteur
+  porte la facette, pas Syncytium. Sa propriété `retention:` règle la
+  durée pendant laquelle le détail d'un passage se garde,
+  quatre-vingt-dix jours par défaut (D1892).
 - **La base miroir vit le temps de la migration** : le schéma est
   supprimé à la finalisation (D1044). Elle ne reçoit que ce que
   `coverage:` relit ; l'enregistrement non relu qu'une référence
@@ -247,16 +249,17 @@ clé `storage:` de la migration déclarée, son fichier SQLite par passage,
 son chiffrement à part et sa règle au `cleanup.yml` (D1066, D1067, D1072,
 D1073) sont retirés.
 
+- **la rétention** du détail se règle par `retention:`, sous `mirror:`,
+  dans le fichier de l'environnement ; quatre-vingt-dix jours par défaut
+  (D1892) ;
 - **la ligne d'exécution** et ses compteurs restent sans délai (D1068) ;
 - **les données personnelles** (D1065) : le rapport par mail anonymise
   les valeurs des champs marqués `rgpd:` (D696) ; les interfaces du
   module montrent les valeurs complètes, sous les droits de chacun.
 
-*À reprendre à la lecture du chapitre 9* : la durée de rétention du
-détail et le lieu où elle se règle ; ce que deviennent la copie d'un
-environnement `--with-storage` (D1080) et le re-chiffrement à la
-rotation des clés (D1067), qui ne visaient que ces fichiers ; les
-mentions du fichier de détail plus bas dans ce document.
+*À reprendre à la lecture du chapitre 9* : ce que deviennent la copie
+d'un environnement `--with-storage` (D1080) et le re-chiffrement à la
+rotation des clés (D1067), qui ne visaient que ces fichiers.
 
 ## Le modèle
 
@@ -564,8 +567,8 @@ legacy_erp:
 ```
 
 La base miroir ne se déclare pas dans un processus : elle sert leur
-enchaînement, se nomme dans le fichier de l'environnement par `mirror:`,
-et vaut un connecteur `memory` par défaut (D1889–D1891).
+enchaînement, se déclare dans le fichier de l'environnement par
+`mirror:`, et vaut un connecteur `memory` par défaut (D1889–D1892).
 
 ## Les illustrations
 
@@ -644,8 +647,8 @@ migration.
 rang 3) : **la reprise est un traitement d'origine** du registre, par
 règle, quand elle écrit un champ marqué (D1317, D1344) ; **le rapport
 des anomalies par mail est un destinataire externe**, même anonymisé
-(D1065, D1344) ; les fichiers de détail à rétention par le nettoyage
-(D1334) ; la provenance de chaque champ marqué par le graphe source →
+(D1065, D1344) ; le détail des passages à rétention, par `retention:`
+de la base miroir (D1334, D1892) ; la provenance de chaque champ marqué par le graphe source →
 cible, dans la mention et dans la documentation (D1335).
 
 **Le module `_migration`, dans le projet et le support** (la colonne 8
@@ -660,8 +663,8 @@ du guide d'exploitation.
 
 **Le module `_migration`, dans le D.A.T.** (la colonne 4 — le rang 6) :
 emporté par la copie d'un environnement (D1078, D1387) — la relation
-production vers staging du chapitre 2 (D1427) ; les fichiers de détail
-et leur rétention au nettoyage.
+production vers staging du chapitre 2 (D1427) ; le détail des passages
+et sa rétention, par la base miroir (D1892).
 
 **Le module `_migration`, dans le guide d'exploitation** (la colonne 9
 — le rang 7) : il donne au guide ses passages et leurs rapports

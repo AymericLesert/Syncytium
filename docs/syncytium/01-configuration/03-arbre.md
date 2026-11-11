@@ -306,14 +306,22 @@ connectors: ~{connectors.yml}
   Sans bloc `connectors:`, `storage: sqlite` désigne le connecteur
   implicite du mono-poste (D1114).
 - **`mirror:`** : la base miroir, où les migrations se construisent
-  avant de reporter leurs différences (D1044, D1890, D1891). Le bloc
-  porte deux propriétés (D1892), par exemple
-  `mirror: { storage: memory, retention: 5d }` :
+  avant de reporter leurs différences (D1044, D1890, D1891). Elle a
+  deux propriétés (D1892) :
   - `storage:` : le connecteur de la base miroir. Par défaut,
     `memory`, un connecteur en mémoire ; il se configure pour une base
     très volumineuse (D1889) ;
   - `retention:` : la durée pendant laquelle le détail des passages se
-    garde. Par défaut, quatre-vingt-dix jours.
+    garde dans le module `_migration`. Par défaut, quatre-vingt-dix
+    jours ; le nettoyage se fait à chaque début de journée (D1894).
+
+  La clé s'écrit en forme courte ou en bloc (D1894) :
+  - `mirror: temporaire` : le connecteur seul, la rétention par
+    défaut ;
+  - `mirror: temporaire[5d]` : le connecteur, et la rétention entre
+    crochets ;
+  - `mirror: { storage: temporaire, retention: 5d }` : le bloc, qui
+    détaille le connecteur et la durée.
 - **`logging:`** : la journalisation, `~{logging.yml}` (D343, D830). Le
   fichier porte ses clés à la racine, la clé `logging:` nomme déjà la
   section (D1092) : `level:` (`verbose`, `debug`, `info`, `warning`,

@@ -112,7 +112,10 @@ l'application (D1044). Les étapes :
   `memory` qui tient le modèle en mémoire, le défaut ; le connecteur
   porte la facette, pas Syncytium. Sa propriété `retention:` règle la
   durée pendant laquelle le détail d'un passage se garde,
-  quatre-vingt-dix jours par défaut (D1892).
+  quatre-vingt-dix jours par défaut (D1892). La forme courte nomme le
+  connecteur, et la rétention entre crochets : `mirror: temporaire`,
+  `mirror: temporaire[5d]` ; le bloc détaille le storage et la durée
+  (D1894).
 - **La base miroir vit le temps de la migration** : le schéma est
   supprimé à la finalisation (D1044). Elle ne reçoit que ce que
   `coverage:` relit ; l'enregistrement non relu qu'une référence
@@ -251,7 +254,7 @@ D1073) sont retirés.
 
 - **la rétention** du détail se règle par `retention:`, sous `mirror:`,
   dans le fichier de l'environnement ; quatre-vingt-dix jours par défaut
-  (D1892) ;
+  (D1892) ; le nettoyage se fait à chaque début de journée (D1894) ;
 - **la ligne d'exécution** et ses compteurs restent sans délai (D1068) ;
 - **les données personnelles** (D1065) : le rapport par mail anonymise
   les valeurs des champs marqués `rgpd:` (D696) ; les interfaces du
@@ -261,7 +264,7 @@ L'option `--with-storage` de la copie d'un environnement (D1080) et le
 re-chiffrement de ces fichiers à la rotation des clés (D1067) ne
 visaient que le fichier de détail : ils sont retirés avec lui (D1893).
 
-*À reprendre à la lecture du chapitre 9* : les mentions du fichier de
+*À reprendre à la lecture du chapitre 9* (D1894) : les mentions du fichier de
 détail plus bas dans ce document — le champ `fichier` du passage,
 l'en-tête de l'entité `anomalie` — et le champ `buffer` de la migration
 déclarée.
@@ -541,6 +544,7 @@ d'administration (D711) :
   interruption, la relance est manuelle ;
 - **la copie d'un environnement** (D1078–D1080) — `syncytium copy
   <source> <cible>` emporte les données, `_migration` et `_assistance` (D1387) ;
+  le détail des passages suit, dans le module `_migration` (D1894) ;
   l'option `--with-storage` est retirée avec les fichiers de détail
   (D1893) ;
 - **la sandbox** (D921–D922) — `reload` rejoue l'ingestion et la

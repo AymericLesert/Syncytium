@@ -69,7 +69,9 @@ par `mirror:`. Le bloc porte `storage:`, son connecteur — par défaut
 `memory`, la classe en mémoire de la famille `storage` ; il se configure
 pour une base très volumineuse —, et `retention:`, la durée pendant
 laquelle le détail des passages se garde — par défaut quatre-vingt-dix
-jours. *(D1044, D1045, D1889–D1892)*
+jours, le nettoyage à chaque début de journée. La forme courte nomme le
+connecteur, et la rétention entre crochets : `mirror: temporaire`,
+`mirror: temporaire[5d]`. *(D1044, D1045, D1889–D1892, D1894)*
 
 **Boîte de dialogue** — Une fenêtre que l'application dessine dans sa page,
 au-dessus de la surface : un message, puis confirmer ou annuler. C'est une

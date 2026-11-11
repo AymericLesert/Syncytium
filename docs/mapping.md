@@ -885,14 +885,16 @@ coverage:
   qu'elle sert leur enchaînement ; elle se déclare dans le fichier de
   l'environnement (D1890) ; par défaut `storage:` vaut `memory`, la
   classe en mémoire de la famille `storage`, et il se configure pour
-  une base très volumineuse (D1889, D1892) ;
+  une base très volumineuse (D1889, D1892) ; la clé s'écrit aussi en
+  forme courte, `mirror: temporaire` ou `mirror: temporaire[5d]`, la
+  rétention entre crochets (D1894) ;
 - **le détail d'un passage** (D1889 — remplace `storage:` et le
   fichier SQLite de D1066–D1073) : l'état de la migration et ses
   écarts vivent dans le module `_migration`, partitionné par une
   date ; le nettoyage se fait par cette clé de partition, Syncytium
   l'assure ; la durée gardée est `retention:`, sous `mirror:`,
-  quatre-vingt-dix jours par défaut (D1892) ; la ligne d'exécution
-  reste sans délai ;
+  quatre-vingt-dix jours par défaut (D1892), le nettoyage à chaque
+  début de journée (D1894) ; la ligne d'exécution reste sans délai ;
 - **le différentiel par comparaison** (D672, précisé par D1037) :
   évalué **dans la base miroir, avant la bascule** — l'enregistrement
   reconstruit, ses compositions comprises, se compare à la cible par

@@ -442,7 +442,8 @@ syncytium rotate    # re-chiffre le .env et les champs des types chiffrants
 
 **La copie d'un environnement** (D1078–D1080) : la base de l'environnement
 source vers celui de la cible — les données et les modules internes
-`_migration` et `_assistance` avec elles (D1078, D1387). L'option
+`_migration` et `_assistance` avec elles (D1078, D1387) ; le détail des
+passages suit, dans le module `_migration` (D1894). L'option
 `--with-storage`, qui emportait les fichiers de détail des migrations,
 est retirée avec eux (D1889, D1893) :
 

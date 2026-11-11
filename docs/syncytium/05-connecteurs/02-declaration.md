@@ -221,8 +221,9 @@ Le socle trouve ses connecteurs par le nom (D612, D1710) :
 - le storage du modèle est désigné par le fichier de l'environnement,
   `storage: entrepot` (D1094) ;
 - la base miroir des migrations y est désignée de même, par `storage:`
-  sous `mirror:`, ici `temporaire` ; sans cette clé, `memory`, un
-  connecteur en mémoire (D1889–D1892) ;
+  sous `mirror:`, ici `temporaire` ; la forme courte,
+  `mirror: temporaire`, dit la même chose (D1894) ; sans cette clé,
+  `memory`, un connecteur en mémoire (D1889–D1892) ;
 - la base d'origine d'une reprise, par `from:` dans la migration
   (D1087) ;
 - le mail sortant est le connecteur `smtp`, le géocodage `location`,

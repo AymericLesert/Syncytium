@@ -1549,7 +1549,7 @@ Ce que la mise à jour de l'entrepôt produit, où cela vit, qui le lit.
 | la clé | au cas 5 | les décisions |
 |---|---|---|
 | `from:` | `cegid` — la base d'origine, le storage `sqlserver` en lecture ; la base de production lue en direct, une copie au staging | D860, D863, D945 |
-| `mirror:` | `storage: temporaire` — la classe `memory` ; un storage dans un schéma dédié de l'entrepôt conviendrait aussi aux mouvements — et `retention: 90d`, la durée gardée du détail des passages ; depuis le 11/11/2026 la clé s'appelle `mirror:`, se déclare dans le fichier de l'environnement, non plus dans le processus, et porte un bloc | D1044–D1045, D1889–D1892 |
+| `mirror:` | `storage: temporaire` — la classe `memory` ; un storage dans un schéma dédié de l'entrepôt conviendrait aussi aux mouvements — et `retention: 90d`, la durée gardée du détail des passages ; depuis le 11/11/2026 la clé s'appelle `mirror:`, se déclare dans le fichier de l'environnement, non plus dans le processus, et porte un bloc — la forme courte, `mirror: temporaire`, dirait la même chose | D1044–D1045, D1889–D1892, D1894 |
 | `storage:` | retiré le 11/11/2026 : le détail d'un passage vit dans le module `_migration`, partitionné par date, que Syncytium nettoie lui-même | D1889 |
 | `mode:`, `reset:` | `relative`, `false` — l'historique et l'enrichissement tiennent ; ce sont aussi les défauts | D671, D941, D1889 |
 | `sources:` | vingt-trois tables : quatorze lues, neuf `ignored` (les offres, le devis, les libellés, les tranches) — sur les trois cent trente objets du schéma | D947–D952 |
@@ -1652,7 +1652,8 @@ suppressions se jouent alors sur les tables entières.
 
 *Les environnements.* Le staging lit une copie de PMI et tient son
 propre `_migration` ; `syncytium copy production staging` y recopie
-l'entrepôt avec son `_migration` (D1078–D1080).
+l'entrepôt avec son `_migration`, le détail des passages compris
+(D1078–D1080, D1894).
 
 *Ce qui reste servi par défaut* — toutes les autres entités de
 l'entrepôt (D437–D438 : la liste, le formulaire, la composition
@@ -2658,7 +2659,7 @@ tel qu'il sortirait aujourd'hui, puis ce que le concepteur ajouterait.
 > | la reprise des contacts | les règles `05_contacts_clients`, `06_contacts_fournisseurs` (la source `CONTACT`) | la reprise, par son privilège ; `migrate` par `delta_nocturne` | les six champs, depuis `cegid` | — | chaque nuit à deux heures |
 > | le rapport des anomalies de la reprise | le `report:` de la source et de la règle | la reprise | les valeurs anonymisées (D1065) | le groupe destinataire, par `smtp` — hors du système | à chaque passage |
 > | l'anonymisation | `rgpd.anonymize` | `administration` | les six champs | — | *non déclarée* |
-> | le nettoyage | `retention:` de la base miroir | Syncytium | le détail des passages de la reprise, dans `_migration` | — | 90 jours de rétention |
+> | le nettoyage | `retention:` de la base miroir | Syncytium | le détail des passages de la reprise, dans `_migration` | — | chaque début de journée, 90 jours de rétention |
 >
 > **La rétention** : le détail des passages, 90 jours ; les
 > enregistrements, *non précisée* — aucune règle d'anonymisation

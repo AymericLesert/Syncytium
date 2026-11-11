@@ -944,8 +944,10 @@ postures de D180 incarnées.
   garde, par clé d'origine, sa valeur de partition et un hash qui
   compte les lignes modifiées — D1047–D1050 —, et la dernière valeur
   parcourue, pour reprendre depuis la dernière lecture) et **la plage de valeurs** (une
-  période sur une date, un nombre de valeurs ou d'enregistrements
-  sur un numéro) ; **sans `coverage:`, la totalité est relue** —
+  période sur une date ; sur un numéro, un nombre de valeurs
+  distinctes : `LCKTNUMERO[10000]` relit les dix mille derniers
+  numéros distincts, non les dix mille dernières lignes, pour ne pas
+  couper une commande — D1927) ; **sans `coverage:`, la totalité est relue** —
   **l'état se relit en entier, le journal se partitionne** (D1013 : le
   niveau de stock, « au plus 200 000 lignes… sans surcoût », sans
   `coverage:` ni `history:`, les mouvements portant l'histoire ; les
@@ -964,7 +966,7 @@ postures de D180 incarnées.
 coverage: MVCJMVT[month - 3]          # la partition au mois, les trois derniers relus
 
 # sources/commande/ECOMCLI.yml
-coverage: ECKTNUMERO[10000]           # les dix mille derniers
+coverage: ECKTNUMERO[10000]           # les dix mille derniers numéros distincts (D1927)
 
 # la forme riche (D879), équivalente
 coverage:

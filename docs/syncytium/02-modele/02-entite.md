@@ -182,18 +182,27 @@ Le message construit se compose de labels du catalogue des textes du
 moteur (D1944) :
 
 - chaque opérateur a le sien, un gabarit nommé
-  `_syncytium.<opérateur>.validation` (D1945, D1948) ;
+  `_syncytium.<opérateur>.validation` (D1945, D1948). L'opérateur s'y
+  écrit par son nom, non par son signe : `_syncytium.equal.validation`,
+  `_syncytium.in.validation` (D1949) ;
+- le gabarit cite quatre noms : `{left}` et `{right}`, les deux côtés
+  tels qu'ils sont écrits ; `{left_value}` et `{right_value}`, leurs
+  valeurs. Un label d'enveloppe porte la règle et la clé de
+  l'enregistrement (D1949) ;
 - un second label, `_syncytium.<opérateur>.description`, donne la
   traduction littérale d'une règle : la documentation l'emploie, sans
   montrer le code brut ;
 - `not`, `and`, `or` et `xor` assemblent les messages de leurs membres,
-  à gauche et à droite (D1947) ;
+  à gauche et à droite, par leur propre label, `_syncytium.and.validation`
+  (D1947, D1949) ;
 - le projet traduit ou réécrit un label sans toucher au code de
   Syncytium.
 
 `message:` est donc facultatif, dès que le catalogue couvre tous les
 labels dans les langues de la version. Le concepteur l'écrit pour
-surcharger le message construit (D1946).
+surcharger le message construit (D1946). Un label qui manque dans une
+langue de la version est une erreur d'ingestion, comme tout item du
+catalogue (D1163, D1949).
 
 ### Les trois sévérités
 

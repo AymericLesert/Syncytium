@@ -535,7 +535,9 @@ traductions et sa réécriture par le projet se font sans toucher au code
 de Syncytium (D1944). Le label se nomme
 `_syncytium.<opérateur>.validation` ; un second,
 `_syncytium.<opérateur>.description`, donne la traduction littérale
-d'une règle, pour la documentation (D1945, D1948). `not`, `and`, `or` et `xor`
+d'une règle, pour la documentation (D1945, D1948). L'opérateur s'y
+écrit par son nom, `equal`, `in` ; le gabarit cite `{left}`, `{right}`,
+`{left_value}` et `{right_value}` (D1949). `not`, `and`, `or` et `xor`
 assemblent les messages de leurs membres, à gauche et à droite (D1947).
 **Le `message:` est facultatif** dès que le catalogue couvre tous les
 labels ; le concepteur peut le surcharger (D1946 — D1117 l'exigeait dès

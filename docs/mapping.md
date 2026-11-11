@@ -314,7 +314,10 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
   puis la colonne du possesseur à laquelle elle se lie (D1915) —
   `LIGNES: 'list of LCOMCLI[LCKTNUMERO: ECKTNUMERO, LCKTPSF:
   ECKTINDICE]'`. Les deux-points obligent YAML aux guillemets autour
-  de la valeur. Le `parent:` du
+  de la valeur ; le champ s'écrit aussi en bloc, `type:` et
+  `description:` ; un fils qui référence deux fois son possesseur se
+  lie par ses colonnes, plus lisibles que le nom de la référence
+  (D1916). Le `parent:` du
   fils, que D931 donnait à la source, en sort : il reste le mot des
   règles de `mapping/`. Le pré-contrôle (D874) compare les valeurs
   brutes. La référence composée se déclare

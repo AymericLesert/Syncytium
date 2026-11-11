@@ -242,7 +242,9 @@ source (D1937).
 
 Ces informations servent à lire la feuille, pour la migration, et à la
 mettre à jour. La mise à jour est une faculté du storage : le classeur
-se décrit comme un storage, qui lit et qui écrit (D1937).
+se décrit comme un storage, qui lit et qui écrit (D1937). La classe
+`xlsx` est de la famille `storage` : sa lecture et son écriture relèvent
+du contrat du storage, sans grammaire propre (D1938).
 
 Les adresses des cellules s'écrivent dans `connectors.yml`, donc par
 environnement. C'est une limite de l'approche (D1937). Deux cas se
@@ -250,7 +252,7 @@ distinguent :
 
 - la feuille évolue sans changer la nature de ses informations : le
   modèle du classeur ou le document change, et la description du
-  connecteur suit ;
+  connecteur suit, dans l'environnement, sans nouvelle version (D1938) ;
 - la feuille embarque plus d'informations exploitables par
   l'application : la description du connecteur se met à jour, la source
   aussi s'il y en a une, et il faut une nouvelle version.

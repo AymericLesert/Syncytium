@@ -119,11 +119,14 @@ storage source · descriptions des entités sources · mapping }.
 **Un processus de migration se définit pour un connecteur
 d'origine** (D1888) : `from:` le nomme, et plusieurs sources font
 plusieurs processus, que `migration.yml` décrit et nomme. **Ils
-s'exécutent dans l'ordre alphabétique de leurs noms** (D1888) ; avec
-une seule source, le nom peut être celui du connecteur. **L'ordre des
+s'exécutent dans l'ordre alphabétique de leurs noms** (D1888) : le
+concepteur ordonne ses processus selon sa logique, qui ne se déduit
+pas des données (D1905) ; avec une seule source, le nom peut être
+celui du connecteur. **L'ordre des
 entités sous `sources:` n'a pas d'importance** (D1903) : Syncytium
 construit le graphe de dépendance des sources. La validité du graphe
-se mesure à la fin de la lecture complète, parce que les références
+se mesure à la fin de la lecture complète des entités sources du
+processus (D1905), parce que les références
 peuvent former des cycles, comme dans la nomenclature. La déclaration
 se lit par la même logique que les règles sous `mapping:` — la liste
 de haut en bas, un motif trié sur le chemin complet de ses fichiers
@@ -218,7 +221,10 @@ le statut `beta/` (D340) et le dry-run qui n'engage rien (D667) ; la
 version des règles est consignée à chaque passage dans le module
 `migration` (D668). **L'ordre des étapes suit celui de la
 déclaration** (D1900) : la liste se lit de haut en bas, et elle peut
-alterner des fichiers, des descriptions et des motifs. **Un motif se
+alterner des fichiers, des descriptions et des motifs. Une description
+est une carte en ligne, écrite sur place (D968, D1905). Les règles
+gardent cet ordre, que Syncytium ne réordonne pas : c'est le
+concepteur qui le maîtrise (D1905). **Un motif se
 trie sur le chemin complet de ses fichiers**, dans l'ordre
 alphanumérique, et non sur le seul nom du fichier ; les fichiers triés
 s'insèrent à la position du motif dans la déclaration (D665, D1900) —

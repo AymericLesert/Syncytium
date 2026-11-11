@@ -237,8 +237,23 @@ Une colonne de la carte porte :
 Le connecteur expose ainsi les colonnes et leurs types par la description
 de ses entités. La migration exploite cette exposition : ses `sources/`
 n'ajoutent que ce que le connecteur ne porte pas, une description, une
-colonne calculée. Ces informations servent à lire la feuille, pour la
-migration, et à la mettre à jour.
+colonne calculée. Une colonne qui n'ajoute rien ne s'écrit pas dans la
+source (D1937).
+
+Ces informations servent à lire la feuille, pour la migration, et à la
+mettre à jour. La mise à jour est une faculté du storage : le classeur
+se décrit comme un storage, qui lit et qui écrit (D1937).
+
+Les adresses des cellules s'écrivent dans `connectors.yml`, donc par
+environnement. C'est une limite de l'approche (D1937). Deux cas se
+distinguent :
+
+- la feuille évolue sans changer la nature de ses informations : le
+  modèle du classeur ou le document change, et la description du
+  connecteur suit ;
+- la feuille embarque plus d'informations exploitables par
+  l'application : la description du connecteur se met à jour, la source
+  aussi s'il y en a une, et il faut une nouvelle version.
 
 Dans le cas 3 (véhicule), `environments/home/connectors.yml` déclare une
 feuille-formulaire :

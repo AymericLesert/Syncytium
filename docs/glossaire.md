@@ -130,6 +130,12 @@ question et chaque réponse sont tracées dans une **session
 d'échanges**, adossée à un module — une session par module et par
 utilisateur. *(D957–D959)*
 
+**Classeur** — Un fichier de feuilles de calcul lu comme une source de
+format : Excel, par la classe `xlsx`, et derrière lui les formats libres
+d'OpenOffice et les feuilles en ligne comme Google Sheets. La carte
+`entities:` du connecteur dit sa lecture : la plage, `range:`, ou la
+feuille-formulaire, `single:`. *(D846–D848, D1932)*
+
 **Classe de connecteur** (`class`) — L'implémentation d'une famille :
 `postgresql`, `ban`, `smtp_std`… Elle remplit le contrat de sa famille,
 expose ses paramètres, le nom, le type, le défaut, la marque du secret,

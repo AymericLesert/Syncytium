@@ -13,6 +13,7 @@ trouvent le connecteur qu'ils emploient.
   - [Les secrets](#les-secrets)
   - [Le rythme, `every:`](#le-rythme-every)
   - [La base d'origine d'une reprise](#la-base-dorigine-dune-reprise)
+  - [Les classeurs : Excel et les formats voisins](#les-classeurs--excel-et-les-formats-voisins)
 - [Le câblage](#le-câblage)
   - [Le socle, par le nom](#le-socle-par-le-nom)
   - [Le hook, par `uses:`](#le-hook-par-uses)
@@ -208,6 +209,57 @@ legacy:
   entities:
     budget: [budget.txt, budget-clos.txt]
 ```
+
+### Les classeurs : Excel et les formats voisins
+
+Un classeur se lit comme une source de format, par la classe `xlsx`
+(D846–D848, D1932). Derrière Excel, la même lecture vaut pour les formats
+libres d'OpenOffice et pour les feuilles en ligne, comme Google Sheets :
+un fichier, des feuilles, des cellules. Leurs classes restent à nommer.
+
+La carte `entities:` dit, pour chaque entité, ses fichiers et sa lecture :
+
+- **`files:`** : la liste ou le motif des classeurs ;
+- **`range:`** : la plage, au nommage d'Excel, `FEUILLE!A3:H`. Sa première
+  ligne porte les entêtes, comme pour un CSV ; `headers:` les remplace ;
+- **`single: true`** : un seul enregistrement par classeur. C'est la
+  feuille-formulaire, dont chaque cellule s'adresse une à une.
+
+La borne d'une plage a trois formes (D848) :
+
+- explicite, `A3:H100` ;
+- `...`, comme `A8:G...` : l'arrêt à la première ligne vide sur toutes
+  les colonnes ;
+- ouverte, `A3:H` : la fin de la feuille, les lignes vides sautées.
+
+Une liste de plages se replie sur la première qui existe (D847). Dans le
+cas 3 (véhicule), `environments/home/connectors.yml` :
+
+```yaml
+    # Les tableaux en plage ouverte
+    # La ligne vide qui suit l'entête interdit « ... » ; la plage de l'entretien borne d'elle-même le bloc droit aux
+    # entêtes homonymes.
+    consommation:
+      files: [ '.*\.xlsx?' ]
+      range: CONSOMMATION!A3:H
+    entretien:
+      files: [ '.*\.xlsx?' ]
+      range: ENTRETIEN!A3:H
+
+    # L'échéancier, le même format sur deux feuilles
+    # La première plage existante sert ; « ... » s'arrête à la première ligne vide.
+    echeance:
+      files: [ '.*\.xlsx?' ]
+      range:
+        - CREDIT!A8:G...
+        - LOA!A3:G...
+```
+
+La cellule d'une feuille-formulaire s'adresse par `reference:`,
+`IDENTIFICATION!B1`. Cette propriété se déclare dans la carte du
+connecteur : le connecteur expose les colonnes et leurs types par la
+description de ses entités, et la migration exploite cette exposition
+(D1933).
 
 ## Le câblage
 

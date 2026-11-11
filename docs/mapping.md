@@ -532,9 +532,13 @@ l'enregistrement ; la `description:` n'y entre pas, un `message:` explicite
 l'emporte. Le message construit se compose d'un label par opérateur, un
 gabarit du catalogue des textes du moteur : sa mise en forme, ses
 traductions et sa réécriture par le projet se font sans toucher au code
-de Syncytium (D1944). **Avec plusieurs langues** (D1101), le `message:` est exigé, par
-langue, sur chaque validation : sinon une erreur d'ingestion, et la forme
-courte est refusée.
+de Syncytium (D1944). Le label se nomme `_<opérateur>.validation` ;
+`_<opérateur>` peut porter d'autres labels, comme la traduction littérale
+d'une règle, utile à la documentation (D1945). `not`, `and`, `or` et `xor`
+assemblent les messages de leurs membres, à gauche et à droite (D1947).
+**Le `message:` est facultatif** dès que le catalogue couvre tous les
+labels ; le concepteur peut le surcharger (D1946 — D1117 l'exigeait dès
+que la version avait plusieurs langues).
 
 ```yaml
 # migration/mapping/4_commande/04_lignes_achats.yml — la description, les formes longues (D1105/D1106)

@@ -176,9 +176,21 @@ de reprise (D1105).
 
 Le `message:` est un gabarit qui cite les valeurs, `{date_vente}`
 (D1106). Sans lui, à l'échec, Syncytium construit le message : la règle,
-les valeurs des champs qu'elle cite, la clé de l'enregistrement. Avec
-plusieurs langues, `message:` est exigé, par langue, et la forme courte
-est refusée.
+les valeurs des champs qu'elle cite, la clé de l'enregistrement.
+
+Le message construit se compose de labels du catalogue des textes du
+moteur (D1944) :
+
+- chaque opérateur a le sien, un gabarit nommé
+  `_<opérateur>.validation` (D1945) ;
+- `not`, `and`, `or` et `xor` assemblent les messages de leurs membres,
+  à gauche et à droite (D1947) ;
+- le projet traduit ou réécrit un label sans toucher au code de
+  Syncytium.
+
+`message:` est donc facultatif, dès que le catalogue couvre tous les
+labels dans les langues de la version. Le concepteur l'écrit pour
+surcharger le message construit (D1946).
 
 ### Les trois sévérités
 

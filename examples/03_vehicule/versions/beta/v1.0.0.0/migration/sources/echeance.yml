@@ -8,31 +8,12 @@ name: echeance
 description: Les échéances du financement — la ligne des tableaux CREDIT ou LOA
 
 # Les colonnes
-# La plaque vient d'un autre onglet, la jointure au véhicule ; chaque colonne porte son entête.
+# Le connecteur expose les colonnes de la plage, chacune par son entête, et la plaque, lue sur un autre onglet pour
+# la jointure au véhicule ; la source ajoute des descriptions.
 fields:
 
   immatriculation:
-    type: text[..12]
-    reference: IDENTIFICATION!E1
     description: La plaque du classeur.
 
-  date:
-    type: date
-    label: Date
-
   interet:
-    type: decimal
-    label: Intérêt
     description: Vide pour la LOA.
-
-  amortissement:
-    type: decimal
-    label: Amortissement
-
-  assurance:
-    type: decimal
-    label: Assurance
-
-  mensualite:
-    type: decimal
-    label: Mensualité

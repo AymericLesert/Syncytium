@@ -7,17 +7,12 @@ name: titre_consommation
 description: Le titre de la feuille de consommation — thermique ou électrique
 
 # Les colonnes
-# La plaque vient d'un autre onglet, la jointure au véhicule ; le calculé tire le type du titre.
+# Le connecteur expose la plaque, lue sur un autre onglet pour la jointure au véhicule, et le titre ; la source
+# ajoute une description et le calculé qui tire le type du titre.
 fields:
 
   immatriculation:
-    type: text[..12]
-    reference: IDENTIFICATION!E1
     description: La plaque du classeur.
-
-  titre:
-    type: text[..60]
-    reference: CONSOMMATION!A1
 
   type_vehicule:
     formula: '"electrique" if titre like ".*ELECTRIC.*" else "thermique"'

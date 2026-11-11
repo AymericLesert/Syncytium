@@ -223,7 +223,65 @@ La carte `entities:` dit, pour chaque entité, ses fichiers et sa lecture :
 - **`range:`** : la plage, au nommage d'Excel, `FEUILLE!A3:H`. Sa première
   ligne porte les entêtes, comme pour un CSV ; `headers:` les remplace ;
 - **`single: true`** : un seul enregistrement par classeur. C'est la
-  feuille-formulaire, dont chaque cellule s'adresse une à une.
+  feuille-formulaire, dont chaque cellule s'adresse une à une ;
+- **`fields:`** : les colonnes que l'entité expose (D1933, D1936).
+
+Une colonne de la carte porte :
+
+- **`type:`** : son type ;
+- **`reference:`** : sa cellule. C'est l'adresse d'Excel,
+  `IDENTIFICATION!B1`, ou le nom d'une cellule nommée dans le classeur ;
+- **`label:`** : son entête dans la plage, quand la colonne se lit dans un
+  tableau.
+
+Le connecteur expose ainsi les colonnes et leurs types par la description
+de ses entités. La migration exploite cette exposition : ses `sources/`
+n'ajoutent que ce que le connecteur ne porte pas, une description, une
+colonne calculée. Ces informations servent à lire la feuille, pour la
+migration, et à la mettre à jour.
+
+Dans le cas 3 (véhicule), `environments/home/connectors.yml` déclare une
+feuille-formulaire :
+
+```yaml
+    # Les feuilles-formulaires, un enregistrement par classeur
+    identification:
+      files: [ '.*\.xlsx?' ]
+      single: true
+
+      # Les colonnes
+      # Sept cellules de la feuille IDENTIFICATION ; l'image s'adresse à la feuille, son ancre varie d'un classeur à
+      # l'autre.
+      fields:
+
+        nom:
+          type: text[..40]
+          reference: IDENTIFICATION!B1
+
+        immatriculation:
+          type: text[..12]
+          reference: IDENTIFICATION!E1
+
+        mode_achat:
+          type: text[..40]
+          reference: IDENTIFICATION!H1
+
+        lieu_achat:
+          type: text[..60]
+          reference: IDENTIFICATION!H2
+
+        date_debut:
+          type: date
+          reference: IDENTIFICATION!K1
+
+        date_fin:
+          type: date
+          reference: IDENTIFICATION!K2
+
+        photo:
+          type: image
+          reference: IDENTIFICATION
+```
 
 La borne d'une plage a trois formes (D848) :
 
@@ -232,20 +290,11 @@ La borne d'une plage a trois formes (D848) :
   les colonnes ;
 - ouverte, `A3:H` : la fin de la feuille, les lignes vides sautées.
 
-Une liste de plages se replie sur la première qui existe (D847). Dans le
-cas 3 (véhicule), `environments/home/connectors.yml` :
+Une liste de plages se replie sur la première qui existe (D847). Une
+plage peut mêler une cellule d'un autre onglet, répétée sur chaque ligne.
+Le même fichier déclare l'échéancier :
 
 ```yaml
-    # Les tableaux en plage ouverte
-    # La ligne vide qui suit l'entête interdit « ... » ; la plage de l'entretien borne d'elle-même le bloc droit aux
-    # entêtes homonymes.
-    consommation:
-      files: [ '.*\.xlsx?' ]
-      range: CONSOMMATION!A3:H
-    entretien:
-      files: [ '.*\.xlsx?' ]
-      range: ENTRETIEN!A3:H
-
     # L'échéancier, le même format sur deux feuilles
     # La première plage existante sert ; « ... » s'arrête à la première ligne vide.
     echeance:
@@ -253,13 +302,35 @@ cas 3 (véhicule), `environments/home/connectors.yml` :
       range:
         - CREDIT!A8:G...
         - LOA!A3:G...
-```
 
-La cellule d'une feuille-formulaire s'adresse par `reference:`,
-`IDENTIFICATION!B1`. Cette propriété se déclare dans la carte du
-connecteur : le connecteur expose les colonnes et leurs types par la
-description de ses entités, et la migration exploite cette exposition
-(D1933).
+      # Les colonnes
+      # La plaque, une cellule d'un autre onglet répétée sur chaque ligne, puis les colonnes de la plage.
+      fields:
+
+        immatriculation:
+          type: text[..12]
+          reference: IDENTIFICATION!E1
+
+        date:
+          type: date
+          label: Date
+
+        interet:
+          type: decimal
+          label: Intérêt
+
+        amortissement:
+          type: decimal
+          label: Amortissement
+
+        assurance:
+          type: decimal
+          label: Assurance
+
+        mensualite:
+          type: decimal
+          label: Mensualité
+```
 
 ## Le câblage
 

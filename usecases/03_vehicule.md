@@ -8,6 +8,13 @@ dépôt `examples/03_vehicule/` écrit pour de vrai) et **les manques**
 (chaque frottement devient une décision). Les décisions citées
 renvoient à [../docs/conception.md](../docs/conception.md).*
 
+*Depuis le 11/11/2026, les colonnes lues dans un classeur — leur type, leur
+cellule (`reference:`), leur entête (`label:`) — se déclarent dans la carte
+`entities:` du connecteur `legacy` ; les fichiers de `sources/` n'ajoutent que
+ce que le connecteur ne porte pas, les descriptions et les calculés (D1933,
+D1936). Les passages datés ci-dessous gardent l'écriture de leur date : la
+facette `reference:` sur la colonne d'une source.*
+
 ## Le contexte (D826)
 
 - **le foyer** suit ses véhicules — « un projet plus simple » que le

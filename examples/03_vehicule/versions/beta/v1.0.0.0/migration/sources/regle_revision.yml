@@ -7,17 +7,12 @@ name: regle_revision
 description: La règle de révision du classeur — le pas en kilomètres
 
 # Les colonnes
-# La plaque vient d'un autre onglet, la jointure au véhicule ; le calculé tire le pas du titre.
+# Le connecteur expose la plaque, lue sur un autre onglet pour la jointure au véhicule, et le titre ; la source
+# ajoute une description et le calculé qui tire le pas du titre.
 fields:
 
   immatriculation:
-    type: text[..12]
-    reference: IDENTIFICATION!E1
     description: La plaque du classeur.
-
-  titre:
-    type: text[..60]
-    reference: ENTRETIEN!I1
 
   pas_km_n:
     formula: round(extract(titre, "tous les ([0-9.]+) km") * 1000)

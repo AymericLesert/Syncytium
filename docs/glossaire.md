@@ -134,7 +134,9 @@ utilisateur. *(D957–D959)*
 format : Excel, par la classe `xlsx`, et derrière lui les formats libres
 d'OpenOffice et les feuilles en ligne comme Google Sheets. La carte
 `entities:` du connecteur dit sa lecture : la plage, `range:`, ou la
-feuille-formulaire, `single:`. *(D846–D848, D1932)*
+feuille-formulaire, `single:`, et ses colonnes, `fields:`, chacune avec
+son type et sa cellule, `reference:`, ou son entête, `label:`.
+*(D846–D848, D1932, D1933, D1936)*
 
 **Classe de connecteur** (`class`) — L'implémentation d'une famille :
 `postgresql`, `ban`, `smtp_std`… Elle remplit le contrat de sa famille,

@@ -9,41 +9,22 @@ name: consommation
 description: Les lignes de ravitaillement — le plein du thermique, la charge de l'électrique
 
 # Les colonnes
-# La plaque vient d'une cellule d'un autre onglet, répétée sur chaque ligne : la jointure des règles au véhicule. Les
-# calculés de normalisation, en fin de liste, réunissent les colonnes du thermique et de l'électrique.
+# Le connecteur expose les colonnes de la plage et la plaque, une cellule d'un autre onglet répétée sur chaque
+# ligne : la jointure des règles au véhicule. La source ajoute des descriptions et les calculés de normalisation,
+# qui réunissent les colonnes du thermique et de l'électrique.
 fields:
 
   immatriculation:
-    type: text[..12]
-    reference: IDENTIFICATION!E1
     description: La plaque du classeur.
 
-  date:
-    type: date
-    label: Date
-
   total_km:
-    type: integer
-    label: Total Km
     description: Le compteur au ravitaillement.
 
   nb_litres:
-    type: decimal
-    label: Nb Litres
     description: Le thermique.
 
   charge:
-    type: decimal
-    label: Charge électrique
     description: L'électrique.
-
-  prix_litre:
-    type: decimal
-    label: Prix au Litre
-
-  prix_kwh:
-    type: decimal
-    label: Prix au KwH
 
   quantite_n:
     formula: ifnull(nb_litres, charge)

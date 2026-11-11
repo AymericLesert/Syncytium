@@ -121,7 +121,7 @@ Le chapitre a deux parties (D1887) : la reprise — le cadre (2–3), la source
 puis la migration de version (13–16) ; les exemples, la facette et le
 registre le ferment (17–19). Une troisième section est ouverte par l'auteur :
 le remplacement silencieux d'une application existante, dont les points se
-dégageront à son ouverture (D1907). Le chapitre définit ce que le concepteur écrit
+dégageront à son ouverture (D1907, D1908). Le chapitre définit ce que le concepteur écrit
 (D1879) ; ce qui le quitte : toutes les conversions et l'exécution d'un
 passage, vers le chapitre 9 — les six points du passage y sont partis
 (D1880, D1881) — ; le contrat de compatibilité vu de l'API, vers le

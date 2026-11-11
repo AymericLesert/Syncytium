@@ -846,9 +846,21 @@ cas, seul le méta-modèle sera à construire à partir de l'analyse d'une
 base de données existante afin que la migration silencieuse se fasse en
 toute transparence. »
 
-Ce mode peut faire l'objet d'une troisième section du chapitre, après la
-reprise et la migration de version. Ses points se dégageront à son
-ouverture.
+La migration silencieuse garde son sens (D1908) : c'est la migration
+que Syncytium porte lui-même.
+
+- **Entre deux versions**, elle est silencieuse parce que Syncytium la
+  porte directement : sans règle sous `exchange:`, elle se déduit et
+  s'effectue sans intervention du concepteur.
+- **Pour la reprise d'une application existante**, une commande de
+  `syncytium` peut analyser le modèle de données d'une base, puis
+  construire un méta-modèle, déduit automatiquement de la description
+  d'une instance d'un connecteur. Le fichier obtenu permet de poser
+  Syncytium sur le modèle existant, puis de prendre le relais de
+  l'ancienne application, « un peu comme un parasite ».
+
+Ce mode peut faire l'objet d'une troisième section du chapitre. Ses
+points se dégageront à son ouverture.
 
 ## Le dry-run à deux modes (D649)
 

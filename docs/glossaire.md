@@ -761,12 +761,12 @@ les écarts entre les deux versions, à chaud ; le concepteur n'écrit que ce
 que le calcul ne devine pas, comme un renommage. *(D3, D5, D632, D647,
 D1882)*
 
-**Migration silencieuse** — Le remplacement d'une application existante
-par une application écrite avec Syncytium, sans migration de données : les
-modules, les entités et les champs ont un mapping simple, et seul le
-méta-modèle est à construire, à partir de l'analyse de la base existante.
-Le mot désigne aussi, pour un storage, l'enchaînement qui change un
-schéma sans arrêt : créer, migrer, basculer, supprimer. *(D631, D1907)*
+**Migration silencieuse** — La migration que Syncytium porte lui-même,
+sans intervention du concepteur. Entre deux versions : sans règle sous
+`exchange:`, elle se déduit et s'effectue seule. Pour une application
+existante : une commande analyse le modèle de données de sa base et
+construit le méta-modèle ; Syncytium se pose sur le modèle existant et
+prend le relais, sans migration de données. *(D631, D1907, D1908)*
 
 **Mode d'un champ** (`mode`) — Son mode d'écriture : modifiable
 (`editable`), lecture seule (`read-only`), écrit une fois pour toutes

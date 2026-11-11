@@ -306,14 +306,17 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
   casse, le transcodage s'écrivent sur la description de la source
   (`formula:`), et le mapping consomme le champ calculé comme une
   colonne ;
-- **le `parent:` du fils** (D931 — la forme de la surcharge D877) :
-  quand la convention du connecteur (D876 — les colonnes d'identité
-  aux noms identiques) ne trouve pas le lien d'une composition, le
-  fils nomme les colonnes du possesseur, la même carte que la règle
-  (`parent: { ARTICLE: { ARKTCODART: NOKTCODPF, ARKTCOMART:
-  NOKTCOMPF } }`) ; quand elle tient, il s'omet ; la composition reste
-  déclarée chez le possesseur (`list of`, D399/D869) ; le pré-contrôle
-  (D874) compare les valeurs brutes. La référence composée se déclare
+- **la composition, chez le possesseur** (D399, D869, D1913, D1914) :
+  la table d'appartenance déclare `list of <fils>` dans un champ qui
+  n'est pas une colonne ; le fils ne déclare rien. Quand la convention
+  du connecteur (D876 — les colonnes d'identité aux noms identiques)
+  ne trouve pas le lien, les crochets le donnent, la colonne du
+  possesseur puis celle du fils : `LIGNES: list of
+  LCOMCLI[ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF]`. Les deux-points
+  obligent YAML aux guillemets autour de la valeur. Le `parent:` du
+  fils, que D931 donnait à la source, en sort : il reste le mot des
+  règles de `mapping/`. Le pré-contrôle (D874) compare les valeurs
+  brutes. La référence composée se déclare
   colonne par colonne (`NOCTCODECP: ARTICLE.ARKTCODART`, la dépendance
   D648) — les colonnes qui dépendent des champs d'identité d'une même
   entité forment une référence, dans l'ordre de cette identité ;
@@ -325,9 +328,8 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
   ARTICLE[COMPOSANT].ARKTCODART`) et les colonnes du même nom forment
   une référence — « un identifiant/alias de ARTICLE qui lie les
   identifiants à fournir pour retrouver la référence » ; la référence
-  unique garde la forme simple ; `parent:` peut désigner la référence
-  nommée (`parent: ARTICLE[PRODUIT]`) au lieu de la carte des colonnes
-  (*en proposition*) ; **la référence à l'une de deux entités** (D996)
+  unique garde la forme simple ; **la référence à l'une de deux
+  entités** (D996)
   : quand la colonne peut viser l'une ou l'autre, `ARCTNOFOU1:
   FOURNIS.CLKTCODE or CLIENT.CLKTCODE` — « le premier des 2 qui
   matchent fait le lien » : le `or` sert le contrôle avant la

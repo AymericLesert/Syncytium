@@ -21,10 +21,6 @@ report:
   to: [bureau_etudes]
   by: [notification, mail]
 
-# Le possesseur d'une ligne
-# L'article produit, par la référence nommée PRODUIT ; une ligne dont le produit est inconnu est isolée.
-parent: ARTICLE[PRODUIT]
-
 # Les colonnes
 # Chaque colonne lue porte son type et sa description ; une colonne écartée porte ignored: true et son motif ; les
 # colonnes que la table ne cite pas ne sont pas lues.

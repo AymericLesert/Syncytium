@@ -309,3 +309,12 @@ fields:
   famille_code:
     description: Le code de famille sans son drapeau de périssable.
     formula: left(ARCTCODFAM, 3)
+
+  # Les compositions
+  NOMENCLATURE:
+    type: 'list of NOMENC[ARKTCODART: NOKTCODPF, ARKTCOMART: NOKTCOMPF]'
+    description: Les lignes de nomenclature de l'article produit ; une ligne dont le produit est inconnu est isolée.
+
+  TARIFS:
+    type: 'list of TARIF[ARKTCODART: TAKTCODART, ARKTCOMART: TAKTCOMART]'
+    description: Les tarifs de l'article ; un tarif retrouve son article par le code et le complément.

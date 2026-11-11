@@ -137,3 +137,8 @@ fields:
   numero:
     description: Le numéro de la commande en nombre.
     formula: integer(ECKTNUMERO)
+
+  # Les compositions
+  LIGNES:
+    type: 'list of LCOMCLI[ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF]'
+    description: Les lignes de la commande ; une ligne retrouve sa commande par le numéro et l'indice.

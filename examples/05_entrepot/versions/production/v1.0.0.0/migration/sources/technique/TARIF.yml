@@ -20,11 +20,6 @@ report:
   to: [commercial, achats]
   by: [notification, mail]
 
-# Le possesseur d'une ligne
-# L'article du tarif, par son code et son complément.
-parent:
-  ARTICLE: { ARKTCODART: TAKTCODART, ARKTCOMART: TAKTCOMART }
-
 # Les colonnes
 # Chaque colonne lue porte son type et sa description ; une colonne écartée porte ignored: true et son motif ; les
 # colonnes que la table ne cite pas ne sont pas lues.

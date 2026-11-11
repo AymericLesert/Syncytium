@@ -318,7 +318,9 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
   D648) — les colonnes qui dépendent des champs d'identité d'une même
   entité forment une référence, dans l'ordre de cette identité ;
   **la référence nommée** (D995) : quand la même entité est référencée
-  plusieurs fois, chaque référence porte un nom entre crochets
+  plusieurs fois, chaque référence porte un nom entre crochets — un
+  nom libre, sensible à la casse ; l'entrepôt garde les majuscules de
+  ses entités sources (D1913) —
   (`NOKTCODPF: ARTICLE[PRODUIT].ARKTCODART`, `NOCTCODECP:
   ARTICLE[COMPOSANT].ARKTCODART`) et les colonnes du même nom forment
   une référence — « un identifiant/alias de ARTICLE qui lie les
@@ -328,9 +330,9 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
   (*en proposition*) ; **la référence à l'une de deux entités** (D996)
   : quand la colonne peut viser l'une ou l'autre, `ARCTNOFOU1:
   FOURNIS.CLKTCODE or CLIENT.CLKTCODE` — « le premier des 2 qui
-  matchent fait le lien » ; le pré-contrôle (D874) s'en contente, la
-  règle du mapping route la valeur vers un champ typé qui fait la
-  résolution finale (*en proposition*).
+  matchent fait le lien » : le `or` sert le contrôle avant la
+  migration (D874) ; à l'affectation, le premier trouvé est la valeur
+  (D1913).
 - **la lecture d'une autre table par un calculé** (D965) — à la
   source, **l'entité décrite est une collection** : un champ calculé
   lit une valeur ou une liste de valeurs dans une autre table par les

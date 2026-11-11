@@ -294,8 +294,8 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
   **volontaire**. Ce n'est pas un type : il s'écrit en forme courte,
   `audit_log: ignored`, `ref_ext: ignored`, ou en bloc, par la
   propriété `ignored: true` — `false` par défaut. **Trois états pour une colonne comme pour une
-  table** (D869/D947) : lue (typée, renvoyée à son champ), ignorée
-  (citée `ignored`, avec son motif), **non lue** (absente de la
+  table** (D869/D947) : lue (typée), ignorée (citée `ignored`, son
+  motif recommandé en description), **non lue** (absente de la
   description — Syncytium la relève au rapport de migration, le point
   à creuser D868) ; la complétude (D861) se mesure au schéma réel, la
   description n'a pas à citer chaque colonne. **Un fichier par entité
@@ -399,10 +399,12 @@ customer_notes:
 audit_log: ignored
 ```
 
-**La colonne décrite (D1100–D1101).** Ce que la documentation doit
-porter s'écrit en propriété, pas en commentaire : chaque colonne lue
-porte son `type:` et sa `description:` — le sens de la colonne dans le
-système d'origine ; le champ qu'elle alimente se lit dans les règles,
+**La colonne décrite (D1100–D1101, D1910).** Ce que la documentation
+doit porter s'écrit en propriété, pas en commentaire : chaque colonne
+lue porte son `type:` ; sa `description:` — le sens de la colonne dans
+le système d'origine — est une recommandation, non une obligation :
+elle relève de la complétude de la documentation, qui la relève quand
+elle manque (D1910) ; le champ qu'elle alimente se lit dans les règles,
 il ne se redit pas ; une colonne écartée s'écrit en forme courte,
 `<colonne>: ignored`, ou en bloc, `ignored: true` et son motif en
 description ; une table écartée de même (D1909).

@@ -141,6 +141,48 @@ migrations:
       - ~{old_crm/mapping/.*\.yml}
 ```
 
+**La forme courte d'un processus** (D1895, D1896) sert la reprise un
+pour un. Un storage sait se décrire : `get_instance()` rend ses entités
+et leurs champs (D1299) ; pour un CSV, ce sont les entités de la carte
+`entities:`, et la ligne d'entête nomme les colonnes (D829, D845). Cette
+description s'exploite par un mapping champ à champ. Le processus
+s'écrit alors en une valeur, le nom du connecteur d'origine :
+
+```yaml
+# La migration legacy
+# La reprise un pour un : le connecteur se décrit, chaque entité alimente l'entité du modèle de même nom, chaque
+# colonne le champ de même nom.
+legacy: fichier_csv
+```
+
+Cette forme associe toutes les entités du connecteur `fichier_csv` au
+storage de l'application. Pour ne nommer que l'entité concernée par le
+processus, elle s'écrit entre crochets :
+
+```yaml
+# La migration legacy
+# La reprise de la seule entité client du connecteur.
+legacy: fichier_csv[client]
+```
+
+Les règles de la forme courte (D1896) :
+
+- **les deux absences sont indépendantes** : sans `sources:`, le
+  connecteur se décrit ; sans `mapping:`, le mapping est champ à champ.
+  Le concepteur écrit `sources:` seul pour apporter une précision, un
+  `mask:` par exemple ; le processus s'écrit alors en bloc, `from:`
+  nomme le connecteur ;
+- **la conversion** est portée par le type de destination, celui du
+  champ dans le modèle ; sans `mask:`, c'est lui qui convertit la
+  valeur lue ;
+- **la colonne sans champ de même nom** n'est pas lue ; elle se relève
+  à la complétude ;
+- **le champ sans colonne de même nom** prend sa valeur par défaut sur
+  une ligne nouvelle ; sur une ligne modifiée, il garde sa valeur ;
+- **le champ requis sans colonne** refuse une ligne nouvelle, jamais
+  une ligne modifiée ;
+- **l'ordre des entités** est celui des dépendances du modèle.
+
 **La migration référence ses fichiers par patterns** (D664 — le
 patron multi-fichiers de D320–D321) : un fichier par entité source,
 un fichier par règle de migration ; l'organisation des dossiers est

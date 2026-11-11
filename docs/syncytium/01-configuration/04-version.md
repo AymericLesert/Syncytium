@@ -548,7 +548,10 @@ antérieure, c'est la migration de version. Le dossier range les deux :
 - `migration.yml` décrit et nomme les processus de migration, un par
   connecteur d'origine (D662, D1888) : `from:` la base d'origine
   (D1087), `mode:` et `reset:`, `relative` et `false` par défaut
-  (D671, D1889), `sources:` (D1884), `mapping:`, `operations:` ;
+  (D671, D1889), `sources:` (D1884), `mapping:`, `operations:` ; une
+  reprise un pour un s'écrit en forme courte, `legacy: fichier_csv` ou
+  `legacy: fichier_csv[client]` : le connecteur se décrit, le mapping
+  est champ à champ (D1895, D1896) ;
 - `sources/<TABLE>.yml` décrit chaque entité d'origine (D947, D966) :
   `name`, `alias`, `filter`, `identity`, `coverage`, `parent`, `fields`,
   `validation` ; une colonne typée `TABLE.colonne` est une référence,

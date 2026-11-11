@@ -12,6 +12,13 @@ constructeurs, ses conversions. Elles sont décrites à sa fiche, dans
 décrit les autres : celles du texte, les fonctions libres, et les
 fonctions que le concepteur ajoute.
 
+Une fonction qu'un type porte s'écrit de deux façons (D1919, D1922) :
+
+- en fonction, la valeur en premier argument : `trim(t)`, `left(t, 3)` ;
+- en méthode de la valeur : `t.trim()`, `t.left(3)`.
+
+Les deux écritures se valent.
+
 ## Le sommaire
 
 - [Les fonctions du texte](#les-fonctions-du-texte)
@@ -24,14 +31,14 @@ fonctions que le concepteur ajoute.
 Le type `text` emmène ses fonctions (D579, D934). Le registre le dit :
 « trim, upper, right, mid, … doivent figurer au catalogue sur un champ
 texte ». Les règles de migration, les calculés et les normalisations les
-emploient.
+emploient. Chacune s'écrit aussi en méthode du texte : `me.trim()`,
+`me.upper()`, `Designation.left(40)` (D1922).
 
 **Nettoyer un texte** :
 
-- `trim(t)` retire les blancs de tête et de fin (D870, D872) ; il
-  s'écrit aussi en méthode de la valeur, `me.trim()` (D1919). Les deux
-  écritures se valent ; dans une normalisation, la méthode est
-  préférée, `normalize: me.trim()` (D1921) ;
+- `trim(t)` retire les blancs de tête et de fin (D870, D872) ; dans une
+  normalisation, la méthode est préférée, `normalize: me.trim()`
+  (D1921) ;
 - `upper(t)` et `lower(t)` changent la casse (D656).
 
 **Découper un texte** :
@@ -48,7 +55,7 @@ emploient.
   caractères ; un texte plus long reste tel quel (D1567).
 
 `lpad(me, 4, "0")` met un code sur quatre positions, comme
-`right("0000" + me, 4)`.
+`right("0000" + me, 4)` ; en méthode, `me.lpad(4, "0")`.
 
 **Comparer et extraire par une expression régulière** :
 

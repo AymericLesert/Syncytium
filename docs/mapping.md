@@ -353,7 +353,8 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
   en cache** le résultat par entité, expression et valeurs des
   critères le temps d'un passage — « un cache est à prévoir pour
   rendre l'information rapide si les mêmes critères sont appelés
-  régulièrement ». D891 (jamais l'entité entière) reste entier au
+  régulièrement ». Le fonctionnement du cache se décrit au chapitre
+  9 ; ici se disent son usage et sa déclaration (D1920). D891 (jamais l'entité entière) reste entier au
   modèle : la source est lue par lots, pas affichée. Le cas 5 : la
   table PARAM « conditionne le fonctionnement de l'ERP et donc des
   données » ;

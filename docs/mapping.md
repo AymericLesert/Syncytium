@@ -979,7 +979,8 @@ partition:
     range: 3m
 ```
 
-- **`reset_coverage`** (D881, précisé par D1030/D1037) — l'opération
+- **`reset_coverage`** (D881, précisé par D1030/D1037 ; l'opération
+  garde son nom quand la clé devient `partition:`, D1930) — l'opération
   du socle qui remet au départ la dernière valeur parcourue d'une
   entité, sans rien effacer du module : le `migrate` suivant relit la
   totalité ; planifiable par `every:` (D434), déclenchable comme

@@ -601,6 +601,12 @@ Clé fonctionnelle. *(D1171)*
 enregistrement (un UUID), qui ne change jamais — même renommé, même
 anonymisé. C'est lui que les références retiennent. *(D142)*
 
+**Ignoré** (`ignored`) — Dans la description d'une source, l'état d'une
+table ou d'une colonne comprise et écartée volontairement : elle compte
+dans la complétude du schéma, pas dans la couverture. En forme courte,
+`<nom>: ignored` ; en bloc, la propriété `ignored: true`, `false` par
+défaut. *(D657, D868, D947, D1909)*
+
 **Inactivation** — La suppression dans Syncytium : l'enregistrement
 devient inactif, sort des listes par défaut, reste lisible et cité ;
 l'effacement réel est une purge distincte. *(D137–D141)*

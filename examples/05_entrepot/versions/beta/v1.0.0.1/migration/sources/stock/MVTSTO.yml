@@ -26,7 +26,7 @@ report:
 coverage: MVCJMVT[month - 3]
 
 # Les colonnes
-# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte ignored: true et son motif ; les
 # colonnes que la table ne cite pas ne sont pas lues.
 fields:
 
@@ -75,7 +75,7 @@ fields:
     description: La date du mouvement, la clé de la partition.
 
   MVCSMVT:
-    type: ignored
+    ignored: true
     description: La semaine du mouvement, qui se déduit de sa date.
 
   MVCJSAI:
@@ -95,11 +95,11 @@ fields:
     description: Le prix unitaire, qui varie dans le temps.
 
   MVCNPDSUNI:
-    type: ignored
+    ignored: true
     description: Le poids unitaire, un doublon de celui de l'article.
 
   MVCNVAL:
-    type: ignored
+    ignored: true
     description: "La valeur du mouvement, recalculée : le prix par la quantité."
 
   MVCTTYPE:

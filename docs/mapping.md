@@ -289,10 +289,11 @@ règles de mapping — sont des textes par langue** comme tout texte de
 la version (D1474, D1517) : à plusieurs langues, toutes ou l'erreur
 d'ingestion ; la banque en porte neuf à traduire (D1502).
 
-- **`ignored`** (D657) — l'élément **attendu** dans la source mais
-  non développé : sur une entité (`audit_log: ignored`) ou sur un
-  champ, **comme un type** (`ref_ext: ignored`) — l'écart
-  **volontaire**. **Trois états pour une colonne comme pour une
+- **`ignored`** (D657, D1909) — l'élément **attendu** dans la source
+  mais non développé, une entité ou un champ — l'écart
+  **volontaire**. Ce n'est pas un type : il s'écrit en forme courte,
+  `audit_log: ignored`, `ref_ext: ignored`, ou en bloc, par la
+  propriété `ignored: true` — `false` par défaut. **Trois états pour une colonne comme pour une
   table** (D869/D947) : lue (typée, renvoyée à son champ), ignorée
   (citée `ignored`, avec son motif), **non lue** (absente de la
   description — Syncytium la relève au rapport de migration, le point
@@ -402,8 +403,9 @@ audit_log: ignored
 porter s'écrit en propriété, pas en commentaire : chaque colonne lue
 porte son `type:` et sa `description:` — le sens de la colonne dans le
 système d'origine ; le champ qu'elle alimente se lit dans les règles,
-il ne se redit pas ; une colonne écartée porte `type: ignored` et son
-motif en description ; une table écartée prend la même forme longue.
+il ne se redit pas ; une colonne écartée s'écrit en forme courte,
+`<colonne>: ignored`, ou en bloc, `ignored: true` et son motif en
+description ; une table écartée de même (D1909).
 **Une colonne à codes** — trois codes ou plus — **décrit ses codes en
 tableau Markdown**, une ligne par code et son libellé, dans un scalaire
 littéral (`description: |`) ; à deux codes, une phrase suffit (D1102).
@@ -417,12 +419,12 @@ fields:
     type: text[6]
     description: Le code du client.
   legacy_ref:
-    type: ignored
+    ignored: true
     description: Une référence de l'ancien système, sans usage.
 
-# sources/audit_log.yml — la table écartée, sa forme longue
+# sources/audit_log.yml — la table écartée, en bloc
 audit_log:
-  type: ignored
+  ignored: true
   description: Le journal d'audit de l'ancien système, hors du périmètre.
 ```
 
@@ -1099,7 +1101,7 @@ order_lines:
     line_no:    integer
     item_code:  text[8]
     qty:        integer
-    updated_by: ignored       # le champ ignoré, comme un type
+    updated_by: ignored       # le champ ignoré, en forme courte
 
 # sources/audit_log.yml — l'entité attendue mais non développée
 audit_log: ignored

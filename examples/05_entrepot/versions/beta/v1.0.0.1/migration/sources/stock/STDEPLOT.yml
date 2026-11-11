@@ -21,7 +21,7 @@ report:
   by: [notification, mail]
 
 # Les colonnes
-# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte ignored: true et son motif ; les
 # colonnes que la table ne cite pas ne sont pas lues.
 fields:
 
@@ -86,7 +86,7 @@ fields:
     description: La date du dernier inventaire.
 
   DPCSSINV:
-    type: ignored
+    ignored: true
     description: La semaine du dernier inventaire, qui se déduit de sa date.
 
   DPCNSTOMIN:

@@ -22,7 +22,7 @@ report:
   by: [notification, mail]
 
 # Les colonnes
-# Chaque colonne lue porte son type et, au besoin, sa description ; une colonne écartée porte le type ignored et son
+# Chaque colonne lue porte son type et, au besoin, sa description ; une colonne écartée porte ignored: true et son
 # motif ; les colonnes que la table ne cite pas ne sont pas lues.
 fields:
 
@@ -57,11 +57,11 @@ fields:
       | ST   | Sous-traitance                                                      |
 
   ARITNATURE:
-    type: ignored
+    ignored: true
     description: Un index de PMI, pas une clé.
 
   ARITCONART:
-    type: ignored
+    ignored: true
     description: Un index de PMI, pas une clé.
 
   ARCTLIB01:
@@ -81,11 +81,11 @@ fields:
     description: L'unité de stock, PL la plaque ou U l'unité ; c'est aussi l'unité de mesure de l'article.
 
   ARCTUNIFAC:
-    type: ignored
+    ignored: true
     description: L'unité de facturation, hors du périmètre.
 
   ARCTUNICON:
-    type: ignored
+    ignored: true
     description: L'unité de conditionnement, hors du périmètre.
 
   ARCTCONV1A:
@@ -132,7 +132,7 @@ fields:
       correspond fait le lien.
 
   ARCTNOFOU2:
-    type: ignored
+    ignored: true
     description: "Le compte 2, le dernier achat ou la dernière vente : il se calcule, il ne se reprend pas."
 
   ARCTFATN:
@@ -270,7 +270,7 @@ fields:
     description: Le code EAN 13 ; seuls ses 13 premiers caractères sont repris.
 
   ARCTGSAV:
-    type: ignored
+    ignored: true
     description: "N sur toutes les lignes : la colonne ne porte aucune information."
 
   ARCTFICPLA:

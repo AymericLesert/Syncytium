@@ -25,7 +25,7 @@ report:
 coverage: ECKTNUMERO[10000]
 
 # Les colonnes
-# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte ignored: true et son motif ; les
 # colonnes que la table ne cite pas ne sont pas lues.
 fields:
 
@@ -50,55 +50,55 @@ fields:
     description: Le code du fournisseur.
 
   ECCTRUE1:
-    type: ignored
+    ignored: true
     description: "Une ligne de l'adresse du tiers, redite sur la commande : le code du tiers suffit."
 
   ECCTRUE2:
-    type: ignored
+    ignored: true
     description: "Une ligne de l'adresse du tiers, redite sur la commande : le code du tiers suffit."
 
   ECCTCP:
-    type: ignored
+    ignored: true
     description: "Le code postal du tiers, redit sur la commande : le code du tiers suffit."
 
   ECCTVILLE:
-    type: ignored
+    ignored: true
     description: "La ville du tiers, redite sur la commande : le code du tiers suffit."
 
   ECCTPAYS:
-    type: ignored
+    ignored: true
     description: "Le pays du tiers, redit sur la commande : le code du tiers suffit."
 
   ECCTCPAYS:
-    type: ignored
+    ignored: true
     description: "Le code du pays du tiers, redit sur la commande : le code du tiers suffit."
 
   ECCTNOMLIV:
-    type: ignored
+    ignored: true
     description: L'adresse de livraison, sans usage sur une commande d'achat.
 
   ECCTRUE1LI:
-    type: ignored
+    ignored: true
     description: L'adresse de livraison, sans usage sur une commande d'achat.
 
   ECCTRUE2LI:
-    type: ignored
+    ignored: true
     description: L'adresse de livraison, sans usage sur une commande d'achat.
 
   ECCTCPLIV:
-    type: ignored
+    ignored: true
     description: L'adresse de livraison, sans usage sur une commande d'achat.
 
   ECCTVILLIV:
-    type: ignored
+    ignored: true
     description: L'adresse de livraison, sans usage sur une commande d'achat.
 
   ECCTPAYSLI:
-    type: ignored
+    ignored: true
     description: L'adresse de livraison, sans usage sur une commande d'achat.
 
   ECCTCPAYLI:
-    type: ignored
+    ignored: true
     description: L'adresse de livraison, sans usage sur une commande d'achat.
 
   ECCTREFCDE:
@@ -126,15 +126,15 @@ fields:
     description: Le taux de change de la devise.
 
   ECCTSTATUT:
-    type: ignored
+    ignored: true
     description: L'état de la commande, qui se déduit de l'état de ses lignes.
 
   ECCTRUE3:
-    type: ignored
+    ignored: true
     description: "Une ligne de l'adresse du tiers, redite sur la commande : le code du tiers suffit."
 
   ECCTRUE3LI:
-    type: ignored
+    ignored: true
     description: L'adresse de livraison, sans usage sur une commande d'achat.
 
   # Les colonnes calculées

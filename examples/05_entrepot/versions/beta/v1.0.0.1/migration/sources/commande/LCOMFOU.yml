@@ -30,7 +30,7 @@ parent:
   ECOMFOU: { ECKTNUMERO: LCKTNUMERO, ECKTINDICE: LCKTPSF }
 
 # Les colonnes
-# Chaque colonne lue porte son type et sa description ; une colonne écartée porte le type ignored et son motif ; les
+# Chaque colonne lue porte son type et sa description ; une colonne écartée porte ignored: true et son motif ; les
 # colonnes que la table ne cite pas ne sont pas lues.
 fields:
 
@@ -79,7 +79,7 @@ fields:
     description: La quantité reçue.
 
   LCCSDELEXP:
-    type: ignored
+    ignored: true
     description: La semaine du délai, qui se déduit de sa date.
 
   LCCJDELEXP:
@@ -87,15 +87,15 @@ fields:
     description: Le délai de réception.
 
   LCCSDELFAB:
-    type: ignored
+    ignored: true
     description: La semaine de fin de fabrication, qui se déduit de sa date.
 
   LCCNPUREVI:
-    type: ignored
+    ignored: true
     description: Le prix de revient, que PMI calcule et stocke ; il se déduit.
 
   LCCTETACDE:
-    type: ignored
+    ignored: true
     description: Un état de la ligne dont les valeurs restent à connaître.
 
   LCCTDEVISE:
@@ -111,7 +111,7 @@ fields:
     description: Le délai accusé.
 
   LCCSDELARR:
-    type: ignored
+    ignored: true
     description: La semaine du délai accusé, qui se déduit de sa date.
 
   LCCTSTATUT:

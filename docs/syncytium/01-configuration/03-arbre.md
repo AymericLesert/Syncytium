@@ -37,7 +37,7 @@ versions/
 │       │       ├── <groupe>.yml     # les champs d'un groupe, référencés par fields: ~{<groupe>.yml}
 │       │       └── gui.yml          # les surfaces (lists, forms, summary, widgets…)
 │       ├── hooks/                   # hooks.yml → les familles → les fiches
-│       └── reprise/                 # la migration : reprise.yml, source/, mapping/
+│       └── migration/               # la migration : migration.yml, sources/, mapping/, exchange/
 └── production/ …
 ```
 
@@ -481,7 +481,7 @@ settings: ~{settings.yml}
 groups: ~{groups.yml}
 
 # Les migrations déclarées
-migrations: ~{reprise/reprise.yml}
+migrations: ~{migration/migration.yml}
 
 # Les modules, en liste explicite
 modules:

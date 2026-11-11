@@ -29,7 +29,7 @@ module sont en proposition jusqu'à la documentation structurée (D1021).
 ## Le principe
 
 L'application déclare ses migrations — le connecteur de la source, la
-base miroir, le stockage du détail, les descriptions `source/`, les
+base miroir, le stockage du détail, les descriptions `sources/`, les
 règles `mapping/`, les opérations périodiques (D662, D943,
 D1044–D1045, D1072). Le moteur les exécute : chaque `migrate` est **un
 passage** (D667). Le module garde de chaque passage ce que trois
@@ -55,7 +55,7 @@ l'application (D1044). Les étapes :
 
 | | l'étape | ce qu'elle fait | les décisions |
 |---|---|---|---|
-| a | **le modèle lu** | le connecteur lit le schéma réel ; Syncytium le compare à la version précédente et à la description `source/` | D653, D1053 |
+| a | **le modèle lu** | le connecteur lit le schéma réel ; Syncytium le compare à la version précédente et à la description `sources/` | D653, D1053 |
 | b | **la lecture** | par entité source : `filter:` écarte (les lignes filtrées ne sont pas conservées), `coverage:` choisit la plage relue | D663, D878–D880, D1032 |
 | 1 | **la validation des données sources** | après le filtre : chaque colonne convertie du type de stockage au type de la description, puis l'identité vérifiée, puis les liens (l'orphelin) | D1040, D1042, D1053 |
 | 2 | **la vérification des règles sources** | les `validation:` de l'entité source | D932, D1033 |
@@ -285,7 +285,7 @@ entities:
 name: migration
 description: Une migration déclarée (D662), telle que le moteur l'a lue
 label: "{nom}"
-identity: [nom]                    # la clé de la migration dans reprise.yml
+identity: [nom]                    # la clé de la migration dans migration.yml
 history: true
 fields:
   nom:       { type: 'text[..40]', required: true }
@@ -342,7 +342,7 @@ label: "{source}"
 identity: [source]                 # au sein du passage
 history: false
 fields:
-  source:     { type: 'text[..40]', required: true }  # le name: du fichier de source/
+  source:     { type: 'text[..40]', required: true }  # le name: du fichier de sources/
   debut:      { type: datetime }                      # les phases 1–2
   fin:        { type: datetime }
   lisible:    { type: boolean }                       # false : l'entité n'a pas été lue (D1042/D1053)
@@ -542,7 +542,7 @@ Les clés que le module lit sur la migration déclarée
 ([mapping.md](mapping.md)) :
 
 ```yaml
-# reprise.yml — une migration déclarée (D662)
+# migration.yml — une migration déclarée (D662)
 legacy_erp:
   from: legacy_db                       # la base d'origine (D1086–D1087)
   buffer: temporaire                    # la base miroir (D1044/D1045)
@@ -551,8 +551,8 @@ legacy_erp:
     filename: ${now:yyyy-mm-dd}-legacy_erp.syncytium
   mode: relative                        # D671
   reset: false
-  source:
-    - ~{source/.*\.yml}
+  sources:
+    - ~{sources/.*\.yml}
   mapping:
     - ~{mapping/[0-9]+_.*\.yml}
   operations:                           # les opérations périodiques (D943)
@@ -617,9 +617,9 @@ anomalies dans la zone d'analyse d'un champ (D1216).
 **Le module `_migration`, dans le dictionnaire de la donnée** (D1302 —
 le rang 2, le chapitre 4.1 « Reprise des données », D1259/D1262) : six
 sections, en deux parts — **le déclaré**, calculable au dépôt : la
-migration déclarée (`reprise.yml` — la base d'origine, la base miroir,
+migration déclarée (`migration.yml` — la base d'origine, la base miroir,
 le mode, le rythme des passages pour la fraîcheur) ; **les sources**
-(`source/*.yml` — par table d'origine sa description, son périmètre, son
+(`sources/*.yml` — par table d'origine sa description, son périmètre, son
 identité et sa partition, ses colonnes lues avec le type lu et le type
 décrit, ses colonnes écartées avec leur motif, les colonnes non citées
 relevées) ; **les règles** (`mapping/*.yml` — par règle, dans l'ordre :

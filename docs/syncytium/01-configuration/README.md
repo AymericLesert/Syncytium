@@ -46,7 +46,7 @@ décisions citées entre parenthèses renvoient au
    - [3.7 Le module — `<module>.yml` (D765, D416)](04-version.md#37-le-module--moduleyml-d765-d416)
    - [3.8 L'entité, les champs, les surfaces](04-version.md#38-lentité-les-champs-les-surfaces)
    - [3.9 `hooks/` — le mécanisme des hooks](04-version.md#39-hooks--le-mécanisme-des-hooks)
-   - [3.10 `reprise/` — la reprise de données](04-version.md#310-reprise--la-reprise-de-données)
+   - [3.10 `migration/` — la migration des données](04-version.md#310-migration--la-migration-des-données)
 5. [L'inventaire des défauts du socle](05-defauts.md)
    - [Les décisions de l'inventaire](05-defauts.md#les-décisions-de-linventaire)
    - [Le bloc `rgpd:` des settings (D1323)](05-defauts.md#le-bloc-rgpd-des-settings-d1323)

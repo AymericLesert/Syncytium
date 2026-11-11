@@ -20,7 +20,7 @@ groupes, le module et son menu, l'entité, les hooks et la reprise.*
   - [La description, un fichier Markdown par langue](#la-description-un-fichier-markdown-par-langue)
   - [Les traces codifiées, `errors:`](#les-traces-codifiées-errors)
   - [Ce qu'un hook ne contourne pas](#ce-quun-hook-ne-contourne-pas)
-- [3.10 `reprise/` — la reprise de données](#310-reprise--la-reprise-de-données)
+- [3.10 `migration/` — la migration des données](#310-migration--la-migration-des-données)
 
 ## 3.5 `settings.yml` — la maison des types et des réglages (D359, D360, D991–D993)
 
@@ -538,16 +538,18 @@ Un hook est un citoyen du moteur, jamais un super-utilisateur :
 
 Ce que l'ingestion refuse est dans [les règles](06-regles.md).
 
-## 3.10 `reprise/` — la reprise de données
+## 3.10 `migration/` — la migration des données
 
-Le nom est celui du cas 5 ; l'organisation est libre. Trois sortes de
-fichiers décrivent une reprise de données :
+Le nom est celui des cas ; l'organisation est libre (D1883). Une
+migration porte les données d'une description vers une autre, et elle a
+deux origines (D1882) : une source, c'est la reprise ; la version
+antérieure, c'est la migration de version. Le dossier range les deux :
 
-- `reprise.yml` déclare les migrations (D662) : `from:` la base
+- `migration.yml` déclare les migrations (D662) : `from:` la base
   d'origine (D1087), `buffer:` la base miroir (D1045), `storage:` le
-  fichier de son détail (D1072), `mode:`, `reset:`, `source:`,
-  `mapping:`, `operations:` ;
-- `source/<TABLE>.yml` décrit chaque entité d'origine (D947, D966) :
+  fichier de son détail (D1072), `mode:`, `reset:`, `sources:`
+  (D1884), `mapping:`, `operations:` ;
+- `sources/<TABLE>.yml` décrit chaque entité d'origine (D947, D966) :
   `name`, `alias`, `filter`, `identity`, `coverage`, `parent`, `fields`,
   `validation` ; une colonne typée `TABLE.colonne` est une référence,
   `TABLE[NOM].colonne` une référence nommée quand l'entité est visée
@@ -555,7 +557,10 @@ fichiers décrivent une reprise de données :
   de deux entités (D996) ; les calculés de la source s'écrivent en
   `formula:` (D660) ;
 - `mapping/NNN_<nom>.yml` écrit chaque règle (D656) : `to`, `filter`,
-  `distinct`, `parent`, `fields`, `validation`, `report`, `operations`.
+  `distinct`, `parent`, `fields`, `validation`, `report`, `operations` ;
+- `exchange/` porte les surcharges de la version par rapport à la
+  version antérieure, en un volet ascendant et un volet descendant
+  (D1883) ; aucun cas n'en porte encore.
 
 Le détail dans [mapping.md](../../mapping.md). Le pilotage et le suivi,
 les passages, les clés d'origine, le modèle lu, les anomalies, sont le

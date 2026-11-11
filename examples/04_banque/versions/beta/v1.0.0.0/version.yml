@@ -44,7 +44,7 @@ hooks: ~{hooks/hooks.yml}
 
 # Les migrations
 # La reprise des données historiques : le legacy, l'entité source, les règles.
-migrations: ~{reprise/reprise.yml}
+migrations: ~{migration/migration.yml}
 
 # Les modules de l'application
 # Un seul : la banque.

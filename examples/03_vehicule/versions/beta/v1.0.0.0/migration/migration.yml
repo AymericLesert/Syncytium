@@ -18,14 +18,14 @@ classeurs:
   # Les entités sources
   # Sept feuilles ou plages des classeurs ; chacune porte la plaque du véhicule, lue sur la feuille d'identification,
   # pour se joindre à lui.
-  source:
-    - ~{source/identification.yml}
-    - ~{source/titre_consommation.yml}
-    - ~{source/consommation.yml}
-    - ~{source/entretien.yml}
-    - ~{source/regle_revision.yml}
-    - ~{source/credit_parametres.yml}
-    - ~{source/echeance.yml}
+  sources:
+    - ~{sources/identification.yml}
+    - ~{sources/titre_consommation.yml}
+    - ~{sources/consommation.yml}
+    - ~{sources/entretien.yml}
+    - ~{sources/regle_revision.yml}
+    - ~{sources/credit_parametres.yml}
+    - ~{sources/echeance.yml}
 
   # Les règles
   # Dix règles : le numéro du fichier fait l'ordre des étapes. Une règle porte le nom de son entité source : sa

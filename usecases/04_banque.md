@@ -235,9 +235,9 @@ parfaites, 1 249 orphelines assumées, aucun triplet) ; **le montant
 normalisé + le constructeur** (D813 — `enum { E, F }` en garde,
 `round(…, 2)` contre les poussières flottantes du legacy). Le dépôt
 porte la reprise : le connecteur `legacy` (storage csv,
-Windows-1252, point-virgule), `reprise/` déclaré par `version.yml`
+Windows-1252, point-virgule), `migration/` déclaré par `version.yml`
 (`migrations:`) — la migration `mode: absolute` + `reset: true`,
-`source/` à l'entité unique `budget` — les deux fichiers au même
+`sources/` à l'entité unique `budget` — les deux fichiers au même
 format portés par le même connecteur — la carte `entities:` au
 niveau du connecteur (D816/D828), les
 cinq calculés de normalisation (D660) —, `mapping/` en **trois
@@ -287,8 +287,8 @@ reprise écrite de bout en bout.**
 - *(chaque frottement suivant = une décision consignée)*
 - **neuf descriptions de la reprise en français seul** — relevées par
   `tools/completeness.py` le 25/10/2026 (D1502) : les `description:`
-  des huit règles de `reprise/mapping/001_comptes.yml` à
-  `008_clotures.yml` et de la source `reprise/source/budget.yml`, dans
+  des huit règles de `migration/mapping/001_comptes.yml` à
+  `008_clotures.yml` et de la source `migration/sources/budget.yml`, dans
   une version à trois langues ; **la description de la reprise est un
   texte par langue** (D1517) → **écrites le 26/10/2026 (D1522)** : l'outil
   en listait vingt-six en vrai — les huit règles, l'entité source et ses

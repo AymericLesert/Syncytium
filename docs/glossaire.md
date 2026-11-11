@@ -991,9 +991,9 @@ active vers la passive ; `differential` ne transmet que les écarts.
 un système précédent. Le concepteur la déclare sous `migrations:` : la
 source décrite, lue ou ignorée colonne par colonne, les règles du
 **mapping** et leurs destinataires. Les cas la rangent dans un dossier
-`reprise/`, décrite dans `reprise.yml` ; le module interne `_migration`
+`migration/`, décrite dans `migration.yml` ; le module interne `_migration`
 la porte. Le chapitre 4 du dictionnaire de la donnée en a le nom.
-*(D1030–D1080, D1259, D1882)*
+*(D1030–D1080, D1259, D1882, D1883)*
 
 **Ressources** (`resources/`) — Le dossier des images de la
 description : logos, icônes, fonds. Une ressource peut être également un fichier binaire, word, excel, ... En fait, cela représente tout fichier complémentaire utile au bon fonctionnement du projet (Ex : cas de fichiers modèles pour PDF, Word, Excel, ...).

@@ -129,14 +129,14 @@ migrations:
     storage:                        # le fichier SQLite de chaque passage (D1066/D1072)
       directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
       filename: ${now:yyyy-mm-dd}-legacy_erp.syncytium
-    source:
-      - ~{legacy_db/source/.*\.yml} # un fichier par entité — le regex (D806), la référence explicite (D956)
+    sources:
+      - ~{legacy_db/sources/.*\.yml} # un fichier par entité — le regex (D806), la référence explicite (D956)
     mapping:
       - ~{legacy_db/mapping/.*\.yml}   # un fichier par règle de migration
   old_crm:
     from: crm_db
-    source:
-      - ~{old_crm/source/.*\.yml}
+    sources:
+      - ~{old_crm/sources/.*\.yml}
     mapping:
       - ~{old_crm/mapping/.*\.yml}
 ```
@@ -152,7 +152,7 @@ il peut remplacer l'énumération. **La référence de fichier est
 explicite** (D956) : `~{<fichier ou pattern>}` — la valeur nue est
 un littéral, jamais un fichier ; en collection de flux (`[ … ]`)
 l'accolade oblige les guillemets, la forme bloc s'impose (D892). **Le versionnement est plein**
-(D670) : `source/` et `mapping/` sont versionnés comme tout le
+(D670) : `sources/` et `mapping/` sont versionnés comme tout le
 reste — l'itération d'exploration passe par le bump du build (D323),
 le statut `beta/` (D340) et le dry-run qui n'engage rien (D667) ; la
 version des règles est consignée à chaque passage dans le module
@@ -163,7 +163,7 @@ migration : `001_referentiels.yml`, `002_customers.yml`,
 comme le raccourci du cas à une seule migration.
 
 **Les fichiers se rangent par sous-dossier** (D1103–D1104) — par item
-fonctionnel : `source/<module>/<TABLE>.yml` ; **les règles, dans des
+fonctionnel : `sources/<module>/<TABLE>.yml` ; **les règles, dans des
 dossiers numérotés** — `mapping/<N>_<groupe>/<NN>_<nom>.yml`, les
 fichiers numérotés à partir de 1 dans chaque dossier : le numéro du
 dossier, puis celui du fichier, font l'ordre des étapes — l'ordre du
@@ -175,7 +175,7 @@ cas 5 : `1_lieux`, `2_tiers`, `3_technique`, `4_commande`, `5_stock`.
 « La destination est décrite par le méta-modèle. La source doit être
 décrite par le méta-modèle également. » À la racine de la version :
 
-- **`source/`** — la description du modèle d'origine, **table par
+- **`sources/`** — la description du modèle d'origine, **table par
   table et colonne par colonne, dans la grammaire de description** ;
   **Syncytium s'assure de la complétude du modèle** : la description
   confrontée au schéma réel (`get_instance` — D629/D680), l'écart
@@ -188,9 +188,9 @@ Le typage statique (D581) vérifie les expressions des deux côtés ;
 l'exhaustivité (D648) se juge entre deux descriptions du même
 langage.
 
-### La description de la source (`source/`)
+### La description de la source (`sources/`)
 
-`source/` parle **toute** la grammaire (D652), avec trois mots
+`sources/` parle **toute** la grammaire (D652), avec trois mots
 propres ; **ses `description:` — celles des sources comme celles des
 règles de mapping — sont des textes par langue** comme tout texte de
 la version (D1474, D1517) : à plusieurs langues, toutes ou l'erreur
@@ -205,7 +205,7 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
   description — Syncytium la relève au rapport de migration, le point
   à creuser D868) ; la complétude (D861) se mesure au schéma réel, la
   description n'a pas à citer chaque colonne. **Un fichier par entité
-  d'origine, au nom de la table** (`source/ARTICLE.yml`, `name:
+  d'origine, au nom de la table** (`sources/ARTICLE.yml`, `name:
   ARTICLE` — D947) — ou au nom de l'entité quand elle est un alias de
   la table (D966) ;
 - **la normalisation par champ calculé** (D660) — le nettoyage, la
@@ -264,12 +264,12 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
   se mesure sur la table, toutes entités confondues ;
 
 ```yaml
-# source/stock/PARAM_EMPLACEMENTS.yml — l'alias (D966) : le paramètre 170 de PARAM
+# sources/stock/PARAM_EMPLACEMENTS.yml — l'alias (D966) : le paramètre 170 de PARAM
 name: PARAM_EMPLACEMENTS
 alias: PARAM
 filter: PAKTSOC = "100" and PAKTNOPAR = "170"
 
-# source/ARTICLE.yml — lire l'entité depuis un calculé (D965) : le filtre 170 vient avec
+# sources/ARTICLE.yml — lire l'entité depuis un calculé (D965) : le filtre 170 vient avec
 fields:
   libelle_emplacement_expedition:                 # une valeur — first (D887)
     formula: PARAM_EMPLACEMENTS.first(PACTEXT140 if PACTEXT210 = ARCTCODEP + "." + ARCTCODMPL)
@@ -284,7 +284,7 @@ fields:
   de couverture** — l'exclu du filtre n'est pas un rejet.
 
 ```yaml
-# source/customers.yml — le modèle d'origine, la même grammaire (D652)
+# sources/customers.yml — le modèle d'origine, la même grammaire (D652)
 customers:
   identity: [code]                    # la contrainte d'unicité (D357)
   fields:
@@ -295,13 +295,13 @@ customers:
     city_raw: text[..40]
     city:     { formula: upper(trim(city_raw)) }   # la normalisation (D660)
 
-# source/customer_notes.yml
+# sources/customer_notes.yml
 customer_notes:
   fields:
     customer_code: customers.code     # la dépendance déclarée (D648/D396)
     text:          text
 
-# source/audit_log.yml — l'entité attendue mais ignorée (D657)
+# sources/audit_log.yml — l'entité attendue mais ignorée (D657)
 audit_log: ignored
 ```
 
@@ -318,7 +318,7 @@ Avec une seule langue (`languages:` de la version), la description est
 un texte simple :
 
 ```yaml
-# source/customers.yml
+# sources/customers.yml
 fields:
   code:
     type: text[6]
@@ -327,7 +327,7 @@ fields:
     type: ignored
     description: Une référence de l'ancien système, sans usage.
 
-# source/audit_log.yml — la table écartée, sa forme longue
+# sources/audit_log.yml — la table écartée, sa forme longue
 audit_log:
   type: ignored
   description: Le journal d'audit de l'ancien système, hors du périmètre.
@@ -411,7 +411,7 @@ langue, sur chaque validation : sinon une erreur d'ingestion, et la forme
 courte est refusée.
 
 ```yaml
-# reprise/mapping/4_commande/04_lignes_achats.yml — la description, les formes longues (D1105/D1106)
+# migration/mapping/4_commande/04_lignes_achats.yml — la description, les formes longues (D1105/D1106)
 LCOMFOU:
   description: >-
     Les lignes des commandes d'achat, composition de l'entête : le possesseur est la révision de la commande, son
@@ -442,7 +442,7 @@ n'est pas une règle, il est inclus ; la règle ne garde que ce qui la
 distingue : `to:`, `filter:`, `report:`.
 
 ```yaml
-# reprise/mapping/3_technique/02_fabriques.yml — la règle réduite à ce qui la distingue (D967)
+# migration/mapping/3_technique/02_fabriques.yml — la règle réduite à ce qui la distingue (D967)
 ARTICLE:
   to: technique.fabrique
   filter: ARCTFATN = "01"
@@ -495,7 +495,7 @@ que l'entité source déclare, sous la même forme (`when:`, `to:`, `by:`) ;
 la règle garde son `report:` pour les siennes.
 
 ```yaml
-# reprise/mapping/3_technique/01_articles.yml — le rapport porté par la règle (D929)
+# migration/mapping/3_technique/01_articles.yml — le rapport porté par la règle (D929)
 ARTICLE:
   to: technique.article
   fields:
@@ -531,7 +531,7 @@ NOKTCOMPF } }` retrouve le fabriqué, le semi-fini ou le fantôme qui
 porte la nomenclature ; un acheté avec des composants se voit.
 
 ```yaml
-# reprise/mapping/3_technique/01_articles.yml — le possesseur construit son identité
+# migration/mapping/3_technique/01_articles.yml — le possesseur construit son identité
 ARTICLE:
   to: technique.article
   fields:
@@ -539,7 +539,7 @@ ARTICLE:
     complement: ARKTCOMART            # souvent vide — le nul du texte est la chaîne vide (D990), rien à convertir
     libelle:    ARCTLIB01
 
-# reprise/mapping/3_technique/05_nomenclatures.yml — la fille présente les mêmes colonnes (D931/D990)
+# migration/mapping/3_technique/05_nomenclatures.yml — la fille présente les mêmes colonnes (D931/D990)
 NOMENC:
   to: technique.nomenclature                             # l'entité fille, comme banque.ecriture
   parent:
@@ -590,12 +590,12 @@ pas à être redite par la règle ; et une grandeur « à titre
 indicatif » ne se valide pas, ses cas limites s'observent.
 
 ```yaml
-# reprise/source/technique/NOMENC.yml — la phase 2 : les règles de la source, sur la ligne lue
+# migration/sources/technique/NOMENC.yml — la phase 2 : les règles de la source, sur la ligne lue
 NOMENC:
   validation:
     - NOCJFINVAL >= NOCJDEBVAL if NOCJFINVAL is not null and NOCJDEBVAL is not null
 
-# reprise/mapping/3_technique/05_nomenclatures.yml — la phase 4 : la source à nu, le construit par me
+# migration/mapping/3_technique/05_nomenclatures.yml — la phase 4 : la source à nu, le construit par me
 NOMENC:
   to: technique.ligne_nomenclature
   fields:
@@ -815,10 +815,10 @@ postures de D180 incarnées.
   équivalente :
 
 ```yaml
-# source/stock/MVTSTO.yml — la forme courte (D880)
+# sources/stock/MVTSTO.yml — la forme courte (D880)
 coverage: MVCJMVT[month - 3]          # la partition au mois, les trois derniers relus
 
-# source/commande/ECOMCLI.yml
+# sources/commande/ECOMCLI.yml
 coverage: ECKTNUMERO[10000]           # les dix mille derniers
 
 # la forme riche (D879), équivalente
@@ -936,7 +936,7 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
   suppression par une version — **à documentation obligatoire** (le
   remplacement ou l'abandon) ; le renommage d'un champ, d'une entité
   ou d'un module s'assure par **`from: <ancien nom>`** (D1111) ;
-- **les deux maisons (D652–D653)** : **`source/`** — le modèle
+- **les deux maisons (D652–D653)** : **`sources/`** — le modèle
   d'origine décrit **dans la grammaire du méta-modèle**, table par
   table et colonne par colonne (Syncytium s'assure de la complétude
   du modèle contre `get_instance`) ; **`mapping/`** — les règles de
@@ -950,7 +950,7 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
   colonnes ; les origines multiples se rejoignent **par la clé
   fonctionnelle** (la jointure n'est pas une syntaxe, c'est la clé) ;
 - **la normalisation à la source (D660)** : le champ calculé sur la
-  description de l'entité source (`formula:` — source/ parle toute
+  description de l'entité source (`formula:` — sources/ parle toute
   la grammaire), consommé par le mapping comme une colonne ;
 - **au-delà du 1-1 (D658–D659)** : **le référentiel par valeurs
   distinctes** — la destination prend les valeurs distinctes d'un
@@ -962,7 +962,7 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
   source :
 
 ```yaml
-# source/order_lines.yml — le modèle d'origine, la même grammaire
+# sources/order_lines.yml — le modèle d'origine, la même grammaire
 order_lines:
   identity: [order_no, line_no]
   fields:
@@ -972,7 +972,7 @@ order_lines:
     qty:        integer
     updated_by: ignored       # le champ ignoré, comme un type
 
-# source/audit_log.yml — l'entité attendue mais non développée
+# sources/audit_log.yml — l'entité attendue mais non développée
 audit_log: ignored
 
 # mapping/order_lines.yml — la règle, de la source vers la cible

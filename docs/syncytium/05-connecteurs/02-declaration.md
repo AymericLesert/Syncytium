@@ -212,7 +212,7 @@ Le socle trouve ses connecteurs par le nom (D612, D1710) :
   l'identité `authentication` : le connecteur nommé comme sa famille
   (D612, D1093).
 
-Dans le cas 5 (entrepôt), `reprise/reprise.yml` désigne la base
+Dans le cas 5 (entrepôt), `migration/migration.yml` désigne la base
 d'origine :
 
 ```yaml
@@ -257,7 +257,7 @@ garde l'écoute du connecteur `file` (D635) et les entrées servies du
 `webhook`, abonnées à l'initialisation (D641).
 
 La migration et la transformation, le mapping, ses deux maisons
-`source/` et `mapping/`, le sens de la règle, la dépréciation, le
+`sources/` et `mapping/`, le sens de la règle, la dépréciation, le
 dry-run (D646–D660), sont la reprise : le chapitre 8, par
 [mapping.md](../../mapping.md) (D1721). Ce chapitre garde `from:` au
 câblage et la migration à chaud du storage, `duplicate_instance` et

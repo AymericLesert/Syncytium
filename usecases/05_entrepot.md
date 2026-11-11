@@ -5,6 +5,11 @@ contexte, les parcours, **la forme** (le dépôt écrit pour de vrai)
 et **les manques** (chaque frottement devient une décision). Les
 décisions citées renvoient à [../docs/conception.md](../docs/conception.md).*
 
+*Depuis le 11/11/2026, le dossier de la reprise s'appelle `migration/`, son
+fichier `migration.yml`, son sous-dossier `sources/`, et la clé de la migration
+déclarée `sources:` (D1883, D1884). Les passages datés ci-dessous gardent les
+noms de leur date : `reprise/`, `reprise.yml`, `source/`, `source:`.*
+
 *Le cas est ouvert le 03/09/2026 (le cas 3 devenu le cas 5 par la
 renumérotation D1027 — le registre garde « cas 3 » dans son histoire) — la maison **`05_entrepot`**
 (D857 : « renomme-le 03_reprise », « Renomme plutôt 03_reprise en
@@ -1539,7 +1544,7 @@ restructuré — D1030–D1080). Le module est celui du socle : l'exemple ne
 le déclare pas (D1028), il déclare la migration que le module pilote.
 Ce que la mise à jour de l'entrepôt produit, où cela vit, qui le lit.
 
-*La déclaration* — `reprise/reprise.yml`, la migration `cegid` :
+*La déclaration* — `migration/migration.yml`, la migration `cegid` :
 
 | la clé | au cas 5 | les décisions |
 |---|---|---|
@@ -1547,7 +1552,7 @@ Ce que la mise à jour de l'entrepôt produit, où cela vit, qui le lit.
 | `buffer:` | `temporaire` — la classe `memory` ; un storage dans un schéma dédié de l'entrepôt conviendrait aussi aux mouvements | D1044–D1045 |
 | `storage:` | `${SYNCYTIUM_MIGRATION_DIRECTORY}`, `${now:yyyy-mm-dd}-cegid.syncytium` ; la rétention par la règle `migration_cegid:` du `cleanup.yml` (`interval: 1d`, `retention: 90d`) | D1066, D1069, D1072–D1076 |
 | `mode:`, `reset:` | `relative`, `false` — l'historique et l'enrichissement tiennent | D671, D941 |
-| `source:` | vingt-trois tables : quatorze lues, neuf `ignored` (les offres, le devis, les libellés, les tranches) — sur les trois cent trente objets du schéma | D947–D952 |
+| `sources:` | vingt-trois tables : quatorze lues, neuf `ignored` (les offres, le devis, les libellés, les tranches) — sur les trois cent trente objets du schéma | D947–D952 |
 | `mapping:` | trente-trois règles en cinq dossiers numérotés : `1_lieux`, `2_tiers`, `3_technique`, `4_commande`, `5_stock` | D665, D1103–D1104 |
 | `operations:` | `delta_nocturne` — `daily[02:00]`, `migrate`, `on_running` au défaut `cancel` ; `relecture_complete` — `weekly[saturday at 23:00]`, `reset_coverage` des cinq entités partitionnées, `on_running: wait` | D943, D1077–D1080 |
 
@@ -2491,7 +2496,7 @@ est marqué. **En proposition.**)*
 > d'origine `cegid`, la base miroir `temporaire`, le mode relatif, le rythme — le delta nocturne à
 > deux heures, la relecture complète le samedi soir (D943). **Les
 > sources** : vingt-trois tables de PMI par module
-> (`source/technique/ARTICLE.yml`…) — pour
+> (`sources/technique/ARTICLE.yml`…) — pour
 > `ARTICLE` : le périmètre `ARKTSOC = "100"`, l'identité
 > `[ARKTCODART, ARKTCOMART]`, les colonnes lues avec leur type lu
 > (`ARCTTYPART : enum {AC, CO, …}`) et leur description, les colonnes

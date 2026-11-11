@@ -17,8 +17,8 @@ legacy:
 
   # Les entités sources
   # Une seule : les écritures, sur deux fichiers du même format.
-  source:
-    - ~{source/budget.yml}
+  sources:
+    - ~{sources/budget.yml}
 
   # Les règles
   # Huit règles en trois phases — les comptes et leurs dépôts, les référentiels et les écritures, les soldes et les

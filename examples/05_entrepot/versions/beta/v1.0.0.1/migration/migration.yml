@@ -35,8 +35,8 @@ cegid:
 
   # Les tables sources
   # Vingt-trois tables décrites, une par fichier au nom de la table, rangées par module : quatorze lues, neuf écartées.
-  source:
-    - ~{source/.*/.*\.yml}
+  sources:
+    - ~{sources/.*/.*\.yml}
 
   # Les règles
   # Trente-trois règles en cinq dossiers numérotés — les lieux, les tiers, la technique, les commandes, le stock : le

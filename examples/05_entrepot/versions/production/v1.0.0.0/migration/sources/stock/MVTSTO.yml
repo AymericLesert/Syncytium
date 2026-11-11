@@ -23,7 +23,7 @@ report:
 
 # La lecture par partition
 # Le mois du mouvement : chaque nuit, les trois derniers mois sont relus ; la relecture complète du dimanche relit tout.
-coverage: MVCJMVT[month - 3]
+partition: MVCJMVT[month - 3]
 
 # Les colonnes
 # Chaque colonne lue porte son type et sa description ; une colonne écartée porte ignored: true et son motif ; les

@@ -22,7 +22,7 @@ report:
 
 # La lecture par partition
 # Les dix mille derniers numéros de commande sont relus ; la relecture complète du dimanche relit tout.
-coverage: ECKTNUMERO[10000]
+partition: ECKTNUMERO[10000]
 
 # Les colonnes
 # Chaque colonne lue porte son type et sa description ; une colonne écartée porte ignored: true et son motif ; les

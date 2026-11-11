@@ -88,7 +88,8 @@ jamais. *(D601, D1605)*
 le temps d'un passage. Il n'y en a qu'un, et deux façons de l'utiliser :
 le moteur s'en sert lui-même, pour la lecture d'une autre entité par un
 calculé ; le concepteur y déclare une entrée dans une règle, par
-`cache.push`, relue par `cache.pop`. *(D822, D965, D1920, D1923)*
+`cache.push`, relue par `cache.pop`. L'entrée se déclare à son premier
+`push`, sans déclaration explicite. *(D822, D965, D1920, D1923, D1925)*
 
 **Carrousel** (`viewer[carousel]`) — La succession des images d'une
 collection, qui défile à intervalle régulier ou à la touche.

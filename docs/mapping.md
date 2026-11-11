@@ -357,7 +357,9 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
   9 ; ici se disent son usage et sa déclaration (D1920). Il n'y a
   qu'un mécanisme de cache, et deux façons de l'utiliser (D1923) :
   le moteur s'en sert lui-même, pour cette lecture ; le concepteur y
-  déclare une entrée, dans une règle, par `cache.push`. D891 (jamais l'entité entière) reste entier au
+  déclare une entrée, dans une règle, par `cache.push`. L'entrée se
+  déclare à son premier `push` : il n'y a pas de déclaration
+  explicite (D1925). D891 (jamais l'entité entière) reste entier au
   modèle : la source est lue par lots, pas affichée. Le cas 5 : la
   table PARAM « conditionne le fonctionnement de l'ERP et donc des
   données » ;

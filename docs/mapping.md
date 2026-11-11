@@ -460,7 +460,10 @@ table source déclare où vont ses colonnes. **La forme de la règle**
 ou agrégat), `parent:` le possesseur par ses champs mappés (D931),
 `fields:` les expressions du langage unique, `validation:` les
 contrôles de chaque ligne importée (D932), `report:` le rapport de
-ses rejets (D929). **La clé fonctionnelle ne se déclare pas** (D930 — `key:`
+ses rejets (D929), `operations:` l'expression exécutée pour chaque
+ligne construite. Ce mot est aussi celui des opérations d'un processus
+et de la liste de ce qu'une opération lance : la même question dans
+trois contextes (D1942). **La clé fonctionnelle ne se déclare pas** (D930 — `key:`
 retirée) : c'est l'identité de la cible, alimentée par `fields:`.
 
 **La construction et la clé fonctionnelle** (D654) : le mapping

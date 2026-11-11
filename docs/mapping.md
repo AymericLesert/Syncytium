@@ -358,17 +358,19 @@ d'ingestion ; la banque en porte neuf à traduire (D1502).
 - **l'alias** (D966) — « la notion d'alias qui permet de nommer une
   entité portant sur la même source avec des filtres différents » :
   plusieurs entités source décrivent la même table, chacune sous son
-  nom, avec son filtre, son identité, ses colonnes lues — `name:
-  PARAM_EMPLACEMENTS`, `alias: PARAM` (*la clé est mienne*) ; le
-  fichier porte le nom de l'entité (D947 : le nom de la table quand il
-  n'y a pas d'alias) ; la règle du mapping et la lecture D965 nomment
-  l'entité, et le filtre vient avec ; la complétude du schéma (D861)
+  nom, avec son filtre, son identité, ses colonnes lues — `alias:
+  PARAM_EMPLACEMENTS`, puis `name: PARAM` (D1918) : `alias:` porte le
+  nom de l'entité, `name:` celui de la table, et l'alias s'écrit
+  avant le nom pour la lisibilité. **L'identifiant de l'entité est
+  son alias s'il est défini, sinon son nom** ; le fichier le porte
+  (D947) ; la règle du mapping et la lecture D965 nomment l'entité
+  par lui, et le filtre vient avec ; la complétude du schéma (D861)
   se mesure sur la table, toutes entités confondues ;
 
 ```yaml
-# sources/stock/PARAM_EMPLACEMENTS.yml — l'alias (D966) : le paramètre 170 de PARAM
-name: PARAM_EMPLACEMENTS
-alias: PARAM
+# sources/stock/PARAM_EMPLACEMENTS.yml — l'alias (D966, D1918) : le paramètre 170 de PARAM
+alias: PARAM_EMPLACEMENTS
+name: PARAM
 filter: PAKTSOC = "100" and PAKTNOPAR = "170"
 
 # sources/ARTICLE.yml — lire l'entité depuis un calculé (D965) : le filtre 170 vient avec

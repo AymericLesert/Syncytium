@@ -24,6 +24,12 @@ pris comme un tout indivisible. Une commande et ses lignes s'enregistrent,
 s'historisent et disparaissent ensemble. À ne pas confondre avec la fonction
 d'agrégation, `sum` ou `count`. *(D101, D1564)*
 
+**Alias d'une entité source** (`alias:`) — Le nom donné à une entité qui
+décrit une table de la source avec son propre filtre : plusieurs entités
+peuvent ainsi lire la même table. `alias:` porte le nom de l'entité,
+`name:` celui de la table ; l'identifiant de l'entité est son alias s'il
+est défini, sinon son nom. *(D966, D1918)*
+
 **Anonymisation** — L'effacement des données personnelles d'un
 enregistrement, qui garde son squelette : les liens tiennent, le
 contenu s'efface, la fiche et son historique ensemble ; la valeur de

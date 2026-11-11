@@ -1,10 +1,11 @@
-# Le nom de la table
-# Les emplacements de stock paramétrés : le paramètre 170 de la table générique des paramètres de PMI.
-name: PARAM_EMPLACEMENTS
+# L'alias de l'entité
+# Les emplacements de stock paramétrés : le paramètre 170 de la table générique des paramètres de PMI ; les règles et
+# les calculés nomment l'entité par cet alias.
+alias: PARAM_EMPLACEMENTS
 
-# La table réelle
-# PARAM, la table des paramètres ; chaque paramètre lu en devient une table à son nom, avec son filtre.
-alias: PARAM
+# Le nom de la table
+# PARAM, la table des paramètres ; chaque paramètre lu en devient une entité à son alias, avec son filtre.
+name: PARAM
 
 # La description de la table
 description: Le paramètre 170 de PMI — la source des emplacements actifs et de leur libellé

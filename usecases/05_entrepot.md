@@ -10,7 +10,8 @@ fichier `migration.yml`, son sous-dossier `sources/`, et la clé de la migration
 déclarée `sources:` (D1883, D1884). Dans les sources, une table ou une colonne
 écartée porte `ignored: true`, non plus `type: ignored` (D1909), et la
 composition se déclare chez le possesseur, par `list of`, le `parent:` du fils
-retiré (D1913, D1914). Les passages datés ci-dessous gardent les noms et les
+retiré (D1913, D1914) ; une entité alias s'écrit `alias: PARAM_EMPLACEMENTS`
+puis `name: PARAM` (D1918). Les passages datés ci-dessous gardent les noms et les
 écritures de leur date : `reprise/`, `reprise.yml`, `source/`, `source:`,
 `type: ignored`, le `parent:` d'une source.*
 

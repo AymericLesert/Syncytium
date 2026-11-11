@@ -223,7 +223,7 @@ versions:
       settings:
         field:
           text:
-            normalize: trim(me)
+            normalize: me.trim()
       groups: {}
       modules:
         annuaire:

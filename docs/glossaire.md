@@ -814,8 +814,8 @@ l'enregistrement, le champ, les opérations, l'utilisateur. Tout nœud a
 la même signature, en sept traits. *(D455, D566)*
 
 **Normalisation** (`normalize:`) — L'expression appliquée à une valeur à
-la frontière, quand elle entre. *Ex. : `normalize: trim(me)`, les blancs
-retirés.* *(D870, D872, D991)*
+la frontière, quand elle entre. *Ex. : `normalize: me.trim()`, les blancs
+retirés.* *(D870, D872, D991, D1921)*
 
 **Nul** (`null`) — L'absence de valeur, qui ne se confond pas avec la chaîne vide.
 Stocké, il est légitime ; évalué dans une expression, c'est une anomalie, sauf

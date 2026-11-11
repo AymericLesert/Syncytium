@@ -29,7 +29,9 @@ emploient.
 **Nettoyer un texte** :
 
 - `trim(t)` retire les blancs de tête et de fin (D870, D872) ; il
-  s'écrit aussi en méthode de la valeur, `me.trim()` (D1919) ;
+  s'écrit aussi en méthode de la valeur, `me.trim()` (D1919). Les deux
+  écritures se valent ; dans une normalisation, la méthode est
+  préférée, `normalize: me.trim()` (D1921) ;
 - `upper(t)` et `lower(t)` changent la casse (D656).
 
 **Découper un texte** :
@@ -80,7 +82,7 @@ Deux règles complètent les fonctions du texte :
 
 - **`trim` est la normalisation par défaut** des textes de l'entrepôt : les
   settings l'écrivent sous `field:` et le nom du type,
-  `text: { normalize: trim(me) }`, et un champ peut la surcharger (D872,
+  `text: { normalize: me.trim() }`, et un champ peut la surcharger (D872,
   D991, D1239) ;
 - **un texte trop long pour sa cible se tronque par `left`** : la
   conversion avec perte est refusée à l'ingestion, jamais implicite

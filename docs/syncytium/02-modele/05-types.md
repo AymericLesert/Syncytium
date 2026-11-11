@@ -151,7 +151,7 @@ field:
 
     # La normalisation
     # La valeur lue est rognée de ses blancs, à la frontière ; me désigne la valeur.
-    normalize: trim(me)
+    normalize: me.trim()
 
   # Le type date_pmi
   # Les dates de PMI, écrites AAAAMMJJ : une date lue au masque yyyymmdd ; les colonnes de dates des sources

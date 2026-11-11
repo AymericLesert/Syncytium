@@ -73,7 +73,7 @@ Quelques mots désignent ce qui entoure l'expression. Leur sens dépend de
 l'endroit où elle s'écrit :
 
 - **`me`** désigne ce que l'expression qualifie (D872, D822, D396) :
-  - la valeur, dans une normalisation : `normalize: trim(me)` ;
+  - la valeur, dans une normalisation : `normalize: me.trim()` ;
   - l'enregistrement, dans une règle de migration ;
   - l'enregistrement d'origine, dans le filtre d'une référence ;
 - **`owner`** désigne le possesseur d'une composition :

@@ -416,7 +416,7 @@ produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md)
 >       release-notes: Version 1 de l'annuaire
 >       history: false
 >       menu: { annuaire: { personne: { label: personne, link: personne[list] } } }
->       settings: { field: { text: { normalize: trim(me) } } }
+>       settings: { field: { text: { normalize: me.trim() } } }
 >       groups: {}
 >       modules:
 >         annuaire:

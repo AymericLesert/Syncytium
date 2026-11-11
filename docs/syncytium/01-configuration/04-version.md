@@ -32,7 +32,7 @@ Les settings règlent les défauts. Ils se structurent en trois niveaux
 field:
   # Le texte : la normalisation à la frontière, pour tous les champs de ce type
   text:
-    normalize: trim(me)
+    normalize: me.trim()
 
   # Une date au masque de l'ERP : un type dérivé, sa base et ses défauts
   date_pmi:

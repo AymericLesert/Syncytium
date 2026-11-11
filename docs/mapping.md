@@ -209,11 +209,28 @@ l'accolade oblige les guillemets, la forme bloc s'impose (D892). **Le versionnem
 reste — l'itération d'exploration passe par le bump du build (D323),
 le statut `beta/` (D340) et le dry-run qui n'engage rien (D667) ; la
 version des règles est consignée à chaque passage dans le module
-`migration` (D668). **L'ordre au sein d'un pattern est
-alphabétique** (D665) — le préfixe numérique décrit les étapes de la
-migration : `001_referentiels.yml`, `002_customers.yml`,
-`003_orders.yml`. Le câblage `from:` (D610) se relit
-comme le raccourci du cas à une seule migration.
+`migration` (D668). **L'ordre des étapes suit celui de la
+déclaration** (D1900) : la liste se lit de haut en bas, et elle peut
+alterner des fichiers, des descriptions et des motifs. **Un motif se
+trie sur le chemin complet de ses fichiers**, dans l'ordre
+alphanumérique, et non sur le seul nom du fichier ; les fichiers triés
+s'insèrent à la position du motif dans la déclaration (D665, D1900) —
+le préfixe numérique décrit les étapes de la migration :
+`001_referentiels.yml`, `002_customers.yml`, `003_orders.yml`. Le
+câblage `from:` (D610) se relit comme le raccourci du cas à une seule
+migration.
+
+Une déclaration qui alterne un fichier, un motif et un fichier :
+
+```yaml
+  # Les règles
+  # Trois déclarations, lues de haut en bas : un fichier, puis un motif, trié sur le chemin complet de ses fichiers
+  # et inséré à sa place, puis un fichier.
+  mapping:
+    - ~{mapping/ouverture.yml}
+    - ~{mapping/[0-9]+_.*/[0-9]+_.*\.yml}
+    - ~{mapping/cloture.yml}
+```
 
 **Les fichiers se rangent par sous-dossier** (D1103–D1104) — par item
 fonctionnel : `sources/<module>/<TABLE>.yml` ; **les règles, dans des

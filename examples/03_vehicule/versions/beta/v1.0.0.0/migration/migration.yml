@@ -1,6 +1,6 @@
 # La migration classeurs
-# La reprise des classeurs historiques, un par véhicule, sur le patron de la banque ; l'ordre des migrations
-# déclarées est leur ordre d'exécution.
+# La reprise des classeurs historiques, un par véhicule, sur le patron de la banque ; les migrations d'un fichier
+# s'exécutent dans l'ordre alphabétique de leurs noms.
 classeurs:
 
   # La base d'origine

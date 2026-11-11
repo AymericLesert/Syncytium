@@ -113,17 +113,21 @@ deviner. Les lectures ne s'arrêtent que le temps du renommage
 
 « Une migration peut faire converger plusieurs sources vers une
 seule destination — le `from:` seul ne suffit pas. » **Le setting
-décrit chaque migration** : le lien { connecteur storage source ·
-descriptions des entités sources · mapping }. **L'ordre est celui de
-la définition, aux deux étages** : les migrations s'exécutent dans
-l'ordre déclaré, les entités sources se parcourent dans l'ordre
-défini (le référentiel avant l'entité qui le référence, le
-possesseur avant ses lignes).
+décrit chaque migration** — le mot dit ici la configuration de la
+migration, non le bloc `settings` (D1888) — : le lien { connecteur
+storage source · descriptions des entités sources · mapping }.
+**Un processus de migration se définit pour un connecteur
+d'origine** (D1888) : `from:` le nomme, et plusieurs sources font
+plusieurs processus, que `migration.yml` décrit et nomme. **Ils
+s'exécutent dans l'ordre alphabétique de leurs noms** (D1888) ; avec
+une seule source, le nom peut être celui du connecteur. Les entités
+sources se parcourent dans l'ordre défini (le référentiel avant
+l'entité qui le référence, le possesseur avant ses lignes).
 
 ```yaml
-# settings.yml — les migrations déclarées (D662/D664)
+# migration.yml — les migrations déclarées (D662/D664)
 migrations:
-  legacy_erp:                       # l'ordre de définition = l'ordre d'exécution
+  legacy_erp:                       # l'ordre alphabétique des noms = l'ordre d'exécution (D1888)
     from: legacy_db                 # la base d'origine — le connecteur storage source (D1086–D1087)
     buffer: temporaire              # la base miroir (D1044/D1045) — un connecteur : un schéma ou la classe memory
     storage:                        # le fichier SQLite de chaque passage (D1066/D1072)

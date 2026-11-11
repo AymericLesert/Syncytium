@@ -112,7 +112,7 @@ est au chapitre 5 (D1730), l'opération au chapitre 6 (D1762), où
 
 ## Les points de la lecture en cours
 
-Le chapitre 8, la migration (D1863) — la lecture est ouverte. Les points d'un
+Le chapitre 8, la reprise et le mapping (D1863) — la lecture est ouverte. Les points d'un
 chapitre se dégagent à son ouverture, dans l'ordre de son sujet, avec ce qui
 le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 « présenté » ou « clos (Dnnnn) » ; le tableau de bord lit cette table.
@@ -130,8 +130,8 @@ renumérotés à la clôture du point 1.
 | # | Le point | L'état |
 |---|---|---|
 | 1 | **Le périmètre** : la migration et ses deux origines, la reprise et la migration de version ; le mapping, les règles qu'une migration applique ; le chapitre définit, le chapitre 9 exécute ; la dépréciation d'un élément, un bloc par composante (D1869–D1886) | clos (D1887) |
-| 2 | **La migration déclarée**, `migrations:` et `migration.yml` : `from:`, `sources:`, `mapping:`, `buffer:`, `storage:`, `mode:`, `reset:`, `operations:`, `on_running:` — leur définition, leur usage est au chapitre 9 ; une migration peut lire plusieurs bases, la place de la base d'origine en délibéré (D662, D664, D671, D943, D1045, D1072, D1087, D1884–D1886) ; les trois cas la déclarent | à traiter |
-| 3 | **L'ordre des étapes** : les migrations dans l'ordre déclaré, les dossiers et les fichiers numérotés, les motifs regex (D665, D806, D1103–D1104) | à traiter |
+| 2 | **La migration déclarée**, `migrations:` et `migration.yml` : `from:`, `sources:`, `mapping:`, `buffer:`, `storage:`, `mode:`, `reset:`, `operations:`, `on_running:` — leur définition, leur usage est au chapitre 9 ; un processus de migration par connecteur d'origine, `from:` garde sa structure ; le raccourci d'une reprise un pour un (D662, D664, D671, D943, D1045, D1072, D1087, D1884–D1888) ; les trois cas la déclarent | présenté |
+| 3 | **L'ordre des étapes** : les migrations dans l'ordre alphabétique de leurs noms (D1888), les dossiers et les fichiers numérotés, les motifs regex (D665, D806, D1103–D1104) | à traiter |
 | 4 | **La description de la source** dans la grammaire du modèle : un fichier par table, les trois états d'une colonne — lue, ignorée, non lue —, `ignored`, la colonne décrite et ses codes (D652, D657, D869, D947, D1100–D1102) | à traiter |
 | 5 | **L'identité et les références de la source** : la référence composée, nommée `TABLE[NOM].colonne`, à l'une de deux entités `A.c or B.c` — deux lectures en proposition (D995, D996) —, le `parent:` du fils (D876, D931, D1035, D1042) | à traiter |
 | 6 | **La normalisation à la source** : `formula:`, `normalize:`, la lecture d'une autre table par un calculé et son cache, l'alias (D660, D872, D965, D966, D990) | à traiter |

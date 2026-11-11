@@ -738,8 +738,11 @@ documentation et son code. *(D1674, D1676, D1700, D1702)*
 d'une description vers une autre. Elle a deux origines : la version
 antérieure de l'application, c'est la **migration de version** ; une
 source, un système précédent, c'est la **reprise**. Dans les deux cas elle
-applique un **mapping**. La clé `migrations:`, l'opération `migrate` et le
-module interne `_migration` en portent le nom. *(D3, D646, D1031, D1882)*
+applique un **mapping**. Un fichier, `migration.yml`, décrit et nomme les
+processus de migration, un par connecteur d'origine ; ils s'exécutent
+dans l'ordre alphabétique de leurs noms. La clé `migrations:`, l'opération
+`migrate` et le module interne `_migration` en portent le nom.
+*(D3, D646, D1031, D1882, D1888)*
 
 **Migration de version** — La migration dont l'origine est la version
 antérieure de l'application. Syncytium calcule les correspondances depuis

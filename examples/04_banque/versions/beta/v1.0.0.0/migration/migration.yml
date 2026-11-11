@@ -1,6 +1,6 @@
 # La migration legacy
-# La reprise des données historiques du foyer, trente-quatre ans d'écritures ; l'ordre des migrations déclarées est
-# leur ordre d'exécution.
+# La reprise des données historiques du foyer, trente-quatre ans d'écritures ; les migrations d'un fichier
+# s'exécutent dans l'ordre alphabétique de leurs noms.
 legacy:
 
   # La base d'origine

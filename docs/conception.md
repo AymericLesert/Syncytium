@@ -18349,6 +18349,54 @@ avant la synthèse Q16).
 
 ## 11. Journal des échanges
 
+- **2026-11-11 — LA PAUSE : LE CHAPITRE 8, NEUF POINTS CLOS SUR DIX-NEUF, LE POINT 10 PRÉSENTÉ (D1882–D1950, 1950
+  décisions).** La reprise, par les trois définitions demandées la veille. **Le vocabulaire** (D1882) : la migration
+  porte les données d'une description vers une autre et a deux origines — la version antérieure, c'est la migration de
+  version ; une source, c'est la reprise — ; le mapping est l'ensemble des règles qu'une migration applique. **Le
+  renommage** (D1883–D1886) : dans les trois cas, `reprise/` devient `migration/`, avec `sources/`, `mapping/` et
+  `exchange/` ; le fichier, `migration.yml` ; la clé, `sources:`. **Le point 1, le périmètre**, clos (D1887) : le
+  chapitre en deux parties, la reprise puis la migration de version, dix-neuf points. **Le point 2, la migration
+  déclarée** (D1888–D1899) : un processus par connecteur d'origine, les processus dans l'ordre alphabétique de leurs
+  noms ; `storage:` supprimé, le détail d'un passage dans `_migration` ; la base miroir dans l'environnement, par
+  `mirror:` — `mirror: temporaire`, `mirror: temporaire[5d]` ou le bloc `storage:` et `retention:`, quatre-vingt-dix
+  jours par défaut, le nettoyage à chaque début de journée — ; `--with-storage` et le re-chiffrement des fichiers de
+  détail retirés ; la forme courte d'un processus, `legacy: fichier_csv[client, fournisseur]`, par l'auto-description
+  du connecteur et un mapping champ à champ. **Le point 3, l'ordre des étapes** (D1900–D1906) : l'ordre de la
+  déclaration ; un motif trié sur le chemin complet, caractère par caractère, inséré à sa position ; l'ordre des
+  sources sans importance, Syncytium construit le graphe de dépendance ; le concepteur décide l'ordre des processus et
+  des règles. **Le point 4, la description de la source** (D1907–D1912) : deux régimes, la reprise analysée et la
+  forme courte, la complétude portée de même ; un troisième mode, le remplacement silencieux d'une application
+  existante, peut faire une troisième section du chapitre — « un peu comme un parasite » — ; `ignored` n'est plus un
+  type, mais une propriété ou une forme courte ; la description d'une colonne, une recommandation. **Le point 5,
+  l'identité et les références** (D1913–D1917) : la composition déclarée chez le possesseur, `'list of
+  LCOMCLI[LCKTNUMERO: ECKTNUMERO, LCKTPSF: ECKTINDICE]'`, `parent:` sorti des sources ; du `or`, le premier trouvé est
+  la valeur ; le nom d'une référence, sensible à la casse. **Le point 6, la normalisation à la source** (D1918–D1926)
+  : `alias:` avant `name:` ; la source exploite les méthodes du modèle ; l'écriture en méthode vaut pour toute
+  fonction d'un type, `me.trim()` préférée dans `normalize:` — le chapitre 3 mis à jour — ; un seul cache, deux
+  usages, l'entrée déclarée à son premier `push` ; `normalize:`, un usage au chapitre 8. **Le point 7, le périmètre et
+  la couverture** (D1927–D1931) : sur un numéro, la plage compte des numéros distincts ; la clé `coverage:` devient
+  `partition:`, l'opération `reset_coverage` garde son nom ; la mécanique de la lecture au chapitre 9. **Le point 8,
+  les sources fichiers** (D1932–D1939) : Excel décrit au chapitre 5, derrière lui OpenOffice et Google Sheets ; les
+  colonnes d'un classeur dans la carte `entities:` du connecteur — le type, `reference:`, `label:` —, les `sources/`
+  n'ajoutent que ce que le connecteur ne porte pas ; le classeur est un storage ; les adresses par environnement, une
+  limite de l'approche. **Le point 9, la forme de la règle** (D1940–D1950) : plusieurs règles par fichier, un fichier
+  par règle recommandé ; la clé d'une référence et celle du possesseur entre crochets ; `operations:`, un seul mot à
+  trois étages ; le message construit d'une validation par les labels du catalogue des textes du moteur,
+  `_syncytium.<opérateur>.validation` et `_syncytium.<opérateur>.description` ; `message:` facultatif, D1117 amendée.
+  **Les cas réécrits** : l'entrepôt — la base miroir, `ignored: true`, `list of` chez le possesseur, l'alias,
+  `partition:`, `me.trim()`, les crochets des clés composées — ; le véhicule — les colonnes de ses classeurs au
+  connecteur. **Deux écarts de consignation, dits à l'auteur** : D1929 en deux commits, le premier parti avec les
+  seuls cas ; D1945 à D1947 dans un seul commit. **Le point 10, la clé fonctionnelle et les agrégats, présenté** : ma
+  lecture — quand deux règles alimentent le même champ du même enregistrement, la dernière exécutée l'emporte — ; deux
+  lectures : les conséquences de `identities:` au mapping, restées en proposition depuis D1171 ; l'échec dans une
+  composition (D933) et le doublon de la base miroir (D1046) au chapitre 9. « je marque une pause ». **À la reprise**
+  : la réponse au point 10, puis les points 11 à 19, un à la fois ; la troisième section, le remplacement silencieux,
+  à ouvrir — sa commande n'a pas de nom, sa place n'est pas dite. Restent à confirmer ou à nommer : le titre du
+  chapitre (D1887) ; `exchange:` et `from: abrege`, au point 15 ; le modèle de `_migration` écrit dans migration.md,
+  gardé pour le chapitre 9 (D1894) ; les noms des opérateurs, le code du label d'enveloppe et les textes des gabarits
+  (D1949) ; les classes des formats derrière Excel (D1932). Les dix sections de la dépréciation restent à relire comme
+  textes. Les lectures ouvertes jusqu'à l'implémentation restent D1788, D1794, D1805, D1815, et la forme de la
+  notification de progression (D1861).
 - **2026-11-10 — LA PAUSE : LES CONSIGNES RELUES, LA DÉPRÉCIATION CLOSE, LE PÉRIMÈTRE DU CHAPITRE 8 EN COURS
   (D1864–D1881, 1881 décisions).** La reprise, dans la session du chapitre 8. **Le modèle** : l'auteur retient Claude
   Fable 5.2 — « Je vais le retenir le modèle Fable 5.2 pour Syncytium » ; le trailer des commits suit. À sa demande,

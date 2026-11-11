@@ -6,7 +6,7 @@ niveaux : les domaines, les rangs du chantier de la documentation, leurs
 un état et une date de fin. Elle est calculée depuis le
 [registre](../conception.md), le [plan du chantier](../documentation.md)
 et le [plan de la documentation](../README.md) par `python tools/plan.py`,
-le 10/11/2026 (D1660).*
+le 11/11/2026 (D1660).*
 
 ## Le sommaire
 

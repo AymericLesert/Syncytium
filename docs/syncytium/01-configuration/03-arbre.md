@@ -314,12 +314,13 @@ connectors: ~{connectors.yml}
   règle de `cleanup.yml`.
 - **`cleanup:`** : le nettoyage, `~{cleanup.yml}` (D1073–D1075). Le
   fichier porte à sa racine des règles de rétention nommées,
-  `journal:`, `migration_cegid:`. Chacune supprime, dans un dossier
+  comme `journal:`. Chacune supprime, dans un dossier
   (`directory:`), les fichiers d'un `pattern:` qui dépassent la
   `retention:`, tous les `interval:`. La rétention est une durée, `90d`,
-  ou un nombre sans unité, les n derniers fichiers (D1076). Le journal,
-  les watchers et les fichiers de détail des migrations y ont leur
-  règle (D1070, D1071).
+  ou un nombre sans unité, les n derniers fichiers (D1076). Le journal
+  et les watchers y ont leur règle (D1070, D1071) ; le détail d'une
+  migration vit dans le module `_migration`, que Syncytium nettoie
+  lui-même (D1889).
 - **`connectors:`** : les connecteurs de l'environnement,
   `~{connectors.yml}`, chacun par son rôle nommé (D617) : `type:` la
   famille, `class:` l'implémentation, `parameters:` avec les secrets

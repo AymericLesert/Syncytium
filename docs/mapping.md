@@ -129,10 +129,6 @@ l'entité qui le référence, le possesseur avant ses lignes).
 migrations:
   legacy_erp:                       # l'ordre alphabétique des noms = l'ordre d'exécution (D1888)
     from: legacy_db                 # la base d'origine — le connecteur storage source (D1086–D1087)
-    buffer: temporaire              # la base miroir (D1044/D1045) — un connecteur : un schéma ou la classe memory
-    storage:                        # le fichier SQLite de chaque passage (D1066/D1072)
-      directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
-      filename: ${now:yyyy-mm-dd}-legacy_erp.syncytium
     sources:
       - ~{legacy_db/sources/.*\.yml} # un fichier par entité — le regex (D806), la référence explicite (D956)
     mapping:
@@ -869,26 +865,30 @@ coverage:
   d'exécution de chaque passage, ses compteurs et ses indicateurs
   restent sans délai de rétention — **l'évolution de la qualité dans
   le temps** (les indicateurs qui montent au fil des ajustements, la
-  courbe du catalogue) ; le détail des anomalies vit dans le fichier
-  SQLite du passage, retenu 90 jours par défaut ;
+  courbe du catalogue) ; le détail des anomalies vit dans le module
+  `_migration`, partitionné par date (D1889) ;
 - **les options de la migration** (D669/D671) : `{ mode: absolute |
   relative, reset: true | false }` — deux propriétés orthogonales :
   `absolute` (le tout-ou-rien de la bascule) / `relative`
   (l'entrepôt — les conformes portés, les erreurs isolées au
   rapport, la composition selon D933) ; `reset: true` **efface le contenu des tables cibles
   avant l'import** (le périmètre de la migration seul — le patron de
-  l'exploration répétée) ;
+  l'exploration répétée) ; elles se définissent par processus de
+  migration, **`relative` et `false` par défaut** (D1889) ;
 - **la base miroir** (D1044–D1046) : `buffer:` nomme le connecteur
   où la reprise se construit à l'image de la destination — un storage
   dans un schéma donné, ou la classe `memory` ; les phases de contrôle
   et la comparaison s'y jouent, puis les différences se reportent dans
   la base de l'application ; la base vit le temps de la migration ;
-- **le stockage du détail** (D1066–D1073) : `storage:` nomme le
-  dossier et le fichier SQLite de chaque passage (`filename:` daté par
-  `${now:…}`) ; sa rétention est une règle du `cleanup.yml` de
-  l'environnement — `interval:`, `directory:`, `pattern:` au groupe
-  `(?<date>…)`, `retention:` (90 jours par défaut) ; la ligne
-  d'exécution reste sans délai ;
+  **elle ne se déclare pas dans un processus de migration**, parce
+  qu'elle sert leur enchaînement ; par défaut c'est un connecteur
+  `memory`, et elle se configure pour une base très volumineuse
+  (D1889) ;
+- **le détail d'un passage** (D1889 — remplace `storage:` et le
+  fichier SQLite de D1066–D1073) : l'état de la migration et ses
+  écarts vivent dans le module `_migration`, partitionné par une
+  date ; le nettoyage se fait par cette clé de partition, Syncytium
+  l'assure ; la ligne d'exécution reste sans délai ;
 - **le différentiel par comparaison** (D672, précisé par D1037) :
   évalué **dans la base miroir, avant la bascule** — l'enregistrement
   reconstruit, ses compositions comprises, se compare à la cible par

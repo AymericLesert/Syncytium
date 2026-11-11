@@ -52,7 +52,7 @@ storage: entrepot
 logging: ~{logging.yml}
 
 # Le nettoyage des fichiers
-# Les règles de rétention de l'environnement : le journal, le détail des migrations, les dépôts des watchers.
+# Les règles de rétention de l'environnement : le journal, les dépôts des watchers.
 cleanup: ~{cleanup.yml}
 
 # Les connecteurs

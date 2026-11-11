@@ -545,10 +545,10 @@ migration porte les données d'une description vers une autre, et elle a
 deux origines (D1882) : une source, c'est la reprise ; la version
 antérieure, c'est la migration de version. Le dossier range les deux :
 
-- `migration.yml` déclare les migrations (D662) : `from:` la base
-  d'origine (D1087), `buffer:` la base miroir (D1045), `storage:` le
-  fichier de son détail (D1072), `mode:`, `reset:`, `sources:`
-  (D1884), `mapping:`, `operations:` ;
+- `migration.yml` décrit et nomme les processus de migration, un par
+  connecteur d'origine (D662, D1888) : `from:` la base d'origine
+  (D1087), `mode:` et `reset:`, `relative` et `false` par défaut
+  (D671, D1889), `sources:` (D1884), `mapping:`, `operations:` ;
 - `sources/<TABLE>.yml` décrit chaque entité d'origine (D947, D966) :
   `name`, `alias`, `filter`, `identity`, `coverage`, `parent`, `fields`,
   `validation` ; une colonne typée `TABLE.colonne` est une référence,
@@ -561,6 +561,10 @@ antérieure, c'est la migration de version. Le dossier range les deux :
 - `exchange/` porte les surcharges de la version par rapport à la
   version antérieure, en un volet ascendant et un volet descendant
   (D1883) ; aucun cas n'en porte encore.
+
+La base miroir, `buffer:`, ne se déclare pas dans un processus : elle
+sert leur enchaînement. Par défaut, c'est un connecteur en mémoire ; elle
+se configure pour une base très volumineuse (D1889).
 
 Le détail dans [mapping.md](../../mapping.md). Le pilotage et le suivi,
 les passages, les clés d'origine, le modèle lu, les anomalies, sont le

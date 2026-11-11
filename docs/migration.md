@@ -236,25 +236,25 @@ d'origine donne toutes ses alternatives et tous ses changements de
 statut — acceptée, refusée pour une cause, pour une autre, de nouveau
 acceptée ; « refusé puis accepté » n'en est qu'une lecture.
 
-### Le stockage du détail (D1065–D1068, D1072–D1076)
+### Le détail d'un passage (D1889)
 
-Le détail des anomalies des enregistrements peut être très volumineux ;
-il ne surcharge pas la base :
+Le détail des anomalies des enregistrements peut être très volumineux.
+Il vit dans le module `_migration`, **partitionné par une date** ; le
+nettoyage se fait par cette clé de partition, et Syncytium l'assure. La
+clé `storage:` de la migration déclarée, son fichier SQLite par passage,
+son chiffrement à part et sa règle au `cleanup.yml` (D1066, D1067, D1072,
+D1073) sont retirés.
 
-- **un fichier SQLite par exécution**, daté par son nom (D1066) — la
-  migration le déclare par `storage:` (D1072) : le dossier et le nom,
-  `${now:yyyy-mm-dd}` évalué à chaque exécution (D1069) ;
-- **chiffré** — nativement si possible, sinon après sa création ; la
-  rotation des clés (`syncytium rotate`) re-chiffre aussi les fichiers
-  existants (D1067) ;
-- **retenu** par une règle du `cleanup.yml` de l'environnement (D1073) —
-  le mécanisme générique de rétention des fichiers (D1070–D1076) :
-  `retention: 90d` par défaut, le fichier échu supprimé ; la base garde
-  la ligne d'exécution et ses compteurs ;
-- **les données personnelles** (D1065) : à l'échéance, le fichier est
-  supprimé entier ; le rapport par mail anonymise les valeurs des champs
-  marqués `rgpd:` (D696) ; les interfaces du module montrent les valeurs
-  complètes, sous les droits de chacun.
+- **la ligne d'exécution** et ses compteurs restent sans délai (D1068) ;
+- **les données personnelles** (D1065) : le rapport par mail anonymise
+  les valeurs des champs marqués `rgpd:` (D696) ; les interfaces du
+  module montrent les valeurs complètes, sous les droits de chacun.
+
+*À reprendre à la lecture du chapitre 9* : la durée de rétention du
+détail et le lieu où elle se règle ; ce que deviennent la copie d'un
+environnement `--with-storage` (D1080) et le re-chiffrement à la
+rotation des clés (D1067), qui ne visaient que ces fichiers ; les
+mentions du fichier de détail plus bas dans ce document.
 
 ## Le modèle
 
@@ -545,12 +545,8 @@ Les clés que le module lit sur la migration déclarée
 # migration.yml — une migration déclarée (D662)
 legacy_erp:
   from: legacy_db                       # la base d'origine (D1086–D1087)
-  buffer: temporaire                    # la base miroir (D1044/D1045)
-  storage:                              # le fichier SQLite de chaque passage (D1066/D1072)
-    directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
-    filename: ${now:yyyy-mm-dd}-legacy_erp.syncytium
-  mode: relative                        # D671
-  reset: false
+  mode: relative                        # D671 — relative par défaut (D1889)
+  reset: false                          # false par défaut (D1889)
   sources:
     - ~{sources/.*\.yml}
   mapping:
@@ -565,14 +561,9 @@ legacy_erp:
       operations: [ reset_coverage(orders) ]
 ```
 
-```yaml
-# environments/production/cleanup.yml — la rétention du détail (D1073–D1076)
-migration_legacy_erp:
-  interval: 1d
-  directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
-  pattern: '^(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})-legacy_erp\.syncytium$'
-  retention: 90d
-```
+La base miroir, `buffer:`, ne se déclare pas dans un processus : elle
+sert leur enchaînement, et vaut un connecteur `memory` par défaut
+(D1889).
 
 ## Les illustrations
 

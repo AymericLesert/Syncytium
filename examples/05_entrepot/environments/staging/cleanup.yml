@@ -9,11 +9,3 @@ journal:
   directory: ${SYNCYTIUM_LOG_DIRECTORY}
   pattern: '^.*-(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})\.log(\.[0-9]+)?$'
   retention: 30d
-
-# Le nettoyage du détail de la migration cegid
-# Le fichier de chaque passage, gardé quatre-vingt-dix jours.
-migration_cegid:
-  interval: 1d
-  directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
-  pattern: '^(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})-cegid\.syncytium$'
-  retention: 90d

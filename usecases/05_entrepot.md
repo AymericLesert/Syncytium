@@ -1549,9 +1549,9 @@ Ce que la mise à jour de l'entrepôt produit, où cela vit, qui le lit.
 | la clé | au cas 5 | les décisions |
 |---|---|---|
 | `from:` | `cegid` — la base d'origine, le storage `sqlserver` en lecture ; la base de production lue en direct, une copie au staging | D860, D863, D945 |
-| `buffer:` | `temporaire` — la classe `memory` ; un storage dans un schéma dédié de l'entrepôt conviendrait aussi aux mouvements | D1044–D1045 |
-| `storage:` | `${SYNCYTIUM_MIGRATION_DIRECTORY}`, `${now:yyyy-mm-dd}-cegid.syncytium` ; la rétention par la règle `migration_cegid:` du `cleanup.yml` (`interval: 1d`, `retention: 90d`) | D1066, D1069, D1072–D1076 |
-| `mode:`, `reset:` | `relative`, `false` — l'historique et l'enrichissement tiennent | D671, D941 |
+| `buffer:` | `temporaire` — la classe `memory` ; un storage dans un schéma dédié de l'entrepôt conviendrait aussi aux mouvements ; depuis le 11/11/2026 la clé ne se déclare plus dans un processus, sa place reste à dire | D1044–D1045, D1889 |
+| `storage:` | retiré le 11/11/2026 : le détail d'un passage vit dans le module `_migration`, partitionné par date, que Syncytium nettoie lui-même | D1889 |
+| `mode:`, `reset:` | `relative`, `false` — l'historique et l'enrichissement tiennent ; ce sont aussi les défauts | D671, D941, D1889 |
 | `sources:` | vingt-trois tables : quatorze lues, neuf `ignored` (les offres, le devis, les libellés, les tranches) — sur les trois cent trente objets du schéma | D947–D952 |
 | `mapping:` | trente-trois règles en cinq dossiers numérotés : `1_lieux`, `2_tiers`, `3_technique`, `4_commande`, `5_stock` | D665, D1103–D1104 |
 | `operations:` | `delta_nocturne` — `daily[02:00]`, `migrate`, `on_running` au défaut `cancel` ; `relecture_complete` — `weekly[saturday at 23:00]`, `reset_coverage` des cinq entités partitionnées, `on_running: wait` | D943, D1077–D1080 |

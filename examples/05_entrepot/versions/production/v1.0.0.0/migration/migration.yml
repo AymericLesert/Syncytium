@@ -12,18 +12,6 @@ cegid:
   # la fin de la migration.
   buffer: temporaire
 
-  # Le stockage du détail
-  # Le fichier SQLite de chaque passage, qui garde ses anomalies pour les rapports et leur consultation ; sa rétention
-  # est une règle du nettoyage de l'environnement.
-  storage:
-
-    # Le dossier des fichiers
-    directory: ${SYNCYTIUM_MIGRATION_DIRECTORY}
-
-    # Le nom du fichier
-    # Daté du jour de l'exécution.
-    filename: ${now:yyyy-mm-dd}-cegid.syncytium
-
   # Le mode
   # relative : les enregistrements conformes entrent, les autres vont au rapport ; l'entrepôt se met à jour sans être
   # vidé.

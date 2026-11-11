@@ -109,8 +109,7 @@ manquer. `KEY` est l'une de quatre choses.
 - **Un mot-clé** : `${PROJECT}`, `${VERSION}`, la liste est extensible.
   `${now:yyyy-mm-dd}` donne l'instant de l'usage, évalué à la demande et
   jamais au chargement, avec un masque dans la notation des types
-  (D1069) : le fichier de détail d'une migration porte ainsi la date de
-  son exécution.
+  (D1069) : le fichier du journal porte ainsi la date du jour.
 - **Un élément de la configuration**, en navigation relative remontante :
   `${name}` au même niveau, `${.name}` au niveau précédent, `${..name}` au
   parent du précédent. Chaque point remonte d'un niveau de la structure

@@ -84,7 +84,10 @@ suppression d'un module ou d'une entité ; l'ajout, le renommage, la
 modification ou la suppression d'un **champ non calculé** (modifié =
 **le type ou la valeur par défaut**). Le champ calculé ne touche pas
 le schéma (le recalcul suffit) ; l'écart sans portée structurelle
-active la version **sans migration de schéma**.
+active la version **sans migration de schéma**. **Le critère
+structurel ne suffit pas à lui seul** (D1969) : la présence de règles
+de mapping demande aussi une migration, parce qu'une règle peut
+modifier les valeurs d'un champ sans que la structure change.
 
 **La procédure en quatre temps** (D674 — précise D631) :
 

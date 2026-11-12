@@ -58,7 +58,9 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - une conversion de type avec perte non écrite (D581) ; une unité sans
   chemin vers une unité connue du champ (D979, D983) ;
 - une entité sans identité, ni la sienne ni celle de sa racine (D1035,
-  D1039).
+  D1039) ;
+- un champ requis ajouté par une version sans `default:` : les
+  enregistrements existants ne pourraient pas le recevoir (D1970).
 
 Une alerte signale sans refuser :
 

@@ -790,6 +790,15 @@ Le cas 5 : `note_interne` sur le tiers, aucune colonne PMI, née à
 
 ### Au-delà du 1-1 (D658–D660)
 
+Cette partie montre des usages (D1958). Seul `distinct:` s'y définit :
+c'est une clé de la règle. Les autres mécanismes gardent leur
+définition dans leur chapitre : le montant et le compteur sont des
+types du [modèle](syncytium/02-modele/README.md), `cache` et les
+fonctions relèvent du [langage](syncytium/03-langage/README.md), la
+référence de fichier `~{…}` de la
+[configuration](syncytium/01-configuration/README.md), la lecture d'un
+fichier des [connecteurs](syncytium/05-connecteurs/README.md).
+
 - **le référentiel par valeurs distinctes** (D658, validé) : la
   destination prend les valeurs distinctes d'un champ ou d'une liste
   de champs — la valeur devient la clé fonctionnelle, les entités

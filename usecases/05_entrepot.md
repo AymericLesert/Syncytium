@@ -14,7 +14,9 @@ retiré (D1913, D1914) ; une entité alias s'écrit `alias: PARAM_EMPLACEMENTS`
 puis `name: PARAM` (D1918) ; la clé de lecture d'une source s'appelle
 `partition:`, non plus `coverage:` (D1929) ; dans une règle, la clé d'une
 référence composée s'écrit entre crochets, `article: [code: …, complement: …]`,
-et celle du possesseur sous `parent:` de même (D1941, D1943). Les passages datés ci-dessous gardent les noms et les
+et celle du possesseur sous `parent:` de même (D1941, D1943) ; le connecteur
+du dossier des plans s'appelle `dossier_plans`, non plus `plans`, le nom du
+champ qu'il remplit (D1960, D1962). Les passages datés ci-dessous gardent les noms et les
 écritures de leur date : `reprise/`, `reprise.yml`, `source/`, `source:`,
 `type: ignored`, le `parent:` d'une source, `coverage:`.*
 
@@ -2963,7 +2965,7 @@ D1434.**)*
 > | `ENTREPOT_PASSWORD` | le storage `entrepot` | **oui** |
 > | `CEGID_SERVER`, `CEGID_DATABASE`, `CEGID_USER` | la base d'origine `cegid` | non |
 > | `CEGID_PASSWORD` | la base d'origine `cegid` | **oui** |
-> | `PLANS_DIRECTORY` | le connecteur `plans` | non |
+> | `PLANS_DIRECTORY` | le connecteur `dossier_plans` | non |
 > | `AZURE_TENANT`, `AZURE_CLIENT_ID` | l'authentification `azure_ad` | non |
 > | `AZURE_CLIENT_SECRET` | l'authentification `azure_ad` | **oui** |
 > | `SMTP_HOST`, `SMTP_FROM` | le connecteur `smtp` | non |

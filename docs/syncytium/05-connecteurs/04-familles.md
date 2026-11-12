@@ -97,7 +97,9 @@ Deux gestes (D634, D635, D972, D973) :
   `.modified`, `.hash` (D972). La liste vide est admise. Le connecteur
   attend qu'un fichier en cours d'écriture soit terminé. Le contenu se
   lit par la valeur `file` elle-même. Une règle de reprise l'appelle par
-  le rôle du connecteur, `plans.files(ARCTFICPLA)` (D617, D972).
+  le rôle du connecteur, `dossier_plans.files(ARCTFICPLA)` (D617, D972). Le
+  connecteur ne porte pas le nom du champ qu'il remplit : un nom commun
+  aux deux serait une ambiguïté, refusée à l'ingestion (D1960).
 - **`commit(fichier)`** acquitte : il renomme ou déplace le fichier, avec
   des méta-caractères, un compteur, un identifiant, une date. Le moteur
   l'appelle d'office quand l'opération déclenchée a réussi, jamais une

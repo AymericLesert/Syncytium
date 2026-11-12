@@ -476,7 +476,7 @@ Les opérations du type (D974, D1556) :
 Trois règles complètent le type.
 
 - **Un connecteur `file` remplit le champ**, dans une règle du mapping
-  (D883, D972) : `plans: plans.files(ARCTFICPLA)`.
+  (D883, D972) : `plans: dossier_plans.files(ARCTFICPLA)`.
 - **Le différentiel compare les descripteurs** ; le contenu n'est relu
   qu'en cas d'écart (D672).
 - **Le stockage est dédupliqué par l'empreinte** (D165). Un contenu

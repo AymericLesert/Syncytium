@@ -62,7 +62,7 @@ actif:
 date_creation:     ARCJCRE
 date_modification: ARCJMOD
 plans:
-  formula: plans.files(ARCTFICPLA)
+  formula: dossier_plans.files(ARCTFICPLA)
   description: Les fichiers du plan, lus par le connecteur des plans ; la liste peut être vide.
 gere_en_stock:            ARCTGDEPOT = "O"
 depot_expedition:         ARCTCODEP

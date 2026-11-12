@@ -115,7 +115,7 @@ connecteur du socle : `type:` sa famille, `class:` son nom,
 ```yaml
 # Les plans des articles
 # Le dossier distant des plans : la reprise y lit le fichier que la fiche article désigne.
-plans:
+dossier_plans:
   type: file
   class: sftp
   parameters:

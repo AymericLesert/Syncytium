@@ -767,6 +767,17 @@ tarifaire fautive, ses mouvements le trouvent ; la commande sans
 ligne valide tombe entière. Le rapport nomme la cause — le parent, ou
 la ligne (mien).
 
+**Ce que la reprise écrit, ce qu'elle laisse (D1964).** Le chapitre
+énonce la doctrine en quatre cas ; les mécanismes gardent leur
+définition dans leur chapitre, `unchanged:` et `default:` au
+[modèle](syncytium/02-modele/03-champs.md), le typage au
+[langage](syncytium/03-langage/README.md) :
+
+- le champ qu'aucune règle n'alimente reste tel quel ;
+- le champ `unchanged: true` n'est jamais écrit par la migration ;
+- sur un champ alimenté, la source fait foi ;
+- le texte trop long pour sa cible se refuse à l'ingestion.
+
 **Le texte trop long (D581).** Un `text[30]` de la source vers un
 `text[..20]` de la cible est une conversion avec perte : le typage
 statique la refuse à l'ingestion — ni troncature silencieuse, ni rejet

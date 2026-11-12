@@ -39,7 +39,8 @@ champ, par les noms ; la conversion vient du type de destination. Les
 règles de la forme courte d'une reprise s'y appliquent (D1896) : un
 champ supprimé est une colonne sans champ, un champ ajouté un champ
 sans colonne, qui prend sa valeur par défaut — un champ requis ajouté
-sans `default:` est une erreur d'ingestion (D1970). La procédure à chaud
+sans `default:` est une erreur d'ingestion, même alimenté par une règle
+d'`exchange/` (D1970, D1972). La procédure à chaud
 dépend du moteur : elle est au chapitre 9. Les seules écritures :
 
 - **le renommage** — `from: <ancien nom>` sur le champ, l'entité ou

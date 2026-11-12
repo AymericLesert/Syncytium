@@ -118,7 +118,9 @@ migration, non le bloc `settings` (D1888) — : le lien { connecteur
 storage source · descriptions des entités sources · mapping }.
 **Un processus de migration se définit pour un connecteur
 d'origine** (D1888) : `from:` le nomme, et plusieurs sources font
-plusieurs processus, que `migration.yml` décrit et nomme. **Ils
+plusieurs processus, que `migration.yml` décrit et nomme. Une règle
+peut tout de même appeler un autre connecteur que ce `from:`, par son
+nom, dans une formule : le processus garde une seule origine (D1961). **Ils
 s'exécutent dans l'ordre alphabétique de leurs noms** (D1888) : le
 concepteur ordonne ses processus selon sa logique, qui ne se déduit
 pas des données (D1905) ; avec une seule source, le nom peut être

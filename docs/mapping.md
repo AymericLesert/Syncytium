@@ -198,7 +198,8 @@ Les règles de la forme courte (D1896) :
   champ dans le modèle ; sans `mask:`, c'est lui qui convertit la
   valeur lue ;
 - **la colonne sans champ de même nom** n'est pas lue ; elle se relève
-  à la complétude ;
+  à la complétude ; de même la colonne dont le champ de même nom est
+  `unmapped:` (D1966) ;
 - **le champ sans colonne de même nom** prend sa valeur par défaut sur
   une ligne nouvelle ; sur une ligne modifiée, il garde sa valeur ;
 - **le champ requis sans colonne** refuse une ligne nouvelle, jamais
@@ -775,7 +776,8 @@ définition dans leur chapitre, `unmapped:` et `default:` au
 
 - le champ qu'aucune règle n'alimente reste tel quel ;
 - le champ `unmapped: true` n'est jamais écrit par la migration ;
-- sur un champ alimenté, la source fait foi ;
+- sur un champ alimenté, la source fait foi — le principe se dit ici,
+  le différentiel qui l'applique est au chapitre 9 (D1966) ;
 - le texte trop long pour sa cible se refuse à l'ingestion.
 
 **Le texte trop long (D581).** Un `text[30]` de la source vers un

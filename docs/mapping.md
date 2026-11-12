@@ -32,7 +32,14 @@ conversions.
 ## L'usage 1 — la migration entre versions : l'implicite (D647)
 
 Entre deux versions, **rien ne s'écrit** : le `from:` implicite est
-la version précédente, Syncytium le porte. Les seules écritures :
+la version précédente, Syncytium le porte. **La migration de version
+est une forme courte** (D1968) : la version antérieure est la source et
+se décrit elle-même, par son méta-modèle ; le mapping est champ à
+champ, par les noms ; la conversion vient du type de destination. Les
+règles de la forme courte d'une reprise s'y appliquent (D1896) : un
+champ supprimé est une colonne sans champ, un champ ajouté un champ
+sans colonne, qui prend sa valeur par défaut. La procédure à chaud
+dépend du moteur : elle est au chapitre 9. Les seules écritures :
 
 - **le renommage** — `from: <ancien nom>` sur le champ, l'entité ou
   le module renommé (D651/D1111 — la clé de l'origine, la même que

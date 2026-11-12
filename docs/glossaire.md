@@ -816,8 +816,9 @@ portent le nom. *(D3, D646, D1031, D1882, D1888, D1895–D1897)*
 **Migration de version** — La migration dont l'origine est la version
 antérieure de l'application. Syncytium calcule les correspondances depuis
 les écarts entre les deux versions, à chaud ; le concepteur n'écrit que ce
-que le calcul ne devine pas, comme un renommage. *(D3, D5, D632, D647,
-D1882)*
+que le calcul ne devine pas, comme un renommage. C'est une forme courte :
+la version antérieure se décrit elle-même, le mapping est champ à champ.
+*(D3, D5, D632, D647, D1882, D1968)*
 
 **Migration silencieuse** — La migration que Syncytium porte lui-même,
 sans intervention du concepteur. Entre deux versions : sans règle sous

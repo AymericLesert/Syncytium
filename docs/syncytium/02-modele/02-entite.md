@@ -122,6 +122,17 @@ identities:
 - l'accès par la clé vise la première ; une autre se nomme,
   `factures[numero: v]` (D1550).
 
+Plusieurs identités vérifient l'intégrité des données quand elles vivent
+ensemble (D1953) :
+
+- la première est l'identité principale : dès sa création, un
+  enregistrement la porte ;
+- la deuxième est une identité secondaire, qui se construit avec
+  l'usage : le numéro d'une facture ne se définit pas à sa création,
+  mais quand la facture est validée ;
+- au-delà de deux, le cas est rare ; Syncytium applique à chacune la
+  logique de la deuxième, en cascade.
+
 ## Le cycle de vie, l'héritage, l'historique
 
 > **Le cycle de vie** est la suite d'états qu'un enregistrement

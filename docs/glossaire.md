@@ -627,8 +627,11 @@ Identité technique. *(D142, D1170)*
 
 **Identité acquise** — Une identité qui ne vaut qu'une fois ses champs
 remplis, comme un numéro attribué à la validation. La première identité
-d'une entité est celle de naissance ; les suivantes sont acquises. Voir
-Clé fonctionnelle. *(D1171)*
+d'une entité est celle de naissance, l'identité principale ; les
+suivantes sont acquises, des identités secondaires qui se construisent
+avec l'usage. À la reprise, la clé principale est le lien principal ; la
+clé secondaire s'associe à l'enregistrement dès qu'elle est définie.
+Voir Clé fonctionnelle. *(D1171, D1953)*
 
 **Identité technique** — Le matricule interne et invisible d'un
 enregistrement (un UUID), qui ne change jamais — même renommé, même

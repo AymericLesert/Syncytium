@@ -844,11 +844,13 @@ customers:
 
 - **l'identité partout** (D1035 — amende D825/D930) : toute entité
   porte au moins une identité, la sienne ou celle qu'elle hérite de sa
-  racine (D1039) ; avec `identities:` (D1171), la règle est rapprochable
-  si elle détermine au moins l'une d'elles, la carte `{ champ:
-  expression }` choisit l'identité par ses champs, et deux identités qui
-  désignent deux enregistrements font une anomalie dans la base miroir
-  (en proposition) ; son absence est une anomalie de description du modèle —
+  racine (D1039) ; avec `identities:` (D1171, D1953), plusieurs
+  sources retrouvent le même enregistrement par des clés différentes —
+  les propriétés d'une facture par son client et son mois, son détail
+  par son enregistrement comptable — : **la clé principale est le lien
+  principal** ; **la clé secondaire s'associe à l'enregistrement** dès
+  qu'elle est définie, et si elle existait déjà, la nouvelle
+  association la remplace ; son absence est une anomalie de description du modèle —
   la règle « création seule » disparaît : l'enregistrement construit
   se retrouve dans la cible par son identité, deux enregistrements de
   même clé sont le même enregistrement (D1046) ; la règle de

@@ -311,7 +311,9 @@ numero:
 - **La migration le surcharge** (D883) : la valeur reprise entre telle
   quelle. La méthode `update(valeur)` du type, dans les `operations:` de
   la règle, positionne le compteur courant sur la plus grande valeur
-  (D999) : `commande_vente.numero.update(numero)`. Le compteur mutualisé
+  (D999) : `commande_vente.numero.update(numero)`. L'appel est
+  explicite : le moteur ne positionne pas le compteur de lui-même quand
+  une règle écrit le champ (D1959). Le compteur mutualisé
   se nomme au crochet, `counter[mon_compteur].update(valeur)` (D1555).
 - **Le rejeu** retrouve l'enregistrement par son identité, jamais par une
   nouvelle allocation (D930).

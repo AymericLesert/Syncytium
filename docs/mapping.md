@@ -769,12 +769,12 @@ la ligne (mien).
 
 **Ce que la reprise écrit, ce qu'elle laisse (D1964).** Le chapitre
 énonce la doctrine en quatre cas ; les mécanismes gardent leur
-définition dans leur chapitre, `unchanged:` et `default:` au
+définition dans leur chapitre, `unmapped:` et `default:` au
 [modèle](syncytium/02-modele/03-champs.md), le typage au
 [langage](syncytium/03-langage/README.md) :
 
 - le champ qu'aucune règle n'alimente reste tel quel ;
-- le champ `unchanged: true` n'est jamais écrit par la migration ;
+- le champ `unmapped: true` n'est jamais écrit par la migration ;
 - sur un champ alimenté, la source fait foi ;
 - le texte trop long pour sa cible se refuse à l'ingestion.
 
@@ -790,13 +790,15 @@ seuls champs que les règles alimentent : un champ qu'aucune règle
 n'alimente reste tel quel — « la doctrine est bonne » ; `reset:
 false` la garde. Le champ obligatoire naît à sa valeur : « le
 default: répond à ce besoin ». Et le champ qu'un écran de saisie
-remplit se protège par la propriété **`unchanged: true`** (`false`
+remplit se protège par la propriété **`unmapped: true`** (`false`
 par défaut) : « pour un nouvel enregistrement, la valeur est la
 valeur par défaut. Si l'enregistrement existe, la valeur du champ
 reste sa valeur » — la migration ne l'écrit jamais, la saisie reste
 libre (la différence avec `mode: write-once`, immuable pour tous) ;
 « unchanged est lié à la migration et aux règles de migration. Une
 règle qui alimente l'un de ces champs serait une erreur d'ingestion ».
+La propriété s'appelait alors `unchanged:` ; elle se nomme `unmapped:`,
+le champ tenu hors du mapping (D1965).
 Le cas 5 : `note_interne` sur le tiers, aucune colonne PMI, née à
 `""`, ouverte au commercial et aux achats par l'allow au champ
 (D886/D942) — la note de l'acheteur survit à chaque nuit.
@@ -1103,7 +1105,7 @@ partition:
   de la valeur (D168) — le différentiel est la conséquence du rejeu
   par la clé, pas un mode de plus ; **les champs qu'aucune règle
   n'alimente restent intacts** (D941 — l'enrichissement : le champ
-  possédé par la cible, `unchanged: true`, né à son `default:`) ;
+  possédé par la cible, `unmapped: true`, né à son `default:`) ;
   **la source fait foi** (D1038) : la correction à la main d'un champ
   migré cède au passage suivant qui relit l'enregistrement.
 
@@ -1220,7 +1222,7 @@ de même : **« à quoi sert un champ »** cite les règles de reprise qui
 l'alimentent (D1198 — « repris de l'ERP ») ; **les opérations
 déclenchées par la reprise** (`when: migrated`) figurent dans la table
 des opérations de l'entité parce qu'elles transforment ce que
-l'utilisateur voit (D1209, D1227) ; les champs `unchanged:` se disent
+l'utilisateur voit (D1209, D1227) ; les champs `unmapped:` se disent
 « saisis ici, jamais repris » (D941). **Quand plusieurs règles
 alimentent un champ**, la documentation les décrit toutes et précise
 que la dernière qui répond est celle que Syncytium retient (D1951).

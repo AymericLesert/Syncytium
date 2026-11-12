@@ -245,7 +245,7 @@ versions:
                   label: nom
                   confidentiality: public
                   default: null
-                  unchanged: false
+                  unmapped: false
                   searchable: none
                 prenom:
                   type: text[..40]
@@ -254,7 +254,7 @@ versions:
                   label: prenom
                   confidentiality: public
                   default: null
-                  unchanged: false
+                  unmapped: false
                   searchable: none
                 age:
                   type: integer
@@ -263,7 +263,7 @@ versions:
                   label: age
                   confidentiality: public
                   default: null
-                  unchanged: false
+                  unmapped: false
                   searchable: none
                 fonction:
                   type: text[..60]
@@ -272,7 +272,7 @@ versions:
                   label: fonction
                   confidentiality: public
                   default: null
-                  unchanged: false
+                  unmapped: false
                   searchable: none
               gui:
                 lists:

@@ -119,6 +119,12 @@ plus.* *(D118)*
 **Champ calculé** (`computed`) — Un champ dont la valeur est déduite par une opération. Par nature, cette information n'est pas modifiable par un utilisateur. Elle se rafraîchit en fonction des évolutions de valeurs de champs dont il dépend.
 *Ex. : `total_orders: { computed: count(orders) }`.* *(D90)*
 
+**Champ hors mapping** (`unmapped:`) — Un champ que la cible possède et que
+les règles d'une reprise ne touchent pas : il naît à sa valeur par défaut
+et garde ensuite sa valeur, la saisie restant libre. Une règle qui
+l'alimente est une erreur d'ingestion. C'est une volonté déclarée, non un
+oubli. La propriété s'appelait `unchanged:`. *(D941, D1965)*
+
 **Chat** (`chat`, le module du socle) — L'écran où l'utilisateur
 interroge en langue naturelle la somme des connaissances de l'instance
 — les données et leur description — par un modèle de langage déclaré

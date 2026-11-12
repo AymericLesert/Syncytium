@@ -16,7 +16,8 @@ puis `name: PARAM` (D1918) ; la clé de lecture d'une source s'appelle
 référence composée s'écrit entre crochets, `article: [code: …, complement: …]`,
 et celle du possesseur sous `parent:` de même (D1941, D1943) ; le connecteur
 du dossier des plans s'appelle `dossier_plans`, non plus `plans`, le nom du
-champ qu'il remplit (D1960, D1962). Les passages datés ci-dessous gardent les noms et les
+champ qu'il remplit (D1960, D1962) ; la propriété `unchanged:` d'un champ
+s'appelle `unmapped:` (D1965). Les passages datés ci-dessous gardent les noms et les
 écritures de leur date : `reprise/`, `reprise.yml`, `source/`, `source:`,
 `type: ignored`, le `parent:` d'une source, `coverage:`.*
 

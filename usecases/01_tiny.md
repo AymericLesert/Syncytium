@@ -430,10 +430,10 @@ produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md)
 >               history: false
 >               allow: [create, read, update, delete]
 >               fields:
->                 nom:      { type: text[..40], required: true,  mode: editable, label: nom,      confidentiality: public, default: null, unchanged: false }
->                 prenom:   { type: text[..40], required: true,  mode: editable, label: prenom,   confidentiality: public, default: null, unchanged: false }
->                 age:      { type: integer,    required: false, mode: editable, label: age,      confidentiality: public, default: null, unchanged: false }
->                 fonction: { type: text[..60], required: false, mode: editable, label: fonction, confidentiality: public, default: null, unchanged: false }
+>                 nom:      { type: text[..40], required: true,  mode: editable, label: nom,      confidentiality: public, default: null, unmapped: false }
+>                 prenom:   { type: text[..40], required: true,  mode: editable, label: prenom,   confidentiality: public, default: null, unmapped: false }
+>                 age:      { type: integer,    required: false, mode: editable, label: age,      confidentiality: public, default: null, unmapped: false }
+>                 fonction: { type: text[..60], required: false, mode: editable, label: fonction, confidentiality: public, default: null, unmapped: false }
 >               gui:
 >                 lists:  { default: { searchable: [], columns: [nom, prenom, age, fonction] } }
 >                 forms:  { default: { items: [nom, prenom, age, fonction] } }

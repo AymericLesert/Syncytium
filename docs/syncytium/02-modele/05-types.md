@@ -72,7 +72,7 @@ Certaines valent pour tous les types (D391) :
 - **`searchable:`**, le mode de recherche que le type admet : `strict`,
   `normalized`, `similarity[0.8]`, `range`, `mutualizable[<nom>]` ;
 - **`default:`**, la valeur de naissance (D424) ;
-- **`unchanged:`**, le champ que la migration n'écrit pas (D941,
+- **`unmapped:`**, le champ que la migration n'écrit pas (D941,
   [03-champs.md](03-champs.md)) ;
 - **`mask:`**, le masque de saisie et de lecture ;
 - **`report:`**, l'apparition dans les rapports, `no` par défaut (D406) ;

@@ -44,7 +44,7 @@ lecteurs attendent :
 **La source fait foi** sur ce que les règles alimentent (D1038) : la
 correction faite à la main dans la destination sur un champ migré cède
 au passage suivant qui relit l'enregistrement — corriger durablement,
-c'est corriger à l'origine ; seuls les champs `unchanged:` y échappent
+c'est corriger à l'origine ; seuls les champs `unmapped:` y échappent
 (D941), comme ceux qu'aucune règle n'alimente.
 
 ## Le déroulé d'un passage

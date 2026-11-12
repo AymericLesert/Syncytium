@@ -71,7 +71,7 @@ vie:
 commentaire:
   type: text[..200]
   default: ""
-  unchanged: true
+  unmapped: true
   allow:
     update: [bureau_etudes]
   label: Commentaire

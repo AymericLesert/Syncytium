@@ -116,7 +116,7 @@ groupes quand le module est en lecture seule (D941, D942). L'entrepôt :
 note_interne:
   type: text[..200]
   default: ""
-  unchanged: true
+  unmapped: true
   allow:
     update: [commercial, achats]
   label: Note interne

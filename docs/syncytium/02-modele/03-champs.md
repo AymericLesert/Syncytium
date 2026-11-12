@@ -168,10 +168,12 @@ classDiagram
   `code: { type: text, mask: "C-999999", mode: write-once }`.
 - **`default:`** est la valeur de naissance ; un statut naît à son
   `default:` (D424).
-- **`unchanged: true`** marque un champ que la cible possède : une
-  migration ne l'écrit pas, il naît à son `default:` et garde sa valeur,
-  la saisie restant libre (D941). Une règle de migration qui l'alimente
-  est une erreur d'ingestion. `false` par défaut.
+- **`unmapped: true`** marque un champ que la cible possède : il est
+  tenu hors du mapping d'une reprise. Aucune règle ne l'écrit, il naît à
+  son `default:` et garde sa valeur, la saisie restant libre (D941,
+  D1965). Une règle de migration qui l'alimente est une erreur
+  d'ingestion. C'est une volonté déclarée, non un oubli à combler.
+  `false` par défaut.
 - **`mask:`** est le masque de saisie, `_`, `9`, les littéraux
   (D259–D265) ; il pilote aussi la lecture des sources (D820).
 - **`searchable:`** déclare au modèle la capacité de recherche, `range`,

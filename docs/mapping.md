@@ -472,7 +472,10 @@ cohérent, l'écriture par le chemin standard D175) ; **la clé
 fonctionnelle** (D142/D398 — l'`identity:` de la cible, que la règle
 alimente par `fields:`, D930) l'identifie — le rejeu sans doublon, et
 **les origines multiples se rejoignent par la clé** : la jointure
-n'est pas une syntaxe, c'est la clé (D655). Elle lie aussi **les
+n'est pas une syntaxe, c'est la clé (D655). **Quand plusieurs règles
+alimentent le même champ du même enregistrement, la dernière mise à
+jour l'emporte** (D1951) : les contributions se fondent champ par
+champ, dans l'ordre où les règles s'exécutent. Elle lie aussi **les
 agrégats** : la ligne retrouve sa commande, l'association son
 vis-à-vis.
 
@@ -1187,7 +1190,9 @@ l'alimentent (D1198 — « repris de l'ERP ») ; **les opérations
 déclenchées par la reprise** (`when: migrated`) figurent dans la table
 des opérations de l'entité parce qu'elles transforment ce que
 l'utilisateur voit (D1209, D1227) ; les champs `unchanged:` se disent
-« saisis ici, jamais repris » (D941).
+« saisis ici, jamais repris » (D941). **Quand plusieurs règles
+alimentent un champ**, la documentation les décrit toutes et précise
+que la dernière qui répond est celle que Syncytium retient (D1951).
 
 **La migration déclarée, dans le dictionnaire de la donnée** (la colonne
 2 — le rang 2, D1302) : le chapitre 4.1 « Reprise des données »

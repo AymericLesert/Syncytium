@@ -850,7 +850,10 @@ customers:
   par son enregistrement comptable — : **la clé principale est le lien
   principal** ; **la clé secondaire s'associe à l'enregistrement** dès
   qu'elle est définie, et si elle existait déjà, la nouvelle
-  association la remplace ; son absence est une anomalie de description du modèle —
+  association la remplace ; pendant la lecture, des clés peuvent se
+  croiser — deux factures échangent leurs numéros d'une étape à
+  l'autre — : **l'intégrité se vérifie juste avant la validation de la
+  migration**, non à chaque ligne (D1954) ; son absence est une anomalie de description du modèle —
   la règle « création seule » disparaît : l'enregistrement construit
   se retrouve dans la cible par son identité, deux enregistrements de
   même clé sont le même enregistrement (D1046) ; la règle de

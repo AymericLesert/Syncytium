@@ -35,6 +35,8 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - une même version dans deux dossiers de statut, ou une transition
   interdite (D344, D345) ;
 - un doublon de nom, entité, type ou hook (D344, D396, D408) ;
+- un nom ambigu dans une formule : il désigne à la fois un champ et un
+  connecteur (D1960) ;
 - un cycle de groupes (D414), de calculés (D592) ou de types dérivés
   (D992) ;
 - un groupe nommé `administrator`, le nom réservé du groupe du socle

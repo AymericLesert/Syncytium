@@ -18418,6 +18418,40 @@ avant la synthèse Q16).
 
 ## 11. Journal des échanges
 
+- **2026-11-12 — LA PAUSE : LE CHAPITRE 8, TREIZE POINTS CLOS SUR DIX-NEUF, LA PREMIÈRE PARTIE LUE, LE POINT 14
+  PRÉSENTÉ (D1951–D1973, 1973 décisions).** La reprise, par le point 10 resté sans réponse. **Le point 10, la clé
+  fonctionnelle et les agrégats** (D1951–D1957) : quand plusieurs règles alimentent le même champ du même
+  enregistrement, la dernière mise à jour l'emporte, et la documentation le dit ; l'échec dans une composition et le
+  doublon de la base miroir vont au chapitre 9 ; la multi-identité — au méta-modèle, l'identité principale dès la
+  création et l'identité secondaire construite avec l'usage ; à la reprise, la clé principale est le lien principal,
+  une seule des clés suffit à retrouver l'enregistrement — ; les clés secondaires peuvent se croiser pendant la
+  lecture : « Les clés s'échangent. L'intégrité s'effectue juste avant la validation de la migration », un doublon qui
+  subsiste est une anomalie. **Le point 11, au-delà du 1-1** (D1958–D1963) : le point montre des usages, chaque
+  mécanisme défini dans son chapitre, un exemple et un lien au chapitre 8 ; l'appel de `update`, pour le compteur
+  surchargé, est explicite ; une règle peut appeler un autre connecteur que le `from:` de son processus ; un nom qui
+  désigne à la fois un champ et un connecteur est une erreur d'ingestion, relevée par l'auteur sur `plans` — le
+  connecteur de l'entrepôt devient `dossier_plans`. **Le point 12, l'enrichissement et la perte** (D1964–D1967) : la
+  doctrine en quatre cas — le champ non alimenté, le champ tenu hors du mapping, la source qui fait foi, le texte trop
+  long — ; « je bute sur la clé "unchanged" » : la propriété s'appelle `unmapped:` ; en forme courte, la colonne d'un
+  champ `unmapped:` n'est pas lue. La première partie du chapitre, la reprise, est lue. **Le point 13, la traduction
+  des écarts** (D1968–D1973) : la migration de version est une forme courte, la procédure à chaud dépend du moteur ;
+  il y a migration sur un écart de structure ou des règles de mapping — D673 amendée — ; `exchange/` définit ces
+  règles ; un champ requis ajouté sans valeur par défaut est une erreur d'ingestion, même alimenté par une règle
+  d'`exchange/`. **Les cas réécrits** : l'entrepôt — `dossier_plans`, `unmapped:`. **Trois questions mal posées,
+  reprises par un exemple** : « la clé secondaire passe à l'enregistrement de la clé principale », que l'auteur n'a
+  pas comprise, redonnée par le tableau de deux factures ; le second connecteur d'une règle ; « lève l'erreur
+  d'ingestion », lue à contresens. **Le point 14, les transformations d'une migration de version, présenté** : ma
+  lecture — la conversion sûre se fait seule, la conversion avec perte est refusée à l'ingestion tant qu'une règle
+  d'`exchange/` ne l'écrit pas, la conversion faillible se tente et une valeur qui échoue empêche la validation de la
+  migration — ; deux lectures : un `default:` qui change ne réécrit pas les enregistrements existants ; les
+  conversions se définissent aux chapitres 2 et 3. « je marque une pause ». **À la reprise** : la réponse au point 14,
+  puis les points 15 à 19 — les surcharges d'`exchange/`, les deux volets, les exemples, la facette documentation, le
+  registre — ; la troisième section, le remplacement silencieux, à ouvrir. Restent à confirmer ou à nommer : le titre
+  du chapitre (D1887) ; `from: abrege` sur le champ ou dans `exchange/`, au point 15 ; le modèle de `_migration`,
+  gardé pour le chapitre 9 (D1894) ; les noms des opérateurs, le code du label d'enveloppe et les textes des gabarits
+  (D1949) ; les classes des formats derrière Excel (D1932) ; la commande du remplacement silencieux (D1908). Les dix
+  sections de la dépréciation restent à relire comme textes. Les lectures ouvertes jusqu'à l'implémentation restent
+  D1788, D1794, D1805, D1815, et la forme de la notification de progression (D1861).
 - **2026-11-11 — LA PAUSE : LE CHAPITRE 8, NEUF POINTS CLOS SUR DIX-NEUF, LE POINT 10 PRÉSENTÉ (D1882–D1950, 1950
   décisions).** La reprise, par les trois définitions demandées la veille. **Le vocabulaire** (D1882) : la migration
   porte les données d'une description vers une autre et a deux origines — la version antérieure, c'est la migration de

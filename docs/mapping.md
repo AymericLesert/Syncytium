@@ -847,13 +847,16 @@ customers:
   racine (D1039) ; avec `identities:` (D1171, D1953), plusieurs
   sources retrouvent le même enregistrement par des clés différentes —
   les propriétés d'une facture par son client et son mois, son détail
-  par son enregistrement comptable — : **la clé principale est le lien
+  par son enregistrement comptable — ; une seule de ses clés suffit à
+  retrouver l'enregistrement (D1956) : **la clé principale est le lien
   principal** ; **la clé secondaire s'associe à l'enregistrement** dès
   qu'elle est définie, et si elle existait déjà, la nouvelle
   association la remplace ; pendant la lecture, des clés peuvent se
   croiser — deux factures échangent leurs numéros d'une étape à
   l'autre — : **l'intégrité se vérifie juste avant la validation de la
-  migration**, non à chaque ligne (D1954) ; un doublon qui subsiste à
+  migration**, non à chaque ligne (D1954) ; ce contrôle différé vaut
+  pour les identités secondaires, la clé principale désignant
+  l'enregistrement à chaque étape (D1956) ; un doublon qui subsiste à
   ce moment est une anomalie (D1955) ; son absence est une anomalie de description du modèle —
   la règle « création seule » disparaît : l'enregistrement construit
   se retrouve dans la cible par son identité, deux enregistrements de

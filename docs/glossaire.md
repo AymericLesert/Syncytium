@@ -818,7 +818,8 @@ antérieure de l'application. Syncytium calcule les correspondances depuis
 les écarts entre les deux versions, à chaud ; le concepteur n'écrit que ce
 que le calcul ne devine pas, comme un renommage. C'est une forme courte :
 la version antérieure se décrit elle-même, le mapping est champ à champ.
-*(D3, D5, D632, D647, D1882, D1968)*
+Ses règles de mapping, quand il en faut, se définissent dans `exchange/`.
+*(D3, D5, D632, D647, D1882, D1968, D1971)*
 
 **Migration silencieuse** — La migration que Syncytium porte lui-même,
 sans intervention du concepteur. Entre deux versions : sans règle sous

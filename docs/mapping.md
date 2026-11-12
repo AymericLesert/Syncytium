@@ -88,7 +88,8 @@ le schéma (le recalcul suffit) ; l'écart sans portée structurelle
 active la version **sans migration de schéma**. **Le critère
 structurel ne suffit pas à lui seul** (D1969) : la présence de règles
 de mapping demande aussi une migration, parce qu'une règle peut
-modifier les valeurs d'un champ sans que la structure change.
+modifier les valeurs d'un champ sans que la structure change. Ces
+règles de mapping se définissent dans `exchange/` (D1971).
 
 **La procédure en quatre temps** (D674 — précise D631) :
 

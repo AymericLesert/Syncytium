@@ -565,7 +565,8 @@ antérieure, c'est la migration de version. Le dossier range les deux :
   `distinct`, `parent`, `fields`, `validation`, `report`, `operations` ;
 - `exchange/` porte les surcharges de la version par rapport à la
   version antérieure, en un volet ascendant et un volet descendant
-  (D1883) ; aucun cas n'en porte encore.
+  (D1883) : ce sont les règles de mapping d'une migration de version
+  (D1971). Aucun cas n'en porte encore.
 
 La base miroir ne se déclare pas dans un processus : elle sert leur
 enchaînement, et se déclare dans le fichier de l'environnement, par

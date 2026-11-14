@@ -78,38 +78,66 @@ de la version présente les écarts calculés — les champs ajoutés,
 renommés, retypés, supprimés — sans que le concepteur les décrive ;
 les notes de version, elles, portent l'évolution fonctionnelle.
 
-### La migration du schéma (D673–D674)
+### La migration du schéma (D673–D674, D1974)
 
-**Le critère est structurel** (D673) : seuls les écarts qui touchent
-le stockage déclenchent la procédure — l'ajout, le renommage ou la
-suppression d'un module ou d'une entité ; l'ajout, le renommage, la
-modification ou la suppression d'un **champ non calculé** (modifié =
-**le type ou la valeur par défaut**). Le champ calculé ne touche pas
-le schéma (le recalcul suffit) ; l'écart sans portée structurelle
-active la version **sans migration de schéma**. **Le critère
-structurel ne suffit pas à lui seul** (D1969) : la présence de règles
-de mapping demande aussi une migration, parce qu'une règle peut
-modifier les valeurs d'un champ sans que la structure change. Ces
-règles de mapping se définissent dans `exchange/` (D1971).
+Changer le type d'un champ demande d'habitude deux conversions : celle
+de la facette d'enregistrement du champ dans le connecteur, et celle
+des valeurs existantes. La première est critique, avec un risque de
+perte de données ; la seconde est laissée au moteur de base de données,
+ou à un script. Syncytium travaille autrement (D1974), pour deux
+raisons :
 
-**La procédure en quatre temps** (D674 — précise D631) :
+- ses types sont simples comme complexes : un type complexe se range
+  souvent en plusieurs données simples, comme un montant et sa devise ;
+- mettre en place une version ne transforme pas seulement le stockage :
+  elle applique aussi les règles de vérification.
 
-1. **la duplication** du schéma (structure et données) dans un
-   schéma temporaire ;
-2. **les transformations** dérivées des différences entre les deux
-   modèles (le mapping automatique — D632), appliquées au
-   temporaire — l'original intact ;
-3. **la bascule sur validation** : l'ancien supprimé, le temporaire
-   renommé (le `switch_schema` de D631) ; non validées, le
-   temporaire se jette — **le retour arrière d'avant-bascule est
-   gratuit** ;
-4. **les écritures en attente** pendant la phase — jamais rejetées ;
-   au rejeu sur le schéma neuf, **la compatibilité ascendante les
-   traduit** (D677 — formulées dans l'ancienne version, elles passent
-   par la chaîne P3 comme un appel d'API antérieur) ; **les lectures
-   continuent** (D676 — « cela ne modifie pas les données, ni sa
-   structure » : la migration vraiment à chaud, seule l'écriture
-   attend).
+**La comparaison des facettes.** Syncytium construit le schéma de la
+nouvelle version dans la facette du connecteur — un schéma matérialisé
+en mémoire peut suffire — et le compare au schéma en production.
+
+**Les deux facettes sont identiques.** Aucune migration ne passe par le
+connecteur. Seul le format des données stockées peut changer : une
+unité retirée d'une mesure, un format de texte.
+
+- Aucune règle ni validation ne change, et la version ne porte aucune
+  règle de transformation : les données ne sont pas touchées. La
+  version change des éléments visuels, des API, ou l'organisation
+  logique des données — le module d'une entité, un groupe de
+  propriétés, une liste.
+- Une règle ou une validation apparaît ou change : Syncytium rebalaye
+  les règles. Avec le graphe de dépendance, les vérifications et les
+  transformations ne portent que sur ce qui est touché. Les
+  transformations se font à blanc ; quand le volume ne tient pas en
+  mémoire, un substitut dans le connecteur les reçoit. Les
+  vérifications viennent après les transformations : pour retirer une
+  valeur d'un énuméré, il faut d'abord la renommer.
+
+**Les deux facettes diffèrent**, même de peu. Syncytium crée un nouveau
+modèle dans le connecteur, sans modifier l'existant, puis dresse un
+plan de reprise des données et l'applique, de l'ancien modèle vers le
+nouveau.
+
+**L'issue**, dans les deux cas :
+
+- tout est correct : la version s'active et les transformations
+  s'appliquent. Quand un nouveau modèle a été créé, l'instance bascule
+  vers lui, et l'ancien est gardé pour la période de rétention ;
+- une erreur apparaît : c'est une erreur d'ingestion, la bascule est
+  annulée, et le modèle de destination est supprimé.
+
+**Pendant la phase**, dès son démarrage, l'activité continue sur la
+base existante. Elle est enregistrée, comme pour un plan de reprise ou
+de continuité d'activité, puis appliquée à la nouvelle base par la
+compatibilité ascendante (D677) ; les lectures continuent (D676). Une
+erreur dans la base de destination est une erreur d'ingestion : la
+version est refusée.
+
+Ce mécanisme amende le critère de D673 et la procédure de D674 : le
+critère est la comparaison des deux facettes, à laquelle s'ajoutent les
+règles et les validations qui changent (D1969) ; la duplication du
+schéma devient un nouveau modèle, alimenté par un plan de reprise. Les
+règles de transformation se définissent dans `exchange/` (D1971).
 
 **Le délai de grâce et la restauration** (D675/D678) : configurable
 — sous grâce, l'ancien schéma devient **le schéma sauvegardé** ; **le

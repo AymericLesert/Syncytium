@@ -16,6 +16,7 @@ s'écrivent sous `fields:`, en place ou dans un fichier, `fields.yml`.
   - [La saisie](#la-saisie)
   - [Le calcul et les valeurs](#le-calcul-et-les-valeurs)
   - [La documentation du champ](#la-documentation-du-champ)
+- [Le renommage d'un champ](#le-renommage-dun-champ)
 - [La dépréciation d'un champ](#la-dépréciation-dun-champ)
 - [L'ordre du fichier](#lordre-du-fichier)
 
@@ -232,6 +233,49 @@ La documentation dit aussi **à quoi sert** un champ : les formules qui
 le lisent, les validations, les opérations, les règles de reprise, les
 rapports, les écrans (D1186, D1198). Rien ne se déclare : Syncytium le
 calcule depuis les liens que l'ingestion garantit.
+
+## Le renommage d'un champ
+
+> **Le renommage** change le nom d'un champ, d'une entité ou d'un
+> module d'une version à l'autre. L'élément renommé garde ses données :
+> il dit son ancien nom par `from:`
+> ([glossaire](../../glossaire.md)).
+
+Un champ change de nom d'une version à l'autre. Syncytium ne peut pas
+le deviner : un champ qui disparaît et un champ qui apparaît ne disent
+pas qu'ils sont le même. Le concepteur l'écrit donc sur le champ, par
+`from:` (D1111, D1985). Dans l'entrepôt, le nom abrégé du tiers,
+`abrege`, devient `nom_court` à la version 1.0.0.1 :
+
+```yaml
+# Le nom court du tiers : le type, l'ancien nom, le libellé et l'aide
+nom_court:
+  type: text[..10]
+  from: abrege
+  label: Nom court
+  hint: Le nom court, celui des listes.
+```
+
+- **Les données suivent.** La migration de version porte les valeurs
+  de l'ancien nom au nouveau. L'API des versions antérieures continue
+  de servir l'ancien nom (D651).
+- **L'origine se déduit.** Sans précision, l'ancien nom se lit dans la
+  dernière version connue. C'est l'écriture la plus facile à lire.
+- **L'origine peut s'écrire.** `from: <ancien nom>@<version>` précise
+  l'origine quand elle n'est pas la dernière version connue. Un numéro
+  de version incorrect est une erreur d'ingestion.
+
+**Écrire le numéro de version est préconisé.** Un renommage oublié dans
+le modèle se rejouerait à la version suivante. Si le champ d'origine
+n'existe plus, l'ingestion le refuse : c'est le meilleur des cas. Si
+deux champs ont échangé leurs noms, ils reviendraient en arrière sans
+qu'on le veuille. La version écrite évite de procéder deux fois à la
+transformation (D1982, D1985).
+
+Une entité ou un module renommé le dit de la même façon, par `from:`
+(D1111, D1984). Ce qu'un renommage ne suffit pas à dire — éclater un
+champ, en fusionner deux — s'écrit dans les règles d'`exchange/` de la
+migration de version ([mapping.md](../../mapping.md)).
 
 ## La dépréciation d'un champ
 

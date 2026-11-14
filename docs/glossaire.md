@@ -1069,6 +1069,15 @@ complet s'assemble par concaténation des release-notes des versions
 antérieures jusqu'à la courante — pas de fichier unique à maintenir.
 *(D808)*
 
+**Renommage** (`from:`) — Le changement de nom d'un champ, d'une entité
+ou d'un module d'une version à l'autre. L'élément renommé dit son ancien
+nom par `from: <ancien nom>`, dans le modèle : ses données suivent, et
+l'API des versions antérieures continue de servir l'ancien nom. Sans
+précision, l'ancien nom se lit dans la dernière version connue ;
+`from: <ancien nom>@<version>` précise l'origine quand elle ne l'est pas.
+Écrire le numéro de version est préconisé : il évite de rejouer le
+renommage. *(D651, D1111, D1984, D1985)*
+
 **Réplication** (`replication:`) — La copie des données de la production
 active vers la passive ; `differential` ne transmet que les écarts.
 *(D724–D725, D1534)*

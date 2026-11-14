@@ -65,7 +65,9 @@ validation:
 
 - **`name:`** est le nom de l'entité, invariant quelle que soit la
   langue (D124, D1120). L'adresse `<module>.<entité>` en découle (D394,
-  D765).
+  D765). Une entité renommée dit son ancien nom par `from:`, comme un
+  champ ([03-champs.md](03-champs.md#le-renommage-dun-champ) ; D1111,
+  D1984).
 - **`title:`** est son nom d'usage, celui qu'on montre : l'entrée de menu
   par défaut, la vue d'ensemble du modèle, les titres de la
   documentation (D1120). Il s'écrit par langue, au singulier ; le

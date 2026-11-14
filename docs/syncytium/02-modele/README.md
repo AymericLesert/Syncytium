@@ -30,6 +30,7 @@ entre parenthèses renvoient au [registre](../../conception.md).
    - [La forme courte et le bloc](03-champs.md#la-forme-courte-et-le-bloc)
    - [Les groupes de champs](03-champs.md#les-groupes-de-champs)
    - [Les propriétés d'un champ](03-champs.md#les-propriétés-dun-champ)
+   - [Le renommage d'un champ](03-champs.md#le-renommage-dun-champ)
    - [La dépréciation d'un champ](03-champs.md#la-dépréciation-dun-champ)
    - [L'ordre du fichier](03-champs.md#lordre-du-fichier)
 4. [La vie d'un enregistrement](04-vie.md)

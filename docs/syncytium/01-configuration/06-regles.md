@@ -64,7 +64,9 @@ La description se vérifie en entier à l'ingestion, avant de servir
   règle d'`exchange/` qui l'alimente n'y change rien : une ancienne
   version de l'API écrit encore sans ce champ (D1972) ;
 - une migration de version dont le `from:` écrit n'est pas la dernière
-  version connue (D1983).
+  version connue (D1983) ;
+- un renommage dont le numéro de version, `from: <ancien nom>@<version>`,
+  est incorrect (D1985).
 
 Une alerte signale sans refuser :
 

@@ -48,8 +48,11 @@ seule l'origine change** (D1981). Un processus de migration déclare sa
 source, `sources:`, ses règles de mapping, `mapping:`, et ses règles de
 transformation, `exchange:` — les trois clés au même niveau. Une règle
 d'`exchange/` a le format d'une règle de mapping, formules comprises ;
-son sens diffère : elle porte sur le format existant. Les seules
-écritures :
+son sens diffère : elle porte sur le format existant. L'origine d'une
+migration de version se déduit : par défaut, `from:` est la dernière
+version déployée. Le concepteur peut l'écrire ; si la version écrite
+n'est pas la dernière version connue, c'est une erreur d'ingestion
+(D1983). Les seules écritures :
 
 - **le renommage** — une règle d'`exchange/`, dans un fichier par
   entité (D1982). Il quitte la déclaration du champ, de l'entité ou du

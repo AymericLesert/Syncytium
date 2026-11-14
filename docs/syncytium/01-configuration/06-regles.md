@@ -62,7 +62,9 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - un champ requis ajouté par une version sans `default:` : les
   enregistrements existants ne pourraient pas le recevoir (D1970). Une
   règle d'`exchange/` qui l'alimente n'y change rien : une ancienne
-  version de l'API écrit encore sans ce champ (D1972).
+  version de l'API écrit encore sans ce champ (D1972) ;
+- une migration de version dont le `from:` écrit n'est pas la dernière
+  version connue (D1983).
 
 Une alerte signale sans refuser :
 

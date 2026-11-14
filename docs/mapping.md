@@ -150,7 +150,9 @@ Server ou PostgreSQL. Le modèle de données peut ne pas changer dans
 Syncytium, alors que la facette des enregistrements est radicalement
 différente. Le mécanisme reste le même : les deux facettes diffèrent,
 un nouveau modèle est créé dans le nouveau connecteur, et un plan de
-reprise l'alimente.
+reprise l'alimente. Ce changement se déclenche par l'environnement,
+qui désigne le connecteur du modèle, sans nouvelle version : le
+mécanisme part de l'écart entre les deux facettes (D1979).
 
 **Une conséquence assumée** (D1977) : le nouveau modèle vit à côté de
 l'existant le temps de la phase. Il faut donc un espace de stockage au

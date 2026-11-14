@@ -819,8 +819,10 @@ les écarts entre les deux versions, à chaud ; le concepteur n'écrit que ce
 que le calcul ne devine pas, comme un renommage. C'est une forme courte :
 la version antérieure se décrit elle-même, le mapping est champ à champ.
 Ses règles de mapping, quand il en faut, se définissent dans `exchange/`.
+Le `from:` écrit de son processus est leur garde-fou : une règle oubliée
+à la version suivante est refusée à l'ingestion.
 Elle suit le même protocole qu'une reprise : seule l'origine change.
-*(D3, D5, D632, D647, D1882, D1968, D1971, D1981)*
+*(D3, D5, D632, D647, D1882, D1968, D1971, D1981, D1983, D1989)*
 
 **Migration silencieuse** — La migration que Syncytium porte lui-même,
 sans intervention du concepteur. Entre deux versions : sans règle sous

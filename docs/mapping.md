@@ -52,7 +52,12 @@ son sens diffère : elle porte sur le format existant. L'origine d'une
 migration de version se déduit : par défaut, `from:` est la dernière
 version déployée. Le concepteur peut l'écrire ; si la version écrite
 n'est pas la dernière version connue, c'est une erreur d'ingestion
-(D1983). Les seules écritures :
+(D1983). Ce `from:` écrit est le garde-fou des règles d'`exchange/`
+(D1989) : une règle oubliée à la version suivante est refusée à
+l'ingestion, au lieu d'être rejouée. L'écrire est donc préconisé dès
+que le processus porte des règles. C'est le même garde-fou que pour
+le renommage ; Syncytium ne compare pas les règles d'une version à
+l'autre. Les seules écritures :
 
 - **le renommage** — `from: <ancien nom>` sur le champ, l'entité ou
   le module renommé (D651, D1111, D1984, D1985) : il s'écrit dans le

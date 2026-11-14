@@ -567,7 +567,9 @@ antérieure, c'est la migration de version. Le dossier range les deux :
   version antérieure, en un volet ascendant et un volet descendant
   (D1883) : ce sont les règles de mapping d'une migration de version
   (D1971). Le processus les cite par `exchange:`, au même niveau que
-  `sources:` et `mapping:` (D1981). Aucun cas n'en porte encore.
+  `sources:` et `mapping:` (D1981). Le `from:` écrit du processus est
+  leur garde-fou : une règle oubliée à la version suivante est refusée
+  à l'ingestion (D1983, D1989). Aucun cas n'en porte encore.
 
 La base miroir ne se déclare pas dans un processus : elle sert leur
 enchaînement, et se déclare dans le fichier de l'environnement, par

@@ -167,7 +167,8 @@ classDiagram
   par nature. Le code d'un client, saisi à la création, ne bouge plus :
   `code: { type: text, mask: "C-999999", mode: write-once }`.
 - **`default:`** est la valeur de naissance ; un statut naît à son
-  `default:` (D424).
+  `default:` (D424). Quand une version change le défaut, les
+  enregistrements existants gardent leur valeur (D1976).
 - **`unmapped: true`** marque un champ que la cible possède : il est
   tenu hors du mapping d'une reprise. Aucune règle ne l'écrit, il naît à
   son `default:` et garde sa valeur, la saisie restant libre (D941,

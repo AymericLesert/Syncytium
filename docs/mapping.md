@@ -133,6 +133,10 @@ vient que si l'une échoue. De même une conversion faillible : une
 langue `it` hors de la liste d'un énuméré fait l'erreur, et le
 concepteur écrit la transformation qui la traduit.
 
+Quand le `default:` d'un champ change, les enregistrements existants
+gardent leur valeur : le nouveau défaut ne vaut que pour ceux qui sont
+créés ensuite (D1976).
+
 **Pendant la phase**, dès son démarrage, l'activité continue sur la
 base existante. Elle est enregistrée, comme pour un plan de reprise ou
 de continuité d'activité, puis appliquée à la nouvelle base par la

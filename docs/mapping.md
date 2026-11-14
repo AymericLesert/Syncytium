@@ -41,7 +41,15 @@ champ supprimé est une colonne sans champ, un champ ajouté un champ
 sans colonne, qui prend sa valeur par défaut — un champ requis ajouté
 sans `default:` est une erreur d'ingestion, même alimenté par une règle
 d'`exchange/` (D1970, D1972). La procédure à chaud
-dépend du moteur : elle est au chapitre 9. Les seules écritures :
+dépend du moteur : elle est au chapitre 9.
+
+**Une migration de version et une reprise suivent le même protocole ;
+seule l'origine change** (D1981). Un processus de migration déclare sa
+source, `sources:`, ses règles de mapping, `mapping:`, et ses règles de
+transformation, `exchange:` — les trois clés au même niveau. Une règle
+d'`exchange/` a le format d'une règle de mapping, formules comprises ;
+son sens diffère : elle porte sur le format existant. Les seules
+écritures :
 
 - **le renommage** — `from: <ancien nom>` sur le champ, l'entité ou
   le module renommé (D651/D1111 — la clé de l'origine, la même que

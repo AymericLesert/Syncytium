@@ -1077,7 +1077,8 @@ précision, l'ancien nom se lit dans la dernière version connue ;
 `from: <ancien nom>@<version>` l'écrit, et une version écrite qui n'est
 pas la dernière connue est une erreur d'ingestion. Écrire le numéro de
 version est préconisé : un renommage oublié est refusé à la version
-suivante, il ne se rejoue pas. *(D651, D1111, D1984–D1986)*
+suivante, il ne se rejoue pas. Le numéro s'écrit sans `v` :
+`from: abrege@1.0.0.0`. *(D651, D1111, D1984–D1987)*
 
 **Réplication** (`replication:`) — La copie des données de la production
 active vers la passive ; `differential` ne transmet que les écarts.

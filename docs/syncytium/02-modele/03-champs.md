@@ -262,8 +262,20 @@ nom_court:
 - **L'origine se déduit.** Sans précision, l'ancien nom se lit dans la
   dernière version connue. C'est l'écriture la plus facile à lire.
 - **L'origine peut s'écrire.** `from: <ancien nom>@<version>` nomme la
-  version d'origine. Elle doit être la dernière version connue :
-  sinon, c'est une erreur d'ingestion (D1986).
+  version d'origine, le numéro sans `v` : `from: abrege@1.0.0.0`
+  (D1987). Elle doit être la dernière version connue : sinon, c'est
+  une erreur d'ingestion (D1986). C'en est une aussi quand la version
+  n'existe pas, ou quand elle ne porte pas l'ancien nom (D1987).
+
+Le même champ, la version d'origine écrite :
+
+```yaml
+# Le nom court du tiers : l'ancien nom et sa version d'origine
+nom_court:
+  type: text[..10]
+  from: abrege@1.0.0.0
+  label: Nom court
+```
 
 **Écrire le numéro de version est préconisé.** Un renommage oublié dans
 le modèle se rejouerait à la version suivante. Si le champ d'origine

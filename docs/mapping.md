@@ -58,9 +58,11 @@ n'est pas la dernière version connue, c'est une erreur d'ingestion
   le module renommé (D651, D1111, D1984, D1985) : il s'écrit dans le
   modèle, à côté de ce qu'il renomme, non dans `exchange/`. Sans
   précision, l'ancien nom se lit dans la dernière version connue.
-  `from: <ancien nom>@<version>` écrit la version d'origine ; si elle
-  n'est pas la dernière version connue, c'est une erreur d'ingestion
-  (D1986). Écrire le numéro de version est préconisé :
+  `from: <ancien nom>@<version>` écrit la version d'origine, le
+  numéro sans `v`, `from: abrege@1.0.0.0` (D1987) ; si elle n'est pas
+  la dernière version connue, si elle n'existe pas ou si elle ne
+  porte pas l'ancien nom, c'est une erreur d'ingestion (D1986,
+  D1987). Écrire le numéro de version est préconisé :
   un renommage oublié dans le modèle se rejouerait à la version
   suivante, et deux noms échangés reviendraient en arrière sans qu'on
   le veuille ; la version écrite évite de procéder deux fois à la

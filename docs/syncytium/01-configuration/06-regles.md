@@ -66,7 +66,8 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - une migration de version dont le `from:` écrit n'est pas la dernière
   version connue (D1983) ;
 - un renommage dont la version écrite, `from: <ancien nom>@<version>`,
-  n'est pas la dernière version connue (D1985, D1986).
+  n'est pas la dernière version connue, n'existe pas, ou ne porte pas
+  l'ancien nom (D1985–D1987).
 
 Une alerte signale sans refuser :
 

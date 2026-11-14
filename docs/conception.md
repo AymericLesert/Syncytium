@@ -18472,6 +18472,46 @@ avant la synthèse Q16).
 
 ## 11. Journal des échanges
 
+- **2026-11-14 — LA PAUSE : LE CHAPITRE 8, QUINZE POINTS CLOS SUR DIX-NEUF, LE POINT 16 PRÉSENTÉ (D1974–D1991, 1991
+  décisions).** La reprise, par le point 14 resté sans réponse. **Le point 14, les transformations d'une migration de
+  version** (D1974–D1980) : l'auteur dévoile une partie du mécanisme, pour le chapitre 9 — Syncytium construit le
+  schéma de la nouvelle version dans la facette du connecteur et le compare au schéma en production ; identiques, rien
+  ne migre par le connecteur et les règles qui changent se rebalaient à blanc, les transformations avant les
+  vérifications ; différentes, un nouveau modèle est créé et un plan de reprise l'alimente ; une erreur est une erreur
+  d'ingestion, la bascule est annulée ; l'activité continue et se rejoue par la compatibilité ascendante — D673 et
+  D674 amendées. Ma lecture d'une conversion avec perte refusée d'avance est écartée : l'erreur se joue sur les
+  données, « Si une valeur échoue ». Un `default:` qui change laisse leur valeur aux enregistrements existants. Les
+  conversions se définissent aux chapitres 2 et 3 ; « la philosophie reste », et sa conséquence assumée est un espace
+  de stockage au moins double. Le mécanisme sert aussi un changement de connecteur — MySQL vers PostgreSQL —,
+  déclenché par l'environnement, sans nouvelle version. **Le point 15, les surcharges, `exchange/`** (D1981–D1991) :
+  `exchange:` est une clé du processus de migration, au niveau de `sources:` et `mapping:` — ma clé dans `version.yml`
+  écartée — ; « Une migration de version ou une reprise suit le même protocole. Seule l'origine du protocole change. »
+  ; une règle d'`exchange/` a le format d'une règle de mapping, son sens diffère : elle porte sur le format existant.
+  **Le renommage, en deux temps** : l'auteur le met d'abord dans `exchange/`, un fichier par entité (D1982), puis, à
+  ma question sur une ou deux écritures, le ramène dans le modèle (D1985, qui amende D1982) : `from: abrege` sur le
+  champ, l'entité ou le module, l'ancien nom lu dans la dernière version connue ; `from: abrege@1.0.0.0`, le numéro
+  sans « v », préconisé. Mon penchant pour `exchange/` et mon `to:` pour l'entité renommée sont écartés. **La version
+  écrite est un garde-fou** : sur un renommage comme sur un processus, elle n'est acceptée que si elle est la dernière
+  version connue ; sinon c'est une erreur d'ingestion (D1983, D1986, D1988) — ma lecture d'un `from:` daté qui
+  resterait sans se rejouer est écartée. Le `from:` écrit du processus suffit comme garde-fou des règles d'`exchange/`
+  : Syncytium ne compare pas les règles d'une version à l'autre (D1989). L'éclatement et la fusion n'ont pas de
+  grammaire propre : le gabarit et `extract`, dans une règle d'`exchange/` ; le processus d'une migration de version
+  porte un nom libre et se reconnaît à son `from:` ; les fichiers d'`exchange/` s'organisent librement (D1990). **Un
+  manque réparé** : le chapitre 2 ne décrivait pas `from:` sur un champ — une section « Le renommage d'un champ » y
+  entre, avec l'entrée « Renommage » du glossaire ; « Éclatement et fusion » y entre aussi. **Les cas** : aucun n'est
+  réécrit — dans l'entrepôt, `nom_court` garde `from: abrege`, valide ; aucun cas ne porte de dossier `exchange/`, les
+  exemples de la documentation sont d'illustration. **Le point 16, les deux volets, présenté** : mes lectures —
+  l'ascendant va de la version antérieure vers la nouvelle, le descendant de la nouvelle vers l'antérieure ; le
+  concepteur n'écrit le descendant que là où le moteur ne le dérive pas ; une formule sans inverse ni substitution est
+  une erreur d'ingestion ; l'éclatement et la fusion, écrits par formule, demandent leur inverse, là où D91 les disait
+  auto-inversibles — ; la question : où s'écrit le volet descendant, un bloc dans la règle, deux blocs nommés ou deux
+  dossiers. « je marque une pause ». **À la reprise** : la réponse au point 16, puis les points 17 à 19 — les
+  exemples, la facette documentation, le registre — ; la troisième section, le remplacement silencieux, à ouvrir.
+  Restent à confirmer ou à nommer : le titre du chapitre (D1887) ; le modèle de `_migration`, gardé pour le chapitre 9
+  (D1894) ; les noms des opérateurs, le code du label d'enveloppe et les textes des gabarits (D1949) ; les classes des
+  formats derrière Excel (D1932) ; la commande du remplacement silencieux (D1908). Les dix sections de la dépréciation
+  restent à relire comme textes. Les lectures ouvertes jusqu'à l'implémentation restent D1788, D1794, D1805, D1815, et
+  la forme de la notification de progression (D1861).
 - **2026-11-12 — LA PAUSE : LE CHAPITRE 8, TREIZE POINTS CLOS SUR DIX-NEUF, LA PREMIÈRE PARTIE LUE, LE POINT 14
   PRÉSENTÉ (D1951–D1973, 1973 décisions).** La reprise, par le point 10 resté sans réponse. **Le point 10, la clé
   fonctionnelle et les agrégats** (D1951–D1957) : quand plusieurs règles alimentent le même champ du même

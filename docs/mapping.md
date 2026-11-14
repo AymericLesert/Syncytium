@@ -57,7 +57,30 @@ n'est pas la dernière version connue, c'est une erreur d'ingestion
 l'ingestion, au lieu d'être rejouée. L'écrire est donc préconisé dès
 que le processus porte des règles. C'est le même garde-fou que pour
 le renommage ; Syncytium ne compare pas les règles d'une version à
-l'autre. Les seules écritures :
+l'autre.
+
+**Le processus d'une migration de version** (D1990) porte un nom libre,
+comme celui d'une reprise. Il se reconnaît à son `from:` : un numéro de
+version, ou absent, là où une reprise nomme un connecteur. Il ne
+s'écrit que s'il y a des règles d'`exchange/` : sans règle, la
+migration reste silencieuse, et `migration.yml` n'en dit rien (D1908).
+Un exemple d'illustration — aucun cas n'en porte :
+
+```yaml
+# La migration de version des contacts
+contacts:
+
+  # La version d'origine
+  from: 1.0.0.1
+
+  # Les règles de transformation
+  exchange:
+    - ~{exchange/.*\.yml}
+```
+
+Dans `exchange/`, l'organisation des fichiers est libre, comme dans
+`mapping/` : un fichier peut porter plusieurs règles, un fichier par
+règle reste recommandé (D1940, D1990). Les seules écritures :
 
 - **le renommage** — `from: <ancien nom>` sur le champ, l'entité ou
   le module renommé (D651, D1111, D1984, D1985) : il s'écrit dans le
@@ -74,6 +97,32 @@ l'autre. Les seules écritures :
   renommage oublié au lieu de le rejouer. Le journal de
   migrations en dérive la translation, la chaîne API continue de
   servir l'ancien nom ;
+- **l'éclatement et la fusion** — une règle d'`exchange/`, au format
+  d'une règle de mapping (D4, D6, D1981, D1990). Ils n'ont pas de
+  grammaire propre : ce sont deux usages des formules du langage. La
+  fusion s'écrit par le gabarit, l'éclatement par `extract` et son
+  expression régulière. Un exemple d'illustration, sur le contact de
+  l'entrepôt :
+
+```yaml
+# La fusion : le prénom et le nom de la version antérieure en un seul champ
+tiers.contact:
+
+  # Les affectations
+  fields:
+    nom_complet: "{prenom} {nom}"
+```
+
+```yaml
+# L'éclatement : un champ de la version antérieure en deux
+tiers.contact:
+
+  # Les affectations
+  fields:
+    prenom: extract(nom_complet, '^(\S+)')
+    nom: extract(nom_complet, '\s(.+)$')
+```
+
 - **la dépréciation en trois temps** (D650, D1870, D1872) : **l'intention**
   (le bloc `deprecation:` — l'élément vit encore, son avenir est scellé),
   **la validation** (la beta qui retire l'élément), **la suppression**

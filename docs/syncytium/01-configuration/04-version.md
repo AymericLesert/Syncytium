@@ -552,7 +552,10 @@ antérieure, c'est la migration de version. Le dossier range les deux :
   reprise un pour un s'écrit en forme courte, `legacy: fichier_csv` ou
   `legacy: fichier_csv[client]`, les entités entre crochets séparées par
   une virgule : le connecteur se décrit, le mapping est champ à champ
-  (D1895–D1897) ;
+  (D1895–D1897) ; le processus d'une migration de version porte un nom
+  libre, lui aussi, et se reconnaît à son `from:`, un numéro de
+  version, ou absent ; il ne s'écrit que s'il y a des règles
+  d'`exchange/` (D1983, D1990) ;
 - `sources/<TABLE>.yml` décrit chaque entité d'origine (D947, D966) :
   `alias`, `name`, `filter`, `identity`, `partition`, `fields`,
   `validation` ; la table d'appartenance déclare ses compositions par
@@ -569,7 +572,10 @@ antérieure, c'est la migration de version. Le dossier range les deux :
   (D1971). Le processus les cite par `exchange:`, au même niveau que
   `sources:` et `mapping:` (D1981). Le `from:` écrit du processus est
   leur garde-fou : une règle oubliée à la version suivante est refusée
-  à l'ingestion (D1983, D1989). Aucun cas n'en porte encore.
+  à l'ingestion (D1983, D1989). L'éclatement et la fusion s'y écrivent
+  par les formules du langage, `extract` et le gabarit ; ses fichiers
+  s'organisent librement, comme ceux de `mapping/` (D1990). Aucun cas
+  n'en porte encore.
 
 La base miroir ne se déclare pas dans un processus : elle sert leur
 enchaînement, et se déclare dans le fichier de l'environnement, par

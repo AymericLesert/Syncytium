@@ -432,6 +432,13 @@ le support (un texte écrit sans engagement, les indicateurs statiques et
 dynamiques, D1375–D1380).
 *(D1133, D1347–D1391)*
 
+**Éclatement et fusion** — Deux transformations d'une migration de
+version : un champ de la version antérieure réparti en plusieurs, ou
+plusieurs réunis en un seul. Ils s'écrivent dans une règle d'`exchange/`,
+par les formules du langage : `extract` et son expression régulière pour
+l'éclatement, le gabarit pour la fusion, `"{prenom} {nom}"`. Ils n'ont
+pas de grammaire propre. *(D4, D6, D1981, D1990)*
+
 **Édition** — Un extrait figé de la documentation pour qui n'a pas de
 compte, préparé par un `manager` ou un `administrator` dans la limite de
 ses droits, à cartouche, dans la langue et la version de l'émetteur,

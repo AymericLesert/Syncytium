@@ -58,13 +58,14 @@ n'est pas la dernière version connue, c'est une erreur d'ingestion
   le module renommé (D651, D1111, D1984, D1985) : il s'écrit dans le
   modèle, à côté de ce qu'il renomme, non dans `exchange/`. Sans
   précision, l'ancien nom se lit dans la dernière version connue.
-  `from: <ancien nom>@<version>` précise l'origine quand elle n'est
-  pas la dernière version connue ; un numéro de version incorrect est
-  une erreur d'ingestion. Écrire le numéro de version est préconisé :
+  `from: <ancien nom>@<version>` écrit la version d'origine ; si elle
+  n'est pas la dernière version connue, c'est une erreur d'ingestion
+  (D1986). Écrire le numéro de version est préconisé :
   un renommage oublié dans le modèle se rejouerait à la version
   suivante, et deux noms échangés reviendraient en arrière sans qu'on
   le veuille ; la version écrite évite de procéder deux fois à la
-  transformation. Le journal de
+  transformation : à la version suivante, l'ingestion refuse le
+  renommage oublié au lieu de le rejouer. Le journal de
   migrations en dérive la translation, la chaîne API continue de
   servir l'ancien nom ;
 - **la dépréciation en trois temps** (D650, D1870, D1872) : **l'intention**

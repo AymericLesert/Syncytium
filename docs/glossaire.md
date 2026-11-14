@@ -1074,9 +1074,10 @@ ou d'un module d'une version à l'autre. L'élément renommé dit son ancien
 nom par `from: <ancien nom>`, dans le modèle : ses données suivent, et
 l'API des versions antérieures continue de servir l'ancien nom. Sans
 précision, l'ancien nom se lit dans la dernière version connue ;
-`from: <ancien nom>@<version>` précise l'origine quand elle ne l'est pas.
-Écrire le numéro de version est préconisé : il évite de rejouer le
-renommage. *(D651, D1111, D1984, D1985)*
+`from: <ancien nom>@<version>` l'écrit, et une version écrite qui n'est
+pas la dernière connue est une erreur d'ingestion. Écrire le numéro de
+version est préconisé : un renommage oublié est refusé à la version
+suivante, il ne se rejoue pas. *(D651, D1111, D1984–D1986)*
 
 **Réplication** (`replication:`) — La copie des données de la production
 active vers la passive ; `differential` ne transmet que les écarts.

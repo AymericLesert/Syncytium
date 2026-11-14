@@ -261,16 +261,18 @@ nom_court:
   de servir l'ancien nom (D651).
 - **L'origine se déduit.** Sans précision, l'ancien nom se lit dans la
   dernière version connue. C'est l'écriture la plus facile à lire.
-- **L'origine peut s'écrire.** `from: <ancien nom>@<version>` précise
-  l'origine quand elle n'est pas la dernière version connue. Un numéro
-  de version incorrect est une erreur d'ingestion.
+- **L'origine peut s'écrire.** `from: <ancien nom>@<version>` nomme la
+  version d'origine. Elle doit être la dernière version connue :
+  sinon, c'est une erreur d'ingestion (D1986).
 
 **Écrire le numéro de version est préconisé.** Un renommage oublié dans
 le modèle se rejouerait à la version suivante. Si le champ d'origine
 n'existe plus, l'ingestion le refuse : c'est le meilleur des cas. Si
 deux champs ont échangé leurs noms, ils reviendraient en arrière sans
 qu'on le veuille. La version écrite évite de procéder deux fois à la
-transformation (D1982, D1985).
+transformation (D1982, D1985) : à la version suivante, elle n'est plus
+la dernière version connue, et l'ingestion refuse le renommage oublié
+au lieu de le rejouer (D1986).
 
 Une entité ou un module renommé le dit de la même façon, par `from:`
 (D1111, D1984). Ce qu'un renommage ne suffit pas à dire — éclater un

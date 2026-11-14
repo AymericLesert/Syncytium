@@ -65,8 +65,8 @@ La description se vérifie en entier à l'ingestion, avant de servir
   version de l'API écrit encore sans ce champ (D1972) ;
 - une migration de version dont le `from:` écrit n'est pas la dernière
   version connue (D1983) ;
-- un renommage dont le numéro de version, `from: <ancien nom>@<version>`,
-  est incorrect (D1985).
+- un renommage dont la version écrite, `from: <ancien nom>@<version>`,
+  n'est pas la dernière version connue (D1985, D1986).
 
 Une alerte signale sans refuser :
 

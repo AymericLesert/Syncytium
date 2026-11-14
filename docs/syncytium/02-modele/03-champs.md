@@ -264,7 +264,7 @@ nom_court:
 - **L'origine peut s'écrire.** `from: <ancien nom>@<version>` nomme la
   version d'origine, le numéro sans `v` : `from: abrege@1.0.0.0`
   (D1987). Elle doit être la dernière version connue : sinon, c'est
-  une erreur d'ingestion (D1986). C'en est une aussi quand la version
+  une erreur d'ingestion (D1986, D1988). C'en est une aussi quand la version
   n'existe pas, ou quand elle ne porte pas l'ancien nom (D1987).
 
 Le même champ, la version d'origine écrite :

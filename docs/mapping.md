@@ -61,8 +61,7 @@ n'est pas la dernière version connue, c'est une erreur d'ingestion
   `from: <ancien nom>@<version>` écrit la version d'origine, le
   numéro sans `v`, `from: abrege@1.0.0.0` (D1987) ; si elle n'est pas
   la dernière version connue, si elle n'existe pas ou si elle ne
-  porte pas l'ancien nom, c'est une erreur d'ingestion (D1986,
-  D1987). Écrire le numéro de version est préconisé :
+  porte pas l'ancien nom, c'est une erreur d'ingestion (D1986–D1988). Écrire le numéro de version est préconisé :
   un renommage oublié dans le modèle se rejouerait à la version
   suivante, et deux noms échangés reviendraient en arrière sans qu'on
   le veuille ; la version écrite évite de procéder deux fois à la

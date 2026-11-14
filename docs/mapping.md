@@ -51,9 +51,13 @@ d'`exchange/` a le format d'une règle de mapping, formules comprises ;
 son sens diffère : elle porte sur le format existant. Les seules
 écritures :
 
-- **le renommage** — `from: <ancien nom>` sur le champ, l'entité ou
-  le module renommé (D651/D1111 — la clé de l'origine, la même que
-  celle du format, de la migration et de la sandbox) : le journal de
+- **le renommage** — une règle d'`exchange/`, dans un fichier par
+  entité (D1982). Il quitte la déclaration du champ, de l'entité ou du
+  module, où `from: <ancien nom>` l'écrivait (D651, D1111) : un
+  renommage oublié dans le modèle se rejouait à la version suivante,
+  et deux noms échangés pouvaient revenir en arrière sans qu'on le
+  veuille. Un garde-fou empêche de rejouer les mêmes règles d'une
+  version à l'autre, sauf si le concepteur le force. Le journal de
   migrations en dérive la translation, la chaîne API continue de
   servir l'ancien nom ;
 - **la dépréciation en trois temps** (D650, D1870, D1872) : **l'intention**
@@ -1224,7 +1228,8 @@ les exemples — vit dans **[mapping.md](mapping.md)** (D661).
   en trois temps — l'intention, l'acte (l'élément répond encore), la
   suppression par une version — **à documentation obligatoire** (le
   remplacement ou l'abandon) ; le renommage d'un champ, d'une entité
-  ou d'un module s'assure par **`from: <ancien nom>`** (D1111) ;
+  ou d'un module s'écrit dans **`exchange/`**, un fichier par entité
+  (D1982 — `from: <ancien nom>` quitte le modèle) ;
 - **les deux maisons (D652–D653)** : **`sources/`** — le modèle
   d'origine décrit **dans la grammaire du méta-modèle**, table par
   table et colonne par colonne (Syncytium s'assure de la complétude

@@ -144,6 +144,14 @@ compatibilité ascendante (D677) ; les lectures continuent (D676). Une
 erreur dans la base de destination est une erreur d'ingestion : la
 version est refusée.
 
+**Le changement de connecteur** (D1978). Une migration peut aussi
+porter un changement de connecteur : un storage MySQL devient SQL
+Server ou PostgreSQL. Le modèle de données peut ne pas changer dans
+Syncytium, alors que la facette des enregistrements est radicalement
+différente. Le mécanisme reste le même : les deux facettes diffèrent,
+un nouveau modèle est créé dans le nouveau connecteur, et un plan de
+reprise l'alimente.
+
 **Une conséquence assumée** (D1977) : le nouveau modèle vit à côté de
 l'existant le temps de la phase. Il faut donc un espace de stockage au
 moins égal à deux fois l'espace initial. L'ingestion d'une version

@@ -144,6 +144,11 @@ compatibilité ascendante (D677) ; les lectures continuent (D676). Une
 erreur dans la base de destination est une erreur d'ingestion : la
 version est refusée.
 
+**Une conséquence assumée** (D1977) : le nouveau modèle vit à côté de
+l'existant le temps de la phase. Il faut donc un espace de stockage au
+moins égal à deux fois l'espace initial. L'ingestion d'une version
+comprend cette phase à blanc : son échec est une erreur d'ingestion.
+
 Ce mécanisme amende le critère de D673 et la procédure de D674 : le
 critère est la comparaison des deux facettes, à laquelle s'ajoutent les
 règles et les validations qui changent (D1969) ; la duplication du

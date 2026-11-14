@@ -60,7 +60,9 @@ n'est pas la dernière version connue, c'est une erreur d'ingestion
   renommage oublié dans le modèle se rejouait à la version suivante,
   et deux noms échangés pouvaient revenir en arrière sans qu'on le
   veuille. Un garde-fou empêche de rejouer les mêmes règles d'une
-  version à l'autre, sauf si le concepteur le force. Le journal de
+  version à l'autre, sauf si le concepteur le force. Une entité
+  renommée se dit par `from:`, comme un champ, non par `to:` (D1984).
+  Le journal de
   migrations en dérive la translation, la chaîne API continue de
   servir l'ancien nom ;
 - **la dépréciation en trois temps** (D650, D1870, D1872) : **l'intention**

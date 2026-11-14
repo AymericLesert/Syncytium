@@ -126,6 +126,13 @@ nouveau.
 - une erreur apparaît : c'est une erreur d'ingestion, la bascule est
   annulée, et le modèle de destination est supprimé.
 
+L'erreur se joue sur les données (D1975). Un champ qui passe de
+`text[..40]` à `text[..20]` ne fait pas refuser la version d'avance :
+elle passe si toutes les valeurs tiennent, et l'erreur d'ingestion ne
+vient que si l'une échoue. De même une conversion faillible : une
+langue `it` hors de la liste d'un énuméré fait l'erreur, et le
+concepteur écrit la transformation qui la traduit.
+
 **Pendant la phase**, dès son démarrage, l'activité continue sur la
 base existante. Elle est enregistrée, comme pour un plan de reprise ou
 de continuité d'activité, puis appliquée à la nouvelle base par la

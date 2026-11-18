@@ -568,7 +568,8 @@ antérieure, c'est la migration de version. Le dossier range les deux :
   `distinct`, `parent`, `fields`, `validation`, `report`, `operations` ;
 - `exchange/` porte les surcharges de la version par rapport à la
   version antérieure, en un volet ascendant et un volet descendant
-  (D1883) : ce sont les règles de mapping d'une migration de version
+  (D1883) — le descendant s'écrit dans la règle, par un bloc
+  (D1992) — : ce sont les règles de mapping d'une migration de version
   (D1971). Le processus les cite par `exchange:`, au même niveau que
   `sources:` et `mapping:` (D1981). Le `from:` écrit du processus est
   leur garde-fou : une règle oubliée à la version suivante est refusée

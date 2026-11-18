@@ -147,6 +147,26 @@ unit_price:
   persistent (D11–D13 : la substitution vers l'ancien, le défaut
   vers le neuf).
 
+**Les deux volets d'une règle d'`exchange/`** (D1883, D1992). Une règle
+va dans deux sens. Le volet ascendant est son `fields:`. Le volet
+descendant s'écrit dans la même règle, par un bloc — `reverse:`, le nom
+en proposition. Les deux sens se lisent au même endroit. Un exemple
+d'illustration :
+
+```yaml
+# La fusion du prénom et du nom, et son inverse
+tiers.contact:
+
+  # L'ascendant : de la version antérieure vers la nouvelle
+  fields:
+    nom_complet: "{prenom} {nom}"
+
+  # Le descendant : de la nouvelle vers l'antérieure
+  reverse:
+    prenom: extract(nom_complet, '^(\S+)')
+    nom: extract(nom_complet, '\s(.+)$')
+```
+
 **Les écarts sont documentés par Syncytium (D1112).** La description
 d'un champ dit ce qu'il est, jamais ce qui a changé : la documentation
 de la version présente les écarts calculés — les champs ajoutés,

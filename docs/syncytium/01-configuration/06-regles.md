@@ -67,7 +67,10 @@ La description se vérifie en entier à l'ingestion, avant de servir
   version connue (D1983) ;
 - un renommage dont la version écrite, `from: <ancien nom>@<version>`,
   n'est pas la dernière version connue, n'existe pas, ou ne porte pas
-  l'ancien nom (D1985–D1987).
+  l'ancien nom (D1985–D1987) ;
+- une règle d'`exchange/` dont la formule lit des champs qui
+  disparaissent de la nouvelle version, sans inverse ni substitution
+  écrits : une ancienne API ne saurait plus les rendre (D91, D1995).
 
 Une alerte signale sans refuser :
 

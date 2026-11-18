@@ -178,6 +178,14 @@ Dupont » : la règle ne conserve pas les données. Un écart entre au
 rapport de la migration de version ; il demande une lecture et une
 validation du concepteur pour basculer.
 
+**Le bloc descendant n'est pas toujours dû** (D1995). Une formule sans
+bloc descendant est une erreur d'ingestion quand les champs qu'elle lit
+disparaissent de la nouvelle version : une ancienne API ne saurait plus
+les rendre. Quand ils restent, la règle est acceptée : elle initialise
+un champ nouveau en combinant des champs existants. Si `prenom` et
+`nom` restent, `nom_complet` est défini à l'initialisation ; à l'usage,
+il vit ensuite sa vie dans l'application.
+
 **Les écarts sont documentés par Syncytium (D1112).** La description
 d'un champ dit ce qu'il est, jamais ce qui a changé : la documentation
 de la version présente les écarts calculés — les champs ajoutés,

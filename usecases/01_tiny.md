@@ -82,7 +82,7 @@ vingt-six lignes de `syncytium.yml`. Les frottements relevés le 05/10
 sont tous soldés (la section suivante). **Validée par l'auteur le
 11/10/2026 — D1231.** Le 18/11/2026, le tiny reçoit la forme courte
 d'une reprise et passe à vingt-neuf lignes (D2004) : la fonctionnelle
-ne change pas — la reprise n'est pas un écran de l'usager, ma lecture.)*
+ne change pas — la reprise n'est pas un écran de l'usager (validé, D2005).)*
 
 ---
 
@@ -234,7 +234,8 @@ naît des vingt-six lignes de `syncytium.yml` et des défauts du socle
 (configuration.md §3.5). Ce qui est de moi est marqué. **En
 proposition.** Le 18/11/2026, le tiny passe à vingt-neuf lignes, avec
 la forme courte d'une reprise (D2004) : le stockage, l'origine, l'usage
-et la configuration dépliée la portent, à relire. La même documentation, telle que le moteur la
+et la configuration dépliée la portent ; la configuration dépliée est
+validée (D2005). La même documentation, telle que le moteur la
 produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md),
 écrite le 16/10/2026 sur la demande de l'auteur.)*
 

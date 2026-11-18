@@ -301,7 +301,9 @@ connectors: ~{connectors.yml}
   configuration réseau change. » Les valeurs sont dans le fichier des
   variables, `.env` par habitude (D1428) ; `syncytium init` le crée,
   toutes les variables référencées, nommées exactement, à renseigner,
-  sans gabarit (D1429) ; le D.A.T. en expose la liste.
+  sans gabarit (D1429) ; le D.A.T. en expose la liste. Une variable
+  est décrite dans la configuration, ou proposée par le contrat d'un
+  connecteur (D2005).
 - **`storage:`** : le nom du connecteur qui porte le modèle (D1094).
   Sans bloc `connectors:`, `storage: sqlite` désigne le connecteur
   implicite du mono-poste (D1114).

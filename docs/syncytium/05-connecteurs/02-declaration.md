@@ -222,7 +222,10 @@ point-virgule pour séparateur, les entêtes en première ligne. La banque
 
 La variable doit être définie (D2003). Syncytium fournit des commandes
 pour préparer une instance et pour créer le fichier `.env` ; si la
-variable manque, c'est une erreur de démarrage.
+variable manque, c'est une erreur de démarrage. Une variable
+d'environnement est décrite dans la configuration, ou proposée par le
+contrat du connecteur (D2005) : celle du dossier d'un connecteur CSV
+est de la seconde sorte.
 
 Un classeur se lit comme une source de format, par la classe `xlsx`
 (D846–D848, D1932). Derrière Excel, la même lecture vaut pour les formats

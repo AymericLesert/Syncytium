@@ -18571,6 +18571,49 @@ avant la synthèse Q16).
 
 ## 11. Journal des échanges
 
+- **2026-11-19 — LA PAUSE : LA LECTURE DU CHAPITRE 8 EST CLOSE, DIX-NEUF POINTS ; LE CHAPITRE S'APPELLE « LA MIGRATION
+  » ; LE DÉCOUPAGE EST PROPOSÉ (D1999–D2024, 2024 décisions).** La reprise, par le point 17 resté sans réponse,
+  redonné en entier. **Le point 17, les exemples** (D1999–D2009) : l'auteur relève que mon inventaire ne citait ni
+  tiny ni l'enquête — « Les exemples "enquete" ou "tiny" ne sont pas cités ? » ; je les avais omis sans le dire, aucun
+  ne portait de migration. « Tiny peut être écrit en un fichier. Le découpage en fichiers est une préconisation pour
+  les "gros" projets. » ; tiny reçoit la forme courte d'une reprise, la fusion dans une seconde version est écartée.
+  Le connecteur d'un fichier CSV est implicite lui aussi, `legacy: csv[personne]` ; son dossier vient d'une variable
+  d'environnement `SYNCYTIUM_<Connector>_DIRECTORY`, la variable absente est une erreur de démarrage ; un CSV est par
+  défaut en UTF-8, au point-virgule, les entêtes en première ligne ; une variable d'environnement est décrite dans la
+  configuration ou proposée par le contrat du connecteur. **Une conséquence que je n'avais pas dite** : les vingt-six
+  lignes de tiny sont l'accroche du README de la racine ; posée à l'auteur avant d'écrire, mon penchant devenu « tiny
+  reste à vingt-six lignes » — « Tiny peut passer à 29 lignes ». Tiny est réécrit en vingt-neuf lignes, avec
+  l'accroche — « Une application en vingt-neuf lignes », qui dit aussi « la reprise d'un fichier existant » —, sa
+  maison et son dictionnaire ; l'entrepôt suit la préconisation, `from: abrege@1.0.0.0` ; l'entrepôt est le fil rouge
+  du chapitre, les écritures sans cas se complètent par des exemples d'illustration. **Le point 18, la facette
+  documentation** (D2010–D2017) : une troisième voie de l'auteur — « Il est un peu tôt pour décrire en détail le
+  module _migration. … Le détail du module _migration est, à mon avis, à positionner dans la partie administration et
+  exploitation. » ; `migration.md` reste en place jusqu'au chapitre 10, seul `mapping.md` se dissout. La facette de la
+  migration déclarée reçoit une part pour la migration de version. La dépréciation d'un élément de la reprise — la
+  migration déclarée, l'entité source, la règle — : « une dépréciation à venir signale les sources, les règles et non
+  les destinations », « rien n'est déprécié en cascade » ; au retrait, le concepteur élimine ou remplace, toute erreur
+  est une erreur d'ingestion ; une règle remplaçante se désigne « par son nom propre », la propriété `name:` — mon
+  penchant pour le fichier écarté. La section « La dépréciation d'un élément de la reprise », la onzième, est écrite
+  dans `mapping.md`. **Le point 19, le registre** (D2018–D2023), en quatre blocs validés un à un : D181 à D184, le
+  stock de reprise à statuts, portées « au chapitre du module » ; la famille reconstituée — cent vingt-deux sorties
+  vers le moteur, la méthode, l'administration, les cas et six autres familles, deux entrées, cent soixante-trois
+  décisions — ; quarante-quatre amendées restent vraies dans leur part non amendée, D651 et D1982 ont perdu leur
+  objet, dix non citées se citeront à la réorganisation ; quarante-trois lectures levées, quatre gardées ouvertes —
+  D1058, D1908, D1996, D1997 — ; l'historique de `mapping.md` désigné, à sortir à la réorganisation. « Oui, lecture
+  close ». **Le deuxième temps s'ouvre** (D2024) : le chapitre 8 s'appelle « La migration », son dossier
+  `docs/syncytium/08-migration/`. Le découpage est proposé, sans réponse : neuf fichiers, la reprise avant la
+  migration de version — le README, la migration déclarée, la source, les règles, les usages, la migration de version,
+  le remplacement silencieux, la dépréciation, la documentation — ; le mécanisme de la migration du schéma, l'arrêt du
+  dry-run et le pilotage quittent le chapitre vers un « Reçu du chapitre 8 » d'`administration.md`. « Je marque une
+  pause ». **Les cas réécrits** : tiny — vingt-neuf lignes, sa maison, son dictionnaire — ; l'entrepôt, une ligne de
+  la 1.0.0.1. **À la reprise** : la réponse au découpage, puis la réorganisation — déplacer sans réécrire, contrôler
+  que rien ne se perd, sortir l'historique, poser les citations et les sommaires, tenir les liens — ; puis la
+  réécriture. Restent à confirmer ou à nommer : la troisième section, le remplacement silencieux, sa commande et sa
+  place (D1907, D1908) ; les noms des opérateurs, le code du label d'enveloppe et les textes des gabarits (D1949) ;
+  les classes des formats derrière Excel (D1932) ; le modèle de `_migration`, gardé pour le chapitre 9 (D1894) ; les
+  onze sections de la dépréciation, à relire comme textes ; les déclinaisons de tiny, à revalider. Les lectures
+  ouvertes jusqu'à l'implémentation restent D1788, D1794, D1805, D1815, et la forme de la notification de progression
+  (D1861).
 - **2026-11-18 — LA PAUSE : LE CHAPITRE 8, SEIZE POINTS CLOS SUR DIX-NEUF, LES DEUX PARTIES LUES, LE POINT 17 PRÉSENTÉ
   (D1992–D1998, 1998 décisions).** La reprise, par le point 16 resté sans réponse, redonné en entier. **Le point 16,
   les deux volets** (D1992–D1998) : le volet descendant d'une règle d'`exchange/` s'écrit dans un bloc de la règle — «

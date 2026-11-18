@@ -18493,6 +18493,39 @@ avant la synthèse Q16).
 
 ## 11. Journal des échanges
 
+- **2026-11-18 — LA PAUSE : LE CHAPITRE 8, SEIZE POINTS CLOS SUR DIX-NEUF, LES DEUX PARTIES LUES, LE POINT 17 PRÉSENTÉ
+  (D1992–D1998, 1998 décisions).** La reprise, par le point 16 resté sans réponse, redonné en entier. **Le point 16,
+  les deux volets** (D1992–D1998) : le volet descendant d'une règle d'`exchange/` s'écrit dans un bloc de la règle — «
+  Réponse 1, un bloc dans la règle » —, le `fields:` étant l'ascendant ; deux blocs nommés et deux dossiers sont
+  écartés. **Un ajout de l'auteur** : « la bijection d'une règle (exchange) n'est pas assurée par Syncytium. Elle est
+  de la responsabilité du concepteur. » ; un contrôle la vérifie à la migration de version, et ce qu'il relève entre
+  au rapport de migration de version, « dont une validation du concepteur est attendue pour basculer » — un rapport et
+  une validation que D1974 ne portait pas. Le contrôle joue l'aller puis le retour sur chaque enregistrement migré et
+  compare le retour à l'original ; un écart demande une lecture et une validation. **Une troisième voie** sur la
+  formule sans bloc descendant, entre mon erreur d'ingestion et l'entrée du rapport : erreur d'ingestion si les champs
+  qu'elle lit disparaissent ; s'ils restent, elle est acceptée — la règle initialise un champ, « à l'usage, le champ
+  nom_complet pourra vivre sa vie dans l'application ». **Le sens des volets, précisé par l'auteur** : « Le modèle de
+  données n'est pas stocké dans toutes ses versions. Il reflète la dernière version en production » ; l'ascendant
+  permet de basculer, ou de fournir des données sans que le modèle soit encore basculé — une beta hors du bac à sable
+  servie sans modèle déployé ; le descendant va de la nouvelle version vers une ancienne. Le concepteur n'écrit le
+  descendant que là où le moteur ne le dérive pas ; l'éclatement et la fusion demandent leur inverse écrit — « après
+  réflexion, cette approche est plus sage », D91 amendée — ; le bloc s'appelle `reverse:`. Trois lectures dites à
+  l'auteur avant la clôture, sans correction : la validation n'est demandée que sur un écart ; la substitution est une
+  constante du bloc `reverse:` ; le sens de chaque volet selon la version qui appelle, gardé pour les chapitres 9 et
+  13. **Entrés au glossaire** : « Rapport de migration de version », « Volets d'une règle d'`exchange/` ». Le contrôle
+  et le rapport partent au chapitre 9. Aucun cas n'est réécrit. **Le point 17, les exemples, présenté** : l'inventaire
+  des trois cas — l'entrepôt illustre presque toute la reprise, le véhicule les classeurs et le tout-ou-rien, la
+  banque les fichiers et le cache — ; dix écritures arrêtées dans cette lecture n'ont aucun cas : les formes courtes,
+  le message construit par les labels, `from: abrege@1.0.0.0`, le processus d'une migration de version, `exchange/`,
+  `reverse:`, la substitution, le changement de connecteur ; la question : tout en illustration, ou l'entrepôt qui
+  suit la préconisation — une ligne, `from: abrege@1.0.0.0` —, ou un cas qui reçoit aussi une règle d'`exchange/`. «
+  Je marque une pause ». **À la reprise** : la réponse au point 17, puis les points 18 et 19 — la facette
+  documentation, le registre — ; la troisième section, le remplacement silencieux, à ouvrir ; puis la réorganisation
+  et la réécriture. Restent à confirmer ou à nommer : le titre du chapitre (D1887) ; le modèle de `_migration`, gardé
+  pour le chapitre 9 (D1894) ; les noms des opérateurs, le code du label d'enveloppe et les textes des gabarits
+  (D1949) ; les classes des formats derrière Excel (D1932) ; la commande du remplacement silencieux (D1908). Les dix
+  sections de la dépréciation restent à relire comme textes. Les lectures ouvertes jusqu'à l'implémentation restent
+  D1788, D1794, D1805, D1815, et la forme de la notification de progression (D1861).
 - **2026-11-14 — LA PAUSE : LE CHAPITRE 8, QUINZE POINTS CLOS SUR DIX-NEUF, LE POINT 16 PRÉSENTÉ (D1974–D1991, 1991
   décisions).** La reprise, par le point 14 resté sans réponse. **Le point 14, les transformations d'une migration de
   version** (D1974–D1980) : l'auteur dévoile une partie du mécanisme, pour le chapitre 9 — Syncytium construit le

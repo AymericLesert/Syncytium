@@ -391,7 +391,14 @@ défaut que `storage: sqlite` sans bloc `connectors:`. Le dossier du
 fichier vient de la variable d'environnement `SYNCYTIUM_CSV_DIRECTORY` ;
 par défaut, un fichier CSV est en UTF-8, le point-virgule pour
 séparateur, les entêtes en première ligne (D2002). La variable doit
-être définie : absente, c'est une erreur de démarrage (D2003).
+être définie : absente, c'est une erreur de démarrage (D2003). C'est
+l'écriture de tiny (le cas 1, `examples/01_tiny/syncytium.yml`), sous sa
+version :
+
+```yaml
+      migrations:
+        legacy: csv[personne]
+```
 
 Les règles de la forme courte (D1896) :
 

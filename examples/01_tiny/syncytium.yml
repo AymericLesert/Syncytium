@@ -14,6 +14,9 @@ versions:
     1.0.0.0:
       release-notes: Version 1 de l'annuaire
 
+      migrations:
+        legacy: csv[personne]
+
       annuaire:
         personne:
           description: Les membres de l'entreprise

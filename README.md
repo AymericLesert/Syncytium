@@ -45,7 +45,7 @@ Deux rythmes en découlent. Le moteur évolue sur sollicitation, par une
 mise à jour technique. La description évolue à chaud : une nouvelle version
 se dépose, les données migrent, les écrans et les API suivent.
 
-## Une application en vingt-six lignes
+## Une application en vingt-neuf lignes
 
 Tout Syncytium tient dans cette promesse. Voici une application complète,
 un annuaire, telle que le concepteur l'écrit :
@@ -67,6 +67,9 @@ versions:
     1.0.0.0:
       release-notes: Version 1 de l'annuaire
 
+      migrations:
+        legacy: csv[personne]
+
       annuaire:
         personne:
           description: Les membres de l'entreprise
@@ -79,9 +82,10 @@ versions:
             fonction: text[..60]
 ```
 
-De ces vingt-six lignes naissent la base et sa migration, l'écran de liste
-et le formulaire, l'API versionnée, l'export et l'import, et la
-documentation de l'application dans toutes ses formes. Le fichier est dans
+De ces vingt-neuf lignes naissent la base et sa migration, la reprise d'un
+fichier existant, l'écran de liste et le formulaire, l'API versionnée,
+l'export et l'import, et la documentation de l'application dans toutes
+ses formes. Le fichier est dans
 [examples/01_tiny/](examples/01_tiny/).
 
 ## La documentation

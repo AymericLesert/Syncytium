@@ -124,6 +124,7 @@ Aucun champ n'est cherchable : aucun `searchable:` déclaré.
 | la version | la version courante de la configuration |
 | `user` | le compte unique — sans authentification, tous les droits |
 | la télémétrie | les compteurs de lecture et d'écriture par entité |
+| la reprise | `migration`, `passage`, `passage_source`, `passage_cible`, `passage_regle`, `cle`, `modele`, `anomalie_modele`, `anomalie` — la migration `legacy` et ses passages |
 
 ---
 
@@ -131,7 +132,24 @@ Aucun champ n'est cherchable : aucun `searchable:` déclaré.
 
 ### 4.1 Reprise des données
 
-Aucune migration déclarée.
+**La migration déclarée.** `legacy`, en forme courte. La base d'origine est un fichier CSV : en UTF-8, le point-virgule pour séparateur, les entêtes en première ligne, dans le dossier de la variable `SYNCYTIUM_CSV_DIRECTORY`. Le mode est relatif, sans remise à zéro. Aucun rythme n'est déclaré.
+
+**Les sources.** Une entité, `personne`, lue dans `personne.csv`. Ses colonnes sont les entêtes du fichier.
+
+**Les règles.** Aucune règle écrite : chaque colonne alimente le champ de même nom, et le type du champ convertit la valeur lue.
+
+**Le graphe source → cible**
+
+| La colonne de `personne.csv` | Le champ |
+|---|---|
+| `nom` | `annuaire.personne.nom` |
+| `prenom` | `annuaire.personne.prenom` |
+| `age` | `annuaire.personne.age` |
+| `fonction` | `annuaire.personne.fonction` |
+
+Une colonne sans champ de même nom n'est pas lue.
+
+*Avec l'instance seulement.* Le modèle lu du fichier et ses versions, le dernier passage, la complétude, les clés d'origine par statut, le refusé et ses motifs.
 
 ### 4.2 Les imports
 
@@ -150,7 +168,7 @@ Une entité importable : `personne`.
 
 ### 4.3 Les opérations
 
-Aucune opération déclarée. Les quatre actes du socle sur `personne` — la création, la lecture, la modification, la suppression —, par l'écran et par l'API.
+Aucune opération déclarée. Les quatre actes du socle sur `personne` — la création, la lecture, la modification, la suppression —, par l'écran et par l'API. L'opération de la reprise, `migrate`, est décrite dans le guide d'exploitation.
 
 ---
 
@@ -168,10 +186,10 @@ Aucune opération déclarée. Les quatre actes du socle sur `personne` — la cr
 
 | Le champ | Où il sert |
 |---|---|
-| `nom` | l'identité ; le visage `{prenom} {nom}` ; la liste et le formulaire |
-| `prenom` | l'identité ; le visage ; la liste et le formulaire |
-| `age` | la liste et le formulaire |
-| `fonction` | la liste et le formulaire |
+| `nom` | l'identité ; le visage `{prenom} {nom}` ; la liste et le formulaire ; repris de `personne.nom` par `legacy` |
+| `prenom` | l'identité ; le visage ; la liste et le formulaire ; repris de `personne.prenom` par `legacy` |
+| `age` | la liste et le formulaire ; repris de `personne.age` par `legacy` |
+| `fonction` | la liste et le formulaire ; repris de `personne.fonction` par `legacy` |
 
 ### 5.2 Les droits
 
@@ -206,6 +224,16 @@ environments:
       name: sqlite
       family: storage
       class: sqlite
+    connectors:
+      csv:
+        family: storage
+        class: csv
+        parameters:
+          directory: ${SYNCYTIUM_CSV_DIRECTORY}
+          encoding: utf-8
+          separator: ";"
+        entities:
+          personne: personne.csv
 
 versions:
   production:
@@ -214,6 +242,11 @@ versions:
       languages: [fr]
       title: tiny
       release-notes: Version 1 de l'annuaire
+      migrations:
+        legacy:
+          from: csv[personne]
+          mode: relative
+          reset: false
       history: false
       menu:
         annuaire:

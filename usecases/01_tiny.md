@@ -28,7 +28,7 @@ d'attirer le chaland dès la première page. »** — puis, sur la forme :
 **« Je retiens ta proposition : le README ouvre sur le tiny en accroche
 courte, et une rubrique présentation l'exploite et déploie le menu. »**
 (l'auteur, le 26/10/2026 — D1519). Le README de la racine du dépôt
-porte les vingt-six lignes de `examples/01_tiny/syncytium.yml` et une
+porte les vingt-neuf lignes de `examples/01_tiny/syncytium.yml` et une
 phrase ; la présentation (`docs/presentation/`, la partie 0) les déplie
 clé par clé — ce que chaque clé fait naître, le renvoi au chapitre qui
 l'explique — et déploie le menu. Le cas ne change pas : sa maison reste
@@ -45,6 +45,9 @@ l'explique — et déploie le menu. Le cas ne change pas : sa maison reste
 - **les exemples d'accès à l'API** — la lecture, la création, la
   modification, la suppression, la recherche ;
 - **la procédure d'export et d'import** (D211/D234–D238) ;
+- **la reprise d'un fichier en une ligne** — la forme courte d'une
+  migration, `legacy: csv[personne]`, et son connecteur implicite
+  (D2000–D2004) ;
 - **les IHM** — ce que l'utilisateur voit, sans une ligne de `gui:`.
 
 ## La forme — le dépôt
@@ -55,6 +58,9 @@ clés) : le format `from: Syncytium-1.0`, le projet `tiny` et sa
 description, un environnement `home` (« Exécution en mode local »,
 `storage: sqlite` — le connecteur implicite, D1114), un statut
 `production` sans `beta` (D1115), une version `1.0.0.0` et sa note,
+une migration en forme courte — `legacy: csv[personne]` : la reprise du
+fichier `personne.csv` par le connecteur implicite `csv`, son dossier
+dans la variable `SYNCYTIUM_CSV_DIRECTORY` (D2000–D2003) —,
 un module `annuaire`, une entité `personne` — sa description, son
 visage `"{prenom} {nom}"`, son identité `[nom, prenom]`, ses quatre
 champs en forme courte. Ni journal, ni nettoyage, ni langues, ni
@@ -74,7 +80,9 @@ D1221). Le tiny reste la configuration minimale : rien n'y est ajouté
 pour la documentation, et c'est le propos — tout ce qui suit naît des
 vingt-six lignes de `syncytium.yml`. Les frottements relevés le 05/10
 sont tous soldés (la section suivante). **Validée par l'auteur le
-11/10/2026 — D1231.**)*
+11/10/2026 — D1231.** Le 18/11/2026, le tiny reçoit la forme courte
+d'une reprise et passe à vingt-neuf lignes (D2004) : la fonctionnelle
+ne change pas — la reprise n'est pas un écran de l'usager, ma lecture.)*
 
 ---
 
@@ -224,7 +232,9 @@ format pivot (D1292–D1300), le hook de type (D1301), la reprise
 (D1302). Le tiny reste la configuration minimale : tout ce qui suit
 naît des vingt-six lignes de `syncytium.yml` et des défauts du socle
 (configuration.md §3.5). Ce qui est de moi est marqué. **En
-proposition.** La même documentation, telle que le moteur la
+proposition.** Le 18/11/2026, le tiny passe à vingt-neuf lignes, avec
+la forme courte d'une reprise (D2004) : le stockage, l'origine, l'usage
+et la configuration dépliée la portent, à relire. La même documentation, telle que le moteur la
 produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md),
 écrite le 16/10/2026 sur la demande de l'auteur.)*
 
@@ -344,22 +354,41 @@ produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md)
 >
 > **Les tables de Syncytium.** La version (D680) ; `user` (D719) — un
 > seul utilisateur, sans authentification ; les compteurs de télémétrie
-> (D39). Pas de tables de reprise.
+> (D39) ; celles de la reprise — `migration`, `passage`,
+> `passage_source`, `passage_cible`, `passage_regle`, `cle`, `modele`,
+> `anomalie_modele`, `anomalie` (migration.md, D1292).
 >
 > ## 4. L'origine
 >
-> **4.1 Reprise des données.** *Absent — aucune migration déclarée
-> (D1302).*
+> **4.1 Reprise des données.** **La migration déclarée** `legacy`, en
+> forme courte (D1895–D1897) : la base d'origine, le connecteur implicite
+> `csv` — un fichier en UTF-8, le point-virgule pour séparateur, les
+> entêtes en première ligne, dans le dossier de la variable
+> `SYNCYTIUM_CSV_DIRECTORY` (D2001–D2003) ; le mode relatif, sans remise
+> à zéro — les défauts (D1889) ; aucun rythme déclaré. **Les sources** :
+> une entité, `personne`, lue dans `personne.csv` ; le connecteur se
+> décrit, ses colonnes sont les entêtes du fichier. **Les règles** :
+> aucune écrite — le mapping est champ à champ, par les noms, la
+> conversion vient du type du champ (D1896). **Le graphe source →
+> cible** : `personne.nom` → `annuaire.personne.nom`, et de même
+> `prenom`, `age`, `fonction` ; une colonne sans champ de même nom n'est
+> pas lue, elle se relève à la complétude. **À l'instance** : le modèle
+> lu du fichier et ses versions, le dernier passage, la complétude, les
+> clés d'origine par statut, le refusé et ses motifs.
 >
 > **4.2 Les imports.** Une entité importable, `personne` : le gabarit
 > `personne.csv` — les colonnes `nom`, `prenom`, `age`, `fonction`, par
 > les noms ; la clé de rapprochement `nom` + `prenom` ; la ligne
 > d'exemple par le `placeholder` des types (D1307 — aucun champ n'a le
-> sien). Le fichier se télécharge depuis l'écran d'import.
+> sien). Le fichier se télécharge depuis l'écran d'import. *(La reprise
+> de 4.1 et l'import ne se confondent pas, ma lecture : la reprise lit
+> le fichier d'un dossier, par un connecteur ; l'import est un écran, le
+> fichier y est déposé par l'opérateur — D238.)*
 >
 > **4.3 Les opérations.** Aucune opération déclarée ; les quatre actes du
 > socle — la création, la lecture, la modification, la suppression —
-> sur `personne`, par l'écran et par l'API.
+> sur `personne`, par l'écran et par l'API ; l'opération de la reprise,
+> `migrate`, relève du guide d'exploitation (D1302).
 >
 > ## 5. L'usage
 >
@@ -368,10 +397,10 @@ produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md)
 >
 > | Le champ | Où il sert |
 > |---|---|
-> | `nom` | l'identité ; le visage `{prenom} {nom}` ; la liste et le formulaire du socle |
-> | `prenom` | l'identité ; le visage ; la liste et le formulaire |
-> | `age` | la liste et le formulaire |
-> | `fonction` | la liste et le formulaire |
+> | `nom` | l'identité ; le visage `{prenom} {nom}` ; la liste et le formulaire du socle ; repris de `personne.nom` par `legacy` |
+> | `prenom` | l'identité ; le visage ; la liste et le formulaire ; repris de `personne.prenom` par `legacy` |
+> | `age` | la liste et le formulaire ; repris de `personne.age` par `legacy` |
+> | `fonction` | la liste et le formulaire ; repris de `personne.fonction` par `legacy` |
 >
 > `personne` n'est référencée par aucune entité et n'en référence
 > aucune.
@@ -407,6 +436,12 @@ produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md)
 >   home:
 >     description: Exécution en mode local
 >     storage: { name: sqlite, family: storage, class: sqlite }
+>     connectors:
+>       csv:
+>         family: storage
+>         class: csv
+>         parameters: { directory: "${SYNCYTIUM_CSV_DIRECTORY}", encoding: utf-8, separator: ";" }
+>         entities: { personne: personne.csv }
 > versions:
 >   production:
 >     environment: home
@@ -414,6 +449,11 @@ produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md)
 >       languages: [<la langue du poste informatique>]
 >       title: tiny
 >       release-notes: Version 1 de l'annuaire
+>       migrations:
+>         legacy:
+>           from: csv[personne]
+>           mode: relative
+>           reset: false
 >       history: false
 >       menu: { annuaire: { personne: { label: personne, link: personne[list] } } }
 >       settings: { field: { text: { normalize: me.trim() } } }

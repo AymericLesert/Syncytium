@@ -80,7 +80,7 @@ amende ou remplace ; un outil en calcule le statut et la famille
 se réorganisent en chapitres lisibles dans GitHub.
 
 **Les cas d'usage** sont le banc d'essai. Cinq applications complètes,
-du tiny en vingt-six lignes à l'entrepôt d'une entreprise industrielle,
+du tiny en vingt-neuf lignes à l'entrepôt d'une entreprise industrielle,
 sont décrites dans `examples/` : chaque décision s'y éprouve, et le réel
 corrige le registre, ligne après ligne.
 

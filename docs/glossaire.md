@@ -1020,9 +1020,10 @@ distinct de l'inactivation ; un acte de l'administrateur. *(D137)*
 
 **Rapport de migration de version** — Ce que la migration de version
 relève avant la bascule. Il porte le contrôle de la bijection des règles
-d'`exchange/` : une règle qui ne conserve pas les données y est
-signalée. La validation du concepteur est attendue pour basculer.
-*(D1993)*
+d'`exchange/` — l'aller puis le retour, sur chaque enregistrement
+migré, comparés à l'original : une règle qui ne conserve pas les
+données y est signalée. Un écart demande une lecture et une validation
+du concepteur pour basculer. *(D1993, D1994)*
 
 **Rapport des non-conformités** (`report`) — La liste de ce qui ne
 respecte plus une règle de lien — le filtre a changé, la donnée a

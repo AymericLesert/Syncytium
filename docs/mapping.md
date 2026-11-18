@@ -170,9 +170,13 @@ tiers.contact:
 **La bijection d'une règle n'est pas assurée par Syncytium** (D91,
 D1993) : elle est de la responsabilité du concepteur. En écrivant la
 règle, il ne sait pas toujours qu'elle ne conserve pas les données. Un
-contrôle, à la migration de version, vérifie donc ce point. Ce qu'il
-relève entre au rapport de la migration de version, et la validation
-du concepteur est attendue pour basculer.
+contrôle, à la migration de version, vérifie donc ce point (D1994) : il
+joue l'aller puis le retour sur chaque enregistrement migré, et
+compare le retour à l'original. Un contact « Jean Pierre » « Dupont »
+devient « Jean Pierre Dupont », puis revient en « Jean » et « Pierre
+Dupont » : la règle ne conserve pas les données. Un écart entre au
+rapport de la migration de version ; il demande une lecture et une
+validation du concepteur pour basculer.
 
 **Les écarts sont documentés par Syncytium (D1112).** La description
 d'un champ dit ce qu'il est, jamais ce qui a changé : la documentation
@@ -229,8 +233,8 @@ nouveau.
   annulée, et le modèle de destination est supprimé.
 
 Le rapport de la migration de version porte ce que le contrôle de la
-bijection des règles d'`exchange/` relève ; la validation du concepteur
-est attendue pour basculer (D1993).
+bijection des règles d'`exchange/` relève. Un écart demande une lecture
+et une validation du concepteur pour basculer (D1993, D1994).
 
 L'erreur se joue sur les données (D1975). Un champ qui passe de
 `text[..40]` à `text[..20]` ne fait pas refuser la version d'avance :

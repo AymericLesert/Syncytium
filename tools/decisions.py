@@ -302,6 +302,28 @@ for _fam, _nums in {
 # Le registre du chapitre 8 (D2018, le 19/11/2026) : le stock de reprise à statuts se tranche avec le module `_migration`,
 # dont le détail va à l'administration et l'exploitation (D2010).
 RELECTURE.update({_n: "administration" for _n in [181, 182, 183, 184]})
+# Le chapitre 8, la reprise et le mapping (D2019, le 19/11/2026) : cent vingt-deux sorties, deux entrées — l'exécution
+# d'un passage et le mécanisme de la migration de version vont au moteur (D1880, D1881, D1974), le module `_migration`
+# à l'administration (D2010) ; les ouvertures, les clôtures et les consignes du registre à la méthode.
+for _fam, _nums in {
+    "moteur": [7, 9, 10, 93, 328, 329, 631, 672, 674, 678, 679, 933, 1033, 1034, 1037, 1040, 1041, 1043, 1046, 1047,
+               1048, 1049, 1050, 1051, 1052, 1053, 1054, 1055, 1920, 1928, 1952, 1954, 1955, 1974, 1975, 1977, 1978,
+               1979, 1994],
+    "methode": [1863, 1864, 1865, 1866, 1867, 1868, 1879, 1881, 1887, 1899, 1906, 1912, 1917, 1926, 1931, 1939, 1950,
+                1957, 1963, 1967, 1973, 1980, 1991, 1998, 2009, 2017, 2018],
+    "administration": [112, 113, 666, 668, 711, 722, 1028, 1030, 1031, 1032, 1057, 1059, 1065, 1066, 1067, 1068, 1070,
+                       1072, 1073, 1077, 1078, 1079, 1080],
+    "cas": [812, 813, 850, 853, 864, 873, 939, 940, 953, 1008, 1010, 1013, 1020, 1064, 1522, 1962, 2000, 2004, 2006,
+            2008],
+    "modele": [350, 356, 384, 387, 970, 993, 1965, 1976, 1869, 1870, 1871, 1872, 1873, 1874, 1877, 1878],
+    "connecteurs": [634, 849, 1876, 1933, 1934, 1936, 2001, 2002, 2003, 2005],
+    "langage": [837, 854, 1919, 1921, 1922, 1924],
+    "surfaces": [453, 534, 787, 789, 790],
+    "configuration": [968, 1029, 1696, 1960],
+    "documentation": [1157, 1241, 1242, 1256],
+    "reprise": [2007, 2013],
+}.items():
+    RELECTURE.update({_n: _fam for _n in _nums})
 
 
 

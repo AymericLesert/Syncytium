@@ -147,11 +147,20 @@ unit_price:
   persistent (D11–D13 : la substitution vers l'ancien, le défaut
   vers le neuf).
 
-**Les deux volets d'une règle d'`exchange/`** (D1883, D1992). Une règle
-va dans deux sens. Le volet ascendant est son `fields:`. Le volet
-descendant s'écrit dans la même règle, par un bloc — `reverse:`, le nom
-en proposition. Les deux sens se lisent au même endroit. Un exemple
-d'illustration :
+**Les deux volets d'une règle d'`exchange/`** (D1883, D1992, D1996). Une
+règle va dans deux sens.
+
+- **L'ascendant** est son `fields:`. Le modèle de données n'est pas
+  stocké dans toutes ses versions : il reflète la dernière version en
+  production. L'ascendant permet de basculer, ou de fournir des données
+  sans que le modèle soit encore officiellement basculé : une beta,
+  hors du bac à sable, peut être servie sans que son modèle soit
+  déployé.
+- **Le descendant** va de la nouvelle version vers une ancienne. Il
+  s'écrit dans la même règle, par un bloc — `reverse:`, le nom en
+  proposition.
+
+Les deux sens se lisent au même endroit. Un exemple d'illustration :
 
 ```yaml
 # La fusion du prénom et du nom, et son inverse

@@ -1306,6 +1306,14 @@ est, lui, le nom d'usage de l'entité par langue (D1120).
 *Ex. : `label: "{code} — {company_name}"` ; `image: logo`.*
 *(D397/D386/D465, D803, D1120)*
 
+**Volets d'une règle d'`exchange/`** — Les deux sens d'une règle de
+migration de version. **L'ascendant**, son `fields:` : le modèle de
+données reflète la dernière version en production, et l'ascendant permet
+de basculer, ou de fournir des données sans que le modèle soit encore
+basculé — une beta servie sans que son modèle soit déployé. **Le
+descendant**, un bloc de la même règle : de la nouvelle version vers une
+ancienne. *(D11, D91, D1883, D1992, D1996)*
+
 **Vue dérivée** (`association with … if …`) — Une liste calculée par
 une condition, jamais stockée : on la lit ; pour la changer, on change
 la donnée qui la fonde.

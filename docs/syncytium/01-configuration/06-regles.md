@@ -70,7 +70,10 @@ La description se vérifie en entier à l'ingestion, avant de servir
   l'ancien nom (D1985–D1987) ;
 - une règle d'`exchange/` dont la formule lit des champs qui
   disparaissent de la nouvelle version, sans inverse ni substitution
-  écrits : une ancienne API ne saurait plus les rendre (D91, D1995).
+  écrits : une ancienne API ne saurait plus les rendre (D91, D1995) ;
+- au retrait d'un élément déprécié de la reprise, ce que le concepteur
+  n'a ni éliminé ni remplacé : une règle qui lit une source retirée, par
+  exemple (D2012).
 
 Une alerte signale sans refuser :
 

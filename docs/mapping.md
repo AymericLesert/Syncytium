@@ -1486,19 +1486,32 @@ CONTACT:
 ```
 
 **Ce que la dépréciation d'un élément de la reprise touche.** L'élément
-vit encore (D2011) :
+vit encore (D2011). Une dépréciation à venir signale les sources et les
+règles, non les destinations (D2012) :
 
-- **la migration déclarée** : ses passages tournent, à son rythme,
-  jusqu'à la version qui la retire ;
-- **l'entité source** : elle est lue comme avant ;
+- **la migration déclarée** : ses sources et ses règles. Ses passages
+  tournent, à son rythme, jusqu'à la version qui la retire ;
+- **l'entité source** : les règles qui la lisent. Elle est lue comme
+  avant ;
 - **la règle** : elle s'applique comme avant ;
+- **les destinations ne sont pas signalées** : les entités et les champs
+  que la reprise alimente continuent de vivre après elle. Ils
+  s'utilisent tels quels, sans que le processus s'exécute ;
 - **le dictionnaire de la donnée** : le chapitre 4.1, « Reprise des
-  données », montre l'élément déprécié, son remplaçant ou son abandon.
+  données », montre l'élément déprécié, son remplaçant ou son abandon,
+  et ce qu'il signale.
 
-*En proposition* : la dépréciation d'une migration déclarée vaut pour ses
-sources et pour ses règles ; celle d'une entité source touche les règles
-qui la lisent ; l'adresse d'une règle remplaçante, quand plusieurs règles
-portent le nom de la même source.
+Dans l'entrepôt, déprécier la migration `cegid` signalerait ses
+vingt-trois sources et ses trente-trois règles ; déprécier la source
+`CONTACT`, les deux règles qui la lisent. Les tiers, les articles et les
+commandes de l'entrepôt ne seraient pas signalés.
+
+**Au retrait**, le concepteur élimine ou remplace ce qui doit l'être :
+une règle qui lit une source retirée, par exemple. Toute erreur est
+alors une erreur d'ingestion (D2012).
+
+*En proposition* : l'adresse d'une règle remplaçante, quand plusieurs
+règles portent le nom de la même source.
 
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :

@@ -1506,6 +1506,10 @@ vingt-trois sources et ses trente-trois règles ; déprécier la source
 `CONTACT`, les deux règles qui la lisent. Les tiers, les articles et les
 commandes de l'entrepôt ne seraient pas signalés.
 
+Signaler n'est pas déprécier : rien n'est déprécié en cascade (D2014).
+Une source ou une règle signalée garde son propre bloc `deprecation:`,
+si le concepteur veut annoncer son retrait.
+
 **Au retrait**, le concepteur élimine ou remplace ce qui doit l'être :
 une règle qui lit une source retirée, par exemple. Toute erreur est
 alors une erreur d'ingestion (D2012).

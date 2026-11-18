@@ -167,6 +167,13 @@ tiers.contact:
     nom: extract(nom_complet, '\s(.+)$')
 ```
 
+**La bijection d'une règle n'est pas assurée par Syncytium** (D91,
+D1993) : elle est de la responsabilité du concepteur. En écrivant la
+règle, il ne sait pas toujours qu'elle ne conserve pas les données. Un
+contrôle, à la migration de version, vérifie donc ce point. Ce qu'il
+relève entre au rapport de la migration de version, et la validation
+du concepteur est attendue pour basculer.
+
 **Les écarts sont documentés par Syncytium (D1112).** La description
 d'un champ dit ce qu'il est, jamais ce qui a changé : la documentation
 de la version présente les écarts calculés — les champs ajoutés,
@@ -220,6 +227,10 @@ nouveau.
   vers lui, et l'ancien est gardé pour la période de rétention ;
 - une erreur apparaît : c'est une erreur d'ingestion, la bascule est
   annulée, et le modèle de destination est supprimé.
+
+Le rapport de la migration de version porte ce que le contrôle de la
+bijection des règles d'`exchange/` relève ; la validation du concepteur
+est attendue pour basculer (D1993).
 
 L'erreur se joue sur les données (D1975). Un champ qui passe de
 `text[..40]` à `text[..20]` ne fait pas refuser la version d'avance :

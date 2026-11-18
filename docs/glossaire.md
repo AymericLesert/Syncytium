@@ -1018,6 +1018,12 @@ migrations. *(D1070–D1076)*
 **Purge** — L'effacement réel d'un enregistrement, le droit du RGPD,
 distinct de l'inactivation ; un acte de l'administrateur. *(D137)*
 
+**Rapport de migration de version** — Ce que la migration de version
+relève avant la bascule. Il porte le contrôle de la bijection des règles
+d'`exchange/` : une règle qui ne conserve pas les données y est
+signalée. La validation du concepteur est attendue pour basculer.
+*(D1993)*
+
 **Rapport des non-conformités** (`report`) — La liste de ce qui ne
 respecte plus une règle de lien — le filtre a changé, la donnée a
 dérivé. Produit à la demande, à la migration ou en continu, adressé à

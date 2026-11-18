@@ -15,7 +15,7 @@ nom:
 
 nom_court:
   type: text[..10]
-  from: abrege
+  from: abrege@1.0.0.0
   label: Nom court
   hint: Le nom court, celui des listes.
 

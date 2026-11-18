@@ -251,7 +251,7 @@ pas qu'ils sont le même. Le concepteur l'écrit donc sur le champ, par
 # Le nom court du tiers : le type, l'ancien nom, le libellé et l'aide
 nom_court:
   type: text[..10]
-  from: abrege
+  from: abrege@1.0.0.0
   label: Nom court
   hint: Le nom court, celui des listes.
 ```
@@ -259,23 +259,14 @@ nom_court:
 - **Les données suivent.** La migration de version porte les valeurs
   de l'ancien nom au nouveau. L'API des versions antérieures continue
   de servir l'ancien nom (D651).
-- **L'origine se déduit.** Sans précision, l'ancien nom se lit dans la
-  dernière version connue. C'est l'écriture la plus facile à lire.
-- **L'origine peut s'écrire.** `from: <ancien nom>@<version>` nomme la
-  version d'origine, le numéro sans `v` : `from: abrege@1.0.0.0`
-  (D1987). Elle doit être la dernière version connue : sinon, c'est
-  une erreur d'ingestion (D1986, D1988). C'en est une aussi quand la version
-  n'existe pas, ou quand elle ne porte pas l'ancien nom (D1987).
-
-Le même champ, la version d'origine écrite :
-
-```yaml
-# Le nom court du tiers : l'ancien nom et sa version d'origine
-nom_court:
-  type: text[..10]
-  from: abrege@1.0.0.0
-  label: Nom court
-```
+- **L'origine s'écrit.** `from: <ancien nom>@<version>` nomme la
+  version d'origine, le numéro sans `v` (D1987). Elle doit être la
+  dernière version connue : sinon, c'est une erreur d'ingestion
+  (D1986, D1988). C'en est une aussi quand la version n'existe pas,
+  ou quand elle ne porte pas l'ancien nom (D1987).
+- **L'origine peut se déduire.** Sans numéro, `from: abrege`, l'ancien
+  nom se lit dans la dernière version connue. C'est l'écriture la plus
+  facile à lire.
 
 **Écrire le numéro de version est préconisé.** Un renommage oublié dans
 le modèle se rejouerait à la version suivante. Si le champ d'origine
@@ -284,7 +275,7 @@ deux champs ont échangé leurs noms, ils reviendraient en arrière sans
 qu'on le veuille. La version écrite évite de procéder deux fois à la
 transformation (D1982, D1985) : à la version suivante, elle n'est plus
 la dernière version connue, et l'ingestion refuse le renommage oublié
-au lieu de le rejouer (D1986).
+au lieu de le rejouer (D1986). L'entrepôt suit la préconisation (D2006).
 
 Une entité ou un module renommé le dit de la même façon, par `from:`
 (D1111, D1984). Ce qu'un renommage ne suffit pas à dire — éclater un

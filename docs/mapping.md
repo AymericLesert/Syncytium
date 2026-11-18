@@ -1514,8 +1514,38 @@ si le concepteur veut annoncer son retrait.
 une règle qui lit une source retirée, par exemple. Toute erreur est
 alors une erreur d'ingestion (D2012).
 
-*En proposition* : l'adresse d'une règle remplaçante, quand plusieurs
-règles portent le nom de la même source.
+**L'adresse d'une règle remplaçante** (D2015). Une migration déclarée et
+une entité source ont un nom. Une règle porte le nom de sa source, que
+plusieurs règles partagent : dans l'entrepôt, `CONTACT:` ouvre la règle
+des contacts des clients et celle des contacts des fournisseurs. Une
+règle remplaçante se désigne donc par son nom propre, la propriété
+`name:`. L'exemple est construit : une règle unique reprendrait tous les
+contacts.
+
+```yaml
+# Les contacts : la règle remplaçante, désignée par son nom propre
+CONTACT:
+
+  # Le nom propre de la règle
+  name: contacts
+
+  # La cible
+  to: tiers.contact
+```
+
+```yaml
+# Les contacts des clients : la règle contacts la remplace
+CONTACT:
+
+  # La cible
+  to: tiers.contact
+
+  # Le périmètre
+  filter: CTCTTYPCPT = "C"
+
+  # La dépréciation
+  deprecation: contacts
+```
 
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :

@@ -566,6 +566,7 @@ antérieure, c'est la migration de version. Le dossier range les deux :
   `formula:` (D660) ;
 - `mapping/NNN_<nom>.yml` écrit chaque règle (D656) : `to`, `filter`,
   `distinct`, `parent`, `fields`, `validation`, `report`, `operations` ;
+  `name`, son nom propre, quand une autre règle la désigne (D2015) ;
 - `exchange/` porte les surcharges de la version par rapport à la
   version antérieure, en un volet ascendant et un volet descendant
   (D1883) — le descendant s'écrit dans la règle, par le bloc

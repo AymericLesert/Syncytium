@@ -384,6 +384,11 @@ séparateur (D1897) :
 legacy: fichier_csv[client, fournisseur]
 ```
 
+Dans un projet minimal, le connecteur lui-même ne se déclare pas
+(D2001) : la forme courte nomme la classe, `legacy: csv[personne]`, et
+le fichier porte le nom de l'entité, `personne.csv`. C'est le même
+défaut que `storage: sqlite` sans bloc `connectors:`.
+
 Les règles de la forme courte (D1896) :
 
 - **les deux absences sont indépendantes** : sans `sources:`, le

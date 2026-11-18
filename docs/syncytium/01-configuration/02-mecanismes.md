@@ -297,7 +297,10 @@ déclare que son modèle et un environnement ; le reste vient des défauts :
   textes s'écrivent en texte simple (D1101) ;
 - **le connecteur** : sans bloc `connectors:`, `storage: sqlite` désigne
   un connecteur implicite dont le nom, la famille et la classe sont
-  `sqlite` (D1093) ;
+  `sqlite` (D1093). Le connecteur d'un fichier CSV est implicite lui
+  aussi : la forme courte d'une reprise nomme la classe,
+  `legacy: csv[personne]`, et le fichier porte le nom de l'entité,
+  `personne.csv` (D2001) ;
 - **la première clé** : `from: Syncytium-1.0` reste écrite (D1083).
 
 L'inventaire complet des défauts du socle est dans

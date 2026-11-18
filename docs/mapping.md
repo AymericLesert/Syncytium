@@ -1426,6 +1426,95 @@ order_lines:
 Aucun — le chantier du mapping et la jonction versions↔storage sont
 soldés (D646–D676).
 
+## La dépréciation d'un élément de la reprise (D1873, D1877, D2011)
+
+> **La dépréciation** d'un élément annonce son retrait. L'élément vit
+> encore ; le bloc `deprecation:` dit ce qui le remplace, ou son abandon.
+> Elle ne se confond pas avec la dépréciation d'une version, qui est
+> effective ([glossaire](glossaire.md)).
+
+Trois éléments d'une reprise peuvent être appelés à disparaître : **la
+migration déclarée**, **l'entité source**, **la règle**. Le système
+d'origine s'arrête, une table n'est plus fournie, une règle cède à une
+autre. La configuration ne retire pas l'élément d'un coup. Elle
+l'annonce d'abord, sur l'élément lui-même, dans la version en service
+(D650, D1871). La migration continue de tourner comme avant.
+
+**La forme courte.** Le bloc nomme le remplaçant, rien de plus (D1873) :
+une migration déclarée nomme une autre migration déclarée, une entité
+source une autre entité source, une règle une autre règle. L'exemple
+est construit, aucun cas n'en porte. Dans l'entrepôt, PMI céderait à un
+nouveau système, et la migration `cegid` à une migration `nouvel_erp` :
+
+```yaml
+# La migration cegid : la migration du nouveau système la remplace
+cegid:
+
+  # La base d'origine
+  # Le storage de PMI, lu en lecture seule.
+  from: cegid
+
+  # La dépréciation
+  # La migration nouvel_erp prend le relais.
+  deprecation: nouvel_erp
+```
+
+**La forme longue.** Elle porte deux clés (D1871) :
+
+- **`documentation:`**, le texte qui explique la dépréciation. C'est un
+  texte de la version : à plusieurs langues, il les porte toutes
+  (D1474) ;
+- **`to:`**, l'élément remplaçant.
+
+Sans `to:`, le bloc dit l'abandon, et `documentation:` est exigée. Une
+dépréciation dit toujours le remplacement ou l'abandon ; l'ingestion le
+vérifie (D650). Le bloc n'a pas de `mode:` : sa présence dit l'intention
+(D1872). Dans une règle, ce `to:` est celui du bloc ; il ne se confond
+pas avec le `to:` de la règle, qui nomme son entité cible.
+
+L'entrepôt a une langue : son texte s'écrit en texte simple. L'exemple
+est construit, lui aussi :
+
+```yaml
+# Les contacts de PMI : la table n'est plus fournie, sans remplaçante
+CONTACT:
+
+  # La dépréciation
+  # L'abandon : le texte est exigé.
+  deprecation:
+    documentation: PMI ne fournit plus les contacts ; ils se saisissent dans l'entrepôt.
+```
+
+**Ce que la dépréciation d'un élément de la reprise touche.** L'élément
+vit encore (D2011) :
+
+- **la migration déclarée** : ses passages tournent, à son rythme,
+  jusqu'à la version qui la retire ;
+- **l'entité source** : elle est lue comme avant ;
+- **la règle** : elle s'applique comme avant ;
+- **le dictionnaire de la donnée** : le chapitre 4.1, « Reprise des
+  données », montre l'élément déprécié, son remplaçant ou son abandon.
+
+*En proposition* : la dépréciation d'une migration déclarée vaut pour ses
+sources et pour ses règles ; celle d'une entité source touche les règles
+qui la lisent ; l'adresse d'une règle remplaçante, quand plusieurs règles
+portent le nom de la même source.
+
+**De l'intention à la suppression.** Une dépréciation se joue en trois
+temps :
+
+1. **L'intention.** Le bloc est écrit. Rien ne change : la reprise
+   s'exécute comme avant (D650, D1872).
+2. **La validation.** Une beta complète la dépréciation : en retirant
+   l'élément, elle la valide (D1870, D1875).
+3. **La suppression.** Elle vient avec une version : l'élément quitte la
+   description (D650).
+
+Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
+dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
+Sur un élément de la reprise, le bloc s'écrit toujours `deprecation:`
+(D1871).
+
 ## La documentation — la facette de la reprise (D1158–D1159)
 
 *(La rubrique de la matrice de [documentation.md](documentation.md)
@@ -1502,3 +1591,24 @@ autres (D1503) et le jeu de données vient de `dataset:` (D1504), non
 d'une reprise.
 
 **Les neuf colonnes sont écrites.**
+
+### La migration de version, dans les documentations (D2011)
+
+La facette ci-dessus décrit la reprise. Une migration de version donne
+aussi sa part :
+
+- **le dictionnaire de la donnée** : la lignée d'un champ — « renommé
+  depuis `abrege` » pour `nom_court`, dans l'entrepôt (D1112, D1123) ;
+  une section du chapitre 4.1 par processus qui porte des règles
+  d'`exchange/`, avec ses deux volets (D1302, D1990, D1992) ;
+- **le guide d'exploitation** : le rapport de migration de version ; la
+  lecture et la validation d'un écart avant de basculer (D1993, D1994) ;
+- **le D.A.T.** : l'espace de stockage au moins double, le temps d'une
+  migration (D1977) ;
+- **la documentation du développeur** : les anciennes versions de l'API,
+  servies par les deux volets ; elles se décrivent au chapitre des API
+  (D11, D1996) ;
+- **les autres documentations** : rien.
+
+Le module `_migration` et sa facette se décrivent au chapitre 10, avec
+l'administration et l'exploitation (D2010).

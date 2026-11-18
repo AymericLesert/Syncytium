@@ -306,7 +306,8 @@ acquis. Celle d'une **version** est effective : la version est déposée dans
 `versions/deprecated/`, et le statut se déclare dans `versions.yml`. Celle
 d'un **élément** — un champ, une entité, un module, un type, une méthode,
 une surface, un graphique, un composant d'écran, une classe de connecteur,
-une opération, un élément de la reprise — est une proposition, portée par
+une opération, un élément de la reprise : la migration déclarée,
+l'entité source, la règle — est une proposition, portée par
 l'élément dans la version qui le garde : la présence du bloc dit
 l'intention, la suppression vient avec une version. Elle dit
 toujours le remplacement ou l'abandon ; une beta qui retire l'élément vaut

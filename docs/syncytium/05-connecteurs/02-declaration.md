@@ -220,6 +220,10 @@ minimal (D2001). Par défaut, un fichier CSV est en UTF-8, le
 point-virgule pour séparateur, les entêtes en première ligne. La banque
 écrit `encoding: windows-1252` parce que ses fichiers s'en écartent.
 
+La variable doit être définie (D2003). Syncytium fournit des commandes
+pour préparer une instance et pour créer le fichier `.env` ; si la
+variable manque, c'est une erreur de démarrage.
+
 Un classeur se lit comme une source de format, par la classe `xlsx`
 (D846–D848, D1932). Derrière Excel, la même lecture vaut pour les formats
 libres d'OpenOffice et pour les feuilles en ligne, comme Google Sheets :

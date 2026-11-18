@@ -390,7 +390,8 @@ le fichier porte le nom de l'entité, `personne.csv`. C'est le même
 défaut que `storage: sqlite` sans bloc `connectors:`. Le dossier du
 fichier vient de la variable d'environnement `SYNCYTIUM_CSV_DIRECTORY` ;
 par défaut, un fichier CSV est en UTF-8, le point-virgule pour
-séparateur, les entêtes en première ligne (D2002).
+séparateur, les entêtes en première ligne (D2002). La variable doit
+être définie : absente, c'est une erreur de démarrage (D2003).
 
 Les règles de la forme courte (D1896) :
 

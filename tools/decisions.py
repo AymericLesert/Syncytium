@@ -299,6 +299,9 @@ for _fam, _nums in {
     "securite": [25, 26, 144, 153, 170, 421, 429, 642, 699, 703, 704, 917, 1320, 1327, 1536, 1680, 1801, 1807, 1816],
 }.items():
     RELECTURE.update({_n: _fam for _n in _nums})
+# Le registre du chapitre 8 (D2018, le 19/11/2026) : le stock de reprise à statuts se tranche avec le module `_migration`,
+# dont le détail va à l'administration et l'exploitation (D2010).
+RELECTURE.update({_n: "administration" for _n in [181, 182, 183, 184]})
 
 
 

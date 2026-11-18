@@ -157,8 +157,12 @@ règle va dans deux sens.
   hors du bac à sable, peut être servie sans que son modèle soit
   déployé.
 - **Le descendant** va de la nouvelle version vers une ancienne. Il
-  s'écrit dans la même règle, par un bloc — `reverse:`, le nom en
-  proposition.
+  s'écrit dans la même règle, par le bloc `reverse:` (D1997). Le
+  concepteur ne l'écrit que là où le moteur ne le dérive pas : rien
+  pour un renommage ou un champ repris tel quel, la règle inverse pour
+  une formule, une substitution pour un champ supprimé — une constante
+  du bloc, `echeance: 30`. L'éclatement et la fusion demandent leur
+  inverse écrit, comme toute formule (D91 amendée).
 
 Les deux sens se lisent au même endroit. Un exemple d'illustration :
 

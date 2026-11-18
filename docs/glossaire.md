@@ -437,7 +437,8 @@ version : un champ de la version antérieure réparti en plusieurs, ou
 plusieurs réunis en un seul. Ils s'écrivent dans une règle d'`exchange/`,
 par les formules du langage : `extract` et son expression régulière pour
 l'éclatement, le gabarit pour la fusion, `"{prenom} {nom}"`. Ils n'ont
-pas de grammaire propre. *(D4, D6, D1981, D1990)*
+pas de grammaire propre. Leur inverse s'écrit, comme celui de toute
+formule. *(D4, D6, D1981, D1990, D1997)*
 
 **Édition** — Un extrait figé de la documentation pour qui n'a pas de
 compte, préparé par un `manager` ou un `administrator` dans la limite de
@@ -1311,8 +1312,9 @@ migration de version. **L'ascendant**, son `fields:` : le modèle de
 données reflète la dernière version en production, et l'ascendant permet
 de basculer, ou de fournir des données sans que le modèle soit encore
 basculé — une beta servie sans que son modèle soit déployé. **Le
-descendant**, un bloc de la même règle : de la nouvelle version vers une
-ancienne. *(D11, D91, D1883, D1992, D1996)*
+descendant**, le bloc `reverse:` de la même règle : de la nouvelle
+version vers une ancienne. Le concepteur ne l'écrit que là où le moteur
+ne le dérive pas. *(D11, D91, D1883, D1992, D1996, D1997)*
 
 **Vue dérivée** (`association with … if …`) — Une liste calculée par
 une condition, jamais stockée : on la lit ; pour la changer, on change

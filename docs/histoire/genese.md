@@ -220,7 +220,7 @@ description, il ne génère pas de code ; la description est la version.
 | deux mots de passe, la structure et les données | le concepteur, qui écrit la configuration, et les degrés des usagers |
 | les fichiers temporaires validés à la fin, le passif récupérable | la transaction tenue ouverte, l'historisation |
 | la feuille de travail des formats d'écran | les composants décrits dans la configuration |
-| l'import depuis dBASE III+ | la reprise et le mapping, chapitre 8 |
+| l'import depuis dBASE III+ | la migration, chapitre 8 |
 | « une collection d'étiquettes de vin », « une gestion de devis » | les cinq cas d'usage, du tiny à l'entrepôt |
 | l'acquisition des données de production, agnostique | les connecteurs, indépendants de leur source |
 | le nettoyage des ticks par l'analyse statistique et les événements du marché | les règles de validation et les opérations |

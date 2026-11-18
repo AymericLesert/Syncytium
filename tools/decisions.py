@@ -48,7 +48,7 @@ FAMILLES = {
     "hooks": ("les hooks", ["hooks.md"]),
     "connecteurs": ("les connecteurs", ["connectors.md"]),
     "operations": ("les opérations", []),  # le chapitre 6 (D1675) — hooks.md, §3, jusqu'à la distribution
-    "reprise": ("la reprise et le mapping", ["mapping.md", "migration.md"]),
+    "reprise": ("la migration", ["mapping.md", "migration.md"]),  # le chapitre 8 (D2024)
     "administration": ("l'administration et l'exploitation", ["administration.md"]),
     "moteur": ("le fonctionnement du moteur", []),  # le chapitre 9 (D1784–D1785) — la famille à constituer à sa lecture
     "telemetrie": ("la télémétrie", ["telemetry.md"]),
@@ -326,7 +326,7 @@ for _fam, _nums in {
     RELECTURE.update({_n: _fam for _n in _nums})
 # Le registre du chapitre 8 (D2020, le 19/11/2026) : trois rangements encore, et les décisions du registre lui-même.
 RELECTURE.update({625: "connecteurs", 778: "hooks", 2019: "methode", 2020: "methode", 2021: "methode",
-                  2022: "methode", 2023: "methode"})
+                  2022: "methode", 2023: "methode", 2024: "methode"})
 
 
 

@@ -281,7 +281,7 @@ réécriture (D1521, D1543). Il est fait quand les trois le sont.
 | 5 | Les connecteurs | fait | 10/11/2026 |
 | 6 | Les opérations | fait | 10/11/2026 |
 | 7 | Les droits et la sécurité | fait | 08/11/2026 |
-| 8 | La reprise et le mapping | en cours | — |
+| 8 | La migration | en cours | — |
 | 9 | Le fonctionnement du moteur | à faire | — |
 | 10 | L'administration et l'exploitation | à faire | — |
 | 11 | La télémétrie | à faire | — |

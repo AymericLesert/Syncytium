@@ -325,7 +325,8 @@ for _fam, _nums in {
 }.items():
     RELECTURE.update({_n: _fam for _n in _nums})
 # Le registre du chapitre 8 (D2020, le 19/11/2026) : trois rangements encore, et les décisions du registre lui-même.
-RELECTURE.update({625: "connecteurs", 778: "hooks", 2019: "methode", 2020: "methode", 2021: "methode"})
+RELECTURE.update({625: "connecteurs", 778: "hooks", 2019: "methode", 2020: "methode", 2021: "methode",
+                  2022: "methode"})
 
 
 

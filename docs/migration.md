@@ -26,6 +26,12 @@ s'exécute et ce qu'il en reste**. Les décisions citées renvoient à la
 [conception](conception.md). Les noms des entités et des champs du
 module sont en proposition jusqu'à la documentation structurée (D1021).
 
+*Le détail du module rejoindra le chapitre 10, l'administration et
+l'exploitation (D2010) : il est trop tôt pour le décrire, ses éléments ne
+sont pas tous réunis, et le moteur et son fonctionnement le feront
+apparaître. Le chapitre 8 ne décrit que la migration et la reprise dans
+leur configuration ; l'exécution d'un passage est au chapitre 9 (D1880).*
+
 ## Le principe
 
 L'application déclare ses migrations — le connecteur de la source, la

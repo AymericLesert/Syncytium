@@ -42,7 +42,9 @@ chargé, et l'ingestion le refuse. Quatre règles accompagnent la marque :
   lit seul et se déplace avec son sous-arbre ;
 - **le contenu ou la référence, partout** (D767, D352) : toute propriété
   accepte l'un ou l'autre, le fichier unique pour le cas simple,
-  l'éclatement pour l'entité conséquente ; le nommage et l'organisation
+  l'éclatement pour l'entité conséquente. Le découpage en fichiers est
+  une préconisation pour les gros projets ; pour un petit projet, un
+  fichier court peut suffire (D1999) ; le nommage et l'organisation
   sont libres (D807), le fichier qui porte le nom de son dossier est une
   convention des exemples, pas une règle ;
 - **un nom de fichier chargé à l'usage reste nu** : les fichiers de

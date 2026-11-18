@@ -1547,6 +1547,14 @@ CONTACT:
   deprecation: contacts
 ```
 
+Trois règles accompagnent ce nom (D2016) :
+
+- `name:` ne s'écrit que sur une règle qu'une autre désigne ; les
+  trente-trois règles de l'entrepôt n'en portent pas ;
+- deux règles d'un même processus ne portent pas le même nom : sinon,
+  c'est une erreur d'ingestion ;
+- ce `name:` n'est pas celui d'une source, qui nomme sa table (D1918).
+
 **De l'intention à la suppression.** Une dépréciation se joue en trois
 temps :
 

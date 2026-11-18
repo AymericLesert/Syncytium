@@ -73,7 +73,9 @@ La description se vérifie en entier à l'ingestion, avant de servir
   écrits : une ancienne API ne saurait plus les rendre (D91, D1995) ;
 - au retrait d'un élément déprécié de la reprise, ce que le concepteur
   n'a ni éliminé ni remplacé : une règle qui lit une source retirée, par
-  exemple (D2012).
+  exemple (D2012) ;
+- deux règles d'un même processus de migration qui portent le même
+  `name:` (D2016).
 
 Une alerte signale sans refuser :
 

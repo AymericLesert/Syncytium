@@ -212,6 +212,14 @@ legacy:
 
 ### Les classeurs : Excel et les formats voisins
 
+**Les défauts d'un fichier CSV** (D2002). Le connecteur CSV dispose d'une
+variable d'environnement pour son dossier, `SYNCYTIUM_<Connector>_DIRECTORY` :
+`SYNCYTIUM_LEGACY_DIRECTORY` pour le connecteur `legacy` ci-dessus,
+`SYNCYTIUM_CSV_DIRECTORY` pour le connecteur implicite `csv` d'un projet
+minimal (D2001). Par défaut, un fichier CSV est en UTF-8, le
+point-virgule pour séparateur, les entêtes en première ligne. La banque
+écrit `encoding: windows-1252` parce que ses fichiers s'en écartent.
+
 Un classeur se lit comme une source de format, par la classe `xlsx`
 (D846–D848, D1932). Derrière Excel, la même lecture vaut pour les formats
 libres d'OpenOffice et pour les feuilles en ligne, comme Google Sheets :

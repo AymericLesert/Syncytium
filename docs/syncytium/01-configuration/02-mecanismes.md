@@ -300,7 +300,10 @@ déclare que son modèle et un environnement ; le reste vient des défauts :
   `sqlite` (D1093). Le connecteur d'un fichier CSV est implicite lui
   aussi : la forme courte d'une reprise nomme la classe,
   `legacy: csv[personne]`, et le fichier porte le nom de l'entité,
-  `personne.csv` (D2001) ;
+  `personne.csv` (D2001). Son dossier vient de la variable
+  d'environnement `SYNCYTIUM_CSV_DIRECTORY` ; le fichier est en UTF-8,
+  le point-virgule pour séparateur, les entêtes en première ligne
+  (D2002) ;
 - **la première clé** : `from: Syncytium-1.0` reste écrite (D1083).
 
 L'inventaire complet des défauts du socle est dans

@@ -387,7 +387,10 @@ legacy: fichier_csv[client, fournisseur]
 Dans un projet minimal, le connecteur lui-même ne se déclare pas
 (D2001) : la forme courte nomme la classe, `legacy: csv[personne]`, et
 le fichier porte le nom de l'entité, `personne.csv`. C'est le même
-défaut que `storage: sqlite` sans bloc `connectors:`.
+défaut que `storage: sqlite` sans bloc `connectors:`. Le dossier du
+fichier vient de la variable d'environnement `SYNCYTIUM_CSV_DIRECTORY` ;
+par défaut, un fichier CSV est en UTF-8, le point-virgule pour
+séparateur, les entêtes en première ligne (D2002).
 
 Les règles de la forme courte (D1896) :
 

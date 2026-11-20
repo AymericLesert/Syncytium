@@ -328,7 +328,7 @@ for _fam, _nums in {
 RELECTURE.update({625: "connecteurs", 778: "hooks", 2019: "methode", 2020: "methode", 2021: "methode",
                   2022: "methode", 2023: "methode", 2024: "methode"})
 RELECTURE.update({2025: "reprise", 2026: "reprise", 2027: "reprise", 2028: "reprise",
-                  2029: "reprise", 2030: "reprise"})
+                  2029: "reprise", 2030: "reprise", 2031: "reprise", 2032: "methode"})
 
 
 

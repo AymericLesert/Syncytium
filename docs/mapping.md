@@ -1203,21 +1203,27 @@ enregistrements entrés sans un contrôle qu'elle imposait (D2030).
 - les propriétés et les accès ;
 - le dossier racine.
 
+Ce fichier ne sert qu'à construire le dossier `monapp/` (D2031). Il
+n'a donc pas besoin de variables d'environnement : ses valeurs
+s'écrivent en clair. Une fois le dossier construit, il n'est plus
+exploitable. Il est recommandé de ne pas le versionner, surtout s'il
+contient des données sensibles.
+
 Un fichier minimal illustre la proposition. Il se complétera à
 l'implémentation :
 
 ```yaml
 # La base à analyser
 # La base de données de l'application existante : la classe de son connecteur, ses paramètres de connexion et ses
-# accès ; la marque * signale un paramètre confidentiel.
+# accès, écrits en clair ; la marque * signale un paramètre confidentiel.
 database:
   class: postgresql
   parameters:
-    host: ${MONAPP_HOST}
-    database: ${MONAPP_DATABASE}
+    host: localhost
+    database: monapp
     schema: public
-    user: ${MONAPP_USER}
-    password*: ${MONAPP_PASSWORD}
+    user: lecteur
+    password*: <le mot de passe du compte>
 
 # Le dossier racine
 # Le dossier où la commande écrit la configuration construite.

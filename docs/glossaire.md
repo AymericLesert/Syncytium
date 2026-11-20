@@ -1030,8 +1030,9 @@ existant, puis prend le relais de l'application. Le retour à
 l'application d'origine reste possible : sans perte si rien n'a été
 modifié, avec une perte minimale sinon. La commande
 `syncytium retro monapp.yml` la lance ; son fichier porte la connexion à
-la base à analyser, les propriétés et les accès, le dossier racine.
-*(D1907, D1908, D2025–D2030)*
+la base à analyser, les propriétés et les accès, le dossier racine ; il
+ne sert qu'à cette construction, et ne se versionne pas.
+*(D1907, D1908, D2025–D2031)*
 
 **Purge** — L'effacement réel d'un enregistrement, le droit du RGPD,
 distinct de l'inactivation ; un acte de l'administrateur. *(D137)*

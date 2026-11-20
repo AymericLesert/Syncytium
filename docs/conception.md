@@ -18667,6 +18667,20 @@ avant la synthèse Q16).
 
 ## 11. Journal des échanges
 
+- **2026-11-20 — LA PAUSE : LE CHAPITRE 8 EST ENTRE LES MAINS DE L'AUTEUR, QUI LE LIRA ET FERA SON RETOUR À LA REPRISE
+  (2056 décisions).** L'auteur, après la remise des dix fichiers : « Je marque une pause, je lirai le document et je
+  ferai un retour à la reprise ». Rien n'est écrit ni décidé depuis D2056 : le chapitre reste tel qu'il a été remis,
+  `docs/syncytium/08-migration/`, dix fichiers, 3 347 lignes. **À la reprise** : écouter son retour, sans présenter de
+  point ; chaque correction est une décision, à partir de D2057, un commit poussé. Ce qui lui a été signalé comme
+  mien, à regarder en premier : la table des clés d'une règle, qui ajoute `filter:`, `distinct:`, `name:` et
+  `deprecation:` à celles de D656 (D2049) ; les rapports par phase dans le schéma des cinq phases (D2050) ; la table
+  des trois phases de la banque (D2051) ; « rien » en face du changement de type et de la création ou de la
+  suppression d'un champ (D2052) ; les arcs du schéma des trois temps de la dépréciation (D2054). Restent à confirmer
+  ou à nommer, inchangés : les points de la rétro-conception, à ouvrir avec lui (D2053) ; la description de
+  `005_ecritures.yml`, dans la banque, qui dit encore « création seule » (D1035) ; la liste des décisions du README du
+  chapitre, qui est celle de la famille ; le rendu des neuf schémas dans GitHub, non vérifié ; les noms des
+  opérateurs, le code du label d'enveloppe et les textes des gabarits (D1949) ; les classes des formats derrière Excel
+  (D1932) ; le modèle de `_migration`, gardé pour le chapitre 9 (D1894) ; les déclinaisons de tiny, à revalider.
 - **2026-11-20 — LE CHAPITRE 8, « LA MIGRATION », RÉÉCRIT EN ENTIER : LES SEPT FICHIERS RESTANTS ÉCRITS D'UN TRAIT, À
   RELIRE PAR L'AUTEUR (D2049–D2056, 2056 décisions).** La reprise, sur la consigne de la pause : « je te laisserai
   écrire toute la documentation du chapitre 8 et je relirai l'ensemble pour validation » (D2048). Sept fichiers, une

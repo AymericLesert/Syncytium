@@ -6,20 +6,21 @@
 > Dans les deux cas elle applique un **mapping**
 > ([glossaire](../../glossaire.md)).
 
-Ce chapitre dit ce que le concepteur écrit pour une migration (D1879). Il
-compte trois usages, dont deux sont des migrations (D2025) : la reprise,
-la migration de version, et la rétro-conception d'une application
-existante, où aucune donnée ne migre (D2027). La reprise vient d'abord —
-la migration déclarée, la source, les règles, les contrôles, les
-compléments —, puis la migration de version, la rétro-conception, la
-dépréciation et ce que tout cela livre à la documentation. L'entrepôt est
-le fil rouge des exemples (D2007). Les décisions citées entre parenthèses renvoient au
-[registre](../../conception.md).
+Ce chapitre dit ce que le concepteur écrit pour une migration (D1879).
+Il compte trois usages : la reprise, la migration de version, la
+rétro-conception (D2025). La reprise vient d'abord : la migration
+déclarée, la source, les règles, les contrôles, les compléments. Viennent
+ensuite la migration de version, la rétro-conception, la dépréciation,
+et ce que tout cela livre à la documentation. L'entrepôt est le fil
+rouge des exemples (D2007). Les décisions citées entre parenthèses
+renvoient au [registre](../../conception.md).
 
 ## Le sommaire
 
 1. La migration
-   - [Le cadre](#le-cadre)
+   - [Les trois usages](#les-trois-usages)
+   - [Un seul mapping](#un-seul-mapping)
+   - [Le dossier d'une migration](#le-dossier-dune-migration)
    - [Ce qui quitte le chapitre](#ce-qui-quitte-le-chapitre)
    - [Les décisions](#les-décisions)
 2. [La migration déclarée](02-declaration.md)
@@ -63,32 +64,92 @@ le fil rouge des exemples (D2007). Les décisions citées entre parenthèses ren
    - [La facette de la reprise](10-documentation.md#la-facette-de-la-reprise)
    - [La migration de version, dans les documentations](10-documentation.md#la-migration-de-version-dans-les-documentations)
 
-## Le cadre
+## Les trois usages
 
-« Le mapping va permettre de couvrir 2 fonctions essentielles : la
-migration entre 2 versions ; la migration entre 2 schémas
-(storage). » Un seul mapping, deux visages :
+Une application ne naît pas vide. Ses données viennent d'un autre
+système, ou de sa propre version d'hier. Le chapitre répond à trois
+situations (D2025) :
 
-1. **entre deux versions** — la migration à chaud (les quatre gestes
-   `create_schema` → migration → `switch_schema` → `delete_schema`,
-   D631) **et la mécanique de la compatibilité ascendante et
-   descendante** : le même mapping qui migre les données engendre la
-   chaîne de translation des API (le pilier P3, D11–D13) ;
-2. **entre deux schémas (storage)** — le `from:` (D610) : le système
-   existant vers le nouveau ; **les interfaces de Syncytium offrent
-   une vue sur les données migrées et validées** (D646) — l'IHM en
-   poste de contrôle (l'écho de la reprise D175–D179 et de la
-   posture entrepôt D180).
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    subgraph R["La reprise"]
+        direction LR
+        S["une source, le système précédent"] -- "sources/ et mapping/" --> A["l'application"]
+    end
+    subgraph V["La migration de version"]
+        direction LR
+        V0["la version antérieure"] -- "calculée, exchange/ au besoin" --> V1["la nouvelle version"]
+    end
+    subgraph X["La rétro-conception"]
+        direction LR
+        B["la base d'une application existante"] -- "syncytium retro" --> C["la configuration"]
+    end
+```
 
-**Les deux usages sont unifiés** (D647) — le même langage, les mêmes
-conversions.
+| L'usage | D'où l'on part | Ce qui se passe | Ce que le concepteur écrit |
+|---|---|---|---|
+| **La reprise** | une source, un système précédent | ses données sont lues, contrôlées, puis portées dans l'application | la source, dans `sources/` ; les règles, dans `mapping/` |
+| **La migration de version** | la version antérieure de l'application | les données existantes passent au nouveau modèle, à chaud | rien le plus souvent ; un renommage, une règle d'`exchange/` |
+| **La rétro-conception** | la base d'une application existante | un outil en déduit la configuration ; aucune donnée ne migre | les opérations, les règles et les droits, que l'outil ne déduit pas |
 
-**Le chapitre compte trois usages, dont deux sont des migrations**
-(D2025) : la reprise, la migration de version, et la rétro-conception
-d'une application existante (D2027). Dans les deux premiers, des
-données passent d'une description à une autre. Dans le troisième,
-aucune donnée ne migre : Syncytium se pose sur la base existante
-(D1907).
+Les deux premiers usages sont des migrations : des données passent d'une
+description à une autre (D1882). Le troisième n'en est pas une :
+Syncytium se pose sur la base existante (D1907, D2027).
+
+Dans l'entrepôt (le cas 5), les trois mots ont un visage :
+
+- **la reprise** lit la base de Cegid PMI, par le processus `cegid` ;
+- **la migration de version** mène de la 1.0.0.0 à la 1.0.0.1, où le nom
+  abrégé d'un tiers devient son nom court ;
+- **la rétro-conception** n'y sert pas : le modèle de l'entrepôt a été
+  conçu, non déduit (D882).
+
+## Un seul mapping
+
+Le registre le dit : « Le mapping va permettre de couvrir 2 fonctions
+essentielles : la migration entre 2 versions ; la migration entre 2
+schémas (storage). » (D646). Les deux migrations partagent l'essentiel :
+
+- **le même langage**, et les mêmes conversions (D647) ;
+- **le même protocole** : seule l'origine change (D1981) ;
+- **la même prudence** : les données sont contrôlées avant d'être
+  écrites.
+
+Chacune garde son visage.
+
+- **Entre deux versions**, la migration se fait à chaud (D3) :
+  l'application reste en service. Syncytium déduit seul les cas simples,
+  un champ ajouté, une entité ajoutée (D5). Elle se joue en quatre
+  gestes, `create_schema`, la migration, `switch_schema`, `delete_schema`
+  (D631). Le même mapping sert aussi les API : il engendre la chaîne qui
+  traduit une version dans l'autre, dans les deux sens (D11–D13).
+- **Depuis un système existant**, `from:` nomme la base d'origine (D610).
+  Les interfaces de Syncytium montrent les données migrées et validées
+  (D646) : l'écran devient un poste de contrôle (D175–D179, D180).
+
+## Le dossier d'une migration
+
+Une version range sa migration dans un dossier, `migration/` (D1883).
+Celui de l'entrepôt :
+
+```text
+versions/beta/v1.0.0.1/migration/
+├── migration.yml    # le processus cegid : la base d'origine, le mode, le rythme
+├── sources/         # vingt-trois entités sources, rangées par module
+└── mapping/         # trente-trois règles, en cinq dossiers numérotés
+```
+
+- `migration.yml` déclare les processus : voir
+  [la migration déclarée](02-declaration.md) ;
+- `sources/` décrit le système d'origine : voir [la source](03-sources.md) ;
+- `mapping/` porte les règles : voir [les règles](04-regles.md),
+  [les contrôles](05-controles.md) et [les compléments](06-complements.md) ;
+- `exchange/` porte les règles d'une migration de version : voir
+  [la migration de version](07-version.md). Aucun cas n'en a encore.
+
+Le nom du dossier est celui des cas ; son organisation reste libre
+(D1883).
 
 ## Ce qui quitte le chapitre
 

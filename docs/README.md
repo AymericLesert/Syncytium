@@ -50,7 +50,7 @@ docs/
 │   ├── 05-connecteurs/    les connecteurs et leurs contrats
 │   ├── 06-operations/     les opérations du socle, leur degré, leur relecture
 │   ├── 07-securite/       la sécurité et les droits
-│   ├── 08-migration/      la migration : la reprise, la migration de version
+│   ├── 08-migration/      la migration : la reprise, la migration de version, la rétro-conception
 │   ├── 09-moteur/         le fonctionnement du moteur : le démarrage d'une version, l'ingestion, ce qui tourne
 │   ├── 10-administration/ l'administration, l'exploitation, la télémétrie
 │   ├── 12-documentation/  la documentation que Syncytium génère

@@ -1158,8 +1158,25 @@ que Syncytium porte lui-même.
   Syncytium sur le modèle existant, puis de prendre le relais de
   l'ancienne application, « un peu comme un parasite ».
 
-Ce mode peut faire l'objet d'une troisième section du chapitre. Ses
-points se dégageront à son ouverture.
+**Ce que l'outil construit** (D2026). Il va au-delà du méta-modèle :
+
+- le méta-modèle, exploitable et opérationnel, à partir du modèle de
+  données existant ;
+- les fichiers de configuration pour accéder à l'application, si cela
+  se déduit ;
+- les écrans par défaut, construits pour l'occasion, ou ceux que
+  Syncytium fournit.
+
+Beaucoup d'éléments se construisent automatiquement. **Trois ne se
+déduisent pas d'un existant** : les opérations, les règles et les
+droits. Le concepteur les écrit.
+
+Aucune donnée ne migre : le méta-modèle se pose sur le modèle de
+données existant, puis Syncytium prend le relais, en douceur (D2026).
+
+Le mot « silencieux » n'est pas adapté à cet usage : son nom reste à
+arrêter (D2026). Ce mode fait l'objet d'une troisième section du
+chapitre. Ses points se dégageront à son ouverture.
 
 ## Le dry-run à deux modes (D649)
 

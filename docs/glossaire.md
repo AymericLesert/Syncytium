@@ -1091,9 +1091,12 @@ antérieures jusqu'à la courante — pas de fichier unique à maintenir.
 **Remplacement silencieux** — Le troisième usage du chapitre de la
 migration, à côté de la reprise et de la migration de version : une
 application écrite avec Syncytium prend le relais d'une application
-existante, sur sa propre base. Aucune donnée ne migre : seul le
-méta-modèle se construit, à partir de l'analyse de la base existante.
-*(D1907, D1908, D2025)*
+existante, sur sa propre base. Aucune donnée ne migre. Un outil de
+Syncytium analyse le modèle de données existant et construit le
+méta-modèle, la configuration d'accès à l'application si elle se
+déduit, et les écrans par défaut ; les opérations, les règles et les
+droits restent à écrire. Le mot « silencieux » n'est pas adapté à cet
+usage : son nom reste à arrêter. *(D1907, D1908, D2025, D2026)*
 
 **Renommage** (`from:`) — Le changement de nom d'un champ, d'une entité
 ou d'un module d'une version à l'autre. L'élément renommé dit son ancien

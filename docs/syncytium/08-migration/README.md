@@ -66,9 +66,15 @@ renvoient au [registre](../../conception.md).
 
 ## Les trois usages
 
-Une application ne naît pas vide. Ses données viennent d'un autre
-système, ou de sa propre version d'hier. Le chapitre répond à trois
-situations (D2025) :
+Une application peut naître vide, de sa seule description : le tiny le
+montre. Ce chapitre montre deux autres aptitudes de Syncytium (D2038) :
+
+- **supporter l'évolution du méta-modèle** : d'une version à la
+  suivante, les données suivent ;
+- **prendre la suite d'un outil ou d'un système existant** : ses
+  données, ou son modèle, sont repris.
+
+Trois usages les portent (D2025) :
 
 | L'usage | D'où l'on part | Ce qui se passe | Ce que le concepteur écrit |
 |---|---|---|---|

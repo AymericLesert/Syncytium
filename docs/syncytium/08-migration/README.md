@@ -133,7 +133,8 @@ Syncytium se pose sur la base existante (D1907, D2027).
 
 Dans l'entrepôt (le cas 5), les trois mots ont un visage :
 
-- **la reprise** lit la base de Cegid PMI, par le processus `cegid` ;
+- **la reprise** lit la base de Cegid PMI, par un processus nommé
+  (ex : `cegid`) ;
 - **la migration de version** mène de la 1.0.0.0 à la 1.0.0.1, où le nom
   abrégé d'un tiers devient son nom court ;
 - **la rétro-conception** n'y sert pas : le modèle de l'entrepôt a été
@@ -169,7 +170,7 @@ Celui de l'entrepôt :
 
 ```text
 versions/beta/v1.0.0.1/migration/
-├── migration.yml    # le processus cegid : la base d'origine, le mode, le rythme
+├── migration.yml    # un processus nommé (ex : cegid) : la base d'origine, le mode, le rythme
 ├── sources/         # vingt-trois entités sources, rangées par module
 └── mapping/         # trente-trois règles, en cinq dossiers numérotés
 ```

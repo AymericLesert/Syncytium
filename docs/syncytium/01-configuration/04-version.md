@@ -544,8 +544,8 @@ Le nom est celui des cas ; l'organisation est libre (D1883). Une
 migration porte les données d'une description vers une autre, et elle a
 deux origines (D1882) : une source, c'est la reprise ; la version
 antérieure, c'est la migration de version. Un troisième usage ne migre
-rien : le remplacement silencieux d'une application existante (D1907,
-D2025). Le dossier range les deux migrations :
+rien : la rétro-conception d'une application existante (D1907, D2025,
+D2027). Le dossier range les deux migrations :
 
 - `migration.yml` décrit et nomme les processus de migration, un par
   connecteur d'origine (D662, D1888) : `from:` la base d'origine

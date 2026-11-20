@@ -30,8 +30,8 @@ migration entre 2 versions ; la migration entre 2 schémas
 conversions.
 
 **Le chapitre compte trois usages, dont deux sont des migrations**
-(D2025) : la reprise, la migration de version, et le remplacement
-silencieux d'une application existante. Dans les deux premiers, des
+(D2025) : la reprise, la migration de version, et la rétro-conception
+d'une application existante (D2027). Dans les deux premiers, des
 données passent d'une description à une autre. Dans le troisième,
 aucune donnée ne migre : Syncytium se pose sur la base existante
 (D1907).
@@ -1135,7 +1135,7 @@ customers:
     total:    amount(total_cts / 100, currency) # le montant et la devise
 ```
 
-## L'usage 3 — le remplacement silencieux d'une application existante (D1907)
+## L'usage 3 — la rétro-conception d'une application existante (D1907, D2027)
 
 « Dans le cas où une application écrite dans le cadre de Syncytium
 remplace silencieusement une application existante, les modules, les
@@ -1145,14 +1145,15 @@ cas, seul le méta-modèle sera à construire à partir de l'analyse d'une
 base de données existante afin que la migration silencieuse se fasse en
 toute transparence. »
 
-La migration silencieuse garde son sens (D1908) : c'est la migration
-que Syncytium porte lui-même.
+Cet usage s'appelle **la rétro-conception** (D2027). Le mot
+« silencieux » ne lui convient pas (D2026) : il reste à la migration que
+Syncytium porte lui-même entre deux versions (D1908).
 
-- **Entre deux versions**, elle est silencieuse parce que Syncytium la
-  porte directement : sans règle sous `exchange:`, elle se déduit et
-  s'effectue sans intervention du concepteur.
-- **Pour la reprise d'une application existante**, une commande de
-  `syncytium` peut analyser le modèle de données d'une base, puis
+- **Entre deux versions**, la migration est silencieuse parce que
+  Syncytium la porte directement : sans règle sous `exchange:`, elle se
+  déduit et s'effectue sans intervention du concepteur.
+- **Pour une application existante**, c'est la rétro-conception : une
+  commande de `syncytium` peut analyser le modèle de données d'une base, puis
   construire un méta-modèle, déduit automatiquement de la description
   d'une instance d'un connecteur. Le fichier obtenu permet de poser
   Syncytium sur le modèle existant, puis de prendre le relais de
@@ -1174,9 +1175,8 @@ droits. Le concepteur les écrit.
 Aucune donnée ne migre : le méta-modèle se pose sur le modèle de
 données existant, puis Syncytium prend le relais, en douceur (D2026).
 
-Le mot « silencieux » n'est pas adapté à cet usage : son nom reste à
-arrêter (D2026). Ce mode fait l'objet d'une troisième section du
-chapitre. Ses points se dégageront à son ouverture.
+Ce mode fait l'objet d'une troisième section du chapitre. Ses points se
+dégageront à son ouverture.
 
 ## Le dry-run à deux modes (D649)
 

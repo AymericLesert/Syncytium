@@ -813,15 +813,15 @@ documentation. *(D1116, D1944–D1948)*
 d'une description vers une autre. Elle a deux origines : la version
 antérieure de l'application, c'est la **migration de version** ; une
 source, un système précédent, c'est la **reprise**. Dans les deux cas elle
-applique un **mapping**. Un troisième usage ne migre rien : le
-**remplacement silencieux**. Un fichier, `migration.yml`, décrit et nomme les
+applique un **mapping**. Un troisième usage ne migre rien : la
+**rétro-conception**. Un fichier, `migration.yml`, décrit et nomme les
 processus de migration, un par connecteur d'origine ; ils s'exécutent
 dans l'ordre alphabétique de leurs noms. Une reprise un pour un s'écrit en
 forme courte, `<processus>: <connecteur>` ou
 `<processus>: <connecteur>[<entité>]`, plusieurs entités séparées par une
 virgule : le connecteur se décrit, le mapping est champ à champ. La clé
 `migrations:`, l'opération `migrate` et le module interne `_migration` en
-portent le nom. *(D3, D646, D1031, D1882, D1888, D1895–D1897, D2025)*
+portent le nom. *(D3, D646, D1031, D1882, D1888, D1895–D1897, D2025, D2027)*
 
 **Migration de version** — La migration dont l'origine est la version
 antérieure de l'application. Syncytium calcule les correspondances depuis
@@ -836,10 +836,9 @@ Elle suit le même protocole qu'une reprise : seule l'origine change.
 
 **Migration silencieuse** — La migration que Syncytium porte lui-même,
 sans intervention du concepteur. Entre deux versions : sans règle sous
-`exchange:`, elle se déduit et s'effectue seule. Pour une application
-existante : une commande analyse le modèle de données de sa base et
-construit le méta-modèle ; Syncytium se pose sur le modèle existant et
-prend le relais, sans migration de données. *(D631, D1907, D1908)*
+`exchange:`, elle se déduit et s'effectue seule. Le mot ne désigne pas
+la prise de relais d'une application existante : c'est la
+**rétro-conception**. *(D631, D1908, D2026, D2027)*
 
 **Mode d'un champ** (`mode`) — Son mode d'écriture : modifiable
 (`editable`), lecture seule (`read-only`), écrit une fois pour toutes
@@ -1018,6 +1017,15 @@ suppriment, dans un dossier, les fichiers d'un pattern au-delà d'une
 durée ou d'un nombre : le journal, les watchers, le détail des
 migrations. *(D1070–D1076)*
 
+**Rétro-conception** — Le troisième usage du chapitre de la migration,
+à côté de la reprise et de la migration de version : un outil de
+Syncytium analyse le modèle de données d'une application existante et
+construit le méta-modèle, la configuration d'accès à l'application si
+elle se déduit, et les écrans par défaut. Les opérations, les règles et
+les droits restent à écrire. Aucune donnée ne migre : Syncytium se pose
+sur le modèle existant, puis prend le relais de l'application.
+*(D1907, D1908, D2025–D2027)*
+
 **Purge** — L'effacement réel d'un enregistrement, le droit du RGPD,
 distinct de l'inactivation ; un acte de l'administrateur. *(D137)*
 
@@ -1087,16 +1095,6 @@ apportées par une version, porté par `version.yml`. L'historique
 complet s'assemble par concaténation des release-notes des versions
 antérieures jusqu'à la courante — pas de fichier unique à maintenir.
 *(D808)*
-
-**Remplacement silencieux** — Le troisième usage du chapitre de la
-migration, à côté de la reprise et de la migration de version : une
-application écrite avec Syncytium prend le relais d'une application
-existante, sur sa propre base. Aucune donnée ne migre. Un outil de
-Syncytium analyse le modèle de données existant et construit le
-méta-modèle, la configuration d'accès à l'application si elle se
-déduit, et les écrans par défaut ; les opérations, les règles et les
-droits restent à écrire. Le mot « silencieux » n'est pas adapté à cet
-usage : son nom reste à arrêter. *(D1907, D1908, D2025, D2026)*
 
 **Renommage** (`from:`) — Le changement de nom d'un champ, d'une entité
 ou d'un module d'une version à l'autre. L'élément renommé dit son ancien

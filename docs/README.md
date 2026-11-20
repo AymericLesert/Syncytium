@@ -120,8 +120,8 @@ Le chapitre compte trois usages, dont deux sont des migrations (D2025). La lectu
 (4–8), les règles de mapping (9–10), les règles de transformation (11–12) —,
 puis la migration de version (13–16) ; les exemples, la facette et le
 registre le ferment (17–19). Le troisième usage, où aucune donnée ne migre, est
-le remplacement silencieux d'une application existante ; ses points se
-dégageront à son ouverture (D1907, D1908). Le chapitre définit ce que le concepteur écrit
+la rétro-conception d'une application existante ; ses points se
+dégageront à son ouverture (D1907, D1908, D2027). Le chapitre définit ce que le concepteur écrit
 (D1879) ; ce qui le quitte : toutes les conversions et l'exécution d'un
 passage, vers le chapitre 9 — les six points du passage y sont partis
 (D1880, D1881) — ; le contrat de compatibilité vu de l'API, vers le

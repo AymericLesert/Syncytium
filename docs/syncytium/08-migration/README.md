@@ -107,7 +107,8 @@ flowchart LR
 ```
 
 - **La reprise** part du système précédent. Le concepteur définit le
-  méta-modèle à la main.
+  méta-modèle à la main. Elle fournit un méta-modèle et des données
+  propres à Syncytium, sans toucher au système existant (D2042).
 - **La migration de version** part du méta-modèle et des données
   antérieurs. Syncytium calcule les différences.
 - **La rétro-conception** part du système précédent. Un outil définit le

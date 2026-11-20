@@ -1178,6 +1178,19 @@ et ses besoins, est son travail (D2028).
 Aucune donnée ne migre : le méta-modèle se pose sur le modèle de
 données existant, puis Syncytium prend le relais, en douceur (D2026).
 
+**Un scénario de démonstration** (D2029). Pour un démonstrateur, la
+rétro-conception peut être puissante. Elle se montre en quatre temps :
+
+1. une application existante est là, avec sa base de données ;
+2. le méta-modèle se construit ;
+3. Syncytium s'exécute, et montre son initialisation ;
+4. le modèle évolue pour une exploitation — ou l'on revient à
+   l'application d'origine, si cela ne convient pas.
+
+Le retour est sans perte quand aucune modification n'a été faite. La
+perte est minimale quand le modèle intègre des évolutions, ou n'intègre
+pas des contrôles existants.
+
 Ce mode fait l'objet d'une troisième section du chapitre. Ses points se
 dégageront à son ouverture.
 

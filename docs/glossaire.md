@@ -1026,8 +1026,10 @@ rétro-ingénierie : le modèle obtenu permet de lancer Syncytium sans une
 première analyse trop lourde. Les opérations, les règles et les droits
 restent à écrire : reporter ce qui fait un métier est le travail du
 concepteur. Aucune donnée ne migre : Syncytium se pose sur le modèle
-existant, puis prend le relais de l'application.
-*(D1907, D1908, D2025–D2028)*
+existant, puis prend le relais de l'application. Le retour à
+l'application d'origine reste possible : sans perte si rien n'a été
+modifié, avec une perte minimale sinon.
+*(D1907, D1908, D2025–D2029)*
 
 **Purge** — L'effacement réel d'un enregistrement, le droit du RGPD,
 distinct de l'inactivation ; un acte de l'administrateur. *(D137)*

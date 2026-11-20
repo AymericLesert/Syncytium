@@ -330,7 +330,7 @@ RELECTURE.update({625: "connecteurs", 778: "hooks", 2019: "methode", 2020: "meth
 RELECTURE.update({2025: "reprise", 2026: "reprise", 2027: "reprise", 2028: "reprise",
                   2029: "reprise", 2030: "reprise", 2031: "reprise", 2032: "methode", 2033: "methode", 2034: "methode", 2035: "methode", 2036: "reprise", 2037: "reprise", 2038: "reprise", 2039: "reprise", 2040: "reprise",
                   2041: "reprise", 2042: "reprise", 2043: "reprise", 2044: "reprise",
-                  2045: "reprise", 2046: "reprise", 2047: "reprise", 2048: "methode", 2049: "reprise", 2050: "reprise", 2051: "reprise", 2052: "reprise"})
+                  2045: "reprise", 2046: "reprise", 2047: "reprise", 2048: "methode", 2049: "reprise", 2050: "reprise", 2051: "reprise", 2052: "reprise", 2053: "reprise"})
 
 
 

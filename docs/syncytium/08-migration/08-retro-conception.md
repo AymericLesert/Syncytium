@@ -1,64 +1,106 @@
 # La rétro-conception
 
-> **La rétro-conception** est le troisième usage du chapitre : un outil de
-> Syncytium analyse le modèle de données d'une application existante et
-> construit sa configuration. Aucune donnée ne migre
+> **La rétro-conception** est le troisième usage du chapitre : un outil
+> de Syncytium analyse le modèle de données d'une application existante
+> et construit sa configuration. Aucune donnée ne migre
 > ([glossaire](../../glossaire.md)).
 
-Ce fichier dit ce que la rétro-conception construit, ce qu'elle laisse
-au concepteur, comment elle se montre et comment elle se lance. Ses
-points se dégageront à l'ouverture de la section. Les décisions citées entre parenthèses renvoient au
+Ce fichier dit ce qu'est la rétro-conception, ce que l'outil construit
+et ce qu'il laisse au concepteur, comment elle se montre, et comment
+elle se lance. Les décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).
 
 ## Le sommaire
 
 - [La rétro-conception d'une application existante](#la-rétro-conception-dune-application-existante)
+  - [Prendre la suite d'une application](#prendre-la-suite-dune-application)
+  - [Silencieuse, ou rétro-conçue](#silencieuse-ou-rétro-conçue)
+- [Ce que l'outil construit, ce qu'il laisse](#ce-que-loutil-construit-ce-quil-laisse)
+  - [Le partage](#le-partage)
+  - [Aucune donnée ne migre](#aucune-donnée-ne-migre)
+- [Un scénario de démonstration](#un-scénario-de-démonstration)
+  - [Quatre temps](#quatre-temps)
+  - [Le retour à l'application d'origine](#le-retour-à-lapplication-dorigine)
+- [La commande](#la-commande)
+  - [`syncytium retro`](#syncytium-retro)
+  - [Le fichier de la commande](#le-fichier-de-la-commande)
+- [Ce qui reste à préciser](#ce-qui-reste-à-préciser)
 
 ## La rétro-conception d'une application existante
 
-« Dans le cas où une application écrite dans le cadre de Syncytium
-remplace silencieusement une application existante, les modules, les
-entités et les champs ont un mapping simple et Syncytium remplace par
-construction l'ancienne application sans besoin de migration. Dans ce
-cas, seul le méta-modèle sera à construire à partir de l'analyse d'une
-base de données existante afin que la migration silencieuse se fasse en
-toute transparence. »
+### Prendre la suite d'une application
 
-Cet usage s'appelle **la rétro-conception** (D2027). C'est une forme de
+Le registre le dit (D1907) : « Dans le cas où une application écrite
+dans le cadre de Syncytium remplace silencieusement une application
+existante, les modules, les entités et les champs ont un mapping simple
+et Syncytium remplace par construction l'ancienne application sans
+besoin de migration. Dans ce cas, seul le méta-modèle sera à construire
+à partir de l'analyse d'une base de données existante afin que la
+migration silencieuse se fasse en toute transparence. »
+
+Cet usage s'appelle la rétro-conception (D2027). C'est une forme de
 rétro-ingénierie (D2028) : le modèle obtenu permet de lancer Syncytium
-sans une première charge d'analyse trop lourde. Le mot
-« silencieux » ne lui convient pas (D2026) : il reste à la migration que
-Syncytium porte lui-même entre deux versions (D1908).
+sans une première charge d'analyse trop lourde.
 
-- **Entre deux versions**, la migration est silencieuse parce que
-  Syncytium la porte directement : sans règle sous `exchange:`, elle se
-  déduit et s'effectue sans intervention du concepteur.
-- **Pour une application existante**, c'est la rétro-conception : une
-  commande de `syncytium` peut analyser le modèle de données d'une base, puis
-  construire un méta-modèle, déduit automatiquement de la description
-  d'une instance d'un connecteur. Le fichier obtenu permet de poser
-  Syncytium sur le modèle existant, puis de prendre le relais de
-  l'ancienne application, « un peu comme un parasite ».
+### Silencieuse, ou rétro-conçue
 
-**Ce que l'outil construit** (D2026). Il va au-delà du méta-modèle :
+Le mot « silencieux » ne convient pas à cet usage (D2026). Il reste à
+la migration que Syncytium porte lui-même entre deux versions (D1908) :
 
-- le méta-modèle, exploitable et opérationnel, à partir du modèle de
-  données existant ;
-- les fichiers de configuration pour accéder à l'application, si cela
-  se déduit ;
-- les écrans par défaut, construits pour l'occasion, ou ceux que
-  Syncytium fournit.
+| La situation | Le mot | Ce qui se passe |
+|---|---|---|
+| entre deux versions | la migration silencieuse | Syncytium la porte directement : sans règle sous `exchange:`, elle se déduit et s'effectue sans intervention du concepteur |
+| pour une application existante | la rétro-conception | une commande de `syncytium` analyse le modèle de données d'une base, puis construit un méta-modèle |
 
-Beaucoup d'éléments se construisent automatiquement. **Trois ne se
-déduisent pas d'un existant** : les opérations, les règles et les
-droits. Le concepteur les écrit : reporter tout ce qui fait un métier,
-et ses besoins, est son travail (D2028).
+Le méta-modèle se déduit automatiquement de la description d'une
+instance d'un connecteur. Le fichier obtenu permet de poser Syncytium
+sur le modèle existant, puis de prendre le relais de l'ancienne
+application, « un peu comme un parasite ».
 
-Aucune donnée ne migre : le méta-modèle se pose sur le modèle de
-données existant, puis Syncytium prend le relais, en douceur (D2026).
+## Ce que l'outil construit, ce qu'il laisse
 
-**Un scénario de démonstration** (D2029). Pour un démonstrateur, la
-rétro-conception peut être puissante. Elle se montre en quatre temps :
+### Le partage
+
+L'outil va au-delà du méta-modèle (D2026). Beaucoup d'éléments se
+construisent automatiquement ; trois ne se déduisent pas d'un existant :
+
+| L'outil construit | Le concepteur écrit |
+|---|---|
+| le méta-modèle, exploitable et opérationnel, à partir du modèle de données existant | les opérations |
+| les fichiers de configuration pour accéder à l'application, si cela se déduit | les règles |
+| les écrans par défaut : construits pour l'occasion, ou ceux que Syncytium fournit | les droits |
+
+Reporter tout ce qui fait un métier, et ses besoins, est le travail du
+concepteur (D2028).
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    B["la base de l'application existante"]
+    F["monapp.yml : la connexion, les accès, le dossier racine"]
+    R["syncytium retro"]
+    C["monapp/ : le méta-modèle, la configuration d'accès, les écrans par défaut"]
+    M["le concepteur : les opérations, les règles, les droits"]
+    S["Syncytium, posé sur la base existante"]
+    B -- "son modèle de données" --> R
+    F --> R
+    R --> C
+    C --> S
+    M --> S
+```
+
+### Aucune donnée ne migre
+
+Le méta-modèle se pose sur le modèle de données existant. Puis Syncytium
+prend le relais, en douceur (D2026). La base reste celle de
+l'application d'origine.
+
+## Un scénario de démonstration
+
+### Quatre temps
+
+Pour un démonstrateur, la rétro-conception peut être puissante (D2029).
+Elle se montre en quatre temps :
 
 1. une application existante est là, avec sa base de données ;
 2. le méta-modèle se construit ;
@@ -66,30 +108,39 @@ rétro-conception peut être puissante. Elle se montre en quatre temps :
 4. le modèle évolue pour une exploitation — ou l'on revient à
    l'application d'origine, si cela ne convient pas.
 
-Le retour est sans perte quand aucune modification n'a été faite. La
-perte est minimale quand le modèle intègre des évolutions, ou n'intègre
-pas des contrôles existants. Le retour est possible parce qu'aucune
-donnée ne migre : la base reste celle de l'application d'origine. Tant
-que le modèle de données n'est pas modifié, l'application d'origine
-retrouve sa base telle quelle. La perte minimale a deux causes : une
-évolution que l'application d'origine ne connaît pas, ou des
-enregistrements entrés sans un contrôle qu'elle imposait (D2030).
+### Le retour à l'application d'origine
 
-**La commande** (D2030). La rétro-conception se lance par
-`syncytium retro monapp.yml`. Le fichier `monapp.yml` porte :
+Le retour est possible parce qu'aucune donnée ne migre (D2030) : la
+base reste celle de l'application d'origine.
+
+| Ce qui a été fait | Le retour |
+|---|---|
+| aucune modification du modèle de données | sans perte : l'application d'origine retrouve sa base telle quelle |
+| le modèle intègre des évolutions | une perte minimale : une évolution que l'application d'origine ne connaît pas |
+| le modèle n'intègre pas des contrôles existants | une perte minimale : des enregistrements entrés sans un contrôle qu'elle imposait |
+
+## La commande
+
+### `syncytium retro`
+
+La rétro-conception se lance par `syncytium retro monapp.yml` (D2030).
+Le fichier `monapp.yml` porte :
 
 - les éléments de connexion à la base de données à analyser ;
 - les propriétés et les accès ;
 - le dossier racine.
 
-Ce fichier ne sert qu'à construire le dossier `monapp/` (D2031). Il
-n'a donc pas besoin de variables d'environnement : ses valeurs
-s'écrivent en clair. Une fois le dossier construit, il n'est plus
-exploitable. Il est recommandé de ne pas le versionner, surtout s'il
-contient des données sensibles.
+### Le fichier de la commande
 
-Un fichier minimal illustre la proposition. Il se complétera à
-l'implémentation :
+Ce fichier ne sert qu'à construire le dossier `monapp/` (D2031) :
+
+- il n'a pas besoin de variables d'environnement : ses valeurs
+  s'écrivent en clair ;
+- une fois le dossier construit, il n'est plus exploitable ;
+- il est recommandé de ne pas le versionner, surtout s'il contient des
+  données sensibles.
+
+Un fichier minimal illustre la proposition :
 
 ```yaml
 # La base à analyser
@@ -109,5 +160,10 @@ database:
 root: monapp/
 ```
 
-Ce mode fait l'objet d'une troisième section du chapitre. Ses points se
-dégageront à son ouverture.
+Il se complétera à l'implémentation.
+
+## Ce qui reste à préciser
+
+La rétro-conception n'a pas encore été lue point par point, comme la
+reprise et la migration de version l'ont été. Ses points se dégageront à
+l'ouverture de cette lecture.

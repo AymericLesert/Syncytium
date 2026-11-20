@@ -110,12 +110,18 @@ flowchart LR
   méta-modèle à la main. Elle fournit un méta-modèle et des données
   propres à Syncytium, sans toucher au système existant (D2042).
 - **La migration de version** part du méta-modèle et des données
-  antérieurs. Syncytium calcule les différences.
+  antérieurs. Syncytium calcule les différences. Elle fournit un
+  méta-modèle et des données à jour, propres à Syncytium, en ajustant
+  l'ancien méta-modèle (D2043).
 - **La rétro-conception** part du système précédent. Un outil définit le
-  méta-modèle automatiquement.
+  méta-modèle automatiquement. Elle fournit un méta-modèle et des
+  données au format du système d'origine, en utilisant le système
+  existant (D2043).
 
 Les trois chemins mènent à la même issue : un méta-modèle et ses
-données, que Syncytium exploite.
+données, que Syncytium exploite. Seul change l'endroit où ils vivent :
+dans Syncytium pour les deux premiers, dans le système existant pour
+le troisième.
 
 Les deux premiers usages sont des migrations : des données passent d'une
 description à une autre (D1882). Le troisième n'en est pas une :

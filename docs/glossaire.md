@@ -1017,7 +1017,7 @@ suppriment, dans un dossier, les fichiers d'un pattern au-delà d'une
 durée ou d'un nombre : le journal, les watchers, le détail des
 migrations. *(D1070–D1076)*
 
-**Rétro-conception** — Le troisième usage du chapitre de la migration,
+**Rétro-conception** (`syncytium retro`) — Le troisième usage du chapitre de la migration,
 à côté de la reprise et de la migration de version : un outil de
 Syncytium analyse le modèle de données d'une application existante et
 construit le méta-modèle, la configuration d'accès à l'application si
@@ -1028,8 +1028,10 @@ restent à écrire : reporter ce qui fait un métier est le travail du
 concepteur. Aucune donnée ne migre : Syncytium se pose sur le modèle
 existant, puis prend le relais de l'application. Le retour à
 l'application d'origine reste possible : sans perte si rien n'a été
-modifié, avec une perte minimale sinon.
-*(D1907, D1908, D2025–D2029)*
+modifié, avec une perte minimale sinon. La commande
+`syncytium retro monapp.yml` la lance ; son fichier porte la connexion à
+la base à analyser, les propriétés et les accès, le dossier racine.
+*(D1907, D1908, D2025–D2030)*
 
 **Purge** — L'effacement réel d'un enregistrement, le droit du RGPD,
 distinct de l'inactivation ; un acte de l'administrateur. *(D137)*

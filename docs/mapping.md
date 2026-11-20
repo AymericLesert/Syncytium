@@ -1189,7 +1189,40 @@ rétro-conception peut être puissante. Elle se montre en quatre temps :
 
 Le retour est sans perte quand aucune modification n'a été faite. La
 perte est minimale quand le modèle intègre des évolutions, ou n'intègre
-pas des contrôles existants.
+pas des contrôles existants. Le retour est possible parce qu'aucune
+donnée ne migre : la base reste celle de l'application d'origine. Tant
+que le modèle de données n'est pas modifié, l'application d'origine
+retrouve sa base telle quelle. La perte minimale a deux causes : une
+évolution que l'application d'origine ne connaît pas, ou des
+enregistrements entrés sans un contrôle qu'elle imposait (D2030).
+
+**La commande** (D2030). La rétro-conception se lance par
+`syncytium retro monapp.yml`. Le fichier `monapp.yml` porte :
+
+- les éléments de connexion à la base de données à analyser ;
+- les propriétés et les accès ;
+- le dossier racine.
+
+Un fichier minimal illustre la proposition. Il se complétera à
+l'implémentation :
+
+```yaml
+# La base à analyser
+# La base de données de l'application existante : la classe de son connecteur, ses paramètres de connexion et ses
+# accès ; la marque * signale un paramètre confidentiel.
+database:
+  class: postgresql
+  parameters:
+    host: ${MONAPP_HOST}
+    database: ${MONAPP_DATABASE}
+    schema: public
+    user: ${MONAPP_USER}
+    password*: ${MONAPP_PASSWORD}
+
+# Le dossier racine
+# Le dossier où la commande écrit la configuration construite.
+root: monapp/
+```
 
 Ce mode fait l'objet d'une troisième section du chapitre. Ses points se
 dégageront à son ouverture.

@@ -431,7 +431,7 @@ décisions, D1170–D1238.)*
   (le contrat du hook de type), [configuration.md](syncytium/01-configuration/README.md)
   (les groupes, les réglages), [rights.md](syncytium/07-securite/README.md),
   [administration.md](administration.md), [les composants](syncytium/04-composants/README.md),
-  [mapping.md](mapping.md), le glossaire ; la colonne 2 de la matrice
+  [la migration](syncytium/08-migration/README.md), le glossaire ; la colonne 2 de la matrice
   (D1303) ; les groupes de champs dans la configuration du cas 5.
   **Ouvert au-delà du rang** : les colonnes du socle (D1305).
 - **Dépendances** : la forme des diagrammes et de l'édition machine
@@ -2312,7 +2312,7 @@ et des implémentations se généraliseront.
    composant** — une rubrique « La documentation » dans
    [entity.md](syncytium/02-modele/02-entite.md), [05-types.md](syncytium/02-modele/05-types.md) (type par type),
    [les composants](syncytium/04-composants/README.md) (fiche par fiche), [hooks.md](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks),
-   [connectors.md](syncytium/05-connecteurs/README.md), [mapping.md](mapping.md),
+   [connectors.md](syncytium/05-connecteurs/README.md), [mapping.md](syncytium/08-migration/README.md),
    [rights.md](syncytium/07-securite/README.md), [administration.md](administration.md),
    [migration.md](migration.md) — ; documentation.md garde les principes
    et la matrice d'ensemble.

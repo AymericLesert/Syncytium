@@ -2164,6 +2164,7 @@ Q58) :
 | D2030 | **La rétro-conception se lance par `syncytium retro monapp.yml` : le fichier porte les éléments de connexion à la base de données à analyser, les propriétés et les accès, et le dossier racine ; la section porte un fichier minimal qui illustre la proposition, à compléter à l'implémentation ; les trois lectures de la rétro-conception sont validées** (valide mes trois lectures de D2029 ; nomme la commande que D1908 laissait sans nom ; étend D2026 à D2029 ; la réorganisation du chapitre 8) : « Je valide tes 3 lectures de la rétro-conception. La commande peut devenir "syncytium retro monapp.yml" où monapp.yml contient les éléments de connexion à la base de données à analyser, les propriétés et les accès, et le dossier racine. » ; « Dans la section, nous pouvons mettre un fichier minimal qui illustre la proposition. Nous le compléterons lors de l'implémentation. » | Les trois lectures validées : le retour est possible parce qu'aucune donnée ne migre ; « aucune modification » se dit du modèle de données ; la perte minimale a deux causes — une évolution que l'application d'origine ne connaît pas, des enregistrements entrés sans un contrôle qu'elle imposait. Le fichier minimal écrit dans `mapping.md`, *en proposition, de moi* : `database:` — la classe du connecteur, ses paramètres de connexion et ses accès, le mot de passe marqué `*` — et `root:`, le dossier où la commande écrit la configuration construite. *Mes lectures* : « les propriétés et les accès » sont ceux du connecteur de la base, sa classe et son compte ; le fichier reprend l'écriture d'un connecteur, puisque le méta-modèle se déduit de la description d'une instance d'un connecteur (D1908). Reporté : `mapping.md` — « L'usage 3 » —, le glossaire — « Rétro-conception » —, la ligne du chapitre 10 de la table des chapitres, pour la commande. Voir §3.2c. |
 | D2031 | **Le fichier de la rétro-conception convient ; il peut se passer de variables d'environnement, puisqu'il ne sert qu'à construire le dossier de l'application ; ensuite il n'est plus exploitable, et il est recommandé de ne pas le versionner, surtout s'il contient des données sensibles** (valide le fichier minimal de D2030 ; corrige ma proposition — les paramètres par des variables `${…}` ; la réorganisation du chapitre 8) : « Le fichier monapp.yaml me convient, même si, ici, nous pouvons éviter de passer les variables d'environnement car ce fichier a vocation à être construit pour la création de monapp/ uniquement. Après, il n'est plus exploitable et il sera recommandé de ne pas le versionner, surtout s'il contient des données sensibles. » | Le fichier minimal de `mapping.md` est récrit avec des valeurs en clair : l'hôte, la base, le schéma, le compte ; le mot de passe garde la marque `*`. *Mes lectures* : l'auteur écrit « monapp.yaml », la commande de D2030 dit `monapp.yml` — je garde `.yml`, l'extension des cas ; la règle du `.env`, le clair refusé au démarrage (D902), ne vaut pas pour ce fichier, lu une fois par la commande. Reporté : `mapping.md` — « L'usage 3 » —, le glossaire — « Rétro-conception ». Voir §3.2c. |
 | D2032 | **Le plan du chapitre 8 passe à dix parties : la partie des règles est éclatée en deux, une partie règle et une partie contrôle ; la partie « usage » est à renommer en « complément » ou « extension »** (valide le découpage proposé les 19 et 20/11/2026, amendé ; suit mon conseil révisé — les règles en deux ; applique D1521 — le découpage vérifié —, D1738 — les fichiers préfixés de leur rang —, D1887 — la reprise avant la migration de version —, D2025 — les trois usages ; la réorganisation du chapitre 8) : « La partie règle est éclatée en 2 parties : une partie règle et une partie contrôle. Le plan passe à 10 parties. La partie "usage" à renommer en "complément" ou "extension" ... » | Les dix fichiers de `docs/syncytium/08-migration/` : `README.md` — les trois usages, la définition, le sommaire, ce qui quitte le chapitre — ; `02-declaration.md` — la migration déclarée — ; `03-sources.md` — la description de la source — ; `04-regles.md` — écrire une règle : le sens, la clé, les champs, le possesseur, le partage entre fichiers — ; `05-controles.md` — la validation, le message, les rapports, ce que la reprise écrit et laisse — ; `06-complements.md` — les mécanismes au-delà du un pour un — ; `07-version.md` — la migration de version — ; `08-retro-conception.md` — la rétro-conception — ; `09-depreciation.md` — la dépréciation d'un élément de la reprise — ; `10-documentation.md` — la facette documentation. *Mon choix entre ses deux mots, à confirmer* : « compléments » — « extension » nomme déjà, dans Syncytium, ce qu'un hook ajoute. Quittent le chapitre vers un « Reçu du chapitre 8 » d'`administration.md` : le mécanisme de la migration du schéma, l'arrêt du dry-run, le pilotage. Sortent avec l'historique : D2022. Reporté : `docs/README.md` — l'arborescence. La suite : le déplacement, sans réécriture. Voir §3.2c. |
+| D2033 | **Le chapitre 8 est réorganisé : `docs/syncytium/08-migration/`, dix fichiers — le README avec la définition, les trois usages, le cadre, ce qui quitte le chapitre et les décisions, puis la migration déclarée, la source, les règles, les contrôles, les compléments, la migration de version, la rétro-conception, la dépréciation d'un élément de la reprise, la facette — ; le texte de `mapping.md` déplacé sans réécriture, l'historique au journal, ce qui part aux chapitres 9 et 10 reçu par `administration.md` ; `mapping.md` retiré, les renvois redirigés ; `migration.md` reste en place** (exécute D2032 — le plan en dix parties ; applique D1521, D1543 — les trois temps —, D1591, D1738 — les préfixes —, D1658, D1694 — les sommaires —, D2022 — l'historique —, D2010 — `migration.md` —, D2024 — le titre et le dossier ; le précédent du chapitre 7, D1824 ; la réorganisation du chapitre 8) : « La partie règle est éclatée en 2 parties : une partie règle et une partie contrôle. Le plan passe à 10 parties. » | Le découpage est fait par un script, qui contrôle que chaque ligne de `mapping.md` a une destination. Dans `administration.md`, « Reçu du chapitre 8 » : la migration du schéma — le mécanisme —, l'arrêt du dry-run, le pilotage d'un passage — le module, les indicateurs, la comparaison par blocs, le module historisé, le différentiel —, et quatre règles de la translation d'un connecteur à l'autre (D606, D610, D632). Au journal, ce jour : le paragraphe d'ouverture, « Les points ouverts » et la section « Les connecteurs et la migration — depuis connectors.md », qui redisait le chapitre. *Ce que le déplacement a dû toucher, sans réécrire la prose* : les titres de section, sans numéro de décision ; les liens ; les exemples YAML, dont les commentaires citaient des décisions — elles sont dites après l'exemple, « Les décisions de cet exemple », en attendant les extraits des cas, à la réécriture (D1545, D2007) ; trois exemples ont reçu l'introduction qui manquait à une clé ; la puce de la comparaison par blocs est coupée en deux, la comparaison au chapitre 9, `partition:` à la source. Deux notions entrent au glossaire : « Entité source », « Processus de migration ». Les dix décisions à citer de D2020 se poseront à la réécriture. La réécriture suit, fichier par fichier. Voir §3.2c. |
 | D1198 | **Les liens de la documentation sont ceux que l'ingestion garantit — les références et les associations entre entités et champs, dans les traitements et les opérations ; ils montrent les relations, disent à quoi sert un champ et mesurent l'impact d'une modification du modèle** (précise D1186 ; s'appuie sur D330/D344 — l'ingestion, D394/D405, D90, D1112 ; le rang 1 et le rang 2) : « je confirme — les associations utilisées dans les traitements / les opérations / ... font référence entre les entités et les champs. Tous ces liens permettent de visualiser les liens et de mesurer l'impact de la modification du modèle. Lors de l'ingestion, le moteur de Syncytium garantit la validité des références et des associations. Les mettre dans la documentation permet de montrer les relations et d'expliquer à quoi sert un champ (propriété ou calculé). » — la documentation reprend le graphe que l'ingestion a validé : pour chaque champ, propriété ou calculé, **où il sert** — les formules qui le lisent, les validations, les opérations et leurs effets, les règles de reprise, les rapports, les écrans ; pour chaque entité, qui la référence et qui elle référence ; aux deux bouts (D1186). | Mes lectures, en proposition : dans la fonctionnelle, « à quoi sert ce champ » en langage d'usager (« entre dans le calcul du montant TTC », « déclenche la validation de la facture ») ; dans la documentation de l'information (le rang 2), le graphe complet des dépendances et **l'analyse d'impact** — ce qu'un changement de ce champ ou de cette entité touche (l'écho des écarts calculés D1112) ; la matrice gagne une colonne de contenu sur la ligne du champ. Voir §3.2c. |
 
 ---
@@ -14994,6 +14995,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Le plan du chapitre 8, dix parties (D2032).** « La partie règle est éclatée en 2 parties : une partie règle et une partie contrôle. Le plan passe à 10 parties. La partie "usage" à renommer en "complément" ou "extension" ... »
 
+**Le chapitre 8 réorganisé (D2033).** `mapping.md` devient `docs/syncytium/08-migration/`, dix fichiers ; le texte est déplacé sans réécriture, l'historique va au journal, ce qui part aux chapitres 9 et 10 est reçu par `administration.md` ; `migration.md` reste en place.
+
 ### 3.3 Langage d'expression unique (D90–D91, résout Q6)
 
 **Un seul langage d'expression** pour tout le système (D90), partagé par :
@@ -18594,6 +18597,131 @@ avant la synthèse Q16).
 ---
 
 ## 11. Journal des échanges
+
+- **2026-11-20 — LA RÉORGANISATION DU CHAPITRE 8 : `mapping.md` SE DISSOUT DANS `docs/syncytium/08-migration/`, SON
+  HISTORIQUE AU JOURNAL (D2033).** Le texte de l'artefact est déplacé sans réécriture dans dix fichiers ; ce qui part
+  aux chapitres 9 et 10 est reçu par `administration.md`. Ce que l'artefact disait de lui-même et de son passé sort
+  ici (D1822, D2022) : son paragraphe d'ouverture, sa section « Les points ouverts », et la section « Les connecteurs
+  et la migration — depuis connectors.md », un résumé des décisions du mapping venu de `connectors.md` (D1721), qui
+  redisait le chapitre. Les trois textes suivent, tels qu'ils étaient écrits.
+
+  **L'ouverture de `mapping.md` :**
+
+  > # Le mapping de Syncytium — la source et la migration
+  >
+  > Ce document rassemble **la nature et les exemples des échanges
+  > consignés sur le mapping** — la description de la source et les
+  > règles de migration — le sixième artefact préparatoire de la
+  > documentation (Q58, le domaine 6 — D602), après le
+  > [glossaire](glossaire.md), les [composants](syncytium/04-composants/README.md), les
+  > [hooks](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks), les [types](syncytium/02-modele/05-types.md) et les
+  > [connecteurs](syncytium/05-connecteurs/README.md). Les décisions citées renvoient à la
+  > [conception](conception.md).
+
+  **« Les points ouverts » :**
+
+  > ## Les points ouverts
+  >
+  > Aucun — le chantier du mapping et la jonction versions↔storage sont
+  > soldés (D646–D676).
+
+  **« Les connecteurs et la migration — depuis connectors.md » :**
+
+  > ## Les connecteurs et la migration — depuis connectors.md (D1721)
+  >
+  > Le détail — la description de la source, la grammaire des règles et
+  > les exemples — vit dans **`mapping.md`** (D661).
+  >
+  > - **les deux fonctions essentielles du mapping** (D646) : **la
+  >   migration entre 2 versions** (à chaud — et la mécanique de la
+  >   compatibilité ascendante/descendante, le pilier P3) et **la
+  >   migration entre 2 schémas storage** (le système existant vers le
+  >   nouveau — les interfaces de Syncytium offrent une vue sur les
+  >   données migrées et validées) ;
+  > - **« Syncytium peut convertir ou transférer des données d'un
+  >   connecteur à l'autre »** (D606) — la translation déclarative, le
+  >   primitif aux quatre usages ;
+  > - **le `from:`** (D610) : « pour les migrations/transformations, un
+  >   connecteur d'entrée et éventuellement un connecteur de sortie » —
+  >   `connector: { storage: main_db, from: legacy_db }` ;
+  > - **l'instantané ou le différentiel** (D606) — le changement de
+  >   moteur par la translation, le différentiel rejoignant la
+  >   réplication passive du PCA-PRA (D112–D114) ;
+  > - **le mapping automatique de la migration à chaud** (D632) : entre
+  >   deux versions du méta-schéma, la translation déclarative dérive les
+  >   correspondances — le concepteur n'écrit rien ;
+  > - **l'écriture unifiée (D647–D649)** : **l'usage 1 est implicite**
+  >   (le `from:` = la version précédente, porté par Syncytium ; ne
+  >   s'écrivent que le renommage — l'ancien nom gardé —, la
+  >   **dépréciation inscrite** sur champs/entités/modules, et le
+  >   changement de type par **les conversions que chaque type porte**
+  >   D579/D584 ; les règles de création/suppression D11–D13
+  >   persistent) ; **l'usage 2 parle le même langage** : le `from:`
+  >   tire le storage d'origine (`get_instance` — D680), **l'exhaustivité** des
+  >   tables, colonnes, dépendances et contraintes — tout est couvert ou
+  >   **déclaré ignoré** (D176 étendu), la traduction par les fonctions
+  >   et conversions du langage unique ;
+  > - **la dépréciation et le renommage (D650–D651)** : la dépréciation
+  >   en trois temps — l'intention, l'acte (l'élément répond encore), la
+  >   suppression par une version — **à documentation obligatoire** (le
+  >   remplacement ou l'abandon) ; le renommage d'un champ, d'une entité
+  >   ou d'un module s'assure par **`from: <ancien nom>`**, la version
+  >   d'origine à sa suite au besoin (D1111, D1985) ;
+  > - **les deux maisons (D652–D653)** : **`sources/`** — le modèle
+  >   d'origine décrit **dans la grammaire du méta-modèle**, table par
+  >   table et colonne par colonne (Syncytium s'assure de la complétude
+  >   du modèle contre `get_instance`) ; **`mapping/`** — les règles de
+  >   conversion table par table, aux origines multiples possibles ;
+  > - **la construction et la clé fonctionnelle (D654)** : le mapping
+  >   construit l'enregistrement avant sa validation (D177) ; la clé
+  >   fonctionnelle (D142/D398) l'identifie — le rejeu sans doublon, et
+  >   la construction des agrégats (compositions/associations) ;
+  > - **le sens de la règle (D655)** : la lecture **de la table source
+  >   vers la table cible** — chaque table source déclare où vont ses
+  >   colonnes ; les origines multiples se rejoignent **par la clé
+  >   fonctionnelle** (la jointure n'est pas une syntaxe, c'est la clé) ;
+  > - **la normalisation à la source (D660)** : le champ calculé sur la
+  >   description de l'entité source (`formula:` — sources/ parle toute
+  >   la grammaire), consommé par le mapping comme une colonne ;
+  > - **au-delà du 1-1 (D658–D659)** : **le référentiel par valeurs
+  >   distinctes** — la destination prend les valeurs distinctes d'un
+  >   champ ou d'une liste de champs, la valeur devient la clé
+  >   fonctionnelle (`distinct:` validé) ; **les composés par la
+  >   fonction du type** — `geolocation(lat, lng)`,
+  >   `amount(montant, devise)` (D579/D584) ;
+  > - **la forme de la règle (D656)** — la règle au nom de la table
+  >   source :
+  >
+  > ```yaml
+  > # sources/order_lines.yml — le modèle d'origine, la même grammaire
+  > order_lines:
+  >   identity: [order_no, line_no]
+  >   fields:
+  >     order_no:   text[10]
+  >     line_no:    integer
+  >     item_code:  text[8]
+  >     qty:        integer
+  >     updated_by: ignored       # le champ ignoré, en forme courte
+  >
+  > # sources/audit_log.yml — l'entité attendue mais non développée
+  > audit_log: ignored
+  >
+  > # mapping/order_lines.yml — la règle, de la source vers la cible
+  > order_lines:
+  >   to: sales.order.lines       # la cible — entité ou agrégat
+  >   key: [order_no, line_no]    # la clé fonctionnelle
+  >   parent: order_no            # la clé du possesseur
+  >   fields:
+  >     item:     item_code       # les expressions du langage unique
+  >     quantity: qty
+  > ```
+  >
+  > - **le dry-run du `from:` à deux modes (D649)** : **absolu** —
+  >   tout-ou-rien, la bascule d'un système A vers une application
+  >   Syncytium ; **relatif** — l'entrepôt : les conformes portés, les
+  >   erreurs isolées et le rapport à l'administrateur, **la vue sur le
+  >   taux de couverture** par rapport à la source d'origine (la reprise
+  >   D175–D179 = ce mode ; les deux postures D180 incarnées).
 
 - **2026-11-19 — LA PAUSE : LA LECTURE DU CHAPITRE 8 EST CLOSE, DIX-NEUF POINTS ; LE CHAPITRE S'APPELLE « LA MIGRATION
   » ; LE DÉCOUPAGE EST PROPOSÉ (D1999–D2024, 2024 décisions).** La reprise, par le point 17 resté sans réponse,

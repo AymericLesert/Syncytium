@@ -590,7 +590,7 @@ détail des passages (D1892) : en forme courte, `mirror: temporaire` ou
 Par défaut, c'est un connecteur en mémoire et quatre-vingt-dix jours ; le
 connecteur se configure pour une base très volumineuse (D1889).
 
-Le détail dans [mapping.md](../../mapping.md). Le pilotage et le suivi,
+Le détail dans [le chapitre 8](../08-migration/README.md). Le pilotage et le suivi,
 les passages, les clés d'origine, le modèle lu, les anomalies, sont le
 module `_migration` du socle, que l'application n'expose pas (D1028) :
 [migration.md](../../migration.md).

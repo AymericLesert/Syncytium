@@ -117,7 +117,7 @@ La migration à chaud enchaîne les méthodes du contrat (D631, D674) :
 mapping automatique, le concepteur n'écrit rien (D632) ; la bascule par
 `rename_instance` sur validation ; `delete_instance`, ou la grâce (D675,
 D678). Le mapping manuel reste l'affaire des migrations déclarées, au
-chapitre 8, [mapping.md](../../mapping.md). Syncytium sait convertir ou
+chapitre 8, [la migration déclarée](../08-migration/02-declaration.md). Syncytium sait convertir ou
 transférer d'un connecteur à l'autre, en instantané ou en différentiel ;
 le différentiel rejoint la réplication passive du PCA-PRA (D606, D112,
 D114).

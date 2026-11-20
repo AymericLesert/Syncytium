@@ -482,6 +482,11 @@ requête porte sa preuve. Trois conditions, contrôlées par le connecteur :
 actif, dans le groupe de l'application, dans l'un de ses groupes. *(D692,
 D917, D1792, D1793)*
 
+**Entité source** (`sources/`) — Une table, un fichier ou une feuille du
+système d'origine d'une reprise. `sources/` la décrit dans la grammaire du
+méta-modèle, colonne par colonne : lue, ou écartée avec son motif.
+*(D652, D947, D966, D1909)*
+
 **Entité** (`entity`) — Un objet du métier ou une table dans un modèle relationnel : le
 client, la commande, le produit. Chaque entité a ses
 champs, ses règles, sa représentation, ... *(D347)*
@@ -1033,6 +1038,11 @@ modifié, avec une perte minimale sinon. La commande
 la base à analyser, les propriétés et les accès, le dossier racine ; il
 ne sert qu'à cette construction, et ne se versionne pas.
 *(D1907, D1908, D2025–D2031)*
+
+**Processus de migration** — Une entrée de `migration.yml` : la base
+d'origine, les sources, les règles, le mode, le rythme. Le fichier en
+nomme un par connecteur d'origine ; ils s'exécutent dans l'ordre
+alphabétique de leurs noms. *(D662, D1888)*
 
 **Purge** — L'effacement réel d'un enregistrement, le droit du RGPD,
 distinct de l'inactivation ; un acte de l'administrateur. *(D137)*

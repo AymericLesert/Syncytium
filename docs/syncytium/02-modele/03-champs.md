@@ -280,7 +280,7 @@ au lieu de le rejouer (D1986). L'entrepôt suit la préconisation (D2006).
 Une entité ou un module renommé le dit de la même façon, par `from:`
 (D1111, D1984). Ce qu'un renommage ne suffit pas à dire — éclater un
 champ, en fusionner deux — s'écrit dans les règles d'`exchange/` de la
-migration de version ([mapping.md](../../mapping.md)).
+migration de version ([07-version.md](../08-migration/07-version.md)).
 
 ## La dépréciation d'un champ
 

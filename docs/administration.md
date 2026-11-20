@@ -5,7 +5,7 @@ d'exploitation consignés** — le neuvième artefact préparatoire de la
 documentation (Q58, le domaine 6 — D602), après le
 [glossaire](glossaire.md), les [composants](syncytium/04-composants/README.md), les
 [hooks](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks), les [types](syncytium/02-modele/05-types.md), les
-[connecteurs](syncytium/05-connecteurs/README.md), le [mapping](mapping.md) et les
+[connecteurs](syncytium/05-connecteurs/README.md), la [migration](syncytium/08-migration/README.md) et les
 [droits](syncytium/07-securite/README.md). Les décisions citées renvoient à la
 [conception](conception.md). Il consolide l'acquis épars et porte
 les points du chantier ouvert (le sujet 3 — le dernier de la passe
@@ -897,3 +897,180 @@ n'est utile qu'à qui a déjà la machine.
   d'affluence, la transaction, la file de tâches drainée pendant la
   migration (D24) ; la montée de version **sans redémarrage** (D801).
 
+## Reçu du chapitre 8, pour les chapitres 9 et 10 (D2033)
+
+La lecture du chapitre 8 envoie au moteur et à l'exploitation ce qui suit
+(D1880, D1881, D1974, D2010), déplacé sans réécriture depuis `mapping.md` ;
+les chapitres 9 et 10 le liront. Le module `_migration` reste décrit dans
+[migration.md](migration.md).
+
+### La migration du schéma (D673–D674, D1974)
+
+Changer le type d'un champ demande d'habitude deux conversions : celle
+de la facette d'enregistrement du champ dans le connecteur, et celle
+des valeurs existantes. La première est critique, avec un risque de
+perte de données ; la seconde est laissée au moteur de base de données,
+ou à un script. Syncytium travaille autrement (D1974), pour deux
+raisons :
+
+- ses types sont simples comme complexes : un type complexe se range
+  souvent en plusieurs données simples, comme un montant et sa devise ;
+- mettre en place une version ne transforme pas seulement le stockage :
+  elle applique aussi les règles de vérification.
+
+**La comparaison des facettes.** Syncytium construit le schéma de la
+nouvelle version dans la facette du connecteur — un schéma matérialisé
+en mémoire peut suffire — et le compare au schéma en production.
+
+**Les deux facettes sont identiques.** Aucune migration ne passe par le
+connecteur. Seul le format des données stockées peut changer : une
+unité retirée d'une mesure, un format de texte.
+
+- Aucune règle ni validation ne change, et la version ne porte aucune
+  règle de transformation : les données ne sont pas touchées. La
+  version change des éléments visuels, des API, ou l'organisation
+  logique des données — le module d'une entité, un groupe de
+  propriétés, une liste.
+- Une règle ou une validation apparaît ou change : Syncytium rebalaye
+  les règles. Avec le graphe de dépendance, les vérifications et les
+  transformations ne portent que sur ce qui est touché. Les
+  transformations se font à blanc ; quand le volume ne tient pas en
+  mémoire, un substitut dans le connecteur les reçoit. Les
+  vérifications viennent après les transformations : pour retirer une
+  valeur d'un énuméré, il faut d'abord la renommer.
+
+**Les deux facettes diffèrent**, même de peu. Syncytium crée un nouveau
+modèle dans le connecteur, sans modifier l'existant, puis dresse un
+plan de reprise des données et l'applique, de l'ancien modèle vers le
+nouveau.
+
+**L'issue**, dans les deux cas :
+
+- tout est correct : la version s'active et les transformations
+  s'appliquent. Quand un nouveau modèle a été créé, l'instance bascule
+  vers lui, et l'ancien est gardé pour la période de rétention ;
+- une erreur apparaît : c'est une erreur d'ingestion, la bascule est
+  annulée, et le modèle de destination est supprimé.
+
+Le rapport de la migration de version porte ce que le contrôle de la
+bijection des règles d'`exchange/` relève. Un écart demande une lecture
+et une validation du concepteur pour basculer (D1993, D1994).
+
+L'erreur se joue sur les données (D1975). Un champ qui passe de
+`text[..40]` à `text[..20]` ne fait pas refuser la version d'avance :
+elle passe si toutes les valeurs tiennent, et l'erreur d'ingestion ne
+vient que si l'une échoue. De même une conversion faillible : une
+langue `it` hors de la liste d'un énuméré fait l'erreur, et le
+concepteur écrit la transformation qui la traduit.
+
+Quand le `default:` d'un champ change, les enregistrements existants
+gardent leur valeur : le nouveau défaut ne vaut que pour ceux qui sont
+créés ensuite (D1976).
+
+**Pendant la phase**, dès son démarrage, l'activité continue sur la
+base existante. Elle est enregistrée, comme pour un plan de reprise ou
+de continuité d'activité, puis appliquée à la nouvelle base par la
+compatibilité ascendante (D677) ; les lectures continuent (D676). Une
+erreur dans la base de destination est une erreur d'ingestion : la
+version est refusée.
+
+**Le changement de connecteur** (D1978). Une migration peut aussi
+porter un changement de connecteur : un storage MySQL devient SQL
+Server ou PostgreSQL. Le modèle de données peut ne pas changer dans
+Syncytium, alors que la facette des enregistrements est radicalement
+différente. Le mécanisme reste le même : les deux facettes diffèrent,
+un nouveau modèle est créé dans le nouveau connecteur, et un plan de
+reprise l'alimente. Ce changement se déclenche par l'environnement,
+qui désigne le connecteur du modèle, sans nouvelle version : le
+mécanisme part de l'écart entre les deux facettes (D1979).
+
+**Une conséquence assumée** (D1977) : le nouveau modèle vit à côté de
+l'existant le temps de la phase. Il faut donc un espace de stockage au
+moins égal à deux fois l'espace initial. L'ingestion d'une version
+comprend cette phase à blanc : son échec est une erreur d'ingestion.
+
+Ce mécanisme amende le critère de D673 et la procédure de D674 : le
+critère est la comparaison des deux facettes, à laquelle s'ajoutent les
+règles et les validations qui changent (D1969) ; la duplication du
+schéma devient un nouveau modèle, alimenté par un plan de reprise. Les
+règles de transformation se définissent dans `exchange/` (D1971).
+
+**Le délai de grâce et la restauration** (D675/D678) : configurable
+— sous grâce, l'ancien schéma devient **le schéma sauvegardé** ; **le
+défaut : pas de délai, l'ancien schéma est supprimé**. La
+restauration (`restore` — D574) est **le geste inverse de la
+bascule** : le courant renommé, le sauvegardé repositionné — et
+**chaque schéma porte sa version dans une table système**, rien à
+deviner. Les lectures ne s'arrêtent que le temps du renommage
+(D679 — « normalement, cela est très court »).
+
+### Le dry-run
+
+**Le dry-run s'arrête après la comparaison** (D1044) : la reprise se
+construit dans la base miroir, se compare à la cible, et les
+différences se montrent sans être reportées.
+
+### Le pilotage d'un passage
+
+- **le module `_migration`** (D666 ; décrit dans
+  [migration.md](migration.md) — D1028 : présent dans Syncytium, « ce
+  n'est pas aux applications de l'exposer ») — il pilote et supervise
+  la reprise : le déroulé d'un passage (le modèle lu, la lecture, les
+  cinq phases de contrôle, la comparaison, la bascule), la table des
+  clés d'origine, les versions du modèle lu, la ligne d'exécution et
+  ses trois jeux de compteurs, les anomalies ; **la vue exploite les
+  éléments déjà décrits** : les listes, les kpi, les tableaux de bord
+  du catalogue ;
+- **les indicateurs** (D861–D862, amendés par D1056/D1060) — sur la
+  ligne d'exécution : **la complétude du schéma**, sur les colonnes
+  décrites dans la configuration — les décrites encore présentes dans
+  le modèle lu, au type compatible, rapportées aux décrites ; la
+  colonne que la configuration ne cite pas n'y entre pas, elle reste
+  une anomalie de complétude, au concepteur (D1053) ; **la couverture
+  des données**, sur les compteurs de l'origine — les lignes lues sans
+  erreur rapportées aux lignes lues ; le `filter:` (D663) hors taux ;
+- **la comparaison par blocs et `partition:`** (D878 — le cas 5) :
+  la migration compare **le converti** (D672 — l'enregistrement
+  reconstruit, la clé fonctionnelle) à la destination, **par
+  partition, en cinq blocs** (D1034) — **anomalies** (les
+  enregistrements tombés à l'une des cinq phases — D1033/D1040),
+  **création**, **modification** (un champ différent), **inchangé**,
+  **suppression** (sur la partition relue, l'enregistrement présent
+  avant et absent après — D1052) ; **la synthèse** — les trois jeux de
+  compteurs dissociés (D1048) : par entité d'origine, par entité de
+  destination, par règle ;
+- **le module historisé** (D668, précisé par D1056/D1068) : la ligne
+  d'exécution de chaque passage, ses compteurs et ses indicateurs
+  restent sans délai de rétention — **l'évolution de la qualité dans
+  le temps** (les indicateurs qui montent au fil des ajustements, la
+  courbe du catalogue) ; le détail des anomalies vit dans le module
+  `_migration`, partitionné par date (D1889) ;
+- **le différentiel par comparaison** (D672, précisé par D1037) :
+  évalué **dans la base miroir, avant la bascule** — l'enregistrement
+  reconstruit, ses compositions comprises, se compare à la cible par
+  son identité (D654/D1046), **champ par champ** ; seuls les
+  écarts s'écrivent, et l'entité cible historisée assure l'évolution
+  de la valeur (D168) — le différentiel est la conséquence du rejeu
+  par la clé, pas un mode de plus ; **les champs qu'aucune règle
+  n'alimente restent intacts** (D941 — l'enrichissement : le champ
+  possédé par la cible, `unmapped: true`, né à son `default:`) ;
+  **la source fait foi** (D1038) : la correction à la main d'un champ
+  migré cède au passage suivant qui relit l'enregistrement.
+
+### La translation d'un connecteur à l'autre
+
+Repris de la section « Les connecteurs et la migration », venue de
+`connectors.md` (D1721) :
+
+- **« Syncytium peut convertir ou transférer des données d'un
+  connecteur à l'autre »** (D606) — la translation déclarative, le
+  primitif aux quatre usages ;
+- **le `from:`** (D610) : « pour les migrations/transformations, un
+  connecteur d'entrée et éventuellement un connecteur de sortie » —
+  `connector: { storage: main_db, from: legacy_db }` ;
+- **l'instantané ou le différentiel** (D606) — le changement de
+  moteur par la translation, le différentiel rejoignant la
+  réplication passive du PCA-PRA (D112–D114) ;
+- **le mapping automatique de la migration à chaud** (D632) : entre
+  deux versions du méta-schéma, la translation déclarative dérive les
+  correspondances — le concepteur n'écrit rien.

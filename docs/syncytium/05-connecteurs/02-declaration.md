@@ -432,6 +432,6 @@ garde l'écoute du connecteur `file` (D635) et les entrées servies du
 La migration et la transformation, le mapping, ses deux maisons
 `sources/` et `mapping/`, le sens de la règle, la dépréciation, le
 dry-run (D646–D660), sont la reprise : le chapitre 8, par
-[mapping.md](../../mapping.md) (D1721). Ce chapitre garde `from:` au
+[la migration](../08-migration/README.md) (D1721). Ce chapitre garde `from:` au
 câblage et la migration à chaud du storage, `duplicate_instance` et
 `rename_instance` (D631, D674).

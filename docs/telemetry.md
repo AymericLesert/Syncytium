@@ -4,8 +4,8 @@ Ce document rassemble **les échanges consignés sur la télémétrie** —
 le dixième artefact préparatoire de la documentation (Q58, le
 domaine 6 — D602), après le [glossaire](glossaire.md), les
 [composants](syncytium/04-composants/README.md), les [hooks](syncytium/01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks), les
-[types](syncytium/02-modele/05-types.md), les [connecteurs](syncytium/05-connecteurs/README.md), le
-[mapping](mapping.md), les [droits](syncytium/07-securite/README.md) et
+[types](syncytium/02-modele/05-types.md), les [connecteurs](syncytium/05-connecteurs/README.md), la
+[migration](syncytium/08-migration/README.md), les [droits](syncytium/07-securite/README.md) et
 l'[administration](administration.md). Les décisions citées
 renvoient à la [conception](conception.md). Il consolide l'acquis du
 pilier P9 (Q12–Q13, résolues en juin 2026), **la jonction avec le

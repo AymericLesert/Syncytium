@@ -20,7 +20,7 @@ qu'il contrôle, ce qu'il garde, ce qu'il montre, ce qu'il envoie.
   ce document reste généraliste, les illustrations vivent dans les cas
   d'usage.
 
-[mapping.md](mapping.md) dit comment une migration **se décrit** (la
+[Le chapitre 8](syncytium/08-migration/README.md) dit comment une migration **se décrit** (la
 source, les règles, la couverture) ; ce document dit **comment elle
 s'exécute et ce qu'il en reste**. Les décisions citées renvoient à la
 [conception](conception.md). Les noms des entités et des champs du
@@ -559,7 +559,7 @@ d'administration (D711) :
 ## La déclaration d'une migration
 
 Les clés que le module lit sur la migration déclarée
-([mapping.md](mapping.md)) :
+([la migration déclarée](syncytium/08-migration/02-declaration.md)) :
 
 ```yaml
 # migration.yml — une migration déclarée (D662)

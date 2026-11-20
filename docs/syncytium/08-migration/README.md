@@ -121,7 +121,8 @@ flowchart LR
 Les trois chemins mènent à la même issue : un méta-modèle et ses
 données, que Syncytium exploite. Seul change l'endroit où ils vivent :
 dans Syncytium pour les deux premiers, dans le système existant pour
-le troisième.
+le troisième. Ces trois déclinaisons sont propres au processus que l'on
+déclenche, et que ce chapitre décrit (D2044).
 
 Les deux premiers usages sont des migrations : des données passent d'une
 description à une autre (D1882). Le troisième n'en est pas une :

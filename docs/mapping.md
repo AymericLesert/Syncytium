@@ -1145,7 +1145,9 @@ cas, seul le méta-modèle sera à construire à partir de l'analyse d'une
 base de données existante afin que la migration silencieuse se fasse en
 toute transparence. »
 
-Cet usage s'appelle **la rétro-conception** (D2027). Le mot
+Cet usage s'appelle **la rétro-conception** (D2027). C'est une forme de
+rétro-ingénierie (D2028) : le modèle obtenu permet de lancer Syncytium
+sans une première charge d'analyse trop lourde. Le mot
 « silencieux » ne lui convient pas (D2026) : il reste à la migration que
 Syncytium porte lui-même entre deux versions (D1908).
 
@@ -1170,7 +1172,8 @@ Syncytium porte lui-même entre deux versions (D1908).
 
 Beaucoup d'éléments se construisent automatiquement. **Trois ne se
 déduisent pas d'un existant** : les opérations, les règles et les
-droits. Le concepteur les écrit.
+droits. Le concepteur les écrit : reporter tout ce qui fait un métier,
+et ses besoins, est son travail (D2028).
 
 Aucune donnée ne migre : le méta-modèle se pose sur le modèle de
 données existant, puis Syncytium prend le relais, en douceur (D2026).

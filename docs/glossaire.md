@@ -1021,10 +1021,13 @@ migrations. *(D1070–D1076)*
 à côté de la reprise et de la migration de version : un outil de
 Syncytium analyse le modèle de données d'une application existante et
 construit le méta-modèle, la configuration d'accès à l'application si
-elle se déduit, et les écrans par défaut. Les opérations, les règles et
-les droits restent à écrire. Aucune donnée ne migre : Syncytium se pose
-sur le modèle existant, puis prend le relais de l'application.
-*(D1907, D1908, D2025–D2027)*
+elle se déduit, et les écrans par défaut. C'est une forme de
+rétro-ingénierie : le modèle obtenu permet de lancer Syncytium sans une
+première analyse trop lourde. Les opérations, les règles et les droits
+restent à écrire : reporter ce qui fait un métier est le travail du
+concepteur. Aucune donnée ne migre : Syncytium se pose sur le modèle
+existant, puis prend le relais de l'application.
+*(D1907, D1908, D2025–D2028)*
 
 **Purge** — L'effacement réel d'un enregistrement, le droit du RGPD,
 distinct de l'inactivation ; un acte de l'administrateur. *(D137)*

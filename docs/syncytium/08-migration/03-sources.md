@@ -283,12 +283,18 @@ Un classeur déclare ses colonnes dans la carte `entities:` de son
 connecteur : le type, la cellule, l'entête (D1933, D1936). Le
 [chapitre 5](../05-connecteurs/02-declaration.md) le décrit, avec les
 formats voisins d'Excel (D1932). La source ne fait alors qu'ajouter ce
-que le connecteur ne porte pas (D1935) :
+que le connecteur ne porte pas (D1936) :
 
 - une colonne qui n'ajoute rien ne s'y écrit pas (D1937) ;
-- un classeur est un storage : il se lit, et il s'écrit (D1937) ;
+- un classeur est un storage : il se lit, et il s'écrit, par le contrat
+  du storage (D1937, D1938) ;
 - les adresses des cellules valent pour un environnement : c'est la
-  limite de l'approche (D1938).
+  limite de l'approche (D1937). Une feuille qui change sans changer la
+  nature de ses informations se suit dans l'environnement, sans nouvelle
+  version (D1938) ;
+- les informations du connecteur, `connector.filename`, `connector.path`
+  et `connector.line`, se définissent au chapitre 5 ; une source peut
+  les lire (D1935).
 
 Dans le véhicule, la source des ravitaillements n'ajoute que des
 descriptions et quatre calculés.

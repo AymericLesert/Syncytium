@@ -6,208 +6,393 @@
 
 Ce fichier dit ce qu'une reprise contrôle : la validation et son
 message, les rapports, les phases de contrôle, ce que la reprise écrit
-et ce qu'elle laisse. Les décisions citées entre parenthèses renvoient au
-[registre](../../conception.md).
+et ce qu'elle laisse. Les décisions citées entre parenthèses renvoient
+au [registre](../../conception.md).
 
 ## Le sommaire
 
 - [La validation et son message](#la-validation-et-son-message)
+  - [Les deux formes](#les-deux-formes)
+  - [Le message construit](#le-message-construit)
+  - [Les labels du catalogue](#les-labels-du-catalogue)
+  - [Le `message:` est facultatif](#le-message-est-facultatif)
 - [Les rapports](#les-rapports)
+  - [Chaque règle a son rapport](#chaque-règle-a-son-rapport)
+  - [Aucun rapport général](#aucun-rapport-général)
+  - [Le rapport de l'entité source](#le-rapport-de-lentité-source)
+  - [Qui reçoit quoi](#qui-reçoit-quoi)
+  - [Une ligne fautive se signale, elle ne se filtre pas](#une-ligne-fautive-se-signale-elle-ne-se-filtre-pas)
 - [Les phases de contrôle](#les-phases-de-contrôle)
+  - [Les cinq phases](#les-cinq-phases)
+  - [Un exemple par place](#un-exemple-par-place)
+  - [Les trois temps](#les-trois-temps)
+  - [L'échec dans une composition](#léchec-dans-une-composition)
 - [Ce que la reprise écrit, ce qu'elle laisse](#ce-que-la-reprise-écrit-ce-quelle-laisse)
+  - [Les quatre cas](#les-quatre-cas)
+  - [Le champ qu'aucune règle n'alimente](#le-champ-quaucune-règle-nalimente)
+  - [Le champ tenu hors du mapping](#le-champ-tenu-hors-du-mapping)
+  - [La source fait foi](#la-source-fait-foi)
+  - [Le texte trop long](#le-texte-trop-long)
 
 ## La validation et son message
 
-**Les deux formes de la validation, le message construit** (D1116–D1117).
-La forme courte `- expression` et la forme longue `rule:` / `description:` /
-`message:` se mêlent dans une même liste, au champ (D364), à l'entité (D404) et
-à la règle. Sans `message:`, l'échec produit un message construit qui cite la
-règle, les valeurs des champs qu'elle cite et les valeurs de la clé de
-l'enregistrement ; la `description:` n'y entre pas, un `message:` explicite
-l'emporte. Le message construit se compose d'un label par opérateur, un
-gabarit du catalogue des textes du moteur : sa mise en forme, ses
-traductions et sa réécriture par le projet se font sans toucher au code
-de Syncytium (D1944). Le label se nomme
-`_syncytium.<opérateur>.validation` ; un second,
-`_syncytium.<opérateur>.description`, donne la traduction littérale
-d'une règle, pour la documentation (D1945, D1948). L'opérateur s'y
-écrit par son nom, `equal`, `in` ; le gabarit cite `{left}`, `{right}`,
-`{left_value}` et `{right_value}` (D1949). `not`, `and`, `or` et `xor`
-assemblent les messages de leurs membres, à gauche et à droite (D1947).
-**Le `message:` est facultatif** dès que le catalogue couvre tous les
-labels ; le concepteur peut le surcharger (D1946 — D1117 l'exigeait dès
-que la version avait plusieurs langues).
+### Les deux formes
+
+Une validation s'écrit de deux façons (D1116) :
+
+| La forme | L'écriture |
+|---|---|
+| courte | `- expression` |
+| longue | `rule:`, la règle ; `description:`, ce qu'elle vérifie ; `message:`, le texte de l'anomalie |
+
+- les deux formes se mêlent dans une même liste ;
+- elles valent aux trois places : au champ (D364), à l'entité (D404), et
+  à la règle d'une reprise.
+
+Dans l'entrepôt, la règle des lignes d'achat porte une validation en
+forme longue. La règle entière :
 
 ```yaml
-# migration/mapping/4_commande/04_lignes_achats.yml — la description, les formes longues
+# Les lignes des commandes d'achat
 LCOMFOU:
   description: >-
-    Les lignes des commandes d'achat, composition de l'entête : le possesseur est la révision de la commande, son
-    numéro et son indice ; l'identité d'une ligne est son numéro.
+    Les lignes des commandes d'achat, composition de l'entête, la structure des lignes de vente : le possesseur est la
+    révision de la commande, son numéro et son indice ; l'identité d'une ligne est son numéro. Les prix, à la devise de
+    la ligne, sont restreints dans l'entrepôt : la reprise les écrit par son privilège. Les délais sont des jours. Un
+    statut hors de la liste est une anomalie.
   to: commande.ligne_achat
   parent:
     commande_achat: [numero: numero, indice: LCKTPSF]
   fields:
     numero:  ligne
-    article: [code: LCCTCODART, complement: LCCTCOMART]     # la clé de la référence, entre crochets
+    article: [code: LCCTCODART, complement: LCCTCOMART]
+    quantite:        LCCNQTECDE
+    unite:           LCCTUNICDE
     quantite_recue:
       formula: LCCNQTEEXP
       description: L'expédié de PMI, reçu chez l'acheteur.
+    prix_brut:       amount(LCCNPUBRUT, LCCTDEVISE)
+    prix_net:        amount(LCCNPUNET, LCCTDEVISE)
+    delai_demande:   LCCJDELDDE
+    delai_accuse:    LCCJDELARR
+    delai_reception: LCCJDELEXP
+    statut: 'LCCTSTATUT.select("": "non_traite", A: "en_cours", P: "partielle", S: "soldee", T: "terminee")'
   validation:
     - rule: me.unite in me.article.unite.units
       description: L'unité de la ligne est l'une de celles que son article connaît.
-      message: L'unité {me.unite} de la ligne n'est pas une unité connue de l'article {LCCTCODART}.   # le gabarit
-```
-
-*Les décisions de cet exemple : D1105/D1106, D1941, D1106.*
-
-## Les rapports
-
-**Le rapport des rejets porté par la règle (D929).** « Chaque règle
-de migration a un report. Pas un report général. » La règle sait sa
-source, sa cible et qui corrige l'origine : elle déclare `report:`
-sous la forme validée de D406 (`when:` les rythmes, `to:` le groupe
-ou l'utilisateur, `by:` les canaux) pour les enregistrements qu'elle
-construit et que la cible refuse (D177 — la conversion échouée, sa
-propre `validation:` D932, le contrat de la cible, la référence non
-résolue). Sans `report:`, le
-défaut de D407 tient : à la demande, vers l'administrateur, par les
-surfaces du module `_migration` (D666). Aucun rapport général — ni à
-la migration déclarée (D662), ni au module ; la cascade de D407 reste
-celle du modèle (les non-conformes des références, D395). **Les
-anomalies du modèle** — la colonne non décrite, le type non
-convertible, la colonne décrite disparue, l'identité non respectée
-(D1042/D1053) — ne sont pas des rejets de règle : elles vont au
-concepteur par le module `_migration` ; **celles des données de la
-source** — ses phases de contrôle, le type, l'identité, l'orphelin —
-vont au `report:` de l'entité source (D1058, ci-dessous).
-
-**Le rapport de l'entité source (D1058).** « L'entité source déclare son
-propre report: » — les anomalies des phases de la source (la
-validation de ses données, ses propres règles) vont aux destinataires
-que l'entité source déclare, sous la même forme (`when:`, `to:`, `by:`) ;
-la règle garde son `report:` pour les siennes.
-
-```yaml
-# migration/mapping/3_technique/01_articles.yml — le rapport porté par la règle
-ARTICLE:
-  to: technique.article
-  fields:
-    code: ARKTCODART
-    libelle: ARCTLIB01
+      message: L'unité {me.unite} de la ligne n'est pas une unité connue de l'article {LCCTCODART}.
   report:
-    when: [migration]              # après chaque passage de la règle
-    to: [production]               # le destinataire qui corrige l'origine
+    when: [migration]
+    to: [achats]
     by: [notification, mail]
 ```
 
-*Les décisions de cet exemple : D929, D406/D407, D859.*
+Cette règle réunit les formes longues (D1105, D1106, D1941) :
+
+- `quantite_recue` est une affectation en forme longue : `formula:` et
+  `description:` ;
+- `article` est une référence composée : sa clé s'écrit entre crochets ;
+- la validation porte `rule:`, `description:` et `message:` ;
+- le `message:` est un gabarit : voir
+  [le message, un gabarit](04-regles.md#le-message-un-gabarit).
+
+### Le message construit
+
+> **Le message construit** est le texte de l'anomalie d'une validation
+> écrite sans `message:`. Il cite la règle, les valeurs qu'elle met en
+> cause, et la clé de l'enregistrement
+> ([glossaire](../../glossaire.md)).
+
+Sans `message:`, l'échec produit un message construit (D1116, D1117). Il
+cite :
+
+- la règle ;
+- les valeurs des champs qu'elle cite ;
+- les valeurs de la clé de l'enregistrement.
+
+La `description:` n'y entre pas. Un `message:` explicite l'emporte.
+
+### Les labels du catalogue
+
+Le message construit se compose d'un label par opérateur (D1944). Un
+label est un gabarit du catalogue des textes du moteur. Sa mise en
+forme, ses traductions et sa réécriture par le projet se font sans
+toucher au code de Syncytium.
+
+Chaque opérateur a deux labels (D1945, D1948) :
+
+| Le label | Ce qu'il donne |
+|---|---|
+| `_syncytium.<opérateur>.validation` | le message de l'anomalie |
+| `_syncytium.<opérateur>.description` | la traduction littérale d'une règle, pour la documentation |
+
+Les règles de leur écriture (D1949) :
+
+- **l'opérateur s'écrit par son nom**, non par son signe : `equal`,
+  `in` ;
+- **le gabarit cite les deux côtés de la règle** : `{left}` et
+  `{right}`, tels qu'ils sont écrits ; `{left_value}` et
+  `{right_value}`, leurs valeurs ;
+- **`not`, `and`, `or` et `xor` assemblent** les messages de leurs
+  membres, à gauche et à droite (D1947).
+
+### Le `message:` est facultatif
+
+Dès que le catalogue couvre tous les labels, le `message:` d'une
+validation est facultatif. Le concepteur peut le surcharger (D1946).
+
+## Les rapports
+
+### Chaque règle a son rapport
+
+Le registre le dit : « Chaque règle de migration a un report. Pas un
+report général. » (D929). La règle sait sa source, sa cible, et qui
+corrige l'origine : l'information va à la bonne personne (D859). Elle
+déclare donc `report:`, dans la forme du modèle (D406) :
+
+| La clé | Ce qu'elle dit |
+|---|---|
+| `when:` | les rythmes |
+| `to:` | le groupe, ou l'utilisateur |
+| `by:` | les canaux |
+
+Dans l'extrait plus haut, le rapport des lignes d'achat part après
+chaque passage de la migration, vers les achats, par une notification et
+un courriel.
+
+Ce rapport porte les enregistrements que la règle construit et que la
+cible refuse (D177) :
+
+- la conversion échouée ;
+- sa propre `validation:` (D932) ;
+- le contrat de la cible ;
+- la référence non résolue.
+
+Sans `report:`, le défaut tient (D407) : à la demande, vers
+l'administrateur, par les surfaces du module `_migration` (D666).
+
+### Aucun rapport général
+
+Il n'y a pas de rapport général : ni à la migration déclarée (D662), ni
+au module. La cascade reste celle du modèle (D407) : les non-conformes
+des références (D395).
+
+### Le rapport de l'entité source
+
+Le registre le dit : « L'entité source déclare son propre report: »
+(D1058). Les anomalies des phases de la source vont aux destinataires
+que l'entité source déclare, sous la même forme. La règle garde son
+`report:` pour les siennes. Dans l'entrepôt, l'entité source des
+commandes de vente :
+
+```yaml
+# Le rapport des anomalies de la table
+# Le commercial corrige les commandes de vente à l'origine.
+report:
+  when: [migration]
+  to: [commercial]
+  by: [notification, mail]
+```
+
+### Qui reçoit quoi
+
+| L'anomalie | Des exemples | Où elle va |
+|---|---|---|
+| du modèle de la source (D1042, D1053) | la colonne non décrite, le type non convertible, la colonne décrite disparue, l'identité non respectée | au concepteur, par le module `_migration` |
+| des données de la source (D1058) | ses phases de contrôle : le type, l'identité, l'orphelin, ses propres règles | au `report:` de l'entité source |
+| d'un enregistrement construit (D929) | la conversion, la validation de la règle, le contrat de la cible, la référence | au `report:` de la règle |
+
+Les anomalies du modèle ne sont pas des rejets de règle : la description
+est en cause, non la donnée.
+
+### Une ligne fautive se signale, elle ne se filtre pas
+
+Une ligne que la cible refuse ne s'écarte pas par un filtre. Dans le
+véhicule (le cas 3), des lignes d'entretien n'ont pas de date (D851) :
+
+- elles échouent à la cible, où la date est requise ;
+- la migration les signale en anomalie ;
+- l'utilisateur ajuste la source, et rejoue.
+
+Il n'y a jamais de perte silencieuse.
 
 ## Les phases de contrôle
 
-**`validation:` dans les cinq phases de contrôle (D932, amendé par
-D1033/D1040).** Les trois places de la même grammaire (D404) —
-l'entité source, la règle, l'entité de destination — prennent leur
-rang dans le déroulé d'un passage ([migration.md](../../migration.md)) :
-**(1) la validation des données sources** — après le `filter:`, les
-colonnes converties du type lu au type décrit, l'identité, les liens
-(l'orphelin) ; **(2) la vérification des règles sources** — les
-`validation:` de l'entité source, sur la ligne lue ; **(3) le
-mapping** — `fields:` construit l'enregistrement dans la base miroir
-(D1044) ; **(4) la validation des règles du mapping** — les
-`validation:` de la règle, les colonnes source à nu, l'enregistrement
-construit par `me` ; **(5) la validation des règles de destination**
-— après la lecture de toutes les données, sur la base miroir
-complète, avant l'enregistrement : les contraintes et les
-`validation:` du modèle, avec les enfants (D933). **Chaque phase
-relève toutes ses erreurs**, et l'enregistrement en erreur ne passe
-pas à la phase suivante (D1057) ; chaque erreur garde un message
-clair, pour le rapport — le `message:` de la forme longue quand il est écrit
-(D1105). Les trois temps, redits par l'auteur (D1006)
-: sur la source à la lecture — limite les enregistrements aux valeurs
-valides ; sur le mapping — identifie les règles non respectées ou les
-données incorrectes ; sur la destination — garantit que les règles
-des données entreposées sont correctes. Une contrainte du modèle n'a
-pas à être redite par la règle ; et une grandeur « à titre
-indicatif » ne se valide pas, ses cas limites s'observent.
+### Les cinq phases
 
-```yaml
-# migration/sources/technique/NOMENC.yml — la phase 2 : les règles de la source, sur la ligne lue
-NOMENC:
-  validation:
-    - NOCJFINVAL >= NOCJDEBVAL if NOCJFINVAL is not null and NOCJDEBVAL is not null
+`validation:` a trois places, dans la même grammaire (D404) : l'entité
+source, la règle, l'entité de destination. Elles prennent leur rang
+dans le déroulé d'un passage, en cinq phases (D932, D1033, D1040) :
 
-# migration/mapping/3_technique/05_nomenclatures.yml — la phase 4 : la source à nu, le construit par me
-NOMENC:
-  to: technique.ligne_nomenclature
-  fields:
-    nature:   nature_n                                 # le calculé de normalisation à la source
-    quantite: NOCNQTEUNI
-  validation:
-    - me.quantite > 0 if me.nature = "composant"       # le construit
-    - NOCTCODOPE is not null if me.nature = "operation"    # la source et le construit
+| La phase | Ce qu'elle contrôle | Sur quoi |
+|---|---|---|
+| 1. la validation des données sources | après le `filter:` : les colonnes converties du type lu au type décrit, l'identité, les liens — l'orphelin | la ligne lue |
+| 2. la vérification des règles sources | les `validation:` de l'entité source | la ligne lue |
+| 3. le mapping | `fields:` construit l'enregistrement | la base miroir (D1044) |
+| 4. la validation des règles du mapping | les `validation:` de la règle | les colonnes de la source à nu, l'enregistrement construit par `me` |
+| 5. la validation des règles de destination | les contraintes et les `validation:` du modèle, avec les enfants (D933) | la base miroir complète, après la lecture de toutes les données, avant l'enregistrement |
 
-# technique/ligne_nomenclature/ligne_nomenclature.yml — la phase 5 : sur la base miroir complète
-validation:
-  - composant is not null if nature = "composant"
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    L["la ligne lue, après le filtre"]
+    P1["1. la validation des données sources"]
+    P2["2. la vérification des règles sources"]
+    P3["3. le mapping"]
+    P4["4. la validation des règles du mapping"]
+    P5["5. la validation des règles de destination"]
+    E["l'enregistrement"]
+    RS["le rapport de l'entité source"]
+    RR["le rapport de la règle"]
+    L --> P1
+    P1 --> P2
+    P2 --> P3
+    P3 --> P4
+    P4 --> P5
+    P5 --> E
+    P1 -. "une erreur" .-> RS
+    P2 -. "une erreur" .-> RS
+    P3 -. "une erreur" .-> RR
+    P4 -. "une erreur" .-> RR
+    P5 -. "une erreur" .-> RR
 ```
 
-*Les décisions de cet exemple : D660.*
+Trois règles valent pour toutes les phases :
 
-**L'échec dans une composition (D933).** « Si un échec est vu sur le
-parent, tous les composants sont en échec. Si un composant est en
-erreur et pas sur le parent, le parent est créé sans le composant en
-erreur. Par contre, la règle de validation sur un enregistrement du
-parent vérifie le fonctionnement de son enregistrement et de ses
-enfants. Et, là, c'est l'enregistrement du parent et de tous ses
-enfants qui sont en échec. » Trois cas : l'échec propre du parent (sa
-conversion, sa `validation:`, sa référence) entraîne ses composants ;
-l'échec propre d'un composant (sa conversion, sa `validation:` à la
-règle ou à l'entité, sa référence — l'orphelin D875) ne rejette que
-lui, le parent entre sans lui ; la `validation:` du parent qui lit
-ses enfants (`lignes.count() > 0`, une somme) s'évalue en phase 5
-(D1033), sur le parent et tous ses enfants, et son échec rejette le tout. L'agrégat reste le
-grain d'écriture (D420) : ce qui s'écrit est le parent avec ses
-composants conformes. Au cas 5 : l'article entre sans la cellule
-tarifaire fautive, ses mouvements le trouvent ; la commande sans
-ligne valide tombe entière. Le rapport nomme la cause — le parent, ou
-la ligne (mien).
+- chaque phase relève toutes ses erreurs ;
+- l'enregistrement en erreur ne passe pas à la phase suivante (D1057) ;
+- chaque erreur garde un message clair, pour le rapport : le `message:`
+  de la forme longue, quand il est écrit (D1105).
+
+Le déroulé d'un passage est décrit dans
+[migration.md](../../migration.md).
+
+### Un exemple par place
+
+**À la source, la phase 2.** Aucun cas n'en porte : l'exemple est
+d'illustration, sur les colonnes de la validité d'une ligne de
+nomenclature. La règle lit la ligne lue, déjà normalisée (D660) :
+
+```yaml
+# La cohérence de la ligne lue
+# La fin de la validité ne précède pas son début.
+validation:
+  - NOCJFINVAL >= NOCJDEBVAL if NOCJFINVAL is not null and NOCJDEBVAL is not null
+```
+
+**À la règle, la phase 4.** La validation des lignes d'achat, plus
+haut : `me.unite in me.article.unite.units` lit l'enregistrement
+construit, par `me` ; son message cite `{LCCTCODART}`, une colonne de la
+source, à nu.
+
+**À la destination, la phase 5.** Dans l'entrepôt, le modèle de la
+commande de vente :
+
+```yaml
+# La cohérence des données converties
+validation:
+  - rule: date_echeance >= date if date_echeance is not null
+    message: L'échéance {date_echeance} précède la date de la commande {date}.
+```
+
+### Les trois temps
+
+Les cinq phases se résument en trois temps, dans les mots du registre
+(D1006) :
+
+| Le temps | Ce qu'il fait |
+|---|---|
+| sur la source, à la lecture | il « limite les enregistrements aux valeurs valides » |
+| sur le mapping | il « identifie les règles non respectées ou les données incorrectes » |
+| sur la destination | il « garantit que les règles des données entreposées sont correctes » |
+
+Deux conséquences :
+
+- une contrainte du modèle n'a pas à être redite par la règle ;
+- une grandeur « à titre indicatif » ne se valide pas : ses cas limites
+  s'observent.
+
+### L'échec dans une composition
+
+Le registre le dit (D933) : « Si un échec est vu sur le parent, tous les
+composants sont en échec. Si un composant est en erreur et pas sur le
+parent, le parent est créé sans le composant en erreur. Par contre, la
+règle de validation sur un enregistrement du parent vérifie le
+fonctionnement de son enregistrement et de ses enfants. Et, là, c'est
+l'enregistrement du parent et de tous ses enfants qui sont en échec. »
+
+| L'échec | Ce qui est rejeté |
+|---|---|
+| l'échec propre du parent : sa conversion, sa `validation:`, sa référence | le parent, et tous ses composants |
+| l'échec propre d'un composant : sa conversion, sa `validation:` à la règle ou à l'entité, sa référence — l'orphelin (D875) | le composant seul : le parent entre sans lui |
+| la `validation:` du parent qui lit ses enfants : `lignes.count() > 0`, une somme | le parent, et tous ses enfants ; elle s'évalue en phase 5 (D1033) |
+
+L'agrégat reste le grain d'écriture (D420) : ce qui s'écrit est le
+parent, avec ses composants conformes. Dans l'entrepôt :
+
+- l'article entre sans la cellule tarifaire fautive, et ses mouvements
+  le trouvent ;
+- la commande sans ligne valide tombe entière.
+
+Le rapport nomme la cause : le parent, ou la ligne (mien).
 
 ## Ce que la reprise écrit, ce qu'elle laisse
 
-**Ce que la reprise écrit, ce qu'elle laisse (D1964).** Le chapitre
-énonce la doctrine en quatre cas ; les mécanismes gardent leur
-définition dans leur chapitre, `unmapped:` et `default:` au
-[modèle](../02-modele/03-champs.md), le typage au
-[langage](../03-langage/README.md) :
+### Les quatre cas
 
-- le champ qu'aucune règle n'alimente reste tel quel ;
-- le champ `unmapped: true` n'est jamais écrit par la migration ;
-- sur un champ alimenté, la source fait foi — le principe se dit ici,
-  le différentiel qui l'applique est au chapitre 9 (D1966) ;
-- le texte trop long pour sa cible se refuse à l'ingestion.
+Le chapitre énonce la doctrine en quatre cas (D1964) :
 
-**Le texte trop long (D581).** Un `text[30]` de la source vers un
-`text[..20]` de la cible est une conversion avec perte : le typage
-statique la refuse à l'ingestion — ni troncature silencieuse, ni rejet
-à l'exécution ; le concepteur l'écrit s'il la veut, `left(ARCTLIB01,
-20)` (les fonctions du texte, D934).
+| Le cas | Ce que la reprise fait |
+|---|---|
+| le champ qu'aucune règle n'alimente | il reste tel quel |
+| le champ `unmapped: true` | la migration ne l'écrit jamais |
+| le champ alimenté | la source fait foi |
+| le texte trop long pour sa cible | il se refuse à l'ingestion |
 
-**L'enrichissement — le champ possédé par la cible (D941).** Le
-différentiel ne compare que l'enregistrement construit, donc les
-seuls champs que les règles alimentent : un champ qu'aucune règle
-n'alimente reste tel quel — « la doctrine est bonne » ; `reset:
-false` la garde. Le champ obligatoire naît à sa valeur : « le
-default: répond à ce besoin ». Et le champ qu'un écran de saisie
-remplit se protège par la propriété **`unmapped: true`** (`false`
-par défaut) : « pour un nouvel enregistrement, la valeur est la
-valeur par défaut. Si l'enregistrement existe, la valeur du champ
-reste sa valeur » — la migration ne l'écrit jamais, la saisie reste
-libre (la différence avec `mode: write-once`, immuable pour tous) ;
-« unchanged est lié à la migration et aux règles de migration. Une
-règle qui alimente l'un de ces champs serait une erreur d'ingestion ».
-La propriété s'appelait alors `unchanged:` ; elle se nomme `unmapped:`,
-le champ tenu hors du mapping (D1965).
-Le cas 5 : `note_interne` sur le tiers, aucune colonne PMI, née à
-`""`, ouverte au commercial et aux achats par l'allow au champ
-(D886/D942) — la note de l'acheteur survit à chaque nuit.
+Les mécanismes gardent leur définition dans leur chapitre : `unmapped:`
+et `default:` au [modèle](../02-modele/03-champs.md), le typage au
+[langage](../03-langage/README.md).
+
+### Le champ qu'aucune règle n'alimente
+
+Le différentiel ne compare que l'enregistrement construit, donc les
+seuls champs que les règles alimentent (D941). Un champ qu'aucune règle
+n'alimente reste tel quel : « la doctrine est bonne ». `reset: false` la
+garde.
+
+Le champ obligatoire naît à sa valeur : « le default: répond à ce
+besoin ».
+
+### Le champ tenu hors du mapping
+
+Le champ qu'un écran de saisie remplit se protège par la propriété
+`unmapped: true`, `false` par défaut (D941, D1965). Le registre le dit :
+« pour un nouvel enregistrement, la valeur est la valeur par défaut. Si
+l'enregistrement existe, la valeur du champ reste sa valeur ».
+
+- la migration ne l'écrit jamais ;
+- la saisie reste libre : c'est la différence avec `mode: write-once`,
+  immuable pour tous ;
+- une règle qui alimente un tel champ est une erreur d'ingestion.
+
+Dans l'entrepôt, `note_interne`, sur le tiers, porte `default: ""` et
+`unmapped: true` :
+
+- aucune colonne de PMI ne l'alimente ;
+- elle naît vide ;
+- elle est ouverte au commercial et aux achats, par l'`allow` au champ
+  (D886, D942) ;
+- la note de l'acheteur survit à chaque nuit.
+
+### La source fait foi
+
+Sur un champ alimenté, la source fait foi. Le principe se dit ici ; le
+différentiel qui l'applique est au chapitre 9 (D1966).
+
+### Le texte trop long
+
+Un `text[30]` de la source vers un `text[..20]` de la cible est une
+conversion avec perte (D581). Le typage statique la refuse à
+l'ingestion : ni troncature silencieuse, ni rejet à l'exécution. Le
+concepteur l'écrit s'il la veut : `left(ARCTLIB01, 20)`, par les
+fonctions du texte (D934).

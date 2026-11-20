@@ -235,15 +235,15 @@ dans le déroulé d'un passage, en cinq phases (D932, D1033, D1040) :
 ```mermaid
 %%{init: {"flowchart": {"curve": "stepAfter"}}}%%
 flowchart LR
-    L["la ligne lue, après le filtre"]
-    P1["1. la validation des données sources"]
-    P2["2. la vérification des règles sources"]
-    P3["3. le mapping"]
-    P4["4. la validation des règles du mapping"]
-    P5["5. la validation des règles de destination"]
+    L["la ligne lue,<br/>après le filtre"]
+    P1["phase 1<br/>la validation des<br/>données sources"]
+    P2["phase 2<br/>la vérification des<br/>règles sources"]
+    P3["phase 3<br/>le mapping"]
+    P4["phase 4<br/>la validation des<br/>règles du mapping"]
+    P5["phase 5<br/>la validation des<br/>règles de destination"]
     E["l'enregistrement"]
-    RS["le rapport de l'entité source"]
-    RR["le rapport de la règle"]
+    RS["le rapport de<br/>l'entité source"]
+    RR["le rapport<br/>de la règle"]
     L --> P1
     P1 --> P2
     P2 --> P3

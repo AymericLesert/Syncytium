@@ -116,15 +116,15 @@ phases, par le cache nommé de la migration (D821).
 ```mermaid
 %%{init: {"flowchart": {"curve": "stepAfter"}}}%%
 flowchart LR
-    L["deux lignes d'un même virement : A, puis B"]
-    R1["la règle d'enregistrement"]
-    C["le cache nommé : une pile par clé"]
-    R2["la règle de complément"]
-    E["A et B, liées l'une à l'autre"]
+    L["deux lignes d'un même virement<br/>A, puis B"]
+    R1["la règle<br/>d'enregistrement"]
+    C["le cache nommé<br/>une pile par clé"]
+    R2["la règle<br/>de complément"]
+    E["A et B, liées<br/>l'une à l'autre"]
     L -- "le premier parcours" --> R1
-    R1 -- "cache.push : A, puis B" --> C
+    R1 -- "cache.push" --> C
     L -- "le second parcours" --> R2
-    C -- "cache.pop : B, pour la ligne A" --> R2
+    C -- "cache.pop" --> R2
     R2 -- "me.liee.liee : me" --> E
 ```
 

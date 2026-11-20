@@ -206,9 +206,9 @@ Une dépréciation se joue en trois temps :
 ```mermaid
 %%{init: {"flowchart": {"curve": "stepAfter"}}}%%
 flowchart LR
-    I["1. l'intention : le bloc deprecation: est écrit"]
-    V["2. la validation : une beta retire l'élément"]
-    S["3. la suppression : une version, l'élément quitte la description"]
+    I["temps 1, l'intention<br/>le bloc deprecation: est écrit"]
+    V["temps 2, la validation<br/>une beta retire l'élément"]
+    S["temps 3, la suppression<br/>une version : l'élément quitte la description"]
     I -- "l'élément vit encore" --> V
     V -- "ce qui le lisait est éliminé ou remplacé" --> S
 ```

@@ -76,12 +76,12 @@ concepteur (D2028).
 ```mermaid
 %%{init: {"flowchart": {"curve": "stepAfter"}}}%%
 flowchart LR
-    B["la base de l'application existante"]
-    F["monapp.yml : la connexion, les accès, le dossier racine"]
+    B["la base de<br/>l'application existante"]
+    F["monapp.yml<br/>la connexion, les accès,<br/>le dossier racine"]
     R["syncytium retro"]
-    C["monapp/ : le méta-modèle, la configuration d'accès, les écrans par défaut"]
-    M["le concepteur : les opérations, les règles, les droits"]
-    S["Syncytium, posé sur la base existante"]
+    C["monapp/<br/>le méta-modèle, la configuration d'accès,<br/>les écrans par défaut"]
+    M["le concepteur<br/>les opérations, les règles, les droits"]
+    S["Syncytium, posé sur<br/>la base existante"]
     B -- "son modèle de données" --> R
     F --> R
     R --> C

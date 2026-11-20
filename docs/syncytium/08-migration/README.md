@@ -84,7 +84,8 @@ Trois usages les portent (D2025) :
 
 Les trois usages se lisent sur un seul schéma, dans l'ordre du tableau.
 Chacun part d'un existant, définit ou calcule un méta-modèle, puis
-passe par la même étape : la reprise et le mapping (D2037).
+passe par la même étape, la reprise et le mapping (D2037). Ils n'ont
+qu'une seule issue (D2039).
 
 ```mermaid
 %%{init: {"flowchart": {"curve": "stepAfter"}}}%%
@@ -95,27 +96,25 @@ flowchart LR
     CD["le calcul des différences"]
     DA["la définition automatique d'un méta-modèle"]
     RM["la reprise et le mapping"]
-    R1["le méta-modèle et les données"]
-    R2["le méta-modèle et les données nouvelles"]
-    R3["le méta-modèle applicable"]
+    R["le méta-modèle et les données"]
     SP -- "la reprise" --> DM
     MA -- "la migration de version" --> CD
     SP -- "la rétro-conception" --> DA
     DM --> RM
     CD --> RM
     DA --> RM
-    RM -- "la reprise" --> R1
-    RM -- "la migration de version" --> R2
-    RM -- "la rétro-conception" --> R3
+    RM --> R
 ```
 
 - **La reprise** part du système précédent. Le concepteur définit le
-  méta-modèle à la main. Elle livre le méta-modèle et les données.
+  méta-modèle à la main.
 - **La migration de version** part du méta-modèle et des données
-  antérieurs. Syncytium calcule les différences. Elle livre le
-  méta-modèle et les données nouvelles.
+  antérieurs. Syncytium calcule les différences.
 - **La rétro-conception** part du système précédent. Un outil définit le
-  méta-modèle automatiquement. Elle livre un méta-modèle applicable.
+  méta-modèle automatiquement.
+
+Les trois chemins mènent à la même issue : un méta-modèle et ses
+données, que Syncytium exploite.
 
 Les deux premiers usages sont des migrations : des données passent d'une
 description à une autre (D1882). Le troisième n'en est pas une :

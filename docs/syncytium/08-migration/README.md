@@ -70,28 +70,46 @@ Une application ne naît pas vide. Ses données viennent d'un autre
 système, ou de sa propre version d'hier. Le chapitre répond à trois
 situations (D2025) :
 
-```mermaid
-%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
-flowchart LR
-    subgraph R["La reprise"]
-        direction LR
-        S["une source, le système précédent"] -- "sources/ et mapping/" --> A["l'application"]
-    end
-    subgraph V["La migration de version"]
-        direction LR
-        V0["la version antérieure"] -- "calculée, exchange/ au besoin" --> V1["la nouvelle version"]
-    end
-    subgraph X["La rétro-conception"]
-        direction LR
-        B["la base d'une application existante"] -- "syncytium retro" --> C["la configuration"]
-    end
-```
-
 | L'usage | D'où l'on part | Ce qui se passe | Ce que le concepteur écrit |
 |---|---|---|---|
 | **La reprise** | une source, un système précédent | ses données sont lues, contrôlées, puis portées dans l'application | la source, dans `sources/` ; les règles, dans `mapping/` |
 | **La migration de version** | la version antérieure de l'application | les données existantes passent au nouveau modèle, à chaud | rien le plus souvent ; un renommage, une règle d'`exchange/` |
 | **La rétro-conception** | la base d'une application existante | un outil en déduit la configuration ; aucune donnée ne migre | les opérations, les règles et les droits, que l'outil ne déduit pas |
+
+Les trois usages se lisent sur un seul schéma, dans l'ordre du tableau.
+Chacun part d'un existant, définit ou calcule un méta-modèle, puis
+passe par la même étape : la reprise et le mapping (D2037).
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    SP["le système précédent"]
+    MA["le méta-modèle et les données antérieurs"]
+    DM["la définition manuelle d'un méta-modèle"]
+    CD["le calcul des différences"]
+    DA["la définition automatique d'un méta-modèle"]
+    RM["la reprise et le mapping"]
+    R1["le méta-modèle et les données"]
+    R2["le méta-modèle et les données nouvelles"]
+    R3["le méta-modèle applicable"]
+    SP -- "la reprise" --> DM
+    MA -- "la migration de version" --> CD
+    SP -- "la rétro-conception" --> DA
+    DM --> RM
+    CD --> RM
+    DA --> RM
+    RM -- "la reprise" --> R1
+    RM -- "la migration de version" --> R2
+    RM -- "la rétro-conception" --> R3
+```
+
+- **La reprise** part du système précédent. Le concepteur définit le
+  méta-modèle à la main. Elle livre le méta-modèle et les données.
+- **La migration de version** part du méta-modèle et des données
+  antérieurs. Syncytium calcule les différences. Elle livre le
+  méta-modèle et les données nouvelles.
+- **La rétro-conception** part du système précédent. Un outil définit le
+  méta-modèle automatiquement. Elle livre un méta-modèle applicable.
 
 Les deux premiers usages sont des migrations : des données passent d'une
 description à une autre (D1882). Le troisième n'en est pas une :

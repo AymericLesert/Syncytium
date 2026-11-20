@@ -813,14 +813,15 @@ documentation. *(D1116, D1944–D1948)*
 d'une description vers une autre. Elle a deux origines : la version
 antérieure de l'application, c'est la **migration de version** ; une
 source, un système précédent, c'est la **reprise**. Dans les deux cas elle
-applique un **mapping**. Un fichier, `migration.yml`, décrit et nomme les
+applique un **mapping**. Un troisième usage ne migre rien : le
+**remplacement silencieux**. Un fichier, `migration.yml`, décrit et nomme les
 processus de migration, un par connecteur d'origine ; ils s'exécutent
 dans l'ordre alphabétique de leurs noms. Une reprise un pour un s'écrit en
 forme courte, `<processus>: <connecteur>` ou
 `<processus>: <connecteur>[<entité>]`, plusieurs entités séparées par une
 virgule : le connecteur se décrit, le mapping est champ à champ. La clé
 `migrations:`, l'opération `migrate` et le module interne `_migration` en
-portent le nom. *(D3, D646, D1031, D1882, D1888, D1895–D1897)*
+portent le nom. *(D3, D646, D1031, D1882, D1888, D1895–D1897, D2025)*
 
 **Migration de version** — La migration dont l'origine est la version
 antérieure de l'application. Syncytium calcule les correspondances depuis
@@ -1086,6 +1087,13 @@ apportées par une version, porté par `version.yml`. L'historique
 complet s'assemble par concaténation des release-notes des versions
 antérieures jusqu'à la courante — pas de fichier unique à maintenir.
 *(D808)*
+
+**Remplacement silencieux** — Le troisième usage du chapitre de la
+migration, à côté de la reprise et de la migration de version : une
+application écrite avec Syncytium prend le relais d'une application
+existante, sur sa propre base. Aucune donnée ne migre : seul le
+méta-modèle se construit, à partir de l'analyse de la base existante.
+*(D1907, D1908, D2025)*
 
 **Renommage** (`from:`) — Le changement de nom d'un champ, d'une entité
 ou d'un module d'une version à l'autre. L'élément renommé dit son ancien

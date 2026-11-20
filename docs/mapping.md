@@ -29,6 +29,13 @@ migration entre 2 versions ; la migration entre 2 schémas
 **Les deux usages sont unifiés** (D647) — le même langage, les mêmes
 conversions.
 
+**Le chapitre compte trois usages, dont deux sont des migrations**
+(D2025) : la reprise, la migration de version, et le remplacement
+silencieux d'une application existante. Dans les deux premiers, des
+données passent d'une description à une autre. Dans le troisième,
+aucune donnée ne migre : Syncytium se pose sur la base existante
+(D1907).
+
 ## L'usage 1 — la migration entre versions : l'implicite (D647)
 
 Entre deux versions, **rien ne s'écrit** : le `from:` implicite est

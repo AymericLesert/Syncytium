@@ -116,11 +116,11 @@ Le chapitre 8, la migration (D1863, D2024) — la lecture est close (D2023). Les
 chapitre se dégagent à son ouverture, dans l'ordre de son sujet, avec ce qui
 le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 « présenté » ou « clos (Dnnnn) » ; le tableau de bord lit cette table.
-Le chapitre a deux parties (D1887) : la reprise — le cadre (2–3), la source
+Le chapitre compte trois usages, dont deux sont des migrations (D2025). La lecture a eu deux parties (D1887) : la reprise — le cadre (2–3), la source
 (4–8), les règles de mapping (9–10), les règles de transformation (11–12) —,
 puis la migration de version (13–16) ; les exemples, la facette et le
-registre le ferment (17–19). Une troisième section est ouverte par l'auteur :
-le remplacement silencieux d'une application existante, dont les points se
+registre le ferment (17–19). Le troisième usage, où aucune donnée ne migre, est
+le remplacement silencieux d'une application existante ; ses points se
 dégageront à son ouverture (D1907, D1908). Le chapitre définit ce que le concepteur écrit
 (D1879) ; ce qui le quitte : toutes les conversions et l'exécution d'un
 passage, vers le chapitre 9 — les six points du passage y sont partis

@@ -2179,6 +2179,7 @@ Q58) :
 | D2045 | **Sans `from:`, un processus est une migration de version : la lecture est validée ; `02-declaration.md` réécrit est accepté, la réécriture continue** (valide ma lecture de D2041 — la table des clés d'un processus ; confirme D1983 et D1990 ; la réécriture du chapitre 8) : « Je valide ta lecture. et tu peux continuer » | La table des sept clés de `02-declaration.md` garde sa première ligne : sans `from:`, la dernière version déployée, c'est une migration de version. Rien à écrire. Le fichier suivant est `03-sources.md`. Voir §3.2c. |
 | D2046 | **Le chapitre 8, `03-sources.md`, réécrit : la définition de l'entité source en tête ; les deux maisons, par un schéma — la description confrontée au schéma réel —, la complétude, les deux régimes en table ; l'entête d'une entité, l'extrait des commandes de vente de l'entrepôt et la table de ses huit clés ; les colonnes — les trois états en table, la colonne décrite, la normalisation, le masque de lecture, les colonnes d'un classeur — ; les liens entre entités — la composition, la référence, la référence nommée, la référence à l'une de deux entités, la lecture d'une autre table et le cache — ; l'alias ; le filtre et la partition, ses trois formes en table** (applique D1542, D1544, D1562, D1545, D1835, D2035, D2007 ; pose trois des citations de D2020 — D820, D871 par le chapitre, D877 — ; ramène au chapitre des décisions de la lecture que l'artefact ne portait pas — D1921, D1924 pour `normalize:`, D1932 à D1938 pour le classeur ; la réécriture du chapitre 8, le troisième fichier) | Le texte venu de `mapping.md` tenait en trois sections ; il se lit en vingt-cinq titres. Le contrôle l'assure : aucune décision de l'ancien texte ne manque. Onze extraits sont copiés des cas par le script, tels quels : de l'entrepôt, l'entête d'ECOMCLI, deux colonnes d'ARTICLE, la table DEVIS, l'alias PARAM_EMPLACEMENTS, la composition des lignes, la référence nommée de NOMENC, le calculé et la partition de MVTSTO, `normalize:` des réglages ; du véhicule, un calculé de la source des ravitaillements ; de la banque, le masque d'une date. L'ancien exemple de la lecture d'une autre table, sur `PARAM_EMPLACEMENTS.first`, n'était dans aucun cas : il est remplacé par celui de MVTSTO, qui y est. Restent en illustration : les deux formes d'`ignored` sur des noms inventés, deux filtres, la forme riche de `partition:`. *À relire par l'auteur.* Voir §3.2c. |
 | D2047 | **Dans le README du chapitre 8, « le processus cegid » se précise : « un processus nommé (ex : cegid) » — `cegid` est un exemple** (corrige D2036 — deux mentions du README ; précise D1888 et D1990 — le nom d'un processus est libre ; la réécriture du chapitre 8, le README) : « Dans le README.md,il y a les mots "le processus cegid" -  cegid est un exemple. Précise "un processus nommé (ex: cegid)" » | Deux endroits corrigés : la reprise dans l'entrepôt, et le commentaire de l'arbre du dossier `migration/`. *À appliquer dans les fichiers suivants* : un nom pris dans un cas se présente comme un exemple, non comme un mot de la grammaire. Reporté : `docs/syncytium/08-migration/README.md`. Voir §3.2c. |
+| D2048 | **À la reprise, toute la documentation du chapitre 8 s'écrit d'un trait ; l'auteur relira l'ensemble pour validation** (change le rythme de la réécriture — jusqu'ici un fichier soumis à la fois, D2036, D2041, D2046 ; applique D1543 — la réécriture pour une relecture rapide ; la réécriture du chapitre 8) : « Je marque une pause. A la reprise. je te laisserai écrire toute la documentation du chapitre 8 et je relirai l'ensemble pour validation. » | Restent sept fichiers : `04-regles.md`, `05-controles.md`, `06-complements.md`, `07-version.md`, `08-retro-conception.md`, `09-depreciation.md`, `10-documentation.md`. Ils s'écrivent à la suite, sans attendre une validation entre deux ; une décision par fichier reste consignée. Les règles acquises sur les trois premiers valent pour eux : le tableau, le schéma, l'exemple, dans cet ordre (D2037) ; un schéma qui réunit plutôt que plusieurs côte à côte (D2037) ; partir de ce que le chapitre veut montrer, non d'une généralité (D2038) ; un nom pris dans un cas se présente comme un exemple (D2047) ; les extraits copiés des cas tels quels (D1545). Voir §3.2c. |
 | D1198 | **Les liens de la documentation sont ceux que l'ingestion garantit — les références et les associations entre entités et champs, dans les traitements et les opérations ; ils montrent les relations, disent à quoi sert un champ et mesurent l'impact d'une modification du modèle** (précise D1186 ; s'appuie sur D330/D344 — l'ingestion, D394/D405, D90, D1112 ; le rang 1 et le rang 2) : « je confirme — les associations utilisées dans les traitements / les opérations / ... font référence entre les entités et les champs. Tous ces liens permettent de visualiser les liens et de mesurer l'impact de la modification du modèle. Lors de l'ingestion, le moteur de Syncytium garantit la validité des références et des associations. Les mettre dans la documentation permet de montrer les relations et d'expliquer à quoi sert un champ (propriété ou calculé). » — la documentation reprend le graphe que l'ingestion a validé : pour chaque champ, propriété ou calculé, **où il sert** — les formules qui le lisent, les validations, les opérations et leurs effets, les règles de reprise, les rapports, les écrans ; pour chaque entité, qui la référence et qui elle référence ; aux deux bouts (D1186). | Mes lectures, en proposition : dans la fonctionnelle, « à quoi sert ce champ » en langage d'usager (« entre dans le calcul du montant TTC », « déclenche la validation de la facture ») ; dans la documentation de l'information (le rang 2), le graphe complet des dépendances et **l'analyse d'impact** — ce qu'un changement de ce champ ou de cette entité touche (l'écho des écarts calculés D1112) ; la matrice gagne une colonne de contenu sur la ligne du champ. Voir §3.2c. |
 
 ---
@@ -15039,6 +15040,8 @@ La valeur par défaut est "cancel" »**, `syncytium copy --with-storage`
 
 **Un processus nommé (D2047).** « cegid est un exemple. Précise "un processus nommé (ex: cegid)" »
 
+**La suite d'un trait (D2048).** « A la reprise. je te laisserai écrire toute la documentation du chapitre 8 et je relirai l'ensemble pour validation. »
+
 ### 3.3 Langage d'expression unique (D90–D91, résout Q6)
 
 **Un seul langage d'expression** pour tout le système (D90), partagé par :
@@ -18640,6 +18643,37 @@ avant la synthèse Q16).
 
 ## 11. Journal des échanges
 
+- **2026-11-20 — LA PAUSE : LE CHAPITRE 8, « LA MIGRATION », RÉORGANISÉ EN DIX FICHIERS ; TROIS FICHIERS RÉÉCRITS SUR
+  DIX (D2025–D2048, 2048 décisions).** La reprise, par le découpage resté sans réponse. **Les trois usages**
+  (D2025–D2031) : l'auteur relève que « On parle de 3 usages et la documentation en mentionne 2 » — le chapitre compte
+  trois usages, dont deux sont des migrations ; le troisième, que « silencieux » nommait mal, s'appelle **la
+  rétro-conception** (« La retro-conception me plaît » ; « reprise automatique » et « le relais » écartés) : une forme
+  de rétro-ingénierie, l'outil construit le méta-modèle, la configuration d'accès si elle se déduit, les écrans par
+  défaut ; restent au concepteur les opérations, les règles, les droits ; aucune donnée ne migre ; un scénario de
+  démonstration en quatre temps, avec le retour à l'application d'origine ; la commande `syncytium retro monapp.yml`,
+  et un fichier minimal, sans variables d'environnement, à ne pas versionner. **Le plan** (D2032, D2034) : dix
+  parties, les règles éclatées en une partie règle et une partie contrôle ; « compléments » gardé — l'auteur avait
+  demandé « extensions », puis : « je n'avais pas vu ta remarque qui est juste » ; le renommage, commencé, a été
+  défait avant tout commit. **La réorganisation** (D2033, validée D2035) : `docs/syncytium/08-migration/`, dix
+  fichiers ; le texte de `mapping.md` déplacé sans réécriture par un script qui contrôle que chaque ligne a une
+  destination ; `mapping.md` retiré, dix renvois redirigés ; « Reçu du chapitre 8 » dans `administration.md` ;
+  `migration.md` reste en place. L'historique de `mapping.md` est sorti à cette date : son ouverture, « Les points
+  ouverts », la section venue de `connectors.md` — voir l'entrée de la réorganisation, plus bas. **La réécriture**
+  (D2035–D2047) : « ajoute aussi des schémas quand cela permet de décrire un concept ou un mode de fonctionnement ».
+  Le README : les trois usages, le tableau puis un seul schéma puis l'entrepôt ; l'auteur redresse le schéma — « Les 3
+  schémas peuvent se rejoindre », « Nous n'avons qu'une seule issue ... pas 3 » —, corrige mon ouverture — « "Une
+  application ne naît pas vide" ... si elle peut » : la section montre que Syncytium est apte à supporter l'évolution
+  du méta-modèle et à prendre la suite d'un système existant —, précise les trois déclinaisons, et demande « un
+  processus nommé (ex: cegid) ». `02-declaration.md` et `03-sources.md` réécrits : des titres à la place des
+  paragraphes à tête en gras, des tables, un schéma, les extraits des cas copiés tels quels par le script, un contrôle
+  qui refuse d'écrire si une décision de l'ancien texte manque. **À la reprise** (D2048) : « je te laisserai écrire
+  toute la documentation du chapitre 8 et je relirai l'ensemble pour validation » — sept fichiers, de `04-regles.md` à
+  `10-documentation.md`, d'un trait. Restent à confirmer ou à nommer : la relecture de `02-declaration.md` et de
+  `03-sources.md` par l'auteur ; les schémas, non rendus ici, à vérifier dans GitHub ; les points de la section de la
+  rétro-conception ; les noms des opérateurs, le code du label d'enveloppe et les textes des gabarits (D1949) ; les
+  classes des formats derrière Excel (D1932) ; le modèle de `_migration`, gardé pour le chapitre 9 (D1894) ; les onze
+  sections de la dépréciation, à relire comme textes ; les déclinaisons de tiny, à revalider. Les lectures ouvertes
+  jusqu'à l'implémentation restent D1788, D1794, D1805, D1815, et la forme de la notification de progression (D1861).
 - **2026-11-20 — LA RÉORGANISATION DU CHAPITRE 8 : `mapping.md` SE DISSOUT DANS `docs/syncytium/08-migration/`, SON
   HISTORIQUE AU JOURNAL (D2033).** Le texte de l'artefact est déplacé sans réécriture dans dix fichiers ; ce qui part
   aux chapitres 9 et 10 est reçu par `administration.md`. Ce que l'artefact disait de lui-même et de son passé sort

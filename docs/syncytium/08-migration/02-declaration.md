@@ -520,7 +520,7 @@ entité, sans rien effacer du module (D881, précisé par D1030 et D1037).
 Le `migrate` suivant relit alors la totalité. L'opération garde son nom,
 bien que la clé de la source s'appelle `partition:` (D1930).
 
-- c'est la vingtième opération du socle, au degré `administrator` ;
+- c'est une opération du socle, au degré `administrator` ;
 - elle se planifie par `every:` (D434), et se déclenche comme toute
   opération (D428) ;
 - elle s'écrit par entité partitionnée : `reset_coverage(MVTSTO)`.

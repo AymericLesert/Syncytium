@@ -18682,6 +18682,28 @@ avant la synthèse Q16).
 
 ## 11. Journal des échanges
 
+- **2026-11-21 — LA PAUSE : L'AUTEUR RELIT LE CHAPITRE 8 ; LE README, `02-declaration.md` ET `03-sources.md` RELUS,
+  CINQ CORRECTIONS (D2057–D2061, 2061 décisions).** L'auteur : « J'ai relu », quatre remarques, puis « Je marque une
+  pause et je reprendrai les autres sections ». Une décision et un commit par correction. **Le README** (D2057) : «
+  Celui de l'entrepôt : » sort de la section du dossier d'une migration. **`02-declaration.md`** : le titre devient «
+  Un connecteur d'origine par processus », et l'auteur complète — « un même connecteur peut apparaître dans plusieurs
+  processus » — ; la définition de tête et le glossaire, qui disaient « un par connecteur d'origine », suivent (D2058)
+  ; `reset_coverage` est « une opération du socle », sans son rang (D2059). **`03-sources.md`** : le schéma des deux
+  maisons est refait — deux origines, le connecteur qui se décrit et la description détaillée, construisent la
+  complétude du schéma et son rapport ; la description du modèle d'origine reçoit `mapping/` dans la base miroir ;
+  l'application vient à la fin de la validation (D2060) — ; la section de la complétude est réécrite : elle compare la
+  description à la réalité et révèle les écarts, la description cite toutes les colonnes qui seront dans le
+  méta-modèle de destination, les écarts assurent que toutes les données du système d'origine ont été identifiées et
+  traitées (D2061). Le schéma refait est rendu en local, sans erreur ; les liens et les exemples YAML sont vérifiés.
+  **À la reprise** : l'auteur reprend « les autres sections » ; écouter son retour, sans présenter de point. Restent à
+  confirmer ou à nommer : ma lecture de D2061, posée à sa question « Suis-je clair ? » — une colonne qui alimente
+  l'application est toujours décrite, une autre reste un écart tant qu'elle n'est ni décrite ni écartée — ; ce qui est
+  mien dans D2058 — l'exemple de deux processus sur le même connecteur — et dans D2060 — la table des cinq temps avant
+  le schéma — ; la maison de l'entrepôt, qui dit encore « la vingtième opération du socle » dans le récit de D881 ;
+  et, inchangés, les points de la rétro-conception (D2053), la description de `005_ecritures.yml` de la banque
+  (D1035), le rendu des schémas dans GitHub, les noms des opérateurs et les textes des gabarits (D1949), les classes
+  des formats derrière Excel (D1932), le modèle de `_migration`, gardé pour le chapitre 9 (D1894), les déclinaisons de
+  tiny.
 - **2026-11-20 — LA PAUSE : LE CHAPITRE 8 EST ENTRE LES MAINS DE L'AUTEUR, QUI LE LIRA ET FERA SON RETOUR À LA REPRISE
   (2056 décisions).** L'auteur, après la remise des dix fichiers : « Je marque une pause, je lirai le document et je
   ferai un retour à la reprise ». Rien n'est écrit ni décidé depuis D2056 : le chapitre reste tel qu'il a été remis,

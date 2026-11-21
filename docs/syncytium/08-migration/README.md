@@ -176,8 +176,7 @@ Chacune garde son visage.
 
 ## Le dossier d'une migration
 
-Une version range sa migration dans un dossier, `migration/` (D1883).
-Celui de l'entrepôt :
+Une version range sa migration dans un dossier, `migration/` (D1883) :
 
 ```text
 versions/beta/v1.0.0.1/migration/

@@ -54,19 +54,38 @@ Les deux parlent le même langage. Le typage statique vérifie donc les
 expressions des deux côtés (D581), et l'exhaustivité se juge entre deux
 descriptions (D648).
 
+La complétude du schéma précède les règles (D2060). Le chemin d'une
+reprise, de la source à l'application :
+
+| Le temps | Ce qui s'y passe |
+|---|---|
+| les deux origines | le connecteur se décrit lui-même ; `sources/` porte la description détaillée |
+| la complétude du schéma | elle se construit des deux, et rend un rapport |
+| la description du modèle d'origine | elle en sort : c'est elle que les règles lisent |
+| le mapping | les règles de `mapping/` s'y appliquent, dans la base miroir |
+| l'application | elle vient à la fin de la validation |
+
 ```mermaid
 %%{init: {"flowchart": {"curve": "stepAfter"}}}%%
 flowchart LR
-    T["la table d'origine, lue par le connecteur"]
-    D["sa description, dans sources/"]
-    C["la complétude du schéma"]
-    R["les règles, dans mapping/"]
+    K["le connecteur<br/>son auto-description"]
+    D["sources/<br/>la description détaillée"]
+    C["la complétude<br/>du schéma"]
+    P["le rapport"]
+    O["la description du<br/>modèle d'origine"]
+    B["la base miroir"]
     A["l'application"]
-    T -- "le schéma réel" --> C
-    D -- "le schéma décrit" --> C
-    D --> R
-    R --> A
+    K --> C
+    D --> C
+    C --> P
+    C --> O
+    O -- "mapping/" --> B
+    B -- "la validation" --> A
 ```
+
+[La base miroir](02-declaration.md#la-base-miroir) se déclare dans
+l'environnement ; [les contrôles](05-controles.md) décrivent la
+validation.
 
 ### La complétude
 

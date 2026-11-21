@@ -820,8 +820,8 @@ antérieure de l'application, c'est la **migration de version** ; une
 source, un système précédent, c'est la **reprise**. Dans les deux cas elle
 applique un **mapping**. Un troisième usage ne migre rien : la
 **rétro-conception**. Un fichier, `migration.yml`, décrit et nomme les
-processus de migration, un par connecteur d'origine ; ils s'exécutent
-dans l'ordre alphabétique de leurs noms. Une reprise un pour un s'écrit en
+processus de migration, chacun pour un connecteur d'origine ; ils
+s'exécutent dans l'ordre alphabétique de leurs noms. Une reprise un pour un s'écrit en
 forme courte, `<processus>: <connecteur>` ou
 `<processus>: <connecteur>[<entité>]`, plusieurs entités séparées par une
 virgule : le connecteur se décrit, le mapping est champ à champ. La clé
@@ -1040,9 +1040,11 @@ ne sert qu'à cette construction, et ne se versionne pas.
 *(D1907, D1908, D2025–D2031)*
 
 **Processus de migration** — Une entrée de `migration.yml` : la base
-d'origine, les sources, les règles, le mode, le rythme. Le fichier en
-nomme un par connecteur d'origine ; ils s'exécutent dans l'ordre
-alphabétique de leurs noms. *(D662, D1888)*
+d'origine, les sources, les règles, le mode, le rythme. Le fichier
+décrit et nomme les processus. Chacun a un connecteur d'origine, et un
+même connecteur peut apparaître dans plusieurs processus. Ils
+s'exécutent dans l'ordre alphabétique de leurs noms.
+*(D662, D1888, D2058)*
 
 **Purge** — L'effacement réel d'un enregistrement, le droit du RGPD,
 distinct de l'inactivation ; un acte de l'administrateur. *(D137)*

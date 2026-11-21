@@ -1,8 +1,9 @@
 # La migration déclarée
 
 > **Un processus de migration** est une entrée de `migration.yml`. Le
-> fichier décrit et nomme les processus, un par connecteur d'origine ; ils
-> s'exécutent dans l'ordre alphabétique de leurs noms
+> fichier décrit et nomme les processus. Chacun a un connecteur
+> d'origine, et un même connecteur peut apparaître dans plusieurs
+> processus. Ils s'exécutent dans l'ordre alphabétique de leurs noms
 > ([glossaire](../../glossaire.md)).
 
 Ce fichier dit ce que le concepteur déclare pour une migration : le
@@ -15,7 +16,7 @@ renvoient au [registre](../../conception.md).
 
 - [Le processus](#le-processus)
   - [Ce qu'un processus déclare](#ce-quun-processus-déclare)
-  - [Un processus par connecteur d'origine](#un-processus-par-connecteur-dorigine)
+  - [Un connecteur d'origine par processus](#un-connecteur-dorigine-par-processus)
   - [L'ordre des processus et l'ordre des sources](#lordre-des-processus-et-lordre-des-sources)
 - [La forme courte](#la-forme-courte)
   - [Une ligne pour une reprise un pour un](#une-ligne-pour-une-reprise-un-pour-un)
@@ -111,12 +112,18 @@ cegid:
     - ~{mapping/[0-9]+_.*/[0-9]+_.*\.yml}
 ```
 
-### Un processus par connecteur d'origine
+### Un connecteur d'origine par processus
 
 Un processus se définit pour un connecteur d'origine, que `from:` nomme
-(D1086, D1087, D1888). Une application peut lire plusieurs bases d'origine
-(D1885) : chacune a son processus, et `migration.yml` les décrit et les
-nomme tous. La clé `sources:` est au pluriel pour la même raison : un
+(D1086, D1087, D1888). Il n'en a qu'un. L'inverse n'est pas vrai : un
+même connecteur peut apparaître dans plusieurs processus (D2058). Deux
+processus d'illustration, en forme courte, reprennent chacun une entité
+du même connecteur : `clients: fichier_csv[client]` et
+`fournisseurs: fichier_csv[fournisseur]`.
+
+Une application peut lire plusieurs bases d'origine (D1885) : chacune a
+son processus, au moins, et `migration.yml` les décrit et les nomme
+tous. La clé `sources:` est au pluriel pour une autre raison : un
 processus décrit plusieurs entités (D1884).
 
 Une règle peut tout de même appeler un autre connecteur que ce `from:`,

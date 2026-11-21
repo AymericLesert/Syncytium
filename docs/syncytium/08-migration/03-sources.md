@@ -93,10 +93,35 @@ validation.
 > qui tient encore face au modèle lu par le connecteur
 > ([glossaire](../../glossaire.md)).
 
-Syncytium s'assure de la complétude du modèle : il confronte la
-description au schéma réel, que `get_instance` lui rend (D629, D680). Il
-signale l'écart. La complétude se mesure au schéma réel (D861) : la
-description n'a pas à citer chaque colonne.
+La complétude compare la description à la réalité, et elle révèle les
+écarts (D2061). La réalité est le schéma que le connecteur lit dans le
+système d'origine : `get_instance` le rend (D629, D680). Syncytium fait
+la comparaison à l'ingestion, et à chaque `migrate` (D861).
+
+**La description cite toutes les colonnes qui seront dans le méta-modèle
+de destination.** C'est par elle que les règles les lisent.
+
+**Les écarts servent la reprise d'un existant.** Ils assurent que toutes
+les données présentes dans le système d'origine ont été identifiées, et
+traitées comme il se doit. Un écart n'est pas une négligence : c'est un
+point à creuser (D868). Le concepteur le traite de l'une de deux façons :
+
+- il décrit la colonne, pour la lire ;
+- il l'écarte, par `ignored`, avec son motif : voir
+  [les trois états d'une colonne](#les-trois-états-dune-colonne).
+
+Syncytium relève trois écarts (D1053) :
+
+| L'écart | Ce que Syncytium en dit |
+|---|---|
+| une colonne du schéma réel que la description ne cite pas | une anomalie de complétude |
+| une colonne décrite dont le type n'est pas conforme | une anomalie de description |
+| une colonne décrite qui a disparu de la source | une erreur de description : l'entité est illisible |
+
+Dans l'entrepôt, la table ARTICLE de PMI compte 181 colonnes. Sa
+description cite les colonnes qu'elle lit et celles qu'elle écarte. Les
+autres ne sont pas lues : le rapport de migration les relève, et le
+concepteur sait où il en est de son analyse.
 
 ### Les deux régimes
 

@@ -5,12 +5,15 @@
 > et construit sa configuration. Aucune donnée ne migre
 > ([glossaire](../../glossaire.md)).
 
-Une application existe déjà, avec sa base de données, et l'on voudrait y
-poser Syncytium sans tout analyser d'abord. C'est l'objet de la
+Cette section exploite les notions abordées pour la reprise et pour la
+migration de version : une source que son connecteur décrit, un
+méta-modèle, des données qui passent de l'un à l'autre. Dans leur
+continuité, Syncytium peut s'adapter à une application existante, grâce
+à l'analyse de la description de son modèle de données : c'est la
 rétro-conception. Ce fichier dit ce qu'elle est, ce que l'outil
 construit et ce qu'il laisse au concepteur, comment elle se montre, et
-comment elle se lance. Les décisions citées entre parenthèses renvoient au
-[registre](../../conception.md).
+comment elle se lance. Les décisions citées entre parenthèses renvoient
+au [registre](../../conception.md).
 
 ## Le sommaire
 
@@ -120,6 +123,9 @@ Le fichier `monapp.yml` porte :
 - les éléments de connexion à la base de données à analyser ;
 - les propriétés et les accès ;
 - le dossier racine.
+
+Le cadre commun des commandes de `syncytium` se définit au chapitre 10,
+l'administration et l'exploitation (D2098).
 
 ### Le fichier de la commande
 

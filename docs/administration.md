@@ -1074,3 +1074,27 @@ Repris de la section « Les connecteurs et la migration », venue de
 - **le mapping automatique de la migration à chaud** (D632) : entre
   deux versions du méta-schéma, la translation déclarative dérive les
   correspondances — le concepteur n'écrit rien.
+
+### Les commandes de `syncytium` (D2098)
+
+Le chapitre 10 reçoit le cadre commun des commandes : aucun n'est posé.
+Les commandes ont été décidées une à une, chacune avec son besoin :
+
+| La commande | Ce qu'elle fait | La décision |
+|---|---|---|
+| `syncytium init` | l'amorçage : le core, l'instance, le fichier des variables d'environnement | D1360, D1429 |
+| `syncytium encrypt`, `syncytium decrypt` | chiffrer un secret, le relire | D708 |
+| `syncytium rotate` | la rotation des clés | D730 |
+| `syncytium copy <source> <cible>` | la copie d'un environnement, `--with-storage` pour les fichiers | D1080 |
+| `syncytium sandbox` | la sandbox | D907–D912 |
+| `syncytium document <environnement> <documentation>` | l'édition d'une documentation | D1351, D1353 |
+| `syncytium language <référence> <souhaitée>` | le catalogue d'une langue à traduire | D1465 |
+| `syncytium retro monapp.yml` | la rétro-conception d'une application existante | D2030 |
+
+Il reste à dire, au chapitre 10 :
+
+- la grammaire commune : l'ordre des arguments, la forme des options,
+  quand une commande prend un fichier ;
+- la liste entière, tenue à un seul endroit ;
+- l'installation en une ligne (D1447), à ranger avec elles.
+

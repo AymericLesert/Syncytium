@@ -211,6 +211,8 @@ ailleurs :
 - **le mécanisme de la migration de version**, au chapitre 9 (D1974) ;
 - **le détail du module `_migration`** et sa facette documentation, au
   chapitre 10, l'administration et l'exploitation (D2010) ;
+- **le cadre commun des commandes de `syncytium`**, au chapitre 10
+  (D2098) ;
 - **le contrat de compatibilité vu de l'API**, au chapitre 13 ;
 - **la carte des fichiers d'un connecteur**, au
   [chapitre 5](../05-connecteurs/README.md).

@@ -120,8 +120,9 @@ Le chapitre compte trois usages, dont deux sont des migrations (D2025). La lectu
 (4–8), les règles de mapping (9–10), les règles de transformation (11–12) —,
 puis la migration de version (13–16) ; les exemples, la facette et le
 registre le ferment (17–19). Le troisième usage, où aucune donnée ne migre, est
-la rétro-conception d'une application existante ; ses points se
-dégageront à son ouverture (D1907, D1908, D2027). Le chapitre définit ce que le concepteur écrit
+la rétro-conception d'une application existante (D1907, D1908, D2027) ; sa
+lecture s'ouvre le 22/11/2026, dans les grands principes, en cinq points (20–24,
+D2107) — le détail de la conception reste à la conception. Le chapitre définit ce que le concepteur écrit
 (D1879) ; ce qui le quitte : toutes les conversions et l'exécution d'un
 passage, vers le chapitre 9 — les six points du passage y sont partis
 (D1880, D1881) — ; le contrat de compatibilité vu de l'API, vers le
@@ -150,3 +151,8 @@ renumérotés à la clôture du point 1.
 | 17 | **Les exemples** : le véhicule — les classeurs, `absolute`, `reset` —, la banque — les fichiers, les trois phases, le cache —, l'entrepôt — PMI, `relative`, `partition:` — ; le cas 5 en fil rouge, les autres cas pour ce qu'eux seuls montrent, les extraits tels quels, des exemples d'illustration pour les écritures sans cas (D2007) ; l'enquête ne porte aucune migration, tiny reçoit la forme courte d'une reprise, son connecteur csv implicite et ses défauts, vingt-neuf lignes (D2000–D2005), l'entrepôt en `from: abrege@1.0.0.0` (D2006) (D1545, D1818, D1999–D2008) | clos (D2009) |
 | 18 | **La facette documentation** : les neuf colonnes de la migration déclarée dans le fichier de la documentation du chapitre ; celles du module `_migration` partent avec le détail du module au chapitre 10 (D2010) (D1158–D1159, D1259, D1302, D2010) ; une part pour la migration de version (D2011) ; la dépréciation d'un élément de la reprise — la migration déclarée, l'entité source, la règle —, sa section écrite, les sources et les règles signalées, non les destinations, sans cascade, une règle désignée par son `name:` (D1873, D2011–D2016) | clos (D2017) |
 | 19 | **Le registre** : l'audit refait le 18/11/2026 — 64 amendées ou remplacées dont 11 non citées, 72 non citées à citer ou à reclasser, 87 lectures à confirmer, 3 marques en proposition — ; D181–D184, le stock de reprise à statuts, portées au chapitre du module (D2018) ; quatre blocs à solder — la famille, reconstituée (D2019), les amendées et les non citées, soldées (D2020), les lectures, levées en bloc, quatre gardées ouvertes (D2021), l'historique, qui sort à la réorganisation (D2022) | clos (D2023) |
+| 20 | **Ce que l'outil lit** : la description que le connecteur donne de la base, `get_instance()` — et si les données elles-mêmes se lisent pour dire ce que le schéma ne dit pas (D1299, D1907, D2026) | présenté |
+| 21 | **Ce que la base ne dit pas** : la table sans clé, le lien non déclaré, les modules qu'une base n'a pas — ce que l'outil pose par défaut, ce qu'il laisse au concepteur (D1035, D2026, D2028) | à traiter |
+| 22 | **Les noms** : Syncytium se pose sur la base telle qu'elle est — les entités et les champs gardent-ils les noms des tables et des colonnes (D2027) | à traiter |
+| 23 | **La vie commune et le retour** : ce que Syncytium écrit dans la base existante, l'application d'origine qui continue ou non d'y écrire, ce qui garantit le retour (D2026, D2029, D2030) | à traiter |
+| 24 | **La suite** : le dossier construit est une configuration comme une autre ; son évolution relève de la migration de version (D2029, D2098) | à traiter |

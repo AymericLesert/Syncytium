@@ -5,10 +5,11 @@
 > garantit quoi que la configuration déclare
 > ([glossaire](../../glossaire.md)).
 
-Treize invariants, recalculés après le recentrage du chapitre (D1823).
-Chacun renvoie aux décisions qui le fondent, et aux fichiers du chapitre
-qui le détaillent. Les décisions citées entre parenthèses renvoient au
-[registre](../../conception.md).
+La doctrine dit ce que Syncytium garantit ; ce fichier la resserre en
+une liste de contrôle. Elle compte treize invariants, recalculés après
+le recentrage du chapitre (D1823). Chacun renvoie aux décisions qui le
+fondent, et aux fichiers du chapitre qui le détaillent. Les décisions
+citées entre parenthèses renvoient au [registre](../../conception.md).
 
 ## Le sommaire
 

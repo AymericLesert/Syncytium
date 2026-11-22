@@ -146,7 +146,9 @@ banque, en trois langues :
 > élevé des groupes qui lui sont affectés
 > ([glossaire](../../glossaire.md)).
 
-Quatre degrés, du plus restreint au plus large (D699, D1140, D1680) :
+Tous les groupes n'ont pas la même latitude : lire, travailler au
+quotidien, répondre d'un métier, administrer. Syncytium la mesure en
+quatre degrés, du plus restreint au plus large (D699, D1140, D1680) :
 
 - `reader` lit la documentation, sans le détail des données ;
 - `user` travaille au quotidien : créer, lire, modifier, supprimer,
@@ -163,9 +165,9 @@ compte technique compris (D746).
 
 ### Le reader
 
-Le `reader` est né pour la documentation : « les documentations mises à
-disposition sans possibilité d'accéder au détail » (D1140). Ce qu'il
-voit et fait (D1794) :
+Le `reader` est né pour la documentation : elle est mise à sa
+disposition, sans qu'il puisse accéder au détail des données (D1140).
+Voici ce qu'il voit et ce qu'il fait (D1794) :
 
 - il lit la documentation que la confidentialité de ses groupes ouvre ;
   sans groupe, la seule documentation `public` ;
@@ -308,7 +310,9 @@ contrôlées par le connecteur (D1793) :
 
 ## Les modules, la délégation, le passe-droit
 
-Trois mécanismes complètent les groupes :
+Les groupes et leurs degrés règlent le cas général. Trois mécanismes
+les complètent, pour restreindre une surface, pour agir à la place d'un
+autre, ou pour débloquer un cas urgent :
 
 - **le module restreint** (D190, D416) : l'affectation d'un utilisateur
   à un module ouvre une surface, elle n'étend jamais un droit ;

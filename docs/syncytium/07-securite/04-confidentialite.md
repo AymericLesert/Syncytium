@@ -105,8 +105,10 @@ nommé est une erreur d'ingestion (D1799). Le client de l'entrepôt :
 
 ## L'héritage et l'historique
 
-Un champ calculé hérite du niveau le plus restrictif de ses sources, à
-travers les relations et les sources des hooks ; l'abaisser est un acte
+Une donnée protégée ne doit pas reparaître ailleurs, ni par un calcul,
+ni par le passé. C'est pourquoi la confidentialité s'hérite. Un champ
+calculé hérite du niveau le plus restrictif de ses sources, à travers
+les relations et les sources des hooks ; l'abaisser est un acte
 explicite, que la validation signale, jamais silencieux (D102). Quand une
 entité hérite d'une autre, un champ appartient à un niveau d'héritage et
 n'est visible que si l'enregistrement l'a atteint : la même machinerie
@@ -122,7 +124,9 @@ passé (D170). L'écriture d'`history:` est au chapitre 2
 
 ## Partout où la donnée sort
 
-La confidentialité suit la donnée hors du champ :
+Un champ ne se lit pas que dans un formulaire : sa valeur part dans un
+export, un fichier, un message, une documentation. La confidentialité
+suit donc la donnée hors du champ :
 
 - **les menus** ne montrent que les entrées visibles (D193) ;
 - **l'export** n'écrit que les colonnes visibles (D196) ;

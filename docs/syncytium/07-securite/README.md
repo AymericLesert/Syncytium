@@ -7,10 +7,11 @@
 > lu, écrit ou refusé ([glossaire](../../glossaire.md)).
 
 Qui entre, qui voit quelle donnée, qui fait quoi, ce qui s'enregistre : ce
-chapitre dit les droits et la sécurité en fonctionnement (D1784). Les
-groupes et les degrés d'abord, l'entrée, la confidentialité, l'audience, les
-droits d'action, le réglementaire, ce que la sécurité enregistre, les
-invariants, et ce que tout cela livre à la documentation. Le démarrage d'une
+chapitre dit les droits et la sécurité en fonctionnement (D1784). Il les
+prend dans cet ordre : les groupes et les degrés d'abord, puis l'entrée, la
+confidentialité, l'audience, les droits d'action et le réglementaire ;
+viennent enfin ce que la sécurité enregistre, les invariants, et ce que tout
+cela livre à la documentation. Le démarrage d'une
 version, les secrets et le chiffrement sont au chapitre 9, le moteur ; les
 journaux et la rétention à l'exploitation, le chapitre 10 ; la détection à la
 télémétrie, le chapitre 11 (D1786). Les décisions citées entre parenthèses renvoient au
@@ -74,7 +75,10 @@ télémétrie, le chapitre 11 (D1786). Les décisions citées entre parenthèses
 
 ## La doctrine
 
-Six principes, posés au fil des décisions, gouvernent tout le reste :
+La sécurité de Syncytium ne tient pas à une suite de protections ajoutées
+une à une : elle découle de quelques principes, que chaque fichier du
+chapitre applique. Ils sont six, posés au fil des décisions, et ils
+gouvernent tout le reste :
 
 1. **La sécurité par construction** (P8) : les droits vivent **au
    modèle** — la confidentialité au champ, l'audience à la ligne, les
@@ -101,9 +105,9 @@ Six principes, posés au fil des décisions, gouvernent tout le reste :
    la réactivation d'un enregistrement désactivé est **l'acte
    exceptionnel de l'administrateur**, hors socle et hors hook
    (D903).
-6. **La librairie inviolable** (D599) : « la librairie mise en place
-   assure l'inviolabilité des règles et des droits » — le hook, le
-   connecteur, le composant sont des citoyens du moteur, jamais des
+6. **La librairie inviolable** (D599) : la librairie que Syncytium met
+   en place assure l'inviolabilité des règles et des droits — le hook,
+   le connecteur, le composant sont des citoyens du moteur, jamais des
    super-utilisateurs ; un built-in passe par la même frontière qu'un
    externe (D52).
 

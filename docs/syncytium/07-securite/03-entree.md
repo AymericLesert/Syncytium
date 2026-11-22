@@ -139,7 +139,9 @@ l'invitation, le mot de passe oublié, le renouvellement, le verrouillage
 > agit sans se ré-authentifier. Elle ne fige jamais des droits
 > ([glossaire](../../glossaire.md)).
 
-Deux bornes règlent la session (D693) :
+Une fois entré, l'utilisateur ne se ré-authentifie pas à chaque geste ;
+il ne reste pas non plus connecté sans fin. Deux bornes règlent donc la
+session (D693) :
 
 - `duration`, l'inactivité au glissement : chaque action renouvelle le
   délai, le délai passé déconnecte ; huit heures par défaut ;

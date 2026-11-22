@@ -26,7 +26,9 @@ entre parenthèses renvoient au [registre](../../conception.md).
 
 ## La règle et ses trois écritures
 
-Un droit d'action est une règle à trois propriétés (D1795) :
+Permettre un acte, c'est répondre à trois questions : est-il permis, à
+qui, et à quelle condition. Un droit d'action est donc une règle à trois
+propriétés (D1795) :
 
 - `enable`, la règle générale, l'acte est permis ou non ;
 - `group`, les groupes qu'elle vise, tous par défaut, `[all]` ;

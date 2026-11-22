@@ -111,6 +111,16 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   le découpage vérifié, l'historique sorti, les liens —, puis la
   **réécriture** dans la forme ci-dessus, à la fin du chapitre, pour une
   relecture rapide ; la table de `docs/README.md` note les trois.
+- **À l'essai au chapitre 9 (D2128) : écrire d'abord, arbitrer sur le
+  texte.** Le chapitre s'écrit entier, d'un trait, réorganisé et réécrit,
+  avant toute lecture. Avec lui vient **une page des seuls vrais
+  arbitrages** — les décisions qui se contredisent, les manques, les
+  lectures jamais confirmées —, chacun par un exemple, deux ou trois
+  réponses et la recommandation de Claude ; le reste se tranche d'après
+  le registre et se marque *mien*, sans être soumis. L'auteur relit
+  fichier par fichier, « Section N - ok » ou ses remarques. **Une
+  décision par message de l'auteur**, chaque remarque citée mot pour
+  mot ; l'accord d'une section se note à la table d'avancement.
 - Un chapitre dit **ce qui est**, pas ce qui a été : l'historique reste au
   registre (D1822 — l'histoire est le récit du projet, `docs/histoire/`) ; les décisions sont citées entre parenthèses, elles
   renverront aux ADR.

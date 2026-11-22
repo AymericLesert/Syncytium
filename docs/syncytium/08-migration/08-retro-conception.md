@@ -224,7 +224,17 @@ Elle se montre en quatre temps :
 ### Le retour à l'application d'origine
 
 Le retour est possible parce qu'aucune donnée ne migre (D2030) : la
-base reste celle de l'application d'origine.
+base reste celle de l'application d'origine. Revenir, c'est arrêter
+Syncytium, et l'arrêt suffit (D2121) :
+
+- l'application d'origine n'a jamais cessé d'écrire : elle continue,
+  seule ;
+- la base reste comme Syncytium l'a laissée. L'application d'origine
+  ignore ce qu'elle ne connaît pas, la colonne technique d'une table
+  sans clé par exemple ;
+- le storage de Syncytium se garde, ou se supprime.
+
+Ce que le retour coûte dépend de ce qui a été fait :
 
 | Ce qui a été fait | Le retour |
 |---|---|

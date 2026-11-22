@@ -14,6 +14,8 @@ budget:
   filter: Budget = "FERMETURE" and montant_signe != 0
   parent: { compte: Numero_Compte }
   fields:
+    fichier:  connector.filename
+    numero:   connector.line
     date_operation: Date_Operation
     date_comptable: Date_Comptable
     libelle:  "Solde de clôture"

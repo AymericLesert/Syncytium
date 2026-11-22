@@ -17,6 +17,8 @@ budget:
   filter: Budget = "OUVERTURE" and montant_signe != 0
   parent: { compte: Numero_Compte }
   fields:
+    fichier:  connector.filename
+    numero:   connector.line
     date_operation: Date_Operation
     date_comptable: Date_Comptable
     libelle:  "Dépôt initial"

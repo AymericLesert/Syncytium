@@ -558,11 +558,13 @@ d'une autre renvoie à ses champs.
 > ### 3.2 Les écritures — par date d'opération
 >
 > **Une écriture bancaire — la date, le libellé, le budget, le montant,
-> le mode, le lieu.**
+> le mode, le lieu.** Son identité est son fichier d'origine et son
+> numéro.
 >
 > | Champ | Type | Obligatoire | Aide | Description |
 > |---|---|---|---|---|
-> | Numéro | un compteur, attribué à la validation | — | — | Le compteur automatique, masqué aux surfaces. |
+> | Fichier d'origine | un texte de 40 caractères au plus | oui (identité) | — | Le fichier du legacy d'où l'écriture est reprise ; vide pour une écriture saisie. Masqué aux surfaces. |
+> | Numéro | un compteur, attribué à la validation | oui (identité) | — | La ligne du fichier pour une écriture reprise, le compteur pour une écriture saisie. Masqué aux surfaces. |
 > | Date d'opération | une date | oui | — | — |
 > | Date comptable | une date | non | Renseignée au pointage. | — |
 > | Libellé | un texte de 100 caractères au plus | non | — | — |
@@ -811,3 +813,5 @@ Aucun orphelin.
 **Le 05/11/2026, D1773** : `creer_releve` est au menu, l'entrée `releve` du sous-menu des écritures, `link: banque.ecriture.creer_releve`, avec son libellé en trois langues ; l'opération se déclenche aussi par `generated`.
 
 **Le 05/11/2026, D1774** : les listes de l'écriture écrivent `actions: [duplicate]`, le verbe du catalogue, et non plus `copy`.
+
+**Le 22/11/2026, D2093** : l'écriture reçoit son identité, `identity: [fichier, numero]` — le champ `fichier` est nouveau, vide pour une écriture saisie ; les règles `002_depots`, `005_ecritures` et `007_soldes` alimentent `fichier: connector.filename` et `numero: connector.line` ; la description de `005_ecritures` ne dit plus « sans identité — création seule » : toute entité porte une identité (D1035).

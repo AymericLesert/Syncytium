@@ -2,25 +2,23 @@
 budget:
   description:
     fr: >-
-      La phase 2 : les écritures courantes, hors marqueurs. La règle est sans identité — création seule : le legacy n'a
-      aucune clé naturelle, 54 doublons du quintuple compte, date, libellé, montant ; la migration en absolute avec
-      remise à zéro l'admet, la garde de l'ingestion le vérifie. Le numéro d'écriture naît au fil de la création, dans
-      l'ordre du fichier. La règle empile les virements référencés au cache — la première phase du rapprochement.
+      La phase 2 : les écritures courantes, hors marqueurs. Le legacy n'a aucune clé naturelle, 54 doublons du quintuple
+      compte, date, libellé, montant : l'identité de l'écriture est donc le fichier et la ligne, que le connecteur
+      donne. La règle empile les virements référencés au cache — la première phase du rapprochement.
     en: >-
-      Phase 2: the ordinary entries, markers excluded. The rule has no identity — creation only: the legacy has no
-      natural key, 54 duplicates of the quintuple account, date, description, amount; the absolute migration with a
-      reset allows it, the ingestion guard checks it. The entry number is born as entries are created, in the order of
-      the file. The rule pushes the referenced transfers onto the cache — the first phase of the matching.
+      Phase 2: the ordinary entries, markers excluded. The legacy has no natural key, 54 duplicates of the quintuple
+      account, date, description, amount: the identity of an entry is therefore the file and the line, which the
+      connector gives. The rule pushes the referenced transfers onto the cache — the first phase of the matching.
     es: >-
-      La fase 2: los apuntes corrientes, sin los marcadores. La regla no tiene identidad — solo creación: el legacy no
-      tiene ninguna clave natural, 54 duplicados del quíntuple cuenta, fecha, concepto, importe; la migración en
-      absolute con puesta a cero lo admite, la guarda de la ingestión lo verifica. El número de apunte nace al hilo de
-      la creación, en el orden del fichero. La regla apila las transferencias referenciadas en la caché — la primera
-      fase de la conciliación.
+      La fase 2: los apuntes corrientes, sin los marcadores. El legacy no tiene ninguna clave natural, 54 duplicados
+      del quíntuple cuenta, fecha, concepto, importe: la identidad del apunte es por tanto el fichero y la línea, que
+      da el conector. La regla apila las transferencias referenciadas en la caché — la primera fase de la conciliación.
   to: banque.ecriture
   filter: Budget != "OUVERTURE" and Budget != "FERMETURE"
   parent: { compte: Numero_Compte }
   fields:
+    fichier:  connector.filename
+    numero:   connector.line
     date_operation: Date_Operation
     date_comptable: Date_Comptable
     libelle:  Designation

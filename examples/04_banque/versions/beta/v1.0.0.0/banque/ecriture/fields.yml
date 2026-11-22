@@ -1,12 +1,21 @@
 # L'identité et les dates
 
+fichier:
+  type: text[..40]
+  default: ""
+  label: { fr: Fichier d'origine, en: Source file, es: Fichero de origen }
+  description:
+    fr: Le fichier du legacy d'où l'écriture est reprise ; vide pour une écriture saisie. Masqué aux surfaces.
+    en: The legacy file the entry was taken from; empty for an entry keyed in. Hidden from the screens.
+    es: El fichero del legacy del que procede el apunte; vacío para un apunte tecleado. Oculto en las pantallas.
+
 numero:
   type: counter
   label: { fr: Numéro, en: Number, es: Número }
   description:
-    fr: Le compteur automatique, masqué aux surfaces.
-    en: The automatic counter, hidden from the screens.
-    es: El contador automático, oculto en las pantallas.
+    fr: La ligne du fichier pour une écriture reprise, le compteur pour une écriture saisie. Masqué aux surfaces.
+    en: The line of the file for an entry taken over, the counter for an entry keyed in. Hidden from the screens.
+    es: La línea del fichero para un apunte recuperado, el contador para uno tecleado. Oculto en las pantallas.
 
 date_operation:
   type: date

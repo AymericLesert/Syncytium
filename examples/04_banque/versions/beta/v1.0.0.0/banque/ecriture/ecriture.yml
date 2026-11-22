@@ -12,6 +12,11 @@ description:
 # Le visage texte
 label: "${name}"
 
+# L'identité
+# Le fichier d'origine et le numéro : la ligne du fichier pour une écriture reprise, le compteur pour une écriture
+# saisie, dont le fichier est vide.
+identity: [fichier, numero]
+
 # Les champs
 # Rangés par groupe.
 fields: ~{fields.yml}

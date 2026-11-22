@@ -250,7 +250,11 @@ Pour une règle, cela donne :
   inchangée, que le différentiel ignore ;
 - quand la source n'a aucune clé naturelle, l'identifiant de la ligne
   en tient lieu : dans le véhicule, le journal des entretiens écrit
-  `numero: connector.line` (D849, D2092).
+  `numero: connector.line` (D849, D2092) ;
+- quand la source réunit plusieurs fichiers, la ligne se répète de l'un
+  à l'autre : l'identité prend alors le fichier et la ligne. Dans la
+  banque, une écriture reprise écrit `fichier: connector.filename` et
+  `numero: connector.line` (D2093).
 
 ### Plusieurs identités
 

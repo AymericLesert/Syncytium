@@ -3,9 +3,12 @@
 > **Un champ** est la plus petite donnée d'une entité. Il a un nom, un
 > type et des propriétés ([glossaire](../../glossaire.md)).
 
-Les champs d'une entité forment une carte ordonnée : le nom du champ est
-la clé, l'ordre de déclaration est l'ordre d'affichage par défaut. Ils
-s'écrivent sous `fields:`, en place ou dans un fichier, `fields.yml`.
+Après l'en-tête viennent les champs. Ils forment une carte ordonnée : le
+nom du champ est la clé, et l'ordre de déclaration est l'ordre
+d'affichage par défaut. Ils s'écrivent sous `fields:`, en place ou dans
+un fichier, `fields.yml`. Ce fichier montre leurs deux écritures, leurs
+groupes et leurs propriétés, puis ce qui arrive à un champ d'une version
+à l'autre : son renommage, sa dépréciation.
 
 ## Le sommaire
 
@@ -55,10 +58,11 @@ km_initial:
 > ([glossaire](../../glossaire.md)). Il ne se confond pas avec **un
 > groupe d'utilisateurs**, qui porte les droits.
 
-Dans la même carte, une clé qui porte `fields:` sans `type:` est un
-**groupe** (D1279, D1289). Il a son `title:`, par langue, et ses champs,
-en place ou dans un fichier. L'entrepôt range les prix de l'article dans
-un groupe :
+Une entité riche compte des dizaines de champs : l'article de l'entrepôt
+en a plus de trente. Pour les ranger, la carte des champs admet des
+groupes. Une clé qui porte `fields:` sans `type:` est un **groupe**
+(D1279, D1289). Il a son `title:`, par langue, et ses champs, en place
+ou dans un fichier. L'entrepôt range ainsi les prix de l'article :
 
 ```yaml
 # Les prix : un groupe, son titre et ses champs dans un fichier
@@ -130,6 +134,10 @@ classDiagram
 ```
 
 ## Les propriétés d'un champ
+
+Le type dit ce qu'un champ contient ; ses propriétés disent comment il
+se comporte. Elles se rangent en quatre familles : le type et les liens,
+la saisie, le calcul et les valeurs, la documentation.
 
 ### Le type et les liens
 

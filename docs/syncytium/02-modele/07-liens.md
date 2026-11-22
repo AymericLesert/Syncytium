@@ -32,7 +32,8 @@ fichier décrit ces types ; ceux qu'un hook ajoute sont dans
 
 ### `list of <type simple>`, la liste
 
-« La phrase se lit » : `list of text`, une liste de textes (D296, D362).
+Le type se lit comme une phrase : `list of text`, une liste de textes
+(D296, D362).
 
 - **Les facettes du champ s'appliquent à chaque élément.**
 - **Une liste d'énumérés**, avec `values:`, se saisit en multi-sélection.
@@ -43,8 +44,8 @@ dans [les collections](../03-langage/03-collections.md).
 
 ### `range of <type>`, la plage
 
-Le registre la définit : « la déclinaison de `list of` avec 2
-contraintes en nombre et en ordre » (D497, D498).
+La plage est une déclinaison de `list of`, avec deux contraintes : sur
+le nombre de ses valeurs, et sur leur ordre (D497, D498).
 
 - **Deux valeurs**, la première inférieure ou égale à la seconde.
 - **Le minimum ou le maximum peut manquer** : la plage est ouverte.
@@ -61,9 +62,9 @@ contraintes en nombre et en ordre » (D497, D498).
 
 ### La référence, `<module>.<entité>`
 
-Le registre le dit : « si le type est le nom d'une entité, c'est une
-référence » (D394–D398, D216). Aucun `to:` n'est nécessaire. La ligne
-de vente de l'entrepôt référence son article :
+Quand le type d'un champ est le nom d'une entité, le champ est une
+référence (D394–D398, D216). Aucun `to:` n'est nécessaire. La ligne de
+vente de l'entrepôt référence ainsi son article :
 
 ```yaml
 # L'article de la ligne : une référence vers une entité d'un autre module
@@ -151,8 +152,8 @@ Elle reprend les propriétés de la référence : le filtre, `me.`,
 
 ### L'association dérivée, `association with <entité> if …`
 
-Une vue navigable, jamais stockée, en lecture seule (D405). La vérité
-reste la référence. Le dépôt de l'entrepôt atteint ainsi ses niveaux et
+L'association dérivée est une vue navigable, jamais stockée, en lecture
+seule (D405). La vérité reste la référence. Le dépôt de l'entrepôt atteint ainsi ses niveaux et
 ses mouvements :
 
 ```yaml
@@ -204,8 +205,9 @@ classDiagram
 
 ### Le lien n-aire, `list of [a, b]`
 
-Chaque élément est une combinaison des entités nommées (D402). Chaque
-entité nommée a ses propriétés.
+Un lien peut croiser plusieurs entités. Chaque élément de la liste est
+alors une combinaison des entités nommées (D402), et chaque entité
+nommée a ses propriétés.
 
 - **Une dimension de valeur typée** peut s'ajouter aux entités (D897) :
   `list of [tiers.tiers, tranche: text[1], date_application: date]`, le
@@ -323,8 +325,8 @@ numero:
 
 ### Le champ calculé, `formula:`
 
-Une expression du langage (D255, D298). Le champ est en lecture seule et
-se recalcule dès qu'une dépendance change. Son composant est celui de
+Le champ calculé porte une expression du langage (D255, D298). Il est en
+lecture seule et se recalcule dès qu'une dépendance change. Son composant est celui de
 son type de résultat. Les valeurs nommées d'une fonction se lient au
 point (D593).
 
@@ -351,7 +353,8 @@ stateDiagram-v2
 
 ### L'entité `context`
 
-Le moteur, en lecture seule (D254, D588–D591). Ses parties :
+`context` est l'entité du moteur, en lecture seule (D254, D588–D591).
+Ses parties :
 
 - `user`, l'utilisateur, traversable ;
 - `location`, `now` ;

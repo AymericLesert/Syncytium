@@ -6,9 +6,11 @@
 > Syncytium le fournit, ou un hook l'ajoute
 > ([glossaire](../../glossaire.md)).
 
-Un composé reçoit les facettes communes à tous les types
-([05-types.md](05-types.md)), sa validation intégrée et ses facettes propres
-(D391). Trois règles valent pour tous.
+Certaines valeurs ne tiennent pas en un nombre ou en un texte : un
+montant va avec sa devise, une mesure avec son unité. Les types composés
+les portent d'un bloc. Un composé reçoit les facettes communes à tous
+les types ([05-types.md](05-types.md)), sa validation intégrée et ses
+facettes propres (D391). Trois règles valent pour tous.
 
 - **Le nul se trie en premier.**
 - **Les parties s'atteignent au point**, par des fonctions du type
@@ -206,9 +208,9 @@ reliées, dans l'unité du champ (D887).
 
 ### Les volumes
 
-Sur des millions de lignes, la conversion pèse (D985). Le registre le
-dit : « nous devons prévoir un mécanisme qui permette de précalculer des
-valeurs pour accélérer les calculs » (D1012). La piste est à
+Sur des millions de lignes, la conversion pèse (D985). Un mécanisme est
+donc à prévoir, qui précalcule des valeurs pour accélérer les calculs
+(D1012). La piste est à
 l'implémentation : une unité canonique de stockage, `storage:
 <unité>`, la valeur convertie stockée à côté de l'origine ; les fonctions d'agrégation
 poussés au storage ; les calculés matérialisés à l'écriture (D378,
@@ -262,7 +264,8 @@ Le tri se fait sur la valeur ; le nul vaut 0.
 
 ## `phone`, le téléphone
 
-Le numéro national, le défaut, ou international (D391).
+Le téléphone porte un numéro : national, le défaut, ou international
+(D391).
 
 ## `geolocation`, la géolocalisation
 
@@ -320,8 +323,8 @@ cellule (D563).
 
 ## `communication`, le fil
 
-Un fil de messages : un canal est un champ, et ne se liste pas (D166,
-D295, D393).
+Le type `communication` porte un fil de messages. Un canal est un champ,
+et ne se liste pas (D166, D295, D393).
 
 - `attachments: false` par défaut, ou le type des pièces jointes, à plat.
 - La visibilité suit la confidentialité.
@@ -329,6 +332,7 @@ D295, D393).
 
 ## `label`, le libellé nommé
 
-L'accès au catalogue des libellés (D440, D585, D586). Le libellé nommé
+Le type `label` donne accès au catalogue des libellés (D440, D585,
+D586). Le libellé nommé
 se paramètre : `label(mon_nom, { prenom: … })`, ou l'enregistrement en
 paramètre, `label(mon_nom, customer)`. L'ordre des mots suit la langue.

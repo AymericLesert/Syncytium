@@ -55,8 +55,8 @@ stockage, l'ingestion le refuse (D681, D1690).
   des opérateurs, les comparateurs, le tri, ses fonctions, qui sont ses
   méthodes (D1674), et pour un composé l'accès à ses parties (D772,
   D773). Voir [la signature d'un type](05-types.md#la-signature-dun-type).
-- **Sa représentation** (D458, D459) : « aucun type sans visage », le
-  composant d'écran au nom du type et le rendu de document. Voir
+- **Sa représentation** (D458, D459) : aucun type n'est sans visage ; il
+  livre le composant d'écran au nom du type et le rendu de document. Voir
   [le composant par défaut](05-types.md#le-composant-par-défaut).
 - **Ses règles de stockage** (D681–D684, D1296–D1298) : la déclinaison
   en types élémentaires, la forme pivot, l'identification, les trois
@@ -82,12 +82,12 @@ D1576).
 
 ### Le pivot avec le storage
 
-Le storage influe sur le hook de type (D1297) : « Le storage influe le
-hook des types pour définir les propriétés ou les éléments à couvrir.
-Au storage de faire le nécessaire pour exploiter au mieux ces
-données. » Le storage énonce ce qu'il attend d'un type : la forme
-native, les gestes, l'identification, les index qu'il sait porter, la
-partition. Le type le fournit ; le storage en tire le meilleur parti.
+Un type ajouté ne décide pas seul de sa forme en base. Le storage influe
+sur le hook de type (D1297) : c'est lui qui définit les propriétés et
+les éléments qu'un type doit couvrir, et c'est à lui d'exploiter au
+mieux ces données. Le storage énonce donc ce qu'il attend d'un type : la
+forme native, les gestes, l'identification, les index qu'il sait porter,
+la partition. Le type le fournit ; le storage en tire le meilleur parti.
 
 Tout type se décline en types élémentaires (D1298, D1300), le format
 pivot :
@@ -193,24 +193,24 @@ isbn: isbn
 > type ; un type ajouté par un hook décrit les siennes dans sa fiche
 > ([glossaire](../../glossaire.md)).
 
-Une fonction est une méthode d'un type (D1674) ; la fonction n'est pas
-une famille de hooks (D1702). Le hook de fonction est
-porté par le type qui expose ses fonctions (D1676) : « le hook de
-fonction est porté par le type qui exposera ses fonctions ». Un type apporté
-par un hook décrit donc ses méthodes dans sa propre fiche, sous la clé
+Un type ajouté n'apporte pas que des valeurs : il apporte aussi ses
+calculs. Une fonction est en effet une méthode d'un type (D1674) ; la
+fonction n'est pas une famille de hooks (D1702). Le hook de fonction est
+porté par le type qui expose ses fonctions (D1676). Un type apporté par
+un hook décrit donc ses méthodes dans sa propre fiche, sous la clé
 `methods:`, une clé par méthode avec la description d'une fonction
 (D1700). L'appel s'écrit `isbn.check()`, la forme des méthodes. Une
 méthode ajoutée à un type du socle, `text` par exemple, se déclarera de
 même, dans une fiche au nom du type — *en proposition*, la forme se
 précisera à l'implémentation. Une fonction déclarée par sa signature hors
-de tout type, comme l'ancien exemple `extract_name`, « décrit plutôt un
-hook d'opérations » (D1701).
+de tout type, comme l'ancien exemple `extract_name`, décrit plutôt un
+hook d'opérations (D1701).
 
-Les méthodes se complèteront à l'implémentation (D1684) : « ça
-assurera le lien entre le socle et les composants ajoutés. En fonction
-de l'architecture technique et des composants techniques, les règles
-peuvent être revues et corrigées. Pour le moment, ça couvre le besoin et
-ça reste vrai. »
+Les méthodes se complèteront à l'implémentation (D1684) : elles
+assureront le lien entre le socle et les composants ajoutés. Selon
+l'architecture technique et les composants techniques retenus, ces
+règles pourront être revues et corrigées. Pour le moment, elles couvrent
+le besoin, et elles restent vraies.
 
 ### Le contrat
 
@@ -228,8 +228,8 @@ Une méthode ajoutée est un calcul pur (D571) :
   (D592).
 
 Les fonctions libres, `min`, `max`, `sum`, `avg` (D583, D587), restent
-au catalogue de Syncytium : « le catalogue s'enrichira, si besoin ». Le
-projet n'en ajoute pas, une fonction du projet est une méthode (D1702).
+au catalogue de Syncytium, qui s'enrichira si besoin. Le projet n'en
+ajoute pas, une fonction du projet est une méthode (D1702).
 Elles sont décrites au chapitre 3,
 [le catalogue des fonctions](../03-langage/04-fonctions.md).
 

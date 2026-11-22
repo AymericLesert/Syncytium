@@ -83,10 +83,10 @@ entre parenthèses renvoient au [registre](../../conception.md).
 
 ### Le module déclare ses entités
 
-Un module liste ses entités dans son fichier, par `entities:` (D765,
-D766). Les chemins sont relatifs au fichier courant (D768). Rien ne se
-déduit de l'arborescence : une entité que le module ne cite pas n'existe
-pas (D767).
+Le modèle se lit du module vers ses entités. Un module liste donc ses
+entités dans son fichier, par `entities:` (D765, D766), et les chemins
+sont relatifs à ce fichier (D768). Rien ne se déduit de l'arborescence :
+une entité que le module ne cite pas n'existe pas (D767).
 
 ```yaml
 # Les entités du module, en liste explicite
@@ -184,8 +184,9 @@ une convention, pas une règle, et le mot juste prime : l'entrepôt écrit
 
 ### L'entité se documente elle-même
 
-C'est l'un des dix piliers. Ce que l'entité dit d'elle-même nourrit à la
-fois les écrans et la documentation générée (D258) :
+Décrire une entité, c'est déjà la documenter : c'est l'un des dix
+piliers. Ce que l'entité dit d'elle-même nourrit à la fois les écrans et
+la documentation générée (D258) :
 
 - `name:`, son nom invariant ;
 - `title:`, son nom d'usage, par langue ;

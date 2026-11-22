@@ -38,10 +38,10 @@ Les documentations elles-mêmes sont décrites dans
 ## L'entité dans le diagramme
 
 La documentation générée porte un volet « modèle de données », en
-diagrammes de classes UML calculés depuis la configuration (D1119). Le
-registre en dit le but : « pour que le modèle soit facilement
-perceptible par un opérateur ou un décideur ». Les niveaux de lecture
-et les lecteurs sont au §5 de [documentation.md](../../documentation.md).
+diagrammes de classes UML calculés depuis la configuration (D1119). Son
+but : que le modèle soit facilement perceptible par un opérateur ou un
+décideur. Les niveaux de lecture et les lecteurs sont au §5 de
+[documentation.md](../../documentation.md).
 
 Ce que chaque élément de la configuration devient au diagramme (D1213,
 D1278) :
@@ -153,6 +153,10 @@ qu'écrite, et le nom de l'opération qui déclenche le passage s'il y en a
 une. Les actes `allow:` sont en note, la table des états en détail.
 
 ## La facette de l'entité et du champ
+
+Les neuf documentations ne reçoivent pas la même chose de l'entité et du
+champ : là une section entière, ici une ligne, ailleurs rien de propre.
+Les parties qui suivent les prennent une à une.
 
 ### Dans la documentation fonctionnelle
 
@@ -357,6 +361,9 @@ Aucune donnée réelle n'entre dans la plaquette ni dans le mode public
 
 ## La facette du type
 
+Le type, lui, se montre rarement sous son nom. Il livre surtout sa forme
+en clair, que les documentations reprennent chacune à sa façon.
+
 ### Dans la documentation fonctionnelle
 
 Le type ne s'y nomme jamais. Il se dit **en clair**, dans la langue du
@@ -391,13 +398,13 @@ Le type remplit la colonne « Type » de la table d'une entité, avec les
 marques : l'italique pour le calculé, « * » pour `rgpd:` (D1213, D1215).
 
 - **Le hook de type livre la même facette** : le type en clair, ses
-  contraintes, son exemple, dans chaque langue du moteur (D1162). Le
-  registre le dit : « les hooks de type devront être adaptés pour que
-  cela s'intègre parfaitement » (D1215). Le contrat est dans
+  contraintes, son exemple, dans chaque langue du moteur (D1162). Les
+  hooks de type doivent s'y adapter, pour que leur ligne s'intègre
+  parfaitement (D1215). Le contrat est dans
   [les hooks du modèle](08-hooks.md).
 - **Dans le dictionnaire de la donnée, le type en clair est le type tel
-  qu'appliqué** (D1253). Le registre le dit : « les settings deviennent
-  invisibles car intégrés au type ». La facette résout les trois niveaux
+  qu'appliqué** (D1253). Les settings y deviennent invisibles, car ils
+  sont intégrés au type. La facette résout les trois niveaux
   de réglages (D1239) avant de livrer sa forme, « une date, écrite
   AAAAMMJJ », sans dire d'où vient le masque. Il n'y a pas de chapitre
   des types ni des réglages : le type vit dans la table des champs.

@@ -44,6 +44,11 @@ ajoute, [08-hooks.md](08-hooks.md).
 
 ## Le socle commun
 
+Avant leurs différences, les types ont beaucoup en commun : un nom, des
+facettes, une règle de tri, une signature, une forme en base. Cette
+partie décrit ce socle, que chaque fiche des types simples suppose
+ensuite.
+
 ### Un seul espace de noms
 
 Le nom d'un type est sa clé (D408). Le catalogue, les types dérivés
@@ -200,10 +205,10 @@ Le dérivé a son entrée au glossaire de la documentation, le vocabulaire
 du métier (D1179) : son `title:` et sa `description:` par langue, sa
 base, ses facettes, les champs qui l'emploient. La complétude compte le
 dérivé sans description. Chaque type livre au dictionnaire des données
-sa ligne : le type en clair, ses contraintes, son exemple (D1215). Le
-registre le dit : « le dictionnaire de données est construit par
-Syncytium à partir d'informations qui sont fournies par chaque item ».
-Le détail est dans [09-documentation.md](09-documentation.md).
+sa ligne : le type en clair, ses contraintes, son exemple (D1215).
+Syncytium construit en effet ce dictionnaire à partir de ce que chaque
+item fournit. Le détail est dans
+[09-documentation.md](09-documentation.md).
 
 ### La dépréciation d'un type dérivé
 
@@ -301,6 +306,10 @@ Le composant d'écran par défaut d'un champ porte le nom de son type
 (D458) : un champ `date` s'affiche par le composant `date`.
 
 ## Les types simples
+
+Voici les quatorze types simples du catalogue. Chaque fiche dit ce que
+le type accepte, ses bornes, ses facettes propres et son tri ; les
+facettes communes, vues plus haut, ne sont pas redites.
 
 ### `boolean`
 
@@ -445,9 +454,9 @@ Le tri : le nul en tête.
 ### `file`
 
 Le fichier est un descripteur ; le contenu est derrière (D160–D165, D384,
-D972). Le registre le dit : « le nom du fichier, sa taille, sa date de
-création, sa date de dernière modification, éventuellement une clé de
-hashage si la propriété file `hash` est `true` ».
+D972). Ce descripteur porte le nom du fichier, sa taille, sa date de
+création, sa date de dernière modification et, quand la facette `hash`
+est à `true`, une clé de hachage.
 
 Les facettes du fichier :
 

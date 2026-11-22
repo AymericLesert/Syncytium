@@ -4,10 +4,10 @@
 > relationnel : le client, la commande, l'article. Elle a ses champs,
 > ses règles, sa présentation ([glossaire](../../glossaire.md)).
 
-Une entité se décrit dans un fichier d'en-tête. Il dit son nom, son
-identité, son visage, son cycle de vie, et renvoie à ses champs, à ses
-opérations et à sa présentation. Le véhicule (le cas 3) est l'exemple
-complet :
+Une entité se décrit dans un fichier d'en-tête. Ce fichier dit d'abord
+qui elle est : son nom, son identité, son visage, son cycle de vie. Il
+renvoie ensuite à ce qu'elle porte : ses champs, ses opérations, sa
+présentation. Le véhicule (le cas 3) en donne l'exemple complet :
 
 ```yaml
 # Le véhicule
@@ -63,6 +63,10 @@ validation:
 
 ## Le nom et les textes
 
+Une entité ne porte pas un seul nom : la configuration l'adresse,
+l'écran la montre, la documentation l'explique. Ses propriétés de texte
+répondent chacune à l'un de ces besoins :
+
 - **`name:`** est le nom de l'entité, invariant quelle que soit la
   langue (D124, D1120). L'adresse `<module>.<entité>` en découle (D394,
   D765). Une entité renommée dit son ancien nom par `from:`, comme un
@@ -88,8 +92,9 @@ validation:
 > interne et invisible de l'enregistrement, un UUID qui ne change jamais
 > ([glossaire](../../glossaire.md)).
 
-L'identité s'écrit `identity: [immatriculation]`. Six règles
-l'encadrent.
+Dans le véhicule, l'identité s'écrit `identity: [immatriculation]` : la
+plaque suffit à distinguer un véhicule d'un autre. Six règles encadrent
+cette clé.
 
 - **Toute entité en porte une**, la sienne ou celle de sa racine
   d'héritage, que les dérivés conservent (D1035, D1039). Une entité sans
@@ -142,6 +147,10 @@ ensemble (D1953) :
 > chaque état déclare ses droits et ses passages
 > ([glossaire](../../glossaire.md)).
 
+Trois propriétés de l'en-tête règlent ce qui arrive à un enregistrement
+au fil du temps : les états qu'il traverse, ce qu'il reçoit d'un parent,
+la mémoire qu'il garde. L'en-tête les déclare :
+
 - **`states:`** désigne le champ énuméré qui porte le cycle de vie,
   `states: statut` (D424). Ses valeurs portent les droits par état et le
   graphe des passages ([03-champs.md](03-champs.md), `values:`).
@@ -155,6 +164,9 @@ ensemble (D1953) :
   documentation l'écrit en clair, « pas d'historique » (D1173).
 
 ## Les champs, les opérations, la présentation, la partition
+
+Le reste de l'en-tête dit ce que l'entité porte, et comment sa table se
+découpe :
 
 - **`fields:`** porte les champs, en place ou par fichier (D767) ; ils
   sont décrits dans [les champs](03-champs.md).
@@ -175,10 +187,11 @@ l'ordre (D968) : c'est un mécanisme de la
 > valeur ; sur l'entité, la cohérence de l'enregistrement
 > ([glossaire](../../glossaire.md)).
 
-`validation:` porte les règles de l'entité : des expressions booléennes,
-évaluées au scellé de la transaction, après chaque modification (D156,
-D594). Une règle s'écrit sous deux formes, mêlables dans la même liste
-(D1116, D1117) :
+Certaines erreurs ne se voient qu'en regardant l'enregistrement entier :
+dans le véhicule, une vente datée avant l'achat. `validation:` porte ces
+règles de l'entité : des expressions booléennes, évaluées au scellé de
+la transaction, après chaque modification (D156, D594). Une règle
+s'écrit sous deux formes, mêlables dans la même liste (D1116, D1117) :
 
 - **la forme courte**, l'expression seule ;
 - **la forme longue**, `rule:`, `description:`, `message:`, et
@@ -274,8 +287,10 @@ La famille entière est au chapitre 6, [les opérations](../06-operations/README
 
 ## La présentation — le renvoi
 
-L'entité accroche ses surfaces dans `gui:`. Chacune est nommée ; la
-première déclarée est la surface par défaut (D437, D438).
+Une entité ne se montre pas d'une seule façon : une liste pour la
+trouver, un formulaire pour la saisir, une carte ou un graphique pour la
+résumer. Elle accroche ces surfaces dans `gui:`. Chacune est nommée, et
+la première déclarée est la surface par défaut (D437, D438).
 
 | Le bloc | La surface | L'essentiel |
 |---|---|---|
@@ -343,8 +358,8 @@ deprecation:
 ```
 
 **Ce que la dépréciation d'une entité touche.** Elle ne s'arrête pas à
-l'en-tête (D1877). Le registre le dit : « La dépréciation d'une entité va
-avoir un impact sur tous les champs de l'entité dépréciée » (D1875).
+l'en-tête (D1877) : déprécier une entité a un impact sur tous ses champs
+(D1875), et sur tout ce qui s'appuie sur elle.
 
 - tous les champs de l'entité, touchés avec elle ;
 - ses surfaces et ses opérations ;

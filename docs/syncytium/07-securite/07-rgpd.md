@@ -181,7 +181,7 @@ operations:
   # L'anonymisation
   anonymiser:
     every: monthly[1 at 03:00]
-    actions: [ rgpd.anonymize(owner.actif = false and owner.date_modification < context.now - 3y) ]
+    actions: rgpd.anonymize(owner.actif = false and owner.date_modification < context.now - 3y)
     rgpd:
       purpose: Effacer l'identité des contacts des tiers sortis de l'ERP depuis plus de trois ans
 ```

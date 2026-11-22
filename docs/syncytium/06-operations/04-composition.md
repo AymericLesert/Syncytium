@@ -26,7 +26,9 @@ comme une suite d'actions (D1750) : l'exécution de son hook, puis les
 effets qui diffusent le résultat, puis d'autres opérations.
 
 `actions:` porte la liste des opérations à engager après la réalisation
-de l'opération (D1745, D1751). Chacune part après le commit, dans sa
+de l'opération (D1745, D1751). Une seule action s'écrit sans crochets,
+`actions: notify` ; à plusieurs, elles s'écrivent en liste (D2076).
+Chacune part après le commit, dans sa
 propre transaction, avec son `execution:` ; chacune est une tâche de la
 file (D55). Les valeurs nommées que l'opération rend, `nb_creations`,
 `nb_updates` (D598), nourrissent leurs paramètres. Une action qui échoue

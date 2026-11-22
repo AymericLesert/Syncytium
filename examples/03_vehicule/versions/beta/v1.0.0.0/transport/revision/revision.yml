@@ -24,8 +24,7 @@ operations:
   notifier:
     when: echue
     commit: auto
-    actions:
-      - notify
+    actions: notify
 
 # La cohérence des données
 validation:

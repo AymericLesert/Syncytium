@@ -24,6 +24,7 @@ au [registre](../../conception.md).
   - [Ce qu'il lit](#ce-quil-lit)
   - [Les indices de l'analyse](#les-indices-de-lanalyse)
   - [Ce que la base ne dit pas](#ce-que-la-base-ne-dit-pas)
+  - [Les noms](#les-noms)
   - [Le partage](#le-partage)
   - [Aucune donnée ne migre](#aucune-donnée-ne-migre)
 - [Un scénario de démonstration](#un-scénario-de-démonstration)
@@ -130,6 +131,17 @@ modèle de données (D2113) :
 
 - si le connecteur sait construire des modules, l'outil les utilise ;
 - sinon, toutes les entités vont dans un seul module.
+
+### Les noms
+
+Syncytium se pose sur la base telle qu'elle est : les entités et les
+champs gardent les noms des tables et des colonnes, tels quels (D2116).
+L'application d'origine lit toujours ses tables par ces noms. En
+illustration, une rétro-conception de PMI donnerait l'entité `ARTICLE`
+et son champ `ARKTCODART`.
+
+Le sens lisible se donne par les libellés : « Code article », que
+l'utilisateur voit à l'écran.
 
 ### Le partage
 

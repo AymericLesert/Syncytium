@@ -474,7 +474,7 @@ socle (D609). L'entrepôt en déclare deux :
     # Chaque nuit, la migration relit les plages récentes des tables partitionnées et les autres tables en entier.
     delta_nocturne:
       every: daily[02:00]
-      operations: [ migrate ]
+      operations: migrate
 
     # La relecture complète
     # La nuit de samedi, la couverture des tables partitionnées revient au départ : la migration du dimanche relit
@@ -489,6 +489,10 @@ socle (D609). L'entrepôt en déclare deux :
         - reset_coverage(ECOMFOU)
         - reset_coverage(LCOMFOU)
 ```
+
+Une opération périodique qui ne lance qu'une opération l'écrit sans
+crochets : `operations: migrate` (D2063). À plusieurs, elle les écrit
+en liste, comme la relecture complète.
 
 C'est le rythme type : le delta en semaine, la relecture complète le
 dimanche, préparée dans la nuit de samedi.

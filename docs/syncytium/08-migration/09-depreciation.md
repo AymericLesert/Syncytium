@@ -9,13 +9,17 @@ Une reprise ne dure pas toujours : le système d'origine s'éteint, une
 table cesse d'être lue, une règle en remplace une autre. Avant de
 retirer un élément, le concepteur l'annonce. Ce fichier montre comment
 se déprécie une migration déclarée, une entité source ou une règle
-(D1873, D1877, D2011) : les deux formes du bloc, ce que la dépréciation
-touche, l'adresse d'une règle remplaçante, et les trois temps qui mènent
-au retrait. Les décisions citées entre parenthèses renvoient au
+(D1873, D1877, D2011) : d'abord les trois temps qui mènent au retrait,
+dont tout le reste dépend ; puis les trois éléments, les deux formes du
+bloc, ce que la dépréciation touche, et l'adresse d'une règle
+remplaçante. Les décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).
 
 ## Le sommaire
 
+- [De l'intention à la suppression](#de-lintention-à-la-suppression)
+  - [Les trois temps](#les-trois-temps)
+  - [`deprecation:` et `deprecated`](#deprecation-et-deprecated)
 - [Les trois éléments](#les-trois-éléments)
 - [Les deux formes](#les-deux-formes)
   - [La forme courte](#la-forme-courte)
@@ -27,9 +31,37 @@ au retrait. Les décisions citées entre parenthèses renvoient au
 - [L'adresse d'une règle remplaçante](#ladresse-dune-règle-remplaçante)
   - [Le nom propre d'une règle](#le-nom-propre-dune-règle)
   - [Les trois règles du nom](#les-trois-règles-du-nom)
-- [De l'intention à la suppression](#de-lintention-à-la-suppression)
-  - [Les trois temps](#les-trois-temps)
-  - [`deprecation:` et `deprecated`](#deprecation-et-deprecated)
+
+## De l'intention à la suppression
+
+### Les trois temps
+
+Un élément ne disparaît pas d'un coup : entre l'annonce et le retrait,
+le concepteur a le temps de vérifier que rien n'en dépend plus. Une
+dépréciation se joue ainsi en trois temps :
+
+| Le temps | Ce qui se passe |
+|---|---|
+| 1. l'intention | le bloc `deprecation:` est écrit sur l'élément. Rien ne change : la reprise s'exécute comme avant (D650, D1872) |
+| 2. la validation | une beta complète la dépréciation : en retirant l'élément, elle la valide (D1870, D1875) |
+| 3. la suppression | elle vient avec une version : l'élément quitte la description (D650) |
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    I["temps 1, l'intention<br/>le bloc deprecation: est écrit"]
+    V["temps 2, la validation<br/>une beta retire l'élément"]
+    S["temps 3, la suppression<br/>une version : l'élément quitte la description"]
+    I -- "l'élément vit encore" --> V
+    V -- "ce qui le lisait est éliminé ou remplacé" --> S
+```
+
+### `deprecation:` et `deprecated`
+
+Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
+dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
+Sur un élément de la reprise, le bloc s'écrit toujours `deprecation:`
+(D1871).
 
 ## Les trois éléments
 
@@ -41,9 +73,9 @@ Trois éléments d'une reprise peuvent être appelés à disparaître :
 | l'entité source | une table n'est plus fournie |
 | la règle | une règle cède à une autre |
 
-La configuration ne retire pas l'élément d'un coup. Elle l'annonce
-d'abord, sur l'élément lui-même, dans la version en service (D650,
-D1871). La migration continue de tourner comme avant.
+Chacun suit les trois temps. L'intention s'écrit sur l'élément
+lui-même, dans la version en service (D650, D1871), et la migration
+continue de tourner comme avant.
 
 ## Les deux formes
 
@@ -139,8 +171,8 @@ retrait.
 
 ### Au retrait
 
-« À la dépréciation » désigne le retrait : la version qui retire
-l'élément (D2013). Le concepteur élimine ou remplace alors ce qui doit
+« À la dépréciation » désigne le retrait, le troisième temps : la
+version qui retire l'élément (D2013). Le concepteur élimine ou remplace alors ce qui doit
 l'être : une règle qui lit une source retirée, par exemple. Toute erreur
 est une erreur d'ingestion (D2012, D2013).
 
@@ -193,34 +225,3 @@ Trois règles accompagnent ce nom (D2016) :
 - deux règles d'un même processus ne portent pas le même nom : sinon,
   c'est une erreur d'ingestion ;
 - ce `name:` n'est pas celui d'une source, qui nomme sa table (D1918).
-
-## De l'intention à la suppression
-
-### Les trois temps
-
-Un élément ne disparaît pas d'un coup : entre l'annonce et le retrait,
-le concepteur a le temps de vérifier que rien n'en dépend plus. Une
-dépréciation se joue ainsi en trois temps :
-
-| Le temps | Ce qui se passe |
-|---|---|
-| 1. l'intention | le bloc est écrit. Rien ne change : la reprise s'exécute comme avant (D650, D1872) |
-| 2. la validation | une beta complète la dépréciation : en retirant l'élément, elle la valide (D1870, D1875) |
-| 3. la suppression | elle vient avec une version : l'élément quitte la description (D650) |
-
-```mermaid
-%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
-flowchart LR
-    I["temps 1, l'intention<br/>le bloc deprecation: est écrit"]
-    V["temps 2, la validation<br/>une beta retire l'élément"]
-    S["temps 3, la suppression<br/>une version : l'élément quitte la description"]
-    I -- "l'élément vit encore" --> V
-    V -- "ce qui le lisait est éliminé ou remplacé" --> S
-```
-
-### `deprecation:` et `deprecated`
-
-Le mot `deprecated` nomme autre chose : le statut d'une version, déposée
-dans `versions/deprecated/`. Là, la dépréciation est effective (D1869).
-Sur un élément de la reprise, le bloc s'écrit toujours `deprecation:`
-(D1871).

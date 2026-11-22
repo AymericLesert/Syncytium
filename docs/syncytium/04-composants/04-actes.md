@@ -4,9 +4,10 @@
 > l'icône, le passage d'étape d'un wizard. L'utilisateur acte, Syncytium
 > exécute ([glossaire](../../glossaire.md)).
 
-Les opérations d'une entité sont déclarées dans son bloc `operations:`
-([le modèle](../02-modele/02-entite.md)). L'acte est la façon de les
-appeler depuis une surface. Il n'a qu'une fiche : `operation`.
+Une entité déclare ses opérations dans son bloc `operations:`
+([le modèle](../02-modele/02-entite.md)) ; encore faut-il pouvoir les
+appeler depuis un écran. C'est le rôle de l'acte, qui n'a qu'une fiche :
+`operation`.
 
 ## `operation`
 
@@ -15,7 +16,7 @@ il s'écrit `operation[<nom>]`, comme `field[<nom>]` et
 `template[<nom>]` (D460, D483, D511). Sa forme se déduit de l'endroit où
 il est placé.
 
-**Rôle.** « L'utilisateur acte une opération » (D456). C'est le geste
+**Rôle.** L'utilisateur acte une opération (D456). C'est le geste
 qui engage : le bouton d'un formulaire, l'icône d'une colonne, le passage
 d'une étape.
 
@@ -32,8 +33,8 @@ déclaration, elle n'apparaît pas (D1772). La banque place `dupliquer`,
 
 - l'opération : sa garde `if` (D430), ses droits (D196), son `commit:`
   (D431, D596) ;
-- la pile des contextes (D553), « l'ensemble des contextes qui se sont
-  empilés jusqu'à l'usage de l'opération » : le périmètre de la liste,
+- la pile des contextes (D553), c'est-à-dire tous les contextes empilés
+  jusqu'à l'usage de l'opération : le périmètre de la liste,
   l'enregistrement du formulaire, le transitoire du wizard ; l'origine
   de l'appel est la pile entière (D455) ;
 - l'enregistrement, ou la sélection pour une opération de masse (D446) ;

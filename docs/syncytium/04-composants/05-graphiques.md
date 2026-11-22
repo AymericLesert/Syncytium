@@ -107,8 +107,8 @@ y: { value: avg(margin), min: 0, max: 100, scale: linear }
   d'ingestion (D1596–D1598). La banque filtre ainsi son évolution des
   dépenses par budget et par plage de dates.
 - `drill:` déclare le drill-down : la liste nommée qui s'ouvre au clic,
-  avec le filtre imposé par la valeur cliquée. Sans `drill:`, « par
-  défaut, pas de drill-down » (D242).
+  avec le filtre imposé par la valeur cliquée. Sans `drill:`, il n'y a
+  pas de drill-down (D242).
 - `title:` est le titre du graphique, par langue (D493).
 
 ### L'affichage
@@ -145,10 +145,10 @@ tactile, l'élément touché montre sa valeur.
 
 ### Les états et interactions
 
-- **Le drill-down au clic.** Le graphique « enrichit le filtre de la
-  liste pour imposer » les éléments de la valeur cliquée (D242).
-- **Le clic sur une vignette** permet de « voir toutes les valeurs
-  utilisées pour le calcul » (D516). Si l'agrégat dépend d'une liste ou
+- **Le drill-down au clic.** Le graphique enrichit le filtre de la
+  liste, pour y imposer les éléments de la valeur cliquée (D242).
+- **Le clic sur une vignette** montre toutes les valeurs utilisées pour
+  le calcul (D516). Si l'agrégat dépend d'une liste ou
   d'une association, le détail des contributions s'ouvre.
 - **La confidentialité masque** ce que l'utilisateur ne peut pas voir.
 
@@ -413,8 +413,8 @@ charts:
 
 ## `chart.pie`
 
-**Nom et famille.** `chart.pie`, les secteurs : le « camembert/anneau »
-(D239). Un graphique de la famille pointée (D512).
+**Nom et famille.** `chart.pie`, les secteurs : le camembert, ou
+l'anneau (D239). Un graphique de la famille pointée (D512).
 
 **Rôle.** La répartition d'un tout : chaque part a son secteur.
 
@@ -436,8 +436,8 @@ surchargeable (D247), les droits.
   rayon (D520, D1637) ;
 - les angles de `quarter` — le départ et la fin, au crochet, aux bornes
   (D1637) : `quarter[-90..90]`. 0° est à midi, le sens est horaire ;
-  `quarter` nu vaut `[0..90]`. L'usage fondateur est de « représenter
-  l'assemblée nationale de la gauche vers la droite » (D520) ;
+  `quarter` nu vaut `[0..90]`. L'usage fondateur : représenter
+  l'Assemblée nationale, de la gauche vers la droite (D520) ;
 - les variables du gabarit des labels — `{value}`, `{percent}` et
   `{total}` : `{percent} % ({value} / {total})` (D516, D519) ;
 - le regroupement des petites parts en « autres » — un seuil ; rien par
@@ -499,9 +499,8 @@ charts:
 **Nom et famille.** `chart.scatter`, le nuage de points. Un graphique de
 la famille pointée (D512).
 
-**Rôle.** « Représenter une concentration ou une dispersion d'une
-certaine valeur » et « aider à catégoriser des éléments » (D522) : la
-matrice de décision.
+**Rôle.** Représenter la concentration ou la dispersion d'une valeur, et
+aider à catégoriser des éléments (D522) : la matrice de décision.
 
 **Types servis.** L'assise du socle commun (D517, D518). Le grain
 diffère des autres graphiques : un point par enregistrement. `x:` et
@@ -516,8 +515,8 @@ configuration est possible aussi (D802).
 **Propriétés.** Le socle commun (D515–D518, D521), `display:` compris.
 Les écarts propres (D522, D523) :
 
-- `threshold:`, dans la forme riche de l'axe. « L'axe définit min, max
-  et threshold » : la liste croissante des seuils découpe l'axe en
+- `threshold:`, dans la forme riche de l'axe, qui définit ainsi `min`,
+  `max` et `threshold` : la liste croissante des seuils découpe l'axe en
   bandes ;
 - `zones:`, la liste des zones. Les bandes des deux axes forment une
   matrice. Une zone s'adresse dans cette matrice : `zone: [1,1]`, avec
@@ -581,8 +580,9 @@ charts:
 **Nom et famille.** `chart.combo`, le combiné. Un graphique de la
 famille pointée (D512).
 
-**Rôle.** Deux mesures d'un regard : « courbe + barres ou deux courbes,
-2 axes Y max, même temporalité/échantillon » (D239).
+**Rôle.** Deux mesures d'un regard : une courbe et des barres, ou deux
+courbes, sur deux axes Y au plus, et sur la même temporalité ou le même
+échantillon (D239).
 
 **Types servis.** L'assise du socle commun (D517, D518). Un `x:` commun
 aux deux séries : le même découpage, donc la même temporalité par
@@ -598,12 +598,11 @@ Les écarts propres (D1637) :
 - `y:` est une liste de séries. Chaque série s'écrit
   `{ value:, as: line | bars, axis: left | right }` : sa nature et son
   axe. Par défaut, la première est à gauche et la seconde à droite ;
-- `axis: bottom | top` couche les valeurs : « la représentation en
-  ligne contre la représentation en colonne » (D524, D525). La paire
-  est homogène par construction. Les bords sont d'un seul vocabulaire
-  (D504) ;
-- deux axes au plus : « au-delà de 2 axes, illisible » (D239). Une
-  troisième série est refusée à l'ingestion. Un hook permet d'aller
+- `axis: bottom | top` couche les valeurs : c'est la représentation en
+  ligne, opposée à la représentation en colonne (D524, D525). La paire
+  est homogène par construction. Les bords sont d'un seul vocabulaire (D504) ;
+- deux axes au plus : au-delà, le graphique devient illisible (D239).
+  Une troisième série est refusée à l'ingestion. Un hook permet d'aller
   au-delà.
 
 **Items.** Aucun.
@@ -662,11 +661,11 @@ les siennes :
 - `colors:` par seuils — le chiffre change de couleur selon sa valeur.
   C'est la mécanique commune des couleurs (D467), la table d'entité
   comprise (D495) ;
-- `resources:` par seuils — « associer éventuellement une icône : cas
-  d'un feu tricolore » (D526). La mécanique de `colors:` est dupliquée :
+- `resources:` par seuils — une icône peut s'associer à la valeur, comme
+  dans un feu tricolore (D526). La mécanique de `colors:` est dupliquée :
   une ressource par seuil, l'écriture de la jauge (D1609, D1611, D1640).
   La liaison `icon:` à la table d'entité vaut aussi (D495) ;
-- `layout:` — « l'organisation se découpe en 4 » (D527) : la position du
+- `layout:` — l'organisation se découpe en quatre (D527) : la position du
   label, `top` par défaut, `left`, `bottom` ou `right`, les bords de
   D525. L'icône est au bord opposé (D1640). Le `layout:` des sections a
   d'autres valeurs ; le contexte départage (D458) ;
@@ -678,8 +677,9 @@ au registre, sans détail (D541, D411, D172).
 
 **Items.** Aucun.
 
-**Modes et déclinaisons.** Le chiffre est « mis en valeur avec un style
-différent de la feuille » (D527) : en exergue, jamais comme un champ. Le
+**Modes et déclinaisons.** Le chiffre est mis en valeur, dans un style
+différent de celui de la feuille (D527) : en exergue, jamais comme un
+champ. Le
 widget est sa surface naturelle ; l'entité rejoint le module fonctionnel
 (D247). Le tableau de bord le rafraîchit (D249). Le formulaire le
 reçoit aussi (D243). Dans un template, c'est la valeur au format.
@@ -751,8 +751,8 @@ charts:
 **Nom et famille.** `pivot`, le tableau croisé dynamique. Un graphique,
 à côté de la famille pointée (D512).
 
-**Rôle.** « Un outil d'analyse puissant et pourtant simple à mettre en
-œuvre » (D246) : les lignes croisent les colonnes, et la formule remplit
+**Rôle.** Un outil d'analyse puissant, et pourtant simple à mettre en
+œuvre (D246) : les lignes croisent les colonnes, et la formule remplit
 l'intersection.
 
 **Types servis.** L'assise du socle commun (D517, D518). Le croisé tient
@@ -777,14 +777,14 @@ toute entité.
 - `value:` — la formule : un agrégat (D158), partitionné par la
   cellule ;
 - `filter:` — le périmètre (D90) ;
-- `sort:` — « le tri peut s'appuyer sur les rows, les columns ou la
-  value » (D528, D529). La clé est un champ des lignes, un champ des
+- `sort:` — le tri s'appuie sur les lignes, les colonnes ou la valeur
+  (D528, D529). La clé est un champ des lignes, un champ des
   colonnes, ou `value`. Les signes et les cascades sont ceux des listes
   (D442) : `sort: { seller: -value, date: + }`. Chaque niveau du
   groupement est trié par son sous-total. Par défaut, l'ordre est
   l'ordre naturel du champ ;
-- les plages et les temporalités, sur les champs numériques ou dates :
-  « comme pour les graphiques (D240), pour réduire le volume ».
+- les plages et les temporalités, sur les champs numériques ou dates,
+  comme pour les graphiques (D240), pour réduire le volume.
   `date[month]` s'écrit au crochet ;
 - `title:` (D493).
 

@@ -33,7 +33,7 @@ les autres dans l'arbre d'une surface (D452) : la signature commune du
 nœud vaut pour lui, l'adresse, le `visible:` vivant, les propriétés
 évaluées à la demande, les enfants déclarés, la pile de contexte, les
 états ([la signature du nœud](README.md#la-signature-du-nœud), D566,
-D567). Et « l'écriture repasse toujours par les champs et leurs règles »
+D567). Et l'écriture repasse toujours par les champs et leurs règles
 (D452) : le composant ne contourne jamais le modèle.
 
 Un hook étend aussi une famille. Le catalogue des graphiques s'arrête à
@@ -51,10 +51,9 @@ le RGAA critère par critère (D1406, D1407).
 Un composant est une fonction pure : de la configuration vers une
 description de rendu. Le moteur réalise le HTML (D69). Le composant n'a
 aucun accès au DOM, et la technologie de rendu est un choix
-d'implémentation, interchangeable. Le hook livre « un objet qui se
-chargera de gérer le composant et son rendu dans les différents
-formats » (D566) : le Web, le PDF, le Word, l'Excel, l'email, les
-destinations d'un template (D564). Le socle impose l'affichage de ses
+d'implémentation, interchangeable. Le hook livre un objet qui gère le
+composant et son rendu dans les différents formats (D566) : le Web, le
+PDF, le Word, l'Excel, l'email, les destinations d'un template (D564). Le socle impose l'affichage de ses
 composants (D1672) ; le composant ajouté décrit, le moteur rend.
 
 Un hook d'interface, celui qui porte du code au navigateur, suit les

@@ -5,12 +5,13 @@
 > template, le chat. Elle est la facette d'une entité, ou le composant
 > graphique élaboré pour elle ([glossaire](../../glossaire.md)).
 
-Une surface se déclare dans le bloc `gui:` d'une entité, sous `lists:`,
-`forms:`, `summary:`, `widgets:`, `wizards:` ou `templates:` (D437). Le
-tableau de bord se déclare au module, sous `dashboards:` (D1639). Dans
-chaque bloc, la première surface déclarée est celle par défaut (D438).
-Le menu adresse les surfaces par le `link:` de ses entrées (D439,
-D1237). Le chat est une surface du socle (D957).
+Les composants s'assemblent en écrans : ce sont les surfaces. Une
+surface se déclare dans le bloc `gui:` d'une entité, sous `lists:`,
+`forms:`, `summary:`, `widgets:`, `wizards:` ou `templates:` (D437) ; le
+tableau de bord se déclare, lui, au module, sous `dashboards:` (D1639).
+Dans chaque bloc, la première surface déclarée est celle par défaut
+(D438). Le menu adresse ensuite les surfaces par le `link:` de ses
+entrées (D439, D1237). Quant au chat, c'est une surface du socle (D957).
 
 La pile des surfaces, chaque surface au-dessus de la précédente (D535) :
 
@@ -153,9 +154,9 @@ Il s'écrit dans `menu.yml`. Le module le référence ; il est facultatif
 (D351). Le fichier et sa grammaire sont décrits au chapitre de la
 configuration ([04-version.md](../01-configuration/04-version.md)).
 
-**Rôle.** Conduire l'utilisateur à une surface. Le menu est « une carte
-d'entrées nommées, dans l'ordre d'affichage » (D1237). Le logo mène à
-la page d'accueil (D193).
+**Rôle.** Conduire l'utilisateur à une surface. Le menu est une carte
+d'entrées nommées, dans l'ordre d'affichage (D1237). Le logo mène à la
+page d'accueil (D193).
 
 **Types servis.** Aucun. Le menu adresse des surfaces, il ne rend aucun
 champ.
@@ -264,7 +265,7 @@ ecritures:
 ## `list` (la surface)
 
 **Nom et famille.** `list`, une surface. C'est le même composant que la
-feuille `list` : « un seul list » (D486). Ici, c'est son visage
+feuille `list` : il n'y a qu'un seul `list` (D486). Ici, c'est son visage
 déclaré : `gui: lists: <nom>:`. La première liste déclarée est la
 surface par défaut (D438). Le menu l'adresse en valeur de `link:`,
 `sales.order[pending]` par exemple (D439, D1237).
@@ -331,7 +332,7 @@ recherche, les gestes et les opérations, les exports, l'écran.
   `selection: multiple` ;
 - `sizable: none | auto | manual | auto+manual`, le dimensionnement des
   colonnes (D447) ;
-- `add:`, `update:` et `delete:`, « le formulaire/widget à appeler »
+- `add:`, `update:` et `delete:`, le formulaire ou le widget à appeler
   pour chaque geste (D530). Les défauts : le formulaire par défaut
   (D438), les gestes du socle (D446) ;
 - `actions:`, la liste des opérations (D531). L'opération porte son
@@ -339,9 +340,8 @@ recherche, les gestes et les opérations, les exports, l'écran.
 
 *Les exports.*
 
-- `exports:`, « les différents exports ou générations de documents »
-  (D530). La forme courte est `<format>` ou `<format>[<modèle>]`
-  (D1601) :
+- `exports:`, les exports et les générations de documents (D530). La
+  forme courte est `<format>` ou `<format>[<modèle>]` (D1601) :
   - le format : `csv`, `pdf`, `word` (D1602), `excel`, `ods`, `mail`… ;
   - le crochet nomme le modèle qui génère le document ; sans crochet,
     c'est le modèle de base de la liste (D792) ;
@@ -359,24 +359,24 @@ modèle `stock.xlsx`, le PDF sur le template `order_sheet`.
 
 *L'écran.*
 
-- `size:`, « la zone de couverture de l'écran » (D532). La grammaire
+- `size:`, la zone de l'écran que la liste couvre (D532). La grammaire
   vaut pour toutes les surfaces (D533, D484) :
   - `size: 75%`, la part de l'écran, centrée ;
   - `size: 90% 50%`, la largeur puis la hauteur ;
   - `size: 1000px 320px`, les pixels ;
-- `screen:`, « le support sur lequel la liste a été définie et/ou
-  autorisée à s'afficher » (D532, D450). Il s'écrit
+- `screen:`, le support pour lequel la liste est définie, ou sur lequel
+  elle est autorisée à s'afficher (D532, D450). Il s'écrit
   `<format>[<orientation>]` ; sans lui, tous les formats (D1613). La
   règle complète est à la fiche `form`.
 
 **Items.** Aucun à déclarer. L'anatomie est celle d'un `pages`,
 intrinsèque (D531).
 
-**Modes et déclinaisons.** « Une liste est comme pages » (D531). Elle a
-trois zones :
+**Modes et déclinaisons.** Une liste est faite comme un `pages` (D531).
+Elle a trois zones :
 
-- le header : le titre ; les colonnes du tableau, « non visibles sur
-  les widgets, sauf pour assurer les tris » ; les filtres ;
+- le header : le titre ; les colonnes du tableau, qui ne sont pas
+  visibles sur les widgets, sauf pour assurer les tris ; les filtres ;
   l'icône-menu des exports ; les icônes de l'ajout, de la modification
   et de la suppression, étendues aux actions à icône. Une colonne
   étroite prend l'`abbreviation:` du champ (D1622) ;
@@ -740,18 +740,18 @@ liste appelle par `add:` (D530).
 
 **Nom et famille.** `summary`, une surface : `gui: summary: <nom>:`
 (le bloc, D437 ; le nom sous le bloc, D1639). Le premier résumé déclaré
-est le défaut (D438). Mais « défaut : n'existe pas » (D201) : sans
-déclaration, l'entité n'offre aucun résumé.
+est le défaut (D438). Mais il n'existe pas de résumé par défaut (D201) :
+sans déclaration, l'entité n'offre aucun résumé.
 
-**Rôle.** L'enregistrement en bref, « petit par principe » (D201).
-C'est le visage déployé d'une référence (D215) : la carte qui se montre
-sans quitter le contexte.
+**Rôle.** L'enregistrement en bref, petit par principe (D201). C'est le
+visage déployé d'une référence (D215) : la carte qui se montre sans
+quitter le contexte.
 
 **Types servis.** L'entité. L'appel vient d'ailleurs :
 
-- de la référence 1-1 : « le 1-1 affiche le title ou l'image si elle
-  est définie » (D537 ; le visage, D386), puis le résumé se déploie
-  (D186, D215) ;
+- de la référence 1-1, qui affiche le `title`, ou l'image si elle est
+  définie (D537 ; le visage, D386), puis le résumé se déploie (D186,
+  D215) ;
 - du widget.
 
 **Contexte consommé.** L'enregistrement, l'origine de l'appel,
@@ -769,10 +769,10 @@ l'utilisateur (D455) ; les droits (D196) ; la confidentialité.
 
 **Items.** La restriction du formulaire :
 
-- plusieurs sections possibles, « pour mêler des affichages
-  horizontaux et verticaux » (D537) : l'organisateur `sections` et ses
-  layouts (D489–D491), et les feuilles ;
-- un kpi ou un chart, « à condition que son affichage reste modeste »
+- plusieurs sections possibles, pour mêler des affichages horizontaux
+  et verticaux (D537) : l'organisateur `sections` et ses layouts
+  (D489–D491), et les feuilles ;
+- un kpi ou un chart, à condition que son affichage reste modeste
   (D538) : `chart[<nom>]` en items, la famille des adresses (D1639) ;
 - une page unique, jamais d'onglets (D201, D537).
 
@@ -824,14 +824,14 @@ Depuis la commande, `field[customer]` affiche le `title` du client
 
 **Nom et famille.** `widget`, une surface : `gui: widgets: <nom>:`. Le
 widget est associé à une entité, et par construction à un module
-fonctionnel (D247). « Défaut : n'existe pas » (D202).
+fonctionnel (D247). Il n'existe pas de widget par défaut (D202).
 
 **Rôle.** La petite surface autonome. Deux usages, une seule surface
 (D1639) :
 
 - la carte d'un enregistrement, pour la liste en widgets (D492) ;
-- la synthèse : « compteurs, sommes/calculs, graphiques, tableaux de
-  valeurs », avec le drill-down (D202).
+- la synthèse : des compteurs, des sommes et des calculs, des
+  graphiques, des tableaux de valeurs, avec le drill-down (D202).
 
 **Types servis.** L'entité : l'enregistrement, pour la carte ; son
 périmètre agrégé, pour la synthèse.
@@ -859,8 +859,8 @@ l'accueil (D204).
 **Modes et déclinaisons.** Le widget vit à quatre endroits :
 
 - la liste en widgets, par `widget: <nom>` (D492) ;
-- la page d'accueil, le pool : « l'utilisateur compose parmi les
-  widgets de ses modules fonctionnels, sous sa confidentialité » (D204,
+- la page d'accueil, le pool : l'utilisateur y compose parmi les
+  widgets de ses modules fonctionnels, sous sa confidentialité (D204,
   D247) ;
 - le tableau de bord (D249) ;
 - l'évaluation suit les règles des champs calculés (D248) : l'écart de
@@ -947,8 +947,8 @@ Le premier wizard déclaré est le défaut (D438). Le wizard est séparé de
 `tabs` (D552) : deux objets, une parenté visuelle assumée. Le
 vocabulaire du parcours, `steps` et `step`, est tout entier chez lui.
 
-**Rôle.** Le parcours guidé, « mono-utilisateur, une session » (D230) :
-les étapes s'enchaînent, la transaction conclut. C'est la démarche au
+**Rôle.** Le parcours guidé, pour un seul utilisateur et dans une seule
+session (D230) : les étapes s'enchaînent, la transaction conclut. C'est la démarche au
 sens large (D546) :
 
 - créer un enregistrement ;
@@ -975,8 +975,8 @@ l'appel, l'utilisateur (D455) ; les droits (D196).
 **Propriétés.** Le wizard porte :
 
 - `title:` (D449, D465) ;
-- `size:`, optionnel : « sans valeur, ça prend l'espace disponible ; en
-  cas d'appel depuis un menu, le wizard prend tout l'écran » (D549).
+- `size:`, optionnel : sans valeur, le wizard prend l'espace
+  disponible ; appelé depuis un menu, il prend tout l'écran (D549).
   Quand le wizard s'emboîte dans un formulaire, le nœud qui l'inclut
   surcharge sa taille (D548, D455) ; le plus proche l'emporte (D461) ;
   la grammaire est commune (D533) ;
@@ -992,13 +992,13 @@ l'appel, l'utilisateur (D455) ; les droits (D196).
 Quatre principes gouvernent le wizard :
 
 - les étapes sont des surfaces déclarées (D231) ;
-- les transitions sont conditionnelles : « si client étranger → étape
-  TVA » (D231, D90) ;
+- les transitions sont conditionnelles : si le client est étranger, le
+  parcours passe par l'étape de la TVA (D231, D90) ;
 - la transaction est finale (D232, D101) : rien ne s'écrit avant la
   conclusion ; la relecture vient en clôture (D431) ;
-- pas de brouillon : « le mode draft s'efface avec la possibilité de
-  pré-exécuter une opération » (D547). Le niveau d'état déclaré reste
-  l'affaire de l'entité (D233).
+- pas de brouillon : le mode draft s'efface, puisqu'une opération peut
+  se pré-exécuter (D547). Le niveau d'état déclaré reste l'affaire de
+  l'entité (D233).
 
 **Items.** Le wizard contient :
 
@@ -1011,24 +1011,24 @@ Chaque étape porte :
 
 - sa poignée, `title:` et `icon:`, qui dessine le chemin (D505) ;
 - ses items : les sections et les feuilles, comme la page d'un
-  formulaire ; et les graphiques, `chart[<nom>]`, kpi ou pivot,
-  « l'aide à la décision » (D550) ;
+  formulaire ; et les graphiques, `chart[<nom>]`, kpi ou pivot, pour
+  l'aide à la décision (D550) ;
 - sa condition, `if:` (D1639) : la transition conditionnelle (D231,
   D90). L'étape est sautée si la condition ne tient pas ;
-- son opération, `operation: <nom>` (D546, D1639) : « un step peut
-  contenir une opération sur la validation ». Elle s'exécute au
+- son opération, `operation: <nom>` (D546, D1639) : une étape peut
+  porter une opération, liée à sa validation. Elle s'exécute au
   passage, dans la transaction du wizard tenue ouverte (D547, D594,
   D1607). Rien n'est scellé avant la validation définitive du wizard.
 
 **Modes et déclinaisons.** Le wizard se présente ainsi :
 
 - le stepper : toutes les étapes visibles ; l'avance au rythme de
-  l'exploration ; « le chemin de traitement » navigable, le retour
-  libre d'un clic (D505). C'est l'affaire du wizard seul ; la parenté
+  l'exploration ; le chemin de traitement navigable, le retour libre
+  d'un clic (D505). C'est l'affaire du wizard seul ; la parenté
   visuelle avec les onglets est assumée (D552) ;
 - le passage d'étape est un acte (D511) ;
-- il est emboîtable : « rien n'empêche un formulaire qui inclut un
-  wizard dans une page » (D455) ;
+- il est emboîtable : un formulaire peut inclure un wizard dans une de
+  ses pages (D455) ;
 - le circuit de validation multi-acteurs reste hors wizard : c'est le
   patron d'assemblage états + opérations + notifications, sans moteur
   BPM (D233).
@@ -1142,7 +1142,7 @@ confidentialité, chaque widget filtrant de lui-même. Le module.
   adresses, `widget[order.monthly]` par exemple : fixés, non retirables
   (D1639) ;
 - les emplacements libres, l'item `_`, répétable (D556). Le nom `_`
-  évite la collision : « free pouvant être lui-même un nom de widget ».
+  évite la collision : `free` pourrait être lui-même un nom de widget.
   L'icône du choix y apparaît : l'utilisateur pioche parmi les widgets
   disponibles, son catalogue propre, le pool (D247), ou libère un
   autre emplacement (D556) ;
@@ -1209,17 +1209,17 @@ gui:
 **Nom et famille.** `template`, une surface : `gui: templates: <nom>:`
 (D456). Le premier déclaré est le défaut (D438).
 
-**Rôle.** Le patron du document généré : « un formulaire en lecture
-seule + une dimension de page » (D250). La facture, le devis,
-l'étiquette, le bon de livraison. Il vise quatre destinations :
-« Word, PDF, Excel ou un mail » (D564).
+**Rôle.** Le patron du document généré : un formulaire en lecture
+seule, avec une dimension de page (D250). La facture, le devis,
+l'étiquette, le bon de livraison. Il vise quatre destinations : Word,
+PDF, Excel ou un mail (D564).
 
 **Types servis.** L'entité : l'enregistrement dans son agrégat. Quatre
 portes mènent au template :
 
 - l'effet `document:` d'une opération (D432) ;
-- le viewer à la volée, `template[<nom>]` (D483) : « le fichier qui
-  n'existe pas » ;
+- le viewer à la volée, `template[<nom>]` (D483) : le fichier n'existe
+  pas en tant que tel, il est généré ;
 - les exports de la liste, `exports: [ pdf[…] ]` (D530, D1601) ;
 - l'impression directe du serveur (D252) : les imprimantes de l'OS,
   pour l'étiquette.
@@ -1229,9 +1229,9 @@ portes mènent au template :
 - l'enregistrement ;
 - les variables de contexte, l'entité « contexte » (D254) : la
   pagination, l'opérateur, l'instance, des champs comme les autres ;
-- la langue : « la déclinaison par langue se porte sur chaque item »
-  (D559, qui amende la lecture de D253). Un seul gabarit, ses items
-  déclinés par la mécanique des libellés (D465).
+- la langue : la déclinaison par langue se porte sur chaque item (D559,
+  qui amende la lecture de D253). Un seul gabarit, ses items déclinés
+  par la mécanique des libellés (D465).
 
 **Propriétés.** Le formalisme est celui des formulaires (D250) :
 
@@ -1240,21 +1240,20 @@ portes mènent au template :
 - `paper:`, la dimension de page (D1614, D1639) : `A4`, le portrait ;
   `A4[landscape]`, l'orientation au crochet, comme pour les formats
   d'écran ; `105x48mm`, pour l'étiquette ;
-- `margin:`, « les marges en mm » (D559) ;
-- `format:`, « le format de destination » (D564, D565) : `pdf`, le
-  défaut (D212, D250), `word`, `excel` ou `mail`. Le mail porte le
-  publipostage (D562) ; l'Excel, le modèle (D445). Le format est
-  « étendu à d'autres formats en fonction des besoins à venir »
-  (D565), par la ligne des hooks (D408) ;
+- `margin:`, les marges, en millimètres (D559) ;
+- `format:`, le format de destination (D564, D565) : `pdf`, le défaut
+  (D212, D250), `word`, `excel` ou `mail`. Le mail porte le
+  publipostage (D562) ; l'Excel, le modèle (D445). La liste s'étendra
+  à d'autres formats, selon les besoins à venir (D565), par la ligne
+  des hooks (D408) ;
 - les titres, à quatre niveaux (D250).
 
 **Items.** Le `pages` implicite :
 
 - `header` et `footer`, répétés à chaque page (D507, D1636) ;
 - les `page`, une ou plusieurs, et leurs sections ;
-- les feuilles, avec leurs pendants PDF (D257) : « un pendant PDF par
-  type », l'image dimensionnée au bloc, le fil complet s'il est
-  inclus… ;
+- les feuilles, avec leurs pendants PDF (D257) : un pendant par type,
+  l'image dimensionnée au bloc, le fil complet s'il est inclus… ;
 - le contenu fixe, `paragraph` et `picture` (D488) ;
 - `qrcode` et `barcode`, pour l'étiquette (D542–D545) ;
 - les graphiques, en image (D257).
@@ -1356,8 +1355,8 @@ du modèle.
 - l'utilisateur et ses droits (D886), la confidentialité (D885),
   l'audience. Le modèle ne lit l'instance que par l'API, au porteur de
   l'utilisateur, ou par la librairie interne des hooks de fonctions,
-  « dans la limite des autorisations accordées à l'utilisateur sur la
-  consultation des données » ;
+  dans la limite des autorisations accordées à l'utilisateur sur la
+  consultation des données ;
 - le module activé : la session lui est adossée ; son mode d'emploi et
   ses données bornent le contexte (D959) ;
 - le connecteur `llm` de l'environnement (D617).
@@ -1384,20 +1383,20 @@ du modèle.
   du profil connecté, et ce que les droits de l'utilisateur sur les
   composantes de la description lui ouvrent. Le chat n'a aucun droit
   propre ;
-- la session dure, sans rétention, « aussi longtemps que possible et
-  jusqu'à ce que l'utilisateur demande sa réinitialisation » (D960).
+- la session dure, sans rétention, aussi longtemps que possible, jusqu'à
+  ce que l'utilisateur demande sa réinitialisation (D960).
   L'acte **réinitialiser** porte sur la session : c'est la suppression
   du socle, qui désactive (D137). La session close reste à l'analyse ;
   une nouvelle s'ouvre (D1639) ;
 - chaque question et chaque réponse s'écrivent, avant l'affichage,
   dans `_chat.session` et `_chat.message`, qui sont historisées (D411).
   L'événement va au journal de sécurité (D925) ;
-- le connecteur indisponible : « un message d'erreur sera présenté et
-  les questions ne seront pas possibles » (D626, D959). La saisie est
-  fermée, l'historique reste lisible ;
+- le connecteur indisponible : un message d'erreur est présenté, et les
+  questions ne sont plus possibles (D626, D959). La saisie est fermée,
+  l'historique reste lisible ;
 - le chat répond et fournit les données, il ne met rien à jour (D958) :
-  « les mises à jour se feront via les interfaces proposées par
-  l'application ». La réponse porte les liens vers les surfaces de
+  les mises à jour se font par les interfaces que l'application
+  propose. La réponse porte les liens vers les surfaces de
   mise à jour, le formulaire ou l'acte (D439, D483). L'utilisateur y
   agit sous ses propres droits.
 

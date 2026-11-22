@@ -5,19 +5,19 @@
 > type porte le nom du type ([glossaire](../../glossaire.md)).
 
 Chaque champ du modèle ([le modèle](../02-modele/03-champs.md)) se montre
-par une feuille. Le type du champ choisit la feuille par défaut (D458).
-Le concepteur en choisit une autre par `component:`, à trois étages
-(D461) :
+par une feuille. Le concepteur n'a rien à écrire pour cela : le type du
+champ choisit la feuille par défaut (D458). S'il en veut une autre, il
+la nomme par `component:`, à l'un de trois étages (D461) :
 
 - au type, dans les settings ;
 - au champ, dans `fields:` ;
 - au nœud, dans l'arbre d'une surface.
 
-Le plus proche l'emporte. Ce fichier est le catalogue des feuilles, une
-fiche par composant, dans la forme du
+Le plus proche l'emporte. Ce fichier est donc un catalogue : une fiche
+par feuille, dans la forme du
 [modèle de fiche](README.md#le-modèle-de-fiche). Les fiches vont de la
-saisie d'une valeur au regard d'un objet, puis aux textes et images
-fixes, puis à la couleur et aux codes.
+saisie d'une valeur au choix et au regard d'un objet, puis au texte et à
+l'image fixes, et enfin à la couleur et aux codes.
 
 ## Le sommaire
 
@@ -55,6 +55,10 @@ fixes, puis à la couleur et aux codes.
 
 Les feuilles de cette partie rendent un champ simple : un booléen, un
 texte, un nombre, une heure, une date, une valeur parmi un jeu fermé.
+Les unes sont le composant par défaut de leur type, comme `text` ou
+`calendar` : le concepteur ne les nomme pas. Les autres, comme `toggle`
+ou `slider`, se choisissent par surcharge, quand le défaut ne convient
+pas à l'usage.
 
 ### `checkbox`
 
@@ -279,8 +283,8 @@ sa recherche (D367). Son `mode`, les droits.
   par l'identifiant d'une ressource (D1625) ; `label`, le libellé par
   langue, « Voir plus ». Sans `shortcut:`, le moteur applique son défaut
   traduit.
-- **`style:`**, « la fonte, la taille et sa mise en forme » (D536). Le
-  défaut vient du thème choisi par l'utilisateur (D752–D755). Un thème
+- **`style:`** regroupe la fonte, sa taille et sa mise en forme (D536).
+  Le défaut vient du thème choisi par l'utilisateur (D752–D755). Un thème
   combine des styles du catalogue ; un style porte le HTML des types et
   le CSS3. La surcharge suit la cascade (D461) :
   `style: { font: Roboto, size: 14px, format: [bold, italic] }`. Le
@@ -425,10 +429,9 @@ validations s'affiche au champ (D307). En recherche, le mode vient du
 champ : `strict`, `range` pour une plage, l'usage roi du nombre, ou
 `mutualizable` par la forme affichée (D369, D371).
 
-Pour `measure` et `duration`, la matrice de conversion est visible
-(D980) : « la facette de saisie doit permettre de visualiser la matrice
-et les règles de conversion ». À la demande, le volet du composant
-montre la matrice du champ sur cet enregistrement :
+Pour `measure` et `duration`, la saisie doit permettre de voir la
+matrice et les règles de conversion (D980). À la demande, le volet du
+composant montre donc la matrice du champ sur cet enregistrement :
 
 - les unités connues et apportées (D978) ;
 - les coefficients ;
@@ -577,16 +580,16 @@ gui:
 ### `gauge`
 
 **Nom et famille.** `gauge`, une feuille, le satellite des numériques
-bornés. « La jauge étant un cas particulier d'un range » (D498) : le
-minimum, la valeur et le maximum en une (D494).
+bornés. La jauge est un cas particulier d'un range (D498) : le minimum,
+la valeur et le maximum en une (D494).
 
 **Rôle.** La jauge. Elle montre la valeur dans son cadre, d'un coup
 d'œil : la barre qui se remplit entre les bornes.
 
 **Types servis.** Les numériques bornés : `integer[a..b]`,
-`decimal[a..b]`, l'`amount` borné, « un montant entre 0 et 10 000 € »
-(D275). Le `percentage` dans son cadre 0..100 en est le choix naturel
-(D274). La jauge se déclare par `component: gauge`. Les bornes sont
+`decimal[a..b]`, l'`amount` borné, un montant entre 0 et 10 000 € par
+exemple (D275). Le `percentage` dans son cadre 0..100 en est le choix
+naturel (D274). La jauge se déclare par `component: gauge`. Les bornes sont
 exigées : sans bornes, pas de jauge, une erreur d'ingestion (D344).
 
 **Contexte consommé.** Le champ : ses bornes, ses décimales. Son
@@ -757,7 +760,7 @@ gui:
 **Nom et famille.** `slider`, une feuille, le curseur, la saisie des
 numériques bornés.
 
-**Rôle.** Le curseur : « une saisie simple et sans clavier » (D275). La
+**Rôle.** Le curseur : une saisie simple, sans clavier (D275). La
 poignée glisse entre les bornes, la valeur suit.
 
 **Types servis.** Les numériques bornés. Les bornes sont exigées, dans
@@ -821,8 +824,8 @@ gui:
 
 **Nom et famille.** `clock`, une feuille.
 
-**Rôle.** L'horloge. Elle saisit et affiche une heure : « le cadran
-pour saisir ou afficher » (D277).
+**Rôle.** L'horloge. Elle saisit et affiche une heure : son cadran sert
+l'un comme l'autre (D277).
 
 **Types servis.** `time`, dont elle est le composant par défaut. La
 partie heure d'un `datetime` aussi, en tandem avec `calendar` : la date
@@ -910,7 +913,7 @@ année, par mois ou par semaine, et les raccourcis du quotidien.
 **Types servis.** `date`, dont il est le composant par défaut. La
 partie date d'un `datetime` aussi, en tandem avec `clock` (D280). La
 granularité s'écrit au crochet : `date[yyyy-mm-dd]`, `date[yyyy-mm]`,
-`date[yyyy-ww]`, « le calendrier au bon grain » (D382).
+`date[yyyy-ww]`. Le calendrier s'ouvre alors au bon grain (D382).
 
 **Contexte consommé.** Le champ : sa granularité, ses bornes ISO, le
 masque de langue (D383). La langue : le numéro de semaine et le premier
@@ -1159,9 +1162,10 @@ gui:
 
 ## Le choix et le regard d'un objet
 
-Les feuilles de cette partie rendent un objet : un enregistrement
-pointé, un fichier, une image, une position, un fil d'échanges, une
-collection de valeurs. Elles le choisissent, et le donnent à regarder.
+Un champ ne porte pas toujours une valeur simple. Les feuilles de cette
+partie rendent un objet : un enregistrement pointé, un fichier, une
+image, une position, un fil d'échanges, une collection de valeurs. Elles
+servent donc deux gestes : choisir l'objet, puis le donner à regarder.
 
 ### `picker.record`
 
@@ -1270,8 +1274,8 @@ gui:
 **Nom et famille.** `picker.image`, une feuille, la dérivée de
 `picker.file` (D473), de la famille des pickers (D470).
 
-**Rôle.** Le choix d'un ou plusieurs fichiers images, « dont la liste
-des formats est exploitable par Syncytium » (D473).
+**Rôle.** Le choix d'un ou plusieurs fichiers images, dans les formats
+que Syncytium sait exploiter (D473).
 
 **Types servis.** `image` et `thumbnail`, dont il est le défaut (D385,
 D389). Le « un ou plusieurs » suit le type : la liste (D470).
@@ -1421,22 +1425,23 @@ gui:
 
 ### `viewer`
 
-**Nom et famille.** `viewer`, une feuille. « Image-viewer et carousel
-sont un même objet : viewer » (D475). « Viewer est le composant
-graphique et carousel un mode d'affichage » (D477).
+**Nom et famille.** `viewer`, une feuille. La visionneuse d'images et le
+carrousel sont un même objet, `viewer` (D475) : `viewer` est le
+composant graphique, et le carrousel l'un de ses modes d'affichage
+(D477).
 
 **Rôle.** La visionneuse : le fichier regardé. La vignette en place, le
 plein cadre au clic. Elle sert :
 
-- tout type visualisable : l'image n'est « qu'un type parmi tant
-  d'autres », avec le PDF, le Word, l'Excel, le PowerPoint… ;
+- tout type visualisable : l'image n'est qu'un type parmi d'autres, avec
+  le PDF, le Word, l'Excel, le PowerPoint… ;
 - les collections, par le mode carousel ;
-- le document paginé, feuilleté : « un carrousel d'un document PDF
-  correspond à un défilement des pages » (D481) ;
-- le document généré : « le fichier de la facture n'existe pas en tant
-  que tel mais comme un PDF généré à partir des informations de la
-  facture et de ses lignes : un viewer peut faire référence à un
-  template de document à générer » (D483).
+- le document paginé, feuilleté : le carrousel d'un document PDF fait
+  défiler ses pages (D481) ;
+- le document généré : le fichier d'une facture n'existe pas en tant
+  que tel, c'est un PDF généré à partir des informations de la facture
+  et de ses lignes ; la visionneuse peut donc faire référence à un
+  template de document à générer (D483).
 
 **Types servis.**
 
@@ -1459,15 +1464,15 @@ Les visages des cibles. Les droits.
 **Propriétés.**
 
 - **`dimension:`**, celle de la visionneuse (D454, D469, D484).
-- **`mode:`** : « le viewer peut afficher une image, une planche ou un
-  carousel » (D478). `image` montre le fichier seul en vignette.
+- **`mode:`** : la visionneuse affiche une image, une planche ou un
+  carrousel (D478). `image` montre le fichier seul en vignette.
   `mosaic` montre la planche de vignettes (D480). `carousel` montre la
   succession qui défile. Sans `mode:`, il se déduit du contenu : le
   fichier seul donne `image`, la collection donne `carousel` (D477).
   Le crochet est un raccourci de la définition du mode :
   `viewer[carousel]` vaut `mode: carousel` (D478).
-- **`sheet:`**, la planche : il y a « besoin de préciser le nombre
-  d'images en colonne et en ligne dans la zone » (D479). `sheet: 4x3`
+- **`sheet:`**, la planche : elle précise le nombre d'images en colonne
+  et en ligne dans la zone (D479). `sheet: 4x3`
   donne quatre colonnes et trois lignes. Le crochet `mosaic[4x3]` en
   est le raccourci (D480, D482). Sans `sheet:`, la planche s'adapte à
   la zone.
@@ -1487,10 +1492,10 @@ Les visages des cibles. Les droits.
 - `mosaic` : la planche, les vignettes de la collection en grille ;
   `mosaic[4x3]` fixe les colonnes et les lignes, l'excédent se
   feuillette (D479) ; le clic ouvre la visionneuse ;
-- `carousel` : « une liste ou une association faisant référence à des
-  images et/ou des vignettes de fichiers », la succession qui défile,
-  « à intervalle régulier, sur la pression d'une touche avant/après »
-  (D475) ; le clic ouvre la visionneuse ;
+- `carousel` : une liste ou une association qui référence des images ou
+  des vignettes de fichiers ; la succession défile à intervalle
+  régulier, ou sur la pression d'une touche, avant ou après (D475) ; le
+  clic ouvre la visionneuse ;
 - en cellule et en widget, la vignette (D286) ;
 - en template, l'image rendue (D257) ; le carrousel se rend en planche
   (D1635) ;
@@ -1626,14 +1631,13 @@ mini-carte centrée sur le marqueur. En saisie, le pointage sur la carte
 **Types servis.** `geolocation`, le composé (D391, D392) : les
 coordonnées et le texte associé, l'adresse ou le lieu. La liste de
 coordonnées aussi, `list of geolocation` ou l'association aux
-coordonnées : « le composant doit pouvoir s'adapter » (D513). Les
-marqueurs sont alors multiples sur une même carte, reliés ou non
-(D513, D514) : « les lieux de commandes pour un produit » sans relier,
-« le parcours d'un commercial » relié au trait droit. `lines: true` ou
-`lines: false` le dit ; le défaut est `false` (D1635). Le tracé d'une
-route est un hook, « les abonnements aux outils annexes », sur le patron
-du géocodage (D294) ; OSRM et Valhalla en sont les candidats open
-source.
+coordonnées : le composant s'y adapte (D513). Les marqueurs sont alors
+multiples sur une même carte, reliés ou non (D513, D514) : les lieux de
+commandes d'un produit ne se relient pas, le parcours d'un commercial se
+relie au trait droit. `lines: true` ou `lines: false` le dit ; le défaut
+est `false` (D1635). Le tracé d'une route, lui, est un hook : il passe
+par l'abonnement à un outil annexe, sur le patron du géocodage (D294) ;
+OSRM et Valhalla en sont les candidats open source.
 
 **Contexte consommé.** La valeur : les coordonnées et le texte associé
 (D392). Le fond de carte déclaré à l'instance (D259, D294). La focale,
@@ -1754,8 +1758,8 @@ de lignes du résumé au survol en cellule, `preview: 3` (D393, D1635).
 
 - en saisie et en lecture, le fil chronologique, la saisie en bas, les
   pièces jointes si elles sont activées (D295) ; le fil épouse son
-  contenant, une section, un onglet… « ça prend la place qu'on lui
-  laisse » (D485) ; l'onglet de D167 et D186 est un habitat parmi
+  contenant, une section, un onglet… : il prend la place qu'on lui
+  laisse (D485) ; l'onglet de D167 et D186 est un habitat parmi
   d'autres ;
 - sur smartphone, le fil en plein écran (D295) ;
 - en cellule, une petite icône ; au survol, le ou les derniers échanges
@@ -1817,7 +1821,7 @@ intimement lié à la liste complète (D441–D447) : c'est un même
 composant (D486).
 
 **Rôle.** La collection de valeurs simples, éditée : ajouter, retirer,
-réordonner. « La phrase se lit » : `list of text` (D362).
+réordonner. Son type se lit comme une phrase : `list of text` (D362).
 
 **Types servis.** `list of <type simple>` (D362) : des textes, des
 nombres, des dates… Les facettes déclarées sur le champ s'appliquent à
@@ -1916,23 +1920,24 @@ gui:
 
 ## Le texte et l'image fixes
 
-Deux feuilles ne rendent aucun champ. Leur contenu vient de la
-configuration : un texte, une image.
+Deux feuilles ne rendent aucun champ. Leur contenu ne vient pas d'un
+enregistrement, mais de la configuration : un texte, une image. Elles
+portent ce qui ne change pas d'un enregistrement à l'autre, comme les
+informations légales ou le logo.
 
 ### `paragraph`
 
-**Nom et famille.** `paragraph`, une feuille (D488) : le texte fixe,
-pour « mettre du texte pour indiquer les informations légales de
-l'entreprise ».
+**Nom et famille.** `paragraph`, une feuille (D488) : le texte fixe, qui
+porte par exemple les informations légales de l'entreprise.
 
 **Rôle.** Le texte venu de la configuration, affiché tel quel, sans
 champ derrière : la mention, l'explication, l'avertissement. La mention
 d'information RGPD en est une : le texte du socle `rgpd.notice`, généré
 depuis le registre, que le concepteur ancre à son choix (D1335). Le
-paragraphe est aussi un gabarit : « le paragraph peut être un gabarit,
-utilisable dans le cas d'une lettre » (D559). Les variables de
-l'enregistrement entrent dans le texte, « Cher {{customer}}, votre
-commande {{number}}… » : le publipostage.
+paragraphe peut aussi être un gabarit, pour une lettre par exemple
+(D559). Les variables de l'enregistrement entrent alors dans le texte,
+« Cher {{customer}}, votre commande {{number}}… » : c'est le
+publipostage.
 
 **Types servis.** Aucun. Le contenu est déclaré par langue (D465), ou
 par référence au dictionnaire du module, par `label:` (D440, D1236).
@@ -2015,8 +2020,8 @@ gui:
 
 ### `picture`
 
-**Nom et famille.** `picture`, une feuille (D488) : l'image fixe, « son
-logo ».
+**Nom et famille.** `picture`, une feuille (D488) : l'image fixe, le
+logo de l'entreprise par exemple.
 
 **Rôle.** L'image venue de la configuration, affichée telle quelle,
 sans champ derrière : le logo, l'illustration.
@@ -2141,8 +2146,8 @@ gui:
 **Nom et famille.** `picker.color`, une feuille, de la famille des
 pickers (D470, D473, D496).
 
-**Rôle.** « Sélectionner une couleur » : la palette qui s'ouvre, le
-choix qui se referme.
+**Rôle.** Sélectionner une couleur : la palette s'ouvre, et le choix la
+referme.
 
 **Types servis.** `color`, en saisie : le composant par défaut du type
 l'appelle (D458). `list of color` (D362), en sélection multiple.
@@ -2198,8 +2203,8 @@ gui:
 **Nom et famille.** `qrcode` et `barcode`, deux feuilles jumelles, les
 composants de sortie (D300). Elles partagent une fiche (D542).
 
-**Rôle.** « Ils rendent la valeur d'un champ » (D300) : la valeur
-encodée, lisible à la machine, sur l'étiquette, le document, l'écran.
+**Rôle.** Ils rendent la valeur d'un champ (D300) : la valeur encodée,
+lisible à la machine, sur l'étiquette, le document, l'écran.
 
 **Types servis.**
 
@@ -2217,14 +2222,14 @@ droits.
 **Propriétés.**
 
 - **Le socle du vocabulaire** (D461).
-- **`size:`**, à deux régimes (D543). Pour le QR code, « la taille
-  unique pour les côtés » : `size: 120px`, le carré, jamais deux
-  valeurs. Pour le code-barres, « largeur × hauteur » :
+- **`size:`**, à deux régimes (D543). Pour le QR code, une taille
+  unique pour les côtés : `size: 120px`, le carré, jamais deux valeurs.
+  Pour le code-barres, la largeur puis la hauteur :
   `size: 200px 60px`, dans la grammaire de `size:` (D533). La saisie
   peut porter sa propre taille (D544, D1638) :
   `size: { input: 30, display: 120px }` ; la forme courte vaut
   l'affichage seul.
-- **`labels:`**, « la valeur de la référence sous le code-barres »
+- **`labels:`**, la valeur de la référence, écrite sous le code-barres
   (D545, D1638) : `labels: true` écrit la valeur au format du champ,
   comme les libellés des graphiques (D516). Le défaut est `false`.
 - **Le format du code-barres.** Il vient de la facette quand le champ

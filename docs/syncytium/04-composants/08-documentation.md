@@ -30,9 +30,11 @@ surfaces et tous les composants graphiques :
 > répond. La question répondue nourrit la F.A.Q. générée, le chat et la
 > complétude ([glossaire](../../glossaire.md)).
 
-La question est l'un des trois types de support (D1367). Une surface, un
-écran, un wizard ou un tableau de bord, porte trois propriétés (D1372).
-Chacune nomme un groupe d'utilisateurs :
+Depuis un écran, l'utilisateur peut signaler une anomalie, poser une
+question ou demander une évolution : ce sont les trois types de support,
+et la question est l'un d'eux (D1367). Encore faut-il savoir qui répond.
+Une surface, un écran, un wizard ou un tableau de bord, porte donc trois
+propriétés (D1372), dont chacune nomme un groupe d'utilisateurs :
 
 - `anomaly:`, le groupe qui traite une anomalie ;
 - `question:`, le groupe qui répond à une question fonctionnelle ;

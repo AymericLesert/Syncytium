@@ -6,11 +6,11 @@
 > ([glossaire](../../glossaire.md)).
 
 Une surface est un arbre de nœuds ([le catalogue](README.md)). Les
-feuilles rendent les champs. Les conteneurs leur donnent une place : un
-regroupement, un onglet, une page. Ils ne portent aucune valeur. Ils
-transmettent leur contexte tel quel à ce qu'ils contiennent (D455). La
-famille est close : huit conteneurs, et « pas besoin de composants
-complémentaires » (D509).
+feuilles y rendent les champs ; les conteneurs, eux, leur donnent une
+place : un regroupement, un onglet, une page. Ils ne portent aucune
+valeur, et transmettent leur contexte tel quel à ce qu'ils contiennent
+(D455). La famille est close : elle compte huit conteneurs, et n'a pas
+besoin de composants complémentaires (D509).
 
 Les conteneurs vont par couples. L'organisateur dispose, la partie
 contient :
@@ -72,9 +72,8 @@ flowchart TB
 
 ## `sections`
 
-**Nom et famille.** `sections`, un conteneur : l'organisateur. Il
-« permet de décrire l'organisation de différentes sections —
-organisation en colonne ou en ligne » (D489).
+**Nom et famille.** `sections`, un conteneur : l'organisateur. Il décrit
+l'organisation de ses sections, en colonne ou en ligne (D489).
 
 **Rôle.** Poser la disposition des sections qu'il contient. En colonne,
 elles s'empilent. En ligne, elles se placent côte à côte.
@@ -98,41 +97,41 @@ calibrage uniforme, l'espace du tout.
   - `row[2]` : jusqu'à deux lignes par colonne, puis la colonne
     suivante.
 
-  Le crochet couvre la grille : « oublie grid » (D491). Il s'écrit aussi
-  en raccourci sur le composant : `sections[row]` vaut `layout: row`
-  (D478, D489, D1640).
+  Le crochet couvre la grille : le conteneur `grid` n'existe pas (D491).
+  Il s'écrit aussi en raccourci sur le composant : `sections[row]` vaut
+  `layout: row` (D478, D489, D1640).
 - `width:` et `height:`, au même niveau que `layout:`, donnent le
-  calibrage uniforme : « pour que chaque section ait la même dimension »
-  (D502). Une section peut les surcharger pour une taille variable. Le
-  plus proche l'emporte (D461). Sans précision, tout l'espace est pris
+  calibrage uniforme : chaque section a alors la même dimension (D502).
+  Une section peut les surcharger pour une taille variable. Le plus
+  proche l'emporte (D461). Sans précision, tout l'espace est pris
   (D501).
-- `size:` donne « les dimensions de l'espace occupé par l'ensemble des
-  sections » (D503). C'est la dimension à l'affichage, en cohérence avec
+- `size:` donne les dimensions de l'espace occupé par l'ensemble des
+  sections (D503). C'est la dimension à l'affichage, en cohérence avec
   le couple `size:` et `dimension:` (D484).
 
 Le socle du vocabulaire s'applique (D461).
 
-**Items.** Des sections, rien d'autre : « chaque item est alors une
-section » (D489).
+**Items.** Des sections, rien d'autre : chaque item est une section
+(D489).
 
 **Modes et déclinaisons.** L'organisateur vit partout où un conteneur
 vit : dans `header`, `page` et `footer`, dans `pages`, dans le template
-(D487, D509). La disposition est un maximum : `column[3]` veut dire
-« jusqu'à trois colonnes ». Le composant la replie selon la place
+(D487, D509). La disposition est un maximum : `column[3]` autorise
+jusqu'à trois colonnes. Le composant la replie selon la place
 disponible : trois colonnes sur un poste informatique, une seule sur un
 smartphone (D491, D1648). Un format qui demande une autre disposition,
 un autre ordre ou d'autres sections, se déclare par une surface à part,
-avec `screen:` : « si l'affichage doit changer, screen permet de
-définir le format attendu » (D450, D490, D1613).
+avec `screen:` : c'est lui qui définit le format attendu quand
+l'affichage doit changer (D450, D490, D1613).
 
 **États et interactions.** Les droits et la confidentialité masquent
 l'organisateur. Quand le contenu déborde de `size:`, il défile (D503) :
 
 - sur le poste informatique, les barres de défilement sont visibles ou
-  évanescentes, ce qui est « plus moderne » ;
+  évanescentes, ce qui est plus moderne ;
 - au tactile, le swipe fait défiler, sans barres ;
-- les barres restent « le positionnement de l'écran par rapport à
-  l'ensemble ».
+- les barres indiquent le positionnement de l'écran par rapport à
+  l'ensemble.
 
 **Décisions fondatrices.** D449–D451, D455, D461, D487, D489–D491,
 D501–D503.
@@ -172,11 +171,11 @@ Les autres propriétés sont montrées sur l'exemple de la fiche `section`.
 
 ## `section`
 
-**Nom et famille.** `section`, un conteneur : « une partie du composant
-sections » (D489), « un regroupement potentiellement nommé ». Elle est
+**Nom et famille.** `section`, un conteneur : une partie du composant
+`sections` (D489), un regroupement qui peut porter un nom. Elle est
 fournie par Syncytium (D451).
 
-**Rôle.** « Organiser différents nœuds » sous un intitulé facultatif.
+**Rôle.** Organiser différents nœuds sous un intitulé facultatif.
 C'est l'unité de lecture d'un écran. La section est un nœud pur : elle
 ne porte aucune valeur et n'est pas un bloc à part (D487).
 
@@ -191,20 +190,19 @@ masquée masque ses items.
 **Propriétés.** La section a trois réglages : son titre, son calibrage,
 son repli.
 
-- `title:`, l'intitulé. « Le nom d'un regroupement est en fait un
-  libellé en titre de la section » (D493). Il se donne par langue
-  (D465). Il est facultatif : le regroupement est « potentiellement
-  nommé ». Un regroupement qui demande une explication la reçoit dans la
-  `description:` de l'écran. L'édition de la documentation la porte sur
-  le regroupement (D1190). La partie de la description titrée du nom de
-  la section s'y attache (D1640).
-- `width:` et `height:` servent à « calibrer la taille ». Le calibrage
-  uniforme se pose sur l'organisateur. La taille variable se pose sur la
-  section. Le plus proche l'emporte (D501, D502). « Sans précision,
-  l'ensemble de l'espace est pris. »
-- `dropdown:` rend la section repliable : « refermer ou ouvrir, avec un
-  icône pour matérialiser l'affichage ou pas » (D568). Ses quatre
-  valeurs (D569) :
+- `title:`, l'intitulé : le nom d'un regroupement est un libellé, posé
+  en titre de la section (D493). Il se donne par langue (D465). Il est
+  facultatif : le regroupement peut rester sans nom. Un regroupement qui
+  demande une explication la reçoit dans la `description:` de l'écran.
+  L'édition de la documentation la porte sur le regroupement (D1190). La
+  partie de la description titrée du nom de la section s'y attache
+  (D1640).
+- `width:` et `height:` calibrent la taille. Le calibrage uniforme se
+  pose sur l'organisateur. La taille variable se pose sur la section. Le
+  plus proche l'emporte (D501, D502). Sans précision, la section prend
+  tout l'espace.
+- `dropdown:` rend la section repliable : elle se referme et s'ouvre, et
+  une icône matérialise son état (D568). Ses quatre valeurs (D569) :
   - `false`, le défaut : la section est fixe ;
   - `true` : repliable, ouverte par défaut ;
   - `opened` ou `closed` : repliable, l'état d'entrée explicite.
@@ -214,8 +212,8 @@ son repli.
 
 Le socle du vocabulaire s'applique (D461) : `style:`, `size:`…
 
-**Items.** « Soit sections, soit une des feuilles vues précédemment »
-(D489). C'est l'alternance stricte : pour emboîter des sections, la
+**Items.** Soit l'organisateur `sections`, soit une feuille (D489).
+C'est l'alternance stricte : pour emboîter des sections, la
 section passe par l'organisateur `sections`. Les champs s'écrivent
 `field[<nom>]` (D460).
 
@@ -326,9 +324,8 @@ l'espace du tout.
   `mode: bottom` (D478, D1636).
 - `size:` donne l'espace du tout, comme pour `sections` (D503, D484).
 
-Les volets ont tous la même dimension : « pour chaque tab, toujours la
-même dimension » (D506). Il n'y a donc aucun `width:` ni `height:` par
-volet, au contraire des sections (D502).
+Les volets ont tous la même dimension (D506). Il n'y a donc aucun
+`width:` ni `height:` par volet, au contraire des sections (D502).
 
 Le socle du vocabulaire s'applique (D461).
 
@@ -429,19 +426,18 @@ droits masquent l'onglet, poignée comprise.
 - `title:` nomme la poignée (D493). Il est requis : un onglet sans
   poignée ne se choisit pas. Un `tab` sans `title:` est une erreur
   d'ingestion (D1636).
-- `icon:` dessine la poignée : « chaque item gui doit disposer d'un
-  champ icône » (D439). « Les icônes permettent de minimiser le texte ou
-  afficher le texte en survol » (D504) : la poignée est compacte, le
-  titre passe en info-bulle.
+- `icon:` dessine la poignée : chaque item d'un écran dispose d'un champ
+  icône (D439). L'icône permet de réduire le texte, ou de ne l'afficher
+  qu'au survol (D504) : la poignée est compacte, le titre passe en
+  info-bulle.
 
 Le socle du vocabulaire s'applique (D461).
 
 **Items.** Des `sections` ou des feuilles : l'alternance stricte (D489).
 
 **Modes et déclinaisons.** Le volet occupe tout le cadre, à la dimension
-commune des onglets : « les zones sont centrées si elles représentent un
-espace plus petit » (D506). La poignée est le titre et l'icône. Sur le
-smartphone, la barre défile.
+commune des onglets : un contenu plus petit y est centré (D506). La
+poignée est le titre et l'icône. Sur le smartphone, la barre défile.
 
 **États et interactions.** La bascule. L'onglet est masqué par les
 droits ou la confidentialité.
@@ -454,8 +450,8 @@ ensemble.
 
 ## `pages`
 
-**Nom et famille.** `pages`, un conteneur : « une section pouvant
-contenir un header, des page(s) et un footer » (D456). C'est le
+**Nom et famille.** `pages`, un conteneur : une section qui peut
+contenir un `header`, des `page` et un `footer` (D456). C'est le
 troisième couple, après `sections` et `section`, `tabs` et `tab`
 (D489).
 
@@ -468,23 +464,23 @@ contient (D455).
 **Contexte consommé.** Le contexte est transmis tel quel aux items
 (D455). Les droits et la confidentialité décident de la visibilité.
 
-**Propriétés.** Aucune dimension : « pages prend toute la place »
-(D507), au contraire de `sections` et de son `size:` (D503). Le socle du
+**Propriétés.** Aucune dimension : `pages` prend toute la place (D507),
+au contraire de `sections` et de son `size:` (D503). Le socle du
 vocabulaire s'applique (D461).
 
 **Items.** Un `header` facultatif, des `page`, un `footer` facultatif.
 C'est la définition du composant. Trois règles tiennent (D507) :
 
-- l'entête et le pied, « s'ils sont définis, ils sont toujours
-  visibles » : ils encadrent les pages qui tournent ;
+- l'entête et le pied, s'ils sont définis, sont toujours visibles : ils
+  encadrent les pages qui tournent ;
 - leur `height:` est paramétrable ;
-- « la page prend toujours le reste ».
+- la page prend toujours le reste.
 
 Au template, l'entête et le pied se répètent à chaque page (D1636).
 
-**Modes et déclinaisons.** Au formulaire, une page à l'écran. « La
-navigation s'effectue de la même façon que les tabs, et l'affichage suit
-la même logique » (D508) : la barre des poignées, ses modes (D504), le
+**Modes et déclinaisons.** Au formulaire, une page à l'écran. La
+navigation se fait comme celle des `tabs`, et l'affichage suit la même
+logique (D508) : la barre des poignées, ses modes (D504), le
 chemin (D505), le swipe. Au template, ce sont les pages physiques du
 document, l'entête et le pied répétés.
 
@@ -533,8 +529,8 @@ items:
 
 ## `page`
 
-**Nom et famille.** `page`, un conteneur : « un composant de `pages` :
-le saut de page » (D456).
+**Nom et famille.** `page`, un conteneur : un composant de `pages`, le
+saut de page (D456).
 
 **Rôle.** La page, une part du découpage. Le saut la sépare de la
 suivante.
@@ -544,8 +540,8 @@ suivante.
 **Contexte consommé.** Le contexte est transmis tel quel (D455). Les
 droits masquent la page : elle saute.
 
-**Propriétés.** La poignée porte le numéro de la page par défaut. « Nous
-pouvons lui affecter un nom et/ou un icône comme un tab » (D508) :
+**Propriétés.** La poignée porte le numéro de la page par défaut. Elle
+peut recevoir un nom, une icône, ou les deux, comme un `tab` (D508) :
 
 - `title:`, le nom (D493) ;
 - `icon:`, l'icône (D439).
@@ -571,23 +567,23 @@ ensemble.
 
 **Nom et famille.** `header` et `footer`, deux conteneurs d'un même
 sang : les rôles réservés de `pages` (D487, D490). Le formulaire est un
-`pages` implicite : `header`, `page`, `footer` (D509). « Pas besoin de
-composants complémentaires » : la famille des conteneurs est close.
+`pages` implicite : `header`, `page`, `footer` (D509). Aucun composant
+complémentaire n'est nécessaire : la famille des conteneurs est close.
 
-**Rôle.** L'entête se fige en haut, le pied en bas. « S'ils sont
-définis, ils sont toujours visibles », et la page prend toujours le
-reste (D507).
+**Rôle.** L'entête se fige en haut, le pied en bas. S'ils sont définis,
+ils sont toujours visibles, et la page prend toujours le reste (D507).
 
 **Types servis.** Aucun : des conteneurs (D455).
 
 **Contexte consommé.** Le contexte est transmis tel quel aux items
 (D455). Les droits et la confidentialité décident de la visibilité.
 
-**Propriétés.** `height:`, la hauteur : « la hauteur du footer et du
-header sont paramétrables » (D507). Le socle du vocabulaire s'applique
+**Propriétés.** `height:`, la hauteur : celle de l'entête et celle du
+pied sont paramétrables (D507). Le socle du vocabulaire s'applique
 (D461).
 
-**Items.** « L'entête et le pied acceptent sections et onglets » (D450) :
+**Items.** L'entête et le pied acceptent les sections et les onglets
+(D450) :
 
 - les sections seules (D490) ;
 - l'organisateur `sections` ;

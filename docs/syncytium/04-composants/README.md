@@ -95,7 +95,9 @@ flowchart TB
 > nom, des propriétés, des items, et reçoit un contexte
 > ([glossaire](../../glossaire.md)).
 
-Une surface est un arbre. Chaque composant en est un nœud (D455) :
+Un écran se compose : une surface est un arbre, et chaque composant en
+est un nœud (D455). Tous les nœuds ont donc la même forme, en quatre
+points :
 
 - **un nom unique**, qu'un hook peut étendre ; le mot « hook »
   n'apparaît jamais dans la configuration (D408) ;
@@ -138,7 +140,8 @@ classDiagram
 
 ## Le modèle de fiche
 
-Chaque fiche du catalogue suit le même plan, en dix rubriques (D457) :
+Le catalogue se lit fiche par fiche. Pour qu'un composant se compare à
+un autre, chaque fiche suit le même plan, en dix rubriques (D457) :
 
 1. **Nom et famille** — la clé unique ; feuille, conteneur, acte,
    graphique ou surface.
@@ -171,7 +174,8 @@ Deux propriétés valent pour tous les composants :
 
 ## L'inventaire
 
-Le catalogue compte les composants suivants (D456).
+Avant le détail des fiches, voici l'inventaire : le catalogue compte les
+composants suivants, famille par famille (D456).
 
 - **Les surfaces** : `menu`, la porte du module (D1604) ; `form` ;
   `summary` ; `wizard` ; `widget` ; `list` ; `dashboard` ; `template` ;
@@ -197,8 +201,10 @@ Le composant par défaut d'un type porte le nom du type (D458).
 
 ## Du modèle de données aux composants
 
-Chaque type déclarable a son composant par défaut, et des composants
-compatibles, que `component:` choisit. Quatre règles valent pour tous :
+Le concepteur déclare des champs, et c'est le type du champ qui choisit
+sa représentation. Chaque type déclarable a donc son composant par
+défaut, et des composants compatibles, que `component:` choisit. Quatre
+règles valent pour tous :
 
 - **R1** — le composant par défaut d'un type porte le nom du type
   (D458) ;
@@ -259,8 +265,9 @@ compatibles, que `component:` choisit. Quatre règles valent pour tous :
 
 ## La signature du nœud
 
-Tout nœud de l'arbre d'une surface a la même signature, en sept traits
-(D566).
+Feuille, conteneur ou graphique, un nœud s'écrit toujours de la même
+façon. Tout nœud de l'arbre d'une surface a ainsi la même signature, en
+sept traits (D566).
 
 1. **La clé** est l'adresse `<type>[<nom>]`. Les types sont `render`
    pour les composants de présentation, `field` (D460), `operation`

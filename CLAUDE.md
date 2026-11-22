@@ -93,7 +93,10 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   rythme, avant les règles, les listes et les tables ; **les mots de
   l'auteur s'y reformulent**, ils ne se citent pas — pas de « le
   registre le dit : « … » » : le registre les garde, la décision se
-  cite entre parenthèses.
+  cite entre parenthèses. Les propos de l'auteur structurent l'échange ;
+  la documentation les rend compréhensibles et les intègre dans le
+  schéma d'ensemble, sans perdre le sens de ce qui a été arbitré : au
+  moindre doute, une question ou une validation (D2068).
 - **Chaque partie s'ouvre sur la définition de sa notion** (D1562) : en
   citation, la notion en gras, reprise du glossaire en phrases courtes,
   le renvoi au glossaire à sa suite ; une notion absente du glossaire y

@@ -110,8 +110,19 @@ Il reste des cas où la base ne dit rien, même lue en entier.
 parfaitement égales, qui sont deux faits distincts : aucune combinaison
 de ses colonnes n'est unique. Or toute entité porte une identité
 (D1035). L'outil ajoute alors à la table une colonne technique, un
-numéro, qui lui sert d'identité (D2111). C'est le seul cas où la
-rétro-conception modifie d'elle-même la base existante.
+numéro, qui lui sert d'identité (D2111). Trois règles l'encadrent
+(D2112) :
+
+- **la colonne répond à l'absence de clé** : elle donne à la table une
+  clé, et le moyen de la gérer ;
+- **l'administrateur en est averti avant** : le signalement lui est
+  fait avant que la mise à jour du modèle de la base de données ne se
+  déclenche ;
+- **la colonne se gère comme un compteur** : son ajout demande un
+  traitement, qui lui donne ses valeurs.
+
+C'est le seul cas où la rétro-conception modifie d'elle-même la base
+existante.
 
 ### Le partage
 

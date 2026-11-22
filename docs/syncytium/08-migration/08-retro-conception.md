@@ -226,15 +226,20 @@ reportée dans la configuration (D2028).
 
 ### L'évolution du modèle
 
-Le dossier que l'outil construit est une configuration comme une autre.
-Son modèle évolue ensuite par des versions, comme celui de toute
-application : c'est [la migration de version](07-version.md).
+Le dossier que l'outil construit est une configuration comme une
+autre : c'est la première version de l'application (D2124). Son modèle
+évolue ensuite par des versions, comme celui de toute application :
+c'est [la migration de version](07-version.md), sur la base existante.
 
 Syncytium ne limite pas ces évolutions pendant la vie commune (D2123) :
 c'est au concepteur de savoir ce que l'application d'origine supporte.
 Un champ ajouté ne la gêne pas : elle ignore sa colonne. Un champ
 renommé la casse : elle lit toujours la colonne par son ancien nom. La
 mise en garde vaut donc aussi pour les évolutions.
+
+Le jour où l'application d'origine s'arrête, l'application rétro-conçue
+devient une application Syncytium comme une autre. Ses noms peuvent
+alors se renommer, par `from:` (D2124).
 
 ## Un scénario de démonstration
 

@@ -121,8 +121,8 @@ Le chapitre compte trois usages, dont deux sont des migrations (D2025). La lectu
 puis la migration de version (13–16) ; les exemples, la facette et le
 registre le ferment (17–19). Le troisième usage, où aucune donnée ne migre, est
 la rétro-conception d'une application existante (D1907, D1908, D2027) ; sa
-lecture s'ouvre le 22/11/2026, dans les grands principes, en cinq points (20–24,
-D2107) — le détail de la conception reste à la conception. Le chapitre définit ce que le concepteur écrit
+lecture, ouverte et close le 22/11/2026, s'est tenue aux grands principes, en cinq
+points (20–24, D2107–D2124) — le détail de la conception reste à la conception. Le chapitre définit ce que le concepteur écrit
 (D1879) ; ce qui le quitte : toutes les conversions et l'exécution d'un
 passage, vers le chapitre 9 — les six points du passage y sont partis
 (D1880, D1881) — ; le contrat de compatibilité vu de l'API, vers le
@@ -155,4 +155,4 @@ renumérotés à la clôture du point 1.
 | 21 | **Ce que la base ne dit pas** : la table sans clé, le lien non déclaré, les modules qu'une base n'a pas — une colonne technique gérée comme un compteur, l'administrateur et le concepteur avertis avant ; les modules que le connecteur sait construire, sinon un seul (D1035, D2026, D2028) | clos (D2111–D2115) |
 | 22 | **Les noms** : Syncytium se pose sur la base telle qu'elle est — les entités et les champs gardent les noms des tables et des colonnes, tels quels ; les libellés au concepteur, les commentaires de la base repris (D2027) | clos (D2116, D2117) |
 | 23 | **La vie commune et le retour** : ce que Syncytium écrit dans la base existante, l'application d'origine qui continue ou non d'y écrire, ce qui garantit le retour — les deux écrivent, avec une mise en garde ; ce qui est propre à Syncytium dans un storage à part ; pour revenir, l'arrêt suffit (D2026, D2029, D2030) | clos (D2118–D2122) |
-| 24 | **La suite** : le dossier construit est une configuration comme une autre ; son évolution relève de la migration de version (D2029, D2098) | présenté |
+| 24 | **La suite** : le dossier construit est une configuration comme une autre ; son évolution relève de la migration de version ; pendant la vie commune, au concepteur de juger ce que l'application d'origine supporte (D2029, D2098) | clos (D2123, D2124) |

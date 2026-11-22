@@ -51,8 +51,8 @@ s'écrivent sur l'opération, par `every:`, `when:` ou `actions:`.
   dans [la composition](04-composition.md).
 
 La relance d'une tâche depuis la supervision est le geste de
-l'administrateur, pas un déclencheur (D88). *En proposition* : les
-événements nommés sont les issues des opérations du socle, au participe
+l'administrateur, pas un déclencheur (D88). Les événements nommés sont
+les issues des opérations du socle (D2080), au participe
 anglais, `created`, `updated`, `deleted`, `generated`, `imported`,
 `migrated`, `promoted`.
 

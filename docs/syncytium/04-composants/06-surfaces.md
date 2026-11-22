@@ -40,8 +40,8 @@ Toute surface s'ouvre au-dessus de la pile des surfaces précédentes
 
 Une cinquième, `degree: reader`, ouvre une surface au `reader`, pour une
 consultation autorisée que le concepteur décrit (D1794) ; sans elle, la
-surface est au degré `user`. La clé est *en proposition*, sa forme se
-précisera à l'implémentation. Une surface, ou un composant de l'écran,
+surface est au degré `user` (D2080). La forme de la clé se précisera à
+l'implémentation. Une surface, ou un composant de l'écran,
 porte aussi ses droits d'action, `allow:`, l'étage le plus près de
 l'utilisateur (D1796). Les degrés et les droits sont au chapitre 7,
 [les droits](../07-securite/02-groupes.md).

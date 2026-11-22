@@ -152,7 +152,7 @@ entière et ne change plus : hors des versions, à la racine, la clé est
 immuable (D1532). C'est l'anglais ou le français, selon le mode
 d'installation de Syncytium, ou une langue que le projet apporte
 (D1465).
-*Ma lecture* : le concepteur l'écrit, `syncytium init` la vérifie.
+Le concepteur l'écrit, et `syncytium init` la vérifie (D2080).
 
 ### `confidentiality:` — les profils de confidentialité
 
@@ -205,8 +205,8 @@ accompagnent, ils se rangent à l'un de trois étages : trois dossiers
 - dans la version, ceux qui se versionnent (D803) ;
 - dans le module, ceux qui lui sont attachés.
 
-*Ma lecture, en proposition* : chaque étage se déclare par la même clé et
-la même fiche, `name`, `description`, `file`, `credit` (D1384) ; par le
+Chaque étage se déclare par la même clé et la même fiche, `name`,
+`description`, `file`, `credit` (D1384, D2080) ; par le
 nom, le plus proche l'emporte, le module, puis la version, puis la
 racine.
 

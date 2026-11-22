@@ -23,6 +23,7 @@ parenthèses renvoient au [registre](../../conception.md).
 - [L'identité partout](#lidentité-partout)
   - [Toute entité porte une identité](#toute-entité-porte-une-identité)
   - [Plusieurs identités](#plusieurs-identités)
+  - [Des clés qui se croisent](#des-clés-qui-se-croisent)
 - [Une entité source, plusieurs fichiers](#une-entité-source-plusieurs-fichiers)
 - [Les composés par la fonction du type](#les-composés-par-la-fonction-du-type)
 
@@ -174,17 +175,55 @@ Une règle de complément re-parcourt la même source, et associe (D822) :
 Une commande reprise garde son numéro d'origine : il ne se tire pas du
 compteur de l'application. La règle écrit donc ce numéro dans un champ
 de type compteur (D883, D998), puis remet le compteur à niveau. Dans
-l'entrepôt, le numéro d'une commande de vente :
+l'entrepôt, la règle des commandes de vente fait les deux :
 
 ```yaml
+# Les commandes de vente
+ECOMCLI:
+  description: >-
+    Les entêtes des commandes de vente, sans héritage avec les achats ; les clients et les articles précèdent.
+    L'identité : le numéro et l'indice de révision, une ligne d'entête par révision ; le compteur des commandes se
+    repositionne sur la plus grande valeur reprise. Le client se retrouve par son code. Le statut de l'entête n'est pas
+    repris : les lignes portent le leur. L'adresse de livraison est reprise en détail et se géolocalise dans
+    l'entrepôt ; l'adresse de la commande n'est pas lue, le code du client suffit.
+  to: commande.commande_vente
+  fields:
     numero:
       formula: numero
       description: Le numéro calculé à la source ; la reprise surcharge la valeur du compteur.
+    indice:             ECKTINDICE
+    client:             ECCTCODE
+    reference_client:   ECCTREFCDE
+    date:               ECCJCRE
+    date_echeance:      ECCJECHFOR
+    derniere_livraison: ECCJDERBL
+    derniere_facture:   ECCJDERFA
+    devise:             ECCTDEVISE
+    taux_change:        ECCNTXDEVI
+    livraison_nom:         ECCTNOMLIV
+    livraison_rue1:        ECCTRUE1LI
+    livraison_rue2:        ECCTRUE2LI
+    livraison_rue3:        ECCTRUE3LI
+    livraison_code_postal: ECCTCPLIV
+    livraison_ville:       ECCTVILLIV
+    livraison_pays:        ECCTPAYSLI
+  operations:
+    commande_vente.numero.update(numero)
+  report:
+    when: migration
+    to: commercial
+    by: [notification, mail]
 ```
 
-La même règle repositionne ensuite le compteur, dans ses `operations:` :
-`commande_vente.numero.update(numero)`. Voir
-[les opérations d'une règle](04-regles.md#les-opérations-dune-règle).
+La règle agit en deux endroits :
+
+- **sous `fields:`**, `numero:` reçoit le numéro calculé à la source :
+  la reprise surcharge la valeur du compteur ;
+- **sous `operations:`**, `commande_vente.numero.update(numero)`
+  repositionne ensuite le compteur, pour chaque ligne construite. Voir
+  [les opérations d'une règle](04-regles.md#les-opérations-dune-règle).
+
+Trois précisions :
 
 - **`update(valeur)` est une méthode du type compteur** : si la valeur
   dépasse le compteur courant, le compteur se positionne sur elle ;
@@ -199,8 +238,7 @@ La même règle repositionne ensuite le compteur, dans ses `operations:` :
 
 Toute entité porte au moins une identité : la sienne, ou celle qu'elle
 hérite de sa racine (D1035, D1039). Son absence est une anomalie de
-description du modèle. La règle « création seule », que D825 et D930
-admettaient, n'existe pas.
+description du modèle.
 
 Pour une règle, cela donne :
 
@@ -231,12 +269,39 @@ identities:
 | la clé principale | elle est le lien principal : elle désigne l'enregistrement à chaque étape |
 | une clé secondaire | elle s'associe à l'enregistrement dès qu'elle est définie ; si elle existait déjà, la nouvelle association la remplace |
 
-- une seule de ses clés suffit à retrouver l'enregistrement (D1956) ;
-- pendant la lecture, des clés peuvent se croiser : deux factures
-  échangent leurs numéros d'une étape à l'autre ;
-- l'intégrité se vérifie donc juste avant la validation de la
-  migration, non à chaque ligne (D1954) ;
-- ce contrôle différé vaut pour les identités secondaires (D1956) ;
+Une seule de ses clés suffit à retrouver l'enregistrement (D1956).
+
+### Des clés qui se croisent
+
+Pendant la lecture, des clés secondaires peuvent se croiser. Deux
+factures d'octobre 2026, celle de Dupont et celle de Martin, échangent
+ainsi leurs numéros d'une étape à l'autre :
+
+| Le moment | La facture de Dupont | La facture de Martin | Ce que l'on constate |
+|---|---|---|---|
+| avant la lecture | F-0040 | F-0042 | chacune a son numéro |
+| l'étape 1 : la ligne de Dupont arrive avec F-0042 | F-0042 | F-0042 | deux factures portent le même numéro |
+| l'étape 2 : la ligne de Martin arrive avec F-0040 | F-0042 | F-0040 | chacune a son numéro : ils se sont échangés |
+
+```mermaid
+flowchart LR
+    D["la facture de Dupont<br/>octobre 2026"]
+    M["la facture de Martin<br/>octobre 2026"]
+    N40["le numéro F-0040"]
+    N42["le numéro F-0042"]
+    D -. "avant la lecture" .-> N40
+    M -. "avant la lecture" .-> N42
+    D -- "étape 1" --> N42
+    M -- "étape 2" --> N40
+```
+
+Refuser la ligne de l'étape 1 aurait rejeté un échange valide. D'où
+trois règles :
+
+- l'intégrité se vérifie juste avant la validation de la migration,
+  non à chaque ligne (D1954) ;
+- ce contrôle différé vaut pour les identités secondaires : la clé
+  principale, elle, désigne l'enregistrement à chaque étape (D1956) ;
 - un doublon qui subsiste à ce moment est une anomalie (D1955).
 
 ## Une entité source, plusieurs fichiers

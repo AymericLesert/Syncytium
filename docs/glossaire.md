@@ -1062,6 +1062,12 @@ respecte plus une règle de lien — le filtre a changé, la donnée a
 dérivé. Produit à la demande, à la migration ou en continu, adressé à
 qui de droit. Ce rapport permet également de couvrir les modifications directes à la base de données par un outil tiers sans passer par Syncytiium. *(D395/D406)*
 
+**Rapport général d'une migration** — Le rapport qui référence le nombre
+d'anomalies par règle, sans les reprendre. Ses indicateurs donnent au
+concepteur ou aux administrateurs une vision globale de l'état de santé
+de la migration. Les anomalies elles-mêmes vont au rapport de chaque
+règle et de chaque entité source. *(D929, D2078)*
+
 **Registre des traitements** — La documentation générée, jamais rédigée,
 qui liste les traitements au sens du RGPD, groupés par module soumis :
 une ligne par traitement, une suite comptant pour un, avec le

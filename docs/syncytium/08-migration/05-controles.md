@@ -20,7 +20,7 @@ parenthèses renvoient au [registre](../../conception.md).
   - [Le `message:` est facultatif](#le-message-est-facultatif)
 - [Les rapports](#les-rapports)
   - [Chaque règle a son rapport](#chaque-règle-a-son-rapport)
-  - [Aucun rapport général](#aucun-rapport-général)
+  - [Le rapport général](#le-rapport-général)
   - [Le rapport de l'entité source](#le-rapport-de-lentité-source)
   - [Qui reçoit quoi](#qui-reçoit-quoi)
   - [Une ligne fautive se signale, elle ne se filtre pas](#une-ligne-fautive-se-signale-elle-ne-se-filtre-pas)
@@ -151,7 +151,7 @@ validation est facultatif. Le concepteur peut le surcharger (D1946).
 
 Une anomalie n'a d'intérêt que si elle atteint celui qui peut la
 corriger. C'est pourquoi chaque règle de migration a son rapport, et non
-la migration un rapport général (D929). La règle sait sa source, sa
+la migration un rapport qui les réunirait toutes (D929). La règle sait sa source, sa
 cible, et qui corrige l'origine : l'information va ainsi à la bonne
 personne (D859). Elle déclare donc `report:`, dans la forme du modèle
 (D406) :
@@ -177,11 +177,22 @@ cible refuse (D177) :
 Sans `report:`, le défaut tient (D407) : à la demande, vers
 l'administrateur, par les surfaces du module `_migration` (D666).
 
-### Aucun rapport général
+### Le rapport général
 
-Il n'y a pas de rapport général : ni à la migration déclarée (D662), ni
-au module. La cascade reste celle du modèle (D407) : les non-conformes
-des références (D395).
+Aucun rapport ne regroupe toutes les anomalies, ni à la migration
+déclarée (D662), ni au module : elles vont, règle par règle, à qui peut
+les corriger. La cascade reste celle du modèle (D407) : les
+non-conformes des références (D395).
+
+Un rapport général peut exister pourtant, à condition de ne pas les
+reprendre : il référence le nombre d'anomalies par règle (D2078). Ses
+indicateurs donnent au concepteur ou aux administrateurs une vision
+globale de l'état de santé de la migration.
+
+| Le rapport | Ce qu'il porte | Pour qui |
+|---|---|---|
+| celui d'une règle, ou d'une entité source | les anomalies elles-mêmes | celui qui corrige l'origine |
+| le rapport général | le nombre d'anomalies par règle : des indicateurs | le concepteur, les administrateurs |
 
 ### Le rapport de l'entité source
 

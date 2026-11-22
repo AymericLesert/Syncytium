@@ -263,8 +263,10 @@ La forme courte est l'écriture courte du bloc qui ne porte que `from:`
   champ dans le modèle ; sans `mask:`, c'est lui qui convertit la valeur
   lue ;
 - **la colonne sans champ de même nom** n'est pas lue ; elle se relève à
-  la complétude. De même la colonne dont le champ de même nom est
-  `unmapped:` (D1966) ;
+  la complétude. De même la colonne dont le champ de même nom est marqué
+  `unmapped:` (D1966) : c'est un champ tenu hors du mapping, que la
+  migration n'écrit jamais et que la saisie remplit. Voir
+  [le champ tenu hors du mapping](05-controles.md#le-champ-tenu-hors-du-mapping) ;
 - **le champ sans colonne de même nom** prend sa valeur par défaut sur
   une ligne nouvelle ; sur une ligne modifiée, il garde sa valeur ;
 - **le champ requis sans colonne** refuse une ligne nouvelle, jamais une

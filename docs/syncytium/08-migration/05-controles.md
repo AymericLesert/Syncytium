@@ -351,16 +351,25 @@ Le rapport nomme la cause : le parent, ou la ligne (mien).
 
 ## Ce que la reprise écrit, ce qu'elle laisse
 
+> **Un champ hors mapping** (`unmapped:`) est un champ que la cible
+> possède et que les règles d'une reprise ne touchent pas. Il naît à sa
+> valeur par défaut, puis garde sa valeur : la saisie reste libre
+> ([glossaire](../../glossaire.md)).
+
 ### Les quatre cas
 
 Une reprise qui se rejoue rencontre des données déjà là : celles qu'elle
 a écrites la veille, et celles que les utilisateurs ont saisies depuis.
-Ce qu'elle écrit et ce qu'elle laisse tient en quatre cas (D1964) :
+Certains champs n'appartiennent d'ailleurs qu'à l'application : un écran
+de saisie les remplit, et la reprise ne doit pas les écraser. Le
+concepteur les marque `unmapped: true`, c'est-à-dire hors du mapping.
+Ce que la reprise écrit et ce qu'elle laisse tient alors en quatre cas
+(D1964) :
 
 | Le cas | Ce que la reprise fait |
 |---|---|
 | le champ qu'aucune règle n'alimente | il reste tel quel |
-| le champ `unmapped: true` | la migration ne l'écrit jamais |
+| le champ `unmapped: true`, que la saisie remplit | la migration ne l'écrit jamais |
 | le champ alimenté | la source fait foi |
 | le texte trop long pour sa cible | il se refuse à l'ingestion |
 
@@ -379,7 +388,8 @@ répond à ce besoin.
 
 ### Le champ tenu hors du mapping
 
-Le champ qu'un écran de saisie remplit se protège par la propriété
+C'est le champ hors mapping, défini en tête de cette partie. Le champ
+qu'un écran de saisie remplit se protège par la propriété
 `unmapped: true`, `false` par défaut (D941, D1965). Pour un nouvel
 enregistrement, le champ prend sa valeur par défaut ; si
 l'enregistrement existe, il garde sa valeur.

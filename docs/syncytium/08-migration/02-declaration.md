@@ -557,7 +557,10 @@ bien que la clé de la source s'appelle `partition:` (D1930).
 - c'est une opération du socle, au degré `administrator` ;
 - elle se planifie par `every:` (D434), et se déclenche comme toute
   opération (D428) ;
-- elle s'écrit par entité partitionnée : `reset_coverage(MVTSTO)`.
+- elle s'écrit par entité partitionnée : `reset_coverage(MVTSTO)`. Le
+  nom de l'entité peut se qualifier par son module,
+  `reset_coverage(<module>.<entité>)` : le module est facultatif quand
+  l'entité est dans le module courant (D2104).
 
 ### `on_running:`
 

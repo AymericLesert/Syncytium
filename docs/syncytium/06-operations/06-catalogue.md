@@ -171,8 +171,10 @@ pendant la bascule (D1077). Le chapitre 8, la reprise, détaille.
 `reset_coverage(<entité>)` remet au départ la couverture d'une entité
 partitionnée d'une reprise, sa dernière valeur parcourue : le `migrate`
 suivant relit la totalité, et rien n'est effacé (D881, D1030, D1037).
-Elle s'écrit par entité, `reset_coverage(MVTSTO)`, et se planifie par
-`every:`, parmi les opérations périodiques d'un processus de migration :
+Elle s'écrit par entité, `reset_coverage(MVTSTO)` ; le nom peut se
+qualifier par son module, `<module>.<entité>`, facultatif quand l'entité
+est dans le module courant (D2104). Elle se planifie par `every:`, parmi
+les opérations périodiques d'un processus de migration :
 dans l'entrepôt, le delta chaque nuit, la relecture complète le
 dimanche. Quand un passage de la migration tourne déjà, `on_running:`
 dit sa conduite, `cancel`, `wait` ou `interrupt` (D1079, D1080). Le

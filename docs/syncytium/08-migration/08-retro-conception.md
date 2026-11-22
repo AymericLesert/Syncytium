@@ -10,33 +10,35 @@ migration de version : une source que son connecteur décrit, un
 méta-modèle, des données qui passent de l'un à l'autre. Dans leur
 continuité, Syncytium peut s'adapter à une application existante, grâce
 à l'analyse de la description de son modèle de données : c'est la
-rétro-conception. Ce fichier dit ce qu'elle est, ce que l'outil
-construit et ce qu'il laisse au concepteur, comment elle se montre, et
-comment elle se lance. Les décisions citées entre parenthèses renvoient
-au [registre](../../conception.md).
+rétro-conception. Ce fichier dit ce qu'elle est, ce que l'outil lit, ce
+qu'il construit et ce qu'il laisse au concepteur, la vie commune avec
+l'application d'origine, comment elle se montre, et comment elle se
+lance. Les décisions citées entre parenthèses renvoient au
+[registre](../../conception.md).
 
 ## Le sommaire
 
 - [La rétro-conception d'une application existante](#la-rétro-conception-dune-application-existante)
   - [Le principe](#le-principe)
   - [L'intérêt](#lintérêt)
-- [Ce que l'outil construit, ce qu'il laisse](#ce-que-loutil-construit-ce-quil-laisse)
-  - [Ce qu'il lit](#ce-quil-lit)
+- [Ce que l'outil lit](#ce-que-loutil-lit)
+  - [Le schéma et les données](#le-schéma-et-les-données)
   - [Les indices de l'analyse](#les-indices-de-lanalyse)
+- [Ce que l'outil construit, ce qu'il laisse](#ce-que-loutil-construit-ce-quil-laisse)
+  - [Le partage](#le-partage)
   - [Ce que la base ne dit pas](#ce-que-la-base-ne-dit-pas)
   - [Les noms](#les-noms)
-  - [Le partage](#le-partage)
+- [La vie commune avec l'application d'origine](#la-vie-commune-avec-lapplication-dorigine)
   - [Aucune donnée ne migre](#aucune-donnée-ne-migre)
-  - [La vie commune](#la-vie-commune)
+  - [Les deux écrivent](#les-deux-écrivent)
   - [La mise en garde](#la-mise-en-garde)
   - [L'évolution du modèle](#lévolution-du-modèle)
-- [Un scénario de démonstration](#un-scénario-de-démonstration)
-  - [Quatre temps](#quatre-temps)
   - [Le retour à l'application d'origine](#le-retour-à-lapplication-dorigine)
+- [Un scénario de démonstration](#un-scénario-de-démonstration)
 - [La commande](#la-commande)
   - [`syncytium retro`](#syncytium-retro)
   - [Le fichier de la commande](#le-fichier-de-la-commande)
-- [Ce qui reste à préciser](#ce-qui-reste-à-préciser)
+- [Ce qui reste à la conception](#ce-qui-reste-à-la-conception)
 
 ## La rétro-conception d'une application existante
 
@@ -58,9 +60,9 @@ application existante et, en quelques minutes, une nouvelle application
 est disponible : de quoi montrer d'un coup l'intérêt de la solution
 (D2029, D2097).
 
-## Ce que l'outil construit, ce qu'il laisse
+## Ce que l'outil lit
 
-### Ce qu'il lit
+### Le schéma et les données
 
 L'outil lit deux choses dans la base existante (D2108) :
 
@@ -105,6 +107,38 @@ Deux principes guident l'analyse (D2110) :
 | un compteur | une séquence | un entier qui croît sans se répéter | `counter` |
 | la partition | les partitions déclarées | rien | `partition:` |
 | une colonne morte | rien | toujours vide, ou toujours la même valeur | un signalement au concepteur |
+
+## Ce que l'outil construit, ce qu'il laisse
+
+### Le partage
+
+L'outil va au-delà du méta-modèle (D2026). Beaucoup d'éléments se
+construisent automatiquement ; trois ne se déduisent pas d'un existant :
+
+| L'outil construit | Le concepteur écrit |
+|---|---|
+| le méta-modèle, exploitable et opérationnel, à partir du modèle de données existant | les opérations |
+| les fichiers de configuration pour accéder à l'application, si cela se déduit | les règles |
+| les écrans par défaut : construits pour l'occasion, ou ceux que Syncytium fournit | les droits |
+
+Reporter tout ce qui fait un métier, et ses besoins, est le travail du
+concepteur (D2028).
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    B["la base de<br/>l'application existante"]
+    F["monapp.yml<br/>la connexion, les accès,<br/>le dossier racine"]
+    R["syncytium retro"]
+    C["monapp/<br/>le méta-modèle, la configuration d'accès,<br/>les écrans par défaut"]
+    M["le concepteur<br/>les opérations, les règles, les droits"]
+    S["Syncytium, posé sur<br/>la base existante"]
+    B -- "son modèle de données" --> R
+    F --> R
+    R --> C
+    C --> S
+    M --> S
+```
 
 ### Ce que la base ne dit pas
 
@@ -152,35 +186,7 @@ l'utilisateur voit à l'écran (D2117) :
 - **un commentaire que la base porte se reprend** : celui d'une table
   ou d'une colonne devient sa `description:`.
 
-### Le partage
-
-L'outil va au-delà du méta-modèle (D2026). Beaucoup d'éléments se
-construisent automatiquement ; trois ne se déduisent pas d'un existant :
-
-| L'outil construit | Le concepteur écrit |
-|---|---|
-| le méta-modèle, exploitable et opérationnel, à partir du modèle de données existant | les opérations |
-| les fichiers de configuration pour accéder à l'application, si cela se déduit | les règles |
-| les écrans par défaut : construits pour l'occasion, ou ceux que Syncytium fournit | les droits |
-
-Reporter tout ce qui fait un métier, et ses besoins, est le travail du
-concepteur (D2028).
-
-```mermaid
-%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
-flowchart LR
-    B["la base de<br/>l'application existante"]
-    F["monapp.yml<br/>la connexion, les accès,<br/>le dossier racine"]
-    R["syncytium retro"]
-    C["monapp/<br/>le méta-modèle, la configuration d'accès,<br/>les écrans par défaut"]
-    M["le concepteur<br/>les opérations, les règles, les droits"]
-    S["Syncytium, posé sur<br/>la base existante"]
-    B -- "son modèle de données" --> R
-    F --> R
-    R --> C
-    C --> S
-    M --> S
-```
+## La vie commune avec l'application d'origine
 
 ### Aucune donnée ne migre
 
@@ -188,7 +194,7 @@ Le méta-modèle se pose sur le modèle de données existant. Puis Syncytium
 prend le relais, en douceur (D2026). La base reste celle de
 l'application d'origine.
 
-### La vie commune
+### Les deux écrivent
 
 Pendant que Syncytium est posé sur la base, l'application d'origine
 continue d'y écrire : les deux travaillent en même temps, sur les mêmes
@@ -241,19 +247,6 @@ Le jour où l'application d'origine s'arrête, l'application rétro-conçue
 devient une application Syncytium comme une autre. Ses noms peuvent
 alors se renommer, par `from:` (D2124).
 
-## Un scénario de démonstration
-
-### Quatre temps
-
-Pour un démonstrateur, la rétro-conception peut être puissante (D2029).
-Elle se montre en quatre temps :
-
-1. une application existante est là, avec sa base de données ;
-2. le méta-modèle se construit ;
-3. Syncytium s'exécute, et montre son initialisation ;
-4. le modèle évolue pour une exploitation — ou l'on revient à
-   l'application d'origine, si cela ne convient pas.
-
 ### Le retour à l'application d'origine
 
 Le retour est possible parce qu'aucune donnée ne migre (D2030) : la
@@ -274,6 +267,17 @@ Ce que le retour coûte dépend de ce qui a été fait :
 | aucune modification du modèle de données | sans perte : l'application d'origine retrouve sa base telle quelle |
 | le modèle intègre des évolutions | une perte minimale : une évolution que l'application d'origine ne connaît pas |
 | le modèle n'intègre pas des contrôles existants | une perte minimale : des enregistrements entrés sans un contrôle qu'elle imposait |
+
+## Un scénario de démonstration
+
+Pour un démonstrateur, la rétro-conception peut être puissante (D2029).
+Elle se montre en quatre temps :
+
+1. une application existante est là, avec sa base de données ;
+2. le méta-modèle se construit ;
+3. Syncytium s'exécute, et montre son initialisation ;
+4. le modèle évolue pour une exploitation — ou l'on revient à
+   l'application d'origine, si cela ne convient pas.
 
 ## La commande
 
@@ -321,8 +325,16 @@ root: monapp/
 
 Il se complétera à l'implémentation.
 
-## Ce qui reste à préciser
+## Ce qui reste à la conception
 
-La rétro-conception n'a pas encore été lue point par point, comme la
-reprise et la migration de version l'ont été. Ses points se dégageront à
-l'ouverture de cette lecture.
+La lecture de la rétro-conception s'est tenue aux grands principes
+(D2107). Le détail reste à la conception :
+
+- la déduction, table par table, et la correspondance des types
+  d'origine ;
+- la forme des écrans par défaut ;
+- le contenu complet de `monapp.yml` ;
+- le moment où la colonne technique d'une table sans clé se crée, et la
+  façon dont son compteur suit ;
+- la façon dont une écriture qui touche les deux storages se scelle ;
+- la façon dont Syncytium apprend qu'une ligne a changé sans lui.

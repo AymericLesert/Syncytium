@@ -1033,11 +1033,16 @@ restent à écrire : reporter ce qui fait un métier est le travail du
 concepteur. Aucune donnée ne migre : Syncytium se pose sur le modèle
 existant, puis prend le relais de l'application. Le retour à
 l'application d'origine reste possible : sans perte si rien n'a été
-modifié, avec une perte minimale sinon. La commande
+modifié, avec une perte minimale sinon. L'outil lit le schéma de la
+base et ses données. Pendant la vie commune, l'application d'origine
+continue d'écrire ; ce qui est propre à Syncytium vit dans un storage à
+part, et pour revenir, l'arrêt de Syncytium suffit. Elle se manie avec
+précaution : Syncytium ne connaît pas toutes les règles de gestion de
+l'application d'origine. La commande
 `syncytium retro monapp.yml` la lance ; son fichier porte la connexion à
 la base à analyser, les propriétés et les accès, le dossier racine ; il
 ne sert qu'à cette construction, et ne se versionne pas.
-*(D1907, D1908, D2025–D2031)*
+*(D1907, D1908, D2025–D2031, D2107–D2124)*
 
 **Processus de migration** — Une entrée de `migration.yml` : la base
 d'origine, les sources, les règles, le mode, les opérations périodiques.

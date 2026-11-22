@@ -65,7 +65,7 @@ flowchart LR
     B -- "les différences" --> A
 ```
 
-Un processus porte sept clés :
+Un processus porte huit clés :
 
 | La clé | Ce qu'elle dit | Sans elle |
 |---|---|---|
@@ -76,6 +76,7 @@ Un processus porte sept clés :
 | `mapping:` | les fichiers des règles de mapping : l'association entre les champs des entités d'une source et ceux de la destination | le mapping est champ à champ |
 | `exchange:` | les règles de transformation d'une migration de version : la conversion entre les versions, pour une compatibilité ascendante et descendante (D1981) | aucune |
 | `operations:` | les opérations périodiques : elles déclenchent la migration, ou nettoient les clés de ses partitions (D943) | la migration se lance à la demande |
+| `report:` | l'envoi du rapport général, le nombre d'anomalies par règle : voir [le rapport général](05-controles.md#le-rapport-général) (D2106) | le rapport général se lit dans la vue des migrations |
 
 Le processus de l'entrepôt (le cas 5) reprend les données de Cegid PMI :
 

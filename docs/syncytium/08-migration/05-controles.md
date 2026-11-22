@@ -179,20 +179,41 @@ l'administrateur, par les surfaces du module `_migration` (D666).
 
 ### Le rapport général
 
-Aucun rapport ne regroupe toutes les anomalies, ni à la migration
-déclarée (D662), ni au module : elles vont, règle par règle, à qui peut
-les corriger. La cascade reste celle du modèle (D407) : les
-non-conformes des références (D395).
+Aucun rapport ne regroupe toutes les anomalies (D662) : elles vont,
+règle par règle, à qui peut les corriger. La cascade reste celle du
+modèle (D407) : les non-conformes des références (D395).
 
-Un rapport général peut exister pourtant, à condition de ne pas les
-reprendre : il référence le nombre d'anomalies par règle (D2078). Ses
-indicateurs donnent au concepteur ou aux administrateurs une vision
-globale de l'état de santé de la migration.
+Un rapport général existe pourtant, qui ne les reprend pas : il
+référence le nombre d'anomalies par règle (D2078). Ses indicateurs
+donnent au concepteur ou aux administrateurs une vision globale de
+l'état de santé de la migration.
 
 | Le rapport | Ce qu'il porte | Pour qui |
 |---|---|---|
 | celui d'une règle, ou d'une entité source | les anomalies elles-mêmes | celui qui corrige l'origine |
 | le rapport général | le nombre d'anomalies par règle : des indicateurs | le concepteur, les administrateurs |
+
+Il s'obtient de deux façons, qui se cumulent (D2106) :
+
+- **dans la vue des migrations**, toujours : rien n'est à écrire ;
+- **par un envoi**, quand le processus déclare `report:`, dans la forme
+  de celui d'une règle : `when:`, `to:`, `by:`.
+
+Aucun cas n'en porte. En illustration, un processus nommé
+(ex : `cegid`) enverrait le sien à l'administration, après chaque
+passage :
+
+```yaml
+# La migration cegid
+cegid:
+
+  # Le rapport général
+  # Le nombre d'anomalies par règle, après chaque passage : l'état de santé de la migration.
+  report:
+    when: migration
+    to: administration
+    by: notification
+```
 
 ### Le rapport de l'entité source
 

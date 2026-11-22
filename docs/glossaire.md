@@ -1065,8 +1065,10 @@ qui de droit. Ce rapport permet également de couvrir les modifications directes
 **Rapport général d'une migration** — Le rapport qui référence le nombre
 d'anomalies par règle, sans les reprendre. Ses indicateurs donnent au
 concepteur ou aux administrateurs une vision globale de l'état de santé
-de la migration. Les anomalies elles-mêmes vont au rapport de chaque
-règle et de chaque entité source. *(D929, D2078)*
+de la migration. Il se lit toujours dans la vue des migrations ; le
+processus qui déclare `report:` l'envoie aussi à ses destinataires. Les
+anomalies elles-mêmes vont au rapport de chaque règle et de chaque
+entité source. *(D929, D2078, D2106)*
 
 **Registre des traitements** — La documentation générée, jamais rédigée,
 qui liste les traitements au sens du RGPD, groupés par module soumis :

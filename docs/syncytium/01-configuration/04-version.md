@@ -558,7 +558,8 @@ D2027). Le dossier range les deux migrations :
 - `migration.yml` décrit et nomme les processus de migration, chacun
   pour un connecteur d'origine (D662, D1888) : `from:` la base d'origine
   (D1087), `mode:` et `reset:`, `relative` et `false` par défaut
-  (D671, D1889), `sources:` (D1884), `mapping:`, `operations:` ; une
+  (D671, D1889), `sources:` (D1884), `mapping:`, `operations:`, `report:`
+  pour l'envoi du rapport général (D2106) ; une
   reprise un pour un s'écrit en forme courte, `legacy: fichier_csv` ou
   `legacy: fichier_csv[client]`, les entités entre crochets séparées par
   une virgule : le connecteur se décrit, le mapping est champ à champ

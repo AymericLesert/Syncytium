@@ -247,7 +247,10 @@ Pour une règle, cela donne :
   enregistrement (D1046) ;
 - la règle de complément ne crée pas (D821) ;
 - la règle de mise à jour alimente l'identité elle-même : une valeur
-  inchangée, que le différentiel ignore.
+  inchangée, que le différentiel ignore ;
+- quand la source n'a aucune clé naturelle, l'identifiant de la ligne
+  en tient lieu : dans le véhicule, le journal des entretiens écrit
+  `numero: connector.line` (D849, D2092).
 
 ### Plusieurs identités
 

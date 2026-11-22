@@ -9,6 +9,10 @@ description: Une ligne du journal de vie — un frais, un événement, l'achat, 
 # Le visage texte
 label: "${name}"
 
+# L'identité
+# Le rang de la ligne dans le journal, au sein du véhicule.
+identity: numero
+
 # Les champs
 fields: ~{fields.yml}
 

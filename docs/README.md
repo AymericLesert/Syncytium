@@ -112,7 +112,7 @@ est au chapitre 5 (D1730), l'opération au chapitre 6 (D1762), où
 
 ## Les points de la lecture en cours
 
-Le chapitre 8, la migration (D1863, D2024) — la lecture est close (D2023). Les points d'un
+Le chapitre 8, la migration (D1863, D2024) — le chapitre est fini (D2127) ; la lecture est close (D2023). Les points d'un
 chapitre se dégagent à son ouverture, dans l'ordre de son sujet, avec ce qui
 le quitte vers les autres chapitres (D1787) ; l'état dit « à traiter »,
 « présenté » ou « clos (Dnnnn) » ; le tableau de bord lit cette table.

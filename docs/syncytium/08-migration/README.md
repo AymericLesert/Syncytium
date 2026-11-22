@@ -189,9 +189,13 @@ versions/beta/v1.0.0.1/migration/
 - `migration.yml` déclare les processus : voir
   [la migration déclarée](02-declaration.md) ;
 - `sources/` décrit le système d'origine : voir [la source](03-sources.md) ;
-- `mapping/` porte les règles : voir [les règles](04-regles.md),
+- `mapping/` porte les règles de mapping, qui associent les champs des
+  entités d'une source à ceux de la destination : voir
+  [les règles](04-regles.md),
   [les contrôles](05-controles.md) et [les compléments](06-complements.md) ;
-- `exchange/` porte les règles d'une migration de version : voir
+- `exchange/` porte les règles de transformation d'une migration de
+  version, qui convertissent les données entre les versions pour une
+  compatibilité ascendante et descendante : voir
   [la migration de version](07-version.md). Aucun cas n'en a encore.
 
 Le nom du dossier est celui des cas ; son organisation reste libre

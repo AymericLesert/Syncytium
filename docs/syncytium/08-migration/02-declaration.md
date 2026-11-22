@@ -73,8 +73,8 @@ Un processus porte sept clés :
 | `mode:` | `relative` ou `absolute` | `relative` (D1889) |
 | `reset:` | vider les tables cibles avant l'import | `false` (D1889) |
 | `sources:` | les fichiers qui décrivent les entités sources | le connecteur se décrit lui-même |
-| `mapping:` | les fichiers des règles | le mapping est champ à champ |
-| `exchange:` | les règles d'une migration de version (D1981) | aucune |
+| `mapping:` | les fichiers des règles de mapping : l'association entre les champs des entités d'une source et ceux de la destination | le mapping est champ à champ |
+| `exchange:` | les règles de transformation d'une migration de version : la conversion entre les versions, pour une compatibilité ascendante et descendante (D1981) | aucune |
 | `operations:` | les opérations périodiques : elles déclenchent la migration, ou nettoient les clés de ses partitions (D943) | la migration se lance à la demande |
 
 Le processus de l'entrepôt (le cas 5) reprend les données de Cegid PMI :

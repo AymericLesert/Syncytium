@@ -61,6 +61,7 @@ Les règles de la forme courte d'une reprise s'y appliquent (D1896) :
 |---|---|---|
 | un champ supprimé | une colonne sans champ | la colonne n'est pas lue |
 | un champ ajouté | un champ sans colonne | il prend sa valeur par défaut |
+| un champ dont le type est modifié | une colonne et un champ de même nom, de types différents | le type de destination convertit la valeur |
 | un champ requis ajouté, sans `default:` | un champ sans colonne ni valeur | une erreur d'ingestion, même s'il est alimenté par une règle d'`exchange/` (D1970, D1972) |
 
 La procédure à chaud dépend du moteur : elle est au chapitre 9.
@@ -76,9 +77,9 @@ clés, au même niveau :
 
 | La clé | Ce qu'elle déclare |
 |---|---|
-| `sources:` | sa source |
-| `mapping:` | ses règles de mapping |
-| `exchange:` | ses règles de transformation |
+| `sources:` | sa source : la description des entités d'origine |
+| `mapping:` | ses règles de mapping : l'association entre les champs des entités d'une source et ceux de la destination |
+| `exchange:` | ses règles de transformation : les règles de conversion entre les versions, pour assurer une compatibilité ascendante et descendante |
 
 Une règle d'`exchange/` a le format d'une règle de mapping, formules
 comprises. Son sens diffère : elle porte sur le format existant.

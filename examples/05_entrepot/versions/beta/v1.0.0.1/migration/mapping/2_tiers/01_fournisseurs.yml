@@ -40,6 +40,6 @@ FOURNIS:
     date_creation:     CLCJCRE
     date_modification: CLCJMOU
   report:
-    when: [migration]
-    to: [achats]
+    when: migration
+    to: achats
     by: [notification, mail]

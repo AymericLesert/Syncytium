@@ -1297,7 +1297,7 @@ ligne compris), chaque champ commenté de sa colonne PMI :
   compositions `adresses` et `contacts`, le `siren` calculé — **le
   mot de l'auteur, l'éponymie triple `tiers/tiers/tiers.yml`
   assumée**, D884) ; **`client` et `fournisseur` par `inheritance:
-  tiers`** (D353 — l'`identity: [code]` à la racine `tiers`, conservée
+  tiers`** (D353 — l'`identity: code` à la racine `tiers`, conservée
   par les enfants — D1039 ; chacun ses champs propres, `commandes` en association dérivée D405) ; `adresse`
   (l'usage en énuméré, la `geolocation`) ; `contact` (**`rgpd:
   personal`** sur le nom, le prénom, les coordonnées, la date de
@@ -1614,7 +1614,7 @@ second `migrate` lancé pendant ce temps est annulé et tracé (D1077).
   trois jeux de compteurs, les deux indicateurs ; le détail des
   anomalies dans le module, partitionné par date (D1047–D1065, D1889).
 
-*Le matin — les rapports* (`when: [migration]`, `by: [notification,
+*Le matin — les rapports* (`when: migration`, `by: [notification,
 mail]` — D945) :
 
 | le destinataire | les sources (D1061) | les règles (D1062–D1063) |
@@ -2872,7 +2872,7 @@ contact: entrepot@entreprise.example
 copyright: © 2026 L'entreprise
 
 # versions/production/v1.0.0.0/version.yml — les auteurs et la documentation de la version (D1355, D1219)
-authors: [Aymeric Lesert]
+authors: Aymeric Lesert
 documentation: ~{documentation.yml}
 
 # versions/production/v1.0.0.0/documentation.yml — le texte du support (D1375)

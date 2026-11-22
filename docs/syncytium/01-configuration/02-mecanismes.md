@@ -1,6 +1,6 @@
 # 2. Les mécanismes transverses
 
-Dix mécanismes reviennent dans toute la configuration, quel que soit le
+Onze mécanismes reviennent dans toute la configuration, quel que soit le
 fichier. Ils sont décrits ici une fois. Les chapitres suivants les
 emploient sans les redire.
 
@@ -18,6 +18,7 @@ emploient sans les redire.
   - [Les groupes de champs (D1273, D1279–D1280)](#les-groupes-de-champs-d1273-d1279d1280)
 - [2.9 Les deux formes d'une collection — la liste et la substitution (D1113)](#29-les-deux-formes-dune-collection--la-liste-et-la-substitution-d1113)
 - [2.10 Les défauts du poste informatique (D1114)](#210-les-défauts-du-poste-informatique-d1114)
+- [2.11 La liste à un seul élément (D2085)](#211-la-liste-à-un-seul-élément-d2085)
 
 ## 2.1 La référence de fichier — `~{<fichier>}` (D956)
 
@@ -316,3 +317,32 @@ déclare que son modèle et un environnement ; le reste vient des défauts :
 
 L'inventaire complet des défauts du socle est dans
 [05-defauts.md](05-defauts.md).
+
+## 2.11 La liste à un seul élément (D2085)
+
+Beaucoup de clés attendent une liste, et n'en reçoivent souvent qu'un
+élément : une identité à un seul champ, un rapport à un seul
+destinataire. Les crochets sont alors facultatifs, et la valeur s'écrit
+seule.
+
+```yaml
+# L'identité d'un véhicule, à un seul champ : sans crochets
+identity: immatriculation
+
+# Le tri d'une liste d'écritures, à trois champs : les crochets s'imposent
+sort: [date_comptable, montant, numero]
+```
+
+- **les deux écritures se valent** : `identity: [immatriculation]` et
+  `identity: immatriculation` désignent la même liste, à un élément ;
+- **à plusieurs éléments, la liste s'écrit** : entre crochets, ou en
+  bloc ;
+- **la règle vaut pour toute clé qui attend une liste** (D2063, D2076,
+  D2084) : `operations: migrate`, `actions: notify`, `exports: pdf`,
+  `when: migration`, `to: commercial` ;
+- **un élément garde les crochets qui lui sont propres** :
+  `exports: pdf[order_sheet]` nomme un modèle, `partition:
+  ECKTNUMERO[10000]` une plage. Ces crochets-là ne sont pas ceux d'une
+  liste.
+
+Les cas écrivent la forme sans crochets.

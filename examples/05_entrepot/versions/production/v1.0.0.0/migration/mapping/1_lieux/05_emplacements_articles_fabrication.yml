@@ -11,6 +11,6 @@ ARTICLE:
     depot: ARCTCODEPF
     code:  ARCTCOEMPF
   report:
-    when: [migration]
-    to: [logistique]
+    when: migration
+    to: logistique
     by: [notification, mail]

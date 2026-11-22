@@ -158,7 +158,7 @@ ses champs sont obligatoires par définition. Une entité peut en porter
 plusieurs, nommées (`identities:`) : la première est l'identité de
 naissance, obligatoire ; les suivantes sont acquises — un numéro
 attribué à la validation — et ne valent qu'une fois complètes.
-*Ex. : `identity: [code]` ; `identities: { mensuelle: [client, mois],
+*Ex. : `identity: code` ; `identities: { mensuelle: [client, mois],
 numero: [numero] }`.* *(D142/D357, D1035/D1039, D1170–D1171)*
 
 **Collection** — Une valeur à plusieurs éléments : une liste, une

@@ -153,7 +153,7 @@ la saisie, le calcul et les valeurs, la documentation.
   liste calculée (D405). `sort:` donne les clés de tri dans l'ordre,
   `sort: [owner.date, owner.numero]` ; `first()` et `last()` rendent alors
   l'élément de tête ou de queue (D997, D1017). `group:` donne les champs
-  de regroupement, `group: [emplacement]` : l'association livre une
+  de regroupement, `group: emplacement` : l'association livre une
   cellule par combinaison, et une fonction d'agrégation s'évalue cellule par cellule
   (D1016). Les méthodes `sort(…)` et `group(…)` en sont les formes en
   ligne (D1015, D1017).

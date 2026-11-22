@@ -73,7 +73,7 @@ mouvements:
 
 mouvements_par_emplacement:
   type: association with stock.mouvement if article = me
-  group: [emplacement]
+  group: emplacement
   label: Mouvements par emplacement
   description: >-
     La même association, groupée : une cellule par emplacement, les mouvements de la cellule dedans ; l'accès à plat

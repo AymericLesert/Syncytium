@@ -29,6 +29,6 @@ CONTACT:
       description: Vide, le contact est actif.
     date_creation: CTCJCRE
   report:
-    when: [migration]
-    to: [achats]
+    when: migration
+    to: achats
     by: [notification, mail]

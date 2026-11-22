@@ -14,7 +14,7 @@ label: "{code} — {nom}"
 
 # L'identité
 # Le code, hérité par le client et le fournisseur.
-identity: [code]
+identity: code
 
 # L'historique
 history: true

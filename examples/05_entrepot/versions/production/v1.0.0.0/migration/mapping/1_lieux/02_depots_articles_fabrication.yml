@@ -5,11 +5,11 @@ ARTICLE:
     dépôt ; une fiche sans dépôt n'en fait pas. Un dépôt né ici est inactif et sans libellé ; déjà connu, il n'est pas
     touché.
   to: stock.depot
-  distinct: [ARCTCODEPF]
+  distinct: ARCTCODEPF
   filter: ARCTCODEPF is not null
   fields:
     code: ARCTCODEPF
   report:
-    when: [migration]
-    to: [logistique]
+    when: migration
+    to: logistique
     by: [notification, mail]

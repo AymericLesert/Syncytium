@@ -6,6 +6,6 @@ ARTICLE:
   filter: ARCTFATN = "12"
   fields: ~{articles/fields.yml}
   report:
-    when: [migration]
-    to: [bureau_etudes]
+    when: migration
+    to: bureau_etudes
     by: [notification, mail]

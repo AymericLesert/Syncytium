@@ -4,11 +4,11 @@ STDEPLOT:
     La quatrième origine des dépôts : les dépôts des niveaux non nuls, pour que tout stock trouve son lieu ; un niveau à
     zéro ne crée pas de dépôt. Un dépôt né ici est inactif et sans libellé ; déjà connu, il n'est pas touché.
   to: stock.depot
-  distinct: [DPKTDEPOT]
+  distinct: DPKTDEPOT
   filter: DPCNSTOPHY != 0
   fields:
     code: DPKTDEPOT
   report:
-    when: [migration]
-    to: [logistique]
+    when: migration
+    to: logistique
     by: [notification, mail]

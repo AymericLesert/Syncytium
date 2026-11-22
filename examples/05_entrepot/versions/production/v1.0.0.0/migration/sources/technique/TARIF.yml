@@ -16,7 +16,7 @@ identity: [TAKTGENRE, TAKTCODE, TAKTCODART, TAKTCOMART, TAKTTARIF, TAKJAPLI]
 # Le rapport des anomalies de la table
 # Le commercial corrige les tarifs de vente, les achats les tarifs d'achat.
 report:
-  when: [migration]
+  when: migration
   to: [commercial, achats]
   by: [notification, mail]
 

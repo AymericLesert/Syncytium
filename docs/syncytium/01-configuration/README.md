@@ -35,6 +35,7 @@ décisions citées entre parenthèses renvoient au
    - [2.8 La forme courte et le bloc (D356)](02-mecanismes.md#28-la-forme-courte-et-le-bloc-d356)
    - [2.9 Les deux formes d'une collection — la liste et la substitution (D1113)](02-mecanismes.md#29-les-deux-formes-dune-collection--la-liste-et-la-substitution-d1113)
    - [2.10 Les défauts du poste informatique (D1114)](02-mecanismes.md#210-les-défauts-du-poste-informatique-d1114)
+   - [2.11 La liste à un seul élément (D2085)](02-mecanismes.md#211-la-liste-à-un-seul-élément-d2085)
 3. [L'arbre](03-arbre.md)
    - [3.1 `syncytium.yml` — le projet](03-arbre.md#31-syncytiumyml--le-projet)
    - [3.2 `environments/` — la configuration technique commune (D325, D342)](03-arbre.md#32-environments--la-configuration-technique-commune-d325-d342)

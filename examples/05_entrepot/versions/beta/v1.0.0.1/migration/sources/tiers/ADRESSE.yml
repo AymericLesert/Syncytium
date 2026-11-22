@@ -16,7 +16,7 @@ identity: [ADKTTYPCPT, ADKTCOMPTE, ADKNNUMERO]
 # Le rapport des anomalies de la table
 # Le commercial corrige les adresses des clients, les achats celles des fournisseurs.
 report:
-  when: [migration]
+  when: migration
   to: [commercial, achats]
   by: [notification, mail]
 

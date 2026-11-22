@@ -3678,7 +3678,7 @@ par paramétrage. **Son modèle**, trois entités, en esquisse :
 question:
   description: Une question posée depuis un écran ou une fonctionnalité
   label: "{titre}"
-  identity: [numero]
+  identity: numero
   states: statut
   fields:
     numero: integer
@@ -3888,7 +3888,7 @@ modèle**, deux entités, en esquisse :
 ticket:
   description: Une anomalie signalée, une évolution demandée ou une question posée depuis un écran
   label: "{titre}"
-  identity: [numero]
+  identity: numero
   states: statut
   fields:
     numero: integer

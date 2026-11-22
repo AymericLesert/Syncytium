@@ -495,7 +495,7 @@ release-notes: |
   La première version de l'entrepôt de données.
 
 # Les auteurs de la version
-authors: [Aymeric Lesert]
+authors: Aymeric Lesert
 
 # La documentation de la version : les pages, les scénarios, les gabarits
 documentation: ~{documentation.yml}

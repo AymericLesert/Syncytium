@@ -17,8 +17,8 @@ identity: [ARKTCODART, ARKTCOMART]
 # Le rapport des anomalies de la table
 # Le bureau d'études corrige les fiches articles à l'origine.
 report:
-  when: [migration]
-  to: [bureau_etudes]
+  when: migration
+  to: bureau_etudes
   by: [notification, mail]
 
 # Les colonnes

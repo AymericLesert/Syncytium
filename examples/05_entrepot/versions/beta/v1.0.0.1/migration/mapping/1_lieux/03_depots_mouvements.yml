@@ -4,11 +4,11 @@ MVTSTO:
     La troisième origine des dépôts : chaque dépôt cité par un mouvement lu, y compris les dépôts qui ne servent plus.
     Un dépôt né ici est inactif et sans libellé.
   to: stock.depot
-  distinct: [MVCTDEPOT]
+  distinct: MVCTDEPOT
   filter: MVCTDEPOT is not null
   fields:
     code: MVCTDEPOT
   report:
-    when: [migration]
-    to: [logistique]
+    when: migration
+    to: logistique
     by: [notification, mail]

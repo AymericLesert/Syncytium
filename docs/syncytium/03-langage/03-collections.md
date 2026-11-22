@@ -200,7 +200,7 @@ nb_jours:
 ```
 
 - **l'identité doit être déclarée** : la consommation porte
-  `identity: [numero]`, la clé au sein de son possesseur ;
+  `identity: numero`, la clé au sein de son possesseur ;
 - **une clé absente rend le nul** ;
 - **une clé composée** s'écrit une valeur par champ, `collection[v1, v2]`
   (D842) ;

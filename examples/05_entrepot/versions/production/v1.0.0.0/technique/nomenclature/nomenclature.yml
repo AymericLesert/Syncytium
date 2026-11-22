@@ -14,7 +14,7 @@ label: "{numero} — {designation}"
 
 # L'identité
 # Le rang de la ligne au sein de l'article : owner.nomenclature[n].
-identity: [numero]
+identity: numero
 
 # L'historique
 history: true

@@ -16,8 +16,8 @@ identity: [ECKTNUMERO, ECKTINDICE]
 # Le rapport des anomalies de la table
 # Le commercial corrige les commandes de vente à l'origine.
 report:
-  when: [migration]
-  to: [commercial]
+  when: migration
+  to: commercial
   by: [notification, mail]
 
 # La lecture par partition

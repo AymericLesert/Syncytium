@@ -12,7 +12,7 @@ description: Un dépôt de stockage
 label: "{code} — {libelle}"
 
 # L'identité
-identity: [code]
+identity: code
 
 # L'historique
 history: true

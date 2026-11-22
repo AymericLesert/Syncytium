@@ -11,7 +11,7 @@ label: "{usage} — {nom}"
 
 # L'identité
 # Le numéro, au sein du tiers.
-identity: [numero]
+identity: numero
 
 # L'historique
 history: true

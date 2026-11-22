@@ -170,7 +170,7 @@ Elle admet `sort:` et `group:` ([03-champs.md](03-champs.md)) :
 # Les mouvements par article : la vue dérivée, groupée par article
 mouvements_par_article:
   type: association with stock.mouvement if emplacement = me
-  group: [article]
+  group: article
   label: Mouvements par article
   description: >-
     Le second accès aux mouvements, la vue dérivée groupée par article : une cellule par article passé par cet

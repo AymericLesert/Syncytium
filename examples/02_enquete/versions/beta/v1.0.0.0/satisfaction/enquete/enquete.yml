@@ -10,7 +10,7 @@ description: Une enquête de satisfaction — la campagne et ses réponses
 label: "{titre}"
 
 # L'identité
-identity: [titre]
+identity: titre
 
 # Les champs
 fields: ~{fields.yml}

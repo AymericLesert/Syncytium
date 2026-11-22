@@ -9,6 +9,6 @@ ARTICLE:
     - ~{articles/fields.yml}
     - client_defaut: ARCTNOFOU1
   report:
-    when: [migration]
-    to: [bureau_etudes]
+    when: migration
+    to: bureau_etudes
     by: [notification, mail]

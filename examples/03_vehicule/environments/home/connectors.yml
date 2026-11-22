@@ -42,7 +42,7 @@ legacy:
 
     # Les feuilles-formulaires, un enregistrement par classeur
     identification:
-      files: [ '.*\.xlsx?' ]
+      files: '.*\.xlsx?'
       single: true
 
       # Les colonnes
@@ -79,7 +79,7 @@ legacy:
           reference: IDENTIFICATION
 
     titre_consommation:
-      files: [ '.*\.xlsx?' ]
+      files: '.*\.xlsx?'
       single: true
 
       # Les colonnes
@@ -95,7 +95,7 @@ legacy:
           reference: CONSOMMATION!A1
 
     regle_revision:
-      files: [ '.*\.xlsx?' ]
+      files: '.*\.xlsx?'
       single: true
 
       # Les colonnes
@@ -111,7 +111,7 @@ legacy:
           reference: ENTRETIEN!I1
 
     credit_parametres:
-      files: [ '.*\.xlsx?' ]
+      files: '.*\.xlsx?'
       single: true
 
       # Les colonnes
@@ -138,7 +138,7 @@ legacy:
     # La ligne vide qui suit l'entête interdit « ... » ; la plage de l'entretien borne d'elle-même le bloc droit aux
     # entêtes homonymes.
     consommation:
-      files: [ '.*\.xlsx?' ]
+      files: '.*\.xlsx?'
       range: CONSOMMATION!A3:H
 
       # Les colonnes
@@ -175,7 +175,7 @@ legacy:
           label: Prix au KwH
 
     entretien:
-      files: [ '.*\.xlsx?' ]
+      files: '.*\.xlsx?'
       range: ENTRETIEN!A3:H
 
       # Les colonnes
@@ -205,7 +205,7 @@ legacy:
     # L'échéancier, le même format sur deux feuilles
     # La première plage existante sert ; « ... » s'arrête à la première ligne vide.
     echeance:
-      files: [ '.*\.xlsx?' ]
+      files: '.*\.xlsx?'
       range:
         - CREDIT!A8:G...
         - LOA!A3:G...

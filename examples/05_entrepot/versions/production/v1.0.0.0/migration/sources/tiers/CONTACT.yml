@@ -11,12 +11,12 @@ filter: CTKTSOC = "100" and CTCTTYPCPT in ["C", "F"]
 
 # L'identité d'une ligne
 # L'identifiant du contact.
-identity: [CTKNID]
+identity: CTKNID
 
 # Le rapport des anomalies de la table
 # Le commercial corrige les contacts des clients, les achats ceux des fournisseurs.
 report:
-  when: [migration]
+  when: migration
   to: [commercial, achats]
   by: [notification, mail]
 

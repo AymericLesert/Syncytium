@@ -821,7 +821,7 @@ gui:
     controle:
       component: pivot
       rows: [depot, emplacement]
-      columns: [article]
+      columns: article
       value: 'sum(sens.select(entree: quantite, sortie: -quantite))'
       filter: date >= context.today - 1m
       title: Contrôle des stocks par les mouvements (le mois)

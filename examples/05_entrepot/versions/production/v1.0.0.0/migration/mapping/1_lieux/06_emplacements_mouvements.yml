@@ -10,6 +10,6 @@ MVTSTO:
     depot: MVCTDEPOT
     code:  MVCTCODMPL
   report:
-    when: [migration]
-    to: [logistique]
+    when: migration
+    to: logistique
     by: [notification, mail]

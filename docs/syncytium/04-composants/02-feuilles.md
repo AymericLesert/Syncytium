@@ -479,7 +479,7 @@ fields:
   # Le prix : un composé, la devise en post-zone
   price:
     type: amount
-    currencies: [EUR]
+    currencies: EUR
 
   # Le poids : une mesure, le masque aux séparateurs de la langue
   weight:

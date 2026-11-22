@@ -43,6 +43,6 @@ CLIENT:
     date_creation:     CLCJCRE
     date_modification: CLCJMOU
   report:
-    when: [migration]
-    to: [commercial]
+    when: migration
+    to: commercial
     by: [notification, mail]

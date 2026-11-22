@@ -10,6 +10,6 @@ STDEPLOT:
     depot: DPKTDEPOT
     code:  DPKTCODMPL
   report:
-    when: [migration]
-    to: [logistique]
+    when: migration
+    to: logistique
     by: [notification, mail]

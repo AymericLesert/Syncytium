@@ -35,17 +35,17 @@ poids:
 
 longueur:
   type: measure
-  units: [mm]
+  units: mm
   label: Longueur
 
 largeur:
   type: measure
-  units: [mm]
+  units: mm
   label: Largeur
 
 epaisseur:
   type: measure
-  units: [mm]
+  units: mm
   label: Épaisseur
 
 volume:

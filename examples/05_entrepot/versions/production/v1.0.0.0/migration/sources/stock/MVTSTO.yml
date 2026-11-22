@@ -17,8 +17,8 @@ identity: [MVITNUMERO, MVITLIGNE, MVITINDLIG, MVITCOMPOS, MVCTCODART, MVCTCOMART
 # Le rapport des anomalies de la table
 # La logistique corrige les mouvements à l'origine.
 report:
-  when: [migration]
-  to: [logistique]
+  when: migration
+  to: logistique
   by: [notification, mail]
 
 # La lecture par partition

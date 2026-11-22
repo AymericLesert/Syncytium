@@ -16,8 +16,8 @@ identity: [DPKTCODART, DPKTCOMART, DPKTNUMLOT, DPKTCODENR, DPKTCODMPL, DPKTDEPOT
 # Le rapport des anomalies de la table
 # La logistique corrige les niveaux à l'origine.
 report:
-  when: [migration]
-  to: [logistique]
+  when: migration
+  to: logistique
   by: [notification, mail]
 
 # Les colonnes

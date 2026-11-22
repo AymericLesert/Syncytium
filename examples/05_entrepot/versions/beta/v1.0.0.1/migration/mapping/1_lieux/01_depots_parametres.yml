@@ -5,11 +5,11 @@ PARAM_EMPLACEMENTS:
     couple dépôt.emplacement ; une valeur distincte, un dépôt. Un dépôt des paramètres est actif ; son libellé n'y
     figure pas.
   to: stock.depot
-  distinct: [depot]
+  distinct: depot
   fields:
     code: depot
     actif: true
   report:
-    when: [migration]
-    to: [logistique]
+    when: migration
+    to: logistique
     by: [notification, mail]

@@ -73,7 +73,7 @@ commentaire:
   default: ""
   unmapped: true
   allow:
-    update: [bureau_etudes]
+    update: bureau_etudes
   label: Commentaire
   hint: Ce que le bureau d'études sait de l'article et que l'ERP ne porte pas.
   description: >-

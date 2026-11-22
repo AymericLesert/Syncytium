@@ -16,8 +16,8 @@ identity: [ECKTNUMERO, ECKTINDICE]
 # Le rapport des anomalies de la table
 # Les achats corrigent les commandes d'achat à l'origine.
 report:
-  when: [migration]
-  to: [achats]
+  when: migration
+  to: achats
   by: [notification, mail]
 
 # La lecture par partition

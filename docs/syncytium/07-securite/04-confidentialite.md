@@ -73,7 +73,7 @@ confidentiality:
   # Les marges, les commissions.
   direction:
     level: protected
-    groups: [direction]
+    groups: direction
 
   # Le profil commercial
   # Les conditions commerciales.

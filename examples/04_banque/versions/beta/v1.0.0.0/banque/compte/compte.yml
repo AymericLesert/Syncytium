@@ -12,7 +12,7 @@ description:
 label: "{libelle}"
 
 # L'identité
-identity: [numero]
+identity: numero
 
 # Les champs
 fields:

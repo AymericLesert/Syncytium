@@ -67,7 +67,7 @@ Dans la banque (le cas 4), le référentiel des lieux :
 
 ```yaml
   to: banque.lieu
-  distinct: [Lieu]
+  distinct: Lieu
   filter: Lieu is not null
   fields:
     libelle: Lieu

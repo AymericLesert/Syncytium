@@ -21,8 +21,8 @@ identity: [PAKTSOC, PAKTETS, PAKTNOPAR, PAKTCODE]
 # Le rapport des anomalies de la table
 # La logistique corrige les emplacements à l'origine.
 report:
-  when: [migration]
-  to: [logistique]
+  when: migration
+  to: logistique
   by: [notification, mail]
 
 # Les colonnes

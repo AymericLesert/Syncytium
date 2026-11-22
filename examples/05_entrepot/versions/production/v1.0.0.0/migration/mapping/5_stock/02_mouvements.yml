@@ -36,6 +36,6 @@ MVTSTO:
     utilisateur:    MVCTNOMUTI
     stock_avant:    measure(MVCNAVQTST, unite_stock)
   report:
-    when: [migration]
-    to: [logistique]
+    when: migration
+    to: logistique
     by: [notification, mail]

@@ -57,8 +57,8 @@ ARTICLE:
     - ~{articles/fields.yml}
     - fournisseur_defaut: ARCTNOFOU1
   report:
-    when: [migration]
-    to: [bureau_etudes]
+    when: migration
+    to: bureau_etudes
     by: [notification, mail]
 ```
 
@@ -144,13 +144,13 @@ PARAM_EMPLACEMENTS:
     couple dépôt.emplacement ; une valeur distincte, un dépôt. Un dépôt des paramètres est actif ; son libellé n'y
     figure pas.
   to: stock.depot
-  distinct: [depot]
+  distinct: depot
   fields:
     code: depot
     actif: true
   report:
-    when: [migration]
-    to: [logistique]
+    when: migration
+    to: logistique
     by: [notification, mail]
 ```
 
@@ -163,13 +163,13 @@ MVTSTO:
     La troisième origine des dépôts : chaque dépôt cité par un mouvement lu, y compris les dépôts qui ne servent plus.
     Un dépôt né ici est inactif et sans libellé.
   to: stock.depot
-  distinct: [MVCTDEPOT]
+  distinct: MVCTDEPOT
   filter: MVCTDEPOT is not null
   fields:
     code: MVCTDEPOT
   report:
-    when: [migration]
-    to: [logistique]
+    when: migration
+    to: logistique
     by: [notification, mail]
 ```
 
@@ -350,8 +350,8 @@ ARTICLE:
     - ~{articles/fields.yml}
     - client_defaut: ARCTNOFOU1
   report:
-    when: [migration]
-    to: [bureau_etudes]
+    when: migration
+    to: bureau_etudes
     by: [notification, mail]
 ```
 

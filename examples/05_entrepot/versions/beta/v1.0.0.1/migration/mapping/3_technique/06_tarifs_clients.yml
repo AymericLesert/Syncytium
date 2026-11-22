@@ -17,6 +17,6 @@ TARIF:
     valide:           TACTVALID = "O"
     commentaire:      TACTCOMMEN
   report:
-    when: [migration]
-    to: [commercial]
+    when: migration
+    to: commercial
     by: [notification, mail]

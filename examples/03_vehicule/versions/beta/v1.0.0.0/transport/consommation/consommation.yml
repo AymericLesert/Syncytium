@@ -12,7 +12,7 @@ label: "${name}"
 
 # L'identité
 # Le rang au sein du véhicule ; il ouvre l'accès par la clé : owner.consommations[me.numero - 1].
-identity: [numero]
+identity: numero
 
 # Les champs
 # Rangés par groupe.

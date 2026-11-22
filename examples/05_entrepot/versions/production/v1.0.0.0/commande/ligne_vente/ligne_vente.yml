@@ -12,7 +12,7 @@ label: "{numero} — {article}"
 
 # L'identité
 # Le numéro de ligne, au sein de la commande.
-identity: [numero]
+identity: numero
 
 # L'historique
 history: true

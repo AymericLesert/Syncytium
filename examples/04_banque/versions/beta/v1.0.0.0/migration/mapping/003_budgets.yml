@@ -13,6 +13,6 @@ budget:
       convierte en la identidad. Los marcadores OUVERTURE y FERMETURE entran en el referencial; su uso lo rige la
       validación del apunte.
   to: banque.budget
-  distinct: [Budget]
+  distinct: Budget
   fields:
     libelle: Budget

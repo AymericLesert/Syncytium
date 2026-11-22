@@ -23,6 +23,6 @@ NOMENC:
     nombre_ouvriers:   NOCNBREOUV
     validite:          period(NOCJDEBVAL, NOCJFINVAL)
   report:
-    when: [migration]
-    to: [bureau_etudes]
+    when: migration
+    to: bureau_etudes
     by: [notification, mail]

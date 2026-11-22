@@ -96,7 +96,7 @@ entrepot:
   # Le réglementaire
   # Le stockage est en France.
   rgpd:
-    countries: [FR]
+    countries: FR
 
 # Le mail sortant
 # Le relais de messagerie de l'entreprise : les rapports de la migration et les alertes partent par lui.
@@ -111,7 +111,7 @@ smtp:
   # Le réglementaire
   # Le relais de messagerie est en France.
   rgpd:
-    countries: [FR]
+    countries: FR
 ```
 
 ### Les clés d'un connecteur
@@ -280,7 +280,7 @@ feuille-formulaire :
 ```yaml
     # Les feuilles-formulaires, un enregistrement par classeur
     identification:
-      files: [ '.*\.xlsx?' ]
+      files: '.*\.xlsx?'
       single: true
 
       # Les colonnes
@@ -332,7 +332,7 @@ Le même fichier déclare l'échéancier :
     # L'échéancier, le même format sur deux feuilles
     # La première plage existante sert ; « ... » s'arrête à la première ligne vide.
     echeance:
-      files: [ '.*\.xlsx?' ]
+      files: '.*\.xlsx?'
       range:
         - CREDIT!A8:G...
         - LOA!A3:G...

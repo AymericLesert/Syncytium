@@ -12,7 +12,7 @@ label: "{nom}"
 
 # L'identité
 # La plaque — l'arbitrage de la reprise.
-identity: [immatriculation]
+identity: immatriculation
 
 # Le cycle de vie
 # Le champ énuméré qui porte les états.

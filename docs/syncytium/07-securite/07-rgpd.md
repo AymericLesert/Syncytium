@@ -141,7 +141,7 @@ stockage vient du connecteur, `countries:` dans sa section `rgpd:`
   # Le réglementaire
   # Le stockage est en France.
   rgpd:
-    countries: [FR]
+    countries: FR
 ```
 
 ## L'anonymisation

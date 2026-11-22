@@ -26,6 +26,6 @@ STDEPLOT:
       description: Le jour de l'inventaire ; la semaine se déduit du jour.
     quantite_inventaire: DPCNQTINV
   report:
-    when: [migration]
-    to: [logistique]
+    when: migration
+    to: logistique
     by: [notification, mail]

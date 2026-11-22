@@ -24,7 +24,7 @@ label: "{nom}"
 
 # L'identité
 # La plaque — l'arbitrage de la reprise.
-identity: [immatriculation]
+identity: immatriculation
 
 # Le cycle de vie
 # Le champ énuméré qui porte les états.
@@ -92,7 +92,7 @@ répondent chacune à l'un de ces besoins :
 > interne et invisible de l'enregistrement, un UUID qui ne change jamais
 > ([glossaire](../../glossaire.md)).
 
-Dans le véhicule, l'identité s'écrit `identity: [immatriculation]` : la
+Dans le véhicule, l'identité s'écrit `identity: immatriculation` : la
 plaque suffit à distinguer un véhicule d'un autre. Six règles encadrent
 cette clé.
 

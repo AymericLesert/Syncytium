@@ -11,7 +11,7 @@ budget:
       La fase 2, el requisito previo: el referencial de lugares, un valor distinto por lugar — el valor se convierte en
       la identidad; el valor vacío no hace un lugar.
   to: banque.lieu
-  distinct: [Lieu]
+  distinct: Lieu
   filter: Lieu is not null
   fields:
     libelle: Lieu

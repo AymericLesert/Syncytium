@@ -11,6 +11,6 @@ PARAM_EMPLACEMENTS:
     libelle: PACTEXT140
     actif:   true
   report:
-    when: [migration]
-    to: [logistique]
+    when: migration
+    to: logistique
     by: [notification, mail]

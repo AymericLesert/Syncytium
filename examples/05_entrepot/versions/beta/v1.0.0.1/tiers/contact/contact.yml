@@ -12,7 +12,7 @@ label: "{prenom} {nom}"
 
 # L'identité
 # L'identifiant, au sein du tiers.
-identity: [identifiant]
+identity: identifiant
 
 # L'historique
 history: true

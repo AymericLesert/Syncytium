@@ -11,13 +11,13 @@ filter: CLKTSOC = "100"
 
 # L'identité d'une ligne
 # Le code du fournisseur.
-identity: [CLKTCODE]
+identity: CLKTCODE
 
 # Le rapport des anomalies de la table
 # Les achats corrigent les fiches fournisseurs à l'origine.
 report:
-  when: [migration]
-  to: [achats]
+  when: migration
+  to: achats
   by: [notification, mail]
 
 # Les colonnes

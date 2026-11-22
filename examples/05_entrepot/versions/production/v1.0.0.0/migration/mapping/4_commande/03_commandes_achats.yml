@@ -24,6 +24,6 @@ ECOMFOU:
   operations:
     commande_achat.numero.update(numero)
   report:
-    when: [migration]
-    to: [achats]
+    when: migration
+    to: achats
     by: [notification, mail]

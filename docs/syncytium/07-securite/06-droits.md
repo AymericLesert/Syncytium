@@ -79,7 +79,7 @@ statut:
       description: Le journal s'écrit — create est la création des composants.
     cloture:
       label: Clôture
-      allow: [read]
+      allow: read
       description: L'archive — la vie ne se réécrit pas.
 ```
 

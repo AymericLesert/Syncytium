@@ -239,7 +239,7 @@ versions:
   production:
     environment: home
     1.0.0.0:
-      languages: [fr]
+      languages: fr
       title: tiny
       release-notes: Version 1 de l'annuaire
       migrations:

@@ -86,8 +86,8 @@ LCOMFOU:
       description: L'unité de la ligne est l'une de celles que son article connaît.
       message: L'unité {me.unite} de la ligne n'est pas une unité connue de l'article {LCCTCODART}.
   report:
-    when: [migration]
-    to: [achats]
+    when: migration
+    to: achats
     by: [notification, mail]
 ```
 
@@ -206,8 +206,8 @@ commandes de vente :
 # Le rapport des anomalies de la table
 # Le commercial corrige les commandes de vente à l'origine.
 report:
-  when: [migration]
-  to: [commercial]
+  when: migration
+  to: commercial
   by: [notification, mail]
 ```
 

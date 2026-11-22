@@ -4,8 +4,10 @@
 > documentation générée : chaque type de composant décline dans chaque
 > type de document, Syncytium assemble ([glossaire](../../glossaire.md)).
 
-Ce fichier dit ce que la migration déclarée donne à chacune des neuf
-documentations (D1158, D1159) : la reprise d'abord, la migration de
+Ce que le concepteur déclare pour une migration ne sert pas qu'au
+moteur : Syncytium en tire aussi la documentation. Ce fichier montre ce
+que la migration déclarée donne à chacune des neuf documentations
+(D1158, D1159) : la reprise d'abord, la migration de
 version ensuite. La facette du module `_migration` suit le module, au
 chapitre 10 (D2010). Les décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).

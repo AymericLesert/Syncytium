@@ -6,10 +6,13 @@
 > concepteur n'écrit que ce que le calcul ne devine pas
 > ([glossaire](../../glossaire.md)).
 
-Ce fichier dit ce que le concepteur écrit entre deux versions : rien le
-plus souvent, puis le protocole et le processus, ce qui s'écrit, les
-deux volets d'une règle d'`exchange/`, les écarts documentés. Le
-mécanisme de la migration est au chapitre 9. Les décisions citées entre
+Une application évolue : un champ s'ajoute, un autre change de nom, un
+troisième se scinde. À chaque version, les données existantes doivent
+suivre. Ce fichier montre ce que le concepteur écrit pour cela : rien le
+plus souvent, car Syncytium calcule les écarts ; puis le protocole et le
+processus, ce qui s'écrit quand le calcul ne suffit pas, les deux volets
+d'une règle d'`exchange/`, et les écarts documentés. Le mécanisme de la
+migration relève du chapitre 9. Les décisions citées entre
 parenthèses renvoient au [registre](../../conception.md).
 
 ## Le sommaire
@@ -38,8 +41,10 @@ parenthèses renvoient au [registre](../../conception.md).
 
 ### Entre deux versions, rien ne s'écrit
 
-Le `from:` implicite est la version précédente : Syncytium le porte. Le
-concepteur n'écrit rien tant que le calcul des écarts suffit.
+D'une version à la suivante, la plupart des changements se devinent : un
+champ ajouté, une entité ajoutée. Syncytium porte donc lui-même cette
+migration. Son origine, le `from:` implicite, est la version précédente,
+et le concepteur n'écrit rien tant que le calcul des écarts suffit.
 
 ### Une forme courte
 
@@ -64,8 +69,9 @@ La procédure à chaud dépend du moteur : elle est au chapitre 9.
 
 ### Le même protocole qu'une reprise
 
-Une migration de version et une reprise suivent le même protocole :
-seule l'origine change (D1981). Un processus de migration déclare trois
+Quand le calcul ne suffit plus, le concepteur écrit. Il ne découvre pas
+pour autant une nouvelle grammaire : une migration de version et une
+reprise suivent le même protocole, et seule l'origine change (D1981). Un processus de migration déclare trois
 clés, au même niveau :
 
 | La clé | Ce qu'elle déclare |
@@ -127,7 +133,8 @@ règle reste recommandé (D1940, D1990).
 
 ## Ce qui s'écrit
 
-Cinq changements entre deux versions, et ce que chacun demande :
+Tous les changements ne demandent pas le même effort. Voici les cinq
+qu'une version peut porter, et ce que chacun demande au concepteur :
 
 | Le changement | Ce qu'il demande | Où |
 |---|---|---|
@@ -267,7 +274,10 @@ le défaut vers le neuf.
 > L'ascendant est son `fields:`. Le descendant est le bloc `reverse:` de
 > la même règle ([glossaire](../../glossaire.md)).
 
-Une règle d'`exchange/` va dans deux sens (D1883, D1992, D1996) :
+Les données ne vont pas que de l'ancienne version vers la nouvelle : une
+version antérieure peut encore être servie, et il faut alors revenir de
+la nouvelle vers elle. Une règle d'`exchange/` va donc dans deux sens
+(D1883, D1992, D1996) :
 
 | Le volet | Son écriture | Son sens |
 |---|---|---|
@@ -355,8 +365,9 @@ l'initialisation. À l'usage, il vit ensuite sa vie dans l'application.
 
 ## Les écarts documentés
 
-Les écarts sont documentés par Syncytium (D1112). La description d'un
-champ dit ce qu'il est, jamais ce qui a changé :
+Le concepteur n'a pas à tenir le journal de ce qui change d'une version
+à l'autre : les écarts sont documentés par Syncytium (D1112). La
+description d'un champ dit donc ce qu'il est, jamais ce qui a changé :
 
 - la documentation de la version présente les écarts calculés — les
   champs ajoutés, renommés, retypés, supprimés — sans que le concepteur

@@ -4,9 +4,11 @@
 > migration applique. Le plus souvent, une colonne alimente un champ :
 > c'est le un pour un ([glossaire](../../glossaire.md)).
 
-Ce fichier montre les mécanismes qu'une règle emploie quand le un pour
-un ne suffit pas. Chacun garde sa définition dans son chapitre ;
-celui-ci en montre l'usage (D1958). Les décisions citées entre
+Une colonne pour un champ : la plupart des règles s'en tiennent là. Mais
+une reprise a ses cas particuliers : un référentiel à déduire, deux
+écritures à rapprocher, un numéro à reprendre. Ce fichier montre les
+mécanismes qu'une règle emploie alors. Chacun garde sa définition dans
+son chapitre ; celui-ci en montre l'usage, sur un cas (D1958). Les décisions citées entre
 parenthèses renvoient au [registre](../../conception.md).
 
 ## Le sommaire
@@ -50,8 +52,10 @@ mécanismes gardent leur définition dans leur chapitre :
 
 ## Le référentiel par valeurs distinctes
 
-Avec `distinct:`, la destination prend les valeurs distinctes d'un
-champ, ou d'une liste de champs (D658) :
+Dans un ancien système, un référentiel n'est parfois qu'un texte répété
+de ligne en ligne : le lieu d'une opération, dans la banque. La reprise
+en déduit le référentiel. Avec `distinct:`, la destination prend les
+valeurs distinctes d'un champ, ou d'une liste de champs (D658) :
 
 - la valeur devient la clé fonctionnelle : elle alimente l'identité de
   la cible (D930) ;
@@ -78,8 +82,10 @@ L'entrepôt fait de même pour ses dépôts : voir
 
 ## L'importation en phases
 
-Une phase est une règle filtrée (D663). L'ordre est celui du préfixe des
-fichiers (D665). La banque importe en trois phases (D814) :
+Certaines données ne peuvent entrer qu'après d'autres. L'importation se
+découpe alors en phases : une phase est une règle filtrée (D663), et
+l'ordre des phases est celui du préfixe des fichiers (D665). La banque
+importe ainsi en trois phases (D814) :
 
 | La phase | Les règles | Ce qu'elles font |
 |---|---|---|
@@ -165,8 +171,10 @@ Une règle de complément re-parcourt la même source, et associe (D822) :
 
 ## Le compteur surchargé
 
-Un numéro repris est écrit par la règle dans un champ de type compteur
-(D883, D998). Dans l'entrepôt, le numéro d'une commande de vente :
+Une commande reprise garde son numéro d'origine : il ne se tire pas du
+compteur de l'application. La règle écrit donc ce numéro dans un champ
+de type compteur (D883, D998), puis remet le compteur à niveau. Dans
+l'entrepôt, le numéro d'une commande de vente :
 
 ```yaml
     numero:
@@ -178,11 +186,10 @@ La même règle repositionne ensuite le compteur, dans ses `operations:` :
 `commande_vente.numero.update(numero)`. Voir
 [les opérations d'une règle](04-regles.md#les-opérations-dune-règle).
 
-- **`update(valeur)` est une méthode du type compteur**. Le registre le
-  dit : « si la valeur > au compteur courant, ça positionne le compteur
-  courant sur la valeur la plus grande » ;
-- **le champ s'adresse par le point** (D999) : une écriture « plus
-  parlante » ;
+- **`update(valeur)` est une méthode du type compteur** : si la valeur
+  dépasse le compteur courant, le compteur se positionne sur elle ;
+- **le champ s'adresse par le point** (D999) : l'écriture est plus
+  parlante ;
 - **les trous de la séquence reprise** relèvent du contrôle de la
   propriété du compteur, pas de la migration.
 
@@ -234,8 +241,9 @@ identities:
 
 ## Une entité source, plusieurs fichiers
 
-Deux fichiers au même format font une seule entité : l'union de leurs
-lignes (D816). La carte des entités vers les fichiers vit au connecteur
+La même table arrive parfois en plusieurs fichiers. Deux fichiers au
+même format font alors une seule entité : l'union de leurs lignes
+(D816). La carte des entités vers les fichiers vit au connecteur
 (D819, D828) : la section `entities:`, au même niveau que `parameters:`.
 L'entité source reste purement logique (D652), et il n'y a qu'un
 mapping. Dans la banque, le connecteur de l'ancien système :
@@ -282,9 +290,10 @@ Ces clés se décrivent avec
 
 ## Les composés par la fonction du type
 
-Plusieurs colonnes de la source alimentent un seul champ de la cible
-(D659). La fonction de construction est portée par le type (D579,
-D584) : rien de neuf dans la grammaire. Dans l'entrepôt, l'adresse d'un
+À l'inverse du un pour un, plusieurs colonnes de la source peuvent
+alimenter un seul champ de la cible (D659). Aucune écriture nouvelle
+n'est nécessaire : la fonction de construction est portée par le type
+(D579, D584). Dans l'entrepôt, l'adresse d'un
 client réunit deux coordonnées et six colonnes de texte :
 
 ```yaml

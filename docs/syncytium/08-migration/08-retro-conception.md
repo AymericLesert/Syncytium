@@ -5,9 +5,11 @@
 > et construit sa configuration. Aucune donnée ne migre
 > ([glossaire](../../glossaire.md)).
 
-Ce fichier dit ce qu'est la rétro-conception, ce que l'outil construit
-et ce qu'il laisse au concepteur, comment elle se montre, et comment
-elle se lance. Les décisions citées entre parenthèses renvoient au
+Une application existe déjà, avec sa base de données, et l'on voudrait y
+poser Syncytium sans tout analyser d'abord. C'est l'objet de la
+rétro-conception. Ce fichier dit ce qu'elle est, ce que l'outil
+construit et ce qu'il laisse au concepteur, comment elle se montre, et
+comment elle se lance. Les décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).
 
 ## Le sommaire
@@ -30,13 +32,12 @@ elle se lance. Les décisions citées entre parenthèses renvoient au
 
 ### Prendre la suite d'une application
 
-Le registre le dit (D1907) : « Dans le cas où une application écrite
-dans le cadre de Syncytium remplace silencieusement une application
-existante, les modules, les entités et les champs ont un mapping simple
-et Syncytium remplace par construction l'ancienne application sans
-besoin de migration. Dans ce cas, seul le méta-modèle sera à construire
-à partir de l'analyse d'une base de données existante afin que la
-migration silencieuse se fasse en toute transparence. »
+Quand une application écrite avec Syncytium prend la place d'une
+application existante, ses modules, ses entités et ses champs reprennent
+ceux de l'ancienne. Le mapping est alors simple, et Syncytium la
+remplace par construction, sans migration. Il ne reste qu'une chose à
+construire : le méta-modèle, à partir de l'analyse de la base de données
+existante (D1907).
 
 Cet usage s'appelle la rétro-conception (D2027). C'est une forme de
 rétro-ingénierie (D2028) : le modèle obtenu permet de lancer Syncytium
@@ -55,7 +56,7 @@ la migration que Syncytium porte lui-même entre deux versions (D1908) :
 Le méta-modèle se déduit automatiquement de la description d'une
 instance d'un connecteur. Le fichier obtenu permet de poser Syncytium
 sur le modèle existant, puis de prendre le relais de l'ancienne
-application, « un peu comme un parasite ».
+application, un peu comme le ferait un parasite.
 
 ## Ce que l'outil construit, ce qu'il laisse
 

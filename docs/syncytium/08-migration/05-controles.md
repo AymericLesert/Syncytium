@@ -4,10 +4,12 @@
 > la cohérence d'un enregistrement. Toute règle enfreinte refuse et
 > trace ([glossaire](../../glossaire.md)).
 
-Ce fichier dit ce qu'une reprise contrôle : la validation et son
-message, les rapports, les phases de contrôle, ce que la reprise écrit
-et ce qu'elle laisse. Les décisions citées entre parenthèses renvoient
-au [registre](../../conception.md).
+Une donnée reprise n'entre pas dans l'application sans avoir été
+contrôlée. Ce fichier suit ce contrôle : la validation et le message
+qu'elle produit, les rapports qui portent les anomalies à qui peut les
+corriger, les phases où les contrôles se jouent, et enfin ce que la
+reprise écrit et ce qu'elle laisse en place. Les décisions citées entre
+parenthèses renvoient au [registre](../../conception.md).
 
 ## Le sommaire
 
@@ -38,7 +40,9 @@ au [registre](../../conception.md).
 
 ### Les deux formes
 
-Une validation s'écrit de deux façons (D1116) :
+Une validation dit ce qu'une ligne doit respecter pour entrer. Elle
+s'écrit de deux façons (D1116), selon que la règle se suffit ou qu'elle
+demande une explication :
 
 | La forme | L'écriture |
 |---|---|
@@ -145,10 +149,12 @@ validation est facultatif. Le concepteur peut le surcharger (D1946).
 
 ### Chaque règle a son rapport
 
-Le registre le dit : « Chaque règle de migration a un report. Pas un
-report général. » (D929). La règle sait sa source, sa cible, et qui
-corrige l'origine : l'information va à la bonne personne (D859). Elle
-déclare donc `report:`, dans la forme du modèle (D406) :
+Une anomalie n'a d'intérêt que si elle atteint celui qui peut la
+corriger. C'est pourquoi chaque règle de migration a son rapport, et non
+la migration un rapport général (D929). La règle sait sa source, sa
+cible, et qui corrige l'origine : l'information va ainsi à la bonne
+personne (D859). Elle déclare donc `report:`, dans la forme du modèle
+(D406) :
 
 | La clé | Ce qu'elle dit |
 |---|---|
@@ -179,9 +185,9 @@ des références (D395).
 
 ### Le rapport de l'entité source
 
-Le registre le dit : « L'entité source déclare son propre report: »
-(D1058). Les anomalies des phases de la source vont aux destinataires
-que l'entité source déclare, sous la même forme. La règle garde son
+L'entité source déclare, elle aussi, son propre `report:` (D1058). Les
+anomalies des phases de la source vont aux destinataires qu'elle
+déclare, sous la même forme. La règle garde son
 `report:` pour les siennes. Dans l'entrepôt, l'entité source des
 commandes de vente :
 
@@ -220,8 +226,9 @@ Il n'y a jamais de perte silencieuse.
 
 ### Les cinq phases
 
-`validation:` a trois places, dans la même grammaire (D404) : l'entité
-source, la règle, l'entité de destination. Elles prennent leur rang
+Un contrôle peut porter sur ce qui est lu, sur ce qui est construit, ou
+sur ce qui est écrit. `validation:` a donc trois places, dans la même
+grammaire (D404) : l'entité source, la règle, l'entité de destination. Elles prennent leur rang
 dans le déroulé d'un passage, en cinq phases (D932, D1033, D1040) :
 
 | La phase | Ce qu'elle contrôle | Sur quoi |
@@ -297,29 +304,24 @@ validation:
 
 ### Les trois temps
 
-Les cinq phases se résument en trois temps, dans les mots du registre
-(D1006) :
+Les cinq phases se résument en trois temps (D1006) :
 
 | Le temps | Ce qu'il fait |
 |---|---|
-| sur la source, à la lecture | il « limite les enregistrements aux valeurs valides » |
-| sur le mapping | il « identifie les règles non respectées ou les données incorrectes » |
-| sur la destination | il « garantit que les règles des données entreposées sont correctes » |
+| sur la source, à la lecture | il limite les enregistrements aux valeurs valides |
+| sur le mapping | il identifie les règles non respectées ou les données incorrectes |
+| sur la destination | il garantit que les règles des données entreposées sont correctes |
 
 Deux conséquences :
 
 - une contrainte du modèle n'a pas à être redite par la règle ;
-- une grandeur « à titre indicatif » ne se valide pas : ses cas limites
-  s'observent.
+- une grandeur donnée à titre indicatif ne se valide pas : ses cas
+  limites s'observent.
 
 ### L'échec dans une composition
 
-Le registre le dit (D933) : « Si un échec est vu sur le parent, tous les
-composants sont en échec. Si un composant est en erreur et pas sur le
-parent, le parent est créé sans le composant en erreur. Par contre, la
-règle de validation sur un enregistrement du parent vérifie le
-fonctionnement de son enregistrement et de ses enfants. Et, là, c'est
-l'enregistrement du parent et de tous ses enfants qui sont en échec. »
+Dans une composition, un parent et ses composants n'échouent pas
+toujours ensemble. Tout dépend de l'endroit où l'échec est vu (D933) :
 
 | L'échec | Ce qui est rejeté |
 |---|---|
@@ -340,7 +342,9 @@ Le rapport nomme la cause : le parent, ou la ligne (mien).
 
 ### Les quatre cas
 
-Le chapitre énonce la doctrine en quatre cas (D1964) :
+Une reprise qui se rejoue rencontre des données déjà là : celles qu'elle
+a écrites la veille, et celles que les utilisateurs ont saisies depuis.
+Ce qu'elle écrit et ce qu'elle laisse tient en quatre cas (D1964) :
 
 | Le cas | Ce que la reprise fait |
 |---|---|
@@ -357,18 +361,17 @@ et `default:` au [modèle](../02-modele/03-champs.md), le typage au
 
 Le différentiel ne compare que l'enregistrement construit, donc les
 seuls champs que les règles alimentent (D941). Un champ qu'aucune règle
-n'alimente reste tel quel : « la doctrine est bonne ». `reset: false` la
-garde.
+n'alimente reste donc tel quel, et `reset: false` le garde.
 
-Le champ obligatoire naît à sa valeur : « le default: répond à ce
-besoin ».
+Le champ obligatoire, lui, naît à sa valeur par défaut : `default:`
+répond à ce besoin.
 
 ### Le champ tenu hors du mapping
 
 Le champ qu'un écran de saisie remplit se protège par la propriété
-`unmapped: true`, `false` par défaut (D941, D1965). Le registre le dit :
-« pour un nouvel enregistrement, la valeur est la valeur par défaut. Si
-l'enregistrement existe, la valeur du champ reste sa valeur ».
+`unmapped: true`, `false` par défaut (D941, D1965). Pour un nouvel
+enregistrement, le champ prend sa valeur par défaut ; si
+l'enregistrement existe, il garde sa valeur.
 
 - la migration ne l'écrit jamais ;
 - la saisie reste libre : c'est la différence avec `mode: write-once`,

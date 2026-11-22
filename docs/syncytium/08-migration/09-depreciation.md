@@ -5,10 +5,13 @@
 > Elle ne se confond pas avec la dépréciation d'une version, qui est
 > effective ([glossaire](../../glossaire.md)).
 
-Ce fichier dit comment se déprécie une migration déclarée, une entité
-source ou une règle (D1873, D1877, D2011) : les deux formes du bloc, ce
-que la dépréciation touche, l'adresse d'une règle remplaçante, les trois
-temps. Les décisions citées entre parenthèses renvoient au
+Une reprise ne dure pas toujours : le système d'origine s'éteint, une
+table cesse d'être lue, une règle en remplace une autre. Avant de
+retirer un élément, le concepteur l'annonce. Ce fichier montre comment
+se déprécie une migration déclarée, une entité source ou une règle
+(D1873, D1877, D2011) : les deux formes du bloc, ce que la dépréciation
+touche, l'adresse d'une règle remplaçante, et les trois temps qui mènent
+au retrait. Les décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).
 
 ## Le sommaire
@@ -195,7 +198,9 @@ Trois règles accompagnent ce nom (D2016) :
 
 ### Les trois temps
 
-Une dépréciation se joue en trois temps :
+Un élément ne disparaît pas d'un coup : entre l'annonce et le retrait,
+le concepteur a le temps de vérifier que rien n'en dépend plus. Une
+dépréciation se joue ainsi en trois temps :
 
 | Le temps | Ce qui se passe |
 |---|---|

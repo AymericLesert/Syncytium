@@ -5,9 +5,11 @@
 > autre. Le concepteur les écrit pour une reprise, une règle par fichier
 > de `mapping/` ([glossaire](../../glossaire.md)).
 
-Ce fichier dit comment une règle s'écrit : son sens et sa clé, sa
-description et ses formes longues, le partage entre fichiers, le
-possesseur et la clé lue. Ce que la règle contrôle est dans
+La source est décrite ; reste à dire où vont ses données. C'est le rôle
+de la règle, que ce fichier suit de sa forme la plus simple à ses
+écritures les plus riches : son sens et sa clé, sa description et ses
+formes longues, le partage entre fichiers, puis le possesseur et la clé
+lue. Ce que la règle contrôle fait l'objet du fichier suivant,
 [les contrôles](05-controles.md). Les décisions citées entre parenthèses
 renvoient au [registre](../../conception.md).
 
@@ -38,9 +40,10 @@ renvoient au [registre](../../conception.md).
 
 ### De l'entité source vers la cible
 
-Une règle va de la source vers la cible : chaque entité source déclare
-où vont ses colonnes (D655). La règle porte le nom de son entité source
-(D656). Dans l'entrepôt, la règle des articles de PMI :
+Une règle se lit dans le sens du voyage des données, de la source vers
+la cible : chaque entité source déclare où vont ses colonnes (D655).
+Elle porte d'ailleurs le nom de cette entité source (D656). Dans
+l'entrepôt, voici la règle des articles de PMI :
 
 ```yaml
 # Les articles
@@ -216,10 +219,13 @@ C'est la même question dans trois contextes.
 
 ### La description de la règle
 
-Ce que la documentation doit porter s'écrit en propriété, pas en
-commentaire (D1100). La règle se décrit donc en `description:` (D1105).
-Les extraits de ce fichier le montrent : chaque règle de l'entrepôt dit
-ce qu'elle reprend, et pourquoi.
+Une règle n'est pas lue que par Syncytium : la documentation la
+présente, et celui qui la reprendra devra la comprendre. Or ce que la
+documentation doit porter s'écrit en propriété, pas en commentaire
+(D1100). La règle se décrit donc en `description:` (D1105), et ses
+écritures courtes ont une forme longue, pour s'expliquer. Les extraits
+de ce fichier le montrent : chaque règle de l'entrepôt dit ce qu'elle
+reprend, et pourquoi.
 
 ### L'affectation, courte ou longue
 
@@ -301,9 +307,11 @@ résout au chargement (D802).
 
 ### Le bloc commun
 
-Quand plusieurs règles portent le même bloc `fields:`, le bloc vit une
-fois, et chaque règle l'inclut (D967). L'entité le fait déjà (D767,
-D956). Dans l'entrepôt, l'article a quatre règles, une par dérivé,
+Des règles voisines se ressemblent : elles alimentent les mêmes champs,
+de la même façon. Plutôt que de le répéter, le concepteur l'écrit une
+fois. Quand plusieurs règles portent le même bloc `fields:`, le bloc vit
+dans son fichier, et chaque règle l'inclut (D967), comme l'entité le
+fait déjà (D767, D956). Dans l'entrepôt, l'article a quatre règles, une par dérivé,
 filtrées sur le code de gestion (D940). Leur bloc commun vit dans
 `articles/fields.yml`. Il s'ouvre sur `code` et `complement`, l'identité
 de l'article. Deux de ses champs :
@@ -368,8 +376,8 @@ a ses règles (D968) :
 - **un élément est une référence de fichier, ou une carte en ligne**,
   fusionnée comme un contenu de fichier.
 
-Le registre dit de cette écriture qu'elle est « plus élégante… plus en
-lien avec des approches classiques ».
+Cette écriture est plus élégante, et plus proche des approches
+classiques.
 
 ## Le possesseur et la clé lue
 
@@ -378,10 +386,11 @@ lien avec des approches classiques ».
 
 ### `parent:`, par les champs mappés
 
-Une ligne fille retrouve son possesseur par `parent:` (D931). Le
-registre le dit : « Les champs clés sont les champs mappés et non les
-champs sources… car un champ mappé peut être converti ou transformé
-avant de vérifier la clé. »
+Une ligne de commande ne se reprend pas seule : elle doit retrouver sa
+commande. La ligne fille le fait par `parent:` (D931). Les champs de
+cette clé sont les champs mappés, non les colonnes de la source : un
+champ mappé peut avoir été converti ou transformé avant que la clé ne
+soit vérifiée.
 
 La clé du possesseur se vérifie donc sur les valeurs construites.
 `parent:` nomme les champs de l'identité du possesseur. Chacun porte

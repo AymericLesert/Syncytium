@@ -197,7 +197,22 @@ bascule.
 Ce qui est propre à Syncytium ne va pas dans cette base : l'historique
 des modifications, les comptes et les groupes, les traces, les tâches
 se rangent dans un storage à part (D2120). La base de l'application
-d'origine ne reçoit aucune table de Syncytium.
+d'origine ne reçoit aucune table de Syncytium. Une application
+rétro-conçue déclare donc deux storages : celui de la base existante,
+et le sien.
+
+Quatre conséquences (D2122) :
+
+- **la base existante ne reçoit de Syncytium que deux choses** : les
+  données que ses utilisateurs écrivent dans les tables de
+  l'application, et la colonne technique d'une table sans clé ;
+- **ce que l'application d'origine écrit est une modification directe
+  de la base** : les règles de Syncytium ne l'ont pas vue passer. Le
+  rapport des non-conformités la couvre, comme pour tout outil tiers
+  (D395, D406) ;
+- **le compteur d'une colonne technique suit** : son traitement
+  numérote aussi les lignes que l'application d'origine ajoute ;
+- **l'historique de Syncytium ne porte que ce qui est passé par lui**.
 
 ### La mise en garde
 

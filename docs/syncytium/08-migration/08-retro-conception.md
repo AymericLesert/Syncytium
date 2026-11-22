@@ -59,14 +59,24 @@ est disponible : de quoi montrer d'un coup l'intérêt de la solution
 L'outil lit deux choses dans la base existante (D2108) :
 
 - **son schéma**, par la description que le connecteur en donne : les
-  tables, les colonnes, les types, et les clés quand la base les
-  déclare ;
-- **ses données**, pour dire ce que le schéma ne dit pas. Deux colonnes
-  qui ne se répètent jamais ensemble font une identité possible ; une
-  colonne qui ne prend que quelques valeurs, un énuméré possible.
+  tables, les colonnes et leurs types, et tout ce que la base déclare —
+  les clés, les références d'intégrité, les séquences, les partitions
+  (D2109) ;
+- **ses données**, pour dire ce que le schéma ne dit pas. L'outil
+  parcourt toute la table (D2109) : deux colonnes qui ne se répètent
+  jamais ensemble font une identité possible ; une colonne qui ne prend
+  que quelques valeurs, un énuméré possible.
 
 Lire les données n'est pas les migrer : elles restent où elles sont. Ce
 que l'outil en déduit est une proposition, que le concepteur confirme.
+
+Le nom d'une colonne est aussi un indice. Dans PMI, une colonne dont le
+nom porte un K en troisième position est une clé par construction, et
+les premières colonnes d'une table aident à repérer sa clé. La
+convention de nommage du connecteur le dit à Syncytium (D876) : celle
+de l'entrepôt déclare `identity: [K, I]`. Pour la table ARTICLE, les
+données révèlent ainsi une clé à trois composants : `ARKTSOC`,
+`ARKTCODART` et `ARKTCOMART`.
 
 ### Le partage
 

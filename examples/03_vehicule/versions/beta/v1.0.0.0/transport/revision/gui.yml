@@ -23,7 +23,7 @@ lists:
     title: Les révisions
     columns: [designation, pas_km, pas_duree, derniere_date, derniere_km, prochaine_date, prochaine_km, echue]
     editable: [designation, pas_km, pas_duree]
-    sort: [designation]
+    sort: designation
 
   # Les révisions échues
   # L'écho de tous les véhicules, la partition par le filtre ; la liste en widgets, un texte par échue ; le nul en tête,
@@ -32,4 +32,4 @@ lists:
     title: Les révisions échues
     filter: echue = true
     widget: annonce
-    sort: [prochaine_date]
+    sort: prochaine_date

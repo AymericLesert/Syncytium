@@ -338,6 +338,10 @@ recherche, les gestes et les opérations, les exports, l'écran.
 - `actions:`, la liste des opérations (D531). L'opération porte son
   icône à la déclaration ; la liste la surcharge au besoin.
 
+Une liste qui se résume à un item peut s'écrire sans crochets (D2084) :
+`actions: duplicate`, `exports: pdf`, `sort: numero`. Les crochets
+restent admis ; à plusieurs items, ils s'imposent.
+
 *Les exports.*
 
 - `exports:`, les exports et les générations de documents (D530). La
@@ -463,8 +467,8 @@ lists:
     columns: [date_operation, date_comptable, libelle, budget, debit, credit, solde, dupliquer, propager, virer]
     sort: [date_comptable, montant, numero]
     selection: multiple
-    actions: [duplicate]
-    exports: [ pdf ]
+    actions: duplicate
+    exports: pdf
 ```
 
 Les autres propriétés, sur un exemple :

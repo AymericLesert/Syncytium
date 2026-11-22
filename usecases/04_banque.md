@@ -197,7 +197,7 @@ chèque, les pickers à création directe ; le `post:`/[*] écarté
 (D787 — la simplicité prime) ; **les trois formulaires d'appel**
 (clonage, propagation, virement — D775) aux items en champs libres.
 **Le relevé sans template à écrire** (D791–D792) : le bouton [PDF]
-= `exports: [ pdf ]` — le format seul, le modèle de base de la liste
+= `exports: pdf` — le format seul, le modèle de base de la liste
 (D1601) ; **toute liste porte son template de base** (l'A4 portrait :
 le titre, le tableau aux entêtes répétés et au pied comptant les
 lignes, le pied de page n°/total) — le cas 3 ne surcharge pas.

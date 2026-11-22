@@ -9,4 +9,4 @@ lists:
     title: L'échéancier
     columns: [numero, date, reste_du, interet, amortissement, assurance, mensualite, paye]
     editable: [numero, date, interet, amortissement, assurance, mensualite]
-    sort: [numero]
+    sort: numero

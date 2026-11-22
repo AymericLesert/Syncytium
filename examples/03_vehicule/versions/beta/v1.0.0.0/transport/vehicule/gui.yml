@@ -145,4 +145,4 @@ lists:
   vehicules:
     title: Les véhicules du foyer
     widget: voiture
-    sort: [date_achat]
+    sort: date_achat

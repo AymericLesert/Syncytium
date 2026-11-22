@@ -20,18 +20,19 @@ et sa fiche.
 > l'entité déclare ensuite comme une opération du socle
 > ([glossaire](../../glossaire.md)).
 
-« Une opération ne se construit pas dans la configuration : elle se
-construit toujours à l'aide d'un hook de code » (D570). Le hook porte le
-code de l'opération ; l'opération est sa déclaration, une suite
-d'actions dont l'exécution du hook est la première (D609, D1771). Les
-deux portent
-le même nom, un verbe (D797). Les vingt et une opérations du socle sont
-des hooks embarqués ; celles du projet sont des hooks ajoutés, écrits
-contre le même contrat.
+Une opération ne se construit pas dans la configuration : il lui faut
+toujours un hook de code (D570). Le hook porte le code de l'opération ;
+l'opération est sa déclaration, une suite d'actions dont l'exécution du
+hook est la première (D609, D1771). Les deux portent le même nom, un
+verbe (D797). Les vingt et une opérations du socle sont des hooks
+embarqués ; celles du projet sont des hooks ajoutés, écrits contre le
+même contrat.
 
 ## Le contrat, les quatre fonctions
 
-Le hook est un objet aux quatre fonctions (D595) :
+Une opération ne s'exécute pas d'un bloc : elle remplit une
+transaction, la fait relire, la scelle, ou la défait. Le hook est donc
+un objet aux quatre fonctions (D595) :
 
 - **`execute`** remplit la transaction tenue ouverte (D594) ; le preview
   est l'exécution suspendue avant le commit ;
@@ -46,10 +47,10 @@ Le hook est un objet aux quatre fonctions (D595) :
 
 ## Les cinq propriétés intrinsèques
 
-« Une opération s'exécute et elle possède aussi des propriétés » ; elles
-tiennent au code, « pas exposables dans la configuration mais dans le
-contrat du hook » (D905). Elles sont cinq, closes jusqu'à
-l'implémentation (D1743) :
+Une opération ne fait pas que s'exécuter : elle possède aussi des
+propriétés. Elles tiennent à son code : elles ne s'exposent donc pas
+dans la configuration, mais dans le contrat du hook (D905). Elles sont
+cinq, closes jusqu'à l'implémentation (D1743) :
 
 - **`degree: reader | user | manager | administrator`**, le plancher
   d'autorisation (D697, D699, D1680) ;
@@ -57,8 +58,8 @@ l'implémentation (D1743) :
   `delay:`, le mode d'exécution (D57, D1744), dans
   [les tâches](05-taches.md) ;
 - **`deterministic: true | false`** : l'opération est déterministe ou
-  pas, « elle ne peut pas changer sans faire changer son code » (D59,
-  D904) ; un appel identique dans la fenêtre reçoit le résultat
+  pas, et cela ne change pas sans que son code change (D59, D904) ; un
+  appel identique dans la fenêtre reçoit le résultat
   mémorisé, sans ré-exécution ni effet répété ;
 - **`deterministic_duration: <durée>`**, la fenêtre de mémoïsation
   (D59) ; le hook la porte, la configuration ne la surcharge jamais ;
@@ -79,12 +80,14 @@ d'administration, surchargés à la déclaration (D904, D906).
 
 ## Ce que le hook lit
 
-Le hook lit la pile des contextes (D553) : l'opération au fond de la
-pile voit le périmètre de la liste, l'enregistrement du formulaire, le
-transitoire du wizard. Il lit `context.` (D589) : `user`, traversable,
-`location`, `now`, `instance`, `application`, `module`, `entity`,
-`field`, et `file`, `page`, `pages` dans un document. Il lit
-`context.settings.<nom>` (D588, D591) : `{ mode: static | dynamic,
+Pour agir, le hook a besoin de savoir d'où il est appelé, par qui, et
+avec quels réglages. Il lit d'abord la pile des contextes (D553) :
+l'opération au fond de la pile voit le périmètre de la liste,
+l'enregistrement du formulaire, le transitoire du wizard. Il lit ensuite
+`context.` (D589) : `user`, traversable, `location`, `now`, `instance`,
+`application`, `module`, `entity`, `field`, et `file`, `page`, `pages`
+dans un document. Il lit enfin `context.settings.<nom>` (D588, D591) :
+`{ mode: static | dynamic,
 type:, value: }`, en cascade de l'application au module puis à
 l'entité, le dynamique ajusté dans le module d'administration (D573).
 Une fonction lit le contexte en lecture seule (D571) ; le hook écrit

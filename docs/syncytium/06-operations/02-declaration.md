@@ -1,8 +1,10 @@
 # La déclaration
 
-Une opération se déclare sur son entité, dans le bloc `operations:`,
-sous le nom de son hook. Ce fichier dit ce que la déclaration porte, les
-portées, le commit, la dépréciation, et montre l'exemple de la banque.
+Un hook porte le code d'une opération ; encore faut-il dire où elle
+sert, et comment. C'est le rôle de la déclaration : une opération se
+déclare sur son entité, dans le bloc `operations:`, sous le nom de son
+hook. Ce fichier suit cette déclaration : ce qu'elle porte, les portées,
+le commit, la dépréciation, puis l'exemple de la banque.
 
 ## Le sommaire
 
@@ -19,12 +21,12 @@ portées, le commit, la dépréciation, et montre l'exemple de la banque.
 > est une suite d'actions ; son exécution, suite à un déclencheur, est
 > une tâche ([glossaire](../../glossaire.md)).
 
-Une opération « ne se construit pas dans la configuration : elle se
-construit toujours à l'aide d'un hook de code » (D570). Le hook porte le
-code de l'opération ; l'opération est sa déclaration, dans le bloc
-`operations:` de l'entité, une suite d'actions dont l'exécution du hook
-est la première (D432, D609, D1771). Le hook et la déclaration portent le même
-nom, un verbe (D797). Dans un écran, une opération n'apparaît que là où
+Une opération ne se construit pas dans la configuration : il lui faut
+toujours un hook de code (D570). Le hook porte le code de l'opération ;
+l'opération est sa déclaration, dans le bloc `operations:` de l'entité,
+une suite d'actions dont l'exécution du hook est la première (D432,
+D609, D1771). Le hook et la déclaration portent le même nom, un verbe
+(D797). Dans un écran, une opération n'apparaît que là où
 un acte la place, `operation[<nom>]` dans un formulaire, son nom en
 colonne d'une liste ; sans déclaration, elle n'apparaît pas (D1772).
 L'API l'expose d'office (D428).
@@ -61,7 +63,9 @@ La déclaration porte :
 
 ## Les portées
 
-Une opération a l'une des cinq portées (D570) :
+Une opération n'agit pas toujours sur un seul enregistrement : elle
+peut porter sur une liste entière, ou sur toute l'application. Sa portée
+le dit. Elle est l'une des cinq (D570) :
 
 - l'enregistrement, celui du formulaire ;
 - la liste, tous les enregistrements affichés ;
@@ -76,7 +80,9 @@ opération (D571).
 
 ## Le commit
 
-`commit:` dit comment l'opération se valide (D596) :
+Une opération écrit dans une transaction tenue ouverte ; reste à dire
+quand elle se scelle. `commit:` dit comment l'opération se valide
+(D596) :
 
 - **`auto`**, sans relecture : la transaction se scelle dès que le hook
   a fini ;

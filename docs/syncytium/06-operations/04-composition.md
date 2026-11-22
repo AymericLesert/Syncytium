@@ -18,11 +18,12 @@ effets, et ce qu'est le wizard, la suite synchrone.
 > une autre opération. Une opération se déclare comme une suite
 > d'actions ([glossaire](../../glossaire.md)).
 
-« Une opération peut être une liste d'opérations disponibles dans le
-socle » (D609). « Ne se construit pas dans la configuration » signifie
-sans code : l'enchaînement de références est déclaratif. Une opération
-se déclare comme une suite d'actions (D1750) : l'exécution de son hook,
-puis les effets qui diffusent le résultat, puis d'autres opérations.
+Le code d'une opération ne se construit pas dans la configuration, mais
+son enchaînement s'y écrit : une opération peut être une liste
+d'opérations disponibles dans le socle (D609). L'enchaînement de ces
+références est déclaratif, sans code. Une opération se déclare donc
+comme une suite d'actions (D1750) : l'exécution de son hook, puis les
+effets qui diffusent le résultat, puis d'autres opérations.
 
 `actions:` porte la liste des opérations à engager après la réalisation
 de l'opération (D1745, D1751). Chacune part après le commit, dans sa
@@ -54,8 +55,10 @@ sequenceDiagram
 
 ## Les effets
 
-`effects:` diffuse le résultat d'une action, sur sa bonne exécution
-(D432, D1752). Cinq natures (D1745, D1746) :
+Une action réussie a des suites : prévenir quelqu'un, éditer un
+document, mettre un champ à jour. `effects:` les déclare : il diffuse le
+résultat d'une action, sur sa bonne exécution (D432, D1752). Ses natures
+sont cinq (D1745, D1746) :
 
 - **`notify`**, l'information des utilisateurs ; sans destinataire, la
   notification remonte à tous ceux qui voient l'entité, dans la zone
@@ -64,8 +67,8 @@ sequenceDiagram
 - **`document`**, l'édition d'un document par son gabarit, vers le PDF,
   le Word, l'Excel ou le mail (D564) ;
 - **`set`**, la mise à jour de données, un champ et sa valeur ;
-- **`webhook`**, « pour déclencher une action sur une application
-  distante », par un connecteur `webhook` sortant (D1746) ;
+- **`webhook`**, qui déclenche une action sur une application distante,
+  par un connecteur `webhook` sortant (D1746) ;
 - une autre opération, par `actions:`.
 
 L'opération porte ses propres `effects:`, ceux de son hook ; chaque
@@ -112,10 +115,12 @@ paramètre, `rgpd.anonymize(…)`, montrée dans
 
 ## Le wizard
 
-Le wizard est la suite synchrone (D1318). Les étapes qui portent une
-`operation:` s'exécutent dans la transaction du wizard, tenue ouverte au
-fil des étapes : « la transformation n'aura lieu qu'à la validation
-définitive du wizard » (D546, D547). La confirmation validée barre le
+Les actions d'une opération partent après le commit, chacune dans sa
+transaction. Le wizard est l'autre façon d'enchaîner : la suite
+synchrone (D1318). Les étapes qui portent une `operation:` s'exécutent
+dans la transaction du wizard, tenue ouverte au fil des étapes : la
+transformation n'a lieu qu'à la validation définitive du wizard (D546,
+D547). La confirmation validée barre le
 retour, le cliquet (D505) ; l'abandon annule tout. Le wizard porte le
 même `commit:` qu'une opération (D1652). Il est décrit au chapitre 4,
 [les surfaces](../04-composants/06-surfaces.md#wizard) (D1754).

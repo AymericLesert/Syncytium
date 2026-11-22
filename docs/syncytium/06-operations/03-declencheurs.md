@@ -1,8 +1,9 @@
 # Les déclencheurs
 
-Une opération ne se déclenche pas que par un bouton. Ce fichier dit les
-six déclencheurs, comment chacun s'écrit, et les montre dans le
-véhicule, l'entrepôt et un exemple inventé.
+Une opération ne se déclenche pas que par un bouton : le calendrier, une
+donnée qui change ou un fichier qui arrive peuvent aussi la lancer. Ce
+fichier présente les six déclencheurs, dit comment chacun s'écrit, puis
+les montre dans le véhicule, dans l'entrepôt et sur un exemple inventé.
 
 ## Le sommaire
 
@@ -131,11 +132,11 @@ operations:
 
 ## Les déclencheurs par connecteur
 
-Un connecteur `file` écoute un dossier au rythme de son `every:` ; un
+Une opération peut aussi répondre à ce qui arrive du dehors. Un
+connecteur `file` écoute un dossier au rythme de son `every:` ; un
 connecteur `webhook` sert des points d'entrée (D604, D609, D641, D1720).
-Dans
-les deux cas, l'opération déclare son abonnement par `when:`. Aucun cas
-n'en porte ; l'exemple est inventé :
+Dans les deux cas, l'opération déclare son abonnement par `when:`. Aucun
+cas n'en porte ; l'exemple est inventé :
 
 ```yaml
 # Les opérations déclenchées par un connecteur

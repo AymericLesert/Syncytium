@@ -109,8 +109,9 @@ format (D636). Portée : la liste, la sélection. L'écran le déclare par
 
 ### `notify`
 
-« Générer une information de notification aux utilisateurs » (D574).
-Les canaux sont des connecteurs ; la notification est persistée puis
+L'opération génère une information de notification aux utilisateurs
+(D574). Les canaux sont des connecteurs ; la notification est persistée
+puis
 remise, localisée (D108, D109, D110, D218). Sans destinataire, elle
 remonte à tous ceux qui voient l'entité, dans la zone des notifications ;
 le relais par mail est le choix de chacun (D1228, D836). C'est aussi un
@@ -118,8 +119,8 @@ effet (D1745).
 
 ### `refresh`
 
-« Déclencher un recalcul d'un graphique ou d'un champ calculé » (D574).
-Portée : l'enregistrement, la liste, l'application.
+L'opération déclenche le recalcul d'un graphique ou d'un champ calculé
+(D574). Portée : l'enregistrement, la liste, l'application.
 
 ## Le responsable métier, au plancher `manager`
 

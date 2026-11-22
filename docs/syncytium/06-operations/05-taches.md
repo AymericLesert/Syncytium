@@ -1,8 +1,9 @@
 # Les tâches
 
-Une opération déclarée une fois donne mille tâches. Ce fichier dit ce
-qu'est une tâche, la file qui la porte, son mode, son exécution et ses
-essais, ses droits et sa relance ; la supervision est au chapitre 10.
+Une opération se déclare une fois, et s'exécute mille fois : chacune de
+ses exécutions est une tâche. Ce fichier dit ce qu'est une tâche, la
+file qui la porte, son mode, son exécution et ses essais, puis ses
+droits et sa relance ; la supervision relève du chapitre 10.
 
 ## Le sommaire
 
@@ -31,6 +32,8 @@ sa ressource de suivi, au chapitre 13 (D24).
 
 ## Le mode
 
+Une tâche ne retient pas toujours l'utilisateur devant son écran : il
+peut l'attendre, continuer son travail, ou la remettre à plus tard.
 `mode:` dit comment l'interface vit la tâche (D436) :
 
 - **`synchronous`**, le défaut : l'interface se met en pause avec une
@@ -46,8 +49,9 @@ sa ressource de suivi, au chapitre 13 (D24).
 
 ## L'exécution
 
-`execution:` est une propriété du contrat du hook, pas de la
-déclaration (D1743, D1744) :
+Une tâche peut échouer : peut-on alors la rejouer ? La réponse tient au
+code de l'opération, non à son usage. `execution:` est donc une
+propriété du contrat du hook, pas de la déclaration (D1743, D1744) :
 
 - **`once`**, le défaut : un seul essai, `try: 1`, `delay: 0` ; en
   échec, la relance est manuelle (D57) ;

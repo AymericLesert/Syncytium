@@ -4630,7 +4630,12 @@ et le partenaire, sans aucun droit.
    fichiers dans le gabarit de l'import (D1211, D1412), chargés par son
    dry-run tout-ou-rien (D234) à l'initialisation et à la recharge ; des
    données réelles engagent le concepteur — le RGPD, la confidentialité
-   du dépôt ; sans `dataset:`, la démonstration part vide.
+   du dépôt ; sans `dataset:`, la démonstration part vide. Pour la
+   démonstration d'une application rétro-conçue, les données se
+   génèrent par une extraction partielle des données d'origine, ou par
+   une création ; la rétro-conception est alors un argument pour
+   l'adhésion — une application proposée sur la base d'un modèle de
+   données que les utilisateurs connaissent peut-être déjà (D2102).
 3. **Le parcours** : « Le parcours écrit via les personas reflète la
    démonstration » (D1505) — les scénarios des personas (§22) sont le
    script ; un compte de démonstration par persona, dans son groupe,

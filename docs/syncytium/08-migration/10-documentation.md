@@ -45,7 +45,7 @@ C'est la rubrique de la migration dans la matrice de
 | 6 | le D.A.T. | 4 | le connecteur de reprise, sur le schéma |
 | 7 | le guide d'exploitation | 9 | les passages, la fiche de la relecture, les opérations périodiques |
 | 8 | la maintenance, les risques et les améliorations | 7 | les risques de la famille « la reprise » |
-| 9 | la promotionnelle | 6 | rien |
+| 9 | la promotionnelle | 6 | rien pour la reprise ; la rétro-conception, un argument pour l'adhésion |
 
 ### La fonctionnelle
 
@@ -134,11 +134,18 @@ Rien n'est écrit par le concepteur :
 
 ### La promotionnelle
 
-Rien : la reprise n'est pas un argument pour l'adhésion. Dans la
-démonstration :
+La reprise n'y donne rien en propre. La rétro-conception, elle, est un
+argument pour l'adhésion (D2102) : elle permet de proposer une
+application sur la base d'un modèle de données que les utilisateurs
+connaissent peut-être déjà. Voir
+[la rétro-conception](08-retro-conception.md#lintérêt).
+
+Dans la démonstration :
 
 - le connecteur de reprise est mocké, comme les autres (D1503) ;
-- le jeu de données vient de `dataset:`, non d'une reprise (D1504).
+- le jeu de données vient de `dataset:`, non d'un passage de la reprise
+  (D1504). Ses données se génèrent de deux façons : par une extraction
+  partielle des données d'origine, ou par une création (D2102).
 
 ## La migration de version, dans les documentations
 

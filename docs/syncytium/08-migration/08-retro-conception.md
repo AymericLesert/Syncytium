@@ -21,6 +21,7 @@ au [registre](../../conception.md).
   - [Le principe](#le-principe)
   - [L'intérêt](#lintérêt)
 - [Ce que l'outil construit, ce qu'il laisse](#ce-que-loutil-construit-ce-quil-laisse)
+  - [Ce qu'il lit](#ce-quil-lit)
   - [Le partage](#le-partage)
   - [Aucune donnée ne migre](#aucune-donnée-ne-migre)
 - [Un scénario de démonstration](#un-scénario-de-démonstration)
@@ -52,6 +53,20 @@ est disponible : de quoi montrer d'un coup l'intérêt de la solution
 (D2029, D2097).
 
 ## Ce que l'outil construit, ce qu'il laisse
+
+### Ce qu'il lit
+
+L'outil lit deux choses dans la base existante (D2108) :
+
+- **son schéma**, par la description que le connecteur en donne : les
+  tables, les colonnes, les types, et les clés quand la base les
+  déclare ;
+- **ses données**, pour dire ce que le schéma ne dit pas. Deux colonnes
+  qui ne se répètent jamais ensemble font une identité possible ; une
+  colonne qui ne prend que quelques valeurs, un énuméré possible.
+
+Lire les données n'est pas les migrer : elles restent où elles sont. Ce
+que l'outil en déduit est une proposition, que le concepteur confirme.
 
 ### Le partage
 

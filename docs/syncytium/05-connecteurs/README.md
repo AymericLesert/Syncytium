@@ -58,15 +58,15 @@ renvoient au [registre](../../conception.md).
 
 ## Le diagramme — `Connector`, les familles, les classes (D1715–D1717)
 
-Trois notions, à ne pas confondre : **le connecteur**, déclaré à
-l'environnement par son nom, qui nomme sa famille par `type:` et sa
-classe par `class:` ; **la famille**, le contrat ; **la classe**,
-l'implémentation qui remplit ce contrat. L'arbre a une racine,
-`Connector`, le socle commun de tout connecteur : ses méthodes et ses
-propriétés minimales (D621–D627, D1712, D1713). **Les familles sont
-définies par le socle lui-même** (D619, D1716) : « il ne sera pas
-possible pour le concepteur d'ajouter une nouvelle famille, sauf à
-faire évoluer le socle lui-même ». Chaque famille hérite de `Connector`
+Trois notions se côtoient dans ce chapitre, et ne se confondent pas :
+**le connecteur**, déclaré à l'environnement par son nom, qui nomme sa
+famille par `type:` et sa classe par `class:` ; **la famille**, le
+contrat ; **la classe**, l'implémentation qui remplit ce contrat.
+L'arbre qui les relie a une racine, `Connector`, le socle commun de
+tout connecteur : ses méthodes et ses propriétés minimales (D621–D627,
+D1712, D1713). **Les familles sont définies par le socle lui-même**
+(D619, D1716) : le concepteur ne peut pas en ajouter une nouvelle, sauf
+à faire évoluer le socle lui-même. Chaque famille hérite de `Connector`
 et ajoute ses méthodes ; chaque classe hérite de sa famille et expose
 ses paramètres et ses propriétés spécifiques (D1711). Le concepteur
 ajoute une classe à une famille, par un hook de connecteur, jamais une

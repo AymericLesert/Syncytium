@@ -48,6 +48,7 @@ nomment à la conformité, non à la fonctionnelle.
 
 ### La réglementation
 
+Le connecteur dit où vont les données.
 `rgpd: { countries: [ … ] }` donne les pays du stockage pour le storage,
 de la destination pour les sortants (D1345) ; le registre des
 traitements en tire le lieu et les transferts hors Union (D1328). Les
@@ -80,9 +81,10 @@ connecteurs (D1347, D1251).
 
 ### Le D.A.T.
 
-Le cœur de la documentation. Le schéma des connexions, par
-environnement : un nœud par connecteur déclaré (D342, D616), groupé par
-famille, le protocole et le port que sa classe implique, les paramètres
+Le D.A.T. est la documentation que le connecteur nourrit le plus. Il
+s'ouvre sur le schéma des connexions, par environnement : un nœud par
+connecteur déclaré (D342, D616), groupé par famille, avec le protocole
+et le port que sa classe implique, les paramètres
 sans les secrets (D944), les `countries:` (D1345), les données
 personnelles signalées sur le flux. Le connecteur d'une reprise est
 dessiné à part, avec son rythme et son état à l'instance (D1433). Puis
@@ -93,8 +95,8 @@ stockage du dictionnaire.
 
 ### Le guide d'exploitation
 
-Le cœur du guide. Par environnement, les connecteurs sans leurs
-secrets ; le `ping()` et le feu tricolore (D621, D731) ; la page de
+Le connecteur est aussi le cœur du guide d'exploitation. Par
+environnement, le guide donne les connecteurs sans leurs secrets ; le `ping()` et le feu tricolore (D621, D731) ; la page de
 maintenance et le mock (D626, D627) ; la description de chaque variable
 depuis la classe du connecteur (D1442). Les fiches : la copie d'un
 environnement, la synchronisation par `replication:` (D724), les secrets
@@ -123,18 +125,20 @@ configuration (D1510) ; le storage `memory` se supprime à la fin
 
 ### L'information
 
-Le chapitre du stockage du dictionnaire de la donnée (D1260) : « le
-connecteur storage matérialise le stockage des types dans la base de
-données ». Le chapitre représente les données telles qu'elles sont
+Le connecteur nourrit ici le chapitre du stockage du dictionnaire de la
+donnée (D1260) : le connecteur storage matérialise le stockage des
+types dans la base de données. Le chapitre représente les données telles qu'elles sont
 stockées, pour tout outil de BI qui lit la base sans passer par
 Syncytium ; c'est la facette stockage de chaque type (D683), assemblée
 par le storage, ci-dessous.
 
 ## Le `describe(model)` du storage
 
-`describe(model)` rend « la description du modèle de données couvert
-par le modèle défini en paramètre, tel que les données doivent être
-stockées » (D1292, D1299, D1300). La classe applique ses règles de
+Un outil de BI lit la base sans passer par Syncytium : il lui faut
+savoir comment les données y sont rangées. `describe(model)` rend pour
+cela la description du modèle de données que couvre le modèle passé en
+paramètre, tel que les données doivent être stockées (D1292, D1299,
+D1300). La classe applique ses règles de
 transcription au modèle qu'on lui donne (D1296, D1298) et rend ce
 qu'elles produisent, dans son propre vocabulaire, par exception à D680,
 parce que la BI lit la base sans Syncytium. C'est une fonction pure de
@@ -146,9 +150,9 @@ chapitre ; le chapitre 12 y renvoie (D1722).
 Par entité :
 
 - sa table, la colonne du soft delete, les colonnes d'audit ; les
-  colonnes du socle sont à étudier, « les colonnes supplémentaires sont
-  liées à un type d'implémentation, mais nous pourrions adopter une
-  autre approche » (D1305) ;
+  colonnes du socle sont à étudier : ces colonnes supplémentaires
+  tiennent à un type d'implémentation, et une autre approche reste
+  possible (D1305) ;
 - la déclinaison de chaque type de composant en stockage, l'héritage
   compris, une table par dérivé ou une seule avec une colonne de type, à
   préciser à l'implémentation (D1309) ;
@@ -165,8 +169,9 @@ ou ses colonnes, le type natif, la nullité, la règle de conversion. Les
 noms physiques suivent la règle du storage. Les colonnes protégées sont
 marquées de leur niveau de confidentialité (D1247).
 
-Les index, chacun avec son origine dans le modèle, « liés aux critères
-de recherche et de sélection définis dans le modèle » (D1292) :
+Viennent ensuite les index, chacun avec son origine dans le modèle. Ils
+sont liés aux critères de recherche et de sélection que le modèle
+définit (D1292) :
 `searchable: strict | normalized | similarity | range` (D367, D371),
 `mutualizable[nom]` (D780), les `searchable:` et `sort:` des listes, les
 `filter:` des périmètres (D90), le champ de statut. Le storage décide la

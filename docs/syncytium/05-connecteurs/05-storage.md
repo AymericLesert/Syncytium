@@ -21,26 +21,28 @@ exports. Ce fichier développe son contrat, résumé dans
 > famille de connecteurs ; le storage du modèle porte l'instance
 > ([glossaire](../../glossaire.md)).
 
-Quatre énoncés de l'auteur fondent la famille (D1294–D1297).
+Quatre énoncés fondent la famille (D1294–D1297) : ce que le storage
+est, ce qu'il vise, ce qu'il décrit de lui-même, et ce qu'il attend des
+types.
 
-1. **La définition.** « Le storage est le lien entre les données
-   manipulées par Syncytium, la manipulation, son optimisation et le
-   stockage physique. »
-2. **Les objectifs.** « Il intègre tant les données de façon unitaire
-   que les données à traiter/lire en masse. Le traitement doit être
-   bijectif, standardisé et harmonisé, tout en offrant la capacité à
-   être extensible. » Bijectif : ce qui s'écrit se relit à l'identique
+1. **La définition.** Le storage est le lien entre les données que
+   Syncytium manipule, leur manipulation, son optimisation et le
+   stockage physique.
+2. **Les objectifs.** Il intègre aussi bien les données prises une à
+   une que les données à traiter ou à lire en masse. Son traitement est
+   bijectif, standardisé et harmonisé, et il reste extensible.
+   Bijectif : ce qui s'écrit se relit à l'identique
    (D683). Standardisé et harmonisé : le même contrat pour tout storage,
    le même rendu pour tout type. Extensible par le format pivot (D1298).
-3. **L'auto-description.** « Cela porte les règles de transcription
-   entre les types de données manipulées par Syncytium et le stockage
-   physique. » Le `describe()` en est le rendu. La règle de transcription
+3. **L'auto-description.** Le storage porte les règles de transcription
+   entre les types de données que Syncytium manipule et le stockage
+   physique. Le `describe()` en est le rendu. La règle de transcription
    sert trois fois : créer, `create_entity` ; reconnaître,
    `get_instance()` ; décrire, `describe(model)` (D1300).
-4. **Les interfaces, les pivots.** « Le storage influe le hook des types
-   pour définir les propriétés ou les éléments à couvrir. Au storage de
-   faire le nécessaire pour exploiter au mieux ces données. » Le pivot
-   est à l'initiative du storage : il dit ce qu'il attend d'un type, la
+4. **Les interfaces, les pivots.** Le storage influe sur le hook des
+   types : il dit les propriétés ou les éléments à couvrir. À lui,
+   ensuite, de faire le nécessaire pour exploiter au mieux ces données.
+   Le pivot est à l'initiative du storage : il dit ce qu'il attend d'un type, la
    forme native, les gestes, l'identification, les index qu'il sait
    porter, la partition ; le type le fournit ; le storage en tire le
    meilleur parti. Un type qui ne couvre pas un élément attendu est
@@ -65,8 +67,8 @@ stockage. Ses méthodes se groupent en quatre (D629, D680–D689).
 - **La transaction** : `begin`, `commit`, `rollback`, l'assise de la
   transaction tenue ouverte (D594).
 - **L'instance** : `create_instance` ; `get_instance()`, l'introspection,
-  « la description d'un modèle à l'image du méta-modèle à partir du
-  stockage » (D1299), dont le retour est l'équivalent d'un module, les
+  qui décrit à partir du stockage un modèle à l'image du méta-modèle
+  (D1299), et dont le retour est l'équivalent d'un module, les
   entités et leurs champs, la mutualisation de plusieurs colonnes en un
   champ, les contraintes, les dépendances (D684), borné aux items de
   stockage, jamais les surfaces ni les calculés (D685), et pour un
@@ -125,15 +127,16 @@ D114).
 Syncytium orchestre (D686, D687). La bascule et les files d'attente, les
 écritures pendant la phase, les lectures pendant le renommage (D674,
 D679), sont composées par le moteur sur les primitives du contrat :
-« l'accès aux données est géré et piloté par Syncytium et non le storage
-directement ». L'enregistrement est un type structuré propre à
+l'accès aux données est géré et piloté par Syncytium, non par le storage
+directement. L'enregistrement est un type structuré propre à
 Syncytium, multi-storage ; le storage le convertit, jamais ne le
 définit (D683).
 
 ## Les storages de format et `memory`
 
-« Les storages csv, xml sont définis pour les exports et exploitables
-pour les imports » (D636). Les formats structurés, csv, xlsx, xml, json,
+Un storage n'est pas toujours une base de données. Les storages de
+format, comme csv ou xml, sont définis pour les exports, et servent
+aussi aux imports (D636). Ces formats structurés, csv, xlsx, xml, json,
 sont des classes de la famille, au contrat borné à ce que le format sait
 faire. L'export écrit vers un storage de format (D445, D530) ; l'import
 en lit (D234–D238). Un storage de format porte la carte des entités vers

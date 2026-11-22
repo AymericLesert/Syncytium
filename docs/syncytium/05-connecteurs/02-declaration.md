@@ -116,6 +116,8 @@ smtp:
 
 ### Les clés d'un connecteur
 
+Sous son nom, un connecteur déclare cinq clés :
+
 - **`type:`**, la famille, le contrat. Elle s'omet quand le nom du
   connecteur est sa famille, `smtp`. Elle s'écrit quand plusieurs
   connecteurs partagent une famille : `entrepot` et `cegid` sont deux
@@ -137,8 +139,8 @@ surcharge. Elles sont dans [le socle commun](03-socle.md).
 
 Une classe expose ses paramètres : le nom, le type, la valeur par
 défaut, la marque du secret (D1535, D1711). Les défauts viennent en
-cascade, « portés par l'implémentation du connecteur, par les
-settings » (D1711) ; l'environnement écrit les valeurs, et le plus
+cascade : l'implémentation du connecteur les porte d'abord, puis les
+settings (D1711). L'environnement écrit ensuite les valeurs, et le plus
 proche l'emporte (D461). Les valeurs viennent des variables du `.env`
 de l'environnement (D321). Tous les paramètres sont statiques : le
 connecteur se définit au démarrage (D603).
@@ -415,12 +417,15 @@ surcharge locale par une propriété au nom du rôle (D611) est ce
 
 Le nom du rôle est disponible au contexte d'exécution,
 `context.connector.<rôle>` (D612). Plusieurs connecteurs par item ne
-sont pas exclus : « dans le cas de l'affichage d'une carte, nous pouvons
-définir plusieurs connecteurs et, en fonction de l'écran, utiliser l'un
-ou l'autre » (D612). Le hook de connecteur, lui, ajoute une classe à une
-famille : [le hook de connecteur](06-hooks.md).
+sont pas exclus : pour l'affichage d'une carte, plusieurs connecteurs
+peuvent être définis, et l'écran utilise l'un ou l'autre (D612). Le hook
+de connecteur, lui, ajoute une classe à une famille :
+[le hook de connecteur](06-hooks.md).
 
 ## Les renvois
+
+Deux sujets croisent les connecteurs, et se décrivent ailleurs : ce
+chapitre n'en garde que sa part.
 
 Le déclenchement d'une opération par un connecteur, un fichier détecté,
 un point d'entrée appelé, `when: <connecteur>` ou

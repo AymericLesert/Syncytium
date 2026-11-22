@@ -56,8 +56,8 @@ storage en lecture, un `file` ou un `webhook` (D175–D179).
 
 ## `storage`
 
-Le storage est « le lien entre les données manipulées par Syncytium, la
-manipulation, son optimisation et le stockage physique » (D1294). Son
+Le storage fait le lien entre les données que Syncytium manipule, leur
+manipulation, son optimisation et le stockage physique (D1294). Son
 contrat parle le langage du méta-modèle, l'instance, l'entité, le champ
 (D680). Ses méthodes se groupent en quatre : la transaction, l'instance,
 les entités, les enregistrements ; `describe(model)` rend le modèle tel
@@ -67,8 +67,8 @@ dans [le storage](05-storage.md).
 
 ## `smtp`
 
-Un geste, `send(message, pièces, destinataires)` (D628), celui de
-l'opération `send` du socle (D574) :
+La famille n'a qu'un geste, `send(message, pièces, destinataires)`
+(D628), celui de l'opération `send` du socle (D574) :
 
 - le message est au format HTML ; le template `mail` fait le corps, du
   Markdown rendu en HTML (D562, D564) ;
@@ -89,7 +89,8 @@ le changement de mail (D721), le mail des faits marquants (D733, D748).
 
 ## `file`
 
-Deux gestes (D634, D635, D972, D973) :
+La famille a deux gestes (D634, D635, D972, D973) : lister les fichiers
+d'un dossier, puis acquitter celui qui a été traité.
 
 - **`files(motif)`** rend la liste des fichiers au motif, chacun avec ses
   descripteurs, le type `file` du modèle : `.relativepath`,
@@ -114,8 +115,9 @@ les enregistrements.
 
 ## `directory`
 
-Trois gestes, en lecture seule (D633) : `get_users()`, tous les
-utilisateurs de l'annuaire ; `get_users_from_group()`, ceux d'un
+La famille lit l'annuaire, sans jamais y écrire. Elle a trois gestes
+(D633) : `get_users()`, tous les utilisateurs de l'annuaire ;
+`get_users_from_group()`, ceux d'un
 groupe ; `get_groups()`, tous les groupes. Aucun pendant en écriture :
 la synchronisation des comptes et des groupes et les affectations
 restent des actes d'administration (D341, D210). L'authentification est
@@ -123,8 +125,9 @@ une famille à part, ci-dessous (D692).
 
 ## `location`
 
-Deux gestes typés (D637) : `geocode(adresse) : geolocation` et
-`reverse(geolocation) : adresse`. L'adresse est un objet structuré ; le
+La famille a deux gestes typés, l'un inverse de l'autre (D637) :
+`geocode(adresse) : geolocation` et `reverse(geolocation) : adresse`.
+L'adresse est un objet structuré ; le
 type `geolocation` du modèle porte les coordonnées et l'adresse postale
 normalisée (D391, D638). `geocode` rend le point et l'adresse mise au
 propre. Les classes `ban` et `nominatim` l'implémentent (D294).
@@ -177,8 +180,9 @@ porte d'entrée, sans rôle dans l'application (D1793).
 
 ## `siren`
 
-Un geste, `verify(siren)` (D639) : il « retourne les informations de
-l'entreprise si le SIREN est vérifié ». La vérification et
+La famille n'a qu'un geste, `verify(siren)` (D639) : il rend les
+informations de l'entreprise quand le SIREN est vérifié. La vérification
+et
 l'enrichissement se font en un geste, le formulaire client se
 pré-remplit. L'inventaire des champs de l'API Sirene de l'INSEE, la
 dénomination, la forme juridique, le code NAF, l'adresse du siège, les
@@ -187,7 +191,7 @@ la classe `sirene` (D1724).
 
 ## `webhook`
 
-Le connecteur ne sort pas : il déclare des entrées que Syncytium sert
+Ce connecteur ne sort pas : il déclare des entrées que Syncytium sert
 (D640). Chaque point d'entrée porte :
 
 - le mode de l'API, `get`, `put`, `post` ou `delete` ;
@@ -218,11 +222,11 @@ connectors:
 ## `llm`
 
 La famille est née avec le module `chat` du socle (D957). Le contrat est
-confirmé (D1718) et se complétera à l'implémentation (D1684). Le rôle :
-répondre à la question d'un utilisateur « en se basant sur la somme des
-connaissances de l'instance », les données et leur description, « dans
-la limite des autorisations accordées à l'utilisateur sur la
-consultation des données ». Le connecteur ne lit rien de lui-même : le
+confirmé (D1718) et se complétera à l'implémentation (D1684). Son rôle
+est de répondre à la question d'un utilisateur en s'appuyant sur la
+somme des connaissances de l'instance, ses données et leur description,
+dans la limite de ce que l'utilisateur est autorisé à consulter. Le
+connecteur ne lit rien de lui-même : le
 moteur lui tend les outils, la lecture de l'instance par l'API
 versionnée au porteur de l'utilisateur (D917, D918) ou par la librairie
 d'exploration du modèle (D572, D599). Les droits (D886), la
@@ -241,8 +245,8 @@ seconde couche.
   `personal` de tout ce qui part vers le modèle (D695, D696, D960), sauf
   ce qui revient à l'utilisateur, les données de son profil connecté et
   ce que ses droits lui ouvrent. Il n'y a aucun droit propre au chat :
-  « les droits ne sont pas sur chat mais sur les composantes de la
-  description du modèle » (D885, D886, D25). Ce que ses droits ne lui
+  les droits portent sur les composantes de la description du modèle,
+  non sur le chat (D885, D886, D25). Ce que ses droits ne lui
   ouvrent pas n'est pas décrit au modèle, il est omis (D958).
 - **La trace, avant l'affichage** : chaque question et chaque réponse
   s'écrit dans les entités du module `chat`, `session`, l'utilisateur,
@@ -251,11 +255,11 @@ seconde couche.
   historisées ; l'événement va au journal de sécurité (D925).
 - **La lecture seule** (D958) : les outils tendus sont les primitives
   de lecture de la librairie d'exploration, lire, interroger, naviguer,
-  agréger (D571, D599). « Le chat répond aux questions et fournit les données. Les
-  mises à jour se feront via les interfaces proposées par l'application.
-  Le chat proposera des liens vers les interfaces assurant la mise à
-  jour qui peut être demandée. » La boucle d'outils vit au moteur, le
-  connecteur transporte.
-- **La condition indispensable** (D626, D959) : « si le connecteur LLM
-  n'est pas disponible, un message d'erreur sera présenté et les
-  questions ne seront pas possibles ». Jamais une réponse inventée.
+  agréger (D571, D599). Le chat répond aux questions et fournit les
+  données. Les mises à jour, elles, passent par les interfaces de
+  l'application : le chat propose un lien vers l'interface qui assure la
+  mise à jour demandée. La boucle d'outils vit au moteur, le connecteur
+  transporte.
+- **La condition indispensable** (D626, D959) : si le connecteur `llm`
+  n'est pas disponible, un message d'erreur est présenté, et aucune
+  question n'est possible. Jamais une réponse inventée.

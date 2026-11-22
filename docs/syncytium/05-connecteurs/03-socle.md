@@ -17,7 +17,8 @@ accepte, et ce qui se passe quand il tombe.
 > porte, quelle que soit sa famille : sept méthodes, des propriétés
 > minimales, une position de sécurité ([glossaire](../../glossaire.md)).
 
-Toute classe implémente sept méthodes (D621, D627, D630) :
+Le moteur parle à tout connecteur de la même façon, quelle que soit sa
+famille. Toute classe implémente donc sept méthodes (D621, D627, D630) :
 
 - **`initialize()` et `release()`**, au démarrage et à l'arrêt de
   l'application ;
@@ -60,21 +61,22 @@ proposition jusqu'à l'implémentation.
   lieu du storage, les transferts hors Union des connecteurs sortants
   (D1328).
 
-Ces propriétés sont minimales : « un connecteur peut compter plus de
-propriétés et cela dépendra de leur implémentation » (D1713). Une classe
-ajoute les siennes : la carte `entities:` d'un storage de format, la
+Ces propriétés sont minimales : un connecteur peut en compter
+davantage, selon son implémentation (D1713). Une classe ajoute les
+siennes : la carte `entities:` d'un storage de format, la
 `convention:` de nommage d'un storage de reprise, les paramètres
 qu'elle expose (D1711).
 
 ## La position de sécurité
 
-En cas d'erreur, « il faut passer sur une page de maintenance et une
-alerte doit être émise » (D626). La page de maintenance est l'affaire
-des connecteurs clés, le mock celle des autres (D627).
+Un système tiers peut ne pas répondre. Le socle fixe alors la conduite
+à tenir : en cas d'erreur, l'application passe sur une page de
+maintenance, et une alerte est émise (D626). La page de maintenance est
+l'affaire des connecteurs clés, le mock celle des autres (D627).
 
-La condition indispensable (D626) : « l'application doit démarrer
-uniquement si l'envoi de mail à l'administrateur est possible ». Le
-canal d'alerte passe avant tout ; le `smtp` est vérifié au démarrage.
+Une condition est indispensable (D626) : l'application ne démarre que
+si l'envoi d'un mail à l'administrateur est possible. Le canal d'alerte
+passe avant tout ; le `smtp` est donc vérifié au démarrage.
 Le `smtp` de classe `none` satisfait la condition : le canal existe,
 muet, assumé (D763).
 

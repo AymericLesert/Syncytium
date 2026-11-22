@@ -25,10 +25,10 @@ langue, les traces, est au chapitre 1,
 > ([glossaire](../../glossaire.md)).
 
 Un hook de connecteur ajoute une classe au catalogue (D603). La classe
-entre dans une famille existante : « il n'existe pas de hook de
-famille : le hook porte sur l'implémentation d'une famille » (D619).
-Les neuf familles sont définies par le socle lui-même ; le concepteur
-n'en ajoute pas, « sauf à faire évoluer le socle lui-même » (D1716).
+entre toujours dans une famille existante : il n'existe pas de hook de
+famille, le hook porte sur l'implémentation d'une famille (D619). Les
+neuf familles sont en effet définies par le socle lui-même ; le
+concepteur n'en ajoute pas, sauf à faire évoluer le socle (D1716).
 Une classe ajoutée se nomme comme une classe du socle : le mot « hook »
 n'apparaît jamais dans la configuration (D408).
 

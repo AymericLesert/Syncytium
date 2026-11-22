@@ -50,7 +50,7 @@ FAMILLES = {
     "operations": ("les opérations", []),  # le chapitre 6 (D1675) — hooks.md, §3, jusqu'à la distribution
     "reprise": ("la migration", ["mapping.md", "migration.md"]),  # le chapitre 8 (D2024)
     "administration": ("l'administration et l'exploitation", ["administration.md"]),
-    "moteur": ("le fonctionnement du moteur", []),  # le chapitre 9 (D1784–D1785) — la famille à constituer à sa lecture
+    "moteur": ("le fonctionnement du moteur", []),  # le chapitre 9 (D1784–D1785) — la famille constituée par D2129
     "telemetrie": ("la télémétrie", ["telemetry.md"]),
     "configuration": ("la configuration et son écriture", ["configuration.md"]),
     "documentation": ("la documentation", ["documentation.md"]),
@@ -331,6 +331,18 @@ RELECTURE.update({2025: "reprise", 2026: "reprise", 2027: "reprise", 2028: "repr
                   2029: "reprise", 2030: "reprise", 2031: "reprise", 2032: "methode", 2033: "methode", 2034: "methode", 2035: "methode", 2036: "reprise", 2037: "reprise", 2038: "reprise", 2039: "reprise", 2040: "reprise",
                   2041: "reprise", 2042: "reprise", 2043: "reprise", 2044: "reprise",
                   2045: "reprise", 2046: "reprise", 2047: "reprise", 2048: "methode", 2049: "reprise", 2050: "reprise", 2051: "reprise", 2052: "reprise", 2053: "reprise", 2054: "reprise", 2055: "reprise", 2056: "methode", 2057: "reprise", 2058: "reprise", 2059: "reprise", 2060: "reprise", 2061: "reprise", 2062: "reprise", 2063: "reprise", 2064: "reprise", 2065: "methode", 2066: "reprise", 2067: "reprise", 2068: "methode", 2069: "methode", 2070: "methode", 2071: "methode", 2072: "methode", 2073: "methode", 2074: "methode", 2075: "methode", 2076: "operations", 2077: "methode", 2078: "reprise", 2079: "operations", 2080: "methode", 2081: "reprise", 2082: "surfaces", 2083: "surfaces", 2084: "surfaces", 2085: "configuration", 2086: "configuration", 2087: "reprise", 2088: "reprise", 2089: "reprise", 2090: "reprise", 2091: "reprise", 2092: "reprise", 2093: "reprise", 2094: "reprise", 2095: "reprise", 2096: "reprise", 2097: "reprise", 2098: "reprise", 2099: "reprise", 2100: "reprise", 2101: "reprise", 2102: "reprise", 2103: "reprise", 2104: "operations", 2105: "reprise", 2106: "reprise", 2107: "reprise", 2108: "reprise", 2109: "reprise", 2110: "reprise", 2111: "reprise", 2112: "reprise", 2113: "reprise", 2114: "reprise", 2115: "reprise", 2116: "reprise", 2117: "reprise", 2118: "reprise", 2119: "reprise", 2120: "reprise", 2121: "reprise", 2122: "reprise", 2123: "reprise", 2124: "reprise", 2125: "reprise", 2126: "reprise", 2127: "methode", 2128: "methode"})
+
+# Le chapitre 9, le fonctionnement du moteur (D2129, le 23/11/2026) : quarante-trois entrées, la famille constituée à
+# l'ouverture — le démarrage d'une version (D1784, D1785), le secours, les secrets et le chiffrement, que le recentrage du
+# chapitre 7 envoie au moteur (D1786), l'exécution d'un passage et ce qu'il laisse (D1880, D1881, D1928) ; l'ouverture
+# et l'écriture du chapitre à la méthode.
+RELECTURE.update({_n: "moteur" for _n in [
+    326, 327, 330, 331, 332, 344, 801, 920, 921, 922, 927, 928,              # le démarrage d'une version
+    8, 675, 676, 677,                                                        # la migration de version, à chaud
+    33, 81, 718, 745,                                                        # le secours
+    706, 707, 708, 730, 901, 915, 916, 918, 919, 944,                        # les secrets et le chiffrement
+    861, 862, 1032, 1036, 1056, 1057, 1059, 1060, 1065, 1068, 1077, 1079, 1080]})  # le passage et ce qu'il laisse
+RELECTURE.update({1784: "methode", 1785: "methode", 2129: "methode", 2130: "methode"})
 
 
 

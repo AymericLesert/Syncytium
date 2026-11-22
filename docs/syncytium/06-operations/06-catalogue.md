@@ -168,12 +168,16 @@ pendant la bascule (D1077). Le chapitre 8, la reprise, détaille.
 
 ### `reset_coverage`
 
-`reset_coverage(module, entité)` efface l'état de couverture d'une
-entité, la dernière valeur parcourue et les empreintes : le `migrate`
-suivant relit la totalité, rien n'est effacé (D881, D1030). Planifiable
-par `every:` : le delta en semaine, la relecture complète le dimanche.
-Elle attend le passage en cours ou l'interrompt, selon une option
-(D1079).
+`reset_coverage(<entité>)` remet au départ la couverture d'une entité
+partitionnée d'une reprise, sa dernière valeur parcourue : le `migrate`
+suivant relit la totalité, et rien n'est effacé (D881, D1030, D1037).
+Elle s'écrit par entité, `reset_coverage(MVTSTO)`, et se planifie par
+`every:`, parmi les opérations périodiques d'un processus de migration :
+dans l'entrepôt, le delta chaque nuit, la relecture complète le
+dimanche. Quand un passage de la migration tourne déjà, `on_running:`
+dit sa conduite, `cancel`, `wait` ou `interrupt` (D1079, D1080). Le
+chapitre 8 détaille, dans
+[les opérations périodiques](../08-migration/02-declaration.md#les-opérations-périodiques).
 
 ### `rgpd.anonymize`
 

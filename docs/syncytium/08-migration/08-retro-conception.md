@@ -23,6 +23,7 @@ au [registre](../../conception.md).
 - [Ce que l'outil construit, ce qu'il laisse](#ce-que-loutil-construit-ce-quil-laisse)
   - [Ce qu'il lit](#ce-quil-lit)
   - [Les indices de l'analyse](#les-indices-de-lanalyse)
+  - [Ce que la base ne dit pas](#ce-que-la-base-ne-dit-pas)
   - [Le partage](#le-partage)
   - [Aucune donnée ne migre](#aucune-donnée-ne-migre)
 - [Un scénario de démonstration](#un-scénario-de-démonstration)
@@ -100,6 +101,17 @@ Deux principes guident l'analyse (D2110) :
 | un compteur | une séquence | un entier qui croît sans se répéter | `counter` |
 | la partition | les partitions déclarées | rien | `partition:` |
 | une colonne morte | rien | toujours vide, ou toujours la même valeur | un signalement au concepteur |
+
+### Ce que la base ne dit pas
+
+Il reste des cas où la base ne dit rien, même lue en entier.
+
+**La table où rien ne fait clé.** Un journal peut porter deux lignes
+parfaitement égales, qui sont deux faits distincts : aucune combinaison
+de ses colonnes n'est unique. Or toute entité porte une identité
+(D1035). L'outil ajoute alors à la table une colonne technique, un
+numéro, qui lui sert d'identité (D2111). C'est le seul cas où la
+rétro-conception modifie d'elle-même la base existante.
 
 ### Le partage
 

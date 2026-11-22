@@ -392,7 +392,8 @@ d'origine :
 
 ```yaml
 # La migration cegid
-# La reprise des données de Cegid PMI dans l'entrepôt ; l'ordre des migrations déclarées est leur ordre d'exécution.
+# La reprise des données de Cegid PMI dans l'entrepôt ; les migrations d'un fichier s'exécutent dans l'ordre
+# alphabétique de leurs noms.
 cegid:
 
   # La base d'origine

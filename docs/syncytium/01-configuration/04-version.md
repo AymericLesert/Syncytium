@@ -555,8 +555,8 @@ antérieure, c'est la migration de version. Un troisième usage ne migre
 rien : la rétro-conception d'une application existante (D1907, D2025,
 D2027). Le dossier range les deux migrations :
 
-- `migration.yml` décrit et nomme les processus de migration, un par
-  connecteur d'origine (D662, D1888) : `from:` la base d'origine
+- `migration.yml` décrit et nomme les processus de migration, chacun
+  pour un connecteur d'origine (D662, D1888) : `from:` la base d'origine
   (D1087), `mode:` et `reset:`, `relative` et `false` par défaut
   (D671, D1889), `sources:` (D1884), `mapping:`, `operations:` ; une
   reprise un pour un s'écrit en forme courte, `legacy: fichier_csv` ou
@@ -571,8 +571,8 @@ D2027). Le dossier range les deux migrations :
   `validation` ; la table d'appartenance déclare ses compositions par
   `list of`, le fils ne déclare rien (D1913, D1914) ; une colonne typée `TABLE.colonne` est une référence,
   `TABLE[NOM].colonne` une référence nommée quand l'entité est visée
-  plusieurs fois (D995), `A.colonne or B.colonne` une référence à l'une
-  de deux entités (D996) ; les calculés de la source s'écrivent en
+  plusieurs fois (D995), `A.colonne or B.colonne` une référence à
+  plusieurs entités (D996) ; les calculés de la source s'écrivent en
   `formula:` (D660) ;
 - `mapping/NNN_<nom>.yml` écrit chaque règle (D656) : `to`, `filter`,
   `distinct`, `parent`, `fields`, `validation`, `report`, `operations` ;

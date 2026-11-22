@@ -15,8 +15,8 @@ comment elle se lance. Les décisions citées entre parenthèses renvoient au
 ## Le sommaire
 
 - [La rétro-conception d'une application existante](#la-rétro-conception-dune-application-existante)
-  - [Prendre la suite d'une application](#prendre-la-suite-dune-application)
-  - [Silencieuse, ou rétro-conçue](#silencieuse-ou-rétro-conçue)
+  - [Le principe](#le-principe)
+  - [L'intérêt](#lintérêt)
 - [Ce que l'outil construit, ce qu'il laisse](#ce-que-loutil-construit-ce-quil-laisse)
   - [Le partage](#le-partage)
   - [Aucune donnée ne migre](#aucune-donnée-ne-migre)
@@ -30,33 +30,23 @@ comment elle se lance. Les décisions citées entre parenthèses renvoient au
 
 ## La rétro-conception d'une application existante
 
-### Prendre la suite d'une application
+### Le principe
 
-Quand une application écrite avec Syncytium prend la place d'une
-application existante, ses modules, ses entités et ses champs reprennent
-ceux de l'ancienne. Le mapping est alors simple, et Syncytium la
-remplace par construction, sans migration. Il ne reste qu'une chose à
-construire : le méta-modèle, à partir de l'analyse de la base de données
-existante (D1907).
+La rétro-conception ne migre pas les données, et ne les transforme pas.
+Un outil de Syncytium analyse le modèle de données de l'application
+existante : le méta-modèle se déduit automatiquement de la description
+que le connecteur donne de la base (D1907, D2026). Syncytium se pose
+alors sur cette base, telle qu'elle est : ses modules, ses entités et
+ses champs sont ceux de l'application (D2027).
 
-Cet usage s'appelle la rétro-conception (D2027). C'est une forme de
-rétro-ingénierie (D2028) : le modèle obtenu permet de lancer Syncytium
-sans une première charge d'analyse trop lourde.
+### L'intérêt
 
-### Silencieuse, ou rétro-conçue
-
-Le mot « silencieux » ne convient pas à cet usage (D2026). Il reste à
-la migration que Syncytium porte lui-même entre deux versions (D1908) :
-
-| La situation | Le mot | Ce qui se passe |
-|---|---|---|
-| entre deux versions | la migration silencieuse | Syncytium la porte directement : sans règle sous `exchange:`, elle se déduit et s'effectue sans intervention du concepteur |
-| pour une application existante | la rétro-conception | une commande de `syncytium` analyse le modèle de données d'une base, puis construit un méta-modèle |
-
-Le méta-modèle se déduit automatiquement de la description d'une
-instance d'un connecteur. Le fichier obtenu permet de poser Syncytium
-sur le modèle existant, puis de prendre le relais de l'ancienne
-application, un peu comme le ferait un parasite.
+Le modèle obtenu permet de lancer Syncytium sans une première charge
+d'analyse trop lourde : c'est une forme de rétro-ingénierie (D2028). En
+démonstration, l'effet est immédiat. Syncytium se plaque sur une
+application existante et, en quelques minutes, une nouvelle application
+est disponible : de quoi montrer d'un coup l'intérêt de la solution
+(D2029, D2097).
 
 ## Ce que l'outil construit, ce qu'il laisse
 

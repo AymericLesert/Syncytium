@@ -29,6 +29,7 @@ au [registre](../../conception.md).
   - [Aucune donnée ne migre](#aucune-donnée-ne-migre)
   - [La vie commune](#la-vie-commune)
   - [La mise en garde](#la-mise-en-garde)
+  - [L'évolution du modèle](#lévolution-du-modèle)
 - [Un scénario de démonstration](#un-scénario-de-démonstration)
   - [Quatre temps](#quatre-temps)
   - [Le retour à l'application d'origine](#le-retour-à-lapplication-dorigine)
@@ -222,6 +223,18 @@ gestion de l'application d'origine : il a lu sa base, non son code. Ce
 qu'un utilisateur écrit par Syncytium peut donc enfreindre une règle que
 l'application d'origine appliquait, tant que le concepteur ne l'a pas
 reportée dans la configuration (D2028).
+
+### L'évolution du modèle
+
+Le dossier que l'outil construit est une configuration comme une autre.
+Son modèle évolue ensuite par des versions, comme celui de toute
+application : c'est [la migration de version](07-version.md).
+
+Syncytium ne limite pas ces évolutions pendant la vie commune (D2123) :
+c'est au concepteur de savoir ce que l'application d'origine supporte.
+Un champ ajouté ne la gêne pas : elle ignore sa colonne. Un champ
+renommé la casse : elle lit toujours la colonne par son ancien nom. La
+mise en garde vaut donc aussi pour les évolutions.
 
 ## Un scénario de démonstration
 

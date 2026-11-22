@@ -30,7 +30,7 @@ entre parenthèses renvoient au [registre](../../conception.md).
   - [La composition](#la-composition)
   - [La référence](#la-référence)
   - [La référence nommée](#la-référence-nommée)
-  - [La référence à l'une de deux entités](#la-référence-à-lune-de-deux-entités)
+  - [La référence à plusieurs entités](#la-référence-à-plusieurs-entités)
   - [La lecture d'une autre table](#la-lecture-dune-autre-table)
 - [L'alias](#lalias)
 - [Le filtre et la partition](#le-filtre-et-la-partition)
@@ -413,12 +413,13 @@ colonnes du même nom forment une référence.
 - l'entrepôt garde les majuscules de ses entités sources (D1913) ;
 - une référence unique garde la forme simple.
 
-### La référence à l'une de deux entités
+### La référence à plusieurs entités
 
-Une colonne peut viser l'une ou l'autre de deux entités (D996). Le
-compte 1 de l'article, plus haut, s'écrit
-`FOURNIS.CLKTCODE or CLIENT.CLKTCODE`. Le registre le dit : « le premier
-des 2 qui matchent fait le lien ».
+Une référence peut faire le lien vers plusieurs entités différentes :
+deux, trois, ou davantage (D996, D2062). Les entités se séparent par
+`or`, et la première qui correspond fait le lien. Dans l'entrepôt, le
+compte 1 de l'article, plus haut, en vise deux :
+`FOURNIS.CLKTCODE or CLIENT.CLKTCODE`.
 
 - le `or` sert le contrôle avant la migration (D874) ;
 - à l'affectation, le premier trouvé est la valeur (D1913).

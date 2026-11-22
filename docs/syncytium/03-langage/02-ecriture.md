@@ -22,7 +22,9 @@ texte.
 
 ## Les littéraux
 
-Chaque sorte de littéral a son écriture (D1578, D1579) :
+Une formule ne lit pas que des champs : elle porte aussi des valeurs
+écrites en dur, un statut, un seuil, une durée. Chaque sorte de littéral
+a alors son écriture (D1578, D1579) :
 
 - **un texte**, entre guillemets ou entre apostrophes, au même sens :
   `"soldee"`, `'^([^.]+)\.'` ;
@@ -45,7 +47,9 @@ Une clé reste nue, comme celle d'un `select` : `select(EUR: …)`, comme
 > **Un opérateur** est une fonction du type à l'écriture symbolique :
 > `+`, `<`, `and` ([glossaire](../../glossaire.md)).
 
-Trois familles d'opérateurs existent (D581, D838) :
+Les opérateurs relient les valeurs d'une expression : ils calculent, ils
+comparent, ils combinent des conditions. Ils forment ainsi trois
+familles (D581, D838) :
 
 - **les opérateurs numériques** : `+`, `-`, `*`, `/` la division réelle,
   `\` la division entière, `%` le modulo, `!` le factoriel, `**` la
@@ -70,9 +74,10 @@ priorité (D1110). Le signe `!` est le factoriel, jamais la négation
 
 ## La conversion
 
-Une fonction au nom du type convertit une valeur : `text(x)`, `date(x)`,
-`integer(x)` (D579, D1568). C'est la seule écriture de la conversion
-explicite.
+Une valeur n'a pas toujours le type qu'on attend d'elle : une reprise,
+par exemple, lit en texte un délai qui est un nombre. Une fonction au
+nom du type la convertit alors : `text(x)`, `date(x)`, `integer(x)`
+(D579, D1568). C'est la seule écriture de la conversion explicite.
 
 ```yaml
 # Le délai de livraison du fournisseur : un texte lu, converti en entier
@@ -88,8 +93,10 @@ delai_livraison: integer(CLCTJOURFO)
 
 ## Ce qu'un type apporte
 
-Tout type déclare ce que le langage peut faire de ses valeurs, sa
-signature (D579–D584) :
+Les opérateurs et les fonctions ne valent pas pour toutes les valeurs :
+on soustrait deux dates, on ne les additionne pas. C'est le type qui le
+dit. Tout type déclare ainsi ce que le langage peut faire de ses
+valeurs, sa signature (D579–D584) :
 
 - **sa table d'opérateurs** : les combinaisons admises et le type du
   résultat ; `date - date` rend une durée, `date + date` est une erreur ;
@@ -106,7 +113,9 @@ et [les types composés](../02-modele/06-composes.md).
 > **Le conditionnel** choisit une valeur selon une condition :
 > `valeur if condition else autre` ([glossaire](../../glossaire.md)).
 
-Le conditionnel s'écrit valeur d'abord, condition ensuite (D1109, D1110) :
+Une valeur peut dépendre d'une condition : un statut selon une date, un
+calcul selon un rang. Le conditionnel l'exprime, et il s'écrit valeur
+d'abord, condition ensuite (D1109, D1110) :
 
 ```yaml
 # Le statut du véhicule repris : clôturé si la date de fin est posée, actif sinon
@@ -133,8 +142,9 @@ apostrophes, sinon le YAML lit les guillemets pour lui.
 > **Le `select`** choisit une valeur selon une autre, comme une table de
 > correspondance en ligne ([glossaire](../../glossaire.md)).
 
-Le `select` est une fonction de la valeur, qui nomme ses cas (D584,
-D1569) :
+Là où le conditionnel pose une condition, le `select` part d'une valeur,
+et dit ce qui correspond à chacun de ses cas. C'est une fonction de la
+valeur, qui nomme ses cas (D584, D1569) :
 
 ```yaml
 # L'unité de consommation : un select sur l'énuméré du type de véhicule
@@ -205,7 +215,9 @@ quantite_n:
 > **Un gabarit** est un texte à trous, dont les accolades citent des
 > valeurs : `"{code} — {nom}"` ([glossaire](../../glossaire.md)).
 
-Deux écritures joignent des textes (D1566) :
+Un code se compose de morceaux, une adresse de lignes dont certaines
+manquent. Le langage a donc deux écritures pour joindre des textes, qui
+ne traitent pas le nul de la même façon (D1566) :
 
 - **l'opérateur `+`**, pour les codes : `right("0000" + me, 4)` ; un nul y
   est une anomalie, comme dans toute expression ;

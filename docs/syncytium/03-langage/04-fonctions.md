@@ -28,11 +28,13 @@ Les deux écritures se valent.
 
 ## Les fonctions du texte
 
-Le type `text` emmène ses fonctions (D579, D934). Le registre le dit :
-« trim, upper, right, mid, … doivent figurer au catalogue sur un champ
-texte ». Les règles de migration, les calculés et les normalisations les
-emploient. Chacune s'écrit aussi en méthode du texte : `me.trim()`,
-`me.upper()`, `Designation.left(40)` (D1922).
+Nettoyer un code, découper un libellé, lire un morceau de texte : une
+reprise comme un calcul en ont besoin. Le type `text` emmène donc ses
+fonctions (D579, D934) : `trim`, `upper`, `right`, `mid` et les
+autres figurent au catalogue, pour tout champ texte. Les règles de
+migration, les calculés et les normalisations les emploient. Chacune
+s'écrit aussi en méthode du texte : `me.trim()`, `me.upper()`,
+`Designation.left(40)` (D1922).
 
 **Nettoyer un texte** :
 
@@ -100,7 +102,9 @@ La concaténation, par `+` ou par le gabarit, est décrite dans
 
 ## Les fonctions libres
 
-Une fonction libre prend des valeurs, sans collection (D576, D587) :
+Certaines fonctions ne tiennent ni à un type ni à une collection. Une
+fonction libre prend simplement des valeurs, sans collection (D576,
+D587) :
 
 - `min`, `max`, `sum`, `avg`, sur deux valeurs ou plus : `max(0, total)` ;
 - `ifnull(p, v)`, qui rend `p`, ou `v` quand `p` est nul (D1574) ;
@@ -134,7 +138,8 @@ après un seul appel : `extract_name(raw).prenom` (D817).
 
 ## La fonction définie
 
-Une fonction définie calcule un champ (D571) :
+Quand le catalogue ne suffit pas, le concepteur ajoute sa fonction. Une
+fonction définie calcule un champ (D571) :
 
 - elle rend une valeur ou une liste de valeurs, aux types du modèle ;
 - elle se recalcule quand un de ses paramètres change, dans l'ordre que

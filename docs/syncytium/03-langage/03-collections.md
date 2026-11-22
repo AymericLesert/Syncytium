@@ -3,7 +3,9 @@
 > **Une collection** est une valeur à plusieurs éléments : une liste, une
 > composition, une association ([glossaire](../../glossaire.md)).
 
-Les types des collections, `list of` et `range of`, sont décrits dans
+Une commande a ses lignes, un véhicule ses consommations : certaines
+valeurs du modèle en réunissent plusieurs. Les types de ces collections,
+`list of` et `range of`, sont décrits dans
 [le modèle](../02-modele/07-liens.md). Ce fichier dit ce que le langage en
 fait : les résumer, les interroger, les combiner, les adresser par la
 clé.
@@ -61,7 +63,8 @@ km_courant:
 
 ### Les trois formes
 
-Une fonction d'agrégation s'écrit sous trois formes (D1570) :
+Selon l'endroit où elle s'écrit, une fonction d'agrégation prend l'une
+de trois formes (D1570) :
 
 - **la méthode de la collection**, partout où une collection est nommée :
   `lignes.sum(montant)` ;
@@ -101,7 +104,9 @@ formula: 'mouvements.group(emplacement, article).sum(sens.select(entree: quantit
 
 ## L'appartenance et la projection
 
-Deux opérateurs interrogent une collection :
+Résumer une collection n'est pas tout : une expression veut parfois
+savoir si un élément s'y trouve, ou n'en retenir qu'un champ. Deux
+opérateurs l'interrogent ainsi :
 
 - **l'appartenance**, `in` : `<élément> in <collection>`,
   `me in fournisseurs` ; sa négation s'écrit `not in` (D888, D1572) ;
@@ -114,7 +119,8 @@ Deux opérateurs interrogent une collection :
 > **Une opération ensembliste** combine deux collections du même type :
 > la réunion, l'intersection, la différence ([glossaire](../../glossaire.md)).
 
-Ce sont des méthodes (D1575) :
+Ces opérations s'écrivent en méthodes de la première collection, la
+seconde en argument (D1575) :
 
 - `a.union(b)`, les éléments de l'une ou de l'autre ;
 - `a.intersect(b)`, les éléments communs ;
@@ -134,7 +140,9 @@ manquants:
 
 ## La liste littérale et `list(…)`
 
-Deux écritures font une liste à partir de valeurs :
+Une liste ne vient pas toujours du modèle : une formule peut en écrire
+une, ou la construire. Deux écritures font ainsi une liste à partir de
+valeurs :
 
 - **la liste littérale** écrit des valeurs en dur, entre crochets
   (D1572) ; ses valeurs sont du même type, et elle se lit telle quelle,

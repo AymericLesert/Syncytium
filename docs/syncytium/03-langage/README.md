@@ -95,12 +95,15 @@ des champs en sont des cas.
 
 ## Les garde-fous
 
-Le type de chaque expression se calcule à l'ingestion, de la feuille à la
-racine (D581). Une erreur de type est donc une erreur d'ingestion, jamais
-une erreur à l'exécution.
+Une formule fausse ne doit ni surprendre à l'exécution, ni passer
+inaperçue. Le langage s'en garde de deux façons.
 
-Rien n'échoue en silence. Quand une expression échoue à l'exécution, la
-suite dépend de l'endroit où elle s'emploie (D304) :
+D'abord, le type de chaque expression se calcule à l'ingestion, de la
+feuille à la racine (D581). Une erreur de type est donc une erreur
+d'ingestion, jamais une erreur à l'exécution.
+
+Ensuite, rien n'échoue en silence. Quand une expression échoue à
+l'exécution, la suite dépend de l'endroit où elle s'emploie (D304) :
 
 - **dans une migration**, la valeur de substitution déclarée la remplace
   (D13) ;

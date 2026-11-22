@@ -28,6 +28,7 @@ au [registre](../../conception.md).
   - [Le partage](#le-partage)
   - [Aucune donnée ne migre](#aucune-donnée-ne-migre)
   - [La vie commune](#la-vie-commune)
+  - [La mise en garde](#la-mise-en-garde)
 - [Un scénario de démonstration](#un-scénario-de-démonstration)
   - [Quatre temps](#quatre-temps)
   - [Le retour à l'application d'origine](#le-retour-à-lapplication-dorigine)
@@ -192,6 +193,15 @@ Pendant que Syncytium est posé sur la base, l'application d'origine
 continue d'y écrire : les deux travaillent en même temps, sur les mêmes
 tables (D2118). Le relais se prend ainsi au fil de l'eau, sans jour de
 bascule.
+
+### La mise en garde
+
+Cette vie commune présente un risque : la rétro-conception se manie
+avec précaution (D2119). Syncytium ne connaît pas toutes les règles de
+gestion de l'application d'origine : il a lu sa base, non son code. Ce
+qu'un utilisateur écrit par Syncytium peut donc enfreindre une règle que
+l'application d'origine appliquait, tant que le concepteur ne l'a pas
+reportée dans la configuration (D2028).
 
 ## Un scénario de démonstration
 

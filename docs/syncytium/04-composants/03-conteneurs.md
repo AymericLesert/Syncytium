@@ -97,9 +97,8 @@ calibrage uniforme, l'espace du tout.
   - `row[2]` : jusqu'à deux lignes par colonne, puis la colonne
     suivante.
 
-  Le crochet couvre la grille : le conteneur `grid` n'existe pas (D491).
-  Il s'écrit aussi en raccourci sur le composant : `sections[row]` vaut
-  `layout: row` (D478, D489, D1640).
+  Le crochet couvre la grille. Il s'écrit aussi en raccourci sur le
+  composant : `sections[row]` vaut `layout: row` (D478, D489, D1640).
 - `width:` et `height:`, au même niveau que `layout:`, donnent le
   calibrage uniforme : chaque section a alors la même dimension (D502).
   Une section peut les surcharger pour une taille variable. Le plus

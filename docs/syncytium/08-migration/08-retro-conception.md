@@ -194,6 +194,11 @@ continue d'y écrire : les deux travaillent en même temps, sur les mêmes
 tables (D2118). Le relais se prend ainsi au fil de l'eau, sans jour de
 bascule.
 
+Ce qui est propre à Syncytium ne va pas dans cette base : l'historique
+des modifications, les comptes et les groupes, les traces, les tâches
+se rangent dans un storage à part (D2120). La base de l'application
+d'origine ne reçoit aucune table de Syncytium.
+
 ### La mise en garde
 
 Cette vie commune présente un risque : la rétro-conception se manie

@@ -198,9 +198,11 @@ globale de l'état de santé de la migration.
 
 L'entité source déclare, elle aussi, son propre `report:` (D1058). Les
 anomalies des phases de la source vont aux destinataires qu'elle
-déclare, sous la même forme. La règle garde son
-`report:` pour les siennes. Dans l'entrepôt, l'entité source des
-commandes de vente :
+déclare, sous la même forme. La règle garde son `report:` pour les
+siennes. Sans `report:` sur l'entité source, ses anomalies vont à
+l'administrateur, et se lisent dans la vue des migrations, les
+surfaces du module `_migration` (D2105). Dans l'entrepôt, l'entité
+source des commandes de vente :
 
 ```yaml
 # Le rapport des anomalies de la table

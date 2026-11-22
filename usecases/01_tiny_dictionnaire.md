@@ -132,7 +132,7 @@ Aucun champ n'est cherchable : aucun `searchable:` déclaré.
 
 ### 4.1 Reprise des données
 
-**La migration déclarée.** `legacy`, en forme courte. La base d'origine est un fichier CSV : en UTF-8, le point-virgule pour séparateur, les entêtes en première ligne, dans le dossier de la variable `SYNCYTIUM_CSV_DIRECTORY`. Le mode est relatif, sans remise à zéro. Aucun rythme n'est déclaré.
+**La migration déclarée.** `legacy`, en forme courte. La base d'origine est un fichier CSV : en UTF-8, le point-virgule pour séparateur, les entêtes en première ligne, dans le dossier de la variable `SYNCYTIUM_CSV_DIRECTORY`. Le mode est relatif, sans remise à zéro. Aucune opération périodique n'est déclarée.
 
 **Les sources.** Une entité, `personne`, lue dans `personne.csv`. Ses colonnes sont les entêtes du fichier.
 

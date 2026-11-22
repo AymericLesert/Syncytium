@@ -108,7 +108,7 @@ les sources et les règles, non les destinations (D2012) :
 
 | L'élément déprécié | Ce qu'il signale | Ce qui continue |
 |---|---|---|
-| la migration déclarée | ses sources et ses règles | ses passages tournent, à son rythme, jusqu'à la version qui la retire |
+| la migration déclarée | ses sources et ses règles | ses passages tournent, déclenchés par ses opérations périodiques, jusqu'à la version qui la retire |
 | l'entité source | les règles qui la lisent | elle est lue comme avant |
 | la règle | rien d'autre qu'elle | elle s'applique comme avant |
 

@@ -2504,7 +2504,7 @@ est marqué. **En proposition.**)*
 >
 > **Les modules sont fermés à l'écriture : les données n'entrent que par
 > la reprise** (D1312). **La migration déclarée** `cegid` : la base
-> d'origine `cegid`, la base miroir `temporaire`, le mode relatif, le rythme — le delta nocturne à
+> d'origine `cegid`, la base miroir `temporaire`, le mode relatif, les opérations périodiques — le delta nocturne à
 > deux heures, la relecture complète le samedi soir (D943). **Les
 > sources** : vingt-trois tables de PMI par module
 > (`sources/technique/ARTICLE.yml`…) — pour

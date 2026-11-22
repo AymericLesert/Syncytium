@@ -152,7 +152,7 @@ déclare donc `report:`, dans la forme du modèle (D406) :
 
 | La clé | Ce qu'elle dit |
 |---|---|
-| `when:` | les rythmes |
+| `when:` | quand le rapport part : à la migration, chaque semaine |
 | `to:` | le groupe, ou l'utilisateur |
 | `by:` | les canaux |
 

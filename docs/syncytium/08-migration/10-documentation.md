@@ -41,7 +41,7 @@ C'est la rubrique de la migration dans la matrice de
 | 4 | le projet et le support | 8 | rien en propre ; les notes de version |
 | 5 | la documentation du développeur | 3 | rien de propre |
 | 6 | le D.A.T. | 4 | le connecteur de reprise, sur le schéma |
-| 7 | le guide d'exploitation | 9 | les passages, la fiche de la relecture, le rythme |
+| 7 | le guide d'exploitation | 9 | les passages, la fiche de la relecture, les opérations périodiques |
 | 8 | la maintenance, les risques et les améliorations | 7 | les risques de la famille « la reprise » |
 | 9 | la promotionnelle | 6 | rien |
 
@@ -107,8 +107,9 @@ Rien de propre : la reprise n'est pas un appel.
 
 Rien n'est écrit par le concepteur :
 
-- **le connecteur de reprise** paraît sur le schéma, distinct, avec le
-  rythme de la migration et son état à l'instance (D1433) ;
+- **le connecteur de reprise** paraît sur le schéma, distinct, avec les
+  opérations périodiques de la migration et son état à l'instance
+  (D1433) ;
 - **le flux est marqué** par les champs `rgpd:` qu'il emporte (D1426).
 
 ### Le guide d'exploitation
@@ -117,7 +118,8 @@ Rien n'est écrit par le concepteur :
   quotidienne (D1454) : les cinq états, les rapports, les rejets ;
 - **la fiche de la relecture** : `reset_coverage`, `on_running`,
   l'interruption et la relance manuelle (D1077, D1079) ;
-- **le rythme** paraît au calendrier des opérations (D943).
+- **les opérations périodiques** paraissent au calendrier des opérations
+  (D943).
 
 ### La maintenance, les risques et les améliorations
 

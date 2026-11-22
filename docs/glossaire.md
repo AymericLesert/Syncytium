@@ -1040,7 +1040,8 @@ ne sert qu'à cette construction, et ne se versionne pas.
 *(D1907, D1908, D2025–D2031)*
 
 **Processus de migration** — Une entrée de `migration.yml` : la base
-d'origine, les sources, les règles, le mode, le rythme. Le fichier
+d'origine, les sources, les règles, le mode, les opérations périodiques.
+Le fichier
 décrit et nomme les processus. Chacun a un connecteur d'origine, et un
 même connecteur peut apparaître dans plusieurs processus. Ils
 s'exécutent dans l'ordre alphabétique de leurs noms.

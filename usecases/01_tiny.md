@@ -366,7 +366,7 @@ produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md)
 > `csv` — un fichier en UTF-8, le point-virgule pour séparateur, les
 > entêtes en première ligne, dans le dossier de la variable
 > `SYNCYTIUM_CSV_DIRECTORY` (D2001–D2003) ; le mode relatif, sans remise
-> à zéro — les défauts (D1889) ; aucun rythme déclaré. **Les sources** :
+> à zéro — les défauts (D1889) ; aucune opération périodique déclarée. **Les sources** :
 > une entité, `personne`, lue dans `personne.csv` ; le connecteur se
 > décrit, ses colonnes sont les entêtes du fichier. **Les règles** :
 > aucune écrite — le mapping est champ à champ, par les noms, la

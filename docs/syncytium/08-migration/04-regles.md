@@ -206,7 +206,7 @@ compteur des commandes sur le numéro repris :
 Le mot `operations:` sert à trois étages (D1942) :
 
 - les opérations nommées et planifiées d'un processus : voir
-  [le rythme et les opérations](02-declaration.md#le-rythme-et-les-opérations) ;
+  [les opérations périodiques](02-declaration.md#les-opérations-périodiques) ;
 - la liste de ce qu'une de ces opérations lance ;
 - l'expression d'une règle, ici.
 

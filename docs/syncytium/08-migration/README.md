@@ -29,7 +29,7 @@ renvoient au [registre](../../conception.md).
    - [Les fichiers et leur ordre](02-declaration.md#les-fichiers-et-leur-ordre)
    - [Le mode et la remise à zéro](02-declaration.md#le-mode-et-la-remise-à-zéro)
    - [La base miroir](02-declaration.md#la-base-miroir)
-   - [Le rythme et les opérations](02-declaration.md#le-rythme-et-les-opérations)
+   - [Les opérations périodiques](02-declaration.md#les-opérations-périodiques)
 3. [La source](03-sources.md)
    - [Les deux maisons](03-sources.md#les-deux-maisons)
    - [La description d'une entité source](03-sources.md#la-description-dune-entité-source)
@@ -180,7 +180,7 @@ Une version range sa migration dans un dossier, `migration/` (D1883) :
 
 ```text
 versions/beta/v1.0.0.1/migration/
-├── migration.yml    # un processus nommé (ex : cegid) : la base d'origine, le mode, le rythme
+├── migration.yml    # un processus nommé (ex : cegid) : la base d'origine, le mode, les opérations périodiques
 ├── sources/         # vingt-trois entités sources, rangées par module
 └── mapping/         # trente-trois règles, en cinq dossiers numérotés
 ```

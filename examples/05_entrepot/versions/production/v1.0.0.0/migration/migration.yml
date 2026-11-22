@@ -33,19 +33,22 @@ cegid:
     - ~{mapping/[0-9]+_.*/[0-9]+_.*\.yml}
 
   # Les opérations périodiques
-  # Le rythme de la migration. Chaque opération porte son calendrier (every), ce qu'elle lance (operations) et, au
-  # besoin, sa conduite quand un passage tourne déjà (on_running — cancel par défaut : elle est annulée).
+  # Elles déclenchent la migration et réinitialisent ses couvertures. Chaque opération porte son calendrier (every),
+  # ce qu'elle lance (operations) et, au besoin, sa conduite quand un passage tourne déjà (on_running — cancel par
+  # défaut : elle est annulée).
   operations:
 
     # Le delta de la nuit
-    # Chaque nuit, la migration relit les plages récentes des tables partitionnées et les autres tables en entier.
+    # La migration est déclenchée chaque nuit : elle relit les plages récentes des tables partitionnées et les autres
+    # tables en entier.
     delta_nocturne:
       every: daily[02:00]
       operations: migrate
 
     # La relecture complète
-    # La nuit de samedi, la couverture des tables partitionnées revient au départ : la migration du dimanche relit
-    # tout ; si le delta tourne encore, la relecture attend sa fin.
+    # Une fois par semaine, la nuit de samedi, les couvertures des tables partitionnées sont réinitialisées : la
+    # migration du dimanche relit tout. Une fois par semaine suffit : les relectures complètes restent rares. Si le
+    # delta tourne encore, la relecture attend sa fin.
     relecture_complete:
       every: weekly[saturday at 23:00]
       on_running: wait

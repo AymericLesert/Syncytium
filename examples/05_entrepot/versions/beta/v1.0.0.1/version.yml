@@ -34,7 +34,7 @@ groups: ~{groups.yml}
 documentation: ~{documentation.yml}
 
 # Les migrations
-# La reprise des données de PMI : la base d'origine, les tables sources, les règles, le rythme.
+# La reprise des données de PMI : la base d'origine, les tables sources, les règles, les opérations périodiques.
 migrations: ~{migration/migration.yml}
 
 # Les modules de l'application

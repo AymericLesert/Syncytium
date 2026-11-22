@@ -8,7 +8,8 @@
 
 Ce fichier dit ce que le concepteur déclare pour une migration : le
 processus et ses clés, sa forme courte, ses fichiers et leur ordre, son
-mode, sa base miroir, son rythme. Ce qui se passe pendant un passage est
+mode, sa base miroir, ses opérations périodiques. Ce qui se passe pendant
+un passage est
 au chapitre 9, le moteur. Les décisions citées entre parenthèses
 renvoient au [registre](../../conception.md).
 
@@ -31,8 +32,8 @@ renvoient au [registre](../../conception.md).
   - [Les deux modes](#les-deux-modes)
   - [La remise à zéro](#la-remise-à-zéro)
 - [La base miroir](#la-base-miroir)
-- [Le rythme et les opérations](#le-rythme-et-les-opérations)
-  - [Le rythme se déclare par des opérations périodiques](#le-rythme-se-déclare-par-des-opérations-périodiques)
+- [Les opérations périodiques](#les-opérations-périodiques)
+  - [Ce qu'elles déclenchent](#ce-quelles-déclenchent)
   - [`migrate`](#migrate)
   - [`reset_coverage`](#reset_coverage)
   - [`on_running:`](#on_running)
@@ -72,7 +73,7 @@ Un processus porte sept clés :
 | `sources:` | les fichiers qui décrivent les entités sources | le connecteur se décrit lui-même |
 | `mapping:` | les fichiers des règles | le mapping est champ à champ |
 | `exchange:` | les règles d'une migration de version (D1981) | aucune |
-| `operations:` | le rythme, par des opérations périodiques (D943) | la migration se lance à la demande |
+| `operations:` | les opérations périodiques : elles déclenchent la migration, ou nettoient les clés de ses partitions (D943) | la migration se lance à la demande |
 
 Le processus de l'entrepôt (le cas 5) reprend les données de Cegid PMI :
 
@@ -455,30 +456,45 @@ remplace la clé `storage:` et le fichier SQLite de D1066–D1073) :
 - Syncytium assure le nettoyage, par cette clé de partition ;
 - la ligne d'exécution de chaque passage reste sans délai.
 
-## Le rythme et les opérations
+## Les opérations périodiques
 
-### Le rythme se déclare par des opérations périodiques
+### Ce qu'elles déclenchent
 
-Le rythme n'est pas une clé de la migration : il se déclare par des
-opérations périodiques, sous `operations:` (D943). Le calendrier est
-celui de toute opération (D434), et la composition celle des hooks du
-socle (D609). L'entrepôt en déclare deux :
+Un processus peut se lancer à la demande. Il peut aussi se rejouer de
+lui-même : il déclare alors des opérations périodiques, sous
+`operations:` (D943, D2064). Elles servent à deux choses :
+
+- **déclencher la migration**, par `migrate` ;
+- **nettoyer les clés de ses partitions**, par `reset_coverage`, pour
+  que la migration suivante relise tout.
+
+Leur calendrier est celui de toute opération (D434), et leur composition
+celle des hooks du socle (D609).
+
+Dans l'entrepôt, PMI reste en service : la reprise est donc déclenchée
+périodiquement, chaque nuit. Et, une fois par semaine, les couvertures
+de la reprise sont réinitialisées. Une fois par semaine suffit : les
+relectures complètes restent rares. Le processus déclare ces deux
+opérations :
 
 ```yaml
   # Les opérations périodiques
-  # Le rythme de la migration. Chaque opération porte son calendrier (every), ce qu'elle lance (operations) et, au
-  # besoin, sa conduite quand un passage tourne déjà (on_running — cancel par défaut : elle est annulée).
+  # Elles déclenchent la migration et réinitialisent ses couvertures. Chaque opération porte son calendrier (every),
+  # ce qu'elle lance (operations) et, au besoin, sa conduite quand un passage tourne déjà (on_running — cancel par
+  # défaut : elle est annulée).
   operations:
 
     # Le delta de la nuit
-    # Chaque nuit, la migration relit les plages récentes des tables partitionnées et les autres tables en entier.
+    # La migration est déclenchée chaque nuit : elle relit les plages récentes des tables partitionnées et les autres
+    # tables en entier.
     delta_nocturne:
       every: daily[02:00]
       operations: migrate
 
     # La relecture complète
-    # La nuit de samedi, la couverture des tables partitionnées revient au départ : la migration du dimanche relit
-    # tout ; si le delta tourne encore, la relecture attend sa fin.
+    # Une fois par semaine, la nuit de samedi, les couvertures des tables partitionnées sont réinitialisées : la
+    # migration du dimanche relit tout. Une fois par semaine suffit : les relectures complètes restent rares. Si le
+    # delta tourne encore, la relecture attend sa fin.
     relecture_complete:
       every: weekly[saturday at 23:00]
       on_running: wait
@@ -494,7 +510,7 @@ Une opération périodique qui ne lance qu'une opération l'écrit sans
 crochets : `operations: migrate` (D2063). À plusieurs, elle les écrit
 en liste, comme la relecture complète.
 
-C'est le rythme type : le delta en semaine, la relecture complète le
+Le delta se joue donc chaque nuit, et la relecture complète le
 dimanche, préparée dans la nuit de samedi.
 
 ### `migrate`

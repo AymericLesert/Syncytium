@@ -27,6 +27,7 @@ au [registre](../../conception.md).
   - [Les noms](#les-noms)
   - [Le partage](#le-partage)
   - [Aucune donnée ne migre](#aucune-donnée-ne-migre)
+  - [La vie commune](#la-vie-commune)
 - [Un scénario de démonstration](#un-scénario-de-démonstration)
   - [Quatre temps](#quatre-temps)
   - [Le retour à l'application d'origine](#le-retour-à-lapplication-dorigine)
@@ -184,6 +185,13 @@ flowchart LR
 Le méta-modèle se pose sur le modèle de données existant. Puis Syncytium
 prend le relais, en douceur (D2026). La base reste celle de
 l'application d'origine.
+
+### La vie commune
+
+Pendant que Syncytium est posé sur la base, l'application d'origine
+continue d'y écrire : les deux travaillent en même temps, sur les mêmes
+tables (D2118). Le relais se prend ainsi au fil de l'eau, sans jour de
+bascule.
 
 ## Un scénario de démonstration
 

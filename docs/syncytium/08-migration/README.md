@@ -153,16 +153,17 @@ Dans l'entrepôt (le cas 5), les trois mots ont un visage :
 
 ## Un seul mapping
 
-Le registre le dit : « Le mapping va permettre de couvrir 2 fonctions
-essentielles : la migration entre 2 versions ; la migration entre 2
-schémas (storage). » (D646). Les deux migrations partagent l'essentiel :
+Le mapping couvre deux fonctions essentielles : la migration entre deux
+versions de l'application, et la migration entre deux schémas, d'un
+système existant vers le nouveau (D646). Parce qu'il est le même dans
+les deux cas, les deux migrations partagent l'essentiel :
 
 - **le même langage**, et les mêmes conversions (D647) ;
 - **le même protocole** : seule l'origine change (D1981) ;
 - **la même prudence** : les données sont contrôlées avant d'être
   écrites.
 
-Chacune garde son visage.
+Chacune garde pourtant ses traits propres.
 
 - **Entre deux versions**, la migration se fait à chaud (D3) :
   l'application reste en service. Syncytium déduit seul les cas simples,

@@ -5,10 +5,13 @@
 > méta-modèle, colonne par colonne : lue, ou écartée avec son motif
 > ([glossaire](../../glossaire.md)).
 
-Ce fichier dit comment une reprise décrit sa source : les deux maisons
-de la migration, l'entête d'une entité, ses colonnes, ses liens avec les
-autres entités, l'alias, le filtre et la partition. Les décisions citées
-entre parenthèses renvoient au [registre](../../conception.md).
+Reprendre des données commence par les comprendre. Ce fichier montre
+comment une reprise décrit sa source, du plus large au plus fin : les
+deux maisons de la migration et la complétude qui les relie, puis
+l'entête d'une entité, ses colonnes et ses liens avec les autres
+entités, enfin l'alias, le filtre et la partition, qui règlent ce qui
+est lu. Les décisions citées entre parenthèses renvoient au
+[registre](../../conception.md).
 
 ## Le sommaire
 
@@ -146,9 +149,11 @@ complétude de la source, pour ne rien oublier.
 
 ### L'entête d'une entité
 
-`sources/` parle toute la grammaire du modèle (D652). Un fichier décrit
-une entité d'origine. Dans l'entrepôt, l'entête des commandes de vente
-de PMI :
+Puisque `sources/` parle toute la grammaire du modèle (D652), une entité
+source se décrit comme une entité de l'application : un fichier, un
+entête, des champs. L'entête dit de quelle table il s'agit, ce qui s'y
+lit, et ce qui identifie une ligne. Dans l'entrepôt, voici celui des
+commandes de vente de PMI :
 
 ```yaml
 # Le nom de la table
@@ -212,7 +217,10 @@ porte neuf à traduire (D1502).
 > volontairement : elle compte dans la complétude du schéma, pas dans la
 > couverture ([glossaire](../../glossaire.md)).
 
-Une colonne, comme une table, a trois états (D869, D947) :
+Décrire une table, c'est se prononcer sur chacune de ses colonnes. Le
+concepteur la lit, ou il l'écarte en disant pourquoi ; tant qu'il ne
+s'est pas prononcé, elle reste à creuser. Une colonne, comme une table,
+a donc trois états (D869, D947) :
 
 | L'état | Ce que la description écrit | Ce que Syncytium en fait |
 |---|---|---|
@@ -348,10 +356,14 @@ descriptions et quatre calculés.
 
 ### La composition
 
-La composition se déclare chez le possesseur (D399, D869, D1913,
-D1914). La table d'appartenance déclare `list of <fils>`, dans un champ
-qui n'est pas une colonne. Le fils ne déclare rien. Dans l'entrepôt, une
-commande de vente possède ses lignes :
+Les tables d'un système d'origine ne vivent pas seules : une commande
+possède ses lignes, une ligne désigne un article. La description porte
+ces liens, que le schéma réel les déclare ou non (D869).
+
+Le premier est la composition. Elle se déclare chez le possesseur (D399,
+D1913, D1914) : la table d'appartenance déclare `list of <fils>`, dans
+un champ qui n'est pas une colonne, et le fils ne déclare rien. Dans
+l'entrepôt, une commande de vente possède ses lignes :
 
 ```yaml
   # Les compositions
@@ -392,10 +404,10 @@ dans l'ordre de cette identité.
 > ([glossaire](../../glossaire.md)).
 
 Une ligne de nomenclature référence deux articles : le produit, et le
-composant. Chaque référence porte un nom entre crochets (D995). Le
-registre le dit : « un identifiant/alias de ARTICLE qui lie les
-identifiants à fournir pour retrouver la référence ». Les deux colonnes
-du produit, dans l'entrepôt :
+composant. Pour les distinguer, chaque référence porte un nom entre
+crochets (D995). Ce nom joue le rôle d'un alias de l'entité : il relie
+entre elles les colonnes qui, ensemble, retrouvent l'enregistrement
+référencé. Voici les deux colonnes du produit, dans l'entrepôt :
 
 ```yaml
   NOKTCODPF:
@@ -446,15 +458,14 @@ article :
   change pas (D887, D889) ;
 - **la valeur est typée par la colonne** (D581). L'absence rend le nul :
   c'est un fait ;
-- **le filtre vient avec** : « la lecture d'une entité utilise le filtre
-  défini » (D966). On lit l'entité décrite, jamais la table nue ;
+- **le filtre vient avec** : lire une entité, c'est appliquer le filtre
+  qu'elle définit (D966). On lit l'entité décrite, jamais la table nue ;
 - **la source est lue par lots**, pas affichée : la règle du modèle,
   jamais l'entité entière, reste entière (D891).
 
-Le moteur met ce résultat en cache, par entité, expression et valeurs
-des critères, le temps d'un passage. Le registre le dit : « un cache est
-à prévoir pour rendre l'information rapide si les mêmes critères sont
-appelés régulièrement ».
+Les mêmes critères reviennent souvent d'une ligne à l'autre. Pour que la
+réponse reste rapide, le moteur met ce résultat en cache, par entité,
+expression et valeurs des critères, le temps d'un passage.
 
 - il n'y a qu'un mécanisme de cache, et deux façons de l'utiliser
   (D1923) : le moteur s'en sert lui-même, pour cette lecture ; le
@@ -470,11 +481,12 @@ appelés régulièrement ».
 > décrit une table sous un filtre
 > ([glossaire](../../glossaire.md)).
 
-Une même table peut porter plusieurs entités. Le registre le dit : « la
-notion d'alias qui permet de nommer une entité portant sur la même
-source avec des filtres différents » (D966). Dans PMI, la table PARAM
-« conditionne le fonctionnement de l'ERP et donc des données ». Chaque
-paramètre lu en devient une entité. Les emplacements de stock :
+Une même table peut porter plusieurs entités. L'alias donne alors un nom
+à chacune : il désigne une entité qui lit la même source sous un filtre
+différent (D966). Dans PMI, la table PARAM en est l'exemple : elle
+réunit les paramètres qui conditionnent le fonctionnement de l'ERP, et
+donc ses données. Chaque paramètre lu en devient une entité. Voici celle
+des emplacements de stock :
 
 ```yaml
 # L'alias de l'entité
@@ -508,8 +520,9 @@ filter: PAKTSOC = "100" and PAKTNOPAR = "170"
 
 ### Le filtre
 
+Une reprise ne lit pas toujours tout ce qu'une table contient.
 `filter:` sélectionne les enregistrements que la migration parcourt
-(D663). L'entrepôt ne lit que la société 100 :
+(D663). L'entrepôt, par exemple, ne lit que la société 100 :
 `filter: ECKTSOC = "100"`. Deux autres exemples, d'illustration :
 `filter: order_date >= now() - 10y` borne une période ;
 `filter: company_code = "PARIS"` isole une instance, quand une table en
@@ -569,10 +582,11 @@ partition:
 **Sans `partition:`, la totalité est relue.** L'état se relit en entier,
 le journal se partitionne (D1013) :
 
-- le niveau de stock, « au plus 200 000 lignes… sans surcoût », n'a ni
-  `partition:` ni `history:` : les mouvements portent l'histoire ;
-- les mouvements, « plusieurs millions de lignes », portent
-  `partition:`, et un `reset_coverage` à planifier.
+- le niveau de stock, deux cent mille lignes au plus, se relit sans
+  surcoût : il n'a ni `partition:` ni `history:`, et les mouvements
+  portent l'histoire ;
+- les mouvements, plusieurs millions de lignes, portent `partition:`,
+  et un `reset_coverage` à planifier.
 
 `filter:` reste le périmètre jamais lu. Le traitement des écarts, lui,
 se lit sur la destination : avec `history:`, ils complètent et

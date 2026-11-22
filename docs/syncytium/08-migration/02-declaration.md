@@ -6,10 +6,12 @@
 > processus. Ils s'exécutent dans l'ordre alphabétique de leurs noms
 > ([glossaire](../../glossaire.md)).
 
-Ce fichier dit ce que le concepteur déclare pour une migration : le
-processus et ses clés, sa forme courte, ses fichiers et leur ordre, son
-mode, sa base miroir, ses opérations périodiques. Ce qui se passe pendant
-un passage est
+Avant de décrire une source ou d'écrire une règle, le concepteur déclare
+sa migration : d'où viennent les données, comment elles entrent, et
+quand. Ce fichier suit cette déclaration pas à pas : le processus et ses
+clés, sa forme courte, ses fichiers et leur ordre, son mode, la base
+miroir où il se contrôle, puis les opérations périodiques qui le
+déclenchent. Ce qui se passe pendant un passage est
 au chapitre 9, le moteur. Les décisions citées entre parenthèses
 renvoient au [registre](../../conception.md).
 
@@ -44,10 +46,10 @@ renvoient au [registre](../../conception.md).
 
 Une migration relie trois choses : un connecteur d'origine, la
 description de ses entités, et les règles qui portent ses données vers
-l'application (D662). Le registre le dit : « Une migration peut faire
-converger plusieurs sources vers une seule destination — le `from:` seul
-ne suffit pas. » Le concepteur l'écrit dans `migration.yml`, que la
-version cite par `migrations:`.
+l'application (D662). Nommer l'origine ne suffit donc pas : plusieurs
+sources peuvent converger vers une seule destination, et chacune demande
+sa description et ses règles. Le concepteur réunit le tout dans
+`migration.yml`, que la version cite par `migrations:`.
 
 ```mermaid
 %%{init: {"flowchart": {"curve": "stepAfter"}}}%%
@@ -190,10 +192,13 @@ fichiers (D1900, D1902). Cet ordre ne change pas le passage.
 
 ### Une ligne pour une reprise un pour un
 
-Un storage sait se décrire : `get_instance()` rend ses entités et leurs
-champs (D1299). Pour un CSV, ce sont les entités de la carte
-`entities:`, et la ligne d'entête nomme les colonnes (D829, D845). Cette
-description suffit à un mapping champ à champ.
+Une reprise un pour un n'a pas besoin de tant. Quand la source est un
+fichier CSV, ou une base dont les noms de colonnes sont explicites, le
+connecteur suffit à la décrire. Un storage sait en effet se décrire :
+`get_instance()` rend ses entités et leurs champs (D1299). Pour un CSV,
+ce sont les entités de la carte `entities:`, dont la ligne d'entête
+nomme les colonnes (D829, D845). Le mapping se fait alors champ à champ,
+sans rien écrire de plus.
 
 Le processus s'écrit alors en une valeur, le nom du connecteur d'origine
 (D1895, D1896). Les trois exemples sont d'illustration :
@@ -271,16 +276,19 @@ La forme courte est l'écriture courte du bloc qui ne porte que `from:`
 
 ### La référence par motif
 
-La migration référence ses fichiers par motifs (D664, sur le patron
-multi-fichiers de D320–D321) :
+Une reprise analysée compte vite des dizaines de fichiers : l'entrepôt
+en a vingt-trois pour ses sources, et trente-trois pour ses règles. Le
+processus ne les énumère pas. Il les référence par motifs (D664, sur le
+patron multi-fichiers de D320–D321), et l'ordre de sa déclaration fait
+l'ordre des étapes :
 
 - **un fichier par entité source**, et un fichier par règle. Un fichier
   peut porter plusieurs règles, exécutées dans l'ordre où il les écrit ;
   un fichier par règle reste recommandé, pour la lisibilité et la
   maintenabilité, et le concepteur choisit (D1940) ;
 - **l'organisation des dossiers est libre** : la déclaration fait foi ;
-- **un motif est une expression régulière** (D806 : « plus de
-  personnalisation et de contrôle »). Il dit le standard de rangement et
+- **un motif est une expression régulière** (D806), pour plus de
+  personnalisation et de contrôle. Il dit le standard de rangement et
   de nommage que le concepteur se fixe. Partout où une liste de fichiers
   se déclare, il peut remplacer l'énumération ;
 - **la référence de fichier est explicite** (D956) : `~{<fichier ou
@@ -351,7 +359,9 @@ donc ainsi :
 
 ### Les deux modes
 
-Une migration a deux modes (D649, D669, D671) :
+Que faire d'un enregistrement en erreur ? Une migration y répond par son
+mode (D649, D669, D671) : soit elle porte ce qui est conforme et isole
+le reste, soit elle exige que tout passe.
 
 | Le mode | Ce qu'il fait | Son usage |
 |---|---|---|
@@ -411,9 +421,11 @@ Les deux se définissent par processus. Par défaut : `relative` et
 > migration se construit et se contrôle avant de reporter ses
 > différences ([glossaire](../../glossaire.md)).
 
-Les phases de contrôle et la comparaison se jouent dans la base miroir.
-Les différences se reportent ensuite dans la base de l'application
-(D1044–D1046). La base vit le temps de la migration.
+Une migration n'écrit pas directement dans l'application. Elle se
+construit d'abord à part, dans la base miroir : c'est là que se jouent
+les phases de contrôle et la comparaison. Seules les différences se
+reportent ensuite dans la base de l'application (D1044–D1046), et la
+base miroir ne vit que le temps de la migration.
 
 **Elle ne se déclare pas dans un processus**, parce qu'elle sert leur
 enchaînement. Elle se déclare dans le fichier de l'environnement, par
@@ -516,7 +528,7 @@ dimanche, préparée dans la nuit de samedi.
 ### `migrate`
 
 `migrate` exécute une migration déclarée (D662, D667, qui complète
-D574). C'est la dix-huitième opération du socle. Elle se déclenche comme
+D574). C'est une opération du socle. Elle se déclenche comme
 toute opération (D428, D609) :
 
 - le bouton d'administration ;

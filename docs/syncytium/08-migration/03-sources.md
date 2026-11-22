@@ -114,6 +114,9 @@ point à creuser (D868). Le concepteur le traite de l'une de deux façons :
 - il l'écarte, par `ignored`, avec son motif : voir
   [les trois états d'une colonne](#les-trois-états-dune-colonne).
 
+À la fin de l'analyse, il ne reste aucun écart : chaque colonne est lue,
+ou écartée (D2081).
+
 Syncytium relève trois écarts (D1053) :
 
 | L'écart | Ce que Syncytium en dit |

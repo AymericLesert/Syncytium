@@ -41,18 +41,19 @@ entre parenthèses renvoient au [registre](../../conception.md).
 
 ### La source se décrit comme la destination
 
-Le registre le dit : « La destination est décrite par le méta-modèle. La
-source doit être décrite par le méta-modèle également. » (D652, D653).
-Une migration a donc deux maisons, à la racine de la version :
+Une source de données, liée à un connecteur, dans le cadre d'une reprise
+de données ou d'une migration, utilise la même syntaxe et la même
+structure que la définition du méta-modèle (D652, D653). Pour procéder à
+la migration, il faut donc définir deux maisons :
 
-- **`sources/`** porte la description du système d'origine, table par
-  table et colonne par colonne, dans la grammaire du modèle ;
-- **`mapping/`** porte les règles de conversion, table par table. Une
-  cible peut avoir plusieurs origines.
+- **`sources/`** porte la description des données à reprendre, table par
+  table et colonne par colonne ;
+- **`mapping/`** décrit les règles de conversion et de transformation,
+  table par table, sachant qu'une cible peut avoir plusieurs origines.
 
-Les deux parlent le même langage. Le typage statique vérifie donc les
-expressions des deux côtés (D581), et l'exhaustivité se juge entre deux
-descriptions (D648).
+La source et le méta-modèle parlent le même langage. Le typage statique
+vérifie donc les expressions des deux côtés (D581), et l'exhaustivité se
+juge entre deux descriptions (D648).
 
 La complétude du schéma précède les règles (D2060). Le chemin d'une
 reprise, de la source à l'application :

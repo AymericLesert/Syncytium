@@ -115,14 +115,21 @@ numéro, qui lui sert d'identité (D2111). Trois règles l'encadrent
 
 - **la colonne répond à l'absence de clé** : elle donne à la table une
   clé, et le moyen de la gérer ;
-- **l'administrateur en est averti avant** : le signalement lui est
-  fait avant que la mise à jour du modèle de la base de données ne se
-  déclenche ;
+- **l'administrateur en est averti avant**, et le concepteur avec lui,
+  qui est un administrateur (D2114) : le signalement est fait avant que
+  la mise à jour du modèle de la base de données ne se déclenche ;
 - **la colonne se gère comme un compteur** : son ajout demande un
   traitement, qui lui donne ses valeurs.
 
 C'est le seul cas où la rétro-conception modifie d'elle-même la base
 existante.
+
+**Les modules.** Toute entité vit dans un module, et une base n'en a
+pas. L'outil s'en remet au connecteur, qui fournit la description du
+modèle de données (D2113) :
+
+- si le connecteur sait construire des modules, l'outil les utilise ;
+- sinon, toutes les entités vont dans un seul module.
 
 ### Le partage
 

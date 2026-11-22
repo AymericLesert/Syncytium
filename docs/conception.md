@@ -18889,6 +18889,18 @@ avant la synthèse Q16).
 
 ## 11. Journal des échanges
 
+- **2026-11-23 — LA PAUSE : LE CHAPITRE 9 EST ÉCRIT, IL ATTEND LA RELECTURE DE L'AUTEUR ET SES RÉPONSES À SIX
+  ARBITRAGES (D2129–D2130, 2130 décisions).** L'auteur : « je marque une pause ». Le chapitre lui a été remis avec la
+  page des arbitrages ; il n'a encore relu aucun fichier ni répondu à aucun arbitrage, et n'a pas dit par où il
+  commence. **L'état** : `docs/syncytium/09-moteur/`, huit fichiers, écrits d'un trait dans le mode à l'essai (D2128)
+  ; la famille `moteur`, quatre-vingt-quatre décisions ; `administration.md` et `migration.md` vidés de ce qui
+  relevait du moteur ; la table des points de `docs/README.md` porte quatorze points, tous « présenté » — les huit
+  fichiers, puis les six arbitrages de `docs/arbitrages-chapitre-9.md`. Tout est committé et poussé ; le plan est
+  régénéré. **À la reprise** : écouter son retour, sans présenter de point — « Section N - ok » ou ses remarques pour
+  un fichier, le numéro d'une réponse pour un arbitrage ; une décision par message de sa part, chaque remarque citée
+  mot pour mot ; l'accord d'une section noté à la table des points ; la page des arbitrages retirée quand ses six
+  points sont clos. Le logigramme de la migration de version, corrigé en dernier, est relu en entier à l'écran avant
+  la pause : il est juste. Restent ouverts, inchangés : ceux de l'entrée précédente.
 - **2026-11-23 — LE CHAPITRE 9 EST ÉCRIT D'UN TRAIT, DANS LE MODE À L'ESSAI ; SIX ARBITRAGES ATTENDENT L'AUTEUR
   (D2129–D2130, 2130 décisions).** Un nouveau fil, ouvert sur la note de passation du 23/11. **L'ouverture** (D2129) :
   la famille `moteur` constituée, quatre-vingt-quatre décisions ; la vision globale en trois groupes — une version

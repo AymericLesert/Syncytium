@@ -347,7 +347,7 @@ parent, avec ses composants conformes. Dans l'entrepôt :
   le trouvent ;
 - la commande sans ligne valide tombe entière.
 
-Le rapport nomme la cause : le parent, ou la ligne (mien).
+Le rapport nomme la cause : le parent, ou la ligne.
 
 ## Ce que la reprise écrit, ce qu'elle laisse
 

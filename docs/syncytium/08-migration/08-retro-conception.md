@@ -22,6 +22,7 @@ au [registre](../../conception.md).
   - [L'intérêt](#lintérêt)
 - [Ce que l'outil construit, ce qu'il laisse](#ce-que-loutil-construit-ce-quil-laisse)
   - [Ce qu'il lit](#ce-quil-lit)
+  - [Les indices de l'analyse](#les-indices-de-lanalyse)
   - [Le partage](#le-partage)
   - [Aucune donnée ne migre](#aucune-donnée-ne-migre)
 - [Un scénario de démonstration](#un-scénario-de-démonstration)
@@ -77,6 +78,28 @@ convention de nommage du connecteur le dit à Syncytium (D876) : celle
 de l'entrepôt déclare `identity: [K, I]`. Pour la table ARTICLE, les
 données révèlent ainsi une clé à trois composants : `ARKTSOC`,
 `ARKTCODART` et `ARKTCOMART`.
+
+### Les indices de l'analyse
+
+Deux principes guident l'analyse (D2110) :
+
+- **ce que la base déclare est un fait ; ce que les données suggèrent
+  est une proposition** ;
+- **chaque proposition porte sa preuve**, « unique sur 48 213 lignes »
+  par exemple, pour que le concepteur décide vite.
+
+| Ce que l'outil cherche | L'indice dans le schéma | L'indice dans les données | Ce qu'il propose |
+|---|---|---|---|
+| l'identité | la clé primaire, un index unique ; à défaut la convention de nommage, les premières colonnes | la plus petite combinaison de colonnes qui ne se répète jamais | `identity:` |
+| une référence | la référence d'intégrité | une colonne dont toutes les valeurs se retrouvent dans l'identité d'une autre table | le type de l'entité visée |
+| une composition | une référence vers le parent, prise dans la clé du fils | l'identité du fils commence par celle d'une autre table | `list of` chez le possesseur |
+| un énuméré | une contrainte de valeurs | peu de valeurs distinctes | les valeurs de l'énuméré |
+| un booléen | le type de la colonne | deux valeurs seulement | `boolean` |
+| l'obligatoire | la colonne déclarée non nulle | jamais vide | `required:` |
+| le type et ses bornes | le type et la longueur de la colonne | un texte qui se lit toujours comme une date ou un nombre ; le minimum, le maximum, la plus grande longueur | le type, ses bornes |
+| un compteur | une séquence | un entier qui croît sans se répéter | `counter` |
+| la partition | les partitions déclarées | rien | `partition:` |
+| une colonne morte | rien | toujours vide, ou toujours la même valeur | un signalement au concepteur |
 
 ### Le partage
 

@@ -18883,6 +18883,33 @@ avant la synthèse Q16).
 
 ## 11. Journal des échanges
 
+- **2026-11-23 — LA PAUSE : LE CHAPITRE 8 EST FINI ; UN NOUVEAU MODE DE TRAVAIL S'ESSAIE AU CHAPITRE 9, DANS UN
+  NOUVEAU FIL (D2086–D2128, 2128 décisions).** L'auteur : « Le chapitre 8 est fini. Peux-tu me proposer une évolution
+  de notre mode de travail pour accélérer la rédaction du reste de la documentation ? », puis « Oui, au chapitre 9 »,
+  puis « entamons un nouveau fil ». **La fin de sa relecture du chapitre 8** : les crochets facultatifs appliqués aux
+  cinq cas, 263 lignes, et la règle au chapitre 1 (D2086) ; les sections 04 à 10 validées une à une (D2087, D2089,
+  D2094, D2096, D2099, D2101, D2103), avec leurs corrections — `unmapped` décrit dès sa première mention (D2088) ; le
+  compteur avec `operations:`, les clés qui se croisent en table et en schéma (D2090) ; l'identité par
+  `connector.line` au véhicule et à la banque, plus aucun cas ne dit « création seule » (D2091–D2093) ; le champ au
+  type modifié, `mapping:` et `exchange:` en contexte (D2095) ; la rétro-conception simplifiée, le cadre des commandes
+  au chapitre 10 (D2097, D2098) ; les trois temps en tête de la dépréciation (D2100) ; la rétro-conception, argument
+  pour l'adhésion (D2102). **Ses réponses aux lectures restées ouvertes** : `reset_coverage`, le module facultatif
+  (D2104) ; le rapport d'une entité source sans `report:` (D2105) ; le rapport général, la vue des migrations toujours
+  et un `report:` au processus (D2106). **La rétro-conception, lue dans les grands principes** (D2107–D2126), cinq
+  points : l'outil lit le schéma et les données, toute la table, dix indices ; une colonne technique pour la table
+  sans clé, un compteur, l'administrateur et le concepteur avertis avant ; les modules du connecteur, sinon un seul ;
+  les noms de la base, tels quels ; les deux applications écrivent, sous une mise en garde ; un storage à part ; pour
+  revenir, l'arrêt suffit ; les évolutions, au concepteur d'en juger. Sa section, redécoupée en sept parties, est
+  relue : « ça me convient ». **Le chapitre 8 est fini** (D2127) : seize jours, 264 décisions. **Le nouveau mode, à
+  l'essai au chapitre 9** (D2128) : écrire le chapitre entier d'abord ; une page des seuls vrais arbitrages, par un
+  exemple, des réponses et une recommandation ; la relecture fichier par fichier ; une décision par message de
+  l'auteur ; l'outillage au dépôt. **À la reprise, dans le nouveau fil** : le chapitre 9, « Le fonctionnement du
+  moteur », dossier `docs/syncytium/09-moteur/` — ses sources sont la ligne 9 de la table de `docs/README.md`,
+  `administration.md` (« Reçu du chapitre 7 », « Reçu du chapitre 8 »), `migration.md`, et le registre (D1784, D1785,
+  D1880, D1881) ; la famille `moteur` est à constituer. Restent à confirmer ou à nommer : « le mode draft s'efface »,
+  aux principes du wizard du chapitre 4 — posé, sans réponse ; une page qui réunirait les mises en garde (D2119) ; les
+  noms des opérateurs et les textes des gabarits (D1949) ; les classes des formats derrière Excel (D1932) ; le modèle
+  de `_migration` et le cadre des commandes, attendus au chapitre 10 (D2010, D2098).
 - **2026-11-22 — LA PAUSE : LA RELECTURE DU CHAPITRE 8 SE POURSUIT ; LE TON DES INTRODUCTIONS VALIDÉ ET ÉTENDU AUX
   CHAPITRES 1 À 7 ; UN SEUL ÉLÉMENT, LES CROCHETS SONT FACULTATIFS (D2062–D2085, 2085 décisions).** L'auteur : « Je
   marque une pause. A la reprise, tu peux appliquer la même règle dans les listes à items. Si un seul élément, les

@@ -141,7 +141,13 @@ illustration, une rétro-conception de PMI donnerait l'entité `ARTICLE`
 et son champ `ARKTCODART`.
 
 Le sens lisible se donne par les libellés : « Code article », que
-l'utilisateur voit à l'écran.
+l'utilisateur voit à l'écran (D2117) :
+
+- **les libellés sont à écrire par le concepteur**, avec les
+  opérations, les règles et les droits. Tant qu'il ne l'a pas fait,
+  l'écran montre le nom de la colonne ;
+- **un commentaire que la base porte se reprend** : celui d'une table
+  ou d'une colonne devient sa `description:`.
 
 ### Le partage
 

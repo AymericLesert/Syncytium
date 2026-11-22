@@ -475,8 +475,9 @@ expression et valeurs des critères, le temps d'un passage.
   concepteur y déclare une entrée, dans une règle, par `cache.push` ;
 - l'entrée se déclare à son premier `push` : il n'y a pas de
   déclaration explicite (D1925) ;
-- le fonctionnement du cache se décrit au chapitre 9 ; ici se disent
-  son usage et sa déclaration (D1920).
+- le fonctionnement du cache se décrit au chapitre 9 : voir
+  [le cache](../09-moteur/04-passage.md#le-cache) ; ici se disent son
+  usage et sa déclaration (D1920).
 
 ## L'alias
 

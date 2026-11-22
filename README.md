@@ -112,7 +112,7 @@ Les chapitres, dans l'ordre du plan :
 6. [Les opérations](docs/syncytium/06-operations/README.md) — réécrit.
 7. [Les droits et la sécurité](docs/syncytium/07-securite/README.md) — réécrit.
 8. [La migration](docs/syncytium/08-migration/README.md) — fait.
-9. Le fonctionnement du moteur.
+9. [Le fonctionnement du moteur](docs/syncytium/09-moteur/README.md) — écrit, en relecture.
 10. L'administration et l'exploitation.
 11. La télémétrie.
 12. La documentation générée.

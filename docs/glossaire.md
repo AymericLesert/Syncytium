@@ -30,6 +30,11 @@ peuvent ainsi lire la même table. `alias:` porte le nom de l'entité,
 `name:` celui de la table ; l'identifiant de l'entité est son alias s'il
 est défini, sinon son nom. *(D966, D1918)*
 
+**Amorçage** — Le premier accès à une application qui n'a encore aucun
+administrateur : la description porte un compte administrateur de
+secours, dont elle ne garde que l'empreinte, utilisable seulement tant
+qu'aucun compte administrateur n'existe. *(D33)*
+
 **Anonymisation** — L'effacement des données personnelles d'un
 enregistrement, qui garde son squelette : les liens tiennent, le
 contenu s'efface, la fiche et son historique ensemble ; la valeur de
@@ -66,6 +71,12 @@ par leurs groupes ; l'externe, les clients, par l'appartenance de la
 ligne — directe, indirecte, ouverte ou non exposée, le défaut —, fermée
 par défaut. *(D70, D71)*
 
+**Bascule** — Dans une migration, le moment où ce qui a été préparé à
+part devient l'existant : dans une reprise, les différences de la base
+miroir sont reportées dans la base de l'application, en une
+transaction ; dans une migration de version, l'instance passe au nouveau
+modèle. Elle s'applique en entier, ou pas du tout. *(D9, D1041, D1974)*
+
 **Base miroir** (`mirror:`) — La base, à l'image de la destination,
 où une reprise de données se construit et se contrôle avant d'être
 reportée dans la base de l'application ; elle vit le temps de la
@@ -83,6 +94,10 @@ connecteur, et la rétention entre crochets : `mirror: temporaire`,
 au-dessus de la surface : un message, puis confirmer ou annuler. C'est une
 fenêtre assumée. La fenêtre surgissante du navigateur, la popup, ne sert
 jamais. *(D601, D1605)*
+
+**Bris de glace** — L'activation du compte de secours quand
+l'authentification est indisponible ; indépendant de tout connecteur
+externe, toujours audité et alerté. *(D81)*
 
 **Cache d'une migration** (`cache`) — Le mécanisme qui garde des valeurs
 le temps d'un passage. Il n'y en a qu'un, et deux façons de l'utiliser :
@@ -207,6 +222,10 @@ description. Un rôle, pas un métier : une à plusieurs personnes le
 portent. Le concepteur est celui qui porte la validité de la
 configuration et la stabilité de l'application. *(D95, D1148)*
 
+**Condition indispensable** — Ce sans quoi l'application ne démarre
+pas : pouvoir envoyer un mail à l'administrateur. Le canal d'alerte passe
+avant tout ; le mode safe seul en est exempté. *(D626, D745)*
+
 **Conditionnel** (`if … else`) — L'expression qui choisit une valeur selon une
 condition, la valeur d'abord : `valeur if condition else autre`. Les cas
 s'enchaînent de gauche à droite ; un `if` sans `else` vaut nul quand la condition
@@ -301,6 +320,11 @@ déclaré : le libellé `${name}`, `reset: never`, l'historisation éteinte.
 Les settings le surchargent ; une clé qui ne nomme aucun défaut connu est
 une erreur d'ingestion. *(D1175, D1239)*
 
+**Délai de grâce** (`grace:`, en proposition) — La durée pendant
+laquelle l'ancien modèle est gardé après la bascule d'une migration de
+version, pour permettre d'y revenir par la restauration. Par défaut,
+aucun : l'ancien modèle est supprimé. *(D675, D678)*
+
 **Dépréciation** (`deprecation:`) — Le retrait d'une version ou d'un élément, annoncé puis
 acquis. Celle d'une **version** est effective : la version est déposée dans
 `versions/deprecated/`, et le statut se déclare dans `versions.yml`. Celle
@@ -316,6 +340,11 @@ reste le statut d'une version. *Ex. : `deprecation: pricing.unit_price`, la form
 courte, ou `deprecation: { documentation: "Remplacé par
 pricing.unit_price.", to: pricing.unit_price }`.*
 *(D340, D650, D1869, D1870, D1871, D1872, D1873, D1875, D1876)*
+
+**Dernière valeur parcourue** — Le repère que le moteur garde, par
+entité source, pour reprendre la lecture d'une reprise là où le passage
+précédent s'est arrêté ; `reset_coverage` le remet au départ, sans rien
+effacer. *(D878, D881, D1030)*
 
 **Description** (`hint`, `label`, `description`) — Information plus ou moins complète permettant d'apporter du contexte à un élément du modèle de données. La description couvre plusieurs fonctions : aide à la saisie, une infobulle, une description courte (`hint` — D840) pour comprendre la nature de l'information, une description détaillée (`description`) pour construire une aide ou un masque d'aide. La description permet également à des outils tiers (comme l'IA) de s'interfacer ou de proposer des constructions de modèles ou de rapports adaptés à un usage.
 *Ex. : `hint: { fr: Le code se génère à la création }`.*
@@ -471,6 +500,12 @@ des éléments derrière la valeur. Il n'existe que déclaré. *(D242, D519)*
 **Emplacement libre** (`_`) — La place d'un tableau de bord que
 l'utilisateur remplit lui-même, avec les widgets de son choix. *(D556)*
 
+**Empreinte d'une version** — La trace du contenu du dossier d'une
+version, calculée à l'ingestion et consignée au registre des versions.
+Elle ne décide de rien : recalculée à chaque chargement, elle révèle une
+configuration changée sous le même numéro, par une trace au journal.
+*(D920, D927)*
+
 **Enregistrement** — Une occurrence d'une entité : tel client, telle
 commande. Il a son identité fonctionnelle, celle que l'entité déclare,
 et son identité technique, invisible. *(D141, D142)*
@@ -499,6 +534,12 @@ icône. L'ordre de déclaration est l'ordre de tri.
 **Environnement** (`environments/`) — Un cadre d'exécution hermétique : le staging
 (l'essai), la production active (le quotidien), la passive (le
 secours). Chacun a ses connecteurs et ses journaux. Un environnement vise à tester de nouveaux concepts, évolutions ou corrections d'anomalie sans impacter les autres environnements. Cela suit une règle bien définie (Staging avec Production). Ici, la production active/passive permet de synchroniser les informations entre les 2 environnements afin de faciliter en cas d'interruption de l'infrastructure sur l'un, une bascule quasi-automatique sur l'autre. *(D342)*
+
+**Estampille** — La marque de version que la base porte, sur deux
+axes : la version de la description et celle du moteur. Le moteur la
+contrôle à chaque démarrage : à jour, il sert ; en retard, il migre ; en
+avance, il refuse ; absente ou corrompue, il initialise ou il refuse.
+*(D93, D678)*
 
 **État hiérarchique** (`states:` sur le parent) — La position d'un
 enregistrement dans une hiérarchie d'héritage : le prospect devient
@@ -564,6 +605,11 @@ Voir Type court. *Ex. : `lieu_achat: text[..60]` ; `- rule: … message: …`.*
 **Formulaire** (`forms:`) — La surface d'un enregistrement, aux cinq
 usages : créer, lire, modifier, supprimer, consulter l'historique. Il
 s'appelle `record` par défaut. *(D199, D788, D1645)*
+
+**Fusible** — Une limite que le moteur pose à une exécution, pour qu'un
+traitement qui s'emballe ne prive pas les autres du service : le délai
+d'une fonction complexe, la file des tâches, le temps de repos d'une
+opération, la limite des appels. *(D55, D58, D104, D105)*
 
 **Gabarit** — Un texte à trous, dont les accolades citent des valeurs :
 le message d'une validation, le visage d'une entité, le libellé d'un
@@ -669,7 +715,11 @@ l'effacement réel est une purge distincte. *(D137–D141)*
 
 **Ingestion** — Processus visant à convertir une version de
 configuration en une entrée dans le moteur exploitable par toutes les
-composantes de l'application (API, Écrans, CSV, ...). *(D330)*
+composantes de l'application (API, Écrans, CSV, ...). Elle contrôle la
+description en entier, la convertit, joue à blanc la migration des
+données, puis active la version ; une erreur d'ingestion refuse la
+version, et l'application continue sur celle en service.
+*(D327, D328, D330, D1974)*
 
 **Invariant de sécurité** — Une règle que toute implémentation de
 Syncytium devra prouver, décision par décision : ce que le socle garantit
@@ -733,6 +783,11 @@ socle `${name}` : la clé de la configuration, que rien ne surcharge
 `label:` dans module.yml — que le menu (le nom d'un sous-menu) et les
 champs référencent par leur clé (D440, D1236). *(D217/D465, D1181,
 D1236)*
+
+**Ligne d'exécution** — Ce que le moteur garde de chaque passage d'une
+reprise : son état, ses horodatages, l'instantané de ce qu'il a exécuté,
+ses compteurs et ses indicateurs. Elle se garde sans délai : elle trace
+la qualité dans le temps. *(D1054, D1056, D1068, D1079)*
 
 **Lien n-aire** (`list of [a, b]`) — Un lien dont chaque élément combine
 plusieurs entités nommées, et parfois une valeur typée ; chaque
@@ -845,6 +900,12 @@ sans intervention du concepteur. Entre deux versions : sans règle sous
 la prise de relais d'une application existante : c'est la
 **rétro-conception**. *(D631, D1908, D2026, D2027)*
 
+**Mode safe** — Un mode d'exécution choisi au lancement de
+l'application : le module d'administration seul, ouvert au compte
+administrateur principal, par le mot de passe fixé à l'installation. La
+porte de secours quand l'annuaire, le SSO ou les droits sont hors
+d'usage ; toujours tracé. *(D718, D745)*
+
 **Mode d'un champ** (`mode`) — Son mode d'écriture : modifiable
 (`editable`), lecture seule (`read-only`), écrit une fois pour toutes
 (`write-once`). *(D364)*
@@ -867,6 +928,12 @@ ensemble. Un module décrit une partie fonctionnelle d'une application (aussi ap
 module servi par Syncytium, jamais déclaré par l'application ; son nom
 commence par `_`, le préfixe des modules internes, et Syncytium refuse
 ce premier caractère aux modules d'application. *(D1029)*
+
+**Moteur** — Le programme de Syncytium. Il lit la description d'une
+application, la convertit dans sa logique interne, puis sert
+l'application : ses écrans, ses API, ses opérations. Après l'ingestion,
+les fichiers de la description ne sont plus que la trace de ce qui a été
+publié. *(D327, D329, D1784)*
 
 **Mono-poste** — L'installation d'une application sur un seul poste
 informatique, sans authentification : un compte unique, le groupe par
@@ -962,6 +1029,16 @@ entouré ; la forme condensée d'un scénario de persona, une à trois
 planches synthétiques qui montrent un enchaînement d'écrans et
 d'actions, dessinées step par step depuis le wizard. Dans un `viewer`, la planche est aussi la mosaïque de vignettes d'une
 collection, `viewer[mosaic]`. *(D1129, D1188 ; D478, D480)*
+
+**Plan de reprise** — Dans une migration de version, la suite des
+opérations par lesquelles le moteur porte les données du modèle en
+service vers un nouveau modèle, créé à côté, quand leurs deux facettes de
+stockage diffèrent. *(D1974)*
+
+**Position de sécurité** — La conduite du moteur quand un système tiers
+fait défaut : la page de maintenance pour un connecteur clé, le résultat
+de remplacement pour les autres, et l'alerte à l'administrateur.
+*(D625–D627)*
 
 **Possesseur** (`owner`) — L'enregistrement qui possède une
 composition ; l'enfant l'atteint par `owner`. *Ex. : `owner.km_initial`.*
@@ -1075,6 +1152,12 @@ processus qui déclare `report:` l'envoie aussi à ses destinataires. Les
 anomalies elles-mêmes vont au rapport de chaque règle et de chaque
 entité source. *(D929, D2078, D2106)*
 
+**Registre des versions** — La mémoire que le moteur garde des versions
+qu'il a essayées, dans chaque environnement : l'issue de l'ingestion et
+sa cause, le statut ingéré, l'empreinte du dossier. Sa clé est
+l'environnement et le numéro de la version. Une version en erreur n'est
+pas réessayée sans un incrément du build. *(D326, D344, D920, D927)*
+
 **Registre des traitements** — La documentation générée, jamais rédigée,
 qui liste les traitements au sens du RGPD, groupés par module soumis :
 une ligne par traitement, une suite comptant pour un, avec le
@@ -1089,6 +1172,11 @@ absente partout est « non précisée ». *(D698, D1317–D1329, D1809)*
 **Réactivation** — Le retour d'un enregistrement inactif parmi les
 actifs : un acte exceptionnel de l'administrateur, sous contrôle de
 collision des clés. *(D140, D903)*
+
+**Recharge** (`reload`) — L'ingestion d'une sandbox, rejouée : la
+duplication de l'origine, la migration, la rotation des clés. Réservée
+au statut `sandbox` : ailleurs, une version est ingérée une fois.
+*(D922)*
 
 **Recherche** (`searchable`) — La manière dont un champ se cherche :
 exacte (`strict`), tolérante aux accents (`normalized`), aux fautes de
@@ -1173,9 +1261,28 @@ elle-même une modification, historisée. *(D171)*
 il se déploie depuis une référence. Il n'existe que déclaré.
 *(D201, D215)*
 
+**Rotation des clés** (`syncytium rotate`) — Le rechiffrement, sous la
+clé courante, de tout ce que l'instance tient chiffré : le fichier des
+variables, les champs des types chiffrants. Déclenchée à chaque
+restauration, à la duplication d'une sandbox, par la commande, et pour
+changer d'algorithme : c'est le seul geste qui rechiffre ou rehache.
+*(D730, D915, D916)*
+
+**Sandbox** (`sandbox`) — L'essai d'une description en cours, dans un
+environnement fermé : la copie d'une version d'origine, que `from:`
+nomme, migrée vers la version à l'essai. Son ingestion est un acte
+d'administration. *(D907, D908, D921)*
+
 **Satellite** — Une feuille qui en sert une autre : la calculatrice d'un
 nombre, la jauge, le curseur. Elle se choisit par `component:`.
 *(D272, D461)*
+
+**Secret** (`*`) — Une valeur confidentielle dont l'application a
+besoin : un mot de passe de connecteur, une clé d'API, la clé d'un type
+chiffrant. La clé de configuration marquée `*` référence une variable ;
+la variable vit chiffrée dans le fichier des variables, jamais
+versionné ; la valeur en clair ne vit qu'en mémoire.
+*(D603, D707, D902, D944)*
 
 **Session** — Le temps pendant lequel un utilisateur connecté agit sans
 se ré-authentifier : `duration`, l'inactivité au glissement, et `limit`,

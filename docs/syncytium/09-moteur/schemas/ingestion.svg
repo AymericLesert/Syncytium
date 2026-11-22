@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1023" height="758" viewBox="56 54 1023 758" font-family="Segoe UI, Arial, sans-serif">
+<defs><marker id="fleche" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#333333"/></marker></defs>
+<rect x="56" y="54" width="1023" height="758" fill="#ffffff"/>
+<path d="M 205,100.0 L 205,147.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<path d="M 205,175.0 L 205,207.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<path d="M 205,263.0 L 205,281.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="211" y="274.0" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Oui</text>
+<path d="M 334.0,235 L 358.0,235 L 358.0,309 L 581.0,309" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="340.0" y="228" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Non</text>
+<path d="M 205,337.0 L 205,355.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="211" y="348.0" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Oui</text>
+<path d="M 334.0,309 L 581.0,309" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="340.0" y="302" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Non</text>
+<path d="M 205,411.0 L 205,443.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="211" y="422.0" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Oui</text>
+<path d="M 334.0,383 L 386.0,383 L 386.0,309 L 581.0,309" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="340.0" y="376" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Non</text>
+<path d="M 205,471.0 L 205,503.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<path d="M 205,559.0 L 205,591.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="211" y="570.0" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Oui</text>
+<path d="M 334.0,531 L 400.0,531 L 400.0,309 L 581.0,309" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<text x="340.0" y="524" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#111111" dominant-baseline="middle">Non</text>
+<path d="M 205,619.0 L 205,665.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<path d="M 205,693.0 L 205,740.0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<path d="M 685,323.0 L 685,679 L 309.0,679" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#fleche)"/>
+<rect x="165.0" y="74.0" width="80" height="26" rx="13.0" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="87" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Début</text>
+<rect x="101.0" y="147.0" width="208" height="28" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="161" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Une version est déposée</text>
+<path d="M 309.0,161 L 349.0,161" fill="none" stroke="#333333" stroke-width="1"/>
+<rect x="349.0" y="150" width="230" height="22" fill="#ffffff" stroke="#999999" stroke-dasharray="3 3" stroke-width="1"/>
+<text x="464.0" y="161" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#333333" dominant-baseline="middle">une sandbox attend l&#x27;administrateur</text>
+<polygon points="205,207.0 334.0,235 205,263.0 76.0,235" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="235" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Format supporté ?</text>
+<polygon points="205,281.0 334.0,309 205,337.0 76.0,309" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="309" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Dossier des versions cohérent ?</text>
+<polygon points="205,355.0 334.0,383 205,411.0 76.0,383" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="383" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Description valide ?</text>
+<rect x="101.0" y="443.0" width="208" height="28" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="457" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">La description est convertie</text>
+<polygon points="205,503.0 334.0,531 205,559.0 76.0,531" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="531" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Migration à blanc correcte ?</text>
+<rect x="101.0" y="591.0" width="208" height="28" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="605" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">La version s&#x27;active</text>
+<path d="M 309.0,605 L 349.0,605" fill="none" stroke="#333333" stroke-width="1"/>
+<rect x="349.0" y="594" width="230" height="22" fill="#ffffff" stroke="#999999" stroke-dasharray="3 3" stroke-width="1"/>
+<text x="464.0" y="605" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#333333" dominant-baseline="middle">l&#x27;estampille avance</text>
+<rect x="101.0" y="665.0" width="208" height="28" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="679" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Le registre consigne l&#x27;issue</text>
+<rect x="165.0" y="740.0" width="80" height="26" rx="13.0" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="205" y="753" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">Fin</text>
+<rect x="581.0" y="295.0" width="208" height="28" fill="#f2f2f2" stroke="#555555" stroke-width="1"/>
+<text x="685" y="309" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#111111" dominant-baseline="middle">La version est refusée</text>
+<path d="M 789.0,309 L 829.0,309" fill="none" stroke="#333333" stroke-width="1"/>
+<rect x="829.0" y="298" width="230" height="22" fill="#ffffff" stroke="#999999" stroke-dasharray="3 3" stroke-width="1"/>
+<text x="944.0" y="309" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#333333" dominant-baseline="middle">la version en service continue</text>
+<text x="567.5" y="784.0" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#333333" dominant-baseline="middle">Le chemin d&#x27;une version, de son dépôt à son activation</text>
+</svg>

@@ -12,7 +12,8 @@ prend dans cet ordre : les groupes et les degrés d'abord, puis l'entrée, la
 confidentialité, l'audience, les droits d'action et le réglementaire ;
 viennent enfin ce que la sécurité enregistre, les invariants, et ce que tout
 cela livre à la documentation. Le démarrage d'une
-version, les secrets et le chiffrement sont au chapitre 9, le moteur ; les
+version, les secrets et le chiffrement sont au
+[chapitre 9, le moteur](../09-moteur/README.md) ; les
 journaux et la rétention à l'exploitation, le chapitre 10 ; la détection à la
 télémétrie, le chapitre 11 (D1786). Les décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).

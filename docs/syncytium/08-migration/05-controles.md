@@ -305,8 +305,8 @@ Trois règles valent pour toutes les phases :
 - chaque erreur garde un message clair, pour le rapport : le `message:`
   de la forme longue, quand il est écrit (D1105).
 
-Le déroulé d'un passage est décrit dans
-[migration.md](../../migration.md).
+Le déroulé d'un passage est décrit au chapitre 9 :
+[l'exécution d'un passage](../09-moteur/04-passage.md).
 
 ### Un exemple par place
 
@@ -434,7 +434,8 @@ Dans l'entrepôt, `note_interne`, sur le tiers, porte `default: ""` et
 ### La source fait foi
 
 Sur un champ alimenté, la source fait foi. Le principe se dit ici ; le
-différentiel qui l'applique est au chapitre 9 (D1966).
+différentiel qui l'applique est au chapitre 9 (D1966) : voir
+[la comparaison et la bascule](../09-moteur/04-passage.md#la-comparaison-et-la-bascule).
 
 ### Le texte trop long
 

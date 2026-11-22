@@ -668,206 +668,18 @@ promotionnels de Syncytium seul (D1509) ; `visibility:` au projet
 
 **Les neuf colonnes sont écrites.**
 
-## Reçu du chapitre 7, pour les chapitres 9 et 10 (D1824)
+## Reçu du chapitre 7, pour le chapitre 10 (D1824)
 
 Le recentrage du chapitre 7 sur les privilèges et l'intégrité en fonctionnement
-(D1784, D1786) envoie au moteur et à l'exploitation ce qui suit, déplacé sans
-réécriture depuis `rights.md` et `security.md` ; les chapitres 9 et 10 le
-liront.
-
-### Les connecteurs et la sécurité (D603, D626)
-
-- **les secrets** : le paramètre marqué `*` (D944 — `password*:
-  ${VAR}`), la référence à une variable d'environnement chiffrable
-  par une clé environnement+machine (D603) — le dépôt ne porte jamais
-  une valeur en clair, le journal non plus ;
-- **la condition indispensable** (D626) : l'application ne démarre
-  que si le mail à l'administrateur est possible — le canal d'alerte
-  avant tout ;
-
-### Le chiffrement (D705–D706)
-
-- **en transit** (D705) : ce que Syncytium **sert** (l'IHM, les API,
-  les routes webhook) est **HTTPS sans dérogation** ; ce qu'il
-  **appelle** (les huit familles) est chiffré **par défaut** —
-  l'exception déclarée au connecteur (`unencrypted:` — validé
-  D901), signalée par l'ingestion, visible au `describe()`, **et
-  rappelée chaque jour** : le dashboard de santé (D731) et le mail
-  des faits marquants (D733) portent la dérogation ;
-- **au repos** (D706) : le chiffrement du storage (TDE, disque)
-  **n'est pas de la responsabilité de Syncytium** — l'infrastructure
-  et la classe ; et le chiffrement d'une valeur est **un pouvoir de
-  type** (comme `password` — D463) : pas de facette `encrypted:` —
-  le type qui a le pouvoir chiffre par ses fonctions de valeur
-  (D683) et déclare ce qu'il sait encore faire (la recherche
-  stricte au mieux, le tri perdu — la signature du type D579/D582).
-
-### Les clés — le patron unique des secrets (D603/D707)
-
-**Les clés sont obligatoirement chiffrées** (D707 — le
-« chiffrable » de D603 durci) :
-
-1. **la maison** : les variables d'environnement (le `.env`) —
-   **jamais versionnées** (D336), exploitées par Syncytium ;
-2. **la création** : **les commandes propres à Syncytium** chiffrent
-   la valeur *avant* son enregistrement dans l'environnement (la clé
-   dérivée environnement + machine — D603) ; *(flagué :
-   l'automatisation de ce geste)* ;
-3. **l'usage** : Syncytium déchiffre à l'usage — la valeur en clair
-   ne vit qu'en mémoire, le temps de l'appel ;
-4. **le périmètre** : les clés d'API, les mots de passe de
-   connecteurs, les clés des types chiffrants (D706) — un seul
-   patron pour tout ce qui est secret.
-
-**Les deux commandes** (D708) :
-
-```bash
-# chiffre la clé et l'enregistre dans .env (ou un autre fichier si nécessaire)
-syncytium encrypt DB_PASSWORD "le-mot-de-passe"
-
-# retourne la valeur chiffrée — le débogage, la vérification d'un service
-syncytium decrypt DB_PASSWORD
-```
-
-La clé de chiffrement étant dérivée de l'environnement **et de la
-machine** (D603), un `.env` copié ailleurs reste muet — le `decrypt`
-n'est utile qu'à qui a déjà la machine.
-
-### Les frontières d'extension
-
-- **Le mécanisme uniforme** (D52) : un built-in et un externe passent
-  par la même frontière déclarée ; aucun raccourci caché. **Le hook
-  est déployé, versionné, validé avec la description** (§8.1) — un
-  hook qui plante bloque la migration.
-- **Les trois modes** (§8.2) : le calcul est **pur** (aucun effet, un
-  délai maximal, ses seules `sources` déclarées) ; la tâche a des
-  effets, dans sa portée ; **le comportement d'interface s'exécute
-  dans le navigateur** — `public` et `protected` seulement, filtré
-  par les groupes, **jamais `private`** ; l'injection
-  comportementale relève de l'UX, **jamais de la sécurité** (D66 — le
-  serveur arbitre) ; **le hook d'interface est le seul code tiers au
-  navigateur** (D918) — listé par la documentation générée, sous la
-  responsabilité du concepteur.
-- **La librairie d'exploration** (D572, D599) : le hook lit le modèle
-  par les noms logiques, jamais le stockage, écrit dans la
-  transaction — les droits, la confidentialité, la validation, la
-  concurrence ne se contournent pas.
-- **Les opérations appelées par l'API** : le cooldown par opération
-  + paramètres (D58 — « protège le hook comme point d'attaque »),
-  **un paramètre d'administration** (D904 — le setting dynamique
-  `operation.cooldown`, la surcharge à la déclaration, l'API seule,
-  le refus journalisé) ; **le déterminisme et sa fenêtre au contrat
-  du hook** (D59/D904 — « une opération est déterministe ou pas,
-  elle ne peut pas changer sans faire changer son code » : le
-  garde-fou vit dans le code, la configuration ne le surcharge
-  jamais), l'invalidation par l'administrateur (D60) ;
-  l'exécution unique sans rejeu automatique (D57) — **trois
-  propriétés d'exécution au contrat du hook** (D905 :
-  `execution`, `deterministic`, `deterministic_duration`), jamais
-  exposées à la configuration ; **la rétention du résultat à
-  l'administration** comme le cooldown (D906 — `operation.retention`,
-  le résultat échu purgé) ; **les connecteurs attendus au contrat**
-  (D913 — `connectors:` nommés et typés par la famille, liés par
-  `uses:` à la déclaration, vérifiés à l'ingestion : le hook ne
-  touche que ce qu'il a annoncé).
-- **Les connecteurs** : les secrets par paramètre marqué `*` (D944)
-  et référence à une variable d'environnement (D603 — jamais de valeur
-  en clair au dépôt ni au journal), les
-  valeurs à l'environnement (D617), **la condition indispensable**
-  (D626 — l'application ne démarre que si le mail à l'administrateur
-  est possible), `onerror` gradué (D627 — le mock ou la page de
-  maintenance), `directory` en lecture seule (D633), le webhook gardé
-  (D642), l'appel chiffré par défaut (D705).
-
-### L'intégrité
-
-- **La concurrence par champ** (D111) : le compare-and-swap
-  état-avant/état-après, unique IHM + API ; le conflit rejette
-  l'agrégat (409), la suppression première rend 410 ; l'ABA bénin
-  par construction.
-- **L'estampille fail-closed** (D93) : la base porte la version de
-  description et la version de moteur ; en retard → la migration ;
-  en avance → **le refus** ; absente ou corrompue → l'initialisation
-  ou le refus.
-- **L'ingestion refuse** (D330, D344) : le format descendant est
-  rejeté sur la seule lecture de l'en-tête ; les incohérences du
-  dossier des versions sont des erreurs ; **le registre des versions
-  essayées** (D326) interdit l'acharnement — pas de retry sans bump ;
-  **l'identité de la version** (D920, D927) : le couple environnement
-  + numéro de version, la clé du registre ; l'empreinte du dossier
-  ingéré consignée avec elle ; **une version ingérée l'est une
-  fois** — la configuration modifiée sous le même numéro n'est pas
-  relue, l'empreinte recalculée à chaque chargement **trace l'écart**
-  et dit au concepteur de changer de numéro ; la sandbox seule se
-  recharge (D922).
-- **La migration transactionnelle** (D9) après dry-run sur données
-  réelles ; le retour arrière gratuit avant bascule, la grâce après
-  (D674–D675).
-- **Les identifiants** (D142) : la technique invariante à vie, la
-  fonctionnelle sur les actifs seuls ; **l'intégrité référentielle
-  survit à l'effacement** (D138–D139).
-
-### Les secrets et le chiffrement
-
-- **L'empreinte jamais le clair** — dès D33 (le compte d'amorçage
-  dans un fichier versionné) ; **le type `password`** (D463) :
-  write-only (« défini / non défini » en lecture), la saisie masquée
-  et double, jamais en liste, recherche, export ni conversion,
-  l'empreinte seule aux instantanés, la force par `validation`.
-- **Le patron unique des secrets** (D603, D707–D708, D944) : la clé
-  de configuration marquée `*` porte la valeur confidentielle (jamais
-  en clair dans un journal) et référence la variable ; les variables
-  d'environnement (`.env`) **jamais versionnées** (D336 — le dépôt
-  du client est distinct), **obligatoirement chiffrées** par la clé
-  dérivée **environnement + machine** ; `syncytium encrypt <VAR>
-  <valeur>` chiffre avant l'enregistrement, `syncytium decrypt <VAR>`
-  ne sert qu'à qui a la machine ; la valeur en clair ne vit qu'en
-  mémoire, le temps de l'appel. Le périmètre : les clés d'API, les
-  mots de passe de connecteurs, les clés des types chiffrants.
-  **Le wizard d'initialisation chiffre lui-même** les secrets qu'il
-  demande, et **une valeur en clair dans le `.env`, pour une variable
-  référencée par une clé marquée `*`, vaut refus de démarrer**, la
-  raison et la commande données (D902/D944).
-- **La rotation** (D730) : `syncytium rotate` re-chiffre le `.env`
-  et les champs des types chiffrants — au patron de `migrate`,
-  tracé ; **déclenchée à chaque restauration** (la machine change, la
-  clé aussi) **et à chaque duplication d'une sandbox** (D915 — la
-  sandbox est un environnement, donc une clé : la copie de l'origine
-  re-chiffrée sous la sienne). **`rotate` est le geste unique de tout
-  ce qui re-chiffre ou rehache** (D916) : toute empreinte porte
-  l'identifiant de son algorithme — changer d'algorithme ne casse
-  aucun compte —, et le passage à l'algorithme courant ne se fait que
-  par `rotate`, en masse et tracé, jamais en silence à la
-  vérification.
-- **En transit** (D705) : ce que Syncytium **sert** est **HTTPS sans
-  dérogation** — **la boucle locale comprise** (D919 : aucune
-  exemption ; le certificat relève de l'infrastructure et se déclare
-  à l'environnement, fourni ou terminé par un proxy ; à défaut,
-  **Syncytium engendre un certificat auto-signé** à l'initialisation ;
-  servi en clair = refus de démarrer, la raison donnée) ; ce qu'il
-  **appelle** est chiffré par défaut,
-  l'exception `unencrypted:` déclarée, signalée à l'ingestion,
-  visible au `describe()` — **et rappelée chaque jour** au dashboard
-  de santé et au mail des faits marquants (D901).
-- **Au repos** (D706) : le chiffrement du storage (TDE, disque)
-  relève de l'infrastructure, pas de Syncytium ; le chiffrement
-  d'une valeur est **un pouvoir de type** (comme `password`) — pas de
-  facette : le type chiffre par ses fonctions de valeur et déclare
-  ce qu'il sait encore faire (la recherche stricte au mieux, le tri
-  perdu) ; le détail d'une migration vit dans le module `_migration`,
-  dans la base de l'application : son fichier à part, chiffré puis
-  re-chiffré par `rotate` et par la copie, est retiré (D1889, D1893).
+(D1784, D1786) avait envoyé ici ce qui relevait du moteur et de l'exploitation,
+déplacé sans réécriture depuis `rights.md` et `security.md`. Le chapitre 9 en a
+pris sa part (D2130) : les secrets et le chiffrement, le démarrage d'une
+version, le secours, les fusibles, la position de sécurité et les frontières
+d'extension sont dans [le fonctionnement du moteur](syncytium/09-moteur/README.md).
+Reste, pour le chapitre 10 :
 
 ### La disponibilité et la continuité
 
-- **Les fusibles** : interne — le timeout des fonctions complexes
-  (D104), le heartbeat des tâches (D55), le délai maximal des
-  calculs ; externe — le rate limiting (D105) ; par tâche — le
-  cooldown (D58). La détection a posteriori (D43) est distincte.
-- **La position de sécurité** (D625–D627, D745) : l'erreur → la page
-  de maintenance + l'alerte ; l'application ne démarre que si elle
-  peut alerter (D626), sauf en mode safe ; le refus de démarrer
-  s'explique.
 - **Les environnements** (D112–D114, D616–D617) : la production, les
   stagings éphémères, la passive du PCA/PRA — chacun ses connecteurs
   et ses secrets ; **la sandbox** (D907–D908) : l'évaluation de la
@@ -893,122 +705,18 @@ n'est utile qu'à qui a déjà la machine.
   + la configuration vers une destination, la rétention en jours ;
   **la restauration est une commande hors application** (D751) — une
   image à sa propre vie, la rotation des clés enchaînée.
-- **Les migrations** : le dry-run sur données réelles, la fenêtre
-  d'affluence, la transaction, la file de tâches drainée pendant la
-  migration (D24) ; la montée de version **sans redémarrage** (D801).
 
-## Reçu du chapitre 8, pour les chapitres 9 et 10 (D2033)
+## Reçu du chapitre 8, pour le chapitre 10 (D2033)
 
-La lecture du chapitre 8 envoie au moteur et à l'exploitation ce qui suit
-(D1880, D1881, D1974, D2010), déplacé sans réécriture depuis `mapping.md` ;
-les chapitres 9 et 10 le liront. Le module `_migration` reste décrit dans
-[migration.md](migration.md).
-
-### La migration du schéma (D673–D674, D1974)
-
-Changer le type d'un champ demande d'habitude deux conversions : celle
-de la facette d'enregistrement du champ dans le connecteur, et celle
-des valeurs existantes. La première est critique, avec un risque de
-perte de données ; la seconde est laissée au moteur de base de données,
-ou à un script. Syncytium travaille autrement (D1974), pour deux
-raisons :
-
-- ses types sont simples comme complexes : un type complexe se range
-  souvent en plusieurs données simples, comme un montant et sa devise ;
-- mettre en place une version ne transforme pas seulement le stockage :
-  elle applique aussi les règles de vérification.
-
-**La comparaison des facettes.** Syncytium construit le schéma de la
-nouvelle version dans la facette du connecteur — un schéma matérialisé
-en mémoire peut suffire — et le compare au schéma en production.
-
-**Les deux facettes sont identiques.** Aucune migration ne passe par le
-connecteur. Seul le format des données stockées peut changer : une
-unité retirée d'une mesure, un format de texte.
-
-- Aucune règle ni validation ne change, et la version ne porte aucune
-  règle de transformation : les données ne sont pas touchées. La
-  version change des éléments visuels, des API, ou l'organisation
-  logique des données — le module d'une entité, un groupe de
-  propriétés, une liste.
-- Une règle ou une validation apparaît ou change : Syncytium rebalaye
-  les règles. Avec le graphe de dépendance, les vérifications et les
-  transformations ne portent que sur ce qui est touché. Les
-  transformations se font à blanc ; quand le volume ne tient pas en
-  mémoire, un substitut dans le connecteur les reçoit. Les
-  vérifications viennent après les transformations : pour retirer une
-  valeur d'un énuméré, il faut d'abord la renommer.
-
-**Les deux facettes diffèrent**, même de peu. Syncytium crée un nouveau
-modèle dans le connecteur, sans modifier l'existant, puis dresse un
-plan de reprise des données et l'applique, de l'ancien modèle vers le
-nouveau.
-
-**L'issue**, dans les deux cas :
-
-- tout est correct : la version s'active et les transformations
-  s'appliquent. Quand un nouveau modèle a été créé, l'instance bascule
-  vers lui, et l'ancien est gardé pour la période de rétention ;
-- une erreur apparaît : c'est une erreur d'ingestion, la bascule est
-  annulée, et le modèle de destination est supprimé.
-
-Le rapport de la migration de version porte ce que le contrôle de la
-bijection des règles d'`exchange/` relève. Un écart demande une lecture
-et une validation du concepteur pour basculer (D1993, D1994).
-
-L'erreur se joue sur les données (D1975). Un champ qui passe de
-`text[..40]` à `text[..20]` ne fait pas refuser la version d'avance :
-elle passe si toutes les valeurs tiennent, et l'erreur d'ingestion ne
-vient que si l'une échoue. De même une conversion faillible : une
-langue `it` hors de la liste d'un énuméré fait l'erreur, et le
-concepteur écrit la transformation qui la traduit.
-
-Quand le `default:` d'un champ change, les enregistrements existants
-gardent leur valeur : le nouveau défaut ne vaut que pour ceux qui sont
-créés ensuite (D1976).
-
-**Pendant la phase**, dès son démarrage, l'activité continue sur la
-base existante. Elle est enregistrée, comme pour un plan de reprise ou
-de continuité d'activité, puis appliquée à la nouvelle base par la
-compatibilité ascendante (D677) ; les lectures continuent (D676). Une
-erreur dans la base de destination est une erreur d'ingestion : la
-version est refusée.
-
-**Le changement de connecteur** (D1978). Une migration peut aussi
-porter un changement de connecteur : un storage MySQL devient SQL
-Server ou PostgreSQL. Le modèle de données peut ne pas changer dans
-Syncytium, alors que la facette des enregistrements est radicalement
-différente. Le mécanisme reste le même : les deux facettes diffèrent,
-un nouveau modèle est créé dans le nouveau connecteur, et un plan de
-reprise l'alimente. Ce changement se déclenche par l'environnement,
-qui désigne le connecteur du modèle, sans nouvelle version : le
-mécanisme part de l'écart entre les deux facettes (D1979).
-
-**Une conséquence assumée** (D1977) : le nouveau modèle vit à côté de
-l'existant le temps de la phase. Il faut donc un espace de stockage au
-moins égal à deux fois l'espace initial. L'ingestion d'une version
-comprend cette phase à blanc : son échec est une erreur d'ingestion.
-
-Ce mécanisme amende le critère de D673 et la procédure de D674 : le
-critère est la comparaison des deux facettes, à laquelle s'ajoutent les
-règles et les validations qui changent (D1969) ; la duplication du
-schéma devient un nouveau modèle, alimenté par un plan de reprise. Les
-règles de transformation se définissent dans `exchange/` (D1971).
-
-**Le délai de grâce et la restauration** (D675/D678) : configurable
-— sous grâce, l'ancien schéma devient **le schéma sauvegardé** ; **le
-défaut : pas de délai, l'ancien schéma est supprimé**. La
-restauration (`restore` — D574) est **le geste inverse de la
-bascule** : le courant renommé, le sauvegardé repositionné — et
-**chaque schéma porte sa version dans une table système**, rien à
-deviner. Les lectures ne s'arrêtent que le temps du renommage
-(D679 — « normalement, cela est très court »).
-
-### Le dry-run
-
-**Le dry-run s'arrête après la comparaison** (D1044) : la reprise se
-construit dans la base miroir, se compare à la cible, et les
-différences se montrent sans être reportées.
+La lecture du chapitre 8 avait envoyé ici ce qui relevait du moteur et de
+l'exploitation (D1880, D1881, D1974, D2010), déplacé sans réécriture depuis
+`mapping.md`. Le chapitre 9 en a pris sa part (D2130) : le mécanisme de la
+migration de version est dans
+[la migration de version](syncytium/09-moteur/03-migration.md), l'exécution
+d'un passage dans [l'exécution d'un passage](syncytium/09-moteur/04-passage.md)
+et [ce qu'un passage laisse](syncytium/09-moteur/05-suivi.md). Reste, pour le
+chapitre 10, avec le module `_migration` que décrit
+[migration.md](migration.md) :
 
 ### Le pilotage d'un passage
 
@@ -1021,59 +729,12 @@ différences se montrent sans être reportées.
   ses trois jeux de compteurs, les anomalies ; **la vue exploite les
   éléments déjà décrits** : les listes, les kpi, les tableaux de bord
   du catalogue ;
-- **les indicateurs** (D861–D862, amendés par D1056/D1060) — sur la
-  ligne d'exécution : **la complétude du schéma**, sur les colonnes
-  décrites dans la configuration — les décrites encore présentes dans
-  le modèle lu, au type compatible, rapportées aux décrites ; la
-  colonne que la configuration ne cite pas n'y entre pas, elle reste
-  une anomalie de complétude, au concepteur (D1053) ; **la couverture
-  des données**, sur les compteurs de l'origine — les lignes lues sans
-  erreur rapportées aux lignes lues ; le `filter:` (D663) hors taux ;
-- **la comparaison par blocs et `partition:`** (D878 — le cas 5) :
-  la migration compare **le converti** (D672 — l'enregistrement
-  reconstruit, la clé fonctionnelle) à la destination, **par
-  partition, en cinq blocs** (D1034) — **anomalies** (les
-  enregistrements tombés à l'une des cinq phases — D1033/D1040),
-  **création**, **modification** (un champ différent), **inchangé**,
-  **suppression** (sur la partition relue, l'enregistrement présent
-  avant et absent après — D1052) ; **la synthèse** — les trois jeux de
-  compteurs dissociés (D1048) : par entité d'origine, par entité de
-  destination, par règle ;
 - **le module historisé** (D668, précisé par D1056/D1068) : la ligne
   d'exécution de chaque passage, ses compteurs et ses indicateurs
   restent sans délai de rétention — **l'évolution de la qualité dans
   le temps** (les indicateurs qui montent au fil des ajustements, la
   courbe du catalogue) ; le détail des anomalies vit dans le module
-  `_migration`, partitionné par date (D1889) ;
-- **le différentiel par comparaison** (D672, précisé par D1037) :
-  évalué **dans la base miroir, avant la bascule** — l'enregistrement
-  reconstruit, ses compositions comprises, se compare à la cible par
-  son identité (D654/D1046), **champ par champ** ; seuls les
-  écarts s'écrivent, et l'entité cible historisée assure l'évolution
-  de la valeur (D168) — le différentiel est la conséquence du rejeu
-  par la clé, pas un mode de plus ; **les champs qu'aucune règle
-  n'alimente restent intacts** (D941 — l'enrichissement : le champ
-  possédé par la cible, `unmapped: true`, né à son `default:`) ;
-  **la source fait foi** (D1038) : la correction à la main d'un champ
-  migré cède au passage suivant qui relit l'enregistrement.
-
-### La translation d'un connecteur à l'autre
-
-Repris de la section « Les connecteurs et la migration », venue de
-`connectors.md` (D1721) :
-
-- **« Syncytium peut convertir ou transférer des données d'un
-  connecteur à l'autre »** (D606) — la translation déclarative, le
-  primitif aux quatre usages ;
-- **le `from:`** (D610) : « pour les migrations/transformations, un
-  connecteur d'entrée et éventuellement un connecteur de sortie » —
-  `connector: { storage: main_db, from: legacy_db }` ;
-- **l'instantané ou le différentiel** (D606) — le changement de
-  moteur par la translation, le différentiel rejoignant la
-  réplication passive du PCA-PRA (D112–D114) ;
-- **le mapping automatique de la migration à chaud** (D632) : entre
-  deux versions du méta-schéma, la translation déclarative dérive les
-  correspondances — le concepteur n'écrit rien.
+  `_migration`, partitionné par date (D1889).
 
 ### Les commandes de `syncytium` (D2098)
 

@@ -12,7 +12,9 @@ quand. Ce fichier suit cette déclaration pas à pas : le processus et ses
 clés, sa forme courte, ses fichiers et leur ordre, son mode, la base
 miroir où il se contrôle, puis les opérations périodiques qui le
 déclenchent. Ce qui se passe pendant un passage est
-au chapitre 9, le moteur. Les décisions citées entre parenthèses
+au chapitre 9, le moteur : voir
+[l'exécution d'un passage](../09-moteur/04-passage.md). Les décisions
+citées entre parenthèses
 renvoient au [registre](../../conception.md).
 
 ## Le sommaire

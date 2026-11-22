@@ -1,0 +1,31 @@
+# Le logigramme de l'ingestion
+# Le chemin d'une version, de son dépôt à son activation : chaque contrôle peut la refuser, et le registre des versions
+# consigne l'issue.
+title: Le chemin d'une version, de son dépôt à son activation
+steps:
+  - start: Début
+  - action: Une version est déposée
+    note: une sandbox attend l'administrateur
+  - decision: Format supporté ?
+    no: {to: refus}
+  - decision: Dossier des versions cohérent ?
+    no: {to: refus}
+  - decision: Description valide ?
+    no: {to: refus}
+  - action: La description est convertie
+  - decision: Migration à blanc correcte ?
+    no: {to: refus}
+  - action: La version s'active
+    note: l'estampille avance
+  - action: Le registre consigne l'issue
+    id: registre
+  - end: Fin
+sides:
+  refus:
+    from: 3
+    col: 2
+    steps:
+      - action: La version est refusée
+        id: refus
+        note: la version en service continue
+    to: registre

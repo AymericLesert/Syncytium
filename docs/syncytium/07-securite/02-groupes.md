@@ -328,4 +328,4 @@ autre, ou pour débloquer un cas urgent :
 
 Le mode safe, le lancement de l'application avec le seul module
 d'administration quand tout le reste manque (D718), est au chapitre 9,
-le moteur.
+le moteur : voir [le mode safe](../09-moteur/06-demarrage.md#le-mode-safe).

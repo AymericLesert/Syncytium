@@ -129,7 +129,9 @@ cookie (D917).
 
 Deux choses ne sont pas ici. Le secours, quand l'authentification
 manque, l'amorçage, le bris de glace, le mode safe (D33, D81, D718,
-D745), est au chapitre 9, le moteur. Le quotidien du compte local,
+D745), est au chapitre 9, le moteur : voir
+[le démarrage de l'instance et le secours](../09-moteur/06-demarrage.md).
+Le quotidien du compte local,
 l'invitation, le mot de passe oublié, le renouvellement, le verrouillage
 (D720, D721, D722, D723), est au chapitre 10, l'administration.
 
@@ -191,7 +193,8 @@ version minimale, la bêta sur sollicitation, la pagination au curseur,
 le rate limiting et la rotation du côté du technicien sont au chapitre
 13, les API (D94, D98, D100, D103, D105). Ce que le moteur sert au
 navigateur, HTTPS, les origines autorisées, l'injection de script, est
-au chapitre 9 (D918, D919).
+au chapitre 9 (D918, D919) : voir
+[ce que le moteur sert au navigateur](../09-moteur/07-secrets.md#ce-que-le-moteur-sert-au-navigateur).
 
 La séquence d'un accès par l'API, sans session :
 

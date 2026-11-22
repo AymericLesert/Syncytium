@@ -30,7 +30,8 @@ module sont en proposition jusqu'à la documentation structurée (D1021).
 l'exploitation (D2010) : il est trop tôt pour le décrire, ses éléments ne
 sont pas tous réunis, et le moteur et son fonctionnement le feront
 apparaître. Le chapitre 8 ne décrit que la migration et la reprise dans
-leur configuration ; l'exécution d'un passage est au chapitre 9 (D1880).*
+leur configuration ; l'exécution d'un passage est au
+[chapitre 9](syncytium/09-moteur/04-passage.md) (D1880).*
 
 ## Le principe
 
@@ -53,224 +54,17 @@ au passage suivant qui relit l'enregistrement — corriger durablement,
 c'est corriger à l'origine ; seuls les champs `unmapped:` y échappent
 (D941), comme ceux qu'aucune règle n'alimente.
 
-## Le déroulé d'un passage
+## Le déroulé d'un passage, ce que le module garde
 
-Un passage **construit la reprise dans une base miroir**, à l'image de
-la destination, puis **reporte les différences** dans la base de
-l'application (D1044). Les étapes :
+L'exécution d'un passage est décrite au chapitre 9 (D1880, D1881, D2130) :
+[l'exécution d'un passage](syncytium/09-moteur/04-passage.md) — le déroulé,
+les cinq phases, la base miroir et la transaction, la comparaison, le cache — et
+[ce qu'un passage laisse](syncytium/09-moteur/05-suivi.md) — la table des clés
+d'origine, le modèle lu, la ligne d'exécution, les compteurs, les indicateurs,
+les anomalies, le détail et sa rétention, les rapports. Ce document garde le
+module lui-même : son modèle, ses surfaces, ses opérations.
 
-| | l'étape | ce qu'elle fait | les décisions |
-|---|---|---|---|
-| a | **le modèle lu** | le connecteur lit le schéma réel ; Syncytium le compare à la version précédente et à la description `sources/` | D653, D1053 |
-| b | **la lecture** | par entité source : `filter:` écarte (les lignes filtrées ne sont pas conservées), `partition:` choisit la plage relue | D663, D878–D880, D1032 |
-| 1 | **la validation des données sources** | après le filtre : chaque colonne convertie du type de stockage au type de la description, puis l'identité vérifiée, puis les liens (l'orphelin) | D1040, D1042, D1053 |
-| 2 | **la vérification des règles sources** | les `validation:` de l'entité source | D932, D1033 |
-| 3 | **le mapping** | `fields:` construit les enregistrements de destination dans la base miroir | D654, D1033 |
-| 4 | **la validation des règles du mapping** | les `validation:` de la règle, sur l'enregistrement construit (`me`) | D932, D1033 |
-| 5 | **la validation des règles de destination** | après la lecture de toutes les données : les règles du modèle de destination, sur la base miroir complète — l'unicité des identités, le parent qui lit ses enfants | D933, D1033, D1046 |
-| c | **la comparaison** | la base miroir face à la cible : création, modification, inchangé, suppression | D672, D878, D1037, D1052 |
-| d | **la bascule** | les différences reportées dans la cible, en une transaction | D1041, D1044 |
-| e | **le suivi** | la table des clés d'origine, les compteurs, les indicateurs, les anomalies, la dernière valeur parcourue | D1047–D1056 |
-| f | **les rapports** | la consolidation par destinataire et l'envoi | D929, D1058, D1065 |
-
-### Les cinq phases de contrôle (D1033, D1040)
-
-- **Chaque phase relève toutes ses erreurs** (D1057) : la phase 1
-  convertit toutes les colonnes et référence chaque erreur, pas
-  seulement la première ; de même toutes les règles, toutes les
-  validations de la destination.
-- **L'enregistrement en erreur à une phase ne passe pas à la suivante.**
-  L'enregistrement qui ne respecte pas toutes ses règles n'est pas
-  enregistré ; ses motifs sont conservés (D1032) et rejoués au passage
-  suivant si une règle ou une donnée change.
-- **La phase 1 conditionne la lecture de l'entité** : sans elle,
-  l'entité n'est pas lisible. La valeur se convertit du type de stockage
-  (le type de Syncytium que le connecteur lit — D876) au type de la
-  description ; les deux types sont compatibles s'ils se convertissent
-  l'un dans l'autre ; l'enregistrement dont la valeur ne se convertit
-  pas tombe (D1053).
-- **L'identité de la source se vérifie dans la phase 1** (D1042) :
-  non respectée, c'est la description qui est fausse — une colonne
-  manque à la clé, ou une colonne est de trop : l'entité n'est pas lue,
-  les champs qui la référencent tombent, et par transitivité les
-  enregistrements qui en dépendent ; le reste de la migration continue.
-  Toute entité porte une identité, la sienne ou celle qu'elle hérite de
-  sa racine ; son absence est une anomalie de description (D1035,
-  D1039).
-- **L'orphelin se détecte en phase 1** (D1040) : l'enregistrement tombe
-  si une règle du mapping utilise la référence orpheline.
-- **L'identité de la destination se vérifie en phase 5**, dans la base
-  miroir (D1046) : de deux enregistrements de même clé, le second tombe
-  et le passage continue ; au report, deux enregistrements de même clé
-  sont le même enregistrement — la bascule ne s'interrompt jamais sur
-  une identité.
-- **La composition** (D933) : l'échec propre du parent entraîne ses
-  composants ; l'échec propre d'un composant ne rejette que lui ; la
-  validation du parent qui lit ses enfants s'évalue en phase 5, sur le
-  parent et tous ses enfants.
-
-### La base miroir et la transaction (D1041–D1046)
-
-- **`mirror:`**, dans le fichier de l'environnement (D1890, D1891 — la clé
-  s'appelait `buffer:`, sur la migration), déclare la base miroir. Sa
-  propriété `storage:` en nomme le connecteur (D1045, D1892) : un
-  `storage` dans un schéma donné, ou un connecteur de la classe
-  `memory` qui tient le modèle en mémoire, le défaut ; le connecteur
-  porte la facette, pas Syncytium. Sa propriété `retention:` règle la
-  durée pendant laquelle le détail d'un passage se garde,
-  quatre-vingt-dix jours par défaut (D1892). La forme courte nomme le
-  connecteur, et la rétention entre crochets : `mirror: temporaire`,
-  `mirror: temporaire[5d]` ; le bloc détaille le storage et la durée
-  (D1894).
-- **La base miroir vit le temps de la migration** : le schéma est
-  supprimé à la finalisation (D1044). Elle ne reçoit que ce que
-  `partition:` relit ; l'enregistrement non relu qu'une référence
-  désigne y est recopié depuis la base de l'application.
-- **La reprise est une transaction** (D1041) : la bascule s'applique en
-  entier ou pas du tout ; l'erreur qui interrompt la mise à jour ramène
-  toutes les données à leur valeur d'avant. Tant que le passage
-  construit la base miroir, rien de l'existant n'est touché.
-- **La transaction qui échoue est tracée** (D1043) : ses données ne
-  sont ni prises en compte ni enregistrées — la destination, la table
-  des clés d'origine et la dernière valeur parcourue restent à leur état
-  d'avant ; le passage, ses horodatages, sa cause et ses anomalies
-  restent consultables, sans impact sur la base cible.
-- **Le dry-run** (D649/D667) s'arrête après la comparaison : il montre
-  les différences sans les reporter.
-
-### La comparaison et la suppression (D878, D1034, D1037, D1052)
-
-- **Les cinq blocs** (D1034) : les anomalies, la création, la
-  modification, l'inchangé, la suppression.
-- **L'enregistrement complet se compare** (D1037) : l'enregistrement
-  construit dans la base miroir, ses compositions comprises, face à la
-  cible par son identité ; seuls les écarts s'écrivent (D672), en
-  historique ou en remplacement selon la configuration de l'entité
-  destination (D1036).
-- **La suppression se joue sur la partition relue** (D1052) :
-  l'enregistrement de la destination présent avant et absent après est
-  supprimé — sa donnée a disparu de l'origine, ou il est tombé en
-  anomalie ; la saisie à la main dans la plage relue l'est de même ;
-  hors de la plage relue, rien n'est supprimé.
-
-## Ce que le module garde
-
-### La table des clés d'origine (D1047–D1051)
-
-**Le module garde les clés d'origine, pas celles de la destination** :
-une ligne d'origine peut se répartir sur plusieurs entités de
-destination, plusieurs entités d'origine peuvent se fondre en une seule
-— la correspondance n'existe pas ligne à ligne ; la destination se
-retrouve par sa propre identité, dans la cible (D1047). Par entité
-source, chaque clé porte :
-
-- **sa valeur de partition** (D1050), qui entre dans le test de la
-  couverture ;
-- **un hash** de la ligne lue (D1049), pour compter seulement les
-  lignes modifiées et non modifiées entre deux lectures — il ne décide
-  d'aucune écriture ; le risque admis : deux contenus d'une même clé au
-  même hash ;
-- **le statut de son traitement** au dernier passage (D1037) — sans
-  erreur ou avec erreur.
-
-`reset: true` vide les tables cibles, pas la table des clés d'origine :
-les compteurs continuent (D1051). `reset_coverage` remet la dernière
-valeur parcourue au départ sans rien effacer (D1030).
-
-### Le modèle lu et ses versions (D1053)
-
-Syncytium garde les versions du modèle que le connecteur lit ; une
-nouvelle version s'écrit quand le schéma change, avec son écart. Les
-écarts se traitent toujours de la même façon :
-
-| l'écart | ce qu'il produit |
-|---|---|
-| une colonne du modèle, non décrite dans la configuration | une anomalie de complétude — le passage continue |
-| une colonne dont le type décrit ne se convertit pas depuis le type lu | une anomalie de description |
-| une colonne décrite qui disparaît de la source | une erreur de description — l'entité est illisible |
-| une valeur qui ne se convertit pas | l'enregistrement tombe en phase 1 |
-
-### Le passage — la ligne d'exécution (D1054–D1056, D1077, D1079)
-
-- **L'état** : en cours, réussi, en erreur, refusé ou interrompu.
-- **Les horodatages** : le démarrage et la fin du passage ; par entité
-  source, la vérification (phases 1–2) ; par règle, le mapping et sa
-  validation (phases 3–4) ; par entité de destination, la validation
-  (phase 5) ; la bascule.
-- **L'instantané** (D1054) : par entité source, les colonnes chargées ;
-  par règle, les champs mappés et les règles de validation — le passage
-  se relit tel qu'il s'est exécuté, sur le modèle de la dernière
-  version.
-- **Les compteurs et les indicateurs**, ci-dessous.
-
-La ligne d'exécution, ses compteurs et ses indicateurs restent **sans
-délai de rétention** (D1068) : ce sont eux qui tracent la qualité dans
-le temps (D668).
-
-### Trois jeux de compteurs, dissociés (D1048, D1055)
-
-| le jeu | par | les compteurs |
-|---|---|---|
-| **l'origine** | entité source | le total de la table = les filtrées + les hors plage + les lues ; parmi les lues : les nouvelles (clé inconnue), les mises à jour (clé déjà parcourue et relue — modifiées ou non modifiées selon leur hash), les clés traitées sans erreur et avec erreur ; les supprimées (clé connue, non relue dans la plage de sa partition) |
-| **la destination** | entité de destination | les nouvelles, les non modifiées, les modifiées, les supprimées |
-| **la règle** | règle | les lignes traitées, les lignes en erreur |
-
-Aucun lien d'un jeu à l'autre : l'erreur d'une règle ne se compte ni
-sur l'origine ni sur la destination, elle se suit à la règle.
-
-### Les indicateurs (D1056, D1060)
-
-Sur la ligne d'exécution :
-
-- **la complétude du schéma** — sur les colonnes décrites dans la
-  configuration : les décrites encore présentes dans le modèle lu, au
-  type compatible, rapportées aux décrites (D1060) ; une colonne que la
-  configuration ne cite pas n'y entre pas — elle reste une anomalie de
-  complétude ;
-- **la couverture des données** — sur les compteurs de l'origine : les
-  lignes lues sans erreur rapportées aux lignes lues.
-
-Le détail se déduit du modèle gardé (D1053).
-
-### Les anomalies (D1057–D1059)
-
-Deux familles, deux entités :
-
-- **les anomalies du modèle** — par entité source et par colonne : la
-  complétude, la description, l'entité illisible ; peu nombreuses,
-  gardées en base ;
-- **les anomalies des enregistrements** — **une entrée par erreur**
-  (D1057) : la clé d'origine, la phase, la colonne, la règle ou la
-  validation en cause, et **un message clair** qui dit la nature de
-  l'anomalie, repris tel quel par le rapport.
-
-**L'anomalie est un fait daté** (D1059) : la suite des faits d'une clé
-d'origine donne toutes ses alternatives et tous ses changements de
-statut — acceptée, refusée pour une cause, pour une autre, de nouveau
-acceptée ; « refusé puis accepté » n'en est qu'une lecture.
-
-### Le détail d'un passage (D1889)
-
-Le détail des anomalies des enregistrements peut être très volumineux.
-Il vit dans le module `_migration`, **partitionné par une date** ; le
-nettoyage se fait par cette clé de partition, et Syncytium l'assure. La
-clé `storage:` de la migration déclarée, son fichier SQLite par passage,
-son chiffrement à part et sa règle au `cleanup.yml` (D1066, D1067, D1072,
-D1073) sont retirés.
-
-- **la rétention** du détail se règle par `retention:`, sous `mirror:`,
-  dans le fichier de l'environnement ; quatre-vingt-dix jours par défaut
-  (D1892) ; le nettoyage se fait à chaque début de journée (D1894) ;
-- **la ligne d'exécution** et ses compteurs restent sans délai (D1068) ;
-- **les données personnelles** (D1065) : le rapport par mail anonymise
-  les valeurs des champs marqués `rgpd:` (D696) ; les interfaces du
-  module montrent les valeurs complètes, sous les droits de chacun.
-
-L'option `--with-storage` de la copie d'un environnement (D1080) et le
-re-chiffrement de ces fichiers à la rotation des clés (D1067) ne
-visaient que le fichier de détail : ils sont retirés avec lui (D1893).
-
-*À reprendre à la lecture du chapitre 9* (D1894) : les mentions du fichier de
+*Gardé pour la lecture du chapitre 9* (D1894) : les mentions du fichier de
 détail plus bas dans ce document — le champ `fichier` du passage,
 l'en-tête de l'entité `anomalie` — et le champ `buffer` de la migration
 déclarée.
@@ -491,23 +285,6 @@ fields:
   valeurs:    { type: text }                             # les valeurs en cause
 ```
 
-## Les rapports (D929, D1058, D1065)
-
-- **L'entité source déclare son `report:`** (D1058) — les anomalies de
-  ses phases (1 et 2) vont à ses destinataires ; **la règle déclare le
-  sien** (D929) — les anomalies de ses phases (3 et 4) et celles de la
-  phase 5 qui portent sur ce qu'elle construit.
-- **Sans `report:`**, le défaut de D407 : à la demande, vers
-  l'administrateur.
-- **Les anomalies du modèle** vont au concepteur, par le module.
-- **La consolidation** : après chaque passage, chaque destinataire
-  reçoit, par ses canaux (`by:`), les anomalies de toutes les sources et
-  de toutes les règles qui lui sont adressées, groupées par source ou
-  par règle, puis par message ; au rythme du `when:` déclaré (D406).
-- **Le rapport n'est pas une entité de plus** : une vue groupée des
-  anomalies (D1015), lue dans le fichier du passage.
-- **Le mail anonymise** les valeurs des champs `rgpd:` (D1065).
-
 ## Les surfaces
 
 Celles du catalogue ([les composants](syncytium/04-composants/README.md)) sur ces entités
@@ -540,14 +317,6 @@ d'administration (D711) :
 - **`reset_coverage(<entité>)`** (D881/D900) — remet la dernière valeur
   parcourue d'une entité source au départ : le passage suivant la relit
   en entier ; il n'efface rien du module (D1030) ;
-- **un passage à la fois** (D1077, D1080) — l'opération qui trouve un
-  passage de sa migration en cours suit `on_running:` : `cancel` (le
-  défaut — elle est refusée, tracée), `wait` (elle attend sa fin),
-  `interrupt` (elle l'interrompt avant de se lancer) ;
-- **l'interruption** (D1077) — l'administrateur peut interrompre un
-  passage tant qu'il construit la base miroir, sans toucher l'existant ;
-  jamais pendant la bascule ; un redémarrage du serveur vaut
-  interruption, la relance est manuelle ;
 - **la copie d'un environnement** (D1078–D1080) — `syncytium copy
   <source> <cible>` emporte les données, `_migration` et `_assistance` (D1387) ;
   le détail des passages suit, dans le module `_migration` (D1894) ;
@@ -596,15 +365,6 @@ opérations périodiques donnent à voir dans `_migration`.
 
 - **les noms des entités et des champs** du module — en proposition
   jusqu'à la documentation structurée (D1021) ;
-- **la suppression à la destination** (D1052) — mes lectures : elle
-  inactive (D137), l'enregistrement revient s'il est reconstruit ; la
-  plage se reporte sur la destination par le champ qu'alimente la
-  colonne de partition ;
-- **l'orphelin d'une référence qu'aucune règle n'utilise** (D1040) — ma
-  lecture : l'enregistrement passe, l'orphelin reste relevé ;
-- **le hash de la ligne d'origine** (D1049) — mes conditions : une forme
-  canonique (les colonnes ordonnées par leur nom, chaque valeur
-  délimitée, le nul distinct du vide), sur les colonnes lues ;
 - **la forme exacte des rapports envoyés** — le `template` du catalogue
   (D559–D564), avec l'architecture.
 

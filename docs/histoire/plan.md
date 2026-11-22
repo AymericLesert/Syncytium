@@ -282,7 +282,7 @@ réécriture (D1521, D1543). Il est fait quand les trois le sont.
 | 6 | Les opérations | fait | 10/11/2026 |
 | 7 | Les droits et la sécurité | fait | 08/11/2026 |
 | 8 | La migration | fait | 22/11/2026 |
-| 9 | Le fonctionnement du moteur | à faire | — |
+| 9 | Le fonctionnement du moteur | en cours | — |
 | 10 | L'administration et l'exploitation | à faire | — |
 | 11 | La télémétrie | à faire | — |
 | 12 | La documentation | à faire | — |

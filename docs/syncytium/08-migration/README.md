@@ -209,8 +209,11 @@ Le chapitre définit ce que le concepteur écrit ; ce qui s'exécute est
 ailleurs :
 
 - **l'exécution d'un passage** et les conversions, au chapitre 9, le
-  moteur (D1880, D1881) ;
-- **le mécanisme de la migration de version**, au chapitre 9 (D1974) ;
+  moteur (D1880, D1881) : voir
+  [l'exécution d'un passage](../09-moteur/04-passage.md) et
+  [ce qu'un passage laisse](../09-moteur/05-suivi.md) ;
+- **le mécanisme de la migration de version**, au chapitre 9 (D1974) :
+  voir [la migration de version, le mécanisme](../09-moteur/03-migration.md) ;
 - **le détail du module `_migration`** et sa facette documentation, au
   chapitre 10, l'administration et l'exploitation (D2010) ;
 - **le cadre commun des commandes de `syncytium`**, au chapitre 10
@@ -219,7 +222,7 @@ ailleurs :
 - **la carte des fichiers d'un connecteur**, au
   [chapitre 5](../05-connecteurs/README.md).
 
-Ce qui attend les chapitres 9 et 10 est dans
+Ce qui attend le chapitre 10 est dans
 [administration.md](../../administration.md), « Reçu du chapitre 8 », et
 dans [migration.md](../../migration.md), qui reste en place jusqu'au
 chapitre 10.

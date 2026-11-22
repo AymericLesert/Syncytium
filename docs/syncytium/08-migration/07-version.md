@@ -12,7 +12,9 @@ suivre. Ce fichier montre ce que le concepteur écrit pour cela : rien le
 plus souvent, car Syncytium calcule les écarts ; puis le protocole et le
 processus, ce qui s'écrit quand le calcul ne suffit pas, les deux volets
 d'une règle d'`exchange/`, et les écarts documentés. Le mécanisme de la
-migration relève du chapitre 9. Les décisions citées entre
+migration relève du chapitre 9 : voir
+[la migration de version, le mécanisme](../09-moteur/03-migration.md).
+Les décisions citées entre
 parenthèses renvoient au [registre](../../conception.md).
 
 ## Le sommaire
@@ -64,7 +66,8 @@ Les règles de la forme courte d'une reprise s'y appliquent (D1896) :
 | un champ dont le type est modifié | une colonne et un champ de même nom, de types différents | le type de destination convertit la valeur |
 | un champ requis ajouté, sans `default:` | un champ sans colonne ni valeur | une erreur d'ingestion, même s'il est alimenté par une règle d'`exchange/` (D1970, D1972) |
 
-La procédure à chaud dépend du moteur : elle est au chapitre 9.
+La procédure à chaud dépend du moteur : elle est au chapitre 9, dans
+[pendant la migration](../09-moteur/03-migration.md#pendant-la-migration).
 
 ## Le protocole et le processus
 

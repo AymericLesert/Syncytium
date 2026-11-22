@@ -1,7 +1,9 @@
 # La version — ce qu'elle porte
 
-*Les sous-chapitres 3.5 à 3.10 de l'[arbre](03-arbre.md) : les réglages, les
-groupes, le module et son menu, l'entité, les hooks et la reprise.*
+L'[arbre](03-arbre.md) s'est arrêté à l'entrée d'une version,
+`version.yml`. Ce fichier descend dans ce qu'elle cite : ses réglages,
+ses groupes, le module et son menu, l'entité, les hooks, puis la
+migration des données. Ce sont les sous-chapitres 3.5 à 3.10 de l'arbre.
 
 ## Le sommaire
 
@@ -24,8 +26,11 @@ groupes, le module et son menu, l'entité, les hooks et la reprise.*
 
 ## 3.5 `settings.yml` — la maison des types et des réglages (D359, D360, D991–D993)
 
-Les settings règlent les défauts. Ils se structurent en trois niveaux
-(D1239) : le type de composant, puis le composant, puis la propriété.
+Ce qu'un projet règle une fois vaut partout : une date toujours au même
+masque, un montant toujours dans la même devise. Les settings portent
+ces réglages : ils règlent les défauts. Ils se structurent en trois
+niveaux (D1239) : le type de composant, puis le composant, puis la
+propriété.
 
 ```yaml
 # Les champs : les défauts des types du catalogue et les types dérivés
@@ -132,8 +137,10 @@ sont les cas d'un seul principe.
 
 ## 3.6 `groups.yml` — les groupes (D414)
 
-Un groupe est une clé. Il porte son libellé, sa description, les groupes
-qu'il voit, et son degré.
+La confidentialité d'un champ nomme les groupes qui le voient, et un
+degré se porte par un groupe : `groups.yml` les déclare. Un groupe y est
+une clé, qui porte son libellé, sa description, les groupes qu'il voit,
+et son degré.
 
 ```yaml
 # La production : les opérateurs et la préparation
@@ -305,10 +312,10 @@ vit dans trois chapitres :
 Un hook ajoute un nom à un catalogue de Syncytium. Ce nom s'emploie
 ensuite comme un nom du socle : le mot « hook » n'apparaît jamais dans
 la configuration (D408). Les types, les composants et les opérations
-que Syncytium embarque sont eux-mêmes des hooks : « tous les types
-proposés sont finalement des hooks qui appartiennent à Syncytium »
+que Syncytium embarque sont eux-mêmes des hooks : tous les types
+proposés sont, finalement, des hooks qui appartiennent à Syncytium
 (D408). Ce que Syncytium embarque et ce que le concepteur ajoute passent
-par la même porte (D37, D52).
+donc par la même porte (D37, D52).
 
 Il y a quatre familles (D1671, D1672, D1702). Chacune se décrit à la
 fin du chapitre de ses composants (D1673) :
@@ -540,8 +547,9 @@ Ce que l'ingestion refuse est dans [les règles](06-regles.md).
 
 ## 3.10 `migration/` — la migration des données
 
-Le nom est celui des cas ; l'organisation est libre (D1883). Une
-migration porte les données d'une description vers une autre, et elle a
+Une version range sa migration dans un dossier, `migration/`. Le nom est
+celui des cas ; l'organisation est libre (D1883). Une migration porte
+les données d'une description vers une autre, et elle a
 deux origines (D1882) : une source, c'est la reprise ; la version
 antérieure, c'est la migration de version. Un troisième usage ne migre
 rien : la rétro-conception d'une application existante (D1907, D2025,

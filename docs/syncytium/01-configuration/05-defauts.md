@@ -1,7 +1,8 @@
 # L'inventaire des défauts du socle
 
-*La suite du [sous-chapitre 3.5](04-version.md) : ce que Syncytium décide
-quand la configuration ne dit rien (D1175).*
+Une configuration ne dit pas tout : ce qu'elle tait, Syncytium le décide
+(D1175). Cet inventaire, la suite du
+[sous-chapitre 3.5](04-version.md), réunit ces décisions du socle.
 
 Chaque défaut du socle a une propriété, une valeur, un étage, et un
 mode, statique ou dynamique. Une valeur dynamique se surcharge aussi par
@@ -9,11 +10,10 @@ l'administration, à chaud (D588). Une valeur statique engage le stockage
 ou la structure : elle se change par une version. L'inventaire se
 complète à chaque défaut nouveau.
 
-Sa structure est celle des settings (D1239). Le registre le dit : « la
-propriété doit être dans un bloc représentant le composant, qui lui-même
-doit être dans un bloc représentant le type de composant ». L'inventaire
-s'écrit donc comme un `settings.yml` qui redirait les défauts du socle ;
-les valeurs sont celles du socle.
+Sa structure est celle des settings (D1239) : la propriété se range dans
+le bloc de son composant, lui-même rangé dans le bloc de son type de
+composant. L'inventaire s'écrit donc comme un `settings.yml` qui
+redirait les défauts du socle ; les valeurs sont celles du socle.
 
 ```yaml
 # Le projet

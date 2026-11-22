@@ -80,8 +80,8 @@ La description se vérifie en entier à l'ingestion, avant de servir
 Une alerte signale sans refuser :
 
 - la surcharge d'une clé au cumul de fichiers (D968) ;
-- un plan ou une vue marquée dans un projet `promotional: false` (D1512,
-  « cette option peut être utilisée temporairement ») ;
+- un plan ou une vue marquée dans un projet `promotional: false`
+  (D1512) : l'option peut être utilisée temporairement ;
 - `visibility: promotional` dans un projet `promotional: false`, la
   visibilité passée à `private` (D1528).
 

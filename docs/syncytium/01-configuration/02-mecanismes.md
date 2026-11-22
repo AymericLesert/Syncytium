@@ -21,9 +21,10 @@ emploient sans les redire.
 
 ## 2.1 La référence de fichier — `~{<fichier>}` (D956)
 
-Une valeur peut désigner un fichier. Elle s'écrit alors `~{…}`. À
-l'ingestion, la partie de la configuration est remplacée par le contenu
-du fichier. Ce fichier est chargé par la configuration elle-même.
+Dès qu'une configuration se découpe en fichiers, une valeur peut
+désigner un fichier plutôt que de porter son contenu. Elle s'écrit alors
+`~{…}`. À l'ingestion, cette partie de la configuration est remplacée
+par le contenu du fichier, que la configuration charge elle-même.
 
 ```yaml
 # Les champs de l'entité : le contenu du fichier remplace la valeur
@@ -75,9 +76,10 @@ numérique ordonne donc les étapes : `001_…`, `002_…`.
 
 ## 2.3 Le cumul de fichiers sous une carte (D968)
 
-Une propriété qui porte une carte, `fields:`, `values:`, `parameters:`,
-peut recevoir une liste de références en bloc. Les fichiers se fondent en
-une seule carte.
+Plusieurs éléments partagent parfois les mêmes clés, comme les règles de
+migration d'un même article. Pour ne les écrire qu'une fois, une
+propriété qui porte une carte, `fields:`, `values:`, `parameters:`,
+peut recevoir une liste de références en bloc. Les fichiers se fondent alors en une seule carte.
 
 ```yaml
 # Les champs d'une règle de migration : deux fichiers partagés, puis les champs propres à la règle
@@ -103,8 +105,10 @@ D767.
 
 ## 2.4 Les variables — `${…}` (D321)
 
-Une variable s'écrit `${KEY}`, ou `${KEY?défaut}` quand la clé peut
-manquer. `KEY` est l'une de quatre choses.
+Ce qui change d'un déploiement à l'autre, ou se répète d'un fichier à
+l'autre, ne s'écrit pas en dur : une variable le porte. Elle s'écrit
+`${KEY}`, ou `${KEY?défaut}` quand la clé peut manquer, et `KEY` est
+l'une de quatre choses.
 
 - **Une variable d'environnement** : `${ENTREPOT_HOST}`,
   `${SYNCYTIUM_LOG_DIRECTORY}`. Sa valeur vient du déploiement.
@@ -134,12 +138,11 @@ financier` (D1798 ; [03-arbre.md](03-arbre.md) §3.1).
 ### Rien hors de la configuration (D1440)
 
 Tout ce dont le moteur ou un hook a besoin est dans la configuration, et
-nulle part ailleurs. Le registre le dit : « Toutes les variables
-d'environnement sont présentes par construction dans la configuration.
-Une règle à porter dans le développement d'un hook ou dans le
-développement de Syncytium consiste à dire que les éléments de
-configuration nécessaires au fonctionnement doivent être présents dans le
-fichier de configuration et nulle part ailleurs. » Deux conséquences :
+nulle part ailleurs. Les variables d'environnement y sont donc toutes
+présentes, par construction. La règle vaut pour le développement d'un
+hook comme pour celui de Syncytium : un élément de configuration
+nécessaire au fonctionnement se trouve dans le fichier de configuration,
+jamais à côté. Deux conséquences :
 
 - le fichier des variables que `syncytium init` crée est complet par
   construction (D1429) ;
@@ -148,7 +151,9 @@ fichier de configuration et nulle part ailleurs. » Deux conséquences :
 
 ## 2.5 La marque `*` — la clé confidentielle (D944)
 
-Une clé suffixée `*` porte une information confidentielle.
+Un mot de passe se déclare dans la configuration comme le reste, mais sa
+valeur ne doit pas se lire. Une clé suffixée `*` le dit : elle porte une
+information confidentielle.
 
 ```yaml
 # Les paramètres du connecteur
@@ -190,9 +195,11 @@ résolue au chargement, et la référence de fichier `~{…}` (D1583).
 
 ## 2.8 La forme courte et le bloc (D356)
 
-`fields:` est une carte ordonnée. Le nom du champ est la clé ; l'ordre de
-déclaration est l'ordre d'affichage par défaut. Une valeur chaîne est le
-type, tout le reste au défaut. Le bloc sert dès qu'une facette s'écrit.
+Un champ qui n'a que son type s'écrit en une ligne ; le bloc ne vient
+que lorsqu'il faut en dire plus. `fields:` est en effet une carte
+ordonnée : le nom du champ est la clé, et l'ordre de déclaration est
+l'ordre d'affichage par défaut. Une valeur chaîne est le type, tout le
+reste étant au défaut. Le bloc sert dès qu'une facette s'écrit.
 
 ```yaml
 # Les champs de l'entité

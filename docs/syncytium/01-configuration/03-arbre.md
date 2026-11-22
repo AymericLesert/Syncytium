@@ -129,13 +129,12 @@ resources: ~{resources/resources.yml}
 ### `from:` — le core, et l'amorçage
 
 `from:` est la première clé. Elle nomme le core de Syncytium qui
-interprète la description et génère sa documentation (D1083, D1361). Le
-registre le dit : « La version du format est utilisée par un utilitaire
-pour récupérer le core, ingérer la configuration, créer l'instance et
-mettre à disposition la suite d'outils qui facilitera l'exploitation du
-projet. » (D1358, D1360). `syncytium init`, hors du moteur, lit cette
-clé et récupère le core. Le détail est au guide d'exploitation
-([documentation.md](../../documentation.md) §17).
+interprète la description et génère sa documentation (D1083, D1361).
+Cette version du format sert à un utilitaire, hors du moteur :
+`syncytium init` lit la clé, récupère le core, ingère la configuration,
+crée l'instance, et met à disposition la suite d'outils qui facilitera
+l'exploitation du projet (D1358, D1360). Le détail est au guide
+d'exploitation ([documentation.md](../../documentation.md) §17).
 
 Le mot `from:` a un seul sens, en trois places (D1086) :
 
@@ -150,8 +149,9 @@ Le mot `from:` a un seul sens, en trois places (D1086) :
 erreurs techniques (D1460, D1531). Elle est l'une des langues du core,
 ou d'un hook de langue du projet (D1467). Elle vaut pour l'instance
 entière et ne change plus : hors des versions, à la racine, la clé est
-immuable (D1532). Le registre le dit : « l'anglais ou le français selon
-le mode d'installation de Syncytium », ou une langue apportée (D1465).
+immuable (D1532). C'est l'anglais ou le français, selon le mode
+d'installation de Syncytium, ou une langue que le projet apporte
+(D1465).
 *Ma lecture* : le concepteur l'écrit, `syncytium init` la vérifie.
 
 ### `confidentiality:` — les profils de confidentialité
@@ -162,8 +162,8 @@ courte ; la forme longue, `confidentiality: { level: , groups: [..] }`,
 s'écrit au champ sans profil (D1798). Un profil ne porte jamais le nom
 d'un niveau, `public`, `protected`, `private` : la forme courte se lit
 sans confusion (D1799). Les profils ne sont pas des
-settings : ils vivent ici, hors des versions, « à la racine de
-Syncytium » (D885, D1536).
+settings : ils vivent ici, hors des versions, à la racine de Syncytium
+(D885, D1536).
 
 ### `visibility:` et `promotional:` — ce qui se lit sans compte
 
@@ -183,6 +183,9 @@ alerte (D1528).
 
 ### `author:`, `contact:`, `copyright:` — le projet nommé
 
+Trois clés disent qui a conçu l'application, à qui s'adresser, et à qui
+appartient la configuration :
+
 - `author:` : le concepteur, celui qui a conçu l'application (D1153) ;
 - `contact:` : l'adresse qui reçoit les demandes d'évolution (D1153) ;
 - `copyright:` : le titulaire des droits d'auteur de la configuration
@@ -194,12 +197,13 @@ les droits de chaque ressource ([documentation.md](../../documentation.md)
 
 ### `resources:` — les ressources, à trois étages
 
-Trois dossiers `resources/` portent les images, les logos et les
-documents (D1529, D1530) :
+Une application a ses images, ses logos, ses documents. Selon ce qu'ils
+accompagnent, ils se rangent à l'un de trois étages : trois dossiers
+`resources/` les portent (D1529, D1530) :
 
-- à la racine, « des images, des logos ou des documents invariants » ;
-- dans la version, « des documents, images, logos versionnables » (D803) ;
-- dans le module, « des documents, images ou logos attachés au module ».
+- à la racine, les images, les logos et les documents invariants ;
+- dans la version, ceux qui se versionnent (D803) ;
+- dans le module, ceux qui lui sont attachés.
 
 *Ma lecture, en proposition* : chaque étage se déclare par la même clé et
 la même fiche, `name`, `description`, `file`, `credit` (D1384) ; par le
@@ -291,14 +295,16 @@ connectors: ~{connectors.yml}
 
 ### Les clés d'un environnement
 
+Voici, clé par clé, ce que le fichier d'un environnement peut porter :
+
 - **`description:`** : le texte de l'environnement, en ligne ou par
   fichier ; dans l'entrepôt, `~{README.md}` porte aussi le texte du
   réseau que le D.A.T. reprend (D1427, D1433).
 - **`listen:`** : l'adresse et le port servis, `url:` et `port:`, par des
-  variables du déploiement (D1427, acquise D1435). Le registre le dit :
-  « cela relève du déploiement et cela n'est pas porté par Syncytium et
-  il ne doit pas être nécessaire de changer de version si une
-  configuration réseau change. » Les valeurs sont dans le fichier des
+  variables du déploiement (D1427, acquise D1435). L'adresse relève en
+  effet du déploiement, que Syncytium ne porte pas : une configuration
+  réseau qui change ne doit pas demander une nouvelle version. Les
+  valeurs sont dans le fichier des
   variables, `.env` par habitude (D1428) ; `syncytium init` le crée,
   toutes les variables référencées, nommées exactement, à renseigner,
   sans gabarit (D1429) ; le D.A.T. en expose la liste. Une variable
@@ -370,9 +376,9 @@ connectors: ~{connectors.yml}
   son fichier CSV, dans le gabarit de l'import (D1211, D1412, D1537) ;
   l'ordre de la carte est l'ordre de chargement, les référentiels
   d'abord. Les fichiers sont chargés par le dry-run tout-ou-rien (D234)
-  à l'initialisation et à la recharge (D922). Les données sont
-  « inventées, réelles ou générées par l'IA … la responsabilité du
-  concepteur et des outils qu'il utilise » (D1504).
+  à l'initialisation et à la recharge (D922). Les données peuvent être
+  inventées, réelles ou générées par l'IA : elles sont de la
+  responsabilité du concepteur et des outils qu'il utilise (D1504).
 - **`security_advisories:`** : la veille des CVE (D1431, D1444). `url:`
   est l'adresse du fichier d'avis de sécurité publié par le projet pour
   le core, par une variable du déploiement ; `every:` le rythme de

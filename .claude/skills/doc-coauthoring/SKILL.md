@@ -4,11 +4,12 @@ description: >-
   Corédiger un chapitre de la documentation de Syncytium
   (docs/syncytium/<nn>-<chapitre>/) selon la méthode du projet : ouvrir le
   chapitre, l'écrire d'un trait, présenter la page des seuls vrais
-  arbitrages, suivre la relecture de l'auteur fichier par fichier, puis le
-  faire lire par un lecteur tiers. À utiliser dès que l'auteur ouvre, écrit,
-  relit ou clôt un chapitre, dit « chapitre N », « Section N - ok »,
-  « arbitrage N », « lecteur tiers », ou demande où en est un chapitre, même
-  sans nommer la compétence.
+  arbitrages, suivre la relecture de l'auteur et ses compléments, réécrire
+  le chapitre, le lui remettre pour validation, puis le faire lire par un
+  lecteur tiers. À utiliser dès que l'auteur ouvre, écrit, relit, complète,
+  valide ou clôt un chapitre, dit « chapitre N », « Section N - ok »,
+  « arbitrage N », « réécris le chapitre », « lecteur tiers », ou demande où
+  en est un chapitre, même sans nommer la compétence.
 ---
 
 # La corédaction d'un chapitre
@@ -27,20 +28,24 @@ le registre divergent, le registre a raison et la compétence se corrige. Les
 règles de forme d'un chapitre sont dans `CLAUDE.md`, « L'écriture de la
 documentation » ; elles ne sont pas recopiées ici.
 
-## Les cinq temps
+## Les sept temps
 
 | # | Le temps | Qui agit | Ce qui en sort |
 |---|---|---|---|
 | 1 | Ouvrir | Claude | la famille constituée, la vision globale, une décision d'ouverture |
 | 2 | Écrire d'un trait | Claude | le chapitre entier, ses sources vidées, une décision |
 | 3 | Présenter les arbitrages | Claude | une page, `docs/arbitrages-chapitre-<n>.md` |
-| 4 | La relecture de l'auteur | l'auteur | les arbitrages clos, chaque fichier accordé |
-| 5 | Le lecteur tiers | un lecteur sans contexte | les défauts de lecture corrigés, le chapitre clos |
+| 4 | La relecture de l'auteur | l'auteur | ses commentaires, ses compléments, les arbitrages tranchés |
+| 5 | La réécriture du chapitre | Claude | le chapitre réécrit, ce qui a changé fichier par fichier |
+| 6 | La validation de l'auteur | l'auteur | chaque fichier relu et validé |
+| 7 | Le lecteur tiers | un lecteur sans contexte | les défauts de lecture corrigés, le chapitre clos |
 
-L'ordre des deux derniers temps est arbitré par l'auteur (D2131) :
-« la relecture par une personne tierce est à faire après que j'ai réglé les
-détails techniques et les manques fonctionnelles ». Le lecteur tiers ne lit
-donc jamais un texte dont le fond bouge encore.
+Les temps 4 à 7 sont arbitrés par l'auteur (D2133) : « 4. Ma relecture et
+mes commentaires/compléments » ; « 5. La réécriture du chapitre » ; « 6. Une
+nouvelle relecture de ma part pour une validation » ; « 7. Le lecteur
+tiers ». Le lecteur tiers ne lit donc jamais un texte dont le fond bouge
+encore : il vient « après que j'ai réglé les détails techniques et les
+manques fonctionnelles » (D2131).
 
 ## Avant d'agir : savoir où en est le chapitre
 
@@ -113,33 +118,72 @@ chapitre, à l'état « présenté ». Consigner, committer, pousser.
 
 ## 4. La relecture de l'auteur
 
-L'auteur relit fichier par fichier et répond aux arbitrages, dans l'ordre
-qu'il choisit. Ici, c'est lui qui tient le rythme.
+L'auteur relit fichier par fichier, dans l'ordre qu'il choisit. Il commente
+ce qui est écrit, il complète ce qui manque, il répond aux arbitrages. Ici,
+c'est lui qui tient le rythme.
 
 - **Une décision par message de l'auteur** (D2128). Chaque remarque est
   citée mot pour mot entre « … ». Ce que Claude ajoute est marqué *ma
   lecture* ou *en proposition*.
-- « Section N - ok » se note à la table des points : « clos (Dnnnn) ».
-- Une remarque se reporte là où l'élément est décrit : le fichier du
-  chapitre, le glossaire, le cas concerné, un autre chapitre s'il le faut.
-- Un arbitrage tranché se reporte dans le texte. La page des arbitrages se
-  retire quand tous ses points sont clos.
+- Un commentaire corrige ce qui est écrit. Un complément apporte ce que le
+  chapitre ne disait pas. Les deux se consignent de la même façon.
+- « Section N - ok » dit qu'un fichier n'appelle pas de remarque. Il se
+  note à la table des points.
+- *Mien* : une remarque se reporte tout de suite là où l'élément est
+  décrit, pour que le registre et le texte ne divergent jamais. Ce report
+  est une retouche. La mise en forme d'ensemble attend le temps 5.
 - Ne pas présenter le point suivant, ne pas rappeler un arbitrage en
   attente : il les ouvre quand il veut.
 - S'il répond à côté, la question était ambiguë. Ne pas consigner sa
   réponse : reposer la question sur un exemple chiffré d'un cas du dépôt,
   avec les réponses possibles numérotées.
 
-Ce temps est fini quand tous les arbitrages sont clos et tous les fichiers
-accordés. *Ma lecture* de « réglé les détails techniques et les manques
-fonctionnelles » : les deux, non les seuls arbitrages.
+Ce temps est fini quand l'auteur le dit.
 
-## 5. Le lecteur tiers
+## 5. La réécriture du chapitre
+
+Les commentaires et les compléments reçus, le chapitre se réécrit. Un
+complément ajouté phrase par phrase laisse des coutures : un paragraphe
+posé là où la remarque est tombée, une notion expliquée deux fois, un
+exemple qui ne suit plus. La réécriture fond le tout dans le fil du texte.
+
+- Réécrire en entier chaque fichier qu'une remarque a touché, dans la
+  forme du temps 2. Un fichier sans remarque ne bouge pas.
+- Reporter les arbitrages tranchés dans le texte. La page des arbitrages
+  se retire quand tous ses points sont clos.
+- Reprendre ce qui en dépend : le glossaire, les sommaires, les renvois
+  des autres chapitres, les cas.
+- N'ajouter aucun fond qui ne vienne d'une remarque ou du registre. Un
+  doute sur le sens d'une remarque se pose en question, par un exemple,
+  avant de remettre le chapitre.
+- Contrôler qu'aucune décision citée ne se perd, puis relancer les
+  contrôles du temps 2.
+- Consigner une décision, marquée *mien* : pour chaque fichier réécrit, ce
+  qui a changé et la remarque qui l'a demandé. C'est ce que l'auteur lira
+  au temps 6.
+
+*En proposition, miens* : le détail de ce temps. L'auteur a fixé qu'il
+existe et sa place (D2133).
+
+## 6. La validation de l'auteur
+
+L'auteur relit le chapitre réécrit, pour le valider.
+
+- Lui remettre la liste des fichiers réécrits et, pour chacun, ce qui a
+  changé. Rien de plus : pas de liste de points « à regarder ».
+- « Section N - ok » vaut validation du fichier. La table des points le
+  note : « clos (Dnnnn) ».
+- Une nouvelle remarque se consigne comme au temps 4, et renvoie le seul
+  fichier touché au temps 5.
+
+Ce temps est fini quand tous les fichiers sont validés.
+
+## 7. Le lecteur tiers
 
 Un lecteur qui n'a ni le registre ni l'échange lit le chapitre seul et dit
-ce qu'il n'a pas compris. Il vient en dernier parce que sa lecture ne vaut
-que sur un fond arrêté : avant, il buterait sur des manques que l'auteur
-est seul à pouvoir combler.
+ce qu'il n'a pas compris. Il vient en dernier, sur un chapitre que l'auteur
+a validé, parce que sa lecture ne vaut que sur un fond arrêté : avant, il
+buterait sur des manques que l'auteur est seul à pouvoir combler.
 
 Lire `references/lecteur-tiers.md` : il porte la préparation, la consigne
 du lecteur, le tri de son rapport.
@@ -151,7 +195,7 @@ Le principe du tri tient en trois lignes :
 - le lecteur ne rouvre jamais ce que l'auteur a arbitré.
 
 *En proposition* : tout ce temps, sauf sa place et le sens du lecteur
-tiers, que l'auteur a fixés (D2131, D2132).
+tiers, que l'auteur a fixés (D2131, D2132, D2133).
 
 ## Clore le chapitre
 

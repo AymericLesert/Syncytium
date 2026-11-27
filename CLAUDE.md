@@ -121,10 +121,11 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   fichier par fichier, « Section N - ok » ou ses remarques. **Une
   décision par message de l'auteur**, chaque remarque citée mot pour
   mot ; l'accord d'une section se note à la table d'avancement.
-  **Le chapitre accordé, un lecteur tiers le lit en dernier**, après
-  que l'auteur a réglé les détails techniques et les manques
-  fonctionnels (D2131) ; la compétence `doc-coauthoring`, dans
-  `.claude/skills/`, tient l'ordre des cinq temps, en proposition.
+  **Après la relecture de l'auteur, ses commentaires et ses
+  compléments, le chapitre se réécrit ; l'auteur le relit pour le
+  valider ; un lecteur tiers le lit en dernier** (D2131, D2133) ; la
+  compétence `doc-coauthoring`, dans `.claude/skills/`, tient l'ordre
+  des sept temps.
 - Un chapitre dit **ce qui est**, pas ce qui a été : l'historique reste au
   registre (D1822 — l'histoire est le récit du projet, `docs/histoire/`) ; les décisions sont citées entre parenthèses, elles
   renverront aux ADR.

@@ -1,7 +1,7 @@
 # Le lecteur tiers
 
 *En proposition, sauf la place de ce temps et le sens du lecteur tiers,
-arbitrés par l'auteur (D2131, D2132).*
+arbitrés par l'auteur (D2131, D2132, D2133).*
 
 Le lecteur tiers est la « personne tierce » dont parle l'auteur (D2132) :
 un lecteur qui n'a ni le registre ni l'échange. Ici, c'est une instance de
@@ -10,10 +10,10 @@ le tri de son retour suit les mêmes règles.
 
 ## Quand
 
-Après le temps 4, et seulement après : tous les arbitrages sont clos, tous
-les fichiers accordés. Un lecteur lancé plus tôt relèverait des manques de
-fond que seul l'auteur peut combler, et ses remarques se périmeraient à
-chaque arbitrage.
+Après le temps 6, et seulement après : le chapitre est réécrit et l'auteur
+l'a relu et validé (D2133). Un lecteur lancé plus tôt relèverait des manques
+de fond que seul l'auteur peut combler, et ses remarques se périmeraient à
+chaque complément.
 
 ## Préparer les questions
 
@@ -74,8 +74,8 @@ chaque relevé dans une des trois sortes.
 | Rien | le lecteur conteste ce que l'auteur a arbitré | laisser, sans le rapporter |
 
 Un défaut de sens trouvé ici est un arbitrage tardif : il se présente dans
-la forme de `gabarit-arbitrage.md`, un point à la fois, et rouvre le temps 4
-pour le seul fichier touché.
+la forme de `gabarit-arbitrage.md`, un point à la fois, et rouvre les temps
+4 à 6 pour le seul fichier touché.
 
 ## Relire après correction
 

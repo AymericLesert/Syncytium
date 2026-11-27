@@ -13,8 +13,8 @@ description: >-
 
 # La corédaction d'un chapitre
 
-*Brouillon du 27/11/2026, en proposition : rien n'est validé par l'auteur,
-sauf ce qu'une décision citée porte déjà.*
+*Écrite le 27/11/2026 (D2131), en proposition : rien n'est validé par
+l'auteur, sauf ce qu'une décision citée porte déjà.*
 
 Un chapitre de `docs/syncytium/` s'écrit à deux. L'auteur arbitre. Claude
 propose, consigne et met en forme. Cette compétence tient l'ordre des gestes,
@@ -150,8 +150,8 @@ Le principe du tri tient en trois lignes :
 - un défaut de sens devient une question à l'auteur, par un exemple ;
 - le lecteur ne rouvre jamais ce que l'auteur a arbitré.
 
-*En proposition* : tout ce temps, sauf sa place, que l'auteur a fixée
-(D2131).
+*En proposition* : tout ce temps, sauf sa place et le sens du lecteur
+tiers, que l'auteur a fixés (D2131, D2132).
 
 ## Clore le chapitre
 

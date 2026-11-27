@@ -1,8 +1,11 @@
 # Le lecteur tiers
 
-*En proposition, sauf la place de ce temps, arbitrée par l'auteur
-(D2131).* *Ma lecture* : « une personne tierce » est ici une instance de
-Claude lancée sans contexte ; si l'auteur confie le chapitre à une personne,
+*En proposition, sauf la place de ce temps et le sens du lecteur tiers,
+arbitrés par l'auteur (D2131, D2132).*
+
+Le lecteur tiers est la « personne tierce » dont parle l'auteur (D2132) :
+un lecteur qui n'a ni le registre ni l'échange. Ici, c'est une instance de
+Claude lancée sans contexte. Si l'auteur confie le chapitre à une personne,
 le tri de son retour suit les mêmes règles.
 
 ## Quand

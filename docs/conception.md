@@ -18898,6 +18898,22 @@ avant la synthèse Q16).
 
 ## 11. Journal des échanges
 
+- **2026-11-27 — LA PAUSE : LA COMPÉTENCE `doc-coauthoring` TIENT LES SEPT TEMPS D'UN CHAPITRE ; LE CHAPITRE 9 EN EST
+  AU TEMPS 4, LA RELECTURE DE L'AUTEUR (D2131–D2133, 2133 décisions).** L'auteur : « je marque une pause ». **La
+  compétence** : `.claude/skills/doc-coauthoring/`, la première du dépôt, écrite en proposition (D2131) — `SKILL.md`
+  et deux références, le gabarit d'un arbitrage et le lecteur tiers ; elle ne remplace ni le registre ni `CLAUDE.md`.
+  « La relecture par une personne tierce » est son lecteur tiers, un lecteur sans le registre ni l'échange (D2132).
+  **Les sept temps** (D2133) : ouvrir, écrire d'un trait, présenter les arbitrages, puis, de la main de l'auteur, sa
+  relecture avec ses commentaires et ses compléments, la réécriture du chapitre, sa nouvelle relecture pour
+  validation, le lecteur tiers en dernier ; `CLAUDE.md` le note à la règle du mode à l'essai. **Ce jour**, l'auteur a
+  appelé la compétence : elle a lu la table d'avancement et la table des points, et rendu l'état — les temps 1 à 3
+  faits le 23/11 (D2129, D2130), le temps 4 en cours. **L'état du chapitre 9**, inchangé depuis le 23/11 : huit
+  fichiers écrits, quatorze points « présenté » à la table de `docs/README.md` — les huit fichiers, puis les six
+  arbitrages de `docs/arbitrages-chapitre-9.md` ; aucun fichier relu, aucun arbitrage tranché. **À la reprise** :
+  écouter le retour de l'auteur, sans présenter de point ni rappeler un arbitrage — « Section N - ok », un commentaire
+  ou un complément pour un fichier, le numéro d'une réponse pour un arbitrage ; une décision par message de sa part,
+  ses mots cités tels quels ; une remarque se reporte tout de suite là où l'élément est décrit, la mise en forme
+  d'ensemble attend le temps 5. Restent ouverts, inchangés : ceux de l'entrée du 23/11.
 - **2026-11-23 — LA PAUSE : LE CHAPITRE 9 EST ÉCRIT, IL ATTEND LA RELECTURE DE L'AUTEUR ET SES RÉPONSES À SIX
   ARBITRAGES (D2129–D2130, 2130 décisions).** L'auteur : « je marque une pause ». Le chapitre lui a été remis avec la
   page des arbitrages ; il n'a encore relu aucun fichier ni répondu à aucun arbitrage, et n'a pas dit par où il

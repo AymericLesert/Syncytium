@@ -320,8 +320,21 @@ de temps, que la rétention règle (D2136) :
 | pendant la rétention | elle est conservée, entière : son instance, et sa version d'ingestion |
 | au terme de la rétention | elle est supprimée |
 
-La durée s'écrit par `retention:`. La place de cette clé, et sa valeur
-quand elle n'est pas écrite, sont en proposition.
+La durée s'écrit par `retention:`, dans le fichier de l'environnement,
+à côté de `storage:` (D2137). Sans la clé, la version antérieure est
+conservée sept jours. Aucun cas n'écrit la clé : l'entrepôt garde les
+sept jours. En illustration, une production qui garde la version
+antérieure deux semaines :
+
+```yaml
+# La rétention de la version antérieure
+# La durée pendant laquelle la version antérieure est conservée après une bascule ; sans cette clé, sept jours.
+retention: 14d
+```
+
+La durée se règle ainsi environnement par environnement : chacun
+dimensionne son espace, voir
+[ce que le mécanisme coûte](#ce-que-le-mécanisme-coûte).
 
 ### La restauration
 

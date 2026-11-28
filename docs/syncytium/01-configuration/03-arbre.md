@@ -313,6 +313,10 @@ Voici, clé par clé, ce que le fichier d'un environnement peut porter :
 - **`storage:`** : le nom du connecteur qui porte le modèle (D1094).
   Sans bloc `connectors:`, `storage: sqlite` désigne le connecteur
   implicite du mono-poste (D1114).
+- **`retention:`** : la durée pendant laquelle la version antérieure
+  est conservée après la bascule d'une migration de version, pour
+  permettre d'y revenir (D2136, D2137). Par défaut, sept jours. Voir
+  [la rétention de la version antérieure](../09-moteur/03-migration.md#la-rétention-de-la-version-antérieure).
 - **`mirror:`** : la base miroir, où les migrations se construisent
   avant de reporter leurs différences (D1044, D1890, D1891). Elle a
   deux propriétés (D1892) :

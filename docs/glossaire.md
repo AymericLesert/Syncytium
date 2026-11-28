@@ -1113,11 +1113,11 @@ suppriment, dans un dossier, les fichiers d'un pattern au-delà d'une
 durée ou d'un nombre : le journal, les watchers, le détail des
 migrations. *(D1070–D1076)*
 
-**Rétention d'une version** (`retention:`) — La durée pendant laquelle
-la version antérieure est conservée après la bascule d'une migration de
-version, pour permettre d'y revenir par la restauration. Au terme de la
-rétention, elle est supprimée. La place de la clé et sa valeur par
-défaut sont en proposition. *(D675, D2136)*
+**Rétention d'une version** (`retention:`, au fichier de
+l'environnement) — La durée pendant laquelle la version antérieure est
+conservée après la bascule d'une migration de version, pour permettre
+d'y revenir par la restauration. Par défaut, sept jours. Au terme de la
+rétention, elle est supprimée. *(D675, D2136, D2137)*
 
 **Rétro-conception** (`syncytium retro`) — Le troisième usage du chapitre de la migration,
 à côté de la reprise et de la migration de version : un outil de

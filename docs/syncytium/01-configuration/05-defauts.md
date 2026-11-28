@@ -128,6 +128,9 @@ environment:
   # Le storage : sqlite, implicite au mono-poste
   storage: sqlite
 
+  # La rétention de la version antérieure, après une bascule : sept jours
+  retention: 7d
+
   # La documentation : le dépôt, l'édition et l'impression sur demande ; la notification à la promotion
   # d'une version ; la publication selon visibility
   documentation:
@@ -189,14 +192,14 @@ application:
 - le groupe : `degree` (D699, D900), `persona` (D1200) ;
 - les surfaces : `default` (D186, D438), `breadcrumb` (D549), `size`
   (D533, D549) ;
-- l'environnement : `storage` (D1114), `documentation` (D1167) ;
+- l'environnement : `storage` (D1114), `retention` (D2137), `documentation` (D1167) ;
 - le connecteur : `connection` (D621), `pool` (D622), `retry` et `timeout`
   (D625), `onerror` (D627) — confirmés D1712, les défauts en proposition ;
 - l'application : `sandbox.retention` (D912), `logging.throttle` (D926),
   `telemetry.values` (D1290, D1291) ; `api.*`, la clé d'API, sa rotation,
   le rate limiting, en proposition (D1801, D1805).
 
-Les valeurs dynamiques sont `cooldown`, `retention`, `sandbox.retention`,
+Les valeurs dynamiques sont `cooldown`, la `retention` de l'opération, `sandbox.retention`,
 `logging.throttle` et `telemetry.values` ; toutes les autres sont
 statiques.
 

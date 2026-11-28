@@ -537,6 +537,11 @@ Ex. : un client est modifié dans l'application legacy. Le trigger
 marque la ligne. L'outil lit la marque, applique sa transformation, et
 appelle l'API de Syncytium, qui modifie le client.
 
+La source de vérité étant dans Syncytium, c'est lui qui arbitre
+(D2148). Une modification venue du legacy passe par les API comme toute
+autre. Si une règle de validation la refuse, elle est refusée, et
+l'outil la signale.
+
 La méthode a son avantage et son prix :
 
 | Ce qu'elle apporte | Ce qu'elle coûte |

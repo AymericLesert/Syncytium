@@ -120,9 +120,13 @@ l'environnement fermé où une beta fonctionne (D907).
 *Précisé (D2166).* Une beta nomme son origine par `from:` et le seul
 numéro de la version : une même version ne peut pas être dans deux
 environnements, son numéro dit donc si elle est en production ou en
-beta. Le report dans les chapitres attend la validation de la lecture
-d'ensemble : qui demande la copie et la réinitialisation, et comment se
-demande la migration de la copie.
+beta.
+
+*Confirmé (D2167).* Il n'y a pas de dossier `versions/sandbox/` : c'est
+`versions/beta/` qui utilise la sandbox. Trois questions restent posées
+avant le report dans les chapitres : si le staging est cette sandbox,
+qui met une beta en service la première fois, et comment se demande la
+migration de la copie.
 
 ## 3. Deux enregistrements gardent la même clé à la fin de la lecture
 

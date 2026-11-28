@@ -9,8 +9,8 @@ numérotées et une recommandation. Tout le reste est tranché d'après le
 registre et marqué mien (D2130). Les points 8 à 12 sont des manques que
 la relecture de l'auteur a ouverts (D2162) : ils sont à traiter, et
 chacun se posera par un exemple quand l'auteur l'ouvrira. Le point 13
-vient de l'arbitrage 5 (D2164). La page se retire quand ses treize
-points sont clos.*
+vient de l'arbitrage 5 (D2164), le point 14 de l'arbitrage 2 (D2168).
+La page se retire quand ses quatorze points sont clos.*
 
 ## Le sommaire
 
@@ -27,6 +27,7 @@ points sont clos.*
 - [11. L'annonce de la bascule aux applications abonnées](#11-lannonce-de-la-bascule-aux-applications-abonnées)
 - [12. Un nom stable demandé à une classe qui n'en publie pas](#12-un-nom-stable-demandé-à-une-classe-qui-nen-publie-pas)
 - [13. Les fichiers du détail des anomalies](#13-les-fichiers-du-détail-des-anomalies)
+- [14. La clé qui demande la migration de la copie](#14-la-clé-qui-demande-la-migration-de-la-copie)
 
 ## 1. Une version déposée en pleine journée
 
@@ -123,10 +124,12 @@ environnements, son numéro dit donc si elle est en production ou en
 beta.
 
 *Confirmé (D2167).* Il n'y a pas de dossier `versions/sandbox/` : c'est
-`versions/beta/` qui utilise la sandbox. Trois questions restent posées
-avant le report dans les chapitres : si le staging est cette sandbox,
-qui met une beta en service la première fois, et comment se demande la
-migration de la copie.
+`versions/beta/` qui utilise la sandbox.
+
+*Tranché (D2168).* Le staging est la sandbox des betas. Syncytium copie
+d'office la base de l'origine, au dépôt. La migration de la copie se
+demande par une clé de `version.yml`. Le chapitre le décrit :
+[la sandbox](syncytium/09-moteur/02-ingestion.md#la-sandbox).
 
 ## 3. Deux enregistrements gardent la même clé à la fin de la lecture
 
@@ -337,3 +340,12 @@ interne (D2164). Auparavant, un fichier par passage était chiffré
 (D1067), puis le détail, passé en base, suivait la protection de la base
 (D1893). **<u>Le chapitre ne dit ni le format de ces fichiers, ni leur
 protection, ni s'ils suivent la copie d'un environnement (D1894).</u>**
+
+## 14. La clé qui demande la migration de la copie
+
+*Où.* [La migration de la copie](syncytium/09-moteur/02-ingestion.md#la-migration-de-la-copie-au-choix-du-concepteur).
+
+*Le manque.* La copie de l'origine est migrée si une clé de
+`version.yml`, à côté de `from:`, le demande (D2168). **<u>Le chapitre
+ne nomme pas cette clé, et ne dit pas ce qui vaut quand elle est
+absente.</u>**

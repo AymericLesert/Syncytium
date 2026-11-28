@@ -2897,7 +2897,8 @@ par la cascade (D359) ; une surface peut le surcharger.*
 
 *(La déclinaison du rang 6, écrite le 24/10/2026 sur §28 de
 documentation.md — D1426–D1431. L'entrepôt a deux environnements,
-`production` et `staging`, ni passif ni sandbox ; sept connecteurs,
+`production` et `staging`, sans passif ; le staging est la sandbox des
+versions `beta` (D2168) ; sept connecteurs,
 déclarés à l'identique dans les deux, les valeurs par les variables ;
 dix-neuf variables, dont quatre confidentielles ; aucun hook ; aucun
 `listen:`, aucun texte du réseau. On montre le D.A.T. tel qu'il
@@ -2943,7 +2944,8 @@ D1434.**)*
 >
 > **Les relations** : la production vers le staging par
 > `syncytium copy production staging`, les données, `_migration`,
-> `_assistance` (D1080, D1387) ; aucun passif, aucune sandbox.
+> `_assistance` (D1080, D1387) ; aucun passif ; le staging est la
+> sandbox des versions `beta` (D2168).
 >
 > **Les flux et les ports** : la table du chapitre 1, la même pour le
 > staging — les mêmes connecteurs, les valeurs du staging. **L'instance
@@ -3100,7 +3102,8 @@ disponible » plutôt que « sans objet », rien à compléter.)*
 > - **synchroniser** — *procédure non disponible* : aucun passif, aucune
 >   `replication:` ; la copie vers le staging la remplace ;
 > - **les secrets** — quatre, `syncytium encrypt` ; **la rotation** —
->   `syncytium rotate` ; **la sandbox** — aucune déclarée ; **la mise à
+>   `syncytium rotate` ; **la sandbox** — le staging, où les versions
+>   `beta` fonctionnent (D2168) ; **la mise à
 >   jour du core** — sur sollicitation (D17) ; **l'arrêt, le
 >   redémarrage, le mode safe** ; **restaurer un enregistrement** —
 >   l'administration seule, tracé (D171).

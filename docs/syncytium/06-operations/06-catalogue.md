@@ -215,7 +215,8 @@ utilisateurs.
 ### `rotate`
 
 La rotation des clés qui chiffrent les secrets d'un environnement
-(D730, D915). La duplication d'une sandbox la déclenche d'office, la
+(D730, D915). La copie d'une origine dans la sandbox d'une version
+`beta` la déclenche d'office (D2168), la
 sandbox ayant sa propre clé, dérivée de l'environnement et de la
 machine ; le re-chiffrement des valeurs copiées à l'initialisation reste
 à préciser à l'implémentation. Plancher : `administrator`. Portée :

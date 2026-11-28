@@ -26,8 +26,9 @@ trouvent le connecteur qu'ils emploient.
 > ses variables ([glossaire](../../glossaire.md)).
 
 Chaque environnement porte ses connecteurs (D616, D617). Le staging a
-les siens, la production les siens, le passif sa réplique ; la sandbox
-prend ceux de son environnement (D911). L'ingestion vérifie que chaque
+les siens, la production les siens, le passif sa réplique. Une version
+`beta` fonctionne dans une sandbox, qui est un environnement : elle
+prend ses connecteurs (D911, D2168). L'ingestion vérifie que chaque
 environnement décrit tous les connecteurs.
 
 Un environnement est un dossier (D342). Son fichier cite le fichier des

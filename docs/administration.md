@@ -299,6 +299,16 @@ journaux + les settings + la documentation, **spécifiques à
 chacun** ; l'actif/passif du PCA-PRA (D112–D114) — la réplication
 différentielle (le mode `relative` de la migration, D649/D671).
 
+*Depuis le 28/11/2026 (D2164–D2168)* : le statut `sandbox` s'efface, et
+`versions/sandbox/` avec lui. La sandbox est l'environnement que le
+statut `beta` désigne, le staging dans les cas. Une beta nomme son
+origine par `from:` et le seul numéro ; au dépôt, Syncytium copie
+d'office la base de l'origine, et la migre si une clé de `version.yml`
+le demande ; la recharge réinitialise ses données, à la demande de
+l'administrateur. Ce qui suit, écrit pour un statut `sandbox`, se relit
+ainsi au chapitre 10 ; le chapitre 9 le décrit :
+[la sandbox](syncytium/09-moteur/02-ingestion.md#la-sandbox).
+
 **La sandbox** (D907–D908) : « tester et évaluer la description en
 cours dans un environnement fermé et sécurisé (tant sur la base de
 données que sur les hooks en cours) » — **un statut de `versions/`**

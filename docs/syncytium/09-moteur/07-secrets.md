@@ -144,7 +144,7 @@ Quatre situations la déclenchent :
 | Ce qui la déclenche | Pourquoi |
 |---|---|
 | chaque restauration | l'image restaurée vit peut-être sur une autre machine : la clé a changé (D730) |
-| la duplication d'une sandbox, et sa recharge | une sandbox est un environnement, donc une clé : la copie de l'origine est rechiffrée sous la sienne (D915) |
+| la copie d'une origine dans la sandbox d'une beta, et sa recharge | la sandbox est un environnement, donc une clé : la copie de l'origine est rechiffrée sous la sienne (D915) |
 | la commande | à la demande de l'administrateur |
 | un changement d'algorithme | `rotate` est le seul geste qui rechiffre ou rehache (D916) |
 

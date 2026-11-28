@@ -20,7 +20,7 @@ environments/
 │   ├── cleanup.yml                  # le nettoyage des fichiers — les règles de rétention
 └── staging/ …
 versions/
-├── versions.yml                     # <statut>: ~{…} — beta, production, deprecated, forbidden, sandbox
+├── versions.yml                     # <statut>: ~{…} — beta, production, deprecated, forbidden
 ├── beta/
 │   ├── beta.yml                     # environment: staging ; versions: [le pattern]
 │   └── v1.0.0.0/
@@ -141,7 +141,8 @@ Le mot `from:` a un seul sens, en trois places (D1086) :
 - au projet, le modèle Syncytium dont la configuration parle la langue ;
 - dans une migration, la base d'origine, vers la destination qu'elle met
   à jour ;
-- dans une sandbox, la version d'origine, avant l'essai.
+- dans une version `beta`, la version d'origine, dont la base est
+  copiée dans la sandbox (D2166).
 
 ### `language:` — la langue technique
 
@@ -250,13 +251,14 @@ un orphelin.
 
 Un environnement porte ce qui est commun à toutes les versions mais
 propre à un lieu d'exécution : les connecteurs, les journaux, les
-réglages techniques, la documentation. Il y en a quatre sortes (D339,
-D907) :
+réglages techniques, la documentation. Il y en a trois sortes (D339,
+D2168) :
 
-- `staging`, le test ;
+- `staging`, le test. C'est la sandbox des versions `beta` :
+  l'environnement que le statut `beta` désigne fonctionne en sandbox,
+  quel que soit son nom (D907, D2165, D2168) ;
 - `production`, la production active ;
-- `passive`, la production passive du PCA-PRA ;
-- `sandbox`, l'essai d'une description en cours (D907–D912).
+- `passive`, la production passive du PCA-PRA.
 
 Chaque environnement a son dossier. Son nom est la clé qui le référence
 dans `environments.yml` (D1088).
@@ -410,13 +412,16 @@ security_advisories:
 
 Le statut d'une version est son emplacement (D338, D340). Déposer une
 version dans un dossier, c'est la publier pour l'environnement de ce
-dossier. Il y a cinq dossiers possibles :
+dossier. Il y a quatre dossiers possibles :
 
 - `beta/`, sur le staging ;
 - `production/`, sur la production ;
 - `deprecated/`, les versions dépréciées, conservées ;
-- `forbidden/`, les versions interdites, conservées ;
-- `sandbox/`, l'essai d'une description en cours (D907).
+- `forbidden/`, les versions interdites, conservées.
+
+Il n'y a pas de dossier `sandbox/` (D2165, D2167). Une version `beta`
+fonctionne dans une sandbox, l'environnement que son statut désigne :
+voir [la sandbox](../09-moteur/02-ingestion.md#la-sandbox).
 
 Dans `deprecated/`, la dépréciation est effective : la version est
 dépréciée pour de bon, par le dépôt de son dossier et par son statut
@@ -455,17 +460,13 @@ D345) :
 - `beta` vers `forbidden` ;
 - jamais l'inverse ; une même version dans deux dossiers est une erreur.
 
-Les statuts et leurs transitions, dans un seul sens (D344, D345, D910,
-D928) :
+Les statuts et leurs transitions, dans un seul sens (D344, D345) :
 
 ```mermaid
 stateDiagram-v2
     direction LR
-    [*] --> sandbox : l'essai d'une description
     [*] --> beta : la version déposée
-    sandbox --> beta : la promotion, from retiré
-    sandbox --> production : la promotion, from retiré
-    beta --> production : la promotion
+    beta --> production : la promotion, from retiré
     beta --> forbidden : l'interdiction
     production --> deprecated : la dépréciation
     production --> forbidden : l'interdiction
@@ -525,9 +526,13 @@ hooks: ~{hooks/hooks.yml}
 resources: ~{resources/resources.yml}
 ```
 
-En sandbox seulement, une clé de plus, `from: <statut>/<version>`, nomme
-la version d'origine de l'essai (D907) ; elle est supprimée à la
-promotion (D928). Les décisions de ces clés : D217 et D1101 pour les
+Sous `beta` seulement, deux clés de plus (D2166, D2168). `from:` nomme
+la version d'origine, par son seul numéro, `from: v1.0.0.0` : sa base
+est copiée dans la sandbox. Une autre clé, dont le nom reste à écrire,
+demande la migration de cette copie. `from:` est supprimée à la
+promotion (D928) : voir
+[la sandbox](../09-moteur/02-ingestion.md#la-sandbox). Les décisions des
+autres clés : D217 et D1101 pour les
 langues, D808 et D1096 pour les notes, D1355 pour les auteurs, D1219
 pour la documentation, D662 pour les migrations, D415 et D766 pour la
 liste des modules, D777 pour les hooks, D803, D1384 et D1529 pour les

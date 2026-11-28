@@ -5,7 +5,7 @@ title: Le chemin d'une version, de son dépôt à son activation
 steps:
   - start: Début
   - action: Une version est déposée
-    note: une sandbox attend l'administrateur
+    note: la description est contrôlée dès le dépôt
   - decision: Format supporté ?
     no: {to: refus}
   - decision: Dossier des versions cohérent ?

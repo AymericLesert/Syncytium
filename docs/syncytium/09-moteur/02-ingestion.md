@@ -13,7 +13,7 @@ version ingérée ils s'estompent, et les fichiers ne servent plus que de
 trace (D1784). Ce fichier suit ce chemin : les étapes d'une ingestion,
 ses contrôles, l'identité d'une version, le registre qui garde la
 mémoire des essais, l'estampille que la base porte, ce qui reste après
-l'ingestion, et enfin le cas de la sandbox. Les décisions citées entre
+l'ingestion, et enfin la sandbox d'une beta. Les décisions citées entre
 parenthèses renvoient au [registre](../../conception.md).
 
 ## Le sommaire
@@ -37,7 +37,9 @@ parenthèses renvoient au [registre](../../conception.md).
   - [Les fichiers, gardés pour trace](#les-fichiers-gardés-pour-trace)
   - [Ce qui reste contrôlé en fonctionnement](#ce-qui-reste-contrôlé-en-fonctionnement)
 - [La sandbox](#la-sandbox)
-  - [Une ingestion déclenchée par l'administrateur](#une-ingestion-déclenchée-par-ladministrateur)
+  - [L'origine d'une beta](#lorigine-dune-beta)
+  - [La mise en service, d'office](#la-mise-en-service-doffice)
+  - [La migration de la copie, au choix du concepteur](#la-migration-de-la-copie-au-choix-du-concepteur)
   - [La recharge](#la-recharge)
 
 ## Le chemin d'une version
@@ -51,7 +53,7 @@ peut l'arrêter :
 |---|---|---|
 | la découverte | il lit le dossier des versions, et y trouve une version qu'il n'a pas encore ingérée (D324) | — |
 | l'en-tête | il lit le format que la description déclare (D322) | un format plus récent que lui (D330) |
-| le dossier des versions | il vérifie les statuts, leurs transitions, et le `from:` d'une sandbox (D344, D928) | une version dans deux statuts, un `from:` oublié ou cassé |
+| le dossier des versions | il vérifie les statuts, leurs transitions, et le `from:` d'une beta (D344, D928, D2166) | une version dans deux statuts, un `from:` cassé, ou resté sous `production` |
 | la description | il la vérifie en entier (D328) | toute erreur d'ingestion |
 | la conversion | il la compile dans sa logique interne (D327, D329) | — |
 | la migration à blanc | il joue la migration de version sur les données, sans rien toucher (D1974) | une donnée qui ne passe pas |
@@ -73,7 +75,7 @@ Le concepteur ne lance rien : déposer suffit (D324, D921).
   montée de version sans arrêt de l'application est un point crucial du
   projet (D801) ;
 - **l'application rejoint la version la plus élevée** du statut de son
-  mode d'exécution : `beta`, `production` ou `sandbox` (D801, D908). Le
+  mode d'exécution : `beta` ou `production` (D801, D2165). Le
   numéro qui compte est celui que `version.yml` porte en tête ;
 - **la description est contrôlée dès le dépôt** : une erreur est dite
   au concepteur sans attendre (D2164) ;
@@ -99,8 +101,10 @@ Deux règles tiennent ensuite pour toute la vie de la version :
 - **les écrans suivent toujours la dernière version déployée** (D10).
   L'utilisateur ne choisit pas sa version : seules les API en servent
   plusieurs, ce que dit le chapitre 13 ;
-- **une sandbox ne s'ingère pas seule** : son ingestion est un acte
-  d'administration. Voir [la sandbox](#la-sandbox).
+- **une version `beta` fonctionne dans une sandbox** : l'environnement
+  que son statut désigne, le staging dans l'entrepôt. Syncytium y copie
+  d'office la base de son origine (D2168). Voir
+  [la sandbox](#la-sandbox).
 
 ## Les contrôles
 
@@ -144,8 +148,8 @@ Le moteur vérifie ces gestes avant d'ingérer :
 |---|---|
 | une même version dans deux dossiers de statut | une erreur (D344) |
 | une transition interdite, de `production` vers `beta` par exemple | une erreur (D344, D345) |
-| une version sous `beta` ou `production` qui porte encore `from:` | une erreur avant l'ingestion : la ligne se retire à la promotion (D910, D928) |
-| une sandbox dont l'origine a quitté le statut `sandbox` | une erreur : le lien est cassé, le concepteur réécrit `from:` (D928) |
+| une version sous `production` qui porte encore `from:` | une erreur avant l'ingestion : la ligne se retire à la promotion (D928) |
+| une version `beta` dont `from:` nomme une version absente | une erreur : le lien est cassé, le concepteur réécrit `from:` (D928, D2166) |
 
 Les dossiers sont le geste, l'état ingéré est la vérité : le statut
 d'une version est porté par son ingestion, que le registre consigne
@@ -217,8 +221,9 @@ numéro :
 - la correction entre avec la 1.0.0.2, où seul le build a monté.
 
 Le numéro de version reste ainsi une promesse, un contenu par numéro,
-sans que le moteur bloque quoi que ce soit. La sandbox est l'exception :
-elle se [recharge](#la-recharge).
+sans que le moteur bloque quoi que ce soit. Les données d'une version
+`beta`, elles, se réinitialisent à la demande : voir
+[la recharge](#la-recharge).
 
 ## Le registre des versions
 
@@ -243,8 +248,9 @@ concepteur : pas d'acharnement, et chaque tentative reste traçable. Une
 seule cause échappe à cette règle : le format non supporté, où c'est le
 moteur qui doit monter (D330).
 
-L'ingestion est un acte tracé du concepteur ; celle d'une sandbox, un
-acte d'administration, se consigne au même registre (D920, D921).
+L'ingestion est un acte tracé du concepteur ; la recharge d'une version
+`beta`, un acte d'administration, se consigne au même registre (D920,
+D921).
 
 ## L'estampille
 
@@ -339,47 +345,91 @@ l'intégrité des références, qui survit à l'effacement (D138, D139).
 
 ## La sandbox
 
-> **La sandbox** est l'essai d'une description en cours, dans un
-> environnement fermé : une copie d'une version d'origine, migrée vers
-> la version à l'essai ([glossaire](../../glossaire.md)).
+> **La sandbox** est l'environnement fermé où une version `beta`
+> fonctionne : elle y a sa propre base, copiée de celle de son origine
+> ([glossaire](../../glossaire.md)).
 
-### Une ingestion déclenchée par l'administrateur
+Une version à l'essai ne doit rien abîmer. Elle ne travaille donc
+jamais sur la base de la production : elle travaille sur une copie,
+dans un environnement à part. Cet environnement est la sandbox. Il n'y
+a pas de dossier `versions/sandbox/` : c'est le statut `beta` qui
+utilise la sandbox, et la sandbox est l'environnement que `beta.yml`
+désigne, quel que soit son nom (D2165, D2167, D2168). Dans l'entrepôt
+(le cas 5), c'est le staging.
 
-Une sandbox copie des données réelles, et sa création coûte : elle ne
-naît donc jamais d'un fichier posé. Son ingestion est un acte
-d'administration (D921) :
+### L'origine d'une beta
 
-- le dossier déposé ne fait rien ;
-- l'administrateur la déclenche, depuis le module d'administration ou
-  par la commande `syncytium sandbox` ;
-- l'acte est tracé, et consigné au registre des versions.
+Une version `beta` nomme son origine dans son `version.yml`, par
+`from:` et le seul numéro de la version (D2166). Une même version ne
+peut pas être dans deux statuts : son numéro suffit donc à dire si
+l'origine est en production ou en beta.
 
-L'ingestion d'une sandbox enchaîne trois gestes :
+```yaml
+# L'origine de la version
+# La version dont la base est copiée dans la sandbox, nommée par son seul numéro.
+from: v1.0.0.0
+```
+
+Trois origines sont possibles (D2164) :
+
+| L'origine | Ce que `version.yml` écrit | Ce que fait Syncytium |
+|---|---|---|
+| aucune : c'est la première version | pas de `from:` | il crée le modèle |
+| la dernière version en production | `from: v1.0.0.0` | il copie la base de la production |
+| une autre beta | `from: v1.0.0.1` | il copie la base de cette beta |
+
+Si la base de l'origine n'existe pas, Syncytium crée le modèle, comme
+pour une première version (D2164).
+
+### La mise en service, d'office
+
+Le concepteur ne lance rien : déposer la version suffit, et Syncytium
+fait le reste d'office (D2168). Dans l'entrepôt, la production sert la
+1.0.0.0. La 1.0.0.1 est déposée dans `versions/beta/`, avec
+`from: v1.0.0.0` :
 
 | Le geste | Ce qu'il fait |
 |---|---|
-| la duplication | l'origine, que `from:` nomme dans `version.yml`, est copiée ; elle n'est jamais touchée (D908, D909) |
-| la migration | la copie est portée à la version de la sandbox |
+| le contrôle | la description est contrôlée dès le dépôt (D2164) |
+| la copie | la base de la 1.0.0.0 est copiée dans la sandbox, le staging ; l'origine n'est jamais touchée (D907) |
+| la migration, si la version la demande | la copie est portée à la 1.0.0.1 |
 | la rotation des clés | les valeurs chiffrées copiées sont rechiffrées sous la clé de la sandbox (D915) : voir [la rotation](07-secrets.md#la-rotation-des-clés) |
 
-Une sandbox peut naître d'une autre sandbox : `from: sandbox/v1.0.0.1`.
-Les migrations s'enchaînent alors par transitivité, d'origine en
+### La migration de la copie, au choix du concepteur
+
+La copie n'est pas toujours migrée. Le concepteur le décide une fois
+pour la version, par une clé de `version.yml`, à côté de `from:`
+(D2168). Le nom de cette clé reste à écrire.
+
+| Ce que la version demande | La base de la sandbox | Comment la beta lit ses données |
+|---|---|---|
+| la migration | elle est portée à la version de la beta | directement |
+| la copie seule | elle reste au modèle de l'origine | par les règles de migration ascendantes, qui délivrent les données dans la forme de la dernière version (D1996, D2164) |
+
+Supposons que la 1.0.0.1 renomme un champ. Avec la migration, la base
+du staging porte le nouveau nom. Sans elle, la base garde l'ancien nom,
+et la règle ascendante le présente sous le nouveau : voir
+[les deux volets](../08-migration/07-version.md#les-deux-volets).
+
+Une beta peut naître d'une autre beta : `from: v1.0.0.1`. Les
+migrations, ou les règles ascendantes, s'enchaînent alors d'origine en
 origine, jusqu'à la version à l'essai (D908).
 
 ### La recharge
 
-> **La recharge** rejoue l'ingestion d'une sandbox : la duplication de
-> l'origine, la migration, la rotation des clés
-> ([glossaire](../../glossaire.md)).
+> **La recharge** réinitialise les données d'une version `beta` : elle
+> recopie la base de son origine ([glossaire](../../glossaire.md)).
 
-Une mise au point demande d'essayer, de corriger, et d'essayer encore,
-sans changer de numéro à chaque fois. La recharge, `reload`, le permet
-(D922) :
+Un essai use ses données : après quelques jours, on veut repartir de
+l'origine. Les données d'une beta se réinitialisent donc à la demande
+(D2164). La recharge, `reload` (D922) :
 
-- elle rejoue l'ingestion entière, sans toucher à la déclaration ;
-- c'est une ingestion, donc un acte d'administration, tracé ;
-- elle est réservée au statut `sandbox` : `beta` et `production` ne se
-  rechargent pas, une version y est ingérée une fois.
+- recopie la base de l'origine, la migre si la version le demande, et
+  rejoue la rotation des clés ;
+- est un geste de l'administrateur, tracé, et consigné au registre des
+  versions (D921) ;
+- ne vaut que pour une version `beta` : une version en `production` ne
+  se recharge pas.
 
 La vie de l'instance d'une sandbox, sa conservation, sa suppression et
 ses commandes, relève de l'exploitation : elle est au chapitre 10

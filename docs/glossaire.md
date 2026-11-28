@@ -1289,10 +1289,11 @@ absente partout est « non précisée ». *(D698, D1317–D1329, D1809)*
 actifs : un acte exceptionnel de l'administrateur, sous contrôle de
 collision des clés. *(D140, D903)*
 
-**Recharge** (`reload`) — L'ingestion d'une sandbox, rejouée : la
-duplication de l'origine, la migration, la rotation des clés. Réservée
-au statut `sandbox` : ailleurs, une version est ingérée une fois.
-*(D922)*
+**Recharge** (`reload`) — La réinitialisation, à la demande, des
+données d'une version `beta` : la base de l'origine est recopiée dans
+la sandbox, migrée si la version le demande, et les clés tournent. Un
+geste de l'administrateur ; une version en `production` ne se recharge
+pas. *(D922, D2164, D2168)*
 
 **Recherche** (`searchable`) — La manière dont un champ se cherche :
 exacte (`strict`), tolérante aux accents (`normalized`), aux fautes de
@@ -1388,10 +1389,14 @@ restauration, à la duplication d'une sandbox, par la commande, et pour
 changer d'algorithme : c'est le seul geste qui rechiffre ou rehache.
 *(D730, D915, D916)*
 
-**Sandbox** (`sandbox`) — L'essai d'une description en cours, dans un
-environnement fermé : la copie d'une version d'origine, que `from:`
-nomme, migrée vers la version à l'essai. Son ingestion est un acte
-d'administration. *(D907, D908, D921)*
+**Sandbox** — L'environnement fermé où une version `beta` fonctionne :
+celui que le statut `beta` désigne, le staging dans les cas. La beta y
+a sa propre base, copiée d'office au dépôt depuis son origine, que
+`from:` nomme par son seul numéro ; sans origine, Syncytium crée le
+modèle. La copie est migrée si une clé de `version.yml` le demande ;
+sinon les règles de migration ascendantes délivrent les données dans la
+forme de la beta. Il n'y a pas de statut ni de dossier `sandbox`.
+*(D907, D2164–D2168)*
 
 **Satellite** — Une feuille qui en sert une autre : la calculatrice d'un
 nombre, la jauge, le curseur. Elle se choisit par `component:`.

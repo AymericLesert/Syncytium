@@ -13,6 +13,8 @@ steps:
   - decision: Description valide ?
     no: {to: refus}
   - action: La description est convertie
+  - action: Le moteur attend une faible affluence
+    note: les données ne migrent pas en pleine activité
   - decision: Migration à blanc correcte ?
     no: {to: refus}
   - action: La version s'active

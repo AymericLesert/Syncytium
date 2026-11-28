@@ -11,10 +11,12 @@ souvent, parfois un renommage ou une règle de transformation. Reste à
 dire ce que le moteur fait de ces données qui doivent changer de forme
 pendant que l'application sert. Ce fichier suit ce mécanisme : ce qui
 le déclenche, la comparaison qui décide de tout, les deux chemins
-qu'elle ouvre, leur issue, ce que deviennent les lectures et les
-écritures pendant ce temps, puis la bascule, le retour en arrière, le
-changement de connecteur et le coût assumé. Les décisions citées entre
-parenthèses renvoient au [registre](../../conception.md).
+qu'elle ouvre, leur issue. Il dit ensuite le moment que le moteur
+choisit, et ce que deviennent les tâches, les lectures et les écritures
+pendant ce temps. Il finit par la bascule, ceux qu'elle doit prévenir,
+le retour en arrière, le changement de connecteur et le coût assumé.
+Les décisions citées entre parenthèses renvoient au
+[registre](../../conception.md).
 
 ## Le sommaire
 
@@ -75,11 +77,11 @@ travaille autrement, pour deux raisons (D1974) :
 - mettre en place une version ne transforme pas seulement le stockage :
   elle applique aussi les règles de vérification.
 
-Le moteur ne modifie donc pas l'instance en service : le modèle et
-ses données, tels que le connecteur les porte. Il construit le
-schéma de la nouvelle version dans la facette de stockage du
-connecteur, et le compare au schéma en production. Un schéma tenu en
-mémoire peut suffire à cette comparaison. Tout le reste en découle :
+Le moteur ne modifie donc pas l'instance en service : le modèle et ses
+données, tels que le connecteur les porte. Il construit le schéma de la
+nouvelle version dans la facette de stockage du connecteur, et le
+compare au schéma en production. Un schéma tenu en mémoire peut suffire
+à cette comparaison. Tout le reste en découle :
 
 <p align="center"><img src="schemas/migration.svg" alt="La migration de version : la comparaison des facettes et ses deux chemins"></p>
 
@@ -148,8 +150,8 @@ version porte des règles de transformation : la nouvelle instance y est
 prévue pour valider (D2138).
 
 Un champ qui passe de `text[..20]` à `text[..40]` suffit : les deux
-facettes diffèrent, une nouvelle instance est créée, et le concepteur n'a
-rien à écrire.
+facettes diffèrent, une nouvelle instance est créée, et le concepteur
+n'a rien à écrire.
 
 Le connecteur joue ces gestes par les méthodes de son contrat (D631,
 D680) : `create_instance` crée la nouvelle instance, les méthodes
@@ -240,6 +242,12 @@ ne conserve pas les données est au chapitre 8 :
 [la bijection, à la charge du concepteur](../08-migration/07-version.md#la-bijection-à-la-charge-du-concepteur).
 
 ## Pendant la migration
+
+Une migration de version se joue sans arrêter l'application (D801).
+Elle a pourtant un coût pour ceux qui travaillent : des tâches
+attendent, et la bascule suspend un instant les requêtes. Le moteur le
+réduit en trois temps : il choisit son moment, il met les tâches à
+l'abri, puis il laisse l'activité continuer pendant qu'il migre.
 
 ### Le moment : une période de faible affluence
 
@@ -354,6 +362,7 @@ sequenceDiagram
     participant A as L'instance en service
     participant M as Le moteur
     participant N as La nouvelle instance
+    M->>M: l'attente d'une période de faible affluence
     M->>M: la tâche en cours se termine, les autres sont en pause
     M->>N: la création, à côté de l'existante
     M->>N: le plan de reprise, de l'instance en service vers la nouvelle
@@ -409,34 +418,35 @@ servent, ensemble (D2139) :
 | Le mécanisme | Ce qu'il fait |
 |---|---|
 | un nom stable | le storage publie l'instance en service sous un nom qui ne change pas, par des synonymes et des vues ; la bascule et la restauration leur font suivre le pointeur |
-| une information | la bascule est annoncée, avec les écarts entre les deux versions : à l'administrateur, dans le mail des faits marquants ; aux applications abonnées, qui s'abonnent par l'API |
+| une annonce | la bascule est annoncée, avec les écarts entre les deux versions : à l'administrateur, dans le mail des faits marquants ; aux applications abonnées |
 
 Les deux se complètent. Le nom stable porte le changement de pointeur :
-le lecteur ne touche pas à sa connexion. L'information porte ce que le
-nom stable ne règle pas : un champ renommé ou retiré change ce que le
+le lecteur ne touche pas à sa connexion. L'annonce porte ce que le nom
+stable ne règle pas : un champ renommé ou retiré change ce que le
 lecteur trouve, où qu'il se connecte.
 
-Une application s'abonne à cette annonce par l'API, et s'en désabonne
-par l'API (D2171). L'abonnement s'exprime pour un type d'événement : la
-bascule d'une version en est un. Les routes de l'abonnement et les types
-d'événements seront décrits au chapitre 13.
+**Le nom stable se déclare.** Rien ne s'écrit à la main dans la base :
 
-Rien de cela ne s'écrit à la main dans la base : tout est déclaration.
-
-- **le nom stable est une facette de la description du modèle** : ses
-  synonymes et ses vues se déduisent de la description, comme la forme
-  de stockage ;
+- **c'est une facette de la description du modèle** : ses synonymes et
+  ses vues se déduisent de la description, comme la forme de stockage ;
 - **c'est une option du connecteur** : elle se déclare au connecteur
   storage, par `alias:`, à côté de `class:` (D2140). Sans elle, aucun
   nom stable n'est publié. Voir
   [le nom stable](../05-connecteurs/05-storage.md#le-nom-stable).
 
+**L'annonce se reçoit sur abonnement** (D2171) :
+
+- une application s'abonne par l'API, et se désabonne par l'API ;
+- l'abonnement s'exprime pour un type d'événement : la bascule d'une
+  version en est un ;
+- les routes de l'abonnement et les types d'événements seront décrits
+  au chapitre 13.
+
 Supposons que le connecteur de l'entrepôt (le cas 5) déclare
 `alias: entrepot_bi`. Un rapport de BI y lit les tiers. La version
-1.0.0.1 bascule un mardi à dix heures : à dix heures une, le rapport lit
-l'instance de la 1.0.0.1, sans que sa connexion ait changé. L'annonce
-de la bascule dit à son auteur que le nom abrégé du tiers a été
-renommé.
+1.0.0.1 bascule dans la nuit : au matin, le rapport lit l'instance de
+la 1.0.0.1, sans que sa connexion ait changé. L'annonce de la bascule
+dit à son auteur que le nom abrégé du tiers a été renommé.
 
 Une limite demeure : seule l'API garde la forme d'une version
 antérieure (D11–D13). Un lecteur qui ne veut subir aucun changement lit
@@ -487,10 +497,10 @@ socle (D574).
 | le geste | un coût infime : un changement de référence, sans copie ni reconstruction |
 | les données | dans le pire des cas, celles qui ont été traitées depuis la bascule sont perdues |
 
-Dans l'entrepôt (le cas 5), la version 1.0.0.1 bascule un mardi à dix
-heures. Le jeudi, l'administrateur revient à la 1.0.0.0. L'application
-retrouve aussitôt ses données du mardi à dix heures ; ce qui a été
-saisi depuis est perdu.
+Dans l'entrepôt (le cas 5), la version 1.0.0.1 bascule dans la nuit du
+mardi au mercredi. Le jeudi, l'administrateur revient à la 1.0.0.0.
+L'application retrouve aussitôt ses données de l'instant de la
+bascule ; ce qui a été saisi depuis est perdu.
 
 Chaque instance porte sa version dans une table système : c'est
 [l'estampille](02-ingestion.md#lestampille), et rien n'est à deviner
@@ -554,8 +564,9 @@ des licences inutiles.
 
 ## Ce que le mécanisme coûte
 
-La nouvelle instance vit à côté de l'existante le temps de la migration,
-puis la version antérieure à côté de la nouvelle le temps de sa
-rétention (D2136). La conséquence est assumée (D1977) : il faut un
-espace de stockage au moins égal à deux fois l'espace initial. Ce dimensionnement entre dans
-le dossier d'architecture technique de l'application.
+La nouvelle instance vit à côté de l'existante le temps de la
+migration, puis la version antérieure à côté de la nouvelle le temps de
+sa rétention (D2136). La conséquence est assumée (D1977) : il faut un
+espace de stockage au moins égal à deux fois l'espace initial. Ce
+dimensionnement entre dans le dossier d'architecture technique de
+l'application.

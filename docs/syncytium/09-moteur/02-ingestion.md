@@ -7,14 +7,16 @@
 
 Publier une version, c'est déposer un dossier. Entre ce dépôt et le
 premier écran servi, le moteur fait donc tout le reste : il découvre la
-version, la contrôle, la convertit, migre les données, puis l'active.
-C'est le moment où ses contrôles sont les plus nombreux, car une fois la
-version ingérée ils s'estompent, et les fichiers ne servent plus que de
-trace (D1784). Ce fichier suit ce chemin : les étapes d'une ingestion,
-ses contrôles, l'identité d'une version, le registre qui garde la
-mémoire des essais, l'estampille que la base porte, ce qui reste après
-l'ingestion, et enfin la sandbox d'une beta. Les décisions citées entre
-parenthèses renvoient au [registre](../../conception.md).
+version, la contrôle aussitôt, la convertit, attend que l'affluence soit
+faible pour migrer les données, puis l'active. C'est le moment où ses
+contrôles sont les plus nombreux, car une fois la version ingérée ils
+s'estompent, et les fichiers ne servent plus que de trace (D1784). Ce
+fichier suit ce chemin : les étapes d'une ingestion, ses contrôles,
+l'identité d'une version, le registre qui garde la mémoire des essais,
+l'estampille que la base porte, ce qui reste après l'ingestion, dont le
+dossier où le moteur range ce qu'il génère, et enfin la sandbox où
+fonctionne une version `beta`. Les décisions citées entre parenthèses
+renvoient au [registre](../../conception.md).
 
 ## Le sommaire
 
@@ -46,16 +48,17 @@ parenthèses renvoient au [registre](../../conception.md).
 
 ### De la version déposée à la version servie
 
-Une version passe par sept étapes, toujours dans le même ordre. Chacune
-peut l'arrêter :
+Une version passe par huit étapes, toujours dans le même ordre. Six
+d'entre elles peuvent l'arrêter ou la retenir :
 
 | L'étape | Ce que le moteur fait | Ce qui l'arrête |
 |---|---|---|
 | la découverte | il lit le dossier des versions, et y trouve une version qu'il n'a pas encore ingérée (D324) | — |
 | l'en-tête | il lit le format que la description déclare (D322) | un format plus récent que lui (D330) |
 | le dossier des versions | il vérifie les statuts, leurs transitions, et le `from:` d'une beta (D344, D928, D2166) | une version dans deux statuts, un `from:` cassé, ou resté sous `production` |
-| la description | il la vérifie en entier (D328) | toute erreur d'ingestion |
+| la description | il la vérifie en entier, dès le dépôt (D328, D2164) | toute erreur d'ingestion |
 | la conversion | il la compile dans sa logique interne (D327, D329) | — |
+| l'attente | il attend une période de faible affluence (D7, D2163) | rien : elle la retient, sans la refuser |
 | la migration à blanc | il joue la migration de version sur les données, sans rien toucher (D1974) | une donnée qui ne passe pas |
 | l'activation | la version s'active, l'estampille avance, le registre consigne (D93, D326) | — |
 
@@ -67,25 +70,35 @@ continue sur la version en service, et le refus est consigné au
 
 ### Quand l'ingestion se déclenche
 
-Le concepteur ne lance rien : déposer suffit (D324, D921).
+Le concepteur ne lance rien : déposer suffit (D324, D921). Le moteur
+voit la version déposée à l'un de ces deux moments :
 
-- **au démarrage** de l'instance, le moteur lit le dossier des
+- **au démarrage** de l'instance, quand il lit le dossier des
   versions ;
 - **ensuite, sans redémarrage** : la configuration se relit à chaud. La
   montée de version sans arrêt de l'application est un point crucial du
-  projet (D801) ;
-- **l'application rejoint la version la plus élevée** du statut de son
-  mode d'exécution : `beta` ou `production` (D801, D2165). Le
-  numéro qui compte est celui que `version.yml` porte en tête ;
-- **la description est contrôlée dès le dépôt** : une erreur est dite
-  au concepteur sans attendre (D2164) ;
-- **la migration attend une période de faible affluence** : elle se
-  joue alors, et la version devient sollicitable, par les API et par
-  les écrans (D7, D328, D2163). Voir
-  [le moment](03-migration.md#le-moment--une-période-de-faible-affluence).
+  projet (D801).
 
-Le statut dit l'environnement qui sert la version. Dans l'entrepôt (le
-cas 5), le statut `beta` désigne le staging :
+Le dépôt déclenche alors deux choses, qui ne se jouent pas au même
+moment :
+
+| Ce qui se joue | Quand | Pourquoi |
+|---|---|---|
+| le contrôle de la description | dès le dépôt (D2164) | une erreur est dite au concepteur sans attendre |
+| la migration des données | à la première période de faible affluence (D7, D2163) | elle met les tâches en pause, et la bascule suspend un instant les requêtes |
+
+Dans l'entrepôt (le cas 5), la version 1.0.0.1 est déposée un mardi à
+dix heures. Sa description est contrôlée à dix heures. Ses données sont
+migrées dans la nuit, au créneau le moins fréquenté : voir
+[le moment](03-migration.md#le-moment--une-période-de-faible-affluence).
+La migration jouée, la version devient sollicitable, par les API et par
+les écrans (D328).
+
+L'application rejoint la version la plus élevée du statut de son mode
+d'exécution : `beta` ou `production` (D801, D2165). Le numéro qui compte
+est celui que `version.yml` porte en tête. Le statut dit
+l'environnement qui sert la version. Dans l'entrepôt, le statut `beta`
+désigne le staging :
 
 ```yaml
 # Les versions beta s'exécutent sur l'environnement de développement.
@@ -170,11 +183,11 @@ validé avec la description : un hook en défaut arrête l'ingestion (D52).
 ### La migration à blanc
 
 L'ingestion d'une version comprend la migration de ses données, jouée à
-blanc (D1974, D1977). Le moteur prépare une nouvelle instance et y porte les
-données existantes, sans toucher à ce qui est en service. Une valeur qui
-ne passe pas fait une erreur d'ingestion : la version est refusée, et
-rien n'a changé. Le mécanisme est décrit dans
-[la migration de version](03-migration.md).
+blanc (D1974, D1977). Quand l'affluence est faible, le moteur prépare
+une nouvelle instance et y porte les données existantes, sans toucher à
+ce qui est en service. Une valeur qui ne passe pas fait une erreur
+d'ingestion : la version est refusée, et rien n'a changé. Le mécanisme
+est décrit dans [la migration de version](03-migration.md).
 
 ## L'identité d'une version
 
@@ -303,15 +316,23 @@ qui sert (D327) :
 ### Le dossier interne
 
 > **Le dossier interne** est le dossier, propre à l'application, où le
-> moteur range tout ce qu'il génère pour une version. Il n'est ni
-> versionné, ni poussé sur un git ([glossaire](../../glossaire.md)).
+> moteur range tout ce qu'il génère. Il n'est ni versionné, ni poussé
+> sur un git ([glossaire](../../glossaire.md)).
+
+Le moteur y range deux sortes de fichiers, qui lui appartiennent :
+
+- **ce qu'il génère pour une version**, la forme compilée en tête
+  (D329, D2154). Chaque version y a son dossier ;
+- **le détail des anomalies d'une reprise**, passage après passage
+  (D2164) : voir
+  [le détail et sa rétention](05-suivi.md#le-détail-et-sa-rétention).
 
 Une version a donc deux dossiers, qui ne se confondent pas (D2154) :
 
 | Le dossier | Ce qu'il contient | Qui l'écrit | Où il vit |
 |---|---|---|---|
 | le dossier de la version, dans le dépôt du client | la description : le code source | le concepteur | il est versionné, et synchronisé par git ou par un autre dispositif (D336) |
-| le dossier interne de la version | tout ce que l'ingestion génère pour elle, la forme compilée en tête (D329) | le moteur | dans l'application : ni versionné, ni poussé sur un git |
+| le dossier interne de la version | tout ce que l'ingestion génère pour elle | le moteur | dans l'application : ni versionné, ni poussé sur un git |
 
 La séparation vaut dans les deux sens. Le moteur n'écrit jamais dans le
 dépôt du client : les fichiers du concepteur ne sont pas réécrits
@@ -338,10 +359,6 @@ Si un arrêt brutal surprend une ingestion, le dossier interne de la
 version en cours est supprimé au redémarrage : la relance ne part
 jamais d'une version partielle. Voir
 [le redémarrage après un arrêt brutal](06-demarrage.md#le-redémarrage-après-un-arrêt-brutal).
-
-Le dossier interne reçoit aussi le détail des anomalies d'une reprise,
-passage après passage (D2164) : voir
-[le détail et sa rétention](05-suivi.md#le-détail-et-sa-rétention).
 
 ### Les fichiers, gardés pour trace
 
@@ -400,6 +417,10 @@ Trois origines sont possibles (D2164) :
 Si la base de l'origine n'existe pas, Syncytium crée le modèle, comme
 pour une première version (D2164).
 
+Une beta peut naître d'une autre beta, qui est née d'une autre encore.
+Les migrations, ou les règles ascendantes, s'enchaînent alors d'origine
+en origine, jusqu'à la version à l'essai (D908).
+
 ### La mise en service, d'office
 
 Le concepteur ne lance rien : déposer la version suffit, et Syncytium
@@ -435,10 +456,6 @@ Supposons que la 1.0.0.1 renomme un champ. Avec la migration, la base
 du staging porte le nouveau nom. Sans elle, la base garde l'ancien nom,
 et la règle ascendante le présente sous le nouveau : voir
 [les deux volets](../08-migration/07-version.md#les-deux-volets).
-
-Une beta peut naître d'une autre beta : `from: v1.0.0.1`. Les
-migrations, ou les règles ascendantes, s'enchaînent alors d'origine en
-origine, jusqu'à la version à l'essai (D908).
 
 ### La recharge
 

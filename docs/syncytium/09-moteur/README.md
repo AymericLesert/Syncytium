@@ -12,9 +12,11 @@ version, avec son ingestion et la migration de ses données (D1784). Il
 suit ensuite une reprise pendant qu'elle s'exécute, puis ce qu'elle
 laisse derrière elle (D1880, D1881). Il finit par ce qui tient
 l'application debout : le démarrage de l'instance, son arrêt et ses
-secours, les secrets et le chiffrement, la disponibilité. L'entrepôt (le cas 5)
-reste le fil rouge des exemples. Les décisions citées entre parenthèses
-renvoient au [registre](../../conception.md).
+secours, les secrets et le chiffrement, la disponibilité. Ce premier
+fichier pose l'image d'ensemble, les cinq temps du moteur, et un
+principe qui les traverse tous : le traitement en masse. L'entrepôt (le
+cas 5) reste le fil rouge des exemples. Les décisions citées entre
+parenthèses renvoient au [registre](../../conception.md).
 
 ## Le sommaire
 
@@ -65,8 +67,7 @@ renvoient au [registre](../../conception.md).
 6. [Le démarrage de l'instance et le secours](06-demarrage.md)
    - [Les vérifications du démarrage](06-demarrage.md#les-vérifications-du-démarrage)
    - [L'arrêt de l'application](06-demarrage.md#larrêt-de-lapplication)
-   - [Le mode safe](06-demarrage.md#le-mode-safe)
-   - [L'amorçage et le bris de glace](06-demarrage.md#lamorçage-et-le-bris-de-glace)
+   - [Les trois secours](06-demarrage.md#les-trois-secours)
 7. [Les secrets et le chiffrement](07-secrets.md)
    - [Le patron unique des secrets](07-secrets.md#le-patron-unique-des-secrets)
    - [La rotation des clés](07-secrets.md#la-rotation-des-clés)
@@ -135,7 +136,7 @@ ce chapitre.
 
 | Le temps | Ce que fait le moteur | Où le lire |
 |---|---|---|
-| une version démarre | il l'ingère : il la contrôle, la convertit, migre les données, puis l'active | [le démarrage d'une version](02-ingestion.md), [la migration de version](03-migration.md) |
+| une version démarre | il l'ingère : il la contrôle dès le dépôt, la convertit, migre les données quand l'affluence est faible, puis l'active | [le démarrage d'une version](02-ingestion.md), [la migration de version](03-migration.md) |
 | une reprise s'exécute | un passage lit la source, contrôle, compare, puis reporte les différences ; il garde de quoi suivre la qualité | [l'exécution d'un passage](04-passage.md), [ce qu'un passage laisse](05-suivi.md) |
 | l'instance démarre | il vérifie qu'il peut servir sans risque, et offre un secours quand l'entrée est impossible | [le démarrage de l'instance](06-demarrage.md) |
 | l'application tourne | il protège les secrets, chiffre les échanges, et borne ce qui s'exécute | [les secrets et le chiffrement](07-secrets.md), [la disponibilité](08-disponibilite.md) |
@@ -192,13 +193,20 @@ différences dans l'entrepôt en une seule transaction.
 ### La taille du lot
 
 Un lot a une taille : le nombre de lignes lues ou écrites en une fois.
-Cette taille se paramètre (D2159), et trois valeurs la décrivent :
+Cette taille se paramètre (D2159), par la clé `lot_size:` (D2172). Trois
+valeurs la décrivent :
 
-| La taille du lot | Ce qu'elle veut dire |
+| `lot_size:` | Ce qu'elle veut dire |
 |---|---|
 | `1` | le traitement unitaire : une ligne à la fois |
-| `-1` | tout en une seule fois : un seul lot, quel que soit le nombre de lignes |
+| `-1`, la valeur par défaut | tout en une seule fois : un seul lot, quel que soit le nombre de lignes (D2173) |
 | un nombre `n` | des lots de `n` lignes |
+
+```yaml
+# La taille du lot
+# Le nombre de lignes lues ou écrites en une fois ; 1, ligne à ligne ; -1, tout en une seule fois, le défaut.
+lot_size: 2000
+```
 
 Les deux extrêmes ont chacun leur limite. Ligne à ligne, le traitement
 multiplie les échanges avec la base. Tout en une fois, il cesse d'être
@@ -208,11 +216,15 @@ existe une taille exploitable, et c'est elle qu'il faut pouvoir régler.
 
 Supposons une entité de trois millions de lignes :
 
-| La taille du lot | Le nombre de lots |
+| `lot_size:` | Le nombre de lots |
 |---|---|
 | `1` | trois millions, d'une ligne chacun |
 | `10000` | trois cents, de dix mille lignes chacun |
 | `-1` | un seul, de trois millions de lignes |
+
+Le concepteur n'écrit donc la clé que là où le volume le demande. Une
+entité qui ne la déclare pas se traite tout en une seule fois : sur
+quelques milliers de lignes, c'est le plus simple, et le plus rapide.
 
 La taille du lot règle le nombre de lignes par échange avec la base.
 Elle ne change pas la transaction : un passage reporte toujours ses
@@ -221,13 +233,13 @@ différences en une transaction, en un ou plusieurs lots (D1041, D2162).
 ### Une taille par entité
 
 Toutes les entités ne se valent pas : une ligne de quelques champs pèse
-peu, une ligne de plus de cent champs pèse lourd. La taille du lot se
-déclare donc par entité (D2160), à l'un de ces deux endroits :
+peu, une ligne de plus de cent champs pèse lourd. `lot_size:` s'écrit
+donc à l'entête d'une entité (D2160), à l'un de ces deux endroits :
 
-| Où elle se déclare | Ce qu'elle règle |
-|---|---|
-| à une entité de la source | la lecture de cette table, pendant un passage |
-| à une entité du modèle | le traitement en masse de cette entité, dans l'application |
+| Où elle se déclare | Ce qu'elle règle | Où le lire |
+|---|---|---|
+| à une entité de la source | la lecture de cette table, pendant un passage | [la description d'une entité source](../08-migration/03-sources.md#la-description-dune-entité-source) |
+| à une entité du modèle | le traitement en masse de cette entité, dans l'application | [l'entité](../02-modele/02-entite.md) |
 
 Ce qui guide le choix de la taille :
 
@@ -239,20 +251,6 @@ Ce qui guide le choix de la taille :
 Dans l'entrepôt (le cas 5), les tables de PMI n'ont pas la même
 largeur. La table `TARIF` a 15 colonnes : elle supporte de grands lots.
 La table `ARTICLE` en a 181 : elle demande des lots plus modestes.
-
-La clé s'appelle `lot_size:`, et s'écrit à l'entête de l'entité
-(D2172). Une illustration, sur une entité aux colonnes nombreuses :
-
-```yaml
-# La taille du lot
-# Le nombre de lignes lues ou écrites en une fois ; 1, ligne à ligne ; -1, tout en une seule fois, le défaut.
-lot_size: 2000
-```
-
-Une entité qui ne déclare pas `lot_size:` se traite tout en une seule
-fois, comme avec `-1` (D2173). Le concepteur n'écrit donc la clé que là
-où le volume le demande : sur les entités de plusieurs millions de
-lignes, un seul lot n'est plus assez économe.
 
 ## Ce qui quitte le chapitre
 
@@ -271,9 +269,10 @@ ailleurs :
 - **vers le chapitre 11, la télémétrie** : la détection après coup des
   usages anormaux (D43, D1786) ;
 - **vers le chapitre 13, les API** : la compatibilité vue de l'API, les
-  versions servies, la limite des appels du côté du technicien, et le
+  versions servies, la limite des appels du côté du technicien, le
   volet d'une règle d'`exchange/` qui sert une API d'une autre version
-  (D1996).
+  (D1996), et l'abonnement d'une application à un type d'événement, ses
+  routes et la liste des types (D2171).
 
 Deux sujets voisins sont déjà écrits : ce que le concepteur écrit pour
 une migration, au [chapitre 8](../08-migration/README.md) ; l'intégrité
@@ -291,5 +290,5 @@ moteur », constituée à son ouverture, le 23/11/2026 (D2129). Il vient de deux
 artefacts préparatoires : `administration.md`, pour ce que les chapitres 7 et 8
 y avaient envoyé (D1824, D2033), et `migration.md`, pour l'exécution d'un
 passage (D1028) ; tous deux restent en place jusqu'au chapitre 10 (D2010).
-Elles sont 130 décisions au registre :
-D7–D10, D33, D81, D93, D326–D332, D344, D631, D672, D674–D679, D705–D708, D718, D730, D745, D801, D861–D862, D901–D902, D915–D916, D918–D922, D927–D928, D933, D944, D1032–D1034, D1036–D1037, D1040–D1041, D1043, D1046–D1057, D1059–D1060, D1065, D1068, D1077, D1079–D1080, D1920, D1928, D1952, D1954–D1955, D1974–D1975, D1977–D1979, D1994, D2134–D2149, D2151–D2180.
+Elles sont 131 décisions au registre :
+D7–D10, D33, D81, D93, D326–D332, D344, D631, D672, D674–D679, D705–D708, D718, D730, D745, D801, D861–D862, D901–D902, D915–D916, D918–D922, D927–D928, D933, D944, D1032–D1034, D1036–D1037, D1040–D1041, D1043, D1046–D1057, D1059–D1060, D1065, D1068, D1077, D1079–D1080, D1920, D1928, D1952, D1954–D1955, D1974–D1975, D1977–D1979, D1994, D2134–D2149, D2151–D2181.

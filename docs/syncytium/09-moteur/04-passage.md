@@ -9,10 +9,11 @@ source, les règles, les contrôles. Tout cela reste immobile tant que
 `migrate` n'est pas lancé. Ce fichier dit ce qui se passe alors, d'un
 bout à l'autre d'un passage : son déroulé, la lecture de la source, les
 phases de contrôle en marche, la base miroir et sa transaction, le
-contrôle d'intégrité, la comparaison et la bascule, le cache, la règle
-d'un seul passage à la fois, et une alternative aux passages, le double
-fonctionnement. Ce qu'un passage garde après lui est
-dans [le fichier suivant](05-suivi.md). Les décisions citées entre
+contrôle d'intégrité, la comparaison, puis la bascule et le mode pause
+qu'elle demande. Viennent ensuite le cache, la règle d'un seul passage
+à la fois, et une alternative aux passages, le double fonctionnement.
+Ce qu'un passage garde après lui est dans
+[le fichier suivant](05-suivi.md). Les décisions citées entre
 parenthèses renvoient au [registre](../../conception.md).
 
 ## Le sommaire
@@ -22,6 +23,7 @@ parenthèses renvoient au [registre](../../conception.md).
   - [Le modèle lu](#le-modèle-lu)
   - [Le filtre](#le-filtre)
   - [La partition et la dernière valeur parcourue](#la-partition-et-la-dernière-valeur-parcourue)
+  - [La lecture par lots](#la-lecture-par-lots)
 - [Les cinq phases, en marche](#les-cinq-phases-en-marche)
   - [Ce qui vaut pour toutes](#ce-qui-vaut-pour-toutes)
   - [Ce qui tombe, et quand](#ce-qui-tombe-et-quand)
@@ -148,6 +150,23 @@ Trois règles en découlent :
 - **la base miroir ne reçoit que la plage relue**. Un enregistrement
   non relu, qu'une référence désigne, y est recopié depuis la base de
   l'application (D1044).
+
+### La lecture par lots
+
+La plage relue ne se lit pas ligne à ligne : le moteur la lit par lots
+(D2158). La taille du lot se règle à l'entité source, par `lot_size:`
+(D2160, D2172) :
+
+| `lot_size:` | Ce que le passage fait |
+|---|---|
+| absent, ou `-1` | il lit la plage en une seule fois (D2173) |
+| un nombre | il la lit par lots de ce nombre de lignes |
+| `1` | il la lit ligne à ligne |
+
+Dans l'entrepôt, la table des mouvements de stock a 34 colonnes et des
+millions de lignes : c'est là qu'une taille de lot s'écrit. Une table
+de quelques milliers de lignes s'en passe. Voir
+[le traitement en masse](README.md#le-traitement-en-masse).
 
 ## Les cinq phases, en marche
 
@@ -282,6 +301,11 @@ attend donc (D1954, D1956) :
   les deux enregistrements qui portent la même clé tombent, et
   l'anomalie les nomme tous les deux (D2164).
 
+Reprenons l'exemple du chapitre 8, les factures d'octobre de Dupont et
+de Martin. Si, à la fin de la lecture, toutes deux portent encore le
+numéro F-0042, aucune n'entre : rien ne dit laquelle a raison, et la
+source est à corriger.
+
 ## La comparaison et la bascule
 
 ### Les cinq blocs
@@ -346,21 +370,28 @@ La suppression se joue sur la partition relue (D1052) :
 
 ### La bascule
 
-Les différences sont reportées dans la base de l'application en une
-seule transaction (D1041). C'est le seul moment où l'existant change,
-et le seul qui ne s'interrompt pas.
-
 > **Le mode pause** est l'état de Syncytium le temps de la bascule d'un
 > passage : les tâches, les lectures et les écritures sont arrêtées
 > ([glossaire](../../glossaire.md)).
 
+Les différences sont reportées dans la base de l'application en une
+seule transaction (D1041). C'est le seul moment où l'existant change,
+et le seul qui ne s'interrompt pas. Jusque-là, le passage a construit
+la reprise à part, dans la base miroir, sans gêner personne.
+
 Une reprise ne crée pas de nouvelle instance : elle modifie l'instance
 courante (D2144). Pour basculer, Syncytium passe donc en mode pause
-(D2142). La pause arrête trois choses (D2143) :
+(D2142), le temps de la seule bascule. La pause arrête trois choses
+(D2143) :
 
 - les tâches ;
 - les lectures ;
 - les écritures.
+
+Arrêter les lectures et les écritures garantit que la transaction des
+mises à jour reste cohérente d'un bout à l'autre (D2144) : personne ne
+lit une donnée à moitié reportée, personne n'écrit pendant qu'elle se
+reporte.
 
 Les gestes, dans l'ordre :
 
@@ -374,14 +405,6 @@ Les gestes, dans l'ordre :
 Une demande arrivée pendant la pause n'est pas refusée : elle est mise
 en attente (D2146), et servie quand la suite reprend.
 
-Arrêter les lectures et les écritures garantit que la transaction des
-mises à jour reste cohérente d'un bout à l'autre (D2144) : personne ne
-lit une donnée à moitié reportée, personne n'écrit pendant qu'elle se
-reporte.
-
-Jusque-là, le passage a construit la reprise à part, dans la base
-miroir, sans gêner personne. La pause ne vaut donc que pour la bascule.
-
 Ex. : dans l'entrepôt (le cas 5), le delta de la nuit est prêt à
 basculer alors qu'une génération de documents tourne encore. Le moteur
 attend sa fin. Il met en pause l'envoi de mails qui la suivait dans la
@@ -390,11 +413,15 @@ en attente. Il reporte les différences. Puis tout repart : l'envoi, et
 les demandes qui attendaient.
 
 Le mode pause est propre à la bascule d'un passage de reprise (D2143).
-Une migration de version se conduit autrement. Elle ne modifie pas
-l'instance courante : elle en prépare une nouvelle, puis change de
-pointeur. Elle met les tâches en pause avant de démarrer, et l'activité
-continue. Voir
-[pendant la migration](03-migration.md#pendant-la-migration).
+Une migration de version se conduit autrement :
+
+| | La bascule d'un passage de reprise | La bascule d'une migration de version |
+|---|---|---|
+| ce qui change | l'instance courante, modifiée en une transaction | le pointeur, vers une nouvelle instance préparée à part |
+| les tâches | en pause le temps de la bascule | en pause dès le démarrage de la migration |
+| les lectures et les écritures | arrêtées le temps de la bascule ; les demandes attendent | elles continuent ; les écritures sont rejouées dans la nouvelle instance |
+
+Voir [pendant la migration](03-migration.md#pendant-la-migration).
 
 Quand un legacy bascule vers Syncytium, une alternative à ces passages
 existe : voir

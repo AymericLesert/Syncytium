@@ -9,11 +9,13 @@ Avant de servir le premier écran, le moteur s'assure qu'il peut le
 faire sans risque : ses secrets sont chiffrés, il est servi en HTTPS,
 il sait alerter l'administrateur, et la base est à la version qu'il
 attend. Si une de ces vérifications échoue, il ne démarre pas, et il
-dit pourquoi. Reste un cas à part : celui où ce qui manque est
-justement ce qui permet d'entrer, l'annuaire ou l'authentification.
-Trois secours y répondent. Ce fichier suit donc les vérifications du
-démarrage, l'arrêt de l'application et le redémarrage qui suit un arrêt
-brutal, puis le mode safe, l'amorçage et le bris de glace. Les
+dit pourquoi. Un moteur s'arrête aussi, parfois sans prévenir : il lui
+faut alors redémarrer proprement. Reste un cas à part : celui où ce qui
+manque est justement ce qui permet d'entrer, l'annuaire ou
+l'authentification. Trois secours y répondent, par un même compte. Ce
+fichier suit donc les vérifications du démarrage, l'arrêt de
+l'application et le redémarrage qui suit un arrêt brutal, puis les
+trois secours : l'amorçage, le bris de glace et le mode safe. Les
 décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).
 
@@ -27,14 +29,11 @@ décisions citées entre parenthèses renvoient au
   - [L'arrêt demandé](#larrêt-demandé)
   - [La position de repli](#la-position-de-repli)
   - [Le redémarrage après un arrêt brutal](#le-redémarrage-après-un-arrêt-brutal)
-- [Le mode safe](#le-mode-safe)
-  - [La porte de secours](#la-porte-de-secours)
-  - [Les conditions indispensables, suspendues](#les-conditions-indispensables-suspendues)
-- [L'amorçage et le bris de glace](#lamorçage-et-le-bris-de-glace)
+- [Les trois secours](#les-trois-secours)
   - [Le compte de secours](#le-compte-de-secours)
   - [L'amorçage](#lamorçage)
   - [Le bris de glace](#le-bris-de-glace)
-  - [Les trois secours](#les-trois-secours)
+  - [Le mode safe](#le-mode-safe)
 
 ## Les vérifications du démarrage
 
@@ -177,7 +176,8 @@ migration de ses données est en cours. Au redémarrage :
 - le moteur signale l'arrêt brutal à l'administrateur ;
 - il supprime le dossier interne de la 1.0.0.2, resté incomplet ;
 - il supprime la nouvelle instance, que la migration construisait ;
-- il relance l'ingestion de la 1.0.0.2, depuis son début ;
+- il relance l'ingestion de la 1.0.0.2, depuis son début : sa migration
+  attendra de nouveau une période de faible affluence ;
 - pendant ce temps, l'entrepôt sert la 1.0.0.1 : elle n'a pas été
   touchée.
 
@@ -189,40 +189,20 @@ l'estampille, qui dit où en est la base, et sans laquelle il ne sert
 pas (D93) ; la forme compilée de la description, prête à l'emploi
 (D329).
 
-## Le mode safe
+## Les trois secours
 
-> **Le mode safe** est un mode d'exécution choisi au lancement de
-> l'application : le module d'administration seul, ouvert au compte
-> administrateur principal ([glossaire](../../glossaire.md)).
+Il arrive que plus personne ne puisse entrer : l'application est neuve
+et n'a pas encore d'administrateur, l'authentification ne répond plus,
+ou les droits ont été verrouillés par erreur. Syncytium prévoit trois
+secours, un par situation :
 
-### La porte de secours
+| Le secours | La situation | Ce qu'il ouvre |
+|---|---|---|
+| l'amorçage | aucun compte administrateur n'existe | l'application en service |
+| le bris de glace | l'authentification ne répond plus | l'application en service |
+| le mode safe | l'annuaire, le SSO ou les droits sont hors d'usage | le module d'administration seul, au lancement |
 
-L'annuaire est injoignable, le SSO est cassé, ou les droits ont été
-verrouillés par erreur : plus personne n'entre, pas même pour réparer.
-Le mode safe est la porte de secours de cette situation (D718) :
-
-| Ce qui le caractérise | Le détail |
-|---|---|
-| quand il se choisit | au lancement de l'application ; il n'est jamais atteignable depuis l'application en service |
-| ce qu'il sert | le module d'administration seul : aucune donnée métier |
-| qui y entre | le compte de secours, avec son mot de passe : voir [le compte de secours](#le-compte-de-secours) |
-| où vit ce mot de passe | dans les variables d'environnement : hors de l'annuaire, hors de la configuration versionnée |
-| ce qu'il laisse | une trace à l'audit, et au journal |
-
-Une porte de secours n'est jamais une porte dérobée : le mode safe est
-toujours tracé.
-
-### Les conditions indispensables, suspendues
-
-Le mode safe désactive toutes les conditions indispensables (D745).
-L'envoi d'un mail n'y est plus exigé pour démarrer : c'est le seul mode
-qui en soit exempté. Il sert précisément quand le reste manque.
-
-## L'amorçage et le bris de glace
-
-Deux autres secours vivent dans l'application en service. Ils ne
-tiennent pas à un mode de lancement, mais au même compte que le mode
-safe : le compte de secours.
+Les trois s'ouvrent par le même compte : le compte de secours (D2163).
 
 ### Le compte de secours
 
@@ -230,9 +210,8 @@ safe : le compte de secours.
 > l'application quand aucune autre entrée n'est possible
 > ([glossaire](../../glossaire.md)).
 
-Il n'y en a qu'un, et il sert les trois secours : l'amorçage, le bris
-de glace et le mode safe (D2163). Son mot de passe vit dans les
-variables d'environnement :
+Il n'y en a qu'un (D2163). Son mot de passe vit dans les variables
+d'environnement :
 
 - **hors de l'annuaire** : le compte ne dépend d'aucun connecteur
   externe ;
@@ -272,15 +251,29 @@ d'authentification ne répond plus (D81) :
 - son activation est auditée, et elle déclenche une alerte : c'est un
   événement de sécurité fort.
 
-### Les trois secours
+### Le mode safe
 
-| Le secours | La situation | Ce qu'il ouvre |
-|---|---|---|
-| l'amorçage | aucun compte administrateur n'existe | l'application en service |
-| le bris de glace | l'authentification ne répond plus | l'application en service |
-| le mode safe | l'annuaire, le SSO ou les droits sont hors d'usage | le module d'administration seul, au lancement |
+> **Le mode safe** est un mode d'exécution choisi au lancement de
+> l'application : le module d'administration seul, ouvert au compte de
+> secours ([glossaire](../../glossaire.md)).
 
-Les trois s'ouvrent par le même compte de secours (D2163).
+L'annuaire est injoignable, le SSO est cassé, ou les droits ont été
+verrouillés par erreur : plus personne n'entre, pas même pour réparer.
+Le mode safe est la porte de secours de cette situation (D718) :
+
+| Ce qui le caractérise | Le détail |
+|---|---|
+| quand il se choisit | au lancement de l'application ; il n'est jamais atteignable depuis l'application en service |
+| ce qu'il sert | le module d'administration seul : aucune donnée métier |
+| qui y entre | le compte de secours, avec son mot de passe |
+| ce qu'il laisse | une trace à l'audit, et au journal |
+
+Une porte de secours n'est jamais une porte dérobée : le mode safe est
+toujours tracé.
+
+Le mode safe désactive toutes les conditions indispensables (D745).
+L'envoi d'un mail n'y est plus exigé pour démarrer : c'est le seul mode
+qui en soit exempté. Il sert précisément quand le reste manque.
 
 Le quotidien des comptes, l'invitation, le mot de passe oublié, le
 verrouillage, relève de l'administration : il est au chapitre 10.

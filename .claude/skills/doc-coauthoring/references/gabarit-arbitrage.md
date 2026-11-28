@@ -1,6 +1,8 @@
 # Le gabarit de la page des arbitrages
 
-Le modèle est `docs/arbitrages-chapitre-9.md` (D2130). La page vit à
+Le modèle a été `docs/arbitrages-chapitre-9.md` (D2130), retirée à la réécriture
+du chapitre 9, ses quinze points clos (D2181) : l'historique du dépôt la
+garde. La page vit à
 `docs/arbitrages-chapitre-<n>.md`, hors du dossier du chapitre : elle
 accompagne l'échange, elle n'est pas de la documentation.
 

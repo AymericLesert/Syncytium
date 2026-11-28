@@ -12,10 +12,11 @@ celui qui corrige les données à l'origine, qui veut savoir ce qui a été
 refusé, et pourquoi. Ce fichier suit ce que le moteur garde pour eux :
 la table des clés d'origine, les versions du modèle lu, la ligne
 d'exécution, ses compteurs et ses indicateurs, les anomalies, leur
-détail, et les rapports. Le détail des anomalies vit dans des fichiers ;
-le reste vit en base, dans le module `_migration`, dont les entités et
-les surfaces seront décrites au chapitre 10 (D2010, D2164). Les
-décisions citées entre parenthèses renvoient au
+détail, et les rapports. Tout ne se garde pas au même endroit. Les
+statistiques et les indicateurs vivent en base, dans le module
+`_migration`, dont les entités et les surfaces seront décrites au
+chapitre 10 (D2010). Le détail des anomalies, lui, vit dans des
+fichiers (D2164). Les décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).
 
 ## Le sommaire
@@ -32,6 +33,10 @@ décisions citées entre parenthèses renvoient au
   - [Deux familles](#deux-familles)
   - [Un fait daté](#un-fait-daté)
 - [Le détail et sa rétention](#le-détail-et-sa-rétention)
+  - [Deux endroits, deux raisons](#deux-endroits-deux-raisons)
+  - [Le fichier de détail](#le-fichier-de-détail)
+  - [La rétention et la purge](#la-rétention-et-la-purge)
+  - [La copie d'un environnement](#la-copie-dun-environnement)
 - [Les rapports](#les-rapports)
   - [La consolidation](#la-consolidation)
   - [Qui reçoit quoi, par défaut](#qui-reçoit-quoi-par-défaut)
@@ -185,7 +190,7 @@ volume et son usage (D2164) :
 | les statistiques et les indicateurs : la ligne d'exécution, ses compteurs, ses indicateurs | en base, dans le module `_migration` | sans délai (D1068) |
 | la table des clés d'origine | en base, dans le module `_migration` | autant que la migration |
 
-Trois règles expliquent ce partage :
+### Deux endroits, deux raisons
 
 - **le détail peut être très volumineux** : une entrée par erreur, sur
   des tables de plusieurs millions de lignes. Il n'encombre pas la
@@ -193,30 +198,32 @@ Trois règles expliquent ce partage :
   [le dossier interne](02-ingestion.md#le-dossier-interne) ;
 - **les statistiques et les indicateurs matérialisent l'historique** :
   ils restent en base, où les surfaces du module les lisent, passage
-  après passage ;
-- **la purge supprime les fichiers**. Elle se fait à chaque début de
-  journée, pour les passages dont la rétention est échue (D1894).
+  après passage.
 
-Le détail vit dans un fichier au format d'un journal (D2171) :
+### Le fichier de détail
 
-- **pendant la migration**, le moteur y écrit les anomalies, au fil du
-  passage ;
-- **après la migration**, le fichier est chiffré. La rotation des clés
-  le rechiffre, comme tout ce que l'instance tient chiffré ;
-- **à la consultation**, par le module d'administration, le fichier est
-  déchiffré avant l'affichage du détail.
+Le détail vit dans un fichier au format d'un journal (D2171). Sa vie
+tient en trois moments :
 
-Avec quatre-vingt-dix jours de rétention, les fichiers de détail d'un
-passage du 1ᵉʳ mars sont supprimés le 30 mai. Sa ligne d'exécution, ses
-compteurs et ses indicateurs restent.
+| Le moment | Ce que devient le fichier |
+|---|---|
+| pendant la migration | le moteur y écrit les anomalies, au fil du passage |
+| après la migration | il est chiffré ; la rotation des clés le rechiffre, comme tout ce que l'instance tient chiffré |
+| à la consultation, par le module d'administration | il est déchiffré avant l'affichage du détail |
 
-À la copie d'un environnement, le détail des anomalies n'est pas copié
-(D2180). La copie emporte la base : la cible reçoit donc les
-statistiques et les indicateurs, sans les fichiers de détail. Dans
-l'entrepôt, le staging copié depuis la production connaît le nombre
-d'anomalies de chaque passage, pas leur liste.
+Les données personnelles du détail suivent deux règles (D1065) :
 
-Dans l'entrepôt, la production garde le détail quatre-vingt-dix jours :
+- le rapport envoyé par mail anonymise les valeurs des champs marqués
+  `rgpd:` (D696) ;
+- les interfaces du module montrent les valeurs complètes, sous les
+  droits de chacun.
+
+### La rétention et la purge
+
+Le détail se garde le temps de `retention:`, puis la purge supprime ses
+fichiers. Elle se fait à chaque début de journée, pour les passages
+dont la rétention est échue (D1894). Dans l'entrepôt, la production
+garde le détail quatre-vingt-dix jours :
 
 ```yaml
 # La base miroir
@@ -234,12 +241,17 @@ mirror:
   retention: 90d
 ```
 
-Les données personnelles du détail suivent deux règles (D1065) :
+Avec ces quatre-vingt-dix jours, les fichiers de détail d'un passage du
+1ᵉʳ mars sont supprimés le 30 mai. Sa ligne d'exécution, ses compteurs
+et ses indicateurs restent.
 
-- le rapport envoyé par mail anonymise les valeurs des champs marqués
-  `rgpd:` (D696) ;
-- les interfaces du module montrent les valeurs complètes, sous les
-  droits de chacun.
+### La copie d'un environnement
+
+À la copie d'un environnement, le détail des anomalies n'est pas copié
+(D2180). La copie emporte la base : la cible reçoit donc les
+statistiques et les indicateurs, sans les fichiers de détail. Dans
+l'entrepôt, le staging copié depuis la production connaît le nombre
+d'anomalies de chaque passage, pas leur liste.
 
 ## Les rapports
 

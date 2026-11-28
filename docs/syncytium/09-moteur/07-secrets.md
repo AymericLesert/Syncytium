@@ -9,10 +9,11 @@ messagerie : elle détient donc des mots de passe. Elle est servie à des
 navigateurs, et appelle d'autres systèmes : ses échanges peuvent être
 écoutés. Le moteur répond à ces deux risques par des règles simples,
 qu'aucune configuration ne peut assouplir. Ce fichier les suit : le
-patron unique des secrets, la rotation des clés, le chiffrement en
-transit, ce que le moteur sert au navigateur, et le chiffrement au
-repos. Les décisions citées entre parenthèses renvoient au
-[registre](../../conception.md).
+patron unique des secrets, avec les trois gardes qui refusent une
+valeur en clair ; la rotation des clés ; le chiffrement en transit, que
+le reverse proxy assure ; ce que le moteur sert au navigateur ; et le
+chiffrement au repos. Les décisions citées entre parenthèses renvoient
+au [registre](../../conception.md).
 
 ## Le sommaire
 
@@ -44,7 +45,9 @@ configuration à l'appel qui s'en sert (D603, D707) :
 | l'usage | le moteur déchiffre à l'usage : la valeur en clair ne vit qu'en mémoire, le temps de l'appel |
 
 Le périmètre est le même partout : les clés d'API, les mots de passe
-des connecteurs, les clés des types chiffrants.
+des connecteurs, les clés des types chiffrants, et le mot de passe du
+compte de secours (D2164) : voir
+[le compte de secours](06-demarrage.md#le-compte-de-secours).
 
 ### La marque `*` et la variable
 

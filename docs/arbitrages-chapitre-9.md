@@ -7,8 +7,8 @@ que les vrais arbitrages : deux décisions qui se contredisent, un manque,
 une lecture jamais confirmée. Chacun se pose par un exemple, des réponses
 numérotées et une recommandation. Tout le reste est tranché d'après le
 registre et marqué mien (D2130). Les points 8 à 12 sont des manques que
-la relecture de l'auteur a ouverts (D2162) : ils sont à traiter, et
-chacun se posera par un exemple quand l'auteur l'ouvrira. Le point 13
+la relecture de l'auteur a ouverts (D2162) ; ils sont présentés depuis
+le 28/11/2026 (D2170). Le point 13
 vient de l'arbitrage 5 (D2164), le point 14 de l'arbitrage 2 (D2168).
 La page se retire quand ses quatorze points sont clos.*
 
@@ -293,13 +293,36 @@ facette de la description du modèle, et une option du connecteur.
 
 *Où.* [Une taille par entité](syncytium/09-moteur/README.md#une-taille-par-entité).
 
+*L'exemple.* Dans l'entrepôt, la table `MVTSTO` de PMI a 34 colonnes et
+des millions de lignes ; la table `ARTICLE` en a 181. Le concepteur veut
+de grands lots pour la première, de plus modestes pour la seconde.
+
 *Le manque.* La taille du lot se déclare par entité, de la source ou du
 modèle (D2160). **<u>Le chapitre ne nomme pas la clé, et ne dit pas la
 taille d'une entité qui ne déclare rien.</u>**
 
+*La question.* Je propose la clé `batch:`, à l'entête de l'entité, à
+côté de `partition:` : `batch: 1`, `batch: -1`, `batch: 20000`. Et sans
+cette clé, quelle taille ?
+
+1. La classe du storage décide : chacune connaît son mécanisme de masse
+   (D688). C'est déjà la règle de `partition:` sans déclaration.
+2. Tout en une fois : `-1`.
+3. Une valeur du socle, réglable dans les paramètres d'administration.
+
+*Ma recommandation.* `batch:`, et la réponse 1 : la bonne taille tient
+autant à la base qu'à l'entité, et la classe est la seule à connaître la
+base.
+
 ## 9. La déclaration du reverse proxy
 
 *Où.* [Ce que Syncytium sert](syncytium/09-moteur/07-secrets.md#ce-que-syncytium-sert).
+
+*L'exemple.* L'entrepôt tourne sur des serveurs : l'équipe
+d'administration assure le reverse proxy. La banque tourne sur un poste
+informatique domestique : Syncytium installe le sien et le démarre.
+Leurs fichiers d'environnement portent tous deux `listen:`, l'adresse et
+le port servis.
 
 *Le manque.* Un reverse proxy assure le HTTPS partout, et celui de
 Syncytium est une fonctionnalité optionnelle (D2155). L'écriture de sa
@@ -307,48 +330,156 @@ déclaration est en proposition depuis D919. **<u>Le chapitre ne dit pas
 comment un environnement déclare son reverse proxy, ni comment il
 demande celui de Syncytium.</u>**
 
+*La question.* Je propose une clé `proxy:`, sous `listen:`. Qui
+l'écrit ?
+
+1. Les deux environnements, toujours : `proxy: external` dans
+   l'entrepôt, `proxy: embedded` dans la banque. Sans la clé, une erreur
+   d'ingestion.
+2. La banque seule : `proxy: embedded` demande celui de Syncytium. Sans
+   la clé, un autre l'assure.
+3. L'entrepôt seul : `proxy: external` dit qu'un autre l'assure. Sans la
+   clé, Syncytium installe le sien.
+
+*Ma recommandation.* La réponse 2 : une fonctionnalité optionnelle se
+demande. Sur un poste informatique domestique, l'initialisation écrit la
+clé (D729). Si la clé manque et qu'aucun reverse proxy n'est là, le
+moteur refuse de démarrer, et dit pourquoi (D919).
+
 ## 10. Le dossier interne
 
 *Où.* [Le dossier interne](syncytium/09-moteur/02-ingestion.md#le-dossier-interne).
 
-*Le manque.* Tout ce que le moteur génère pour une version vit dans un
-dossier interne à l'application (D2154). **<u>Le chapitre ne dit ni son
-nom, ni son emplacement, ni si un environnement peut le placer
-ailleurs.</u>**
+*L'exemple.* Dans l'entrepôt, en production, le dossier interne reçoit
+la forme compilée de chaque version, et quatre-vingt-dix jours de
+fichiers de détail des anomalies, sur des tables de plusieurs millions
+de lignes. Il peut devenir volumineux.
+
+*Le manque.* Tout ce que le moteur génère vit dans un dossier interne à
+l'application, ni versionné, ni poussé sur un git (D2154, D2164).
+**<u>Le chapitre ne dit ni son nom, ni son emplacement, ni si un
+environnement peut le placer ailleurs.</u>**
+
+*La question.* Où est le dossier interne de la production ?
+
+1. À un emplacement fixe, à côté du fichier des variables de
+   l'environnement, qui n'est pas versionné non plus. Rien ne se
+   déclare.
+2. Au même emplacement par défaut, mais une clé de l'environnement peut
+   le placer ailleurs, par une variable du déploiement : un autre disque,
+   un volume sauvegardé.
+
+*Ma recommandation.* La réponse 2, avec la clé `internal:` : le volume
+du détail des anomalies demande de pouvoir choisir le disque, et un
+chemin tient au déploiement, comme `listen:`.
 
 ## 11. L'annonce de la bascule aux applications abonnées
 
 *Où.* [Les lecteurs externes de la base](syncytium/09-moteur/03-migration.md#les-lecteurs-externes-de-la-base).
 
+*L'exemple.* Dans l'entrepôt, un rapport Power BI et une application
+tierce lisent la base sans passer par Syncytium (D1260). La 1.0.0.1
+bascule : l'application tierce doit en être prévenue, avec les écarts
+entre les deux versions.
+
 *Le manque.* À la bascule, Syncytium annonce le changement : à
 l'administrateur par le mail des faits marquants, aux applications
-abonnées par un webhook sortant (D2139). **<u>Le chapitre ne dit pas
-comment une application s'abonne à cette annonce.</u>**
+abonnées par un webhook sortant (D2139). Or le connecteur `webhook` ne
+sort pas : il ne déclare que des entrées (D640). **<u>Le chapitre ne dit
+pas comment une application s'abonne à cette annonce.</u>**
+
+*La question.* Comment l'application tierce s'abonne-t-elle ?
+
+1. Par le fichier de l'environnement : l'administrateur y liste les
+   adresses à prévenir, chacune avec son secret. C'est la manière des
+   origines autorisées, `cors:` (D918).
+2. Par l'API : l'application s'abonne elle-même, avec son compte
+   technique ; la liste vit en base.
+3. Par un canal de notification (D108, D109) : un canal de classe
+   webhook, déclaré dans la description, dont les applications sont les
+   destinataires.
+
+*Ma recommandation.* La réponse 1 : savoir qui lit la base est un fait
+du déploiement, et l'administrateur doit le voir d'un coup d'œil.
 
 ## 12. Un nom stable demandé à une classe qui n'en publie pas
 
 *Où.* [Le nom stable](syncytium/05-connecteurs/05-storage.md#le-nom-stable).
+
+*L'exemple.* Dans l'entrepôt, la base miroir `temporaire` est de classe
+`memory`. Supposons que le concepteur y écrive `alias: entrepot_bi` : une
+base en mémoire ne peut pas publier un nom qu'un rapport lirait.
 
 *Le manque.* Le nom stable est une option du connecteur, demandée par
 `alias:` (D2139, D2140). **<u>Rien ne dit ce que fait l'ingestion quand
 `alias:` est écrit sur une classe de storage qui ne sait pas publier de
 nom stable.</u>**
 
+*La question.* Que fait l'ingestion ?
+
+1. Une erreur, qui nomme le connecteur et sa classe : la version n'est
+   pas servie.
+2. Un avertissement au journal : l'application démarre, et aucun nom
+   stable n'est publié.
+3. Le cas n'existe pas : le contrat impose à toute classe de savoir
+   publier un nom stable.
+
+*Ma recommandation.* La réponse 1 : une clé ignorée en silence laisserait
+le rapport se casser sans que personne le sache. Rien ne s'ignore, rien
+ne se devine (D928).
+
 ## 13. Les fichiers du détail des anomalies
 
 *Où.* [Le détail et sa rétention](syncytium/09-moteur/05-suivi.md#le-détail-et-sa-rétention).
 
-*Le manque.* Le détail des anomalies vit dans des fichiers du dossier
-interne (D2164). Auparavant, un fichier par passage était chiffré
-(D1067), puis le détail, passé en base, suivait la protection de la base
-(D1893). **<u>Le chapitre ne dit ni le format de ces fichiers, ni leur
-protection, ni s'ils suivent la copie d'un environnement (D1894).</u>**
+*L'exemple.* Dans l'entrepôt, le passage de la nuit refuse des lignes de
+commandes : le détail de ces anomalies porte des valeurs réelles, dont
+des données personnelles (D1065). Il vit dans des fichiers du dossier
+interne (D2164).
+
+*Le manque.* Quand le détail était un fichier, trois décisions le
+réglaient : un fichier SQLite par passage, daté par son nom (D1066) ; ce
+fichier chiffré, et rechiffré par la rotation des clés (D1067) ; une
+option de la copie d'un environnement pour l'emporter (D1080). Elles ont
+été retirées quand le détail est passé en base (D1893). **<u>Le chapitre
+ne dit ni le format de ces fichiers, ni leur protection, ni s'ils
+suivent la copie d'un environnement.</u>**
+
+*La question.* Le détail étant revenu dans des fichiers, ces trois
+décisions reviennent-elles ?
+
+1. Oui, toutes les trois : un fichier SQLite par passage, chiffré, que
+   la copie d'un environnement emporte sur option.
+2. Le format et le chiffrement reviennent ; à la copie d'un
+   environnement, le détail suit toujours (D1894).
+3. Autre chose : un autre format, ou des fichiers non chiffrés, protégés
+   par les seuls droits du dossier.
+
+*Ma recommandation.* La réponse 1 : les surfaces du module et les
+rapports doivent interroger le détail, ce qu'un fichier SQLite permet ;
+des valeurs réelles ne restent pas en clair ; et un détail volumineux ne
+se copie que si on le demande.
 
 ## 14. La clé qui demande la migration de la copie
 
 *Où.* [La migration de la copie](syncytium/09-moteur/02-ingestion.md#la-migration-de-la-copie-au-choix-du-concepteur).
 
+*L'exemple.* Dans l'entrepôt, la 1.0.0.1 est déposée dans
+`versions/beta/`, avec `from: v1.0.0.0`. Le concepteur veut, ou non, que
+la copie de la base soit migrée en 1.0.0.1.
+
 *Le manque.* La copie de l'origine est migrée si une clé de
 `version.yml`, à côté de `from:`, le demande (D2168). **<u>Le chapitre
 ne nomme pas cette clé, et ne dit pas ce qui vaut quand elle est
 absente.</u>**
+
+*La question.* Je propose la clé `migrate:`, un booléen. Et sans cette
+clé ?
+
+1. La copie seule : la migration est ce qui se demande, par
+   `migrate: true`. Les règles ascendantes délivrent les données.
+2. La migration : c'est la copie seule qui se demande, par
+   `migrate: false`.
+
+*Ma recommandation.* `migrate:`, et la réponse 1 : ce sont vos mots, la
+migration se joue « si demandée ».

@@ -45,6 +45,7 @@ renvoient au [registre](../../conception.md).
    - [La facette des types](05-storage.md#la-facette-des-types)
    - [La conversion au type](05-storage.md#la-conversion-au-type)
    - [La migration à chaud et l'orchestration](05-storage.md#la-migration-à-chaud-et-lorchestration)
+   - [Le nom stable](05-storage.md#le-nom-stable)
    - [Les storages de format et `memory`](05-storage.md#les-storages-de-format-et-memory)
 6. [Le hook de connecteur](06-hooks.md)
    - [Une classe dans une famille](06-hooks.md#une-classe-dans-une-famille)

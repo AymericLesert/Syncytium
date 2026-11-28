@@ -12,6 +12,7 @@ exports. Ce fichier développe son contrat, résumé dans
 - [La facette des types](#la-facette-des-types)
 - [La conversion au type](#la-conversion-au-type)
 - [La migration à chaud et l'orchestration](#la-migration-à-chaud-et-lorchestration)
+- [Le nom stable](#le-nom-stable)
 - [Les storages de format et `memory`](#les-storages-de-format-et-memory)
 
 ## Les quatre énoncés
@@ -140,6 +141,29 @@ l'accès aux données est géré et piloté par Syncytium, non par le storage
 directement. L'enregistrement est un type structuré propre à
 Syncytium, multi-storage ; le storage le convertit, jamais ne le
 définit (D683).
+
+## Le nom stable
+
+> **Le nom stable** est le nom, constant d'une version à l'autre, sous
+> lequel un storage publie l'instance en service, pour les lecteurs qui
+> ne passent pas par Syncytium ([glossaire](../../glossaire.md)).
+
+Une application tierce ou un outil de BI peut lire la base sans passer
+par Syncytium (D1260). Or chaque version a son instance, et la bascule
+change celle que Syncytium désigne. Le nom stable épargne ce changement
+au lecteur (D2139) :
+
+- **c'est une option du connecteur** : elle se déclare au connecteur
+  storage. Sans elle, aucun nom stable n'est publié. Sa clé, `alias:`,
+  est en proposition ;
+- **c'est une facette de la description du modèle** : les synonymes et
+  les vues du nom stable se déduisent de la description, comme la forme
+  de stockage. Personne ne les écrit dans la base ;
+- **il suit le pointeur** : à la bascule comme à la restauration, il
+  désigne l'instance en service.
+
+Le mécanisme est au chapitre 9,
+[les lecteurs externes de la base](../09-moteur/03-migration.md#les-lecteurs-externes-de-la-base).
 
 ## Les storages de format et `memory`
 

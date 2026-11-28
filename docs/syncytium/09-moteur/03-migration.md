@@ -31,6 +31,7 @@ parenthèses renvoient au [registre](../../conception.md).
   - [Avant de démarrer : les tâches](#avant-de-démarrer--les-tâches)
   - [L'activité continue](#lactivité-continue)
 - [La bascule](#la-bascule)
+  - [Les lecteurs externes de la base](#les-lecteurs-externes-de-la-base)
 - [Le retour en arrière](#le-retour-en-arrière)
   - [La rétention de la version antérieure](#la-rétention-de-la-version-antérieure)
   - [La restauration](#la-restauration)
@@ -316,10 +317,47 @@ Deux conséquences en découlent :
   est conservée le temps de
   [sa rétention](#la-rétention-de-la-version-antérieure).
 
+### Les lecteurs externes de la base
+
+> **Le nom stable** est le nom, constant d'une version à l'autre, sous
+> lequel un storage publie l'instance en service, pour les lecteurs qui
+> ne passent pas par Syncytium ([glossaire](../../glossaire.md)).
+
 Tous les lecteurs de la base ne passent pas par Syncytium : une
 application tierce, ou un outil de BI, peut lire directement le schéma
-que Syncytium a créé (D1260). Ceux-là doivent être informés du
-changement de pointeur (D2138). Le mécanisme est en proposition.
+que Syncytium a créé (D1260). Pour eux, la bascule change l'instance à
+lire : ils doivent en être informés (D2138). Deux mécanismes les
+servent, ensemble (D2139) :
+
+| Le mécanisme | Ce qu'il fait |
+|---|---|
+| un nom stable | le storage publie l'instance en service sous un nom qui ne change pas, par des synonymes et des vues ; la bascule et la restauration leur font suivre le pointeur |
+| une information | la bascule est annoncée, avec les écarts entre les deux versions : à l'administrateur, dans le mail des faits marquants ; aux applications tierces, par un webhook sortant |
+
+Les deux se complètent. Le nom stable porte le changement de pointeur :
+le lecteur ne touche pas à sa connexion. L'information porte ce que le
+nom stable ne règle pas : un champ renommé ou retiré change ce que le
+lecteur trouve, où qu'il se connecte.
+
+Rien de cela ne s'écrit à la main dans la base : tout est déclaration.
+
+- **le nom stable est une facette de la description du modèle** : ses
+  synonymes et ses vues se déduisent de la description, comme la forme
+  de stockage ;
+- **c'est une option du connecteur** : elle se déclare au connecteur
+  storage, et sans elle aucun nom stable n'est publié. Sa clé,
+  `alias:`, est en proposition. Voir
+  [le nom stable](../05-connecteurs/05-storage.md#le-nom-stable).
+
+Dans l'entrepôt (le cas 5), un rapport de BI lit les tiers par le nom
+stable. La version 1.0.0.1 bascule un mardi à dix heures : à dix heures
+une, le rapport lit l'instance de la 1.0.0.1, sans que sa connexion ait
+changé. L'annonce de la bascule dit à son auteur que le nom abrégé du
+tiers a été renommé.
+
+Une limite demeure : seule l'API garde la forme d'une version
+antérieure (D11–D13). Un lecteur qui ne veut subir aucun changement lit
+par elle.
 
 ## Le retour en arrière
 

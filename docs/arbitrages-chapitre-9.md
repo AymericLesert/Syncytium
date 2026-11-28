@@ -221,3 +221,6 @@ se casser en silence sur un champ renommé ; l'information seule demande
 un geste à chaque bascule. Une limite demeure : seule l'API garde la
 forme d'une version antérieure (D11–D13). Un lecteur qui ne veut subir
 aucun changement lit par elle.
+
+*Tranché (D2139).* La réponse 3, les deux. Le nom stable est une
+facette de la description du modèle, et une option du connecteur.

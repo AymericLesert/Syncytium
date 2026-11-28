@@ -12,9 +12,9 @@ dire ce que le moteur fait de ces données qui doivent changer de forme
 pendant que l'application sert. Ce fichier suit ce mécanisme : ce qui
 le déclenche, la comparaison qui décide de tout, les deux chemins
 qu'elle ouvre, leur issue, ce que deviennent les lectures et les
-écritures pendant ce temps, puis le retour en arrière, le changement de
-connecteur et le coût assumé. Les décisions citées entre parenthèses
-renvoient au [registre](../../conception.md).
+écritures pendant ce temps, puis la bascule, le retour en arrière, le
+changement de connecteur et le coût assumé. Les décisions citées entre
+parenthèses renvoient au [registre](../../conception.md).
 
 ## Le sommaire
 
@@ -28,10 +28,15 @@ renvoient au [registre](../../conception.md).
   - [Le défaut qui change](#le-défaut-qui-change)
   - [Le contrôle de la bijection](#le-contrôle-de-la-bijection)
 - [Pendant la migration](#pendant-la-migration)
+  - [Avant de démarrer : les tâches](#avant-de-démarrer--les-tâches)
+  - [L'activité continue](#lactivité-continue)
+- [La bascule](#la-bascule)
 - [Le retour en arrière](#le-retour-en-arrière)
-  - [Le délai de grâce](#le-délai-de-grâce)
+  - [La rétention de la version antérieure](#la-rétention-de-la-version-antérieure)
   - [La restauration](#la-restauration)
 - [Le changement de connecteur](#le-changement-de-connecteur)
+  - [Le contrat qui le rend possible](#le-contrat-qui-le-rend-possible)
+  - [La non-dépendance à une technologie](#la-non-dépendance-à-une-technologie)
 - [Ce que le mécanisme coûte](#ce-que-le-mécanisme-coûte)
 
 ## Ce qui déclenche le mécanisme
@@ -130,12 +135,17 @@ Un champ qui passe de `text[..20]` à `text[..40]` suffit : les deux
 facettes diffèrent, un nouveau modèle est créé, et le concepteur n'a
 rien à écrire.
 
-Le connecteur joue ces gestes par quatre de ses méthodes,
-`create_schema`, la migration, `switch_schema`, `delete_schema`
-(D631) : voir [le storage](../05-connecteurs/05-storage.md). Le plan de
-reprise suit le protocole d'une reprise : seule l'origine change. Ses
-correspondances se déduisent des deux descriptions, sans que le
-concepteur écrive rien (D632).
+Le connecteur joue ces gestes par les méthodes de son contrat (D631,
+D680) : `create_instance` crée le nouveau modèle, les méthodes
+d'enregistrement portent le plan de reprise, `delete_instance` supprime
+le modèle qui n'a plus cours. Voir
+[le storage](../05-connecteurs/05-storage.md). La bascule, elle, est un
+changement de référence, que Syncytium tient (D2136) : voir
+[la bascule](#la-bascule).
+
+Le plan de reprise suit le protocole d'une reprise : seule l'origine
+change. Ses correspondances se déduisent des deux descriptions, sans
+que le concepteur écrive rien (D632).
 
 ## L'issue
 
@@ -145,7 +155,7 @@ Les deux chemins mènent à la même alternative (D1974) :
 
 | Le constat | Ce que fait le moteur |
 |---|---|
-| tout est correct | la version s'active, et les transformations s'appliquent ; quand un nouveau modèle a été créé, l'instance bascule vers lui |
+| tout est correct | la version s'active, et les transformations s'appliquent ; quand un nouveau modèle a été créé, Syncytium bascule vers lui |
 | une erreur apparaît | c'est une erreur d'ingestion : la bascule est annulée, le nouveau modèle est supprimé |
 
 La migration est transactionnelle (D9) : elle réussit entièrement, ou
@@ -184,9 +194,23 @@ une valeur saisie d'une valeur née du défaut.
 > version relève avant la bascule
 > ([glossaire](../../glossaire.md)).
 
-Une règle d'`exchange/` peut ne pas conserver les données : sa
-bijection est de la responsabilité du concepteur. Le moteur la vérifie
-à la migration (D1993, D1994) :
+Une règle d'`exchange/` va dans deux sens : son volet ascendant, de la
+version antérieure vers la nouvelle, et son volet descendant, de la
+nouvelle vers une ancienne (D1996). Voir
+[les deux volets](../08-migration/07-version.md#les-deux-volets). Le
+moteur s'en sert dans deux situations (D2136) :
+
+| La situation | Ce que la règle y fait |
+|---|---|
+| les compatibilités ascendante et descendante | une version antérieure de l'API reste servie (D11–D13) : ce qu'elle écrit monte par l'ascendant, ce qu'elle lit redescend par le descendant |
+| le traitement de reprise, après la validation du modèle | le plan de reprise porte les données existantes vers le nouveau modèle, par l'ascendant |
+
+Dans les deux, la règle doit conserver les données. Ce qu'une ancienne
+API a écrit, elle doit pouvoir le relire ; ce que la reprise a porté
+dans le nouveau modèle, une ancienne API doit le retrouver. Or cette
+bijection n'est pas assurée par Syncytium : elle est de la
+responsabilité du concepteur (D1993). Le moteur la vérifie donc pendant
+le traitement de reprise, une fois le nouveau modèle validé (D1994) :
 
 - il joue l'aller puis le retour sur chaque enregistrement migré ;
 - il compare le retour à l'original ;
@@ -200,6 +224,25 @@ ne conserve pas les données est au chapitre 8 :
 
 ## Pendant la migration
 
+### Avant de démarrer : les tâches
+
+Une tâche est un traitement que la file exécute à part : une génération
+de documents, un envoi de mails (D24, D55). Voir
+[la file](../06-operations/05-taches.md#la-file). Une migration ne
+démarre pas au milieu de l'une d'elles (D2136) :
+
+- avant de démarrer, le moteur attend qu'une tâche en cours se
+  termine ;
+- il met en pause toutes les autres ;
+- à la fin de la migration, ou en cas d'échec, les tâches reprennent.
+
+Ex. : une génération de documents est en cours quand la version est
+déposée. Elle va à son terme. L'envoi de mails qui la suivait dans la
+file attend. La migration se joue, réussit ou échoue, puis l'envoi
+part.
+
+### L'activité continue
+
 L'application ne s'arrête pas. Dès le démarrage de la migration,
 l'activité continue sur le modèle en service (D1974) :
 
@@ -208,8 +251,8 @@ l'activité continue sur le modèle en service (D1974) :
 | les lectures | elles continuent : lire ne modifie ni les données, ni leur structure (D676) |
 | les écritures | elles s'appliquent au modèle en service, et sont enregistrées, comme pour un plan de reprise ou de continuité d'activité |
 | le rejeu | les écritures enregistrées sont appliquées au nouveau modèle par la compatibilité ascendante, comme l'appel d'une API d'une version antérieure : aucune mécanique dédiée (D677) |
-| les tâches | la file des tâches est drainée, ou suspendue, le temps de la migration (D24) |
-| la bascule | les lectures attendent le temps du renommage, qui est très court (D8, D679) |
+| les tâches | elles sont en pause, et reprennent à la fin de la migration, ou à son échec (D24, D2136) |
+| la bascule | c'est un changement de référence : elle est rapide, et les lectures n'attendent que ce temps (D8, D679, D2136) |
 
 Une erreur au rejeu, dans le nouveau modèle, est une erreur
 d'ingestion : la version est refusée.
@@ -220,6 +263,7 @@ sequenceDiagram
     participant A as Le modèle en service
     participant M as Le moteur
     participant N as Le nouveau modèle
+    M->>M: la tâche en cours se termine, les autres sont en pause
     M->>N: la création, à côté de l'existant
     M->>N: le plan de reprise, de l'ancien vers le nouveau
     U->>A: les lectures et les écritures continuent
@@ -227,42 +271,78 @@ sequenceDiagram
     M->>N: le rejeu, par la compatibilité ascendante
     M->>M: les contrôles, le rapport
     alt tout est correct
-        M->>N: la bascule
+        M->>N: la bascule, un changement de référence
         U->>N: l'application sert le nouveau modèle
     else une erreur
         M->>N: la suppression
         U->>A: l'application continue, inchangée
     end
+    M->>M: les tâches reprennent
 ```
+
+## La bascule
+
+> **La bascule** est le moment où ce qui a été préparé à part devient
+> l'existant : dans une migration de version, Syncytium change de
+> référence, vers la version cible ([glossaire](../../glossaire.md)).
+
+La bascule ne copie rien, et ne renomme rien : tout a été préparé avant
+elle. Elle tient en un changement de référence (D2136). Syncytium
+pointait vers la version antérieure ; il pointe vers la version cible.
+Une version se désigne par deux choses :
+
+| Ce que Syncytium désigne | Ce que c'est |
+|---|---|
+| l'instance de la version | le modèle et ses données, dans le connecteur |
+| la version d'ingestion | la forme compilée de la description : voir [la logique interne](02-ingestion.md#la-logique-interne) |
+
+Deux conséquences en découlent :
+
+- **les bascules sont rapides** ;
+- **la version antérieure reste entière**, à côté de la nouvelle : elle
+  est conservée le temps de
+  [sa rétention](#la-rétention-de-la-version-antérieure).
 
 ## Le retour en arrière
 
-### Le délai de grâce
+### La rétention de la version antérieure
 
-> **Le délai de grâce** est la durée pendant laquelle l'ancien modèle
-> est gardé après la bascule, pour permettre d'y revenir
-> ([glossaire](../../glossaire.md)).
+> **La rétention d'une version** est la durée pendant laquelle la
+> version antérieure est conservée après la bascule, pour permettre d'y
+> revenir ([glossaire](../../glossaire.md)).
 
-Avant la bascule, le retour est gratuit. Après, il dépend du délai de
-grâce (D675, D678) :
+Avant la bascule, le retour est gratuit : le modèle en service n'a pas
+été touché. Après, la version antérieure est conservée durant un laps
+de temps, que la rétention règle (D2136) :
 
-| Le délai de grâce | Ce que devient l'ancien modèle |
+| Le moment | Ce que devient la version antérieure |
 |---|---|
-| aucun, le défaut | il est supprimé à la bascule |
-| déclaré | il devient le modèle sauvegardé, gardé le temps du délai |
+| pendant la rétention | elle est conservée, entière : son instance, et sa version d'ingestion |
+| au terme de la rétention | elle est supprimée |
 
-Le délai se configure ; sa clé, `grace:`, est en proposition.
+La durée s'écrit par `retention:`. La place de cette clé, et sa valeur
+quand elle n'est pas écrite, sont en proposition.
 
 ### La restauration
 
-Sous grâce, la restauration est le geste inverse de la bascule (D678) :
-le modèle courant est renommé, le modèle sauvegardé reprend sa place.
-C'est l'opération `restore` du socle (D574).
+La restauration est le geste inverse de la bascule. Elle fait pointer
+Syncytium vers l'instance de la version antérieure, et vers la version
+d'ingestion correspondante (D2136). C'est l'opération `restore` du
+socle (D574).
 
-- chaque modèle porte sa version dans une table système : c'est
-  [l'estampille](02-ingestion.md#lestampille), et rien n'est à
-  deviner ;
-- les lectures ne s'arrêtent que le temps du renommage (D679).
+| Ce qu'elle coûte | Combien |
+|---|---|
+| le geste | un coût infime : un changement de référence, sans copie ni reconstruction |
+| les données | dans le pire des cas, celles qui ont été traitées depuis la bascule sont perdues |
+
+Dans l'entrepôt (le cas 5), la version 1.0.0.1 bascule un mardi à dix
+heures. Le jeudi, l'administrateur revient à la 1.0.0.0. L'application
+retrouve aussitôt ses données du mardi à dix heures ; ce qui a été
+saisi depuis est perdu.
+
+Chaque modèle porte sa version dans une table système : c'est
+[l'estampille](02-ingestion.md#lestampille), et rien n'est à deviner
+(D678).
 
 ## Le changement de connecteur
 
@@ -296,9 +376,34 @@ coup ou par différences (D606). Une reprise s'en sert, quand son
 `from:` nomme la base d'origine (D610) ; la réplication vers une
 instance passive aussi, ce que dira le chapitre 10 (D112–D114).
 
+### Le contrat qui le rend possible
+
+Le changement de connecteur tient à une condition : toutes les classes
+de storage respectent le même contrat (D2136). Voir
+[le contrat](../05-connecteurs/05-storage.md#le-contrat). La condition
+vaut pour toutes les implémentations, celles qui sont livrées comme
+celles qui viendront. Un agent, ou des compétences, devront compléter
+l'approche pour garantir ce mode de fonctionnement.
+
+Le contrat respecté, la bascule d'un type de base à un autre a deux
+effets :
+
+| Ce qui est en jeu | Ce que le changement y fait |
+|---|---|
+| le fonctionnement | aucun impact : l'application sert comme avant |
+| la performance | des écarts sont possibles, selon le moteur de base de données |
+
+### La non-dépendance à une technologie
+
+La clé de cette fonctionnalité est une démonstration : Syncytium ne
+dépend pas d'une technologie. Dans un environnement mouvant, une
+entreprise qui dispose de cette garantie n'est pas contrainte de payer
+des licences inutiles.
+
 ## Ce que le mécanisme coûte
 
-Le nouveau modèle vit à côté de l'existant le temps de la migration.
-La conséquence est assumée (D1977) : il faut un espace de stockage au
-moins égal à deux fois l'espace initial. Ce dimensionnement entre dans
+Le nouveau modèle vit à côté de l'existant le temps de la migration,
+puis la version antérieure à côté de la nouvelle le temps de sa
+rétention (D2136). La conséquence est assumée (D1977) : il faut un
+espace de stockage au moins égal à deux fois l'espace initial. Ce dimensionnement entre dans
 le dossier d'architecture technique de l'application.

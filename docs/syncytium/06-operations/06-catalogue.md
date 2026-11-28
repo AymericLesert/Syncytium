@@ -154,8 +154,8 @@ D1333). Portée : l'application.
 Le retour d'un enregistrement à un instantané de son historique, sous
 condition, tracé ; la restauration est elle-même une modification,
 historisée (D171). La restauration d'une instance entière est une
-procédure du guide d'exploitation, par renommage, le geste inverse de la
-bascule (D678, D1450).
+procédure du guide d'exploitation, par un changement de référence, le
+geste inverse de la bascule (D678, D1450, D2136).
 
 ### `migrate`
 

@@ -31,8 +31,11 @@ travaillent.
 période de faible affluence, et les utilisateurs connectés passaient
 par une mise en attente ou une phase de maintenance (D7, D8). Depuis, la
 migration se joue à chaud : les lectures continuent, les écritures sont
-enregistrées puis rejouées, et seul le renommage fait attendre, très
-brièvement (D676, D677, D679, D1974). **<u>Le chapitre ne dit plus rien
+enregistrées puis rejouées, et seule la bascule, un changement de
+référence, fait attendre, très brièvement (D676, D677, D679, D1974,
+D2136). Avant de démarrer, le moteur attend qu'une tâche en cours se
+termine, et met les autres en pause (D2136).
+**<u>Le chapitre ne dit plus rien
 d'une fenêtre de faible affluence.</u>**
 
 *La question.* À dix heures, que fait le moteur ?
@@ -44,7 +47,7 @@ d'une fenêtre de faible affluence.</u>**
 3. Il attend la faible affluence pour tout.
 
 *Ma recommandation.* La réponse 1 : le mécanisme de D1974 a été conçu
-pour cela, et la bascule ne coûte qu'un renommage.
+pour cela, et la bascule ne coûte qu'un changement de référence.
 
 ## 2. Une version beta, sans que son modèle soit déployé
 

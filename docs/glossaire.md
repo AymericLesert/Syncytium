@@ -80,8 +80,10 @@ par défaut. *(D70, D71)*
 **Bascule** — Dans une migration, le moment où ce qui a été préparé à
 part devient l'existant : dans une reprise, les différences de la base
 miroir sont reportées dans la base de l'application, en une
-transaction ; dans une migration de version, l'instance passe au nouveau
-modèle. Elle s'applique en entier, ou pas du tout. *(D9, D1041, D1974)*
+transaction ; dans une migration de version, Syncytium change de
+référence, vers la version cible : la bascule est rapide, et la version
+antérieure est conservée le temps de sa rétention. Elle s'applique en
+entier, ou pas du tout. *(D9, D1041, D1974, D2136)*
 
 **Base miroir** (`mirror:`) — La base, à l'image de la destination,
 où une reprise de données se construit et se contrôle avant d'être
@@ -325,11 +327,6 @@ concepteur met à son degré. *Ex. : `administration: { degree: administrator }`
 déclaré : le libellé `${name}`, `reset: never`, l'historisation éteinte.
 Les settings le surchargent ; une clé qui ne nomme aucun défaut connu est
 une erreur d'ingestion. *(D1175, D1239)*
-
-**Délai de grâce** (`grace:`, en proposition) — La durée pendant
-laquelle l'ancien modèle est gardé après la bascule d'une migration de
-version, pour permettre d'y revenir par la restauration. Par défaut,
-aucun : l'ancien modèle est supprimé. *(D675, D678)*
 
 **Dépréciation** (`deprecation:`) — Le retrait d'une version ou d'un élément, annoncé puis
 acquis. Celle d'une **version** est effective : la version est déposée dans
@@ -1116,6 +1113,12 @@ suppriment, dans un dossier, les fichiers d'un pattern au-delà d'une
 durée ou d'un nombre : le journal, les watchers, le détail des
 migrations. *(D1070–D1076)*
 
+**Rétention d'une version** (`retention:`) — La durée pendant laquelle
+la version antérieure est conservée après la bascule d'une migration de
+version, pour permettre d'y revenir par la restauration. Au terme de la
+rétention, elle est supprimée. La place de la clé et sa valeur par
+défaut sont en proposition. *(D675, D2136)*
+
 **Rétro-conception** (`syncytium retro`) — Le troisième usage du chapitre de la migration,
 à côté de la reprise et de la migration de version : un outil de
 Syncytium analyse le modèle de données d'une application existante et
@@ -1272,7 +1275,11 @@ d'écran. *(D346, amendé par D803 ; D1625, D1627)*
 
 **Restauration** — Le retour d'un enregistrement à un instantané de son
 historique : par l'administrateur seul, sous condition, tracée ; elle est
-elle-même une modification, historisée. *(D171)*
+elle-même une modification, historisée. La restauration d'une **version**,
+après une bascule, fait pointer Syncytium vers l'instance de la version
+antérieure et vers la version d'ingestion correspondante : son coût est
+infime, mais les données traitées depuis la bascule sont perdues.
+*(D171, D678, D2136)*
 
 **Résumé** (`summary:`) — L'enregistrement en bref, petit par principe :
 il se déploie depuis une référence. Il n'existe que déclaré.

@@ -170,8 +170,10 @@ Chacune garde pourtant ses traits propres.
 - **Entre deux versions**, la migration se fait à chaud (D3) :
   l'application reste en service. Syncytium déduit seul les cas simples,
   un champ ajouté, une entité ajoutée (D5). Elle se joue en quatre
-  gestes, `create_schema`, la migration, `switch_schema`, `delete_schema`
-  (D631). Le même mapping sert aussi les API : il engendre la chaîne qui
+  gestes : un nouveau modèle créé à côté de l'existant, le plan de
+  reprise, la bascule par un changement de référence, la suppression de
+  la version antérieure au terme de sa rétention (D631, D1974, D2136).
+  Le même mapping sert aussi les API : il engendre la chaîne qui
   traduit une version dans l'autre, dans les deux sens (D11–D13).
 - **Depuis un système existant**, `from:` nomme la base d'origine (D610).
   Les interfaces de Syncytium montrent les données migrées et validées

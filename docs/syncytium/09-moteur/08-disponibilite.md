@@ -129,8 +129,9 @@ Le détail est dans le chapitre de chaque famille :
 ## La continuité pendant une migration
 
 Une montée de version n'arrête pas l'application (D801). Les lectures
-continuent, les écritures sont enregistrées puis rejouées, la file des
-tâches est drainée (D24) : voir
+continuent, les écritures sont enregistrées puis rejouées. La tâche en
+cours se termine avant le démarrage, et les autres attendent la fin de
+la migration (D24, D2136) : voir
 [pendant la migration](03-migration.md#pendant-la-migration).
 
 La continuité d'une instance à l'autre, la sauvegarde, la restauration

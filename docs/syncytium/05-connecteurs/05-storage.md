@@ -74,8 +74,7 @@ stockage. Ses méthodes se groupent en quatre (D629, D680–D689).
   stockage, jamais les surfaces ni les calculés (D685), et pour un
   storage source les entités de la carte `entities:` (D829) ;
   `duplicate_instance`, la structure et les données (D674) ;
-  `rename_instance`, la bascule et la restauration (D678) ;
-  `delete_instance`.
+  `rename_instance` ; `delete_instance`.
 - **Les entités** : `create_entity`, `update_entity`, `delete_entity`.
 - **Les enregistrements** : `create`, `read`, `update`, `delete`.
   L'écriture se fait en lots : chaque méthode porte une liste, le bulk
@@ -86,6 +85,12 @@ stockage. Ses méthodes se groupent en quatre (D629, D680–D689).
 La version n'a pas de méthode (D680) : c'est une entité système du
 storage, définie et maintenue par Syncytium, lue et écrite par `read`
 et `update`.
+
+Toutes les classes de storage respectent ce contrat, celles qui sont
+livrées comme celles qui viendront (D2136). C'est ce qui permet de
+changer de connecteur, d'un type de base à un autre, sans impact sur le
+fonctionnement de l'application : voir
+[le changement de connecteur](../09-moteur/03-migration.md#le-changement-de-connecteur).
 
 ## La facette des types
 
@@ -114,18 +119,21 @@ Un storage nouveau visite tous les types sans qu'aucun ne change.
 
 ## La migration à chaud et l'orchestration
 
-La migration à chaud enchaîne les méthodes du contrat (D631, D674) :
-`duplicate_instance` ; les transformations dérivées des différences, le
-mapping automatique, le concepteur n'écrit rien (D632) ; la bascule par
-`rename_instance` sur validation ; `delete_instance`, ou la grâce (D675,
-D678). Le mapping manuel reste l'affaire des migrations déclarées, au
-chapitre 8, [la migration déclarée](../08-migration/02-declaration.md). Syncytium sait convertir ou
+La migration à chaud enchaîne les méthodes du contrat (D631, D1974) :
+`create_instance`, un nouveau modèle à côté de l'existant ; le plan de
+reprise, dont les correspondances se dérivent des différences, le
+mapping automatique, le concepteur n'écrit rien (D632) ; la bascule sur
+validation, un changement de référence que Syncytium tient (D2136) ;
+`delete_instance`, au terme de la rétention de la version antérieure.
+Le mécanisme est au chapitre 9,
+[la migration de version](../09-moteur/03-migration.md). Le mapping
+manuel reste l'affaire des migrations déclarées, au chapitre 8, [la migration déclarée](../08-migration/02-declaration.md). Syncytium sait convertir ou
 transférer d'un connecteur à l'autre, en instantané ou en différentiel ;
 le différentiel rejoint la réplication passive du PCA-PRA (D606, D112,
 D114).
 
 Syncytium orchestre (D686, D687). La bascule et les files d'attente, les
-écritures pendant la phase, les lectures pendant le renommage (D674,
+écritures pendant la phase, les lectures pendant la bascule (D674,
 D679), sont composées par le moteur sur les primitives du contrat :
 l'accès aux données est géré et piloté par Syncytium, non par le storage
 directement. L'enregistrement est un type structuré propre à

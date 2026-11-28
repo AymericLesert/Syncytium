@@ -279,8 +279,8 @@ technique sur sollicitation (D17).
 
 ### Les opérations d'administration du socle (D701)
 
-Les planchers `administrator` : **`restore`** (la restauration par
-renommage — le geste inverse de la bascule, D174/D678),
+Les planchers `administrator` : **`restore`** (la restauration par un
+changement de référence — le geste inverse de la bascule, D678/D2136),
 **`migrate`** (D667), **`rgpd.anonymize`** (D697, D1333) ; les planchers
 `manager` : **`import`** (D211/D238), **`report`**, **`rgpd.extract`** (D1331,
 D1333). Chaque opération a sa fiche au chapitre 6,

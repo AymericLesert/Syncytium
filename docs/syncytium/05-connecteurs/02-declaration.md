@@ -439,5 +439,5 @@ La migration et la transformation, le mapping, ses deux maisons
 `sources/` et `mapping/`, le sens de la règle, la dépréciation, le
 dry-run (D646–D660), sont la reprise : le chapitre 8, par
 [la migration](../08-migration/README.md) (D1721). Ce chapitre garde `from:` au
-câblage et la migration à chaud du storage, `duplicate_instance` et
-`rename_instance` (D631, D674).
+câblage et la migration à chaud du storage, par les méthodes d'instance
+du contrat (D631, D674, D2136).

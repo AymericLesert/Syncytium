@@ -136,7 +136,9 @@ l'auteur, qui arbitre, et Claude, qui propose, consigne et met en forme.
   par le sujet du chapitre, en groupes, ce qui le quitte vers les autres
   chapitres ; la table « Les points de la lecture en cours » de
   `docs/README.md` les tient à chaque point (« à traiter », « présenté »,
-  « clos (Dnnnn) »), le tableau de bord la lit.
+  « clos (Dnnnn) »), le tableau de bord la lit. Dans le mode à l'essai, un
+  point qui est un fichier y porte aussi sa lecture — « à lire », « en
+  relecture », « relu », « réécrit », « validé » (D2150).
 - Avancer **un point à la fois** ; présenter les lectures à confirmer, ne
   rien décider à la place de l'auteur ; quand il propose une « troisième
   voie », la consigner fidèlement.

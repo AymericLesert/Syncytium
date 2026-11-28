@@ -116,6 +116,18 @@ rédaction.
 Ajouter les arbitrages à la table des points, après les fichiers du
 chapitre, à l'état « présenté ». Consigner, committer, pousser.
 
+La table des points a quatre colonnes : le numéro, le point, l'état, la
+lecture (D2150). La lecture ne vaut que pour un fichier ; un arbitrage y
+porte « — ». Elle suit les temps, et le tableau de bord la montre :
+
+| La lecture | Quand |
+|---|---|
+| « à lire » | le fichier est écrit, l'auteur ne l'a pas ouvert |
+| « en relecture depuis le … » | l'auteur y fait ses remarques, temps 4 |
+| « relu le … » | ses remarques sont reportées ; le fichier attend sa réécriture |
+| « réécrit le … » | le fichier est réécrit, temps 5 ; il attend la validation |
+| « validé le … » | l'auteur l'a validé ; l'état passe à « clos (Dnnnn) » |
+
 ## 4. La relecture de l'auteur
 
 L'auteur relit fichier par fichier, dans l'ordre qu'il choisit. Il commente

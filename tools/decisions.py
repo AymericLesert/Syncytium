@@ -342,7 +342,7 @@ RELECTURE.update({_n: "moteur" for _n in [
     33, 81, 718, 745,                                                        # le secours
     706, 707, 708, 730, 901, 915, 916, 918, 919, 944,                        # les secrets et le chiffrement
     861, 862, 1032, 1036, 1056, 1057, 1059, 1060, 1065, 1068, 1077, 1079, 1080]})  # le passage et ce qu'il laisse
-RELECTURE.update({1784: "methode", 1785: "methode", 2129: "methode", 2130: "methode"})
+RELECTURE.update({1784: "methode", 1785: "methode", 2129: "methode", 2130: "methode", 2150: "methode"})
 # La relecture du chapitre 9 par l'auteur (D2134, le 28/11/2026) : ses remarques sont de la famille du chapitre.
 RELECTURE.update({2134: "moteur", 2135: "moteur", 2136: "moteur", 2137: "moteur", 2138: "moteur", 2139: "moteur", 2140: "moteur", 2141: "moteur", 2142: "moteur", 2143: "moteur", 2144: "moteur", 2145: "moteur", 2146: "moteur", 2147: "moteur", 2148: "moteur", 2149: "moteur"})
 

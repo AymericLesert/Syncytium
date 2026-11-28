@@ -352,8 +352,9 @@ et le seul qui ne s'interrompt pas.
 > passage : les tâches, les lectures et les écritures sont arrêtées
 > ([glossaire](../../glossaire.md)).
 
-Pour basculer, Syncytium passe en mode pause (D2142). La pause arrête
-trois choses (D2143) :
+Une reprise ne crée pas de nouvelle instance : elle modifie l'instance
+courante (D2144). Pour basculer, Syncytium passe donc en mode pause
+(D2142). La pause arrête trois choses (D2143) :
 
 - les tâches ;
 - les lectures ;
@@ -368,6 +369,11 @@ Les gestes, dans l'ordre :
 4. il reprend la suite : les tâches, les lectures et les écritures
    repartent.
 
+Arrêter les lectures et les écritures garantit que la transaction des
+mises à jour reste cohérente d'un bout à l'autre (D2144) : personne ne
+lit une donnée à moitié reportée, personne n'écrit pendant qu'elle se
+reporte.
+
 Jusque-là, le passage a construit la reprise à part, dans la base
 miroir, sans gêner personne. La pause ne vaut donc que pour la bascule.
 
@@ -378,8 +384,10 @@ file, et l'application ne lit ni n'écrit plus. Il reporte les
 différences. Puis tout repart : l'envoi, les lectures, les écritures.
 
 Le mode pause est propre à la bascule d'un passage de reprise (D2143).
-Une migration de version se conduit autrement : elle met les tâches en
-pause avant de démarrer, et l'activité continue. Voir
+Une migration de version se conduit autrement. Elle ne modifie pas
+l'instance courante : elle en prépare une nouvelle, puis change de
+pointeur. Elle met les tâches en pause avant de démarrer, et l'activité
+continue. Voir
 [pendant la migration](03-migration.md#pendant-la-migration).
 
 ### L'exécution à blanc

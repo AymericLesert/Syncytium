@@ -182,7 +182,7 @@ l'installation, le reverse proxy n'a pas le même fournisseur :
 | L'installation | Qui assure le reverse proxy | Le certificat |
 |---|---|---|
 | une installation industrielle existante | l'équipe d'administration | celui de l'infrastructure |
-| un poste informatique domestique | Syncytium : il l'installe et le démarre | à défaut d'un autre, un certificat auto-signé fourni par Syncytium, engendré à l'initialisation et rangé avec les secrets (D919) |
+| un poste informatique domestique | Syncytium : il l'installe et le démarre | à défaut d'un autre, un certificat auto-signé fourni par Syncytium, engendré à l'initialisation et rangé avec les secrets (D919, D2156) |
 
 Le reverse proxy de Syncytium est donc une fonctionnalité optionnelle :
 elle sert là où personne d'autre ne tient ce rôle. Deux cas du dépôt

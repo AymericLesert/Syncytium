@@ -1170,8 +1170,9 @@ reçoit les requêtes du navigateur, en HTTPS, et les transmet au moteur,
 qui ne porte pas lui-même le HTTPS. Il y en a un partout. Sur une
 installation industrielle existante, l'équipe d'administration
 l'assure ; sur un poste informatique domestique, Syncytium l'installe
-et le démarre : c'est une fonctionnalité optionnelle. Le journal
-d'accès y reste. *(D919, D925, D2154, D2155)*
+et le démarre : c'est une fonctionnalité optionnelle, et le certificat
+auto-signé de Syncytium y sert, à défaut d'un autre. Le journal d'accès
+y reste. *(D919, D925, D2154–D2156)*
 
 **Rétention d'une donnée personnelle** — La durée d'une fiche sans
 mouvement ni mise à jour, au-delà de laquelle les informations

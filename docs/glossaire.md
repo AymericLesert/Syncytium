@@ -1511,15 +1511,16 @@ facture ou l'étiquette : un formulaire en lecture seule et une dimension
 de page. À ne pas confondre avec le Gabarit, un texte à trous.
 *(D250, D483, D564)*
 
-**Traitement en masse** — La lecture et l'écriture des données par
+**Traitement en masse** (`lot_size:`) — La lecture et l'écriture des données par
 lots, plutôt que ligne à ligne. Le moteur le privilégie partout : il
 réduit de façon drastique les temps d'exécution. Le contrat du storage
 écrit par listes et lit au curseur ; un passage lit sa source par lots.
 La taille du lot se paramètre : `1`, le traitement unitaire ; `-1`,
 tout en une seule fois ; un nombre, la taille exploitable quand le
 volume est trop grand pour un seul lot. Elle se déclare par entité, de
-la source ou du modèle : une entité aux champs nombreux ou complexes
-demande des lots plus modestes. *(D688, D689, D2158–D2160)*
+la source ou du modèle, par `lot_size:` : une entité aux champs
+nombreux ou complexes demande des lots plus modestes.
+*(D688, D689, D2158–D2160, D2172)*
 
 **Traitement (RGPD)** — Une opération ou une suite d'opérations —
 un wizard, une action, un déclencheur — impliquant au moins un champ

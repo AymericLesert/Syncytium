@@ -319,6 +319,9 @@ m'interroge. Mon avis : `lot_size:`, dans la forme des autres clés,
 comme `max_size:`. La taille d'une entité qui ne déclare rien reste à
 dire.
 
+*Le nom, tranché (D2172).* `lot_size:`. La taille d'une entité qui ne
+déclare rien reste à dire.
+
 ## 9. La déclaration du reverse proxy
 
 *Où.* [Ce que Syncytium sert](syncytium/09-moteur/07-secrets.md#ce-que-syncytium-sert).

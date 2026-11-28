@@ -9,8 +9,9 @@ numérotées et une recommandation. Tout le reste est tranché d'après le
 registre et marqué mien (D2130). Les points 8 à 12 sont des manques que
 la relecture de l'auteur a ouverts (D2162) ; ils sont présentés depuis
 le 28/11/2026 (D2170). Le point 13
-vient de l'arbitrage 5 (D2164), le point 14 de l'arbitrage 2 (D2168).
-La page se retire quand ses quatorze points sont clos.*
+vient de l'arbitrage 5 (D2164), le point 14 de l'arbitrage 2 (D2168),
+le point 15 d'une question de l'auteur (D2176). La page se retire quand
+ses quinze points sont clos.*
 
 ## Le sommaire
 
@@ -28,6 +29,7 @@ La page se retire quand ses quatorze points sont clos.*
 - [12. Un nom stable demandé à une classe qui n'en publie pas](#12-un-nom-stable-demandé-à-une-classe-qui-nen-publie-pas)
 - [13. Les fichiers du détail des anomalies](#13-les-fichiers-du-détail-des-anomalies)
 - [14. La clé qui demande la migration de la copie](#14-la-clé-qui-demande-la-migration-de-la-copie)
+- [15. `history:`, sous `quiet:`](#15-history-sous-quiet)
 
 ## 1. Une version déposée en pleine journée
 
@@ -524,3 +526,36 @@ migration se joue « si demandée ».
 
 *Tranché (D2171).* `migrate: true` est la valeur par défaut : la copie
 est migrée. `migrate: false` demande la copie seule.
+
+## 15. `history:`, sous `quiet:`
+
+*Où.* [Le moment](syncytium/09-moteur/03-migration.md#le-moment--une-période-de-faible-affluence).
+
+*L'exemple.* L'entrepôt ne déclare pas le bloc `quiet:`. Une version
+est déposée : le moteur calcule le laps de temps et le plafond de
+connexions d'après l'historique de l'application. Par ailleurs,
+trente-six entités des cas écrivent déjà `history: true` : c'est
+l'historisation, la mémoire des modifications d'une entité (D168).
+
+*Ce qui pose question.* Deux choses. Le mot `history:` est déjà pris :
+je l'ai proposé sans relire le registre (D2164), et il a été validé
+(D2169). **<u>Et le chapitre ne dit pas sur combien de jours le moteur
+regarde quand la clé est absente.</u>**
+
+*La question A, le nom.*
+
+1. Garder `history:` : c'est le même concept, la profondeur d'une
+   mémoire. `history: temporal[365]` garde un an de modifications ;
+   `history: 30d` regarde trente jours d'activité.
+2. Renommer la clé : `window:`, la plage glissante.
+
+*La question B, sans la clé.*
+
+1. Trente jours.
+2. Sept jours.
+3. Une autre durée.
+
+*Ma recommandation.* A, la réponse 2 : les deux clés n'ont pas la même
+écriture, `temporal[365]` ici, `30d` là, et « plage de dates
+glissantes » se dit `window`. B, la réponse 1 : quatre semaines lissent
+une semaine inhabituelle, et suivent encore un changement d'usage.

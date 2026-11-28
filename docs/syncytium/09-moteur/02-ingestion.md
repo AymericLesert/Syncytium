@@ -378,7 +378,8 @@ désigne, quel que soit son nom (D2165, D2167, D2168). Dans l'entrepôt
 Une version `beta` nomme son origine dans son `version.yml`, par
 `from:` et le seul numéro de la version (D2166). Une même version ne
 peut pas être dans deux statuts : son numéro suffit donc à dire si
-l'origine est en production ou en beta.
+l'origine est en production ou en beta. La 1.0.0.1 de l'entrepôt (le
+cas 5) l'écrit :
 
 ```yaml
 # L'origine de la version

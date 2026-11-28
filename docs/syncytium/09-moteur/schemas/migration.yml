@@ -1,6 +1,7 @@
 # Le logigramme de la migration de version
-# De la comparaison des facettes à l'activation : identiques, les règles qui changent se rebalaient à blanc ;
-# différentes, un nouveau modèle reçoit les données par un plan de reprise ; une erreur annule la bascule.
+# De la comparaison des facettes à l'activation : identiques et sans règle de transformation, les règles qui changent
+# se rebalaient à blanc ; sinon, une nouvelle instance reçoit les données par un plan de reprise ; une erreur annule
+# la bascule.
 title: La migration de version, de la comparaison des facettes à l'activation
 steps:
   - start: Début
@@ -8,8 +9,10 @@ steps:
     note: dans la facette de stockage du connecteur
   - decision: Facettes identiques ?
     no:
-      side: [{action: Un nouveau modèle est créé}, {action: Le plan de reprise l'alimente}]
+      side: [{action: Une nouvelle instance est créée, id: instance}, {action: Le plan de reprise l'alimente}]
       to: controle
+  - decision: Règle de transformation ?
+    yes: {to: instance}
   - decision: Règle ou validation changée ?
     no: {to: active}
   - action: Les règles sont rebalayées, à blanc
@@ -23,7 +26,7 @@ steps:
     id: fin
 sides:
   erreur:
-    from: 6
+    from: 7
     col: 2
     steps:
       - action: Erreur d'ingestion

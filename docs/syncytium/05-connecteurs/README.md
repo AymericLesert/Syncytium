@@ -94,7 +94,6 @@ classDiagram
         create_instance()
         get_instance()
         duplicate_instance()
-        rename_instance()
         delete_instance()
         create_entity()
         update_entity()

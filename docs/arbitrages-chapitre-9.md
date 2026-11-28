@@ -6,7 +6,7 @@ trait le 23/11/2026 dans le mode à l'essai (D2128, D2130). Elle ne porte
 que les vrais arbitrages : deux décisions qui se contredisent, un manque,
 une lecture jamais confirmée. Chacun se pose par un exemple, des réponses
 numérotées et une recommandation. Tout le reste est tranché d'après le
-registre et marqué mien (D2130). La page se retire quand ses six points
+registre et marqué mien (D2130). La page se retire quand ses sept points
 sont clos.*
 
 ## Le sommaire
@@ -17,6 +17,7 @@ sont clos.*
 - [4. Le compte de secours](#4-le-compte-de-secours)
 - [5. Le modèle de `_migration` et le fichier de détail](#5-le-modèle-de-_migration-et-le-fichier-de-détail)
 - [6. Les fusibles et la position de sécurité](#6-les-fusibles-et-la-position-de-sécurité)
+- [7. Les lecteurs externes de la base, à la bascule](#7-les-lecteurs-externes-de-la-base-à-la-bascule)
 
 ## 1. Une version déposée en pleine journée
 
@@ -181,3 +182,42 @@ définies.</u>**
    s'arrête aux secrets.
 
 *Ma recommandation.* La réponse 1.
+
+## 7. Les lecteurs externes de la base, à la bascule
+
+*Où.* [La bascule](syncytium/09-moteur/03-migration.md#la-bascule).
+
+*L'exemple.* Dans l'entrepôt, la base est le schéma `entrepot` d'un
+PostgreSQL. Un rapport Power BI y lit les tiers, sans passer par
+Syncytium (D1260). La version 1.0.0.1 bascule un mardi à dix heures :
+Syncytium pointe vers une nouvelle instance de la base (D2136, D2138).
+
+*Le manque.* Les applications et les outils de BI qui lisent la base
+doivent être informés du changement de pointeur (D2138).
+**<u>Le chapitre le dit, sans donner de mécanisme.</u>**
+
+*La question.* Le mardi à dix heures une, que lit le rapport ?
+
+1. **Un nom stable.** Le storage publie l'instance en service sous un
+   nom qui ne change pas, `entrepot`. Derrière ce nom, des vues, ou des
+   synonymes selon le moteur de base de données, désignent l'instance de
+   la version. La bascule les fait suivre le pointeur, dans le même
+   geste ; la restauration aussi. Le rapport lit la 1.0.0.1 sans toucher
+   à sa connexion. Le contrat du storage y gagne une méthode, que chaque
+   classe doit tenir.
+2. **Une information.** La bascule est un événement, que Syncytium
+   annonce : à l'administrateur, dans le mail des faits marquants ; aux
+   applications abonnées, par un webhook sortant qui porte le nom de la
+   nouvelle instance. Chacun change sa connexion. Un rapport Power BI ne
+   s'abonne à rien : quelqu'un le reconfigure, à chaque bascule.
+3. **Les deux.** Le nom stable porte le changement de pointeur.
+   L'information porte ce que le nom stable ne règle pas : un champ
+   renommé ou retiré casse le rapport, où qu'il se connecte. Elle joint
+   donc les écarts entre les deux versions, que la documentation génère
+   déjà.
+
+*Ma recommandation.* La réponse 3. Le nom stable seul laisse le rapport
+se casser en silence sur un champ renommé ; l'information seule demande
+un geste à chaque bascule. Une limite demeure : seule l'API garde la
+forme d'une version antérieure (D11–D13). Un lecteur qui ne veut subir
+aucun changement lit par elle.

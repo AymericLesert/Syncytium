@@ -81,9 +81,11 @@ par défaut. *(D70, D71)*
 part devient l'existant : dans une reprise, les différences de la base
 miroir sont reportées dans la base de l'application, en une
 transaction ; dans une migration de version, Syncytium change de
-référence, vers la version cible : la bascule est rapide, et la version
+référence, vers la version cible — une version est un couple de deux
+pointeurs, vers l'instance de la base de données et vers la version
+ingérée : la bascule est rapide, et la version
 antérieure est conservée le temps de sa rétention. Elle s'applique en
-entier, ou pas du tout. *(D9, D1041, D1974, D2136)*
+entier, ou pas du tout. *(D9, D1041, D1974, D2136, D2138)*
 
 **Base miroir** (`mirror:`) — La base, à l'image de la destination,
 où une reprise de données se construit et se contrôle avant d'être
@@ -1040,7 +1042,8 @@ collection, `viewer[mosaic]`. *(D1129, D1188 ; D478, D480)*
 **Plan de reprise** — Dans une migration de version, la suite des
 opérations par lesquelles le moteur porte les données du modèle en
 service vers un nouveau modèle, créé à côté, quand leurs deux facettes de
-stockage diffèrent. *(D1974)*
+stockage diffèrent, ou quand la version porte des règles de
+transformation. *(D1974, D2138)*
 
 **Position de repli** — L'état sûr auquel l'application peut toujours
 revenir après un arrêt brutal, sans que cette garantie coûte en

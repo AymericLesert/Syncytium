@@ -74,7 +74,8 @@ stockage. Ses méthodes se groupent en quatre (D629, D680–D689).
   stockage, jamais les surfaces ni les calculés (D685), et pour un
   storage source les entités de la carte `entities:` (D829) ;
   `duplicate_instance`, la structure et les données (D674) ;
-  `rename_instance` ; `delete_instance`.
+  `delete_instance`. La bascule n'a pas de méthode : une version est un
+  couple de pointeurs, que Syncytium tient (D2138).
 - **Les entités** : `create_entity`, `update_entity`, `delete_entity`.
 - **Les enregistrements** : `create`, `read`, `update`, `delete`.
   L'écriture se fait en lots : chaque méthode porte une liste, le bulk

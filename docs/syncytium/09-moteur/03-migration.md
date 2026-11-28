@@ -82,29 +82,38 @@ mémoire peut suffire à cette comparaison. Tout le reste en découle :
 
 ## Les deux facettes sont identiques
 
-Aucune migration ne passe alors par le connecteur. Seul le format des
+Le modèle garde alors sa forme dans le connecteur. Seul le format des
 données stockées peut changer : une unité retirée d'une mesure, un
-format de texte. Deux cas se présentent (D1974) :
+format de texte. Trois cas se présentent (D1974, D2138) :
 
 | Ce que la version change | Ce que fait le moteur |
 |---|---|
 | ni règle, ni validation, ni règle de transformation | il ne touche pas aux données |
-| une règle ou une validation apparaît, ou change | il rebalaye les règles |
+| une règle ou une validation apparaît, ou change | il rebalaye les règles, à blanc |
+| la version porte des règles de transformation | il prévoit une nouvelle instance de la base, pour valider |
 
 Dans le premier cas, la version change des éléments visuels, des API,
 ou l'organisation logique des données : le module d'une entité, un
 groupe de propriétés, une liste.
 
-Dans le second, le moteur vérifie que toutes les données respectent les
-règles nouvelles :
+Dans le deuxième, le moteur vérifie que toutes les données respectent
+les règles nouvelles, sans rien écrire.
 
-- **il ne rebalaye que ce qui est touché** : le graphe de dépendance
-  borne les vérifications et les transformations aux impacts
-  identifiés ;
-- **les transformations se font à blanc**. Quand le volume ne tient pas
-  en mémoire, un substitut dans le connecteur les reçoit ;
-- **les vérifications viennent après les transformations**. Pour
-  retirer une valeur d'une liste, il faut d'abord la renommer.
+Dans le troisième, une transformation modifie des valeurs. Elle peut
+donc avoir des impacts sur des règles, ou sur des traitements. Le
+moteur ne la joue pas sur le modèle en service (D2138) :
+
+- **il prévoit une nouvelle instance de la base**, à côté de
+  l'existante, comme lorsque
+  [les deux facettes diffèrent](#les-deux-facettes-diffèrent) ;
+- **il y applique les transformations, puis les vérifications**.
+  L'ordre compte : pour retirer une valeur d'une liste, il faut d'abord
+  la renommer ;
+- **il valide sur cette instance**, avant toute bascule.
+
+Dans les deux derniers cas, le moteur ne traite que ce qui est touché :
+le graphe de dépendance borne les vérifications et les transformations
+aux impacts identifiés.
 
 Dans l'entrepôt (le cas 5), la version 1.0.0.1 fait de la langue d'un
 tiers une liste : français, anglais, allemand, espagnol. Supposons
@@ -113,8 +122,8 @@ qu'un tiers porte encore `it` :
 - la vérification échoue sur cette valeur ;
 - le concepteur écrit, dans `exchange/`, la transformation qui la
   traduit ;
-- à l'essai suivant, la transformation passe d'abord, la vérification
-  ensuite.
+- à l'essai suivant, le moteur prévoit une nouvelle instance : la
+  transformation y passe d'abord, la vérification ensuite.
 
 ## Les deux facettes diffèrent
 
@@ -130,6 +139,10 @@ pas le modèle en service (D1974) :
 - **il dresse un plan de reprise** des données, de l'ancien modèle vers
   le nouveau ;
 - **il l'applique**, sans modifier l'ancien.
+
+Le même chemin sert quand les deux facettes sont identiques et que la
+version porte des règles de transformation : la nouvelle instance y est
+prévue pour valider (D2138).
 
 Un champ qui passe de `text[..20]` à `text[..40]` suffit : les deux
 facettes diffèrent, un nouveau modèle est créé, et le concepteur n'a
@@ -155,8 +168,8 @@ Les deux chemins mènent à la même alternative (D1974) :
 
 | Le constat | Ce que fait le moteur |
 |---|---|
-| tout est correct | la version s'active, et les transformations s'appliquent ; quand un nouveau modèle a été créé, Syncytium bascule vers lui |
-| une erreur apparaît | c'est une erreur d'ingestion : la bascule est annulée, le nouveau modèle est supprimé |
+| tout est correct | la version s'active ; quand une nouvelle instance a été créée, Syncytium bascule vers elle |
+| une erreur apparaît | c'est une erreur d'ingestion : la bascule est annulée, la nouvelle instance est supprimée |
 
 La migration est transactionnelle (D9) : elle réussit entièrement, ou
 la base reste dans l'état précédent. Avant la bascule, revenir en
@@ -289,12 +302,12 @@ sequenceDiagram
 La bascule ne copie rien, et ne renomme rien : tout a été préparé avant
 elle. Elle tient en un changement de référence (D2136). Syncytium
 pointait vers la version antérieure ; il pointe vers la version cible.
-Une version se désigne par deux choses :
+Une version est en effet un couple de deux pointeurs (D2138) :
 
-| Ce que Syncytium désigne | Ce que c'est |
+| Le pointeur | Ce qu'il désigne |
 |---|---|
-| l'instance de la version | le modèle et ses données, dans le connecteur |
-| la version d'ingestion | la forme compilée de la description : voir [la logique interne](02-ingestion.md#la-logique-interne) |
+| vers l'instance de la base de données | le modèle et ses données, dans le connecteur |
+| vers la version ingérée | la forme compilée de la description : voir [la logique interne](02-ingestion.md#la-logique-interne) |
 
 Deux conséquences en découlent :
 
@@ -302,6 +315,11 @@ Deux conséquences en découlent :
 - **la version antérieure reste entière**, à côté de la nouvelle : elle
   est conservée le temps de
   [sa rétention](#la-rétention-de-la-version-antérieure).
+
+Tous les lecteurs de la base ne passent pas par Syncytium : une
+application tierce, ou un outil de BI, peut lire directement le schéma
+que Syncytium a créé (D1260). Ceux-là doivent être informés du
+changement de pointeur (D2138). Le mécanisme est en proposition.
 
 ## Le retour en arrière
 

@@ -477,9 +477,10 @@ syncytium rotate    # re-chiffre le .env et les champs des types chiffrants
 **La copie d'un environnement** (D1078–D1080) : la base de l'environnement
 source vers celui de la cible — les données et les modules internes
 `_migration` et `_assistance` avec elles (D1078, D1387) ; le détail des
-passages suit, dans le module `_migration` (D1894). L'option
-`--with-storage`, qui emportait les fichiers de détail des migrations,
-est retirée avec eux (D1889, D1893) :
+anomalies, en fichiers au dossier interne, n'est pas copié (D2164,
+D2180, qui amende D1894) : la cible reçoit les statistiques et les
+indicateurs. L'option `--with-storage`, qui emportait les fichiers de
+détail des migrations, reste retirée (D1893) :
 
 ```bash
 syncytium copy production staging   # les données, _migration et _assistance
@@ -780,7 +781,7 @@ Les commandes ont été décidées une à une, chacune avec son besoin :
 | `syncytium init` | l'amorçage : le core, l'instance, le fichier des variables d'environnement | D1360, D1429 |
 | `syncytium encrypt`, `syncytium decrypt` | chiffrer un secret, le relire | D708 |
 | `syncytium rotate` | la rotation des clés | D730 |
-| `syncytium copy <source> <cible>` | la copie d'un environnement, `--with-storage` pour les fichiers | D1080 |
+| `syncytium copy <source> <cible>` | la copie d'un environnement ; le détail des anomalies n'est pas copié | D1080, D2180 |
 | `syncytium sandbox` | la sandbox | D907–D912 |
 | `syncytium document <environnement> <documentation>` | l'édition d'une documentation | D1351, D1353 |
 | `syncytium language <référence> <souhaitée>` | le catalogue d'une langue à traduire | D1465 |

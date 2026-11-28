@@ -323,9 +323,8 @@ d'administration (D711) :
   en entier ; il n'efface rien du module (D1030) ;
 - **la copie d'un environnement** (D1078–D1080) — `syncytium copy
   <source> <cible>` emporte les données, `_migration` et `_assistance` (D1387) ;
-  le détail des passages suit, dans le module `_migration` (D1894) ;
-  l'option `--with-storage` est retirée avec les fichiers de détail
-  (D1893) ;
+  le détail des anomalies, en fichiers, n'est pas copié (D2180, qui
+  amende D1894) ; l'option `--with-storage` reste retirée (D1893) ;
 - **la sandbox** (D921–D922) — `reload` rejoue l'ingestion et la
   migration : son `_migration` repart de zéro.
 

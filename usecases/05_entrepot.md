@@ -1663,8 +1663,9 @@ suppressions se jouent alors sur les tables entières.
 
 *Les environnements.* Le staging lit une copie de PMI et tient son
 propre `_migration` ; `syncytium copy production staging` y recopie
-l'entrepôt avec son `_migration`, le détail des passages compris
-(D1078–D1080, D1894).
+l'entrepôt avec son `_migration`, ses statistiques et ses indicateurs ;
+le détail des anomalies, en fichiers, n'est pas copié (D1078–D1080,
+D2180).
 
 *Ce qui reste servi par défaut* — toutes les autres entités de
 l'entrepôt (D437–D438 : la liste, le formulaire, la composition

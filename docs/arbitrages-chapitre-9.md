@@ -508,6 +508,9 @@ rotation des clés. À la consultation par le module d'administration, il
 est déchiffré avant l'affichage. La copie d'un environnement n'est pas
 dite.
 
+*Précisé (D2180).* À la copie d'un environnement, le détail des
+anomalies n'est pas copié.
+
 ## 14. La clé qui demande la migration de la copie
 
 *Où.* [La migration de la copie](syncytium/09-moteur/02-ingestion.md#la-migration-de-la-copie-au-choix-du-concepteur).

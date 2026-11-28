@@ -210,6 +210,12 @@ Avec quatre-vingt-dix jours de rétention, les fichiers de détail d'un
 passage du 1ᵉʳ mars sont supprimés le 30 mai. Sa ligne d'exécution, ses
 compteurs et ses indicateurs restent.
 
+À la copie d'un environnement, le détail des anomalies n'est pas copié
+(D2180). La copie emporte la base : la cible reçoit donc les
+statistiques et les indicateurs, sans les fichiers de détail. Dans
+l'entrepôt, le staging copié depuis la production connaît le nombre
+d'anomalies de chaque passage, pas leur liste.
+
 Dans l'entrepôt, la production garde le détail quatre-vingt-dix jours :
 
 ```yaml

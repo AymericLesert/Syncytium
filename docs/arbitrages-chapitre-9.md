@@ -115,9 +115,14 @@ sont posées avant de reporter : comment une beta nomme son origine, et
 ce que devient le statut `sandbox`.
 
 *Précisé (D2165).* Le statut `sandbox` s'efface : la sandbox redevient
-l'environnement fermé où une beta fonctionne (D907). Il reste à dire
-comment une beta nomme son origine ; le report dans les chapitres
-l'attend.
+l'environnement fermé où une beta fonctionne (D907).
+
+*Précisé (D2166).* Une beta nomme son origine par `from:` et le seul
+numéro de la version : une même version ne peut pas être dans deux
+environnements, son numéro dit donc si elle est en production ou en
+beta. Le report dans les chapitres attend la validation de la lecture
+d'ensemble : qui demande la copie et la réinitialisation, et comment se
+demande la migration de la copie.
 
 ## 3. Deux enregistrements gardent la même clé à la fin de la lecture
 

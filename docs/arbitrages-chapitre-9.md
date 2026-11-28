@@ -57,6 +57,12 @@ d'une fenêtre de faible affluence.</u>**
 *Ma recommandation.* La réponse 1 : le mécanisme de D1974 a été conçu
 pour cela, et la bascule ne coûte qu'un changement de référence.
 
+*Tranché (D2163).* Le moteur attend une période de faible affluence,
+pour réduire l'attente que cause la migration de version. Il la
+reconnaît à l'historique d'exécution des tâches et des appels, ou à
+l'absence de connexion pendant un certain laps de temps. Une précision
+est demandée : ce que le moteur contrôle dès le dépôt.
+
 ## 2. Une version beta, sans que son modèle soit déployé
 
 *Où.* [Quand l'ingestion se déclenche](syncytium/09-moteur/02-ingestion.md#quand-lingestion-se-déclenche).
@@ -143,6 +149,9 @@ passe ?
 *Ma recommandation.* La réponse 1 : depuis, les secrets sont
 obligatoirement chiffrés et jamais versionnés (D707), et le dépôt de la
 description est celui du client (D336).
+
+*Tranché (D2163).* Un seul compte de secours ; son mot de passe vit dans
+les variables d'environnement.
 
 ## 5. Le modèle de `_migration` et le fichier de détail
 

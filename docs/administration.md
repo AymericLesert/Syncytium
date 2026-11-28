@@ -96,7 +96,10 @@ au lancement** de l'application (jamais atteignable depuis
 l'application vivante) — **le module administration seul** (aucune
 donnée métier servie), l'accès par **le compte administrateur
 principal** et **le mot de passe fixé à l'installation** (le patron
-des secrets D707 — hors annuaire, hors configuration versionnée) ;
+des secrets D707 — hors annuaire, hors configuration versionnée ;
+D2163 : c'est **le compte de secours**, un seul pour l'amorçage, le
+bris de glace et le mode safe, son mot de passe dans les variables
+d'environnement) ;
 le mode safe est **tracé** (l'audit D704) — la porte de secours
 n'est jamais une porte dérobée. **Le mode safe désactive toutes les
 conditions indispensables** (D745 — l'envoi de mails n'est plus un

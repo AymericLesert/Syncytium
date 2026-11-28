@@ -33,9 +33,8 @@ filtre appliqué sur l'élément principal ; `alias:` couvre le même
 concept sur un connecteur, le nom stable. *(D966, D1918, D2141)*
 
 **Amorçage** — Le premier accès à une application qui n'a encore aucun
-administrateur : la description porte un compte administrateur de
-secours, dont elle ne garde que l'empreinte, utilisable seulement tant
-qu'aucun compte administrateur n'existe. *(D33)*
+administrateur : le compte de secours l'ouvre, tant qu'aucun compte
+administrateur n'existe. *(D33, D2163)*
 
 **Anonymisation** — L'effacement des données personnelles d'un
 enregistrement, qui garde son squelette : les liens tiennent, le
@@ -119,7 +118,7 @@ jamais. *(D601, D1605)*
 
 **Bris de glace** — L'activation du compte de secours quand
 l'authentification est indisponible ; indépendant de tout connecteur
-externe, toujours audité et alerté. *(D81)*
+externe, toujours audité et alerté. *(D81, D2163)*
 
 **Cache d'une migration** (`cache`) — Le mécanisme qui garde des valeurs
 le temps d'un passage. Il n'y en a qu'un, et deux façons de l'utiliser :
@@ -208,6 +207,12 @@ d'IA, tenu dans le projet Syncytium : il lui dit comment mener un
 geste, et quoi vérifier. Deux sont annoncées : garantir que toute
 classe de storage respecte le contrat ; repérer une valeur laissée en
 clair et la faire chiffrer, avant le dépôt. *(D2136, D2154, D2155)*
+
+**Compte de secours** — Le compte administrateur qui ouvre
+l'application quand aucune autre entrée n'est possible. Il n'y en a
+qu'un : il sert l'amorçage, le bris de glace et le mode safe. Son mot
+de passe vit dans les variables d'environnement, hors de l'annuaire et
+hors de la description. *(D33, D81, D718, D2163)*
 
 **Complétude du schéma** — Dans une reprise, la part de la description
 d'une source qui tient encore face au modèle lu par le connecteur : les
@@ -655,6 +660,13 @@ a annoncés ; au navigateur, il ne reçoit jamais le `private` ; il ne se
 rejoue pas de lui-même. Le socle passe par la même frontière.
 *(D52, D57, D66, D572, D599, D913)*
 
+**Faible affluence (période de)** — Un moment où l'application sert
+peu : peu de tâches, peu d'appels, ou personne de connecté. Le moteur
+l'attend pour jouer une migration de version, afin de réduire l'attente
+qu'elle cause. Il la reconnaît à l'historique d'exécution des tâches et
+des appels, ou à l'absence de connexion pendant un certain laps de
+temps. *(D7, D2163)*
+
 **Fusible** — Une limite que le moteur pose à une exécution, pour qu'un
 traitement qui s'emballe ne prive pas les autres du service : le délai
 d'une fonction complexe, la file des tâches, le temps de repos d'une
@@ -968,10 +980,9 @@ garantit que la transaction des mises à jour reste cohérente d'un bout
 à l'autre. *(D2142–D2144, D2146)*
 
 **Mode safe** — Un mode d'exécution choisi au lancement de
-l'application : le module d'administration seul, ouvert au compte
-administrateur principal, par le mot de passe fixé à l'installation. La
-porte de secours quand l'annuaire, le SSO ou les droits sont hors
-d'usage ; toujours tracé. *(D718, D745)*
+l'application : le module d'administration seul, ouvert au compte de
+secours. La porte de secours quand l'annuaire, le SSO ou les droits
+sont hors d'usage ; toujours tracé. *(D718, D745, D2163)*
 
 **Mode d'un champ** (`mode`) — Son mode d'écriture : modifiable
 (`editable`), lecture seule (`read-only`), écrit une fois pour toutes

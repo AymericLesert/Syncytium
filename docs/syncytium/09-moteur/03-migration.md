@@ -28,6 +28,7 @@ parenthèses renvoient au [registre](../../conception.md).
   - [Le défaut qui change](#le-défaut-qui-change)
   - [Le contrôle de la bijection](#le-contrôle-de-la-bijection)
 - [Pendant la migration](#pendant-la-migration)
+  - [Le moment : une période de faible affluence](#le-moment--une-période-de-faible-affluence)
   - [Avant de démarrer : les tâches](#avant-de-démarrer--les-tâches)
   - [L'activité continue](#lactivité-continue)
 - [La bascule](#la-bascule)
@@ -239,6 +240,28 @@ ne conserve pas les données est au chapitre 8 :
 [la bijection, à la charge du concepteur](../08-migration/07-version.md#la-bijection-à-la-charge-du-concepteur).
 
 ## Pendant la migration
+
+### Le moment : une période de faible affluence
+
+> **Une période de faible affluence** est un moment où l'application
+> sert peu : peu de tâches, peu d'appels, ou personne de connecté
+> ([glossaire](../../glossaire.md)).
+
+Une migration fait attendre : les tâches sont mises en pause, et la
+bascule suspend un instant les requêtes. Pour que cette attente touche
+le moins de monde possible, le moteur ne migre pas dès le dépôt de la
+version : il attend une période de faible affluence (D7, D2163). Il la
+reconnaît à l'un de ces deux repères :
+
+| Le repère | Ce que le moteur regarde |
+|---|---|
+| l'historique | l'exécution des tâches et les appels passés : il y lit les heures creuses de l'application |
+| l'absence de connexion | personne n'est connecté depuis un certain laps de temps |
+
+Dans l'entrepôt (le cas 5), la version 1.0.0.1 est déposée un mardi à
+dix heures, en pleine activité : le moteur attend. Le soir, quand plus
+personne n'est connecté depuis le laps de temps fixé, la migration
+démarre.
 
 ### Avant de démarrer : les tâches
 

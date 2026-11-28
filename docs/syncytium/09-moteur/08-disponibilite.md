@@ -260,8 +260,9 @@ Le détail est dans le chapitre de chaque famille :
 
 ## La continuité pendant une migration
 
-Une montée de version n'arrête pas l'application (D801). Les lectures
-continuent, les écritures sont enregistrées puis rejouées. La tâche en
+Une montée de version n'arrête pas l'application (D801). Elle attend
+une période de faible affluence (D2163). Les lectures continuent, les
+écritures sont enregistrées puis rejouées. La tâche en
 cours se termine avant le démarrage, et les autres attendent la fin de
 la migration (D24, D2136) : voir
 [pendant la migration](03-migration.md#pendant-la-migration).

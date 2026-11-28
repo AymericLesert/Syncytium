@@ -31,6 +31,7 @@ décisions citées entre parenthèses renvoient au
   - [La porte de secours](#la-porte-de-secours)
   - [Les conditions indispensables, suspendues](#les-conditions-indispensables-suspendues)
 - [L'amorçage et le bris de glace](#lamorçage-et-le-bris-de-glace)
+  - [Le compte de secours](#le-compte-de-secours)
   - [L'amorçage](#lamorçage)
   - [Le bris de glace](#le-bris-de-glace)
   - [Les trois secours](#les-trois-secours)
@@ -204,8 +205,8 @@ Le mode safe est la porte de secours de cette situation (D718) :
 |---|---|
 | quand il se choisit | au lancement de l'application ; il n'est jamais atteignable depuis l'application en service |
 | ce qu'il sert | le module d'administration seul : aucune donnée métier |
-| qui y entre | le compte administrateur principal, avec le mot de passe fixé à l'installation |
-| où vit ce mot de passe | avec les secrets : hors de l'annuaire, hors de la configuration versionnée |
+| qui y entre | le compte de secours, avec son mot de passe : voir [le compte de secours](#le-compte-de-secours) |
+| où vit ce mot de passe | dans les variables d'environnement : hors de l'annuaire, hors de la configuration versionnée |
 | ce qu'il laisse | une trace à l'audit, et au journal |
 
 Une porte de secours n'est jamais une porte dérobée : le mode safe est
@@ -219,8 +220,32 @@ qui en soit exempté. Il sert précisément quand le reste manque.
 
 ## L'amorçage et le bris de glace
 
-Deux autres secours vivent dans l'application en service. Ils portent
-sur un compte, non sur un mode de lancement.
+Deux autres secours vivent dans l'application en service. Ils ne
+tiennent pas à un mode de lancement, mais au même compte que le mode
+safe : le compte de secours.
+
+### Le compte de secours
+
+> **Le compte de secours** est le compte administrateur qui ouvre
+> l'application quand aucune autre entrée n'est possible
+> ([glossaire](../../glossaire.md)).
+
+Il n'y en a qu'un, et il sert les trois secours : l'amorçage, le bris
+de glace et le mode safe (D2163). Son mot de passe vit dans les
+variables d'environnement :
+
+- **hors de l'annuaire** : le compte ne dépend d'aucun connecteur
+  externe ;
+- **hors de la description** : aucun fichier versionné ne le porte, pas
+  même sous la forme d'une empreinte ;
+- **comme un secret** : il est chiffré dans le fichier des variables,
+  et le clair est refusé au démarrage. Voir
+  [le patron unique des secrets](07-secrets.md#le-patron-unique-des-secrets).
+
+Dans l'entrepôt (le cas 5), l'authentification passe par Azure AD. Un
+lundi matin, l'annuaire ne répond plus : l'administrateur entre par le
+compte de secours. C'est le même compte qui a servi à l'installation,
+pour créer le premier administrateur.
 
 ### L'amorçage
 
@@ -228,13 +253,11 @@ sur un compte, non sur un mode de lancement.
 > aucun administrateur ([glossaire](../../glossaire.md)).
 
 Une application neuve n'a pas de compte : il en faut un pour créer les
-autres. La description porte donc un compte administrateur de secours,
-avec son mot de passe (D33) :
+autres. Le compte de secours tient ce rôle (D33) :
 
-- il n'est utilisable que s'il n'existe aucun compte administrateur ;
-- en régime normal, il est inerte ;
-- la description n'en garde que l'empreinte, jamais le clair : le
-  fichier est versionné.
+- pour l'amorçage, il n'est utilisable que s'il n'existe aucun compte
+  administrateur ;
+- en régime normal, il est inerte.
 
 ### Le bris de glace
 
@@ -253,9 +276,11 @@ d'authentification ne répond plus (D81) :
 
 | Le secours | La situation | Ce qu'il ouvre |
 |---|---|---|
-| l'amorçage | aucun compte administrateur n'existe | le compte de la description |
-| le bris de glace | l'authentification ne répond plus | le compte de secours, dans l'application en service |
+| l'amorçage | aucun compte administrateur n'existe | l'application en service |
+| le bris de glace | l'authentification ne répond plus | l'application en service |
 | le mode safe | l'annuaire, le SSO ou les droits sont hors d'usage | le module d'administration seul, au lancement |
+
+Les trois s'ouvrent par le même compte de secours (D2163).
 
 Le quotidien des comptes, l'invitation, le mot de passe oublié, le
 verrouillage, relève de l'administration : il est au chapitre 10.

@@ -75,9 +75,10 @@ Le concepteur ne lance rien : déposer suffit (D324, D921).
 - **l'application rejoint la version la plus élevée** du statut de son
   mode d'exécution : `beta`, `production` ou `sandbox` (D801, D908). Le
   numéro qui compte est celui que `version.yml` porte en tête ;
-- **la migration se joue dès que la description est validée** : la
-  version devient alors sollicitable, par les API et par les écrans
-  (D7, D328).
+- **la migration attend une période de faible affluence** : elle se
+  joue alors, et la version devient sollicitable, par les API et par
+  les écrans (D7, D328, D2163). Voir
+  [le moment](03-migration.md#le-moment--une-période-de-faible-affluence).
 
 Le statut dit l'environnement qui sert la version. Dans l'entrepôt (le
 cas 5), le statut `beta` désigne le staging :

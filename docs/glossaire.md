@@ -1490,7 +1490,9 @@ de page. À ne pas confondre avec le Gabarit, un texte à trous.
 lots, plutôt que ligne à ligne. Le moteur le privilégie partout : il
 réduit de façon drastique les temps d'exécution. Le contrat du storage
 écrit par listes et lit au curseur ; un passage lit sa source par lots.
-*(D688, D689, D2158)*
+La taille du lot se paramètre : `1`, le traitement unitaire ; `-1`,
+tout en une seule fois ; un nombre, la taille exploitable quand le
+volume est trop grand pour un seul lot. *(D688, D689, D2158, D2159)*
 
 **Traitement (RGPD)** — Une opération ou une suite d'opérations —
 un wizard, une action, un déclencheur — impliquant au moins un champ

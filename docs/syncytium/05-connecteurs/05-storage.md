@@ -82,7 +82,8 @@ stockage. Ses méthodes se groupent en quatre (D629, D680–D689).
   L'écriture se fait en lots : chaque méthode porte une liste, le bulk
   natif de la classe (D688). La lecture se fait au curseur : `read` rend
   un curseur qui convertit chaque ligne au fil du parcours, la masse au
-  suivi de progression (D689).
+  suivi de progression (D689). La taille du lot se paramètre (D2159) :
+  voir [la taille du lot](../09-moteur/README.md#la-taille-du-lot).
 
 La version n'a pas de méthode (D680) : c'est une entité système du
 storage, définie et maintenue par Syncytium, lue et écrite par `read`

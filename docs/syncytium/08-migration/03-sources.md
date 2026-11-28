@@ -199,6 +199,11 @@ Les clés d'une entité source :
 | `partition:` | la lecture par plages : voir [la partition](#la-partition) |
 | `fields:` | les colonnes, et les champs calculés |
 
+Une entité source déclare aussi la taille des lots par lesquels sa
+table est lue (D2160) : une table large demande des lots plus modestes
+qu'une table étroite. La clé reste à écrire : voir
+[une taille par entité](../09-moteur/README.md#une-taille-par-entité).
+
 ### Un fichier par entité
 
 Un fichier décrit une entité d'origine, et porte le nom de sa table :

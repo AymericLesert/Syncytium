@@ -1492,7 +1492,9 @@ réduit de façon drastique les temps d'exécution. Le contrat du storage
 écrit par listes et lit au curseur ; un passage lit sa source par lots.
 La taille du lot se paramètre : `1`, le traitement unitaire ; `-1`,
 tout en une seule fois ; un nombre, la taille exploitable quand le
-volume est trop grand pour un seul lot. *(D688, D689, D2158, D2159)*
+volume est trop grand pour un seul lot. Elle se déclare par entité, de
+la source ou du modèle : une entité aux champs nombreux ou complexes
+demande des lots plus modestes. *(D688, D689, D2158–D2160)*
 
 **Traitement (RGPD)** — Une opération ou une suite d'opérations —
 un wizard, une action, un déclencheur — impliquant au moins un champ

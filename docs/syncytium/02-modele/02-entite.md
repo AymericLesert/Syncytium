@@ -176,6 +176,10 @@ découpe :
   champs, par période pour une date : `partition: date_comptable[year]`,
   `partition: [site, statut]` (D1293, D1300). Sans déclaration, pas de
   partition ; le storage décide de la forme.
+- **la taille du lot** des traitements en masse se déclare aussi à
+  l'entité (D2160) : une entité aux champs nombreux ou complexes
+  demande des lots plus modestes. Sa clé reste à écrire : voir
+  [une taille par entité](../09-moteur/README.md#une-taille-par-entité).
 
 Une propriété qui porte une carte peut cumuler plusieurs fichiers, dans
 l'ordre (D968) : c'est un mécanisme de la

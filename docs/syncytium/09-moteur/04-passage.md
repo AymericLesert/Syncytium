@@ -57,7 +57,7 @@ différences (D1044). Ses étapes, dans l'ordre :
 | les cinq phases de contrôle | chaque ligne est contrôlée, construite dans la base miroir, puis contrôlée encore (D1033, D1040) |
 | le contrôle d'intégrité | les identités sont vérifiées, une fois toutes les données lues (D1954) |
 | la comparaison | la base miroir est comparée à la base de l'application (D672, D1037) |
-| la bascule | les différences sont reportées, en une transaction (D1041) |
+| la bascule | dès qu'aucune tâche ne tourne, Syncytium passe en mode pause et reporte les différences, en une transaction (D1041, D2142) |
 | le suivi | la table des clés d'origine, les compteurs, les indicateurs et les anomalies sont mis à jour (D1047–D1056) |
 | les rapports | les anomalies sont réunies par destinataire, et envoyées (D929, D1058) |
 
@@ -175,7 +175,7 @@ Voici comment le moteur les conduit.
 | deux enregistrements de même identité, dans la base miroir | 5 | le second (D1046) |
 | la validation d'un parent qui lit ses enfants | 5 | le parent, et tous ses enfants (D933) |
 
-Quatre de ces lignes demandent un mot.
+Quatre de ces lignes appellent une explication :
 
 **La phase 1 conditionne la lecture de l'entité.** Elle se joue après
 le filtre : les types d'abord, puis l'identité, puis les liens (D1040).
@@ -347,6 +347,30 @@ La suppression se joue sur la partition relue (D1052) :
 Les différences sont reportées dans la base de l'application en une
 seule transaction (D1041). C'est le seul moment où l'existant change,
 et le seul qui ne s'interrompt pas.
+
+> **Le mode pause** est l'état de Syncytium le temps d'une bascule :
+> aucune tâche ne tourne, et celles qui attendent restent en pause
+> ([glossaire](../../glossaire.md)).
+
+Pour basculer, Syncytium passe en mode pause (D2142). Les gestes, dans
+l'ordre :
+
+1. il attend : la bascule se fait dès qu'aucune tâche ne tourne ;
+2. il met en pause toutes les autres tâches ;
+3. il bascule ;
+4. il reprend la suite : les tâches repartent.
+
+Jusque-là, le passage a construit la reprise à part, dans la base
+miroir, sans gêner personne. La pause ne vaut donc que pour la bascule.
+
+Ex. : dans l'entrepôt (le cas 5), le delta de la nuit est prêt à
+basculer alors qu'une génération de documents tourne encore. Le moteur
+attend sa fin. Il met en pause l'envoi de mails qui la suivait dans la
+file, reporte les différences, puis laisse partir l'envoi.
+
+Une migration de version suit la même conduite, plus tôt : elle met les
+tâches en pause avant de démarrer. Voir
+[avant de démarrer : les tâches](03-migration.md#avant-de-démarrer--les-tâches).
 
 ### L'exécution à blanc
 

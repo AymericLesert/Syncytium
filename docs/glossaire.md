@@ -42,8 +42,10 @@ remplacement est construite au hasard, jamais dérivée de l'origine.
 *(D139, D696, D1812)*
 
 **Arrêt de l'application** — Le temps du moteur qui met l'application en
-sécurité, pour assurer un bon redémarrage. Même après un arrêt brutal,
-Syncytium garde une position de repli. *(D621, D2134)*
+position de sécurité, pour assurer un bon redémarrage : la page de
+maintenance, les déclenchements suspendus, le passage en cours
+interrompu, les connecteurs relâchés. Même après un arrêt brutal,
+Syncytium garde une position de repli. *(D621, D2134, D2135)*
 
 **Assistance** (`_assistance`, module interne) — La
 F.A.Q. vivante du socle : l'utilisateur pose une question depuis un
@@ -1051,8 +1053,9 @@ dans l'état précédent, et le redémarrage s'appuie sur l'estampille.
 
 **Position de sécurité** — La conduite du moteur quand un système tiers
 fait défaut : la page de maintenance pour un connecteur clé, le résultat
-de remplacement pour les autres, et l'alerte à l'administrateur.
-*(D625–D627)*
+de remplacement pour les autres, et l'alerte à l'administrateur. Le
+moteur prend la même position à l'arrêt de l'application.
+*(D625–D627, D2135)*
 
 **Possesseur** (`owner`) — L'enregistrement qui possède une
 composition ; l'enfant l'atteint par `owner`. *Ex. : `owner.km_initial`.*

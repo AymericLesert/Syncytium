@@ -72,8 +72,9 @@ clair, il donne ainsi la commande à exécuter, `syncytium encrypt`
 
 ## L'arrêt de l'application
 
-> **L'arrêt de l'application** met l'application en sécurité, pour
-> assurer un bon redémarrage ([glossaire](../../glossaire.md)).
+> **L'arrêt de l'application** met l'application en position de
+> sécurité, pour assurer un bon redémarrage
+> ([glossaire](../../glossaire.md)).
 
 Un moteur ne fait pas que démarrer. Il s'arrête aussi : pour une
 maintenance, pour une intervention sur le serveur, ou sans prévenir,
@@ -82,14 +83,24 @@ redémarrage qui le suit (D2134).
 
 ### L'arrêt demandé
 
-L'arrêt consiste à mettre l'application en sécurité, pour que le
-redémarrage se passe bien. Le reste de la documentation dit déjà ce que
-deviennent deux éléments :
+L'arrêt met l'application en position de sécurité, pour que le
+redémarrage se passe bien. C'est la position que le moteur prend déjà
+quand un système tiers fait défaut (D2135) : voir
+[la position de sécurité](08-disponibilite.md#la-position-de-sécurité).
+Ses gestes, dans l'ordre :
 
-| Ce qui est en cours | Ce que l'arrêt en fait |
+| Le geste | Ce qu'il fait |
 |---|---|
+| la page de maintenance | elle s'affiche : l'application ne sert plus ses écrans (D626) |
+| les déclenchements | ils sont suspendus : plus aucune opération ne part (D625) |
+| le passage en cours | il est interrompu, comme lors d'un redémarrage, et tracé ; il n'est pas relancé de lui-même (D1077) : voir [l'interruption](04-passage.md#linterruption) |
 | les connecteurs | chacun est relâché, par la méthode `release` du socle commun (D621) : voir [les méthodes](../05-connecteurs/03-socle.md#les-méthodes) |
-| un passage de reprise | il est interrompu, et tracé ; il n'est pas relancé de lui-même (D1077) : voir [l'interruption](04-passage.md#linterruption) |
+| l'arrêt | l'application s'arrête |
+
+Dans l'entrepôt (le cas 5), un arrêt demandé à 2 h 05 surprend le delta
+de la nuit. Tant qu'il n'a pas basculé, le passage est interrompu : rien
+de l'entrepôt n'est touché, et l'administrateur le relance au
+redémarrage.
 
 ### La position de repli
 

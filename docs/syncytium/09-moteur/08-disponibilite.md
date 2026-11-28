@@ -73,6 +73,9 @@ D627) :
 La graduation se déclare au connecteur, par `onerror` : voir
 [la position de sécurité](../05-connecteurs/03-socle.md#la-position-de-sécurité).
 
+Le moteur prend la même position quand l'application s'arrête (D2135) :
+voir [l'arrêt de l'application](06-demarrage.md#larrêt-de-lapplication).
+
 Deux règles l'encadrent, au démarrage :
 
 - l'application ne démarre que si elle peut alerter : c'est

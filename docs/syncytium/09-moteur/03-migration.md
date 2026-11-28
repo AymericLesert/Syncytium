@@ -279,8 +279,8 @@ dix heures, en pleine activité :
   un plafond de deux connexions : le soir, dès que l'entrepôt compte
   deux connexions au plus depuis trente minutes, la migration démarre.
 
-Les trois paramètres se déclarent au fichier de l'environnement.
-L'écriture de leurs clés est en proposition ; une illustration :
+Les trois paramètres se déclarent au fichier de l'environnement, dans
+le bloc `quiet:` (D2169). Une illustration :
 
 ```yaml
 # La faible affluence

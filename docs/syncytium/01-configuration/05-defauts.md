@@ -192,7 +192,8 @@ application:
 - le groupe : `degree` (D699, D900), `persona` (D1200) ;
 - les surfaces : `default` (D186, D438), `breadcrumb` (D549), `size`
   (D533, D549) ;
-- l'environnement : `storage` (D1114), `retention` (D2137), `documentation` (D1167) ;
+- l'environnement : `storage` (D1114), `retention` (D2137), `documentation` (D1167) ; `quiet` n'a pas de
+  défaut écrit : sans `delay` ni `connections`, le moteur les calcule d'après l'historique (D2164, D2169) ;
 - le connecteur : `connection` (D621), `pool` (D622), `retry` et `timeout`
   (D625), `onerror` (D627) — confirmés D1712, les défauts en proposition ;
 - l'application : `sandbox.retention` (D912), `logging.throttle` (D926),

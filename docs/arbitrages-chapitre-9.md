@@ -71,6 +71,9 @@ laps de temps, le nombre de connexions simultanées au plus, la plage de
 dates glissantes. Les deux premiers se calculent sur les `n` derniers
 jours, ou se déclarent quand l'historique ne suffit pas.
 
+*Validé (D2169).* Leurs clés : le bloc `quiet:` du fichier de
+l'environnement, avec `delay:`, `connections:` et `history:`.
+
 ## 2. Une version beta, sans que son modèle soit déployé
 
 *Où.* [Quand l'ingestion se déclenche](syncytium/09-moteur/02-ingestion.md#quand-lingestion-se-déclenche).

@@ -661,16 +661,17 @@ a annoncés ; au navigateur, il ne reçoit jamais le `private` ; il ne se
 rejoue pas de lui-même. Le socle passe par la même frontière.
 *(D52, D57, D66, D572, D599, D913)*
 
-**Faible affluence (période de)** — Un moment où l'application sert
+**Faible affluence (période de)** (`quiet:`) — Un moment où l'application sert
 peu : peu de tâches, peu d'appels, ou personne de connecté. Le moteur
 l'attend pour jouer une migration de version, afin de réduire l'attente
 qu'elle cause. Il la reconnaît à l'historique d'exécution des tâches et
 des appels, ou à l'absence de connexion pendant un certain laps de
-temps. Trois paramètres la définissent : le laps de temps, le nombre de
-connexions simultanées au plus, la plage de dates glissantes. Les deux
-premiers se calculent sur les `n` derniers jours, ou se déclarent quand
-l'historique ne suffit pas. La description, elle, est contrôlée dès le
-dépôt. *(D7, D2163, D2164)*
+temps. Trois paramètres la définissent, au fichier de l'environnement :
+le laps de temps, `delay:` ; le nombre de connexions simultanées au
+plus, `connections:` ; la plage de dates glissantes, `history:`. Les
+deux premiers se calculent sur les `n` derniers jours, ou se déclarent
+quand l'historique ne suffit pas. La description, elle, est contrôlée
+dès le dépôt. *(D7, D2163, D2164, D2169)*
 
 **Fusible** — Une limite que le moteur pose à une exécution, pour qu'un
 traitement qui s'emballe ne prive pas les autres du service : le délai

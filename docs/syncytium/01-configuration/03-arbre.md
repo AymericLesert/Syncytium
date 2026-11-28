@@ -319,6 +319,17 @@ Voici, clé par clé, ce que le fichier d'un environnement peut porter :
   est conservée après la bascule d'une migration de version, pour
   permettre d'y revenir (D2136, D2137). Par défaut, sept jours. Voir
   [la rétention de la version antérieure](../09-moteur/03-migration.md#la-rétention-de-la-version-antérieure).
+- **`quiet:`** : la faible affluence, que le moteur attend avant de
+  jouer une migration de version (D2163, D2164, D2169). Elle a trois
+  propriétés :
+  - `delay:` : le laps de temps pendant lequel le calme doit tenir ;
+  - `connections:` : le nombre de connexions simultanées au plus ;
+  - `history:` : la plage de dates glissantes, les derniers jours
+    d'historique que le moteur regarde.
+
+  Sans `delay:` ni `connections:`, le moteur les calcule d'après cet
+  historique ; ils se déclarent quand l'historique ne suffit pas. Voir
+  [le moment](../09-moteur/03-migration.md#le-moment--une-période-de-faible-affluence).
 - **`mirror:`** : la base miroir, où les migrations se construisent
   avant de reporter leurs différences (D1044, D1890, D1891). Elle a
   deux propriétés (D1892) :
@@ -326,8 +337,9 @@ Voici, clé par clé, ce que le fichier d'un environnement peut porter :
     `memory`, un connecteur en mémoire ; il se configure pour une base
     très volumineuse (D1889) ;
   - `retention:` : la durée pendant laquelle le détail des passages se
-    garde dans le module `_migration`. Par défaut, quatre-vingt-dix
-    jours ; le nettoyage se fait à chaque début de journée (D1894).
+    garde, dans les fichiers du dossier interne (D2164). Par défaut,
+    quatre-vingt-dix jours ; le nettoyage se fait à chaque début de
+    journée (D1894).
 
   La clé s'écrit en forme courte ou en bloc (D1894) :
   - `mirror: temporaire` : le connecteur seul, la rétention par

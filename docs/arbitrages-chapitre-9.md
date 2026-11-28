@@ -6,8 +6,10 @@ trait le 23/11/2026 dans le mode à l'essai (D2128, D2130). Elle ne porte
 que les vrais arbitrages : deux décisions qui se contredisent, un manque,
 une lecture jamais confirmée. Chacun se pose par un exemple, des réponses
 numérotées et une recommandation. Tout le reste est tranché d'après le
-registre et marqué mien (D2130). La page se retire quand ses sept points
-sont clos.*
+registre et marqué mien (D2130). Les points 8 à 12 sont des manques que
+la relecture de l'auteur a ouverts (D2162) : ils sont à traiter, et
+chacun se posera par un exemple quand l'auteur l'ouvrira. La page se
+retire quand ses douze points sont clos.*
 
 ## Le sommaire
 
@@ -18,6 +20,11 @@ sont clos.*
 - [5. Le modèle de `_migration` et le fichier de détail](#5-le-modèle-de-_migration-et-le-fichier-de-détail)
 - [6. Les fusibles et la position de sécurité](#6-les-fusibles-et-la-position-de-sécurité)
 - [7. Les lecteurs externes de la base, à la bascule](#7-les-lecteurs-externes-de-la-base-à-la-bascule)
+- [8. La clé de la taille du lot](#8-la-clé-de-la-taille-du-lot)
+- [9. La déclaration du reverse proxy](#9-la-déclaration-du-reverse-proxy)
+- [10. Le dossier interne](#10-le-dossier-interne)
+- [11. L'annonce de la bascule aux applications abonnées](#11-lannonce-de-la-bascule-aux-applications-abonnées)
+- [12. Un nom stable demandé à une classe qui n'en publie pas](#12-un-nom-stable-demandé-à-une-classe-qui-nen-publie-pas)
 
 ## 1. Une version déposée en pleine journée
 
@@ -224,3 +231,48 @@ aucun changement lit par elle.
 
 *Tranché (D2139).* La réponse 3, les deux. Le nom stable est une
 facette de la description du modèle, et une option du connecteur.
+
+## 8. La clé de la taille du lot
+
+*Où.* [Une taille par entité](syncytium/09-moteur/README.md#une-taille-par-entité).
+
+*Le manque.* La taille du lot se déclare par entité, de la source ou du
+modèle (D2160). **<u>Le chapitre ne nomme pas la clé, et ne dit pas la
+taille d'une entité qui ne déclare rien.</u>**
+
+## 9. La déclaration du reverse proxy
+
+*Où.* [Ce que Syncytium sert](syncytium/09-moteur/07-secrets.md#ce-que-syncytium-sert).
+
+*Le manque.* Un reverse proxy assure le HTTPS partout, et celui de
+Syncytium est une fonctionnalité optionnelle (D2155). L'écriture de sa
+déclaration est en proposition depuis D919. **<u>Le chapitre ne dit pas
+comment un environnement déclare son reverse proxy, ni comment il
+demande celui de Syncytium.</u>**
+
+## 10. Le dossier interne
+
+*Où.* [Le dossier interne](syncytium/09-moteur/02-ingestion.md#le-dossier-interne).
+
+*Le manque.* Tout ce que le moteur génère pour une version vit dans un
+dossier interne à l'application (D2154). **<u>Le chapitre ne dit ni son
+nom, ni son emplacement, ni si un environnement peut le placer
+ailleurs.</u>**
+
+## 11. L'annonce de la bascule aux applications abonnées
+
+*Où.* [Les lecteurs externes de la base](syncytium/09-moteur/03-migration.md#les-lecteurs-externes-de-la-base).
+
+*Le manque.* À la bascule, Syncytium annonce le changement : à
+l'administrateur par le mail des faits marquants, aux applications
+abonnées par un webhook sortant (D2139). **<u>Le chapitre ne dit pas
+comment une application s'abonne à cette annonce.</u>**
+
+## 12. Un nom stable demandé à une classe qui n'en publie pas
+
+*Où.* [Le nom stable](syncytium/05-connecteurs/05-storage.md#le-nom-stable).
+
+*Le manque.* Le nom stable est une option du connecteur, demandée par
+`alias:` (D2139, D2140). **<u>Rien ne dit ce que fait l'ingestion quand
+`alias:` est écrit sur une classe de storage qui ne sait pas publier de
+nom stable.</u>**

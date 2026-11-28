@@ -220,7 +220,7 @@ resources/ versionné au crédit déclaré (D803), les statuts
 implicites déclarés à l'usage (D804), pas de déclaration orpheline
 (D805 — le statut porte `environment:`), le pattern regex = une
 déclaration (D806), le nommage et l'organisation libres (D807 —
-l'éponyme = une convention), `release-notes:` à l'historique par
+l'éponyme = une convention), `release_notes:` à l'historique par
 concaténation (D808), la fiche du hook (D809 —
 name/description/code/properties), `description:` partout (D810).
 

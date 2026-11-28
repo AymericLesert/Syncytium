@@ -9,7 +9,7 @@ languages: fr
 
 # Les notes de version
 # Ce que la version apporte, en Markdown.
-release-notes: |
+release_notes: |
   La première version de la maintenance des véhicules du foyer — du classeur Excel à l'application.
 
   # Le modèle

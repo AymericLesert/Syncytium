@@ -677,7 +677,7 @@ qu'elle cause. Il la reconnaît à l'historique d'exécution des tâches et
 des appels, ou à l'absence de connexion pendant un certain laps de
 temps. Trois paramètres la définissent, au fichier de l'environnement :
 le laps de temps, `delay:` ; le nombre de connexions simultanées au
-plus, `connections:` ; la plage de dates glissantes, `history:`. Les
+plus, `connections:` ; la plage de dates glissantes, `window:`. Les
 deux premiers se calculent sur les `n` derniers jours, ou se déclarent
 quand l'historique ne suffit pas. La description, elle, est contrôlée
 dès le dépôt. *(D7, D2163, D2164, D2169)*
@@ -1340,11 +1340,11 @@ unique garde la forme `TABLE.colonne` ; `A.colonne or B.colonne` vise
 l'une de deux entités, la première qui correspond. *Ex. :
 `NOKTCODPF: ARTICLE[PRODUIT].ARKTCODART`.* *(D995–D996)*
 
-**Release-notes** (`release-notes:`) — Le cadre des évolutions
+**Release-notes** (`release_notes:`) — Le cadre des évolutions
 apportées par une version, porté par `version.yml`. L'historique
 complet s'assemble par concaténation des release-notes des versions
 antérieures jusqu'à la courante — pas de fichier unique à maintenir.
-*(D808)*
+*(D808, D2177)*
 
 **Renommage** (`from:`) — Le changement de nom d'un champ, d'une entité
 ou d'un module d'une version à l'autre. L'élément renommé dit son ancien
@@ -1403,9 +1403,9 @@ changer d'algorithme : c'est le seul geste qui rechiffre ou rehache.
 
 **Sandbox** — L'environnement fermé où une version `beta` fonctionne :
 celui que le statut `beta` désigne, le staging dans les cas. La beta y
-a sa propre base, copiée d'office au dépôt depuis son origine, que
-`from:` nomme par son seul numéro ; sans origine, Syncytium crée le
-modèle. La copie est migrée, sauf si `version.yml` écrit
+a sa propre base, copiée d'office au dépôt depuis son origine : la
+dernière version en production, ou la version que `from:` nomme par son
+seul numéro ; sans origine, Syncytium crée le modèle. La copie est migrée, sauf si `version.yml` écrit
 `migrate: false` : les règles de migration ascendantes délivrent alors
 les données dans la forme de la beta. Il n'y a pas de statut ni de
 dossier `sandbox`. *(D907, D2164–D2168, D2171)*

@@ -26,7 +26,7 @@ for stream in (sys.stdout, sys.stderr):
 
 ROOT = os.path.abspath(sys.argv[1])
 REF = re.compile(r"^~\{([^}]*)\}$")
-VERSION_KEYS = {"version", "languages", "release-notes", "authors", "settings", "groups", "documentation",
+VERSION_KEYS = {"version", "languages", "release_notes", "authors", "settings", "groups", "documentation",
                 "migrations", "modules", "hooks", "resources", "from", "environment"}
 ENTITY_KEYS = {"name", "description", "title", "label", "identity", "history", "fields", "gui", "operations",
                "validation", "allow", "confidentiality", "rgpd", "menu", "entities", "parent", "type", "unique",
@@ -348,7 +348,7 @@ def check_ingestion(ver, version_label, fallback):
                 key = f"{path}.{k}" if path else str(k)
                 if k in TEXT_KEYS and multi and not (is_entity and k == "label"):  # le visage texte n'est pas un texte
                     text_defect(v, key, node)
-                if k == "release-notes":
+                if k == "release_notes":
                     continue
                 walk(v, key, is_entity)
         elif isinstance(node, list):

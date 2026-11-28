@@ -10,7 +10,7 @@ languages: [fr, en, es]
 
 # Les notes de version
 # Ce que la version apporte, en Markdown.
-release-notes: |
+release_notes: |
   La première version de la gestion des comptes bancaires du foyer — trente-quatre ans d'écritures repris.
 
   # Le modèle

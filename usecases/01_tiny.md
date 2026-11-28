@@ -449,7 +449,7 @@ produirait, sans annotation : [01_tiny_dictionnaire.md](01_tiny_dictionnaire.md)
 >     1.0.0.0:
 >       languages: [<la langue du poste informatique>]
 >       title: tiny
->       release-notes: Version 1 de l'annuaire
+>       release_notes: Version 1 de l'annuaire
 >       migrations:
 >         legacy:
 >           from: csv[personne]

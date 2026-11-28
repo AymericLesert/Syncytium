@@ -9,7 +9,7 @@ languages: fr
 
 # Les notes de version
 # Ce que la version apporte, en Markdown.
-release-notes: |
+release_notes: |
   La première version de l'entrepôt de données : les données de Cegid PMI standardisées, harmonisées et fiabilisées, de
   l'opérateur aux dirigeants.
 

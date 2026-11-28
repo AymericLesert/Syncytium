@@ -280,7 +280,7 @@ dix heures, en pleine activité :
   deux connexions au plus depuis trente minutes, la migration démarre.
 
 Les trois paramètres se déclarent au fichier de l'environnement, dans
-le bloc `quiet:` (D2169). Une illustration :
+le bloc `quiet:` (D2169, D2177). Une illustration :
 
 ```yaml
 # La faible affluence
@@ -298,7 +298,7 @@ quiet:
 
   # La plage de dates glissantes
   # Les derniers jours d'historique que le moteur regarde pour calculer les deux valeurs.
-  history: 30d
+  window: 30d
 ```
 
 ### Avant de démarrer : les tâches

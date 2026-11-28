@@ -131,6 +131,9 @@ beta.
 *Confirmé (D2167).* Il n'y a pas de dossier `versions/sandbox/` : c'est
 `versions/beta/` qui utilise la sandbox.
 
+*Précisé (D2177).* Sans `from:`, l'origine d'une beta est la dernière
+version en production.
+
 *Tranché (D2168).* Le staging est la sandbox des betas. Syncytium copie
 d'office la base de l'origine, au dépôt. La migration de la copie se
 demande par une clé de `version.yml`. Le chapitre le décrit :
@@ -559,3 +562,6 @@ regarde quand la clé est absente.</u>**
 écriture, `temporal[365]` ici, `30d` là, et « plage de dates
 glissantes » se dit `window`. B, la réponse 1 : quatre semaines lissent
 une semaine inhabituelle, et suivent encore un changement d'usage.
+
+*La question A, tranchée (D2177).* `window:`. La question B reste
+posée : l'auteur répond « quiet ? », que je n'ai pas su lire.

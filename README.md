@@ -65,7 +65,7 @@ versions:
     environment: home
 
     1.0.0.0:
-      release-notes: Version 1 de l'annuaire
+      release_notes: Version 1 de l'annuaire
 
       migrations:
         legacy: csv[personne]

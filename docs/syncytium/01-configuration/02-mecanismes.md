@@ -286,7 +286,7 @@ substitution, le moteur déduit le niveau de la position :
 - sous un module, des entités.
 
 Au même niveau, les clés réservées sont celles du moteur, `environment`,
-`release-notes`, `description`, `title`, `languages` ; toutes les autres
+`release_notes`, `description`, `title`, `languages` ; toutes les autres
 sont des identifiants. Un identifiant qui reprend une clé réservée de son
 niveau est refusé à l'ingestion.
 

@@ -375,25 +375,27 @@ désigne, quel que soit son nom (D2165, D2167, D2168). Dans l'entrepôt
 
 ### L'origine d'une beta
 
-Une version `beta` nomme son origine dans son `version.yml`, par
-`from:` et le seul numéro de la version (D2166). Une même version ne
-peut pas être dans deux statuts : son numéro suffit donc à dire si
-l'origine est en production ou en beta. La 1.0.0.1 de l'entrepôt (le
-cas 5) l'écrit :
+Une version `beta` a une origine : la version dont la base est copiée
+dans la sandbox. Par défaut, c'est la dernière version en production
+(D2177). Pour partir d'une autre beta, la version le dit dans son
+`version.yml`, par `from:` et le seul numéro de la version (D2166). Une
+même version ne peut pas être dans deux statuts : son numéro suffit
+donc à dire où elle est.
 
 ```yaml
 # L'origine de la version
-# La version dont la base est copiée dans la sandbox, nommée par son seul numéro.
-from: v1.0.0.0
+# La version dont la base est copiée dans la sandbox, nommée par son seul numéro ; sans cette clé, la dernière
+# version en production.
+from: v1.0.0.1
 ```
 
 Trois origines sont possibles (D2164) :
 
 | L'origine | Ce que `version.yml` écrit | Ce que fait Syncytium |
 |---|---|---|
-| aucune : c'est la première version | pas de `from:` | il crée le modèle |
-| la dernière version en production | `from: v1.0.0.0` | il copie la base de la production |
+| la dernière version en production | rien : c'est le défaut | il copie la base de la production |
 | une autre beta | `from: v1.0.0.1` | il copie la base de cette beta |
+| aucune : c'est la première version, rien n'est encore en production | rien | il crée le modèle |
 
 Si la base de l'origine n'existe pas, Syncytium crée le modèle, comme
 pour une première version (D2164).
@@ -402,8 +404,8 @@ pour une première version (D2164).
 
 Le concepteur ne lance rien : déposer la version suffit, et Syncytium
 fait le reste d'office (D2168). Dans l'entrepôt, la production sert la
-1.0.0.0. La 1.0.0.1 est déposée dans `versions/beta/`, avec
-`from: v1.0.0.0` :
+1.0.0.0. La 1.0.0.1 est déposée dans `versions/beta/`, sans `from:` :
+son origine est donc la 1.0.0.0.
 
 | Le geste | Ce qu'il fait |
 |---|---|
@@ -416,13 +418,9 @@ fait le reste d'office (D2168). Dans l'entrepôt, la production sert la
 
 Par défaut, la copie est migrée : la beta est servie sur une base à sa
 version. Le concepteur peut s'en passer, une fois pour la version, par
-la clé `migrate:` de `version.yml`, à côté de `from:` (D2168, D2171) :
+la clé `migrate:` de `version.yml` (D2168, D2171) :
 
 ```yaml
-# L'origine de la version
-# La version dont la base est copiée dans la sandbox, nommée par son seul numéro.
-from: v1.0.0.0
-
 # La migration de la copie
 # Sans cette clé, true : la copie est migrée vers la version. À false, elle reste au modèle de son origine.
 migrate: false

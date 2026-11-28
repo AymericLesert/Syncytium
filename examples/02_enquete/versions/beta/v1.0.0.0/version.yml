@@ -9,7 +9,7 @@ languages: fr
 
 # Les notes de version
 # Ce que la version apporte, en Markdown.
-release-notes: |
+release_notes: |
   La première version de l'enquête de satisfaction — le « hello world » de Syncytium : un module, une table et une
   composition, aucune surface déclarée.
 

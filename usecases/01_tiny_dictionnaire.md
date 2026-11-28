@@ -241,7 +241,7 @@ versions:
     1.0.0.0:
       languages: fr
       title: tiny
-      release-notes: Version 1 de l'annuaire
+      release_notes: Version 1 de l'annuaire
       migrations:
         legacy:
           from: csv[personne]

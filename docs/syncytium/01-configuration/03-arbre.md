@@ -24,7 +24,7 @@ versions/
 ├── beta/
 │   ├── beta.yml                     # environment: staging ; versions: [le pattern]
 │   └── v1.0.0.0/
-│       ├── version.yml              # version, release-notes, settings:, groups:, allow:, migrations:, modules:, hooks:
+│       ├── version.yml              # version, release_notes, settings:, groups:, allow:, migrations:, modules:, hooks:
 │       ├── settings.yml             # la maison des types et des réglages
 │       ├── groups.yml               # les groupes
 │       ├── resources/               # les documents, images, logos versionnables
@@ -323,11 +323,11 @@ Voici, clé par clé, ce que le fichier d'un environnement peut porter :
   permettre d'y revenir (D2136, D2137). Par défaut, sept jours. Voir
   [la rétention de la version antérieure](../09-moteur/03-migration.md#la-rétention-de-la-version-antérieure).
 - **`quiet:`** : la faible affluence, que le moteur attend avant de
-  jouer une migration de version (D2163, D2164, D2169). Elle a trois
+  jouer une migration de version (D2163, D2164, D2169, D2177). Elle a trois
   propriétés :
   - `delay:` : le laps de temps pendant lequel le calme doit tenir ;
   - `connections:` : le nombre de connexions simultanées au plus ;
-  - `history:` : la plage de dates glissantes, les derniers jours
+  - `window:` : la plage de dates glissantes, les derniers jours
     d'historique que le moteur regarde.
 
   Sans `delay:` ni `connections:`, le moteur les calcule d'après cet
@@ -525,7 +525,7 @@ languages: [fr, en]
 
 # Les notes de version
 # Les évolutions de cette version ; l'historique se lit par la concaténation des notes.
-release-notes: |
+release_notes: |
   La première version de l'entrepôt de données.
 
 # Les auteurs de la version
@@ -556,8 +556,9 @@ resources: ~{resources/resources.yml}
 ```
 
 Sous `beta` seulement, deux clés de plus (D2166, D2168). `from:` nomme
-la version d'origine, par son seul numéro, `from: v1.0.0.0` : sa base
-est copiée dans la sandbox. `migrate:` dit si cette copie est migrée :
+la version d'origine, par son seul numéro, `from: v1.0.0.1` : sa base
+est copiée dans la sandbox. Sans `from:`, l'origine est la dernière
+version en production (D2177). `migrate:` dit si cette copie est migrée :
 `true` par défaut, `false` pour la copie seule (D2171). `from:` est
 supprimée à la
 promotion (D928) : voir

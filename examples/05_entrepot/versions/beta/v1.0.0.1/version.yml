@@ -2,10 +2,6 @@
 # Quatre nombres : la majeure, la mineure, l'indice et le build.
 version: 1.0.0.1
 
-# L'origine de la version
-# La version dont la base est copiée dans la sandbox, nommée par son seul numéro.
-from: v1.0.0.0
-
 # Les langues de l'application
 # La première est la langue par défaut ; ajouter ou retirer une langue fait une nouvelle version. Avec une seule
 # langue, les libellés et les descriptions s'écrivent en texte simple.
@@ -13,7 +9,7 @@ languages: fr
 
 # Les notes de version
 # Ce que la version apporte, en Markdown.
-release-notes: |
+release_notes: |
   La seconde version de l'entrepôt, en essai sur le staging : trois évolutions du modèle.
 
   # Le modèle

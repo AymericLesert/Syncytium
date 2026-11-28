@@ -114,6 +114,11 @@ délivrent les informations dans la dernière version. Deux questions
 sont posées avant de reporter : comment une beta nomme son origine, et
 ce que devient le statut `sandbox`.
 
+*Précisé (D2165).* Le statut `sandbox` s'efface : la sandbox redevient
+l'environnement fermé où une beta fonctionne (D907). Il reste à dire
+comment une beta nomme son origine ; le report dans les chapitres
+l'attend.
+
 ## 3. Deux enregistrements gardent la même clé à la fin de la lecture
 
 *Où.* [Le contrôle d'intégrité](syncytium/09-moteur/04-passage.md#le-contrôle-dintégrité).

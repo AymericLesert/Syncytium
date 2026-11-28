@@ -344,7 +344,7 @@ RELECTURE.update({_n: "moteur" for _n in [
     861, 862, 1032, 1036, 1056, 1057, 1059, 1060, 1065, 1068, 1077, 1079, 1080]})  # le passage et ce qu'il laisse
 RELECTURE.update({1784: "methode", 1785: "methode", 2129: "methode", 2130: "methode"})
 # La relecture du chapitre 9 par l'auteur (D2134, le 28/11/2026) : ses remarques sont de la famille du chapitre.
-RELECTURE.update({2134: "moteur", 2135: "moteur", 2136: "moteur", 2137: "moteur", 2138: "moteur", 2139: "moteur"})
+RELECTURE.update({2134: "moteur", 2135: "moteur", 2136: "moteur", 2137: "moteur", 2138: "moteur", 2139: "moteur", 2140: "moteur"})
 
 
 

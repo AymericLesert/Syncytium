@@ -345,14 +345,14 @@ Rien de cela ne s'écrit à la main dans la base : tout est déclaration.
   synonymes et ses vues se déduisent de la description, comme la forme
   de stockage ;
 - **c'est une option du connecteur** : elle se déclare au connecteur
-  storage, et sans elle aucun nom stable n'est publié. Sa clé,
-  `alias:`, est en proposition. Voir
+  storage, par `alias:`, à côté de `class:` (D2140). Sans elle, aucun
+  nom stable n'est publié. Voir
   [le nom stable](../05-connecteurs/05-storage.md#le-nom-stable).
 
-Dans l'entrepôt (le cas 5), un rapport de BI lit les tiers par le nom
-stable. La version 1.0.0.1 bascule un mardi à dix heures : à dix heures
-une, le rapport lit l'instance de la 1.0.0.1, sans que sa connexion ait
-changé. L'annonce de la bascule dit à son auteur que le nom abrégé du
+Supposons que le connecteur de l'entrepôt (le cas 5) déclare
+`alias: entrepot_bi`. Un rapport de BI y lit les tiers. La version
+1.0.0.1 bascule un mardi à dix heures : à dix heures une, le rapport lit
+l'instance de la 1.0.0.1, sans que sa connexion ait changé. L'annonce de la bascule dit à son auteur que le nom abrégé du
 tiers a été renommé.
 
 Une limite demeure : seule l'API garde la forme d'une version

@@ -154,13 +154,33 @@ change celle que Syncytium désigne. Le nom stable épargne ce changement
 au lecteur (D2139) :
 
 - **c'est une option du connecteur** : elle se déclare au connecteur
-  storage. Sans elle, aucun nom stable n'est publié. Sa clé, `alias:`,
-  est en proposition ;
+  storage, par `alias:` (D2140). Sans elle, aucun nom stable n'est
+  publié ;
 - **c'est une facette de la description du modèle** : les synonymes et
   les vues du nom stable se déduisent de la description, comme la forme
   de stockage. Personne ne les écrit dans la base ;
 - **il suit le pointeur** : à la bascule comme à la restauration, il
   désigne l'instance en service.
+
+`alias:` s'écrit au niveau du connecteur, à côté de `class:`, et porte
+le nom stable. Aucun cas ne l'écrit ; en illustration, sur le connecteur
+de l'entrepôt :
+
+```yaml
+# L'entrepôt
+# La base de l'application : un schéma PostgreSQL.
+entrepot:
+  type: storage
+  class: postgresql
+
+  # Le nom stable
+  # Le nom sous lequel l'instance en service se lit de l'extérieur ; sans cette clé, aucun nom stable n'est publié.
+  alias: entrepot_bi
+```
+
+Ce mot sert aussi ailleurs, à un autre niveau : dans une source de
+migration, `alias:` nomme une entité qui lit une table sous un filtre.
+Voir [l'alias](../08-migration/03-sources.md#lalias).
 
 Le mécanisme est au chapitre 9,
 [les lecteurs externes de la base](../09-moteur/03-migration.md#les-lecteurs-externes-de-la-base).

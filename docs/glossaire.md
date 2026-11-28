@@ -954,12 +954,13 @@ unique, des propriétés, des items, et reçoit un contexte :
 l'enregistrement, le champ, les opérations, l'utilisateur. Tout nœud a
 la même signature, en sept traits. *(D455, D566)*
 
-**Nom stable** (`alias:`, en proposition) — Le nom, constant d'une
+**Nom stable** (`alias:`, au connecteur storage) — Le nom, constant d'une
 version à l'autre, sous lequel un storage publie l'instance en service,
 par des synonymes et des vues, pour les lecteurs qui ne passent pas par
 Syncytium : une application tierce, un outil de BI. C'est une option du
 connecteur, et une facette de la description du modèle ; il suit le
-pointeur à la bascule et à la restauration. *(D1260, D2139)*
+pointeur à la bascule et à la restauration. À ne pas confondre avec
+l'alias d'une entité source. *(D1260, D2139, D2140)*
 
 **Normalisation** (`normalize:`) — L'expression appliquée à une valeur à
 la frontière, quand elle entre. *Ex. : `normalize: me.trim()`, les blancs

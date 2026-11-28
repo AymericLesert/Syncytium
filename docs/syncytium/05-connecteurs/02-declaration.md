@@ -131,6 +131,10 @@ Sous son nom, un connecteur déclare cinq clés :
   liste, pour le registre des traitements (D1345).
 - **`every:`**, le rythme du connecteur, ci-dessous.
 
+Un connecteur `storage` peut en déclarer une sixième, **`alias:`** : le
+nom stable sous lequel l'instance en service se lit de l'extérieur
+(D2140). Voir [le nom stable](05-storage.md#le-nom-stable).
+
 Les propriétés du socle, `connection:`, `pool:`, `retry:`, `timeout:`,
 `onerror:`, valent pour tout connecteur ; un cas n'écrit que ce qu'il
 surcharge. Elles sont dans [le socle commun](03-socle.md).

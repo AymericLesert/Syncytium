@@ -919,10 +919,11 @@ la prise de relais d'une application existante : c'est la
 
 **Mode pause** — L'état de Syncytium le temps de la bascule d'un
 passage de reprise : les tâches, les lectures et les écritures sont
-arrêtées. La bascule se fait dès qu'aucune tâche ne tourne ; la suite
-reprend après elle. Une reprise modifie l'instance courante : la pause
+arrêtées. La bascule se fait dès qu'aucune tâche ne tourne ; une
+demande arrivée pendant la pause est mise en attente ; la suite reprend
+après la bascule. Une reprise modifie l'instance courante : la pause
 garantit que la transaction des mises à jour reste cohérente d'un bout
-à l'autre. *(D2142–D2144)*
+à l'autre. *(D2142–D2144, D2146)*
 
 **Mode safe** — Un mode d'exécution choisi au lancement de
 l'application : le module d'administration seul, ouvert au compte

@@ -369,6 +369,9 @@ Les gestes, dans l'ordre :
 4. il reprend la suite : les tâches, les lectures et les écritures
    repartent.
 
+Une demande arrivée pendant la pause n'est pas refusée : elle est mise
+en attente (D2146), et servie quand la suite reprend.
+
 Arrêter les lectures et les écritures garantit que la transaction des
 mises à jour reste cohérente d'un bout à l'autre (D2144) : personne ne
 lit une donnée à moitié reportée, personne n'écrit pendant qu'elle se
@@ -380,8 +383,9 @@ miroir, sans gêner personne. La pause ne vaut donc que pour la bascule.
 Ex. : dans l'entrepôt (le cas 5), le delta de la nuit est prêt à
 basculer alors qu'une génération de documents tourne encore. Le moteur
 attend sa fin. Il met en pause l'envoi de mails qui la suivait dans la
-file, et l'application ne lit ni n'écrit plus. Il reporte les
-différences. Puis tout repart : l'envoi, les lectures, les écritures.
+file, et les demandes de lecture et d'écriture qui arrivent sont mises
+en attente. Il reporte les différences. Puis tout repart : l'envoi, et
+les demandes qui attendaient.
 
 Le mode pause est propre à la bascule d'un passage de reprise (D2143).
 Une migration de version se conduit autrement. Elle ne modifie pas

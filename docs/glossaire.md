@@ -495,8 +495,9 @@ Syncytium. C'est le cadre d'une alternative aux passages de reprise,
 proposée au concepteur : des triggers marquent les modifications dans
 la base du legacy, un outil les écoute et les transmet à Syncytium par
 ses API. Syncytium arbitre : une modification du legacy que ses règles
-refusent est refusée. La méthode est douce ; ses règles de
-transformation se traitent en dehors de Syncytium. *(D2147, D2148)*
+refusent est refusée ; l'opérateur la corrige dans le legacy, ou
+utilise Syncytium. La méthode est douce ; ses règles de
+transformation se traitent en dehors de Syncytium. *(D2147–D2149)*
 
 **Droit d'action** (`allow:`) — Qui peut créer, lire, modifier,
 supprimer un enregistrement, ou déclencher une opération. Une règle à

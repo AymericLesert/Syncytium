@@ -542,6 +542,19 @@ La source de vérité étant dans Syncytium, c'est lui qui arbitre
 autre. Si une règle de validation la refuse, elle est refusée, et
 l'outil la signale.
 
+Ce refus peut venir d'un changement des règles de validation : le
+legacy était laxiste, Syncytium est plus strict (D2149). L'opérateur,
+celui qui a saisi la modification, a alors deux voies :
+
+- corriger la donnée dans le legacy, pour que la modification soit
+  valable dans Syncytium ;
+- utiliser Syncytium, pour y prendre en compte les nouvelles
+  informations.
+
+Ex. : le legacy acceptait un client sans code postal, Syncytium
+l'exige. L'opérateur complète le code postal dans le legacy, et la
+modification passe ; ou il saisit le client directement dans Syncytium.
+
 La méthode a son avantage et son prix :
 
 | Ce qu'elle apporte | Ce qu'elle coûte |

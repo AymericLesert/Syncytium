@@ -911,11 +911,10 @@ sans intervention du concepteur. Entre deux versions : sans règle sous
 la prise de relais d'une application existante : c'est la
 **rétro-conception**. *(D631, D1908, D2026, D2027)*
 
-**Mode pause** — L'état de Syncytium le temps d'une bascule : elle se
-fait dès qu'aucune tâche ne tourne, les autres tâches sont mises en
-pause, et la suite reprend après la bascule. Pour une migration de
-version, la pause commence avant le démarrage de la migration.
-*(D2136, D2142)*
+**Mode pause** — L'état de Syncytium le temps de la bascule d'un
+passage de reprise : les tâches, les lectures et les écritures sont
+arrêtées. La bascule se fait dès qu'aucune tâche ne tourne ; la suite
+reprend après elle. *(D2142, D2143)*
 
 **Mode safe** — Un mode d'exécution choisi au lancement de
 l'application : le module d'administration seul, ouvert au compte

@@ -1519,8 +1519,8 @@ La taille du lot se paramètre : `1`, le traitement unitaire ; `-1`,
 tout en une seule fois ; un nombre, la taille exploitable quand le
 volume est trop grand pour un seul lot. Elle se déclare par entité, de
 la source ou du modèle, par `lot_size:` : une entité aux champs
-nombreux ou complexes demande des lots plus modestes.
-*(D688, D689, D2158–D2160, D2172)*
+nombreux ou complexes demande des lots plus modestes. Sans la clé, tout
+se traite en une seule fois. *(D688, D689, D2158–D2160, D2172, D2173)*
 
 **Traitement (RGPD)** — Une opération ou une suite d'opérations —
 un wizard, une action, un déclencheur — impliquant au moins un champ

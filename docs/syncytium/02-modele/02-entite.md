@@ -178,8 +178,8 @@ découpe :
   partition ; le storage décide de la forme.
 - **`lot_size:`** porte la taille du lot des traitements en masse
   (D2160, D2172) : `1`, ligne à ligne ; `-1`, tout en une seule fois ;
-  un nombre, la taille d'un lot. Une entité aux champs nombreux ou
-  complexes demande des lots plus modestes : voir
+  un nombre, la taille d'un lot. Sans la clé, `-1` (D2173). Une entité
+  aux champs nombreux ou complexes demande des lots plus modestes : voir
   [une taille par entité](../09-moteur/README.md#une-taille-par-entité).
 
 Une propriété qui porte une carte peut cumuler plusieurs fichiers, dans

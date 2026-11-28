@@ -322,6 +322,9 @@ dire.
 *Le nom, tranché (D2172).* `lot_size:`. La taille d'une entité qui ne
 déclare rien reste à dire.
 
+*Tranché (D2173).* La réponse 2 : sans `lot_size:`, tout en une seule
+fois.
+
 ## 9. La déclaration du reverse proxy
 
 *Où.* [Ce que Syncytium sert](syncytium/09-moteur/07-secrets.md#ce-que-syncytium-sert).

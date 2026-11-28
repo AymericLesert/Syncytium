@@ -197,7 +197,7 @@ Les clés d'une entité source :
 | `identity:` | les colonnes qui identifient une ligne : la contrainte d'unicité (D357) |
 | `report:` | le rapport des anomalies de la table et ses destinataires : voir [les contrôles](05-controles.md) |
 | `partition:` | la lecture par plages : voir [la partition](#la-partition) |
-| `lot_size:` | la taille des lots par lesquels la table est lue (D2160, D2172) : voir [une taille par entité](../09-moteur/README.md#une-taille-par-entité) |
+| `lot_size:` | la taille des lots par lesquels la table est lue ; sans la clé, tout en une seule fois (D2160, D2172, D2173) : voir [une taille par entité](../09-moteur/README.md#une-taille-par-entité) |
 | `fields:` | les colonnes, et les champs calculés |
 
 Une table large demande des lots plus modestes qu'une table étroite :

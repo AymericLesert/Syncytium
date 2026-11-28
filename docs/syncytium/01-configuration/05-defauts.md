@@ -186,7 +186,7 @@ application:
 - le module : `title` (D1120), `history` (D168, D1174), `menu` (D193,
   D351) ;
 - l'entité : `title` (D1120), `label` (D1181), `history` (D168), `allow`
-  (D422, D886) ;
+  (D422, D886), `lot_size`, `-1`, tout en une seule fois (D2173) ;
 - le champ : `required` (D373, D1170), `mode` (D364), `label` (D1181),
   `abbreviation` (D265, D1619), `confidentiality` (D25), `trace` (D703, D1845), `searchable` (D1308), `default` et `unmapped`
   (D941), `normalize` (D870, D991), `reset` (D409, D410), `currency`

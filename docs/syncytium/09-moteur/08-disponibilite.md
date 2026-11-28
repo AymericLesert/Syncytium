@@ -24,6 +24,7 @@ les renvois. Les décisions citées entre parenthèses renvoient au
 - [Les frontières d'extension](#les-frontières-dextension)
   - [Le même chemin pour tous](#le-même-chemin-pour-tous)
   - [Ce qu'un hook ne contourne pas](#ce-quun-hook-ne-contourne-pas)
+  - [Les bornes propres aux connecteurs](#les-bornes-propres-aux-connecteurs)
   - [Ce qui se règle, et où](#ce-qui-se-règle-et-où)
 - [La continuité pendant une migration](#la-continuité-pendant-une-migration)
 
@@ -85,41 +86,172 @@ Deux règles l'encadrent, au démarrage :
 
 ## Les frontières d'extension
 
-Un hook est du code que le concepteur ajoute. Le moteur l'exécute dans
-des frontières qu'il déclare, et qu'aucun hook ne franchit.
+> **Une frontière d'extension** est une limite que le moteur impose au
+> code ajouté à Syncytium : ce qu'un hook lit, écrit et appelle se
+> déclare, et rien d'autre ne lui est ouvert
+> ([glossaire](../../glossaire.md)).
+
+Quand la configuration ne suffit pas, le concepteur prolonge Syncytium
+par du code : un hook. C'est un type, un composant, un connecteur ou
+une opération, écrit contre le contrat de Syncytium. Ce code s'exécute
+au cœur de l'application, près des données de l'entreprise. Mal écrit,
+il pourrait lire ce qu'il ne doit pas voir, écrire sans contrôle, ou
+appeler un système qu'on ne lui a pas confié. Le moteur ne s'en remet
+donc pas à la bonne volonté du code : il l'exécute dans des frontières,
+qu'aucun hook ne franchit.
+
+Un exemple suit toute la section : l'opération `dupliquer` de la banque
+(le cas 4). C'est un hook du projet, qui duplique une écriture entre
+deux dates.
 
 ### Le même chemin pour tous
 
-Un composant du socle et un hook externe passent par la même frontière
-déclarée : il n'y a aucun raccourci caché (D52). Un hook est déployé,
-versionné et validé avec la description.
+Le socle de Syncytium est lui-même fait de hooks : ses types, ses
+composants et ses vingt et une opérations sont écrits contre le même
+contrat que ceux du concepteur (D52). Il n'y a donc pas deux portes,
+une pour le code de Syncytium et une pour le code du projet. Trois
+conséquences :
+
+- **aucun raccourci caché** : ce que le socle fait, il le fait par le
+  contrat. `dupliquer` n'a ni plus ni moins de pouvoir qu'une opération
+  du socle ;
+- **une seule frontière à tenir** : la règle qui protège l'application
+  du code du projet est celle que le socle respecte déjà ;
+- **un hook arrive avec la version** : il est déployé, versionné et
+  validé avec la description. L'ingestion vérifie sa signature, et un
+  hook en défaut arrête l'ingestion : voir
+  [la description, vérifiée en entier](02-ingestion.md#la-description-vérifiée-en-entier).
 
 ### Ce qu'un hook ne contourne pas
 
-| La frontière | La règle |
-|---|---|
-| la lecture et l'écriture | le hook lit le modèle par ses noms logiques, jamais le stockage ; il écrit dans la transaction : les droits, la confidentialité, la validation et la concurrence s'appliquent (D572, D599) |
-| le navigateur | un hook d'interface s'y exécute ; il ne reçoit que le `public` et le `protected`, jamais le `private` (D66) |
-| les connecteurs | le hook nomme les connecteurs qu'il attend, par `connectors:` ; la déclaration les lie par `uses:`, et l'ingestion le vérifie : il ne touche que ce qu'il a annoncé (D913) |
-| l'exécution | elle est unique, sans rejeu automatique (D57) |
+Un hook est un citoyen du moteur, jamais un super-utilisateur. Il
+n'atteint la base et les systèmes tiers que par deux chemins, que le
+moteur tient :
 
-Les connecteurs gardent de leur côté leurs propres bornes : leurs
-valeurs à l'environnement (D617), l'annuaire en lecture seule (D633),
-le webhook entrant gardé (D642).
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    H["un hook"]
+    L["la librairie d'exploration"]
+    G["les règles du moteur<br/>les droits, la confidentialité,<br/>la validation, la concurrence"]
+    B[("la base")]
+    C["les connecteurs annoncés"]
+    T["les systèmes tiers"]
+    H --> L
+    L --> G
+    G --> B
+    H --> C
+    C --> T
+```
+
+Aucune flèche ne va du hook à la base, ni du hook à un système tiers :
+c'est toute la frontière. Elle se décline en quatre règles.
+
+**La lecture et l'écriture passent par la librairie** (D572, D599). Le
+hook ne parle jamais à la base. Le moteur lui fournit une librairie
+d'exploration, qui lui présente le modèle par ses noms logiques :
+l'entité, le champ, jamais la table. À chaque lecture et à chaque
+écriture, la librairie applique ce que le moteur applique à un écran :
+
+- les droits de l'utilisateur qui a lancé l'opération ;
+- la confidentialité des champs ;
+- les règles de validation ;
+- la concurrence par champ.
+
+Le hook écrit dans la transaction de l'opération. Quand `dupliquer`
+crée ses écritures, chacune est contrôlée comme si l'utilisateur
+l'avait saisie. S'il n'a pas le droit de créer une écriture, ou si
+l'une d'elles enfreint une règle, la librairie refuse, comme l'écran
+l'aurait fait.
+
+**Les connecteurs s'annoncent** (D913). Un hook peut avoir besoin d'un
+système tiers : envoyer un mail, déposer un fichier. Il ne le choisit
+pas lui-même. Trois temps :
+
+- **le contrat du hook annonce** les connecteurs qu'il attend, par
+  `connectors:` : un rôle et une famille, `mailer: smtp` par exemple ;
+- **la déclaration de l'opération lie** chaque rôle à un connecteur de
+  l'environnement, par `uses:` ;
+- **l'ingestion vérifie** la liaison et la famille.
+
+À l'exécution, le hook n'atteint que ces connecteurs : tout autre est
+hors de portée (D599). Un hook qui annonce `mailer: smtp` envoie un
+mail ; il ne lit pas l'annuaire. De même, il ne lit ni variable
+d'environnement ni fichier que la configuration ne référence pas
+(D1440). Voir
+[le hook, par `uses:`](../05-connecteurs/02-declaration.md#le-hook-par-uses).
+
+**Le navigateur ne reçoit pas tout** (D66, D918). Un hook d'interface,
+un composant graphique, s'exécute dans le navigateur de l'utilisateur,
+hors du moteur. Le moteur ne lui envoie que les données `public` et
+`protected` ; une donnée `private` ne quitte jamais le serveur. Ce hook
+relève de l'ergonomie, jamais de la sécurité : ce qu'il affiche ou
+masque ne décide de rien, le serveur arbitre. Voir
+[le seul code tiers](07-secrets.md#le-seul-code-tiers).
+
+**L'exécution ne se rejoue pas d'elle-même** (D57, D1744). Par défaut,
+une opération s'exécute une fois. Si elle échoue, le moteur ne la
+relance pas : un mail déjà parti ne doit pas partir deux fois. La
+relance est un geste de l'administrateur, depuis la supervision. Un
+hook qui supporte d'être rejoué le dit dans son contrat : voir
+[les cinq propriétés intrinsèques](../06-operations/07-hooks.md#les-cinq-propriétés-intrinsèques).
+
+Les quatre règles, en une table :
+
+| La frontière | Ce que le hook peut faire | Ce qui lui est fermé |
+|---|---|---|
+| la lecture et l'écriture | lire et écrire le modèle, par la librairie, dans la transaction | la base elle-même ; une écriture hors des droits ou de la validation |
+| les connecteurs | appeler les connecteurs qu'il a annoncés | tout autre connecteur ; une variable ou un fichier hors de la configuration |
+| le navigateur | afficher le `public` et le `protected` | le `private` ; décider d'un droit |
+| l'exécution | s'exécuter une fois | se rejouer de lui-même |
+
+### Les bornes propres aux connecteurs
+
+Un connecteur est lui aussi une extension, tournée vers l'extérieur. Il
+garde ses propres bornes, qu'un hook ne déplace pas :
+
+- **ses valeurs vivent à l'environnement** (D617) : l'adresse, le
+  compte, le mot de passe d'un connecteur sont au fichier de
+  l'environnement, jamais dans la version. Un hook emploie le
+  connecteur tel qu'il est déclaré ;
+- **l'annuaire ne s'écrit pas** (D633) : le connecteur `directory` n'a
+  que des méthodes de lecture ;
+- **le webhook entrant est gardé** (D642) : aucune entrée n'est
+  anonyme, l'authentification est obligatoire.
 
 ### Ce qui se règle, et où
 
-Certaines propriétés d'exécution appartiennent au code du hook,
-d'autres à l'administration :
+Une opération a des propriétés d'exécution. Les unes tiennent à son
+code, les autres à la charge de l'installation. Le moteur ne les range
+pas au même endroit, et ce partage est lui-même une frontière : la
+configuration ne peut pas faire mentir le code.
 
-| La propriété | Où elle vit | Pourquoi |
-|---|---|---|
-| `execution`, `deterministic`, `deterministic_duration` | au contrat du hook, jamais dans la configuration (D905) | une opération est déterministe ou non : cela ne change pas sans que son code change (D59, D904) |
-| le temps de repos, `operation.cooldown` | aux paramètres d'administration, surchargeable à la déclaration (D904) | il se règle selon la charge |
-| la rétention du résultat, `operation.retention` | aux paramètres d'administration (D906) | le résultat échu est purgé |
+Trois notions d'abord :
 
-L'administrateur peut invalider le résultat gardé d'une opération
-déterministe (D60).
+- **une opération déterministe** rend toujours le même résultat pour
+  les mêmes paramètres. Le moteur garde alors ce résultat : un second
+  appel identique le reçoit sans que l'opération se ré-exécute, tant
+  que dure la fenêtre de déterminisme (D59) ;
+- **le temps de repos** est le délai qu'une opération observe entre
+  deux exécutions pour les mêmes paramètres (D58) ;
+- **la rétention du résultat** est la durée pendant laquelle le
+  résultat d'une opération reste consultable (D906).
+
+| La propriété | Où elle vit | Qui la règle | Pourquoi |
+|---|---|---|---|
+| `execution`, `deterministic`, `deterministic_duration` | au contrat du hook, jamais dans la configuration (D905) | celui qui écrit le code | une opération est déterministe ou non : cela ne change pas sans que son code change (D59, D904) |
+| le temps de repos, `operation.cooldown` | aux paramètres d'administration, surchargeable à la déclaration (D904) | l'administrateur | il se règle selon la charge |
+| la rétention du résultat, `operation.retention` | aux paramètres d'administration, surchargeable à la déclaration (D906) | l'administrateur | elle tient au stockage : le résultat échu est purgé |
+
+Deux exemples. Une opération qui produit un état à partir de données
+arrêtées peut se déclarer déterministe : appelée deux fois de suite,
+elle rend le résultat gardé, sans recalculer. Une opération qui envoie
+un mail ne l'est pas, et aucune configuration ne peut dire le
+contraire.
+
+Reste une soupape. Si la réalité contredit le code, l'administrateur
+invalide le résultat gardé d'une opération déterministe, sans
+l'exécuter : le prochain appel la ré-exécute (D60).
 
 Le détail est dans le chapitre de chaque famille :
 [le mécanisme des hooks](../01-configuration/04-version.md#39-hooks--le-mécanisme-des-hooks),

@@ -648,6 +648,13 @@ Voir Type court. *Ex. : `lieu_achat: text[..60]` ; `- rule: … message: …`.*
 usages : créer, lire, modifier, supprimer, consulter l'historique. Il
 s'appelle `record` par défaut. *(D199, D788, D1645)*
 
+**Frontière d'extension** — Une limite que le moteur impose au code
+ajouté à Syncytium : un hook lit et écrit le modèle par la librairie
+d'exploration, jamais la base ; il n'appelle que les connecteurs qu'il
+a annoncés ; au navigateur, il ne reçoit jamais le `private` ; il ne se
+rejoue pas de lui-même. Le socle passe par la même frontière.
+*(D52, D57, D66, D572, D599, D913)*
+
 **Fusible** — Une limite que le moteur pose à une exécution, pour qu'un
 traitement qui s'emballe ne prive pas les autres du service : le délai
 d'une fonction complexe, la file des tâches, le temps de repos d'une
@@ -1478,6 +1485,12 @@ concepteur.)*
 facture ou l'étiquette : un formulaire en lecture seule et une dimension
 de page. À ne pas confondre avec le Gabarit, un texte à trous.
 *(D250, D483, D564)*
+
+**Traitement en masse** — La lecture et l'écriture des données par
+lots, plutôt que ligne à ligne. Le moteur le privilégie partout : il
+réduit de façon drastique les temps d'exécution. Le contrat du storage
+écrit par listes et lit au curseur ; un passage lit sa source par lots.
+*(D688, D689, D2158)*
 
 **Traitement (RGPD)** — Une opération ou une suite d'opérations —
 un wizard, une action, un déclencheur — impliquant au moins un champ

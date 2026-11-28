@@ -21,6 +21,7 @@ renvoient au [registre](../../conception.md).
 1. Le fonctionnement du moteur
    - [La description et le moteur](#la-description-et-le-moteur)
    - [Les cinq temps du moteur](#les-cinq-temps-du-moteur)
+   - [Le traitement en masse](#le-traitement-en-masse)
    - [Ce qui quitte le chapitre](#ce-qui-quitte-le-chapitre)
    - [Les décisions](#les-décisions)
 2. [Le démarrage d'une version](02-ingestion.md)
@@ -163,6 +164,31 @@ flowchart LR
     P -- "les différences" --> B
 ```
 
+## Le traitement en masse
+
+> **Le traitement en masse** lit et écrit les données par lots, plutôt
+> que ligne à ligne ([glossaire](../../glossaire.md)).
+
+Le moteur manipule souvent beaucoup de lignes d'un coup : une reprise,
+une rotation des clés, une écriture par l'API. Traitées une à une, ces
+lignes demandent chacune un échange avec la base, et le traitement
+risque de prendre beaucoup de temps. Le moteur privilégie donc partout
+le traitement en masse : lire et écrire par lot réduit de façon
+drastique les temps d'exécution (D2158).
+
+Le principe se retrouve d'un bout à l'autre du moteur :
+
+| Où | Comment | Où le lire |
+|---|---|---|
+| le contrat du storage | l'écriture porte une liste d'enregistrements, que la classe traite par son mécanisme de masse ; la lecture rend un curseur, qui avance au fil du parcours (D688, D689) | [le contrat](../05-connecteurs/05-storage.md#le-contrat) |
+| un passage de reprise | la source est lue par lots ; les différences sont reportées en une transaction (D1041) | [l'exécution d'un passage](04-passage.md) |
+| la rotation des clés | elle rechiffre en masse, en une transaction (D730) | [la rotation des clés](07-secrets.md#la-rotation-des-clés) |
+| les API | une écriture se fait par lot ; la taille du lot est l'affaire de Syncytium, non de l'appelant (D101, D1437) | le chapitre 13 |
+
+Dans l'entrepôt (le cas 5), le passage de la nuit ne lit pas les lignes
+de la source une à une : il les lit par lots, et reporte ses
+différences dans l'entrepôt en une seule transaction.
+
 ## Ce qui quitte le chapitre
 
 Le chapitre dit ce que le moteur fait ; ce que l'on fait du moteur est
@@ -200,5 +226,5 @@ moteur », constituée à son ouverture, le 23/11/2026 (D2129). Il vient de deux
 artefacts préparatoires : `administration.md`, pour ce que les chapitres 7 et 8
 y avaient envoyé (D1824, D2033), et `migration.md`, pour l'exécution d'un
 passage (D1028) ; tous deux restent en place jusqu'au chapitre 10 (D2010).
-Elles sont 106 décisions au registre :
-D7–D10, D33, D81, D93, D326–D332, D344, D631, D672, D674–D679, D705–D708, D718, D730, D745, D801, D861–D862, D901–D902, D915–D916, D918–D922, D927–D928, D933, D944, D1032–D1034, D1036–D1037, D1040–D1041, D1043, D1046–D1057, D1059–D1060, D1065, D1068, D1077, D1079–D1080, D1920, D1928, D1952, D1954–D1955, D1974–D1975, D1977–D1979, D1994, D2134–D2149, D2151–D2156.
+Elles sont 108 décisions au registre :
+D7–D10, D33, D81, D93, D326–D332, D344, D631, D672, D674–D679, D705–D708, D718, D730, D745, D801, D861–D862, D901–D902, D915–D916, D918–D922, D927–D928, D933, D944, D1032–D1034, D1036–D1037, D1040–D1041, D1043, D1046–D1057, D1059–D1060, D1065, D1068, D1077, D1079–D1080, D1920, D1928, D1952, D1954–D1955, D1974–D1975, D1977–D1979, D1994, D2134–D2149, D2151–D2158.

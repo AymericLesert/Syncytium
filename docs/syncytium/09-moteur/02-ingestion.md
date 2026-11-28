@@ -103,8 +103,9 @@ Deux règles tiennent ensuite pour toute la vie de la version :
 ### L'en-tête et le format
 
 La première clé de `syncytium.yml` nomme le format de la configuration
-(D322) : voir [le core en tête](../01-configuration/README.md#le-core-en-tête).
-Celle de l'entrepôt :
+(D322) : elle décrit le cadre, et le compilateur utilisé (D2134). Voir
+[le core en tête](../01-configuration/README.md#le-core-en-tête). Celle
+de l'entrepôt :
 
 ```yaml
 # Le format de la configuration
@@ -275,8 +276,10 @@ c'est elle que la migration de version lit pour savoir d'où elle part.
 
 ### La logique interne
 
-Le fichier n'est qu'une enveloppe. L'ingestion le convertit dans la
-logique interne du moteur, et c'est elle qui sert (D327) :
+Le fichier est le code source de l'application : voir
+[la description et le moteur](README.md#la-description-et-le-moteur).
+L'ingestion le compile dans la logique interne du moteur, et c'est elle
+qui sert (D327) :
 
 - **les fichiers sont inertes** : les modifier après la lecture ne
   reconstruit rien, et n'altère rien de l'existant ;

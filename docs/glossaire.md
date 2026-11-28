@@ -41,6 +41,10 @@ contenu s'efface, la fiche et son historique ensemble ; la valeur de
 remplacement est construite au hasard, jamais dérivée de l'origine.
 *(D139, D696, D1812)*
 
+**Arrêt de l'application** — Le temps du moteur qui met l'application en
+sécurité, pour assurer un bon redémarrage. Même après un arrêt brutal,
+Syncytium garde une position de repli. *(D621, D2134)*
+
 **Assistance** (`_assistance`, module interne) — La
 F.A.Q. vivante du socle : l'utilisateur pose une question depuis un
 écran, le concepteur ou un responsable métier répond ; la question
@@ -718,8 +722,12 @@ configuration en une entrée dans le moteur exploitable par toutes les
 composantes de l'application (API, Écrans, CSV, ...). Elle contrôle la
 description en entier, la convertit, joue à blanc la migration des
 données, puis active la version ; une erreur d'ingestion refuse la
-version, et l'application continue sur celle en service.
-*(D327, D328, D330, D1974)*
+version, et l'application continue sur celle en service. Elle se compare
+à une compilation à chaud de l'application : `from:` décrit le cadre et
+le compilateur utilisé, la configuration est le code source, la logique
+interne le programme compilé ; l'ingestion est l'enveloppe qui garantit
+le bon fonctionnement de l'application.
+*(D327, D328, D330, D1974, D2134)*
 
 **Invariant de sécurité** — Une règle que toute implémentation de
 Syncytium devra prouver, décision par décision : ce que le socle garantit
@@ -1034,6 +1042,12 @@ collection, `viewer[mosaic]`. *(D1129, D1188 ; D478, D480)*
 opérations par lesquelles le moteur porte les données du modèle en
 service vers un nouveau modèle, créé à côté, quand leurs deux facettes de
 stockage diffèrent. *(D1974)*
+
+**Position de repli** — L'état sûr auquel l'application peut toujours
+revenir après un arrêt brutal, sans que cette garantie coûte en
+performance : une migration ou une reprise interrompue laisse la base
+dans l'état précédent, et le redémarrage s'appuie sur l'estampille.
+*(D9, D93, D1041, D2134)*
 
 **Position de sécurité** — La conduite du moteur quand un système tiers
 fait défaut : la page de maintenance pour un connecteur clé, le résultat

@@ -12,7 +12,8 @@ attend. Si une de ces vérifications échoue, il ne démarre pas, et il
 dit pourquoi. Reste un cas à part : celui où ce qui manque est
 justement ce qui permet d'entrer, l'annuaire ou l'authentification.
 Trois secours y répondent. Ce fichier suit donc les vérifications du
-démarrage, puis le mode safe, l'amorçage et le bris de glace. Les
+démarrage, l'arrêt de l'application, puis le mode safe, l'amorçage et
+le bris de glace. Les
 décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).
 
@@ -22,6 +23,9 @@ décisions citées entre parenthèses renvoient au
   - [Ce que le moteur vérifie](#ce-que-le-moteur-vérifie)
   - [La condition indispensable](#la-condition-indispensable)
   - [Le refus de démarrer s'explique](#le-refus-de-démarrer-sexplique)
+- [L'arrêt de l'application](#larrêt-de-lapplication)
+  - [L'arrêt demandé](#larrêt-demandé)
+  - [La position de repli](#la-position-de-repli)
 - [Le mode safe](#le-mode-safe)
   - [La porte de secours](#la-porte-de-secours)
   - [Les conditions indispensables, suspendues](#les-conditions-indispensables-suspendues)
@@ -65,6 +69,48 @@ configuration corrompue, le connecteur indisponible, la perte du
 réseau. Quand un geste répare, il le nomme. Pour un secret laissé en
 clair, il donne ainsi la commande à exécuter, `syncytium encrypt`
 (D902).
+
+## L'arrêt de l'application
+
+> **L'arrêt de l'application** met l'application en sécurité, pour
+> assurer un bon redémarrage ([glossaire](../../glossaire.md)).
+
+Un moteur ne fait pas que démarrer. Il s'arrête aussi : pour une
+maintenance, pour une intervention sur le serveur, ou sans prévenir,
+parce que le courant manque. Dans tous les cas, un arrêt se juge au
+redémarrage qui le suit (D2134).
+
+### L'arrêt demandé
+
+L'arrêt consiste à mettre l'application en sécurité, pour que le
+redémarrage se passe bien. Le reste de la documentation dit déjà ce que
+deviennent deux éléments :
+
+| Ce qui est en cours | Ce que l'arrêt en fait |
+|---|---|
+| les connecteurs | chacun est relâché, par la méthode `release` du socle commun (D621) : voir [les méthodes](../05-connecteurs/03-socle.md#les-méthodes) |
+| un passage de reprise | il est interrompu, et tracé ; il n'est pas relancé de lui-même (D1077) : voir [l'interruption](04-passage.md#linterruption) |
+
+### La position de repli
+
+> **La position de repli** est l'état sûr auquel l'application peut
+> toujours revenir après un arrêt brutal
+> ([glossaire](../../glossaire.md)).
+
+Un arrêt brutal ne laisse le temps de rien préparer. Syncytium garde
+donc toujours une position de repli, et cette garantie ne doit rien
+coûter en performance (D2134). Ce que le chapitre décrit ailleurs y
+contribue déjà :
+
+| Ce que l'arrêt brutal surprend | La position de repli |
+|---|---|
+| une migration de version | la migration est transactionnelle : la base reste dans l'état précédent, et le modèle en service n'a pas été touché (D9, D1974) |
+| un passage de reprise | la bascule s'applique en entier, ou pas du tout ; avant elle, rien de l'existant n'est touché (D1041, D1044) |
+| une tâche | elle n'est pas rejouée d'elle-même : elle se relance depuis la supervision (D57) |
+
+Au redémarrage, deux appuis attendent le moteur : l'estampille, qui dit
+où en est la base, et sans laquelle il ne sert pas (D93) ; la forme
+compilée de la description, prête à l'emploi (D329).
 
 ## Le mode safe
 

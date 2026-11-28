@@ -27,5 +27,5 @@ sides:
     steps:
       - action: La version est refusée
         id: refus
-        note: la version en service continue
+        note: l'application garde sa version
     to: registre

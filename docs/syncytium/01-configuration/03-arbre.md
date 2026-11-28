@@ -322,10 +322,11 @@ Voici, clé par clé, ce que le fichier d'un environnement peut porter :
   est conservée après la bascule d'une migration de version, pour
   permettre d'y revenir (D2136, D2137). Par défaut, sept jours. Voir
   [la rétention de la version antérieure](../09-moteur/03-migration.md#la-rétention-de-la-version-antérieure).
-- **`quiet:`** : la faible affluence, que le moteur attend avant de
-  jouer une migration de version (D2163, D2164, D2169, D2177). Elle a trois
-  propriétés :
-  - `delay:` : le laps de temps pendant lequel le calme doit tenir ;
+- **`low_traffic:`** : la faible affluence, que le moteur attend avant
+  de jouer une migration de version (D2163, D2164, D2169, D2177,
+  D2178). Elle a trois propriétés :
+  - `delay:` : le laps de temps, la durée du créneau le moins fréquenté
+    de la journée, où la migration se déclenche ;
   - `connections:` : le nombre de connexions simultanées au plus ;
   - `window:` : la plage de dates glissantes, les derniers jours
     d'historique que le moteur regarde.

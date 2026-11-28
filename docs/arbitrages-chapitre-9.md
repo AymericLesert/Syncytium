@@ -76,6 +76,11 @@ jours, ou se déclarent quand l'historique ne suffit pas.
 *Validé (D2169).* Leurs clés : le bloc `quiet:` du fichier de
 l'environnement, avec `delay:`, `connections:` et `history:`.
 
+*Repris (D2177, D2178).* Le bloc s'appelle `low_traffic:`, et la plage
+`window:`. L'analyse statistique porte sur des créneaux de vingt-quatre
+heures : le créneau horaire le moins fréquenté pendant `delay:` est
+choisi pour déclencher la migration de version.
+
 ## 2. Une version beta, sans que son modèle soit déployé
 
 *Où.* [Quand l'ingestion se déclenche](syncytium/09-moteur/02-ingestion.md#quand-lingestion-se-déclenche).
@@ -565,3 +570,7 @@ une semaine inhabituelle, et suivent encore un changement d'usage.
 
 *La question A, tranchée (D2177).* `window:`. La question B reste
 posée : l'auteur répond « quiet ? », que je n'ai pas su lire.
+
+*« quiet ? », éclairé (D2178).* L'auteur doutait du nom du bloc : il
+s'appelle `low_traffic:`. La question B, la plage analysée quand
+`window:` est absente, reste posée.

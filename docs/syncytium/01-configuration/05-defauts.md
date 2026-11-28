@@ -205,7 +205,7 @@ application:
 - la version, sous `beta` : `from`, la dernière version en production (D2177) ; `migrate`, `true`, la copie
   de l'origine est migrée (D2171) ;
 - l'environnement : `storage` (D1114), `retention` (D2137), `listen.proxy` (D2171), `data` et `volume` (D2174), `documentation`
-  (D1167) ; `quiet` n'a pas de
+  (D1167) ; `low_traffic` n'a pas de
   défaut écrit : sans `delay` ni `connections`, le moteur les calcule d'après l'historique (D2164, D2169) ;
 - le connecteur : `connection` (D621), `pool` (D622), `retry` et `timeout`
   (D625), `onerror` (D627) — confirmés D1712, les défauts en proposition ;

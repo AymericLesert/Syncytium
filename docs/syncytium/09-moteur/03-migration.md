@@ -244,7 +244,7 @@ ne conserve pas les données est au chapitre 8 :
 ### Le moment : une période de faible affluence
 
 > **Une période de faible affluence** est un moment où l'application
-> sert peu : peu de tâches, peu d'appels, ou personne de connecté
+> sert peu : peu de tâches, peu d'appels, peu de connexions
 > ([glossaire](../../glossaire.md)).
 
 Une migration fait attendre : les tâches sont mises en pause, et la
@@ -254,20 +254,31 @@ version : il attend une période de faible affluence (D7, D2163). Seule
 la migration attend : la description, elle, est contrôlée dès le dépôt
 (D2164).
 
-Trois paramètres définissent la faible affluence (D2164) :
+Le moteur choisit ce moment par une analyse statistique (D2178) :
 
-| Le paramètre | Ce qu'il dit |
-|---|---|
-| le laps de temps | la durée pendant laquelle le calme doit tenir, avant que la migration se déclenche |
-| le nombre de connexions simultanées | le plafond : à ce nombre ou en dessous, l'application est calme |
-| la plage de dates glissantes | les `n` derniers jours d'historique que le moteur regarde |
+- **elle porte sur des créneaux de vingt-quatre heures** : le moteur
+  regarde l'historique d'exécution des tâches et des appels, journée
+  par journée, et y lit l'affluence au fil des heures ;
+- **le créneau horaire le moins fréquenté est choisi** : celui de la
+  journée qui, sur la durée de `delay:`, compte le moins d'affluence.
+  La migration de version s'y déclenche.
 
-Les deux premiers ont deux origines :
+Trois paramètres règlent cette analyse (D2164) :
 
-- **le calcul** : le moteur les déduit de l'historique d'exécution des
-  tâches et des appels, sur les `n` derniers jours ;
+| Le paramètre | La clé | Ce qu'il dit |
+|---|---|---|
+| le laps de temps | `delay:` | la durée du créneau : le calme doit tenir tout ce temps |
+| le nombre de connexions simultanées | `connections:` | le plafond : à ce nombre ou en dessous, l'application est calme |
+| la plage de dates glissantes | `window:` | les derniers jours d'historique que le moteur analyse |
+
+Le laps de temps et le plafond ont deux origines :
+
+- **le calcul** : le moteur les déduit de l'historique, sur la plage
+  de `window:` ;
 - **la configuration** : ils s'y déclarent, pour le cas où l'historique
-  ne suffit pas. Une installation neuve n'a pas encore d'historique.
+  ne suffit pas. Une installation neuve n'a pas encore d'historique :
+  le moteur attend alors que l'application compte, pendant `delay:`,
+  au plus le nombre de connexions de `connections:`.
 
 Dans l'entrepôt (le cas 5), la version 1.0.0.1 est déposée un mardi à
 dix heures, en pleine activité :
@@ -275,21 +286,23 @@ dix heures, en pleine activité :
 - sa description est contrôlée aussitôt. Une formule mal typée serait
   dite au concepteur à dix heures, et il la corrigerait dans la
   journée ;
-- la migration attend. Supposons un laps de temps de trente minutes et
-  un plafond de deux connexions : le soir, dès que l'entrepôt compte
-  deux connexions au plus depuis trente minutes, la migration démarre.
+- la migration attend. Supposons un laps de temps de trente minutes.
+  Le moteur analyse les trente derniers jours, et y trouve la
+  demi-heure la moins fréquentée de la journée : entre quatre heures et
+  quatre heures trente, supposons-le, après le passage de la nuit. La
+  migration se déclenche à quatre heures.
 
 Les trois paramètres se déclarent au fichier de l'environnement, dans
-le bloc `quiet:` (D2169, D2177). Une illustration :
+le bloc `low_traffic:` (D2169, D2177, D2178). Une illustration :
 
 ```yaml
 # La faible affluence
 # Ce que le moteur attend avant de jouer une migration de version ; sans les deux premières clés, il les calcule
 # d'après l'historique.
-quiet:
+low_traffic:
 
   # Le laps de temps
-  # La durée pendant laquelle le calme doit tenir avant le déclenchement.
+  # La durée du créneau le moins fréquenté de la journée, où la migration se déclenche.
   delay: 30m
 
   # Les connexions simultanées
@@ -297,7 +310,7 @@ quiet:
   connections: 2
 
   # La plage de dates glissantes
-  # Les derniers jours d'historique que le moteur regarde pour calculer les deux valeurs.
+  # Les derniers jours d'historique que le moteur analyse, journée par journée.
   window: 30d
 ```
 

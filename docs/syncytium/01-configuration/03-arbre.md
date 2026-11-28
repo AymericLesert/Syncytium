@@ -329,7 +329,8 @@ Voici, clé par clé, ce que le fichier d'un environnement peut porter :
     de la journée, où la migration se déclenche ;
   - `connections:` : le nombre de connexions simultanées au plus ;
   - `window:` : la plage de dates glissantes, les derniers jours
-    d'historique que le moteur regarde.
+    d'historique que le moteur regarde. Par défaut, `1w`, une semaine
+    (D2179).
 
   Sans `delay:` ni `connections:`, le moteur les calcule d'après cet
   historique ; ils se déclarent quand l'historique ne suffit pas. Voir

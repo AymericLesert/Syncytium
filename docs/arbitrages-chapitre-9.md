@@ -574,3 +574,6 @@ posée : l'auteur répond « quiet ? », que je n'ai pas su lire.
 *« quiet ? », éclairé (D2178).* L'auteur doutait du nom du bloc : il
 s'appelle `low_traffic:`. La question B, la plage analysée quand
 `window:` est absente, reste posée.
+
+*La question B, tranchée (D2179).* Une semaine : `window:` vaut `1w`
+par défaut.

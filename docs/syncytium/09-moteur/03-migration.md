@@ -269,16 +269,16 @@ Trois paramètres règlent cette analyse (D2164) :
 |---|---|---|
 | le laps de temps | `delay:` | la durée du créneau : le calme doit tenir tout ce temps |
 | le nombre de connexions simultanées | `connections:` | le plafond : à ce nombre ou en dessous, l'application est calme |
-| la plage de dates glissantes | `window:` | les derniers jours d'historique que le moteur analyse |
+| la plage de dates glissantes | `window:` | les derniers jours d'historique que le moteur analyse ; par défaut `1w`, une semaine (D2179) |
 
 Le laps de temps et le plafond ont deux origines :
 
 - **le calcul** : le moteur les déduit de l'historique, sur la plage
   de `window:` ;
 - **la configuration** : ils s'y déclarent, pour le cas où l'historique
-  ne suffit pas. Une installation neuve n'a pas encore d'historique :
-  le moteur attend alors que l'application compte, pendant `delay:`,
-  au plus le nombre de connexions de `connections:`.
+  ne suffit pas (D2179). Une installation neuve n'a pas encore
+  d'historique : le moteur attend alors que l'application compte,
+  pendant `delay:`, au plus le nombre de connexions de `connections:`.
 
 Dans l'entrepôt (le cas 5), la version 1.0.0.1 est déposée un mardi à
 dix heures, en pleine activité :
@@ -287,8 +287,9 @@ dix heures, en pleine activité :
   dite au concepteur à dix heures, et il la corrigerait dans la
   journée ;
 - la migration attend. Supposons un laps de temps de trente minutes.
-  Le moteur analyse les trente derniers jours, et y trouve la
-  demi-heure la moins fréquentée de la journée : entre quatre heures et
+  L'entrepôt n'écrit pas `window:` : le moteur analyse la dernière
+  semaine, et y trouve la demi-heure la moins fréquentée de la
+  journée : entre quatre heures et
   quatre heures trente, supposons-le, après le passage de la nuit. La
   migration se déclenche à quatre heures.
 
@@ -303,14 +304,14 @@ low_traffic:
 
   # Le laps de temps
   # La durée du créneau le moins fréquenté de la journée, où la migration se déclenche.
-  delay: 30m
+  delay: 30min
 
   # Les connexions simultanées
   # Le plafond : à ce nombre ou en dessous, l'application est calme.
   connections: 2
 
   # La plage de dates glissantes
-  # Les derniers jours d'historique que le moteur analyse, journée par journée.
+  # Les derniers jours d'historique que le moteur analyse, journée par journée ; sans cette clé, 1w, une semaine.
   window: 30d
 ```
 

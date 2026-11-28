@@ -678,10 +678,10 @@ l'historique, sur des créneaux de vingt-quatre heures : le créneau
 horaire le moins fréquenté de la journée, de la durée du laps de temps.
 Trois paramètres la règlent, au fichier de l'environnement :
 le laps de temps, `delay:` ; le nombre de connexions simultanées au
-plus, `connections:` ; la plage de dates glissantes, `window:`. Les
-deux premiers se calculent sur les `n` derniers jours, ou se déclarent
-quand l'historique ne suffit pas. La description, elle, est contrôlée
-dès le dépôt. *(D7, D2163, D2164, D2169, D2177, D2178)*
+plus, `connections:` ; la plage de dates glissantes, `window:`, une
+semaine par défaut. Les deux premiers se calculent sur cette plage, ou
+se déclarent quand l'historique ne suffit pas. La description, elle,
+est contrôlée dès le dépôt. *(D7, D2163, D2164, D2169, D2177–D2179)*
 
 **Fusible** — Une limite que le moteur pose à une exécution, pour qu'un
 traitement qui s'emballe ne prive pas les autres du service : le délai

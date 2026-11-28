@@ -520,6 +520,11 @@ filter: PAKTSOC = "100" and PAKTNOPAR = "170"
 - **la complétude du schéma se mesure sur la table**, toutes entités
   confondues (D861).
 
+Le même mot couvre le même concept sur un connecteur storage (D2141) :
+`alias:` y donne à la base que Syncytium a créée un nom par lequel un
+tiers garde toujours le même lien. Voir
+[le nom stable](../05-connecteurs/05-storage.md#le-nom-stable).
+
 ## Le filtre et la partition
 
 ### Le filtre

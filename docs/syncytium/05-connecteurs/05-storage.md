@@ -178,9 +178,12 @@ entrepot:
   alias: entrepot_bi
 ```
 
-Ce mot sert aussi ailleurs, à un autre niveau : dans une source de
-migration, `alias:` nomme une entité qui lit une table sous un filtre.
-Voir [l'alias](../08-migration/03-sources.md#lalias).
+Le mot `alias:` couvre ici le même concept que dans une source de
+migration (D2141). Syncytium crée un modèle de base de données, et lui
+associe un alias pour qu'un tiers garde toujours le même lien. Sur une
+entité source, l'alias est de même un nom exploitable, donné à la suite
+d'un filtre appliqué sur l'élément principal : voir
+[l'alias](../08-migration/03-sources.md#lalias).
 
 Le mécanisme est au chapitre 9,
 [les lecteurs externes de la base](../09-moteur/03-migration.md#les-lecteurs-externes-de-la-base).

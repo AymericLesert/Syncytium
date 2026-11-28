@@ -28,7 +28,9 @@ d'agrégation, `sum` ou `count`. *(D101, D1564)*
 décrit une table de la source avec son propre filtre : plusieurs entités
 peuvent ainsi lire la même table. `alias:` porte le nom de l'entité,
 `name:` celui de la table ; l'identifiant de l'entité est son alias s'il
-est défini, sinon son nom. *(D966, D1918)*
+est défini, sinon son nom. C'est un nom exploitable, à la suite d'un
+filtre appliqué sur l'élément principal ; `alias:` couvre le même
+concept sur un connecteur, le nom stable. *(D966, D1918, D2141)*
 
 **Amorçage** — Le premier accès à une application qui n'a encore aucun
 administrateur : la description porte un compte administrateur de
@@ -959,8 +961,9 @@ version à l'autre, sous lequel un storage publie l'instance en service,
 par des synonymes et des vues, pour les lecteurs qui ne passent pas par
 Syncytium : une application tierce, un outil de BI. C'est une option du
 connecteur, et une facette de la description du modèle ; il suit le
-pointeur à la bascule et à la restauration. À ne pas confondre avec
-l'alias d'une entité source. *(D1260, D2139, D2140)*
+pointeur à la bascule et à la restauration. `alias:` couvre le même
+concept que l'alias d'une entité source : un nom par lequel on garde
+toujours le même lien. *(D1260, D2139–D2141)*
 
 **Normalisation** (`normalize:`) — L'expression appliquée à une valeur à
 la frontière, quand elle entre. *Ex. : `normalize: me.trim()`, les blancs

@@ -518,7 +518,9 @@ Il n'est ni versionné, ni poussé sur un git : il ne se confond pas avec
 le dossier de la version, dans le dépôt du client, que le concepteur
 écrit. Après un arrêt brutal, celui d'une version en cours d'ingestion
 est supprimé au redémarrage. Il reçoit aussi les fichiers du détail des
-anomalies d'une reprise, que la purge supprime. *(D329, D2154, D2164)*
+anomalies d'une reprise, que la purge supprime. Une clé de
+l'environnement le décrit, comme le dossier des journaux.
+*(D329, D2154, D2164, D2171)*
 
 **Double fonctionnement** — La période où l'application legacy et
 Syncytium fonctionnent ensemble, la source de vérité étant dans
@@ -1292,7 +1294,7 @@ collision des clés. *(D140, D903)*
 
 **Recharge** (`reload`) — La réinitialisation, à la demande, des
 données d'une version `beta` : la base de l'origine est recopiée dans
-la sandbox, migrée si la version le demande, et les clés tournent. Un
+la sandbox, migrée sauf `migrate: false`, et les clés tournent. Un
 geste de l'administrateur ; une version en `production` ne se recharge
 pas. *(D922, D2164, D2168)*
 
@@ -1385,7 +1387,8 @@ il se déploie depuis une référence. Il n'existe que déclaré.
 
 **Rotation des clés** (`syncytium rotate`) — Le rechiffrement, sous la
 clé courante, de tout ce que l'instance tient chiffré : le fichier des
-variables, les champs des types chiffrants. Déclenchée à chaque
+variables, les champs des types chiffrants, les fichiers de détail des
+passages (D2171). Déclenchée à chaque
 restauration, à la duplication d'une sandbox, par la commande, et pour
 changer d'algorithme : c'est le seul geste qui rechiffre ou rehache.
 *(D730, D915, D916)*
@@ -1394,10 +1397,10 @@ changer d'algorithme : c'est le seul geste qui rechiffre ou rehache.
 celui que le statut `beta` désigne, le staging dans les cas. La beta y
 a sa propre base, copiée d'office au dépôt depuis son origine, que
 `from:` nomme par son seul numéro ; sans origine, Syncytium crée le
-modèle. La copie est migrée si une clé de `version.yml` le demande ;
-sinon les règles de migration ascendantes délivrent les données dans la
-forme de la beta. Il n'y a pas de statut ni de dossier `sandbox`.
-*(D907, D2164–D2168)*
+modèle. La copie est migrée, sauf si `version.yml` écrit
+`migrate: false` : les règles de migration ascendantes délivrent alors
+les données dans la forme de la beta. Il n'y a pas de statut ni de
+dossier `sandbox`. *(D907, D2164–D2168, D2171)*
 
 **Satellite** — Une feuille qui en sert une autre : la calculatrice d'un
 nombre, la jauge, le curseur. Elle se choisit par `component:`.

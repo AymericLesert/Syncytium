@@ -303,7 +303,9 @@ Voici, clé par clé, ce que le fichier d'un environnement peut porter :
   fichier ; dans l'entrepôt, `~{README.md}` porte aussi le texte du
   réseau que le D.A.T. reprend (D1427, D1433).
 - **`listen:`** : l'adresse et le port servis, `url:` et `port:`, par des
-  variables du déploiement (D1427, acquise D1435). L'adresse relève en
+  variables du déploiement (D1427, acquise D1435). `proxy:` y déclare le
+  reverse proxy : `embedded` par défaut, Syncytium installe le sien et le
+  démarre (D2171). L'adresse relève en
   effet du déploiement, que Syncytium ne porte pas : une configuration
   réseau qui change ne doit pas demander une nouvelle version. Les
   valeurs sont dans le fichier des
@@ -540,8 +542,9 @@ resources: ~{resources/resources.yml}
 
 Sous `beta` seulement, deux clés de plus (D2166, D2168). `from:` nomme
 la version d'origine, par son seul numéro, `from: v1.0.0.0` : sa base
-est copiée dans la sandbox. Une autre clé, dont le nom reste à écrire,
-demande la migration de cette copie. `from:` est supprimée à la
+est copiée dans la sandbox. `migrate:` dit si cette copie est migrée :
+`true` par défaut, `false` pour la copie seule (D2171). `from:` est
+supprimée à la
 promotion (D928) : voir
 [la sandbox](../09-moteur/02-ingestion.md#la-sandbox). Les décisions des
 autres clés : D217 et D1101 pour les

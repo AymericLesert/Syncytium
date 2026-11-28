@@ -395,12 +395,17 @@ servent, ensemble (D2139) :
 | Le mécanisme | Ce qu'il fait |
 |---|---|
 | un nom stable | le storage publie l'instance en service sous un nom qui ne change pas, par des synonymes et des vues ; la bascule et la restauration leur font suivre le pointeur |
-| une information | la bascule est annoncée, avec les écarts entre les deux versions : à l'administrateur, dans le mail des faits marquants ; aux applications tierces, par un webhook sortant |
+| une information | la bascule est annoncée, avec les écarts entre les deux versions : à l'administrateur, dans le mail des faits marquants ; aux applications abonnées, qui s'abonnent par l'API |
 
 Les deux se complètent. Le nom stable porte le changement de pointeur :
 le lecteur ne touche pas à sa connexion. L'information porte ce que le
 nom stable ne règle pas : un champ renommé ou retiré change ce que le
 lecteur trouve, où qu'il se connecte.
+
+Une application s'abonne à cette annonce par l'API, et s'en désabonne
+par l'API (D2171). L'abonnement s'exprime pour un type d'événement : la
+bascule d'une version en est un. Les routes de l'abonnement et les types
+d'événements seront décrits au chapitre 13.
 
 Rien de cela ne s'écrit à la main dans la base : tout est déclaration.
 

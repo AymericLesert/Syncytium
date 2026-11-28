@@ -68,8 +68,9 @@ module lui-même : son modèle, ses surfaces, ses opérations.
 exhaustif, vit dans des fichiers du dossier interne ; les statistiques et
 les indicateurs vivent en base ; la base miroir est un storage. Plus bas
 dans ce document, le champ `fichier` du passage et l'en-tête de l'entité
-`anomalie` disent donc un fichier, à raison ; le format SQLite de D1066
-n'est plus décidé. Le champ `buffer` de la migration déclarée, lui,
+`anomalie` disent donc un fichier, à raison ; ce n'est plus le fichier
+SQLite de D1066, mais un fichier au format d'un journal, chiffré après la
+migration (D2171). Le champ `buffer` de la migration déclarée, lui,
 attend la relecture du modèle, au chapitre 10 (D1891, D2010).
 
 ## Le modèle

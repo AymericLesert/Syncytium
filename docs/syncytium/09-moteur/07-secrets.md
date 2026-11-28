@@ -133,8 +133,9 @@ La clé de chiffrement dépend de l'environnement et de la machine. Dès
 que l'un des deux change, ce qui est chiffré doit l'être de nouveau.
 C'est le rôle de `syncytium rotate` (D730) :
 
-- elle rechiffre le fichier des variables, et les champs des types
-  chiffrants ;
+- elle rechiffre le fichier des variables, les champs des types
+  chiffrants, et les fichiers de détail des passages encore gardés
+  (D2171) ;
 - elle se conduit comme `migrate` : en masse, en une transaction, avec
   une progression suivie ;
 - elle est tracée.
@@ -194,11 +195,31 @@ l'illustrent :
   Syncytium installe le reverse proxy, et le démarre avec
   l'application.
 
+Le reverse proxy se déclare au fichier de l'environnement, par la clé
+`proxy:`, sous `listen:` (D2171) :
+
+| La valeur | Ce qu'elle dit |
+|---|---|
+| `embedded`, la valeur par défaut | Syncytium installe son reverse proxy, et le démarre |
+| `external` | un autre l'assure : l'équipe d'administration |
+
+Sans la clé, Syncytium installe donc le sien. Une installation
+industrielle écrit l'autre valeur ; son nom, `external`, est en
+proposition :
+
+```yaml
+# L'adresse et le port servis
+listen:
+
+  # Le reverse proxy
+  # Sans cette clé, embedded : Syncytium installe le sien et le démarre. À external, un autre l'assure.
+  proxy: external
+```
+
 Deux règles tiennent dans les deux cas :
 
 - **le certificat relève de l'infrastructure** : le moteur ne l'émet
-  pas, et ne le renouvelle pas. L'écriture de la déclaration du reverse
-  proxy, à l'environnement, est en proposition ;
+  pas, et ne le renouvelle pas ;
 - **au démarrage, le moteur vérifie qu'il est servi en HTTPS**. Servi
   en clair, il refuse de démarrer, et dit pourquoi.
 
@@ -284,5 +305,7 @@ Ce qu'une migration garde de ses passages se range à deux endroits
 (D2164). Les statistiques et les indicateurs vivent dans la base de
 l'application, avec le module `_migration` : ils suivent la protection
 de cette base, sans chiffrement qui leur soit propre (D1893). Le détail
-des anomalies vit dans des fichiers, au dossier interne : leur
-protection reste à écrire.
+des anomalies vit dans un fichier au format d'un journal, au dossier
+interne : il est chiffré après la migration, rechiffré à la rotation des
+clés, et déchiffré avant l'affichage, dans le module d'administration
+(D2171).

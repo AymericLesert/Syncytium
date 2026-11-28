@@ -197,6 +197,15 @@ Trois règles expliquent ce partage :
 - **la purge supprime les fichiers**. Elle se fait à chaque début de
   journée, pour les passages dont la rétention est échue (D1894).
 
+Le détail vit dans un fichier au format d'un journal (D2171) :
+
+- **pendant la migration**, le moteur y écrit les anomalies, au fil du
+  passage ;
+- **après la migration**, le fichier est chiffré. La rotation des clés
+  le rechiffre, comme tout ce que l'instance tient chiffré ;
+- **à la consultation**, par le module d'administration, le fichier est
+  déchiffré avant l'affichage du détail.
+
 Avec quatre-vingt-dix jours de rétention, les fichiers de détail d'un
 passage du 1ᵉʳ mars sont supprimés le 30 mai. Sa ligne d'exécution, ses
 compteurs et ses indicateurs restent.

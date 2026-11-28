@@ -49,6 +49,10 @@ La description se vérifie en entier à l'ingestion, avant de servir
 - une référence de fichier non marquée `~{…}` (D956), un fichier absent,
   une clé de configuration inconnue ;
 - un secret en clair dans le `.env` (D902) ;
+- `alias:` écrit sur un connecteur storage dont la classe ne sait pas
+  publier de nom stable (D2171) ;
+- sous `beta`, un `from:` qui nomme une version absente ; sous
+  `production`, un `from:` resté après la promotion (D928, D2166) ;
 - un plan de promotionnelle qui cite une vue non marquée `promotional`
   (D1500) ;
 - un texte sans une langue de la version, libellé, md, gabarit, skill,

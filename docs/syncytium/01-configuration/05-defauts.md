@@ -131,6 +131,10 @@ environment:
   # La rétention de la version antérieure, après une bascule : sept jours
   retention: 7d
 
+  # Le reverse proxy : celui que Syncytium installe et démarre
+  listen:
+    proxy: embedded
+
   # La documentation : le dépôt, l'édition et l'impression sur demande ; la notification à la promotion
   # d'une version ; la publication selon visibility
   documentation:
@@ -192,7 +196,9 @@ application:
 - le groupe : `degree` (D699, D900), `persona` (D1200) ;
 - les surfaces : `default` (D186, D438), `breadcrumb` (D549), `size`
   (D533, D549) ;
-- l'environnement : `storage` (D1114), `retention` (D2137), `documentation` (D1167) ; `quiet` n'a pas de
+- la version, sous `beta` : `migrate`, `true`, la copie de l'origine est migrée (D2171) ;
+- l'environnement : `storage` (D1114), `retention` (D2137), `listen.proxy` (D2171), `documentation`
+  (D1167) ; `quiet` n'a pas de
   défaut écrit : sans `delay` ni `connections`, le moteur les calcule d'après l'historique (D2164, D2169) ;
 - le connecteur : `connection` (D621), `pool` (D622), `retry` et `timeout`
   (D625), `onerror` (D627) — confirmés D1712, les défauts en proposition ;

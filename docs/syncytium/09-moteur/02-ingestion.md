@@ -318,6 +318,10 @@ dépôt du client : les fichiers du concepteur ne sont pas réécrits
 (D331, D332). Et rien de ce que le moteur génère ne remonte vers ce
 dépôt.
 
+Le dossier interne se déclare au fichier de l'environnement, par une
+clé, comme le dossier des journaux (D2171). Le nom de cette clé reste à
+écrire.
+
 Si un arrêt brutal surprend une ingestion, le dossier interne de la
 version en cours est supprimé au redémarrage : la relance ne part
 jamais d'une version partielle. Voir
@@ -392,19 +396,29 @@ fait le reste d'office (D2168). Dans l'entrepôt, la production sert la
 |---|---|
 | le contrôle | la description est contrôlée dès le dépôt (D2164) |
 | la copie | la base de la 1.0.0.0 est copiée dans la sandbox, le staging ; l'origine n'est jamais touchée (D907) |
-| la migration, si la version la demande | la copie est portée à la 1.0.0.1 |
+| la migration, sauf si la version écrit `migrate: false` | la copie est portée à la 1.0.0.1 |
 | la rotation des clés | les valeurs chiffrées copiées sont rechiffrées sous la clé de la sandbox (D915) : voir [la rotation](07-secrets.md#la-rotation-des-clés) |
 
 ### La migration de la copie, au choix du concepteur
 
-La copie n'est pas toujours migrée. Le concepteur le décide une fois
-pour la version, par une clé de `version.yml`, à côté de `from:`
-(D2168). Le nom de cette clé reste à écrire.
+Par défaut, la copie est migrée : la beta est servie sur une base à sa
+version. Le concepteur peut s'en passer, une fois pour la version, par
+la clé `migrate:` de `version.yml`, à côté de `from:` (D2168, D2171) :
 
-| Ce que la version demande | La base de la sandbox | Comment la beta lit ses données |
+```yaml
+# L'origine de la version
+# La version dont la base est copiée dans la sandbox, nommée par son seul numéro.
+from: v1.0.0.0
+
+# La migration de la copie
+# Sans cette clé, true : la copie est migrée vers la version. À false, elle reste au modèle de son origine.
+migrate: false
+```
+
+| `migrate:` | La base de la sandbox | Comment la beta lit ses données |
 |---|---|---|
-| la migration | elle est portée à la version de la beta | directement |
-| la copie seule | elle reste au modèle de l'origine | par les règles de migration ascendantes, qui délivrent les données dans la forme de la dernière version (D1996, D2164) |
+| `true`, la valeur par défaut | elle est copiée, puis portée à la version de la beta | directement |
+| `false` | elle est copiée, et reste au modèle de l'origine | par les règles de migration ascendantes, qui délivrent les données dans la forme de la dernière version (D1996, D2164) |
 
 Supposons que la 1.0.0.1 renomme un champ. Avec la migration, la base
 du staging porte le nouveau nom. Sans elle, la base garde l'ancien nom,
@@ -424,8 +438,8 @@ Un essai use ses données : après quelques jours, on veut repartir de
 l'origine. Les données d'une beta se réinitialisent donc à la demande
 (D2164). La recharge, `reload` (D922) :
 
-- recopie la base de l'origine, la migre si la version le demande, et
-  rejoue la rotation des clés ;
+- recopie la base de l'origine, la migre sauf si la version écrit
+  `migrate: false`, et rejoue la rotation des clés ;
 - est un geste de l'administrateur, tracé, et consigné au registre des
   versions (D921) ;
 - ne vaut que pour une version `beta` : une version en `production` ne

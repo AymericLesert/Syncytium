@@ -180,6 +180,10 @@ entrepot:
   alias: entrepot_bi
 ```
 
+Toutes les classes ne savent pas publier un nom stable : une base
+tenue en mémoire, par exemple. Écrire `alias:` sur un tel connecteur est
+une erreur d'ingestion, qui nomme le connecteur et sa classe (D2171).
+
 Le mot `alias:` couvre ici le même concept que dans une source de
 migration (D2141). Syncytium crée un modèle de base de données, et lui
 associe un alias pour qu'un tiers garde toujours le même lien. Sur une

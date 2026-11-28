@@ -314,6 +314,11 @@ cette clé, quelle taille ?
 autant à la base qu'à l'entité, et la classe est la seule à connaître la
 base.
 
+*En cours (D2171).* L'auteur avance un autre nom, `sizeLot:`, et
+m'interroge. Mon avis : `lot_size:`, dans la forme des autres clés,
+comme `max_size:`. La taille d'une entité qui ne déclare rien reste à
+dire.
+
 ## 9. La déclaration du reverse proxy
 
 *Où.* [Ce que Syncytium sert](syncytium/09-moteur/07-secrets.md#ce-que-syncytium-sert).
@@ -346,6 +351,10 @@ demande. Sur un poste informatique domestique, l'initialisation écrit la
 clé (D729). Si la clé manque et qu'aucun reverse proxy n'est là, le
 moteur refuse de démarrer, et dit pourquoi (D919).
 
+*Tranché (D2171).* `proxy: embedded` est la valeur par défaut : sans la
+clé, Syncytium installe le sien. L'autre valeur, `external`, est en
+proposition.
+
 ## 10. Le dossier interne
 
 *Où.* [Le dossier interne](syncytium/09-moteur/02-ingestion.md#le-dossier-interne).
@@ -372,6 +381,10 @@ environnement peut le placer ailleurs.</u>**
 *Ma recommandation.* La réponse 2, avec la clé `internal:` : le volume
 du détail des anomalies demande de pouvoir choisir le disque, et un
 chemin tient au déploiement, comme `listen:`.
+
+*Tranché (D2171).* Un environnement dispose d'une clé pour décrire le
+dossier interne, comme pour décrire le dossier des journaux. Son nom
+reste à écrire ; `internal:` est en proposition.
 
 ## 11. L'annonce de la bascule aux applications abonnées
 
@@ -402,6 +415,10 @@ pas comment une application s'abonne à cette annonce.</u>**
 *Ma recommandation.* La réponse 1 : savoir qui lit la base est un fait
 du déploiement, et l'administrateur doit le voir d'un coup d'œil.
 
+*Tranché (D2171).* La réponse 2, précisée : les applications s'abonnent
+par l'API, et se désabonnent par l'API ; l'abonnement s'exprime pour un
+type d'événement.
+
 ## 12. Un nom stable demandé à une classe qui n'en publie pas
 
 *Où.* [Le nom stable](syncytium/05-connecteurs/05-storage.md#le-nom-stable).
@@ -427,6 +444,8 @@ nom stable.</u>**
 *Ma recommandation.* La réponse 1 : une clé ignorée en silence laisserait
 le rapport se casser sans que personne le sache. Rien ne s'ignore, rien
 ne se devine (D928).
+
+*Tranché (D2171).* La réponse 1 : une erreur d'ingestion.
 
 ## 13. Les fichiers du détail des anomalies
 
@@ -460,6 +479,12 @@ rapports doivent interroger le détail, ce qu'un fichier SQLite permet ;
 des valeurs réelles ne restent pas en clair ; et un détail volumineux ne
 se copie que si on le demande.
 
+*Tranché (D2171), par une autre voie.* Le détail vit dans un fichier au
+format d'un journal, chiffré après la migration et rechiffré à la
+rotation des clés. À la consultation par le module d'administration, il
+est déchiffré avant l'affichage. La copie d'un environnement n'est pas
+dite.
+
 ## 14. La clé qui demande la migration de la copie
 
 *Où.* [La migration de la copie](syncytium/09-moteur/02-ingestion.md#la-migration-de-la-copie-au-choix-du-concepteur).
@@ -483,3 +508,6 @@ clé ?
 
 *Ma recommandation.* `migrate:`, et la réponse 1 : ce sont vos mots, la
 migration se joue « si demandée ».
+
+*Tranché (D2171).* `migrate: true` est la valeur par défaut : la copie
+est migrée. `migrate: false` demande la copie seule.

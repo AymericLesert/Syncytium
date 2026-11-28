@@ -516,7 +516,7 @@ les clés confidentielles.
 téléchargés et dédiés à l'application : les binaires, qui ne vont pas
 en base. Une clé de l'environnement le nomme, par la variable
 `SYNCYTIUM_DATA_DIRECTORY` ; par défaut, `data/`, à la racine du
-projet, ignoré du git. *(D161, D2174)*
+projet, ignoré du git. *(D161, D2174, D2175)*
 
 **Dossier interne** (`volume:`) — Le dossier, propre à l'application, où le moteur
 range tout ce qu'il génère pour une version, la forme compilée en tête.
@@ -527,7 +527,7 @@ est supprimé au redémarrage. Il reçoit aussi les fichiers du détail des
 anomalies d'une reprise, que la purge supprime. La clé `volume:` de
 l'environnement le nomme, par la variable `SYNCYTIUM_VOLUME_DIRECTORY` ;
 par défaut, `volume/`, à la racine du projet.
-*(D329, D2154, D2164, D2171, D2174)*
+*(D329, D2154, D2164, D2171, D2174, D2175)*
 
 **Double fonctionnement** — La période où l'application legacy et
 Syncytium fonctionnent ensemble, la source de vérité étant dans

@@ -334,13 +334,15 @@ Voici, clé par clé, ce que le fichier d'un environnement peut porter :
   historique ; ils se déclarent quand l'historique ne suffit pas. Voir
   [le moment](../09-moteur/03-migration.md#le-moment--une-période-de-faible-affluence).
 - **`data:`** : le dossier des fichiers téléchargés et dédiés à
-  l'application, les binaires qui ne vont pas en base (D161, D2174). Il
+  l'application, les binaires qui ne vont pas en base (D161, D2174,
+  D2175). Il
   se nomme par une variable du déploiement,
   `${SYNCYTIUM_DATA_DIRECTORY}`. Par défaut, `data/`, à la racine du
   projet.
 - **`volume:`** : le dossier interne, celui des fichiers qui
   appartiennent à l'application : ce que le moteur génère pour une
-  version, le détail des anomalies d'une reprise (D2154, D2164, D2174).
+  version, le détail des anomalies d'une reprise (D2154, D2164, D2174,
+  D2175).
   Il se nomme par une variable du déploiement,
   `${SYNCYTIUM_VOLUME_DIRECTORY}`. Par défaut, `volume/`, à la racine du
   projet. Les deux dossiers sont ignorés du git. Voir

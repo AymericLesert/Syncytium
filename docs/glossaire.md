@@ -489,6 +489,14 @@ l'assistant ; le Markdown est le rendu humain. *(D1165)* Depuis D1245, l'annexe 
 dictionnaire de la donnée : la configuration entière et dépliée, sans
 les clés confidentielles.
 
+**Double fonctionnement** — La période où l'application legacy et
+Syncytium fonctionnent ensemble, la source de vérité étant dans
+Syncytium. C'est le cadre d'une alternative aux passages de reprise,
+proposée au concepteur : des triggers marquent les modifications dans
+la base du legacy, un outil les écoute et les transmet à Syncytium par
+ses API. La méthode est douce ; ses règles de transformation se traitent
+en dehors de Syncytium. *(D2147)*
+
 **Droit d'action** (`allow:`) — Qui peut créer, lire, modifier,
 supprimer un enregistrement, ou déclencher une opération. Une règle à
 trois propriétés : `enable`, la règle générale ; `group`, les groupes

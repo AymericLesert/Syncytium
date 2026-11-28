@@ -9,8 +9,9 @@ source, les règles, les contrôles. Tout cela reste immobile tant que
 `migrate` n'est pas lancé. Ce fichier dit ce qui se passe alors, d'un
 bout à l'autre d'un passage : son déroulé, la lecture de la source, les
 phases de contrôle en marche, la base miroir et sa transaction, le
-contrôle d'intégrité, la comparaison et la bascule, le cache, et la
-règle d'un seul passage à la fois. Ce qu'un passage garde après lui est
+contrôle d'intégrité, la comparaison et la bascule, le cache, la règle
+d'un seul passage à la fois, et une alternative aux passages, le double
+fonctionnement. Ce qu'un passage garde après lui est
 dans [le fichier suivant](05-suivi.md). Les décisions citées entre
 parenthèses renvoient au [registre](../../conception.md).
 
@@ -43,6 +44,7 @@ parenthèses renvoient au [registre](../../conception.md).
   - [L'interruption](#linterruption)
   - [Les cinq états](#les-cinq-états)
   - [Qui exécute](#qui-exécute)
+- [Le double fonctionnement, une alternative](#le-double-fonctionnement-une-alternative)
 
 ## Le déroulé
 
@@ -394,6 +396,10 @@ pointeur. Elle met les tâches en pause avant de démarrer, et l'activité
 continue. Voir
 [pendant la migration](03-migration.md#pendant-la-migration).
 
+Quand un legacy bascule vers Syncytium, une alternative à ces passages
+existe : voir
+[le double fonctionnement](#le-double-fonctionnement-une-alternative).
+
 ### L'exécution à blanc
 
 L'exécution à blanc, le dry-run, s'arrête après la comparaison (D649,
@@ -491,3 +497,48 @@ stateDiagram-v2
 `allow:` des entités de destination (D942). Le propriétaire d'une
 migration est toujours l'administrateur (D1030) : un passage écrit donc
 dans une entité que ses utilisateurs ne peuvent que lire.
+
+## Le double fonctionnement, une alternative
+
+> **Le double fonctionnement** est la période où l'application legacy
+> et Syncytium fonctionnent ensemble, la source de vérité étant dans
+> Syncytium ([glossaire](../../glossaire.md)).
+
+Basculer un legacy vers Syncytium ne passe pas forcément par des
+passages de reprise. Une alternative est possible (D2147). Syncytium ne
+l'impose pas : la documentation en propose l'implémentation, et c'est
+au concepteur de décider s'il l'applique.
+
+Elle s'inscrit dans un double fonctionnement : l'application legacy et
+Syncytium servent ensemble, et la source de vérité est dans Syncytium.
+Son principe tient en trois gestes :
+
+- sur la base de données du legacy, des triggers marquent les
+  modifications qui ont eu lieu ;
+- un outil écoute ces modifications ;
+- il transmet à Syncytium, par ses API, les opérations d'ajout, de
+  modification ou de suppression.
+
+```mermaid
+%%{init: {"flowchart": {"curve": "stepAfter"}}}%%
+flowchart LR
+    L["l'application<br/>legacy"]
+    B["la base du legacy<br/>les triggers marquent"]
+    O["l'outil d'écoute<br/>les règles de transformation"]
+    A["les API de Syncytium<br/>ajout, modification, suppression"]
+    S["Syncytium<br/>la source de vérité"]
+    L --> B
+    B -. "les modifications marquées" .-> O
+    O --> A
+    A --> S
+```
+
+Ex. : un client est modifié dans l'application legacy. Le trigger
+marque la ligne. L'outil lit la marque, applique sa transformation, et
+appelle l'API de Syncytium, qui modifie le client.
+
+La méthode a son avantage et son prix :
+
+| Ce qu'elle apporte | Ce qu'elle coûte |
+|---|---|
+| une méthode douce : les modifications arrivent une à une, par les API | les règles de transformation se traitent en dehors de Syncytium |

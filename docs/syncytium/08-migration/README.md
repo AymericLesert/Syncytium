@@ -178,6 +178,10 @@ Chacune garde pourtant ses traits propres.
 - **Depuis un système existant**, `from:` nomme la base d'origine (D610).
   Les interfaces de Syncytium montrent les données migrées et validées
   (D646) : l'écran devient un poste de contrôle (D175–D179, D180).
+  Quand un legacy bascule vers Syncytium, une alternative aux passages
+  existe, que le concepteur choisit ou non :
+  [le double fonctionnement](../09-moteur/04-passage.md#le-double-fonctionnement-une-alternative)
+  (D2147).
 
 ## Le dossier d'une migration
 

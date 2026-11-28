@@ -12,12 +12,12 @@ attend. Si une de ces vérifications échoue, il ne démarre pas, et il
 dit pourquoi. Un moteur s'arrête aussi, parfois sans prévenir : il lui
 faut alors redémarrer proprement. Reste un cas à part : celui où ce qui
 manque est justement ce qui permet d'entrer, l'annuaire ou
-l'authentification. Trois secours y répondent, par un même compte. Ce
-fichier suit donc les vérifications du démarrage, l'arrêt de
-l'application et le redémarrage qui suit un arrêt brutal, puis les
-trois secours : l'amorçage, le bris de glace et le mode safe. Les
-décisions citées entre parenthèses renvoient au
-[registre](../../conception.md).
+l'authentification. Un compte de secours y répond, qui ouvre trois
+secours. Ce fichier suit donc les vérifications du démarrage, l'arrêt
+de l'application et le redémarrage qui suit un arrêt brutal, puis le
+compte de secours et les trois secours qu'il ouvre : l'amorçage, le
+bris de glace et le mode safe. Les décisions citées entre parenthèses
+renvoient au [registre](../../conception.md).
 
 ## Le sommaire
 
@@ -29,8 +29,8 @@ décisions citées entre parenthèses renvoient au
   - [L'arrêt demandé](#larrêt-demandé)
   - [La position de repli](#la-position-de-repli)
   - [Le redémarrage après un arrêt brutal](#le-redémarrage-après-un-arrêt-brutal)
+- [Le compte de secours](#le-compte-de-secours)
 - [Les trois secours](#les-trois-secours)
-  - [Le compte de secours](#le-compte-de-secours)
   - [L'amorçage](#lamorçage)
   - [Le bris de glace](#le-bris-de-glace)
   - [Le mode safe](#le-mode-safe)
@@ -189,29 +189,17 @@ l'estampille, qui dit où en est la base, et sans laquelle il ne sert
 pas (D93) ; la forme compilée de la description, prête à l'emploi
 (D329).
 
-## Les trois secours
-
-Il arrive que plus personne ne puisse entrer : l'application est neuve
-et n'a pas encore d'administrateur, l'authentification ne répond plus,
-ou les droits ont été verrouillés par erreur. Syncytium prévoit trois
-secours, un par situation :
-
-| Le secours | La situation | Ce qu'il ouvre |
-|---|---|---|
-| l'amorçage | aucun compte administrateur n'existe | l'application en service |
-| le bris de glace | l'authentification ne répond plus | l'application en service |
-| le mode safe | l'annuaire, le SSO ou les droits sont hors d'usage | le module d'administration seul, au lancement |
-
-Les trois s'ouvrent par le même compte : le compte de secours (D2163).
-
-### Le compte de secours
+## Le compte de secours
 
 > **Le compte de secours** est le compte administrateur qui ouvre
 > l'application quand aucune autre entrée n'est possible
 > ([glossaire](../../glossaire.md)).
 
-Il n'y en a qu'un (D2163). Son mot de passe vit dans les variables
-d'environnement :
+Il arrive que plus personne ne puisse entrer : l'application est neuve
+et n'a pas encore d'administrateur, l'authentification ne répond plus,
+ou les droits ont été verrouillés par erreur. Syncytium garde pour ces
+situations un compte à part, le compte de secours. Il n'y en a qu'un
+(D2163), et son mot de passe vit dans les variables d'environnement :
 
 - **hors de l'annuaire** : le compte ne dépend d'aucun connecteur
   externe ;
@@ -225,6 +213,18 @@ Dans l'entrepôt (le cas 5), l'authentification passe par Azure AD. Un
 lundi matin, l'annuaire ne répond plus : l'administrateur entre par le
 compte de secours. C'est le même compte qui a servi à l'installation,
 pour créer le premier administrateur.
+
+## Les trois secours
+
+Le compte de secours n'est pas un secours de plus : c'est la clé des
+trois. Chacun répond à une situation, et tous s'ouvrent par lui
+(D2163) :
+
+| Le secours | La situation | Ce qu'il ouvre |
+|---|---|---|
+| l'amorçage | aucun compte administrateur n'existe | l'application en service |
+| le bris de glace | l'authentification ne répond plus | l'application en service |
+| le mode safe | l'annuaire, le SSO ou les droits sont hors d'usage | le module d'administration seul, au lancement |
 
 ### L'amorçage
 

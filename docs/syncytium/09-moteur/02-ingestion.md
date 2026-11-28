@@ -33,6 +33,7 @@ parenthèses renvoient au [registre](../../conception.md).
 - [L'estampille](#lestampille)
 - [Après l'ingestion](#après-lingestion)
   - [La logique interne](#la-logique-interne)
+  - [Le dossier interne](#le-dossier-interne)
   - [Les fichiers, gardés pour trace](#les-fichiers-gardés-pour-trace)
   - [Ce qui reste contrôlé en fonctionnement](#ce-qui-reste-contrôlé-en-fonctionnement)
 - [La sandbox](#la-sandbox)
@@ -289,6 +290,29 @@ qui sert (D327) :
   dans un journal à son format, propre à la performance. À la relance,
   les règles sont prêtes à l'emploi, et les optimisations déjà faites
   resservent (D329).
+
+### Le dossier interne
+
+> **Le dossier interne** est le dossier, propre à l'application, où le
+> moteur range tout ce qu'il génère pour une version. Il n'est ni
+> versionné, ni poussé sur un git ([glossaire](../../glossaire.md)).
+
+Une version a donc deux dossiers, qui ne se confondent pas (D2154) :
+
+| Le dossier | Ce qu'il contient | Qui l'écrit | Où il vit |
+|---|---|---|---|
+| le dossier de la version, dans le dépôt du client | la description : le code source | le concepteur | il est versionné, et synchronisé par git ou par un autre dispositif (D336) |
+| le dossier interne de la version | tout ce que l'ingestion génère pour elle, la forme compilée en tête (D329) | le moteur | dans l'application : ni versionné, ni poussé sur un git |
+
+La séparation vaut dans les deux sens. Le moteur n'écrit jamais dans le
+dépôt du client : les fichiers du concepteur ne sont pas réécrits
+(D331, D332). Et rien de ce que le moteur génère ne remonte vers ce
+dépôt.
+
+Si un arrêt brutal surprend une ingestion, le dossier interne de la
+version en cours est supprimé au redémarrage : la relance ne part
+jamais d'une version partielle. Voir
+[le redémarrage après un arrêt brutal](06-demarrage.md#le-redémarrage-après-un-arrêt-brutal).
 
 ### Les fichiers, gardés pour trace
 

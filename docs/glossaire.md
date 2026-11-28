@@ -43,11 +43,21 @@ contenu s'efface, la fiche et son historique ensemble ; la valeur de
 remplacement est construite au hasard, jamais dérivée de l'origine.
 *(D139, D696, D1812)*
 
+**Arrêt brutal** — L'arrêt que personne n'a demandé : le serveur tombe
+en panne, son alimentation est coupée, le système interrompt le
+processus du moteur. Le redémarrage qui le suit le signale à
+l'administrateur, et vérifie ce qu'il a surpris : une tâche en cours,
+une transaction interrompue. Ce qui était en construction est supprimé,
+puis refait en entier : la base miroir d'un passage, la nouvelle
+instance d'une migration de version, le dossier interne d'une version
+en cours d'ingestion. *(D2134, D2154)*
+
 **Arrêt de l'application** — Le temps du moteur qui met l'application en
 position de sécurité, pour assurer un bon redémarrage : la page de
 maintenance, les déclenchements suspendus, le passage en cours
-interrompu, les connecteurs relâchés. Même après un arrêt brutal,
-Syncytium garde une position de repli. *(D621, D2134, D2135)*
+interrompu, les connecteurs relâchés. C'est l'arrêt demandé ; l'autre
+est l'arrêt brutal, après lequel Syncytium garde une position de repli.
+*(D621, D2134, D2135, D2154)*
 
 **Assistance** (`_assistance`, module interne) — La
 F.A.Q. vivante du socle : l'utilisateur pose une question depuis un
@@ -236,7 +246,9 @@ configuration et la stabilité de l'application. *(D95, D1148)*
 
 **Condition indispensable** — Ce sans quoi l'application ne démarre
 pas : pouvoir envoyer un mail à l'administrateur. Le canal d'alerte passe
-avant tout ; le mode safe seul en est exempté. *(D626, D745)*
+avant tout ; le mode safe seul en est exempté. Donner la classe `none`
+au connecteur `smtp` permet de passer outre : l'application démarre
+sans exiger l'envoi. *(D626, D745, D763, D2154)*
 
 **Conditionnel** (`if … else`) — L'expression qui choisit une valeur selon une
 condition, la valeur d'abord : `valeur if condition else autre`. Les cas
@@ -488,6 +500,13 @@ des items de configuration, sans facette, pour l'analyste et
 l'assistant ; le Markdown est le rendu humain. *(D1165)* Depuis D1245, l'annexe du
 dictionnaire de la donnée : la configuration entière et dépliée, sans
 les clés confidentielles.
+
+**Dossier interne** — Le dossier, propre à l'application, où le moteur
+range tout ce qu'il génère pour une version, la forme compilée en tête.
+Il n'est ni versionné, ni poussé sur un git : il ne se confond pas avec
+le dossier de la version, dans le dépôt du client, que le concepteur
+écrit. Après un arrêt brutal, celui d'une version en cours d'ingestion
+est supprimé au redémarrage. *(D329, D2154)*
 
 **Double fonctionnement** — La période où l'application legacy et
 Syncytium fonctionnent ensemble, la source de vérité étant dans
@@ -1083,8 +1102,9 @@ transformation. *(D1974, D2138, D2145)*
 **Position de repli** — L'état sûr auquel l'application peut toujours
 revenir après un arrêt brutal, sans que cette garantie coûte en
 performance : une migration ou une reprise interrompue laisse la base
-dans l'état précédent, et le redémarrage s'appuie sur l'estampille.
-*(D9, D93, D1041, D2134)*
+dans l'état précédent, et le redémarrage s'appuie sur l'estampille. Ce
+qu'un arrêt brutal a laissé en construction est supprimé au
+redémarrage. *(D9, D93, D1041, D2134, D2154)*
 
 **Position de sécurité** — La conduite du moteur quand un système tiers
 fait défaut : la page de maintenance pour un connecteur clé, le résultat

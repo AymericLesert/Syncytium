@@ -428,6 +428,22 @@ l'auto-signé engendré par le wizard** et rangé avec les secrets ;
 aucune exemption, la boucle locale comprise ; en clair, le refus de
 démarrer expliqué.
 
+### Le redémarrage après un arrêt brutal (D2154)
+
+Après un arrêt que personne n'a demandé — la panne du serveur, la
+coupure de son alimentation, le processus interrompu par le système —,
+**le redémarrage le signale** à l'administrateur et **vérifie** ce que
+l'arrêt a surpris (une tâche en cours de traitement, une transaction
+interrompue). Ce qui était en construction est supprimé : **la base
+miroir** d'un passage de reprise ; **la nouvelle instance** d'une
+migration de version, avant la relance de la migration ; **le dossier
+interne** de la version en cours d'ingestion, pour que la relance ne
+considère pas une version partielle. Le chapitre 9 le décrit :
+[le redémarrage après un arrêt brutal](syncytium/09-moteur/06-demarrage.md#le-redémarrage-après-un-arrêt-brutal).
+**Le transit** : le HTTPS est assuré par un reverse proxy en amont de
+l'application ; l'intérêt d'un HTTPS porté par le moteur lui-même
+(D919) est en question.
+
 ### La rotation des clés (D730)
 
 Trois déclencheurs : **chaque restauration** (l'image nouvelle, la

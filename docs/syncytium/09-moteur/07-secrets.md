@@ -161,8 +161,10 @@ Le moteur distingue ce qu'il sert de ce qu'il appelle (D705) :
 
 ### Ce que Syncytium sert
 
-Aucune exemption n'existe, pas même pour la boucle locale ni pour le
-poste informatique domestique (D919) :
+Le HTTPS est assuré par un reverse proxy, placé en amont de
+l'application : c'est lui qui chiffre les échanges avec le navigateur
+(D2154). Aucune exemption n'existe, pas même pour la boucle locale ni
+pour le poste informatique domestique (D919) :
 
 - **le certificat relève de l'infrastructure**. Il se déclare à
   l'environnement : il est fourni, ou un proxy termine le HTTPS.

@@ -12,8 +12,8 @@ attend. Si une de ces vérifications échoue, il ne démarre pas, et il
 dit pourquoi. Reste un cas à part : celui où ce qui manque est
 justement ce qui permet d'entrer, l'annuaire ou l'authentification.
 Trois secours y répondent. Ce fichier suit donc les vérifications du
-démarrage, l'arrêt de l'application, puis le mode safe, l'amorçage et
-le bris de glace. Les
+démarrage, l'arrêt de l'application et le redémarrage qui suit un arrêt
+brutal, puis le mode safe, l'amorçage et le bris de glace. Les
 décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).
 
@@ -26,6 +26,7 @@ décisions citées entre parenthèses renvoient au
 - [L'arrêt de l'application](#larrêt-de-lapplication)
   - [L'arrêt demandé](#larrêt-demandé)
   - [La position de repli](#la-position-de-repli)
+  - [Le redémarrage après un arrêt brutal](#le-redémarrage-après-un-arrêt-brutal)
 - [Le mode safe](#le-mode-safe)
   - [La porte de secours](#la-porte-de-secours)
   - [Les conditions indispensables, suspendues](#les-conditions-indispensables-suspendues)
@@ -41,7 +42,7 @@ décisions citées entre parenthèses renvoient au
 | La vérification | Ce qui est exigé | Où la lire |
 |---|---|---|
 | les secrets | aucune valeur en clair, dans le fichier des variables, pour une variable qu'une clé marquée `*` référence (D902, D944) | [les secrets](07-secrets.md#le-clair-refusé-au-démarrage) |
-| le transit | l'application est servie en HTTPS, sans exception (D919) | [le chiffrement en transit](07-secrets.md#le-chiffrement-en-transit) |
+| le transit | l'application est servie en HTTPS, sans exception : un reverse proxy, placé en amont de l'application, l'assure (D919, D2154) | [le chiffrement en transit](07-secrets.md#le-chiffrement-en-transit) |
 | le canal d'alerte | l'envoi d'un mail à l'administrateur est possible (D626) | plus bas |
 | l'estampille | la base est à la version attendue, ou en retard sur elle (D93) | [l'estampille](02-ingestion.md#lestampille) |
 | le dossier des versions | ses statuts et ses transitions sont cohérents (D344) | [la cohérence du dossier](02-ingestion.md#la-cohérence-du-dossier-des-versions) |
@@ -57,10 +58,25 @@ Le démarrage une fois acquis, l'application rejoint la version la plus
 > ([glossaire](../../glossaire.md)).
 
 Une application qui ne peut pas alerter ne doit pas servir. Le canal
-d'alerte passe donc avant tout (D626) : le connecteur `smtp` est
-vérifié au démarrage. Sa définition, et la classe `none` qui la
-satisfait sur un poste informatique domestique, sont au chapitre 5 :
-[la position de sécurité](../05-connecteurs/03-socle.md#la-position-de-sécurité).
+d'alerte passe donc avant tout (D626) : au démarrage, le moteur vérifie
+que le connecteur `smtp` peut envoyer un mail à l'administrateur. S'il
+ne le peut pas, l'application ne démarre pas.
+
+Une déclaration permet de passer outre cette condition : donner la
+classe `none` au connecteur `smtp` (D763, D2154). Le concepteur déclare
+ainsi une application qui n'envoie aucun mail, et le moteur démarre
+sans exiger l'envoi. Les environnements domestiques des cas du dépôt
+l'écrivent ; celui de la banque (le cas 4) :
+
+```yaml
+# Le mail sortant
+# Muet, assumé.
+smtp:
+  class: none
+```
+
+La classe `none` elle-même est décrite avec les autres classes de la
+famille, au chapitre 5 : [`smtp`](../05-connecteurs/04-familles.md#smtp).
 
 ### Le refus de démarrer s'explique
 
@@ -76,10 +92,17 @@ clair, il donne ainsi la commande à exécuter, `syncytium encrypt`
 > sécurité, pour assurer un bon redémarrage
 > ([glossaire](../../glossaire.md)).
 
-Un moteur ne fait pas que démarrer. Il s'arrête aussi : pour une
-maintenance, pour une intervention sur le serveur, ou sans prévenir,
-parce que le courant manque. Dans tous les cas, un arrêt se juge au
-redémarrage qui le suit (D2134).
+Un moteur ne fait pas que démarrer. Il s'arrête aussi, de deux
+façons :
+
+- **l'arrêt demandé** : l'administrateur arrête l'application, pour une
+  maintenance ou pour une intervention sur le serveur. Le moteur a le
+  temps de se mettre en position de sécurité ;
+- **l'arrêt brutal** : le serveur tombe en panne, son alimentation est
+  coupée, ou le système interrompt le processus du moteur. Le moteur
+  n'a le temps de rien.
+
+Dans les deux cas, un arrêt se juge au redémarrage qui le suit (D2134).
 
 ### L'arrêt demandé
 
@@ -119,9 +142,51 @@ contribue déjà :
 | un passage de reprise | la bascule s'applique en entier, ou pas du tout ; avant elle, rien de l'existant n'est touché (D1041, D1044) |
 | une tâche | elle n'est pas rejouée d'elle-même : elle se relance depuis la supervision (D57) |
 
-Au redémarrage, deux appuis attendent le moteur : l'estampille, qui dit
-où en est la base, et sans laquelle il ne sert pas (D93) ; la forme
-compilée de la description, prête à l'emploi (D329).
+### Le redémarrage après un arrêt brutal
+
+La position de repli garantit que rien d'achevé n'est perdu. Elle ne
+dit pas ce que l'arrêt a laissé en chantier. Au redémarrage qui suit un
+arrêt brutal, le moteur fait donc deux choses avant de servir (D2154) :
+
+- **il signale l'arrêt brutal** à l'administrateur ;
+- **il vérifie ce que l'arrêt a surpris**, pour garantir le bon
+  fonctionnement de l'application : une tâche en cours de traitement,
+  une transaction interrompue, ce qui était en construction.
+
+Ce que la vérification trouve, et ce que le moteur en fait :
+
+| Ce que l'arrêt brutal a laissé | Ce que le moteur fait au redémarrage |
+|---|---|
+| une transaction interrompue | rien n'en reste : elle n'a pas été validée, la base l'a annulée |
+| une tâche en cours de traitement | elle est notée interrompue ; elle n'est pas rejouée d'elle-même, elle se relance depuis la supervision (D57) |
+| une base miroir, celle d'un passage de reprise | elle est supprimée ; le passage reste tracé, et l'administrateur le relance (D1077) |
+| la nouvelle instance d'une migration de version en cours | elle est supprimée, puis la migration est relancée |
+| le dossier interne d'une version en cours d'ingestion | il est supprimé : la relance ne part jamais d'une version partielle |
+
+Les trois suppressions suivent la même idée : ce qui était en
+construction est défait, puis refait en entier. Aucune ne touche à ce
+qui sert : ni l'instance en service, ni la base de l'application, ni
+les versions déjà ingérées. Le dossier interne est décrit avec
+l'ingestion : voir [le dossier interne](02-ingestion.md#le-dossier-interne).
+
+Dans l'entrepôt (le cas 5), supposons que le serveur perde son
+alimentation pendant l'ingestion de la version 1.0.0.2, alors que la
+migration de ses données est en cours. Au redémarrage :
+
+- le moteur signale l'arrêt brutal à l'administrateur ;
+- il supprime le dossier interne de la 1.0.0.2, resté incomplet ;
+- il supprime la nouvelle instance, que la migration construisait ;
+- il relance l'ingestion de la 1.0.0.2, depuis son début ;
+- pendant ce temps, l'entrepôt sert la 1.0.0.1 : elle n'a pas été
+  touchée.
+
+La base miroir de l'entrepôt, elle, est tenue en mémoire : elle a
+disparu avec l'arrêt, et il n'y a rien à supprimer.
+
+Deux appuis attendent ensuite le moteur, comme à tout démarrage :
+l'estampille, qui dit où en est la base, et sans laquelle il ne sert
+pas (D93) ; la forme compilée de la description, prête à l'emploi
+(D329).
 
 ## Le mode safe
 

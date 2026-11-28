@@ -470,7 +470,9 @@ L'administrateur peut interrompre un passage (D1077) :
 
 Un redémarrage du serveur pendant un passage vaut interruption. Le
 passage reste tracé ; il n'est pas relancé de lui-même : l'administrateur
-le relance.
+le relance. Après un arrêt brutal, une base miroir restée en place est
+supprimée au redémarrage (D2154) : voir
+[le redémarrage après un arrêt brutal](06-demarrage.md#le-redémarrage-après-un-arrêt-brutal).
 
 ### Les cinq états
 

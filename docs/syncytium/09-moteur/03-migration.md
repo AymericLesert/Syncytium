@@ -250,18 +250,56 @@ ne conserve pas les données est au chapitre 8 :
 Une migration fait attendre : les tâches sont mises en pause, et la
 bascule suspend un instant les requêtes. Pour que cette attente touche
 le moins de monde possible, le moteur ne migre pas dès le dépôt de la
-version : il attend une période de faible affluence (D7, D2163). Il la
-reconnaît à l'un de ces deux repères :
+version : il attend une période de faible affluence (D7, D2163). Seule
+la migration attend : la description, elle, est contrôlée dès le dépôt
+(D2164).
 
-| Le repère | Ce que le moteur regarde |
+Trois paramètres définissent la faible affluence (D2164) :
+
+| Le paramètre | Ce qu'il dit |
 |---|---|
-| l'historique | l'exécution des tâches et les appels passés : il y lit les heures creuses de l'application |
-| l'absence de connexion | personne n'est connecté depuis un certain laps de temps |
+| le laps de temps | la durée pendant laquelle le calme doit tenir, avant que la migration se déclenche |
+| le nombre de connexions simultanées | le plafond : à ce nombre ou en dessous, l'application est calme |
+| la plage de dates glissantes | les `n` derniers jours d'historique que le moteur regarde |
+
+Les deux premiers ont deux origines :
+
+- **le calcul** : le moteur les déduit de l'historique d'exécution des
+  tâches et des appels, sur les `n` derniers jours ;
+- **la configuration** : ils s'y déclarent, pour le cas où l'historique
+  ne suffit pas. Une installation neuve n'a pas encore d'historique.
 
 Dans l'entrepôt (le cas 5), la version 1.0.0.1 est déposée un mardi à
-dix heures, en pleine activité : le moteur attend. Le soir, quand plus
-personne n'est connecté depuis le laps de temps fixé, la migration
-démarre.
+dix heures, en pleine activité :
+
+- sa description est contrôlée aussitôt. Une formule mal typée serait
+  dite au concepteur à dix heures, et il la corrigerait dans la
+  journée ;
+- la migration attend. Supposons un laps de temps de trente minutes et
+  un plafond de deux connexions : le soir, dès que l'entrepôt compte
+  deux connexions au plus depuis trente minutes, la migration démarre.
+
+Les trois paramètres se déclarent au fichier de l'environnement.
+L'écriture de leurs clés est en proposition ; une illustration :
+
+```yaml
+# La faible affluence
+# Ce que le moteur attend avant de jouer une migration de version ; sans les deux premières clés, il les calcule
+# d'après l'historique.
+quiet:
+
+  # Le laps de temps
+  # La durée pendant laquelle le calme doit tenir avant le déclenchement.
+  delay: 30m
+
+  # Les connexions simultanées
+  # Le plafond : à ce nombre ou en dessous, l'application est calme.
+  connections: 2
+
+  # La plage de dates glissantes
+  # Les derniers jours d'historique que le moteur regarde pour calculer les deux valeurs.
+  history: 30d
+```
 
 ### Avant de démarrer : les tâches
 

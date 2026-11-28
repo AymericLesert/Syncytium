@@ -12,9 +12,10 @@ celui qui corrige les données à l'origine, qui veut savoir ce qui a été
 refusé, et pourquoi. Ce fichier suit ce que le moteur garde pour eux :
 la table des clés d'origine, les versions du modèle lu, la ligne
 d'exécution, ses compteurs et ses indicateurs, les anomalies, leur
-détail, et les rapports. Tout cela vit dans le module `_migration`,
-dont les entités et les surfaces seront décrites au chapitre 10
-(D2010). Les décisions citées entre parenthèses renvoient au
+détail, et les rapports. Le détail des anomalies vit dans des fichiers ;
+le reste vit en base, dans le module `_migration`, dont les entités et
+les surfaces seront décrites au chapitre 10 (D2010, D2164). Les
+décisions citées entre parenthèses renvoient au
 [registre](../../conception.md).
 
 ## Le sommaire
@@ -175,18 +176,32 @@ reprise à l'autre.
 
 ## Le détail et sa rétention
 
-Le détail des anomalies des enregistrements peut être très volumineux.
-Il vit dans le module `_migration`, partitionné par une date, et le
-moteur en assure lui-même le nettoyage, par cette partition (D1889) :
+Ce qu'un passage laisse ne se range pas au même endroit selon son
+volume et son usage (D2164) :
 
-| Ce qui se garde | Combien de temps |
-|---|---|
-| le détail des passages | le temps de `retention:`, sous `mirror:` : quatre-vingt-dix jours par défaut (D1892) |
-| la ligne d'exécution, ses compteurs, ses indicateurs | sans délai (D1068) |
-| la table des clés d'origine | autant que la migration |
+| Ce qui se garde | Où | Combien de temps |
+|---|---|---|
+| le détail des anomalies, exhaustif | dans des fichiers, au dossier interne de l'application | le temps de `retention:`, sous `mirror:` : quatre-vingt-dix jours par défaut (D1892) |
+| les statistiques et les indicateurs : la ligne d'exécution, ses compteurs, ses indicateurs | en base, dans le module `_migration` | sans délai (D1068) |
+| la table des clés d'origine | en base, dans le module `_migration` | autant que la migration |
 
-Le nettoyage se fait à chaque début de journée (D1894). Dans
-l'entrepôt, la production garde le détail quatre-vingt-dix jours :
+Trois règles expliquent ce partage :
+
+- **le détail peut être très volumineux** : une entrée par erreur, sur
+  des tables de plusieurs millions de lignes. Il n'encombre pas la
+  base : il vit dans des fichiers, au dossier interne. Voir
+  [le dossier interne](02-ingestion.md#le-dossier-interne) ;
+- **les statistiques et les indicateurs matérialisent l'historique** :
+  ils restent en base, où les surfaces du module les lisent, passage
+  après passage ;
+- **la purge supprime les fichiers**. Elle se fait à chaque début de
+  journée, pour les passages dont la rétention est échue (D1894).
+
+Avec quatre-vingt-dix jours de rétention, les fichiers de détail d'un
+passage du 1ᵉʳ mars sont supprimés le 30 mai. Sa ligne d'exécution, ses
+compteurs et ses indicateurs restent.
+
+Dans l'entrepôt, la production garde le détail quatre-vingt-dix jours :
 
 ```yaml
 # La base miroir

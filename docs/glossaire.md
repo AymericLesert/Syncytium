@@ -517,7 +517,8 @@ range tout ce qu'il génère pour une version, la forme compilée en tête.
 Il n'est ni versionné, ni poussé sur un git : il ne se confond pas avec
 le dossier de la version, dans le dépôt du client, que le concepteur
 écrit. Après un arrêt brutal, celui d'une version en cours d'ingestion
-est supprimé au redémarrage. *(D329, D2154)*
+est supprimé au redémarrage. Il reçoit aussi les fichiers du détail des
+anomalies d'une reprise, que la purge supprime. *(D329, D2154, D2164)*
 
 **Double fonctionnement** — La période où l'application legacy et
 Syncytium fonctionnent ensemble, la source de vérité étant dans
@@ -665,7 +666,11 @@ peu : peu de tâches, peu d'appels, ou personne de connecté. Le moteur
 l'attend pour jouer une migration de version, afin de réduire l'attente
 qu'elle cause. Il la reconnaît à l'historique d'exécution des tâches et
 des appels, ou à l'absence de connexion pendant un certain laps de
-temps. *(D7, D2163)*
+temps. Trois paramètres la définissent : le laps de temps, le nombre de
+connexions simultanées au plus, la plage de dates glissantes. Les deux
+premiers se calculent sur les `n` derniers jours, ou se déclarent quand
+l'historique ne suffit pas. La description, elle, est contrôlée dès le
+dépôt. *(D7, D2163, D2164)*
 
 **Fusible** — Une limite que le moteur pose à une exécution, pour qu'un
 traitement qui s'emballe ne prive pas les autres du service : le délai

@@ -64,10 +64,13 @@ d'origine, le modèle lu, la ligne d'exécution, les compteurs, les indicateurs,
 les anomalies, le détail et sa rétention, les rapports. Ce document garde le
 module lui-même : son modèle, ses surfaces, ses opérations.
 
-*Gardé pour la lecture du chapitre 9* (D1894) : les mentions du fichier de
-détail plus bas dans ce document — le champ `fichier` du passage,
-l'en-tête de l'entité `anomalie` — et le champ `buffer` de la migration
-déclarée.
+*Tranché à la lecture du chapitre 9* (D2164) : le détail des anomalies,
+exhaustif, vit dans des fichiers du dossier interne ; les statistiques et
+les indicateurs vivent en base ; la base miroir est un storage. Plus bas
+dans ce document, le champ `fichier` du passage et l'en-tête de l'entité
+`anomalie` disent donc un fichier, à raison ; le format SQLite de D1066
+n'est plus décidé. Le champ `buffer` de la migration déclarée, lui,
+attend la relecture du modèle, au chapitre 10 (D1891, D2010).
 
 ## Le modèle
 

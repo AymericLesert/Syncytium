@@ -239,7 +239,7 @@ variables d'environnement :
 - **hors de la description** : aucun fichier versionné ne le porte, pas
   même sous la forme d'une empreinte ;
 - **comme un secret** : il est chiffré dans le fichier des variables,
-  et le clair est refusé au démarrage. Voir
+  et le clair est refusé au démarrage (D2164). Voir
   [le patron unique des secrets](07-secrets.md#le-patron-unique-des-secrets).
 
 Dans l'entrepôt (le cas 5), l'authentification passe par Azure AD. Un

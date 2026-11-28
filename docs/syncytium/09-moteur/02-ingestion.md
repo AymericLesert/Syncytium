@@ -75,6 +75,8 @@ Le concepteur ne lance rien : déposer suffit (D324, D921).
 - **l'application rejoint la version la plus élevée** du statut de son
   mode d'exécution : `beta`, `production` ou `sandbox` (D801, D908). Le
   numéro qui compte est celui que `version.yml` porte en tête ;
+- **la description est contrôlée dès le dépôt** : une erreur est dite
+  au concepteur sans attendre (D2164) ;
 - **la migration attend une période de faible affluence** : elle se
   joue alors, et la version devient sollicitable, par les API et par
   les écrans (D7, D328, D2163). Voir
@@ -314,6 +316,10 @@ Si un arrêt brutal surprend une ingestion, le dossier interne de la
 version en cours est supprimé au redémarrage : la relance ne part
 jamais d'une version partielle. Voir
 [le redémarrage après un arrêt brutal](06-demarrage.md#le-redémarrage-après-un-arrêt-brutal).
+
+Le dossier interne reçoit aussi le détail des anomalies d'une reprise,
+passage après passage (D2164) : voir
+[le détail et sa rétention](05-suivi.md#le-détail-et-sa-rétention).
 
 ### Les fichiers, gardés pour trace
 

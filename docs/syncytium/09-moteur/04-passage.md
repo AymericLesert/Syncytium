@@ -223,9 +223,9 @@ rien, un passage en erreur n'écrit rien (D649, D671) : voir
 
 La base miroir se déclare dans le fichier de l'environnement : voir
 [la base miroir](../08-migration/02-declaration.md#la-base-miroir).
-Pour le moteur, c'est un connecteur comme un autre : la manière de
-tenir la base est l'affaire de sa classe (D1045). Celui de l'entrepôt
-la tient en mémoire :
+Pour le moteur, c'est un storage, un connecteur comme un autre : la
+manière de tenir la base est l'affaire de sa classe (D1045, D2164).
+Celui de l'entrepôt la tient en mémoire :
 
 ```yaml
 # La base miroir de la reprise
@@ -280,7 +280,7 @@ attend donc (D1954, D1956) :
   principale, elle, désigne l'enregistrement à chaque étape ;
 - **un doublon qui subsiste à ce moment est une anomalie** (D1955) :
   les deux enregistrements qui portent la même clé tombent, et
-  l'anomalie les nomme tous les deux.
+  l'anomalie les nomme tous les deux (D2164).
 
 ## La comparaison et la bascule
 

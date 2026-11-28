@@ -8,8 +8,9 @@ une lecture jamais confirmée. Chacun se pose par un exemple, des réponses
 numérotées et une recommandation. Tout le reste est tranché d'après le
 registre et marqué mien (D2130). Les points 8 à 12 sont des manques que
 la relecture de l'auteur a ouverts (D2162) : ils sont à traiter, et
-chacun se posera par un exemple quand l'auteur l'ouvrira. La page se
-retire quand ses douze points sont clos.*
+chacun se posera par un exemple quand l'auteur l'ouvrira. Le point 13
+vient de l'arbitrage 5 (D2164). La page se retire quand ses treize
+points sont clos.*
 
 ## Le sommaire
 
@@ -25,6 +26,7 @@ retire quand ses douze points sont clos.*
 - [10. Le dossier interne](#10-le-dossier-interne)
 - [11. L'annonce de la bascule aux applications abonnées](#11-lannonce-de-la-bascule-aux-applications-abonnées)
 - [12. Un nom stable demandé à une classe qui n'en publie pas](#12-un-nom-stable-demandé-à-une-classe-qui-nen-publie-pas)
+- [13. Les fichiers du détail des anomalies](#13-les-fichiers-du-détail-des-anomalies)
 
 ## 1. Une version déposée en pleine journée
 
@@ -60,8 +62,13 @@ pour cela, et la bascule ne coûte qu'un changement de référence.
 *Tranché (D2163).* Le moteur attend une période de faible affluence,
 pour réduire l'attente que cause la migration de version. Il la
 reconnaît à l'historique d'exécution des tâches et des appels, ou à
-l'absence de connexion pendant un certain laps de temps. Une précision
-est demandée : ce que le moteur contrôle dès le dépôt.
+l'absence de connexion pendant un certain laps de temps.
+
+*Précisé (D2164).* La description est contrôlée dès le dépôt ; seule la
+migration attend. Trois paramètres définissent la faible affluence : le
+laps de temps, le nombre de connexions simultanées au plus, la plage de
+dates glissantes. Les deux premiers se calculent sur les `n` derniers
+jours, ou se déclarent quand l'historique ne suffit pas.
 
 ## 2. Une version beta, sans que son modèle soit déployé
 
@@ -97,6 +104,16 @@ lecture était gardée ouverte pour les chapitres 9 et 13 (D2021).
 chapitre recevrait alors un paragraphe sur la beta servie par les
 volets.
 
+*Repris par l'auteur (D2164).* Une beta a trois origines possibles :
+aucune, pour la première version ; une autre beta ; la dernière version
+en production. Elle fonctionne dans une sandbox, et ses données se
+réinitialisent à la demande. Sans base d'origine, Syncytium crée le
+modèle. Avec une base d'origine, il la copie, puis la migre si c'est
+demandé ; sinon la copie suffit, et les règles de migration ascendantes
+délivrent les informations dans la dernière version. Deux questions
+sont posées avant de reporter : comment une beta nomme son origine, et
+ce que devient le statut `sandbox`.
+
 ## 3. Deux enregistrements gardent la même clé à la fin de la lecture
 
 *Où.* [Le contrôle d'intégrité](syncytium/09-moteur/04-passage.md#le-contrôle-dintégrité).
@@ -120,6 +137,8 @@ le dit.
 
 *Ma recommandation.* La réponse 1 : rien ne dit laquelle des deux a
 raison. En mode `absolute`, le passage échoue dans les trois cas.
+
+*Tranché (D2164).* La réponse 1 : les deux tombent.
 
 ## 4. Le compte de secours
 
@@ -151,7 +170,7 @@ obligatoirement chiffrés et jamais versionnés (D707), et le dépôt de la
 description est celui du client (D336).
 
 *Tranché (D2163).* Un seul compte de secours ; son mot de passe vit dans
-les variables d'environnement.
+les variables d'environnement. Il suit le patron des secrets (D2164).
 
 ## 5. Le modèle de `_migration` et le fichier de détail
 
@@ -177,6 +196,12 @@ plus.</u>** Le reste du modèle attend le chapitre 10 (D2010).
 *Ma recommandation.* La réponse 1 : le fond est décidé ; les noms du
 modèle restent en proposition jusqu'au chapitre 10.
 
+*Tranché (D2164), par une autre voie.* La base miroir est un storage. Le
+détail des anomalies, exhaustif, vit dans des fichiers du dossier
+interne, et la purge les supprime. Des statistiques et des indicateurs,
+en base, matérialisent l'historique. Le chapitre 9 le décrit :
+[le détail et sa rétention](syncytium/09-moteur/05-suivi.md#le-détail-et-sa-rétention).
+
 ## 6. Les fusibles et la position de sécurité
 
 *Où.* [La disponibilité](syncytium/09-moteur/08-disponibilite.md).
@@ -198,6 +223,9 @@ définies.</u>**
    s'arrête aux secrets.
 
 *Ma recommandation.* La réponse 1.
+
+*Clos (D2164).* La réponse 1 : `08-disponibilite.md` est au chapitre 9,
+où l'auteur l'a validé (D2161).
 
 ## 7. Les lecteurs externes de la base, à la bascule
 
@@ -285,3 +313,13 @@ comment une application s'abonne à cette annonce.</u>**
 `alias:` (D2139, D2140). **<u>Rien ne dit ce que fait l'ingestion quand
 `alias:` est écrit sur une classe de storage qui ne sait pas publier de
 nom stable.</u>**
+
+## 13. Les fichiers du détail des anomalies
+
+*Où.* [Le détail et sa rétention](syncytium/09-moteur/05-suivi.md#le-détail-et-sa-rétention).
+
+*Le manque.* Le détail des anomalies vit dans des fichiers du dossier
+interne (D2164). Auparavant, un fichier par passage était chiffré
+(D1067), puis le détail, passé en base, suivait la protection de la base
+(D1893). **<u>Le chapitre ne dit ni le format de ces fichiers, ni leur
+protection, ni s'ils suivent la copie d'un environnement (D1894).</u>**

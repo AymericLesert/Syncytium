@@ -280,6 +280,9 @@ recherche stricte au mieux, le tri perdu (D579, D582, D683). Le type
 seule son empreinte est gardée. Voir
 [`password`](../02-modele/05-types.md#password).
 
-Le détail des passages d'une migration vit dans la base de
-l'application, avec le module `_migration` (D1889, D1893) : il suit
-donc la protection de cette base, sans chiffrement qui lui soit propre.
+Ce qu'une migration garde de ses passages se range à deux endroits
+(D2164). Les statistiques et les indicateurs vivent dans la base de
+l'application, avec le module `_migration` : ils suivent la protection
+de cette base, sans chiffrement qui leur soit propre (D1893). Le détail
+des anomalies vit dans des fichiers, au dossier interne : leur
+protection reste à écrire.

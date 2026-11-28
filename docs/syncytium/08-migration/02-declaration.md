@@ -466,12 +466,17 @@ La clé a aussi une forme courte (D1894). Deux exemples d'illustration :
 `mirror: temporaire` nomme le seul connecteur ; `mirror: temporaire[5d]`
 ajoute la rétention entre crochets.
 
-**Le détail d'un passage** vit dans le module `_migration` (D1889 ; il
-remplace la clé `storage:` et le fichier SQLite de D1066–D1073) :
+**Le détail d'un passage** se range à deux endroits (D2164, qui amende
+D1889) :
 
-- l'état de la migration et ses écarts y sont partitionnés par une date ;
-- Syncytium assure le nettoyage, par cette clé de partition ;
-- la ligne d'exécution de chaque passage reste sans délai.
+- le détail des anomalies, exhaustif, vit dans des fichiers, au dossier
+  interne de l'application ; la purge les supprime, au terme de
+  `retention:` ;
+- les statistiques et les indicateurs vivent en base, dans le module
+  `_migration` : la ligne d'exécution de chaque passage reste sans
+  délai.
+
+Voir [le détail et sa rétention](../09-moteur/05-suivi.md#le-détail-et-sa-rétention).
 
 ## Les opérations périodiques
 

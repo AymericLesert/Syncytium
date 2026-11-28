@@ -170,7 +170,7 @@ Chacune garde pourtant ses traits propres.
 - **Entre deux versions**, la migration se fait à chaud (D3) :
   l'application reste en service. Syncytium déduit seul les cas simples,
   un champ ajouté, une entité ajoutée (D5). Elle se joue en quatre
-  gestes : un nouveau modèle créé à côté de l'existant, le plan de
+  gestes : une nouvelle instance créée à côté de l'existante, le plan de
   reprise, la bascule par un changement de référence, la suppression de
   la version antérieure au terme de sa rétention (D631, D1974, D2136).
   Le même mapping sert aussi les API : il engendre la chaîne qui

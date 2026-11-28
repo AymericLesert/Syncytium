@@ -122,7 +122,7 @@ Un storage nouveau visite tous les types sans qu'aucun ne change.
 ## La migration à chaud et l'orchestration
 
 La migration à chaud enchaîne les méthodes du contrat (D631, D1974) :
-`create_instance`, un nouveau modèle à côté de l'existant ; le plan de
+`create_instance`, une nouvelle instance à côté de l'existante ; le plan de
 reprise, dont les correspondances se dérivent des différences, le
 mapping automatique, le concepteur n'écrit rien (D632) ; la bascule sur
 validation, un changement de référence que Syncytium tient (D2136) ;

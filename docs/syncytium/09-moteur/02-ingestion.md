@@ -162,7 +162,7 @@ validé avec la description : un hook en défaut arrête l'ingestion (D52).
 ### La migration à blanc
 
 L'ingestion d'une version comprend la migration de ses données, jouée à
-blanc (D1974, D1977). Le moteur prépare le nouveau modèle et y porte les
+blanc (D1974, D1977). Le moteur prépare une nouvelle instance et y porte les
 données existantes, sans toucher à ce qui est en service. Une valeur qui
 ne passe pas fait une erreur d'ingestion : la version est refusée, et
 rien n'a changé. Le mécanisme est décrit dans

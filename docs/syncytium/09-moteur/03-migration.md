@@ -74,7 +74,8 @@ travaille autrement, pour deux raisons (D1974) :
 - mettre en place une version ne transforme pas seulement le stockage :
   elle applique aussi les règles de vérification.
 
-Le moteur ne modifie donc pas le modèle en service. Il construit le
+Le moteur ne modifie donc pas l'instance en service : le modèle et
+ses données, tels que le connecteur les porte. Il construit le
 schéma de la nouvelle version dans la facette de stockage du
 connecteur, et le compare au schéma en production. Un schéma tenu en
 mémoire peut suffire à cette comparaison. Tout le reste en découle :
@@ -102,7 +103,7 @@ les règles nouvelles, sans rien écrire.
 
 Dans le troisième, une transformation modifie des valeurs. Elle peut
 donc avoir des impacts sur des règles, ou sur des traitements. Le
-moteur ne la joue pas sur le modèle en service (D2138) :
+moteur ne la joue pas sur l'instance en service (D2138) :
 
 - **il prévoit une nouvelle instance de la base**, à côté de
   l'existante, comme lorsque
@@ -129,30 +130,30 @@ qu'un tiers porte encore `it` :
 ## Les deux facettes diffèrent
 
 > **Le plan de reprise** est la suite des opérations par lesquelles le
-> moteur porte les données d'un modèle vers un autre, dans une
+> moteur porte les données d'une instance vers une autre, dans une
 > migration de version ([glossaire](../../glossaire.md)).
 
 Dès que les deux facettes diffèrent, même de peu, le moteur ne retouche
-pas le modèle en service (D1974) :
+pas l'instance en service (D1974) :
 
-- **il crée un nouveau modèle** dans le connecteur, à côté de
-  l'existant ;
-- **il dresse un plan de reprise** des données, de l'ancien modèle vers
-  le nouveau ;
-- **il l'applique**, sans modifier l'ancien.
+- **il crée une nouvelle instance** dans le connecteur, à côté de
+  l'existante ;
+- **il dresse un plan de reprise** des données, de l'instance en
+  service vers la nouvelle ;
+- **il l'applique**, sans modifier l'instance en service.
 
 Le même chemin sert quand les deux facettes sont identiques et que la
 version porte des règles de transformation : la nouvelle instance y est
 prévue pour valider (D2138).
 
 Un champ qui passe de `text[..20]` à `text[..40]` suffit : les deux
-facettes diffèrent, un nouveau modèle est créé, et le concepteur n'a
+facettes diffèrent, une nouvelle instance est créée, et le concepteur n'a
 rien à écrire.
 
 Le connecteur joue ces gestes par les méthodes de son contrat (D631,
-D680) : `create_instance` crée le nouveau modèle, les méthodes
+D680) : `create_instance` crée la nouvelle instance, les méthodes
 d'enregistrement portent le plan de reprise, `delete_instance` supprime
-le modèle qui n'a plus cours. Voir
+l'instance qui n'a plus cours. Voir
 [le storage](../05-connecteurs/05-storage.md). La bascule, elle, est un
 changement de référence, que Syncytium tient (D2136) : voir
 [la bascule](#la-bascule).
@@ -174,7 +175,8 @@ Les deux chemins mènent à la même alternative (D1974) :
 
 La migration est transactionnelle (D9) : elle réussit entièrement, ou
 la base reste dans l'état précédent. Avant la bascule, revenir en
-arrière ne coûte donc rien : le modèle en service n'a pas été touché.
+arrière ne coûte donc rien : l'instance en service n'a pas été
+touchée.
 
 ### L'erreur se joue sur les données
 
@@ -217,14 +219,14 @@ moteur s'en sert dans deux situations (D2136) :
 | La situation | Ce que la règle y fait |
 |---|---|
 | les compatibilités ascendante et descendante | une version antérieure de l'API reste servie (D11–D13) : ce qu'elle écrit monte par l'ascendant, ce qu'elle lit redescend par le descendant |
-| le traitement de reprise, après la validation du modèle | le plan de reprise porte les données existantes vers le nouveau modèle, par l'ascendant |
+| le traitement de reprise, après la validation du modèle | le plan de reprise porte les données existantes vers la nouvelle instance, par l'ascendant |
 
 Dans les deux, la règle doit conserver les données. Ce qu'une ancienne
 API a écrit, elle doit pouvoir le relire ; ce que la reprise a porté
-dans le nouveau modèle, une ancienne API doit le retrouver. Or cette
+dans la nouvelle instance, une ancienne API doit le retrouver. Or cette
 bijection n'est pas assurée par Syncytium : elle est de la
 responsabilité du concepteur (D1993). Le moteur la vérifie donc pendant
-le traitement de reprise, une fois le nouveau modèle validé (D1994) :
+le traitement de reprise, une fois le modèle validé (D1994) :
 
 - il joue l'aller puis le retour sur chaque enregistrement migré ;
 - il compare le retour à l'original ;
@@ -258,35 +260,35 @@ part.
 ### L'activité continue
 
 L'application ne s'arrête pas. Dès le démarrage de la migration,
-l'activité continue sur le modèle en service (D1974) :
+l'activité continue sur l'instance en service (D1974) :
 
 | L'activité | Ce qu'elle devient |
 |---|---|
 | les lectures | elles continuent : lire ne modifie ni les données, ni leur structure (D676) |
-| les écritures | elles s'appliquent au modèle en service, et sont enregistrées, comme pour un plan de reprise ou de continuité d'activité |
-| le rejeu | les écritures enregistrées sont appliquées au nouveau modèle par la compatibilité ascendante, comme l'appel d'une API d'une version antérieure : aucune mécanique dédiée (D677) |
+| les écritures | elles s'appliquent à l'instance en service, et sont enregistrées, comme pour un plan de reprise ou de continuité d'activité |
+| le rejeu | les écritures enregistrées sont appliquées à la nouvelle instance par la compatibilité ascendante, comme l'appel d'une API d'une version antérieure : aucune mécanique dédiée (D677) |
 | les tâches | elles sont en pause, et reprennent à la fin de la migration, ou à son échec (D24, D2136) |
 | la bascule | c'est un changement de référence : elle est rapide, et les lectures n'attendent que ce temps (D8, D679, D2136) |
 
-Une erreur au rejeu, dans le nouveau modèle, est une erreur
+Une erreur au rejeu, dans la nouvelle instance, est une erreur
 d'ingestion : la version est refusée.
 
 ```mermaid
 sequenceDiagram
     participant U as Les utilisateurs
-    participant A as Le modèle en service
+    participant A as L'instance en service
     participant M as Le moteur
-    participant N as Le nouveau modèle
+    participant N as La nouvelle instance
     M->>M: la tâche en cours se termine, les autres sont en pause
-    M->>N: la création, à côté de l'existant
-    M->>N: le plan de reprise, de l'ancien vers le nouveau
+    M->>N: la création, à côté de l'existante
+    M->>N: le plan de reprise, de l'instance en service vers la nouvelle
     U->>A: les lectures et les écritures continuent
     A-->>M: les écritures sont enregistrées
     M->>N: le rejeu, par la compatibilité ascendante
     M->>M: les contrôles, le rapport
     alt tout est correct
         M->>N: la bascule, un changement de référence
-        U->>N: l'application sert le nouveau modèle
+        U->>N: l'application sert la nouvelle instance
     else une erreur
         M->>N: la suppression
         U->>A: l'application continue, inchangée
@@ -352,8 +354,9 @@ Rien de cela ne s'écrit à la main dans la base : tout est déclaration.
 Supposons que le connecteur de l'entrepôt (le cas 5) déclare
 `alias: entrepot_bi`. Un rapport de BI y lit les tiers. La version
 1.0.0.1 bascule un mardi à dix heures : à dix heures une, le rapport lit
-l'instance de la 1.0.0.1, sans que sa connexion ait changé. L'annonce de la bascule dit à son auteur que le nom abrégé du
-tiers a été renommé.
+l'instance de la 1.0.0.1, sans que sa connexion ait changé. L'annonce
+de la bascule dit à son auteur que le nom abrégé du tiers a été
+renommé.
 
 Une limite demeure : seule l'API garde la forme d'une version
 antérieure (D11–D13). Un lecteur qui ne veut subir aucun changement lit
@@ -367,8 +370,8 @@ par elle.
 > version antérieure est conservée après la bascule, pour permettre d'y
 > revenir ([glossaire](../../glossaire.md)).
 
-Avant la bascule, le retour est gratuit : le modèle en service n'a pas
-été touché. Après, la version antérieure est conservée durant un laps
+Avant la bascule, le retour est gratuit : l'instance en service n'a
+pas été touchée. Après, la version antérieure est conservée durant un laps
 de temps, que la rétention règle (D2136) :
 
 | Le moment | Ce que devient la version antérieure |
@@ -409,7 +412,7 @@ heures. Le jeudi, l'administrateur revient à la 1.0.0.0. L'application
 retrouve aussitôt ses données du mardi à dix heures ; ce qui a été
 saisi depuis est perdu.
 
-Chaque modèle porte sa version dans une table système : c'est
+Chaque instance porte sa version dans une table système : c'est
 [l'estampille](02-ingestion.md#lestampille), et rien n'est à deviner
 (D678).
 
@@ -422,8 +425,8 @@ enregistrements est radicalement différente. Le mécanisme reste le
 même :
 
 - les deux facettes diffèrent ;
-- un nouveau modèle est créé, dans le nouveau connecteur ;
-- un plan de reprise l'alimente depuis l'existant.
+- une nouvelle instance est créée, dans le nouveau connecteur ;
+- un plan de reprise l'alimente depuis l'existante.
 
 Ce changement se déclenche par l'environnement, qui désigne le
 connecteur du modèle : aucune version nouvelle n'est nécessaire, le
@@ -471,7 +474,7 @@ des licences inutiles.
 
 ## Ce que le mécanisme coûte
 
-Le nouveau modèle vit à côté de l'existant le temps de la migration,
+La nouvelle instance vit à côté de l'existante le temps de la migration,
 puis la version antérieure à côté de la nouvelle le temps de sa
 rétention (D2136). La conséquence est assumée (D1977) : il faut un
 espace de stockage au moins égal à deux fois l'espace initial. Ce dimensionnement entre dans

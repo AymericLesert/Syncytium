@@ -115,7 +115,7 @@ contribue déjà :
 
 | Ce que l'arrêt brutal surprend | La position de repli |
 |---|---|
-| une migration de version | la migration est transactionnelle : la base reste dans l'état précédent, et le modèle en service n'a pas été touché (D9, D1974) |
+| une migration de version | la migration est transactionnelle : la base reste dans l'état précédent, et l'instance en service n'a pas été touchée (D9, D1974) |
 | un passage de reprise | la bascule s'applique en entier, ou pas du tout ; avant elle, rien de l'existant n'est touché (D1041, D1044) |
 | une tâche | elle n'est pas rejouée d'elle-même : elle se relance depuis la supervision (D57) |
 

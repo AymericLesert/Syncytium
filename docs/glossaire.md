@@ -740,6 +740,12 @@ chapitre 7. *(D1823)*
 **Instance** — L'installation d'un client. Elle regroupe tous les éléments nécessaires au fonctionnement de l'application : son moteur, ses environnements, sa base, sa
 description. Une par TPE. *(D16)*
 
+**Instance de la base de données** — Le modèle et ses données, tels
+qu'un connecteur storage les porte : ce que `create_instance` crée. Une
+version désigne la sienne par un pointeur ; une migration de version en
+prépare une nouvelle, à côté de l'instance en service. À distinguer de
+l'instance, l'installation d'un client. *(D680, D2138, D2145)*
+
 **Instantané** — La photographie complète d'un agrégat à une date,
 rangée dans l'historique. On la consulte, on ne la modifie pas.
 *(D169)*
@@ -1058,10 +1064,10 @@ d'actions, dessinées step par step depuis le wizard. Dans un `viewer`, la planc
 collection, `viewer[mosaic]`. *(D1129, D1188 ; D478, D480)*
 
 **Plan de reprise** — Dans une migration de version, la suite des
-opérations par lesquelles le moteur porte les données du modèle en
-service vers un nouveau modèle, créé à côté, quand leurs deux facettes de
-stockage diffèrent, ou quand la version porte des règles de
-transformation. *(D1974, D2138)*
+opérations par lesquelles le moteur porte les données de l'instance en
+service vers une nouvelle instance, créée à côté, quand leurs deux
+facettes de stockage diffèrent, ou quand la version porte des règles de
+transformation. *(D1974, D2138, D2145)*
 
 **Position de repli** — L'état sûr auquel l'application peut toujours
 revenir après un arrêt brutal, sans que cette garantie coûte en

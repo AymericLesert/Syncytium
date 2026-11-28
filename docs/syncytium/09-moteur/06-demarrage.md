@@ -41,8 +41,8 @@ décisions citées entre parenthèses renvoient au
 
 | La vérification | Ce qui est exigé | Où la lire |
 |---|---|---|
-| les secrets | aucune valeur en clair, dans le fichier des variables, pour une variable qu'une clé marquée `*` référence (D902, D944) | [les secrets](07-secrets.md#le-clair-refusé-au-démarrage) |
-| le transit | l'application est servie en HTTPS, sans exception : un reverse proxy, placé en amont de l'application, l'assure (D919, D2154) | [le chiffrement en transit](07-secrets.md#le-chiffrement-en-transit) |
+| les secrets | aucune valeur en clair, dans le fichier des variables, pour une variable qu'une clé marquée `*` référence (D902, D944) ; en amont, une compétence du projet repère ces valeurs et les fait chiffrer (D2155) | [les secrets](07-secrets.md#le-clair-refusé-au-démarrage) |
+| le transit | l'application est servie en HTTPS, sans exception : un reverse proxy, placé en amont de l'application, l'assure, celui de l'équipe d'administration ou celui que Syncytium installe (D919, D2154, D2155) | [le chiffrement en transit](07-secrets.md#le-chiffrement-en-transit) |
 | le canal d'alerte | l'envoi d'un mail à l'administrateur est possible (D626) | plus bas |
 | l'estampille | la base est à la version attendue, ou en retard sur elle (D93) | [l'estampille](02-ingestion.md#lestampille) |
 | le dossier des versions | ses statuts et ses transitions sont cohérents (D344) | [la cohérence du dossier](02-ingestion.md#la-cohérence-du-dossier-des-versions) |

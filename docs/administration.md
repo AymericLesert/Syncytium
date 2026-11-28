@@ -440,9 +440,14 @@ migration de version, avant la relance de la migration ; **le dossier
 interne** de la version en cours d'ingestion, pour que la relance ne
 considère pas une version partielle. Le chapitre 9 le décrit :
 [le redémarrage après un arrêt brutal](syncytium/09-moteur/06-demarrage.md#le-redémarrage-après-un-arrêt-brutal).
-**Le transit** : le HTTPS est assuré par un reverse proxy en amont de
-l'application ; l'intérêt d'un HTTPS porté par le moteur lui-même
-(D919) est en question.
+**Le transit** (D2155, qui amende D919) : le HTTPS est assuré par un
+reverse proxy, **partout** ; le moteur ne le porte pas lui-même. Sur
+une installation industrielle existante, l'équipe d'administration
+l'assure ; sur un poste informatique domestique, Syncytium **l'installe
+et le démarre** — une fonctionnalité optionnelle ; l'auto-signé de D919
+y sert, à défaut d'un autre certificat. **Les valeurs en clair**
+(D2155) : une compétence du projet Syncytium les repère avant le dépôt
+et les fait chiffrer ; elle complète le refus de démarrer de D902.
 
 ### La rotation des clés (D730)
 

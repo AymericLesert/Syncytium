@@ -2983,8 +2983,8 @@ D1434.**)*
 > D1792) ; Entra contrôle l'entrée, le socle reçoit l'identité et les
 > groupes (D1793) ; un compte d'envoi SMTP ; un compte
 > de lecture sur la base PMI. *Qui les détient, comment on les
-> renouvelle : à écrire.* **Le certificat** : *à écrire* ; l'auto-signé
-> de Syncytium à défaut (D919). **Le DNS, le pare-feu** : *à écrire*,
+> renouvelle : à écrire.* **Le certificat** : *à écrire* ; il est porté
+> par le reverse proxy de l'équipe d'administration (D919, D2155). **Le DNS, le pare-feu** : *à écrire*,
 > depuis la table des flux.
 >
 > ## 4. Le dimensionnement et les dépendances

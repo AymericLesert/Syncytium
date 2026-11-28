@@ -203,6 +203,12 @@ composition, une association. Elle porte ses méthodes : `sum`, `count()`,
 `first`, `group`, `sort`… *Ex. : `lignes.sum(montant)`.* *(D580, D887,
 D1015–D1017)*
 
+**Compétence** (*skill*) — Un savoir-faire écrit pour un assistant
+d'IA, tenu dans le projet Syncytium : il lui dit comment mener un
+geste, et quoi vérifier. Deux sont annoncées : garantir que toute
+classe de storage respecte le contrat ; repérer une valeur laissée en
+clair et la faire chiffrer, avant le dépôt. *(D2136, D2154, D2155)*
+
 **Complétude du schéma** — Dans une reprise, la part de la description
 d'une source qui tient encore face au modèle lu par le connecteur : les
 colonnes décrites encore présentes, au type compatible, rapportées aux
@@ -1159,6 +1165,14 @@ lue (le chapitre), vécue (le wizard), imprimée (la planche).
 *Ex. : `scenarios: { foyer: { virement: { title: Faire un virement,
 description: ~{…/virement.md} } } }`.* *(D1127/D1130, D1201–D1205)*
 
+**Reverse proxy** — Le serveur placé en amont de l'application : il
+reçoit les requêtes du navigateur, en HTTPS, et les transmet au moteur,
+qui ne porte pas lui-même le HTTPS. Il y en a un partout. Sur une
+installation industrielle existante, l'équipe d'administration
+l'assure ; sur un poste informatique domestique, Syncytium l'installe
+et le démarre : c'est une fonctionnalité optionnelle. Le journal
+d'accès y reste. *(D919, D925, D2154, D2155)*
+
 **Rétention d'une donnée personnelle** — La durée d'une fiche sans
 mouvement ni mise à jour, au-delà de laquelle les informations
 personnelles ne sont pas à conserver ; la règle de `rgpd.anonymize`
@@ -1363,8 +1377,9 @@ nombre, la jauge, le curseur. Elle se choisit par `component:`.
 besoin : un mot de passe de connecteur, une clé d'API, la clé d'un type
 chiffrant. La clé de configuration marquée `*` référence une variable ;
 la variable vit chiffrée dans le fichier des variables, jamais
-versionné ; la valeur en clair ne vit qu'en mémoire.
-*(D603, D707, D902, D944)*
+versionné ; la valeur en clair ne vit qu'en mémoire. Une valeur laissée
+en clair est repérée par une compétence du projet avant le dépôt, et
+refusée par le moteur au démarrage. *(D603, D707, D902, D944, D2155)*
 
 **Session** — Le temps pendant lequel un utilisateur connecté agit sans
 se ré-authentifier : `duration`, l'inactivité au glissement, et `limit`,

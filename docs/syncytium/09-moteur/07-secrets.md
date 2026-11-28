@@ -107,13 +107,22 @@ des commandes de `syncytium` sera posé au chapitre 10.
 
 ### Le clair refusé au démarrage
 
-Le chiffrement n'est pas laissé à la vigilance de chacun (D902) :
+Le chiffrement n'est pas laissé à la vigilance de chacun (D902). Trois
+gardes se suivent :
 
 - **à l'initialisation**, le wizard demande les secrets et les chiffre
   lui-même ;
+- **avant le dépôt**, une compétence du projet Syncytium repère une
+  valeur laissée en clair, et la fait chiffrer (D2155). Elle complète
+  le refus du démarrage, elle ne le remplace pas ;
 - **au démarrage**, une valeur en clair, pour une variable qu'une clé
   marquée `*` référence, vaut refus de démarrer. Le moteur donne la
-  raison, et la commande à exécuter.
+  raison, et la commande à exécuter. C'est la dernière barrière.
+
+Dans l'entrepôt (le cas 5), supposons que le concepteur laisse en clair
+le mot de passe d'un connecteur. La compétence le lui signale pendant
+qu'il écrit, et la valeur est chiffrée avant le dépôt. Si elle lui
+échappe, le moteur refuse de démarrer.
 
 ## La rotation des clés
 
@@ -161,16 +170,35 @@ Le moteur distingue ce qu'il sert de ce qu'il appelle (D705) :
 
 ### Ce que Syncytium sert
 
-Le HTTPS est assuré par un reverse proxy, placé en amont de
-l'application : c'est lui qui chiffre les échanges avec le navigateur
-(D2154). Aucune exemption n'existe, pas même pour la boucle locale ni
-pour le poste informatique domestique (D919) :
+> **Le reverse proxy** est le serveur placé en amont de l'application :
+> il reçoit les requêtes du navigateur, en HTTPS, et les transmet au
+> moteur ([glossaire](../../glossaire.md)).
 
-- **le certificat relève de l'infrastructure**. Il se déclare à
-  l'environnement : il est fourni, ou un proxy termine le HTTPS.
-  L'écriture de cette déclaration est en proposition ;
-- **à défaut, Syncytium fournit un certificat auto-signé**, engendré à
-  l'initialisation et rangé avec les secrets ;
+Le moteur ne porte pas lui-même le HTTPS : un reverse proxy l'assure,
+partout (D2154, D2155). Aucune exemption n'existe, pas même pour la
+boucle locale ni pour le poste informatique domestique (D919). Selon
+l'installation, le reverse proxy n'a pas le même fournisseur :
+
+| L'installation | Qui assure le reverse proxy | Le certificat |
+|---|---|---|
+| une installation industrielle existante | l'équipe d'administration | celui de l'infrastructure |
+| un poste informatique domestique | Syncytium : il l'installe et le démarre | à défaut d'un autre, un certificat auto-signé fourni par Syncytium, engendré à l'initialisation et rangé avec les secrets (D919) |
+
+Le reverse proxy de Syncytium est donc une fonctionnalité optionnelle :
+elle sert là où personne d'autre ne tient ce rôle. Deux cas du dépôt
+l'illustrent :
+
+- l'entrepôt (le cas 5) tourne sur des serveurs : le reverse proxy est
+  celui de l'équipe d'administration ;
+- la banque (le cas 4) tourne sur un poste informatique domestique :
+  Syncytium installe le reverse proxy, et le démarre avec
+  l'application.
+
+Deux règles tiennent dans les deux cas :
+
+- **le certificat relève de l'infrastructure** : le moteur ne l'émet
+  pas, et ne le renouvelle pas. L'écriture de la déclaration du reverse
+  proxy, à l'environnement, est en proposition ;
 - **au démarrage, le moteur vérifie qu'il est servi en HTTPS**. Servi
   en clair, il refuse de démarrer, et dit pourquoi.
 

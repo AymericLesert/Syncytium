@@ -361,6 +361,8 @@ moteur refuse de démarrer, et dit pourquoi (D919).
 clé, Syncytium installe le sien. L'autre valeur, `external`, est en
 proposition.
 
+*Validé (D2174).* `proxy: external | embedded`.
+
 ## 10. Le dossier interne
 
 *Où.* [Le dossier interne](syncytium/09-moteur/02-ingestion.md#le-dossier-interne).
@@ -391,6 +393,11 @@ chemin tient au déploiement, comme `listen:`.
 *Tranché (D2171).* Un environnement dispose d'une clé pour décrire le
 dossier interne, comme pour décrire le dossier des journaux. Son nom
 reste à écrire ; `internal:` est en proposition.
+
+*Nommé (D2174).* `volume:`, le dossier des fichiers qui appartiennent à
+l'application, par la variable `SYNCYTIUM_VOLUME_DIRECTORY` ; `volume/`
+par défaut, à la racine du projet, ignoré du git. À côté, `data:`, le
+dossier des fichiers téléchargés et dédiés à l'application.
 
 ## 11. L'annonce de la bascule aux applications abonnées
 

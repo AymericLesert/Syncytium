@@ -2898,7 +2898,9 @@ par la cascade (D359) ; une surface peut le surcharger.*
 *(La déclinaison du rang 6, écrite le 24/10/2026 sur §28 de
 documentation.md — D1426–D1431. L'entrepôt a deux environnements,
 `production` et `staging`, sans passif ; le staging est la sandbox des
-versions `beta` (D2168) ; sept connecteurs,
+versions `beta` (D2168) ; le reverse proxy est celui de l'équipe
+d'administration, `proxy: external` sous `listen:` (D2174) ; sept
+connecteurs,
 déclarés à l'identique dans les deux, les valeurs par les variables ;
 dix-neuf variables, dont quatre confidentielles ; aucun hook ; aucun
 `listen:`, aucun texte du réseau. On montre le D.A.T. tel qu'il

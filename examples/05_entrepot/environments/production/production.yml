@@ -7,6 +7,10 @@ listen:
   url: ${SYNCYTIUM_URL}
   port: ${SYNCYTIUM_PORT}
 
+  # Le reverse proxy
+  # L'équipe d'administration l'assure ; sans cette clé, Syncytium installerait le sien et le démarrerait.
+  proxy: external
+
 # La base de l'application
 # Le connecteur storage qui porte le modèle et ses données ; les autres storages de l'environnement servent la reprise.
 storage: entrepot

@@ -204,15 +204,18 @@ Le reverse proxy se déclare au fichier de l'environnement, par la clé
 | `external` | un autre l'assure : l'équipe d'administration |
 
 Sans la clé, Syncytium installe donc le sien. Une installation
-industrielle écrit l'autre valeur ; son nom, `external`, est en
-proposition :
+industrielle écrit l'autre valeur (D2174). L'entrepôt (le cas 5) le
+fait, dans ses deux environnements :
 
 ```yaml
 # L'adresse et le port servis
+# Par les variables du déploiement : un changement du réseau ne fait pas une nouvelle version.
 listen:
+  url: ${SYNCYTIUM_URL}
+  port: ${SYNCYTIUM_PORT}
 
   # Le reverse proxy
-  # Sans cette clé, embedded : Syncytium installe le sien et le démarre. À external, un autre l'assure.
+  # L'équipe d'administration l'assure ; sans cette clé, Syncytium installerait le sien et le démarrerait.
   proxy: external
 ```
 

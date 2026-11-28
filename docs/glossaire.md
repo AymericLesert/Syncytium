@@ -512,15 +512,22 @@ l'assistant ; le Markdown est le rendu humain. *(D1165)* Depuis D1245, l'annexe 
 dictionnaire de la donnée : la configuration entière et dépliée, sans
 les clés confidentielles.
 
-**Dossier interne** — Le dossier, propre à l'application, où le moteur
+**Dossier des fichiers** (`data:`) — Le dossier des fichiers
+téléchargés et dédiés à l'application : les binaires, qui ne vont pas
+en base. Une clé de l'environnement le nomme, par la variable
+`SYNCYTIUM_DATA_DIRECTORY` ; par défaut, `data/`, à la racine du
+projet, ignoré du git. *(D161, D2174)*
+
+**Dossier interne** (`volume:`) — Le dossier, propre à l'application, où le moteur
 range tout ce qu'il génère pour une version, la forme compilée en tête.
 Il n'est ni versionné, ni poussé sur un git : il ne se confond pas avec
 le dossier de la version, dans le dépôt du client, que le concepteur
 écrit. Après un arrêt brutal, celui d'une version en cours d'ingestion
 est supprimé au redémarrage. Il reçoit aussi les fichiers du détail des
-anomalies d'une reprise, que la purge supprime. Une clé de
-l'environnement le décrit, comme le dossier des journaux.
-*(D329, D2154, D2164, D2171)*
+anomalies d'une reprise, que la purge supprime. La clé `volume:` de
+l'environnement le nomme, par la variable `SYNCYTIUM_VOLUME_DIRECTORY` ;
+par défaut, `volume/`, à la racine du projet.
+*(D329, D2154, D2164, D2171, D2174)*
 
 **Double fonctionnement** — La période où l'application legacy et
 Syncytium fonctionnent ensemble, la source de vérité étant dans
@@ -1196,7 +1203,8 @@ reçoit les requêtes du navigateur, en HTTPS, et les transmet au moteur,
 qui ne porte pas lui-même le HTTPS. Il y en a un partout. Sur une
 installation industrielle existante, l'équipe d'administration
 l'assure ; sur un poste informatique domestique, Syncytium l'installe
-et le démarre : c'est une fonctionnalité optionnelle, et le certificat
+et le démarre (`proxy: embedded`, la valeur par défaut ; `proxy: external`
+quand un autre l'assure) : c'est une fonctionnalité optionnelle, et le certificat
 auto-signé de Syncytium y sert, à défaut d'un autre. Le journal d'accès
 y reste. *(D919, D925, D2154–D2156)*
 

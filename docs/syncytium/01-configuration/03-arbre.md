@@ -305,7 +305,8 @@ Voici, clé par clé, ce que le fichier d'un environnement peut porter :
 - **`listen:`** : l'adresse et le port servis, `url:` et `port:`, par des
   variables du déploiement (D1427, acquise D1435). `proxy:` y déclare le
   reverse proxy : `embedded` par défaut, Syncytium installe le sien et le
-  démarre (D2171). L'adresse relève en
+  démarre ; `external`, un autre l'assure (D2171, D2174). L'adresse
+  relève en
   effet du déploiement, que Syncytium ne porte pas : une configuration
   réseau qui change ne doit pas demander une nouvelle version. Les
   valeurs sont dans le fichier des
@@ -332,6 +333,18 @@ Voici, clé par clé, ce que le fichier d'un environnement peut porter :
   Sans `delay:` ni `connections:`, le moteur les calcule d'après cet
   historique ; ils se déclarent quand l'historique ne suffit pas. Voir
   [le moment](../09-moteur/03-migration.md#le-moment--une-période-de-faible-affluence).
+- **`data:`** : le dossier des fichiers téléchargés et dédiés à
+  l'application, les binaires qui ne vont pas en base (D161, D2174). Il
+  se nomme par une variable du déploiement,
+  `${SYNCYTIUM_DATA_DIRECTORY}`. Par défaut, `data/`, à la racine du
+  projet.
+- **`volume:`** : le dossier interne, celui des fichiers qui
+  appartiennent à l'application : ce que le moteur génère pour une
+  version, le détail des anomalies d'une reprise (D2154, D2164, D2174).
+  Il se nomme par une variable du déploiement,
+  `${SYNCYTIUM_VOLUME_DIRECTORY}`. Par défaut, `volume/`, à la racine du
+  projet. Les deux dossiers sont ignorés du git. Voir
+  [le dossier interne](../09-moteur/02-ingestion.md#le-dossier-interne).
 - **`mirror:`** : la base miroir, où les migrations se construisent
   avant de reporter leurs différences (D1044, D1890, D1891). Elle a
   deux propriétés (D1892) :

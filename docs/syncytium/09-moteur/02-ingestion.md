@@ -318,9 +318,21 @@ dépôt du client : les fichiers du concepteur ne sont pas réécrits
 (D331, D332). Et rien de ce que le moteur génère ne remonte vers ce
 dépôt.
 
-Le dossier interne se déclare au fichier de l'environnement, par une
-clé, comme le dossier des journaux (D2171). Le nom de cette clé reste à
-écrire.
+Le dossier interne se déclare au fichier de l'environnement, par la clé
+`volume:`, comme le dossier des journaux (D2171, D2174). Il se nomme par
+une variable du déploiement :
+
+```yaml
+# Le dossier interne
+# Les fichiers qui appartiennent à l'application : ce que le moteur génère ; sans cette clé, volume/, à la racine
+# du projet.
+volume: ${SYNCYTIUM_VOLUME_DIRECTORY}
+```
+
+Par défaut, c'est le dossier `volume/`, à la racine du projet, ignoré
+du git. Il ne se confond pas avec `data:`, le dossier des fichiers
+téléchargés et dédiés à l'application, `data/` par défaut : voir
+[les clés d'un environnement](../01-configuration/03-arbre.md#les-clés-dun-environnement).
 
 Si un arrêt brutal surprend une ingestion, le dossier interne de la
 version en cours est supprimé au redémarrage : la relance ne part

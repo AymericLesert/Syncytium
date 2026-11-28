@@ -135,6 +135,12 @@ environment:
   listen:
     proxy: embedded
 
+  # Le dossier des fichiers téléchargés : data/, à la racine du projet, ignoré du git
+  data: data/
+
+  # Le dossier interne : volume/, à la racine du projet, ignoré du git
+  volume: volume/
+
   # La documentation : le dépôt, l'édition et l'impression sur demande ; la notification à la promotion
   # d'une version ; la publication selon visibility
   documentation:
@@ -197,7 +203,7 @@ application:
 - les surfaces : `default` (D186, D438), `breadcrumb` (D549), `size`
   (D533, D549) ;
 - la version, sous `beta` : `migrate`, `true`, la copie de l'origine est migrée (D2171) ;
-- l'environnement : `storage` (D1114), `retention` (D2137), `listen.proxy` (D2171), `documentation`
+- l'environnement : `storage` (D1114), `retention` (D2137), `listen.proxy` (D2171), `data` et `volume` (D2174), `documentation`
   (D1167) ; `quiet` n'a pas de
   défaut écrit : sans `delay` ni `connections`, le moteur les calcule d'après l'historique (D2164, D2169) ;
 - le connecteur : `connection` (D621), `pool` (D622), `retry` et `timeout`
